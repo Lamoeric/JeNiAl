@@ -1,0 +1,26 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer factures..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Factures"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun facture trouvé"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitlebilldetails", "text":"Détails facture"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"formtitlebillclosed", "text":"fermée"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Information"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"details", "fieldname":"fieldtitleaddress", "text":"Adresse"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
+	{"formname":"details", "fieldname":"buttontitleice", "text":"Glaces"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+
+	{"formname":"newbill", "fieldname":"formtitleeditbill", "text":"Nouvelle facture"},
+	{"formname":"newbill", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newbill", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newbill", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newbill", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

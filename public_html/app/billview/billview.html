@@ -1,0 +1,33 @@
+<!-- Left Pane -->
+<div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div>
+<!-- Right Pane -->
+<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<!-- Main title : Only display if currentBill is not null -->
+	<div ng-if="currentBill!=null"><h2>{{currentBill.id}} - {{currentBill.billingname}} - {{currentBill.billingdate}} - {{currentBill.totalamount | currency}}<span ng-show="currentBill.relatednewbillid!=null"> <font color="red"> ({{translationObj.main.formtitlebillclosed}}) </font></span></h2></div>
+	<div ng-if="currentBill==null"><h2>{{translationObj.main.formtitlebilldetails}}</h2></div>
+
+	<!-- Buttons -->
+	<!-- <main-new-button new-callback="createNew()"></main-new-button> -->
+	<!-- <main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button> -->
+	<!-- <main-delete-button delete-callback="deleteFromDB()"></main-delete-button> -->
+
+	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div>
+
+	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+	</div>
+
+
+	<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="detailsForm" ng-show="currentBill" class="ng-hide">
+		<!--$scope.context.preferedlanguage-->
+		<billing current-bill="currentBill" current-language="currentLanguage" allow-splitting="true"></billing>
+	</form>
+
+  <!-- <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentBill" class="ng-hide">
+		<div ng-include="'billview/bill.html'"></div>
+  </form> -->
+</div>

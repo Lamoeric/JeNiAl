@@ -1,0 +1,26 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter bills..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Bills"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No bill found"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"formtitlebilldetails", "text":"Bill Details"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"formtitlebillclosed", "text":"closed"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Information"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitleaddress", "text":"Address"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"details", "fieldname":"buttontitleice", "text":"Ices"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+
+	{"formname":"newbill", "fieldname":"formtitleeditbill", "text":"New Bill"},
+	{"formname":"newbill", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"newbill", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newbill", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newbill", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"}
+]
