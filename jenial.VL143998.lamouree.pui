@@ -56,7 +56,6 @@
 .+AFw- - public+AF8-html - app - core - directives=1
 .+AFw- - private=1
 .+AFw- - private - localhost - images=1
-.+AFw- - public+AF8-html=1
 .+AFw- - public+AF8-html - privateimages=1
 .+AFw- - public+AF8-html - app=1
 .+AFw- - public+AF8-html - app - core - directives - sendemailtemplate=1
@@ -71,6 +70,7 @@
 .+AFw- - public+AF8-html - app - ccregistrationview=1
 .+AFw- - public+AF8-html - include=1
 .+AFw- - public+AF8-html - app - registrationview=1
+.+AFw- - public+AF8-html - app - arenaview=1
 
 [Open Files]
 Active File Display Mode="1"
@@ -158,5 +158,5 @@ Open File9="..\..\..\Users\lamouree\Documents\SQL\Analyse 5.1\cleancatalog.sql"
 Remember Files="0"
 
 [Project Information]
-Project Start=E307040002001E000B001D000100000037
+Project Start=E70706000200060011000F003A00000056
 Working Time=99
