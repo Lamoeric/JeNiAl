@@ -1,0 +1,44 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer arénas..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Arénas"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun aréna trouvé"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails aréna"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Information"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"details", "fieldname":"fieldtitleaddress", "text":"Adresse"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
+	{"formname":"details", "fieldname":"buttontitleice", "text":"Glaces"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"panetitlerooms", "text":"Chambres"},
+	{"formname":"details", "fieldname":"fieldtitlecomment", "text":"Commentaires"},
+	{"formname":"details", "fieldname":"buttontitleroom", "text":"Chambres"},
+
+	{"formname":"newice", "fieldname":"formtitleeditice", "text":"Éditer glace"},
+	{"formname":"newice", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"newice", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"newice", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"newice", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newice", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newice", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"newroom", "fieldname":"formtitleeditroom", "text":"Éditer chambre"},
+	{"formname":"newroom", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"newroom", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"newroom", "fieldname":"fieldtitlecomment", "text":"Commentaires"},
+	{"formname":"newroom", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newroom", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newroom", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"newarena", "fieldname":"formtitleeditarena", "text":"Nouvel aréna"},
+	{"formname":"newarena", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newarena", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newarena", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newarena", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

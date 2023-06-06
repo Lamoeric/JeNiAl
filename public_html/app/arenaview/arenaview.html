@@ -1,0 +1,105 @@
+<!--
+This is the tested version before the directives
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<row>
+		<div id="maincolumnleft" class="col-xs-5 col-sm-2 maincolumnleft">
+			<div id="leftformgroup" class="row leftformgroup">
+				<div class="visible-xs visible-sm visible-md"><h5>{{translationObj.leftPane.maintitle}} ({{results.length}})</h5></div>
+				<div class="visible-lg"><h3>{{translationObj.leftPane.maintitle}} ({{results.length}})</h3></div>
+				<div class="row">
+          <div class="col-xs-11">
+        		<input id="searchinput" type="search" class="form-control" ng-model="searchFilter" placeholder="{{translationObj.leftPane.mainfilter}}" aria-label="{{translationObj.leftPane.mainfilter}}">
+            <span id="searchclear" class="glyphicon glyphicon-remove-circle" clear-search-button></span>
+      		</div>
+      	</div>
+    		<button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button>
+    		<button class="btn btn-primary glyphicon glyphicon-filter" main-filter-button callback="mainFilter()" ng-if="newFilter.filterApplied==false"></button>
+    		<button class="btn btn-primary glyphicon glyphicon-filter" main-filter-button callback="mainFilter()" ng-if="newFilter.filterApplied==true" style="color:red"></button>
+				<div id="leftselector" class="row leftselectorrow">
+					<div ng-repeat="leftobj in leftobjs | filter:searchFilter as results">
+						<div class="callout" ng-class="{ 'selected-class-name': (selectedIndex && $index == selectedIndex) || (selectedLeftObj && leftobj === selectedLeftObj)}" ng-click="this.setCurrent(leftobj, $index)"><div ng-include="leftpanetemplatefullpath"></div></div>
+					</div>
+				</div>
+				<li class="animate-repeat" ng-if="results.length == 0">
+					<strong>{{translationObj.leftPane.noresult}}</strong>
+				</li>
+			</div>
+		</div>
+		<div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+			<div id="mainrowright" class="row mainrowright">
+				<div class="grid">
+					<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+						<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+					</div>
+
+					<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+						<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+					</div>
+
+					<div ng-if="currentArena!=null"><h2>{{currentArena.name}}</h2></div>
+					<div ng-if="currentArena==null"><h2>{{translationObj.main.formtitlearenadetails}}</h2></div>
+
+					<main-new-button new-callback="createNew()"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentArena && currentArena.isused > 0"></main-delete-button>
+
+
+				  <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentArena" >
+						<div ng-include="'arenaview/arena.html'"></div>
+				  </form>
+
+				</div>
+		</div>
+	</row>
+</section>
+ -->
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./arenaview/arena.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentArena.name" defaulttitle="translationObj.main.formtitledetails" object="currentArena"></displaymaintitle>
+
+          <main-new-button new-callback="createNew()"></main-new-button>
+          <main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+          <main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentArena && currentArena.isused > 0"></main-delete-button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentArena">
+            <div ng-include="'arenaview/arena.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>
+
+
+<!--
+Old version
+<div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div>
+
+<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<div ng-if="currentArena!=null"><h2>{{currentArena.name}}</h2></div>
+	<div ng-if="currentArena==null"><h2>{{translationObj.main.formtitlearenadetails}}</h2></div>
+
+	<main-new-button new-callback="createNew()"></main-new-button>
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+	<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentArena && currentArena.isused > 0"></main-delete-button>
+
+	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div>
+
+	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+	</div>
+
+  <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentArena" class="ng-hide">
+		<div ng-include="arenaview/arena.html"></div>
+  </form>
+</div> -->

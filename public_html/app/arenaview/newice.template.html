@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newice.formtitleeditice}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+	    <div class="col-xs-6">
+	      <label for="code">{{translationObj.newice.fieldtitlecode}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="code" class="form-control" id="code" ng-model="newObj.code" maxlength="20" required>
+	      </div>
+	    </div>
+
+	    <div class="col-xs-6">
+	      <label for="label_en">{{translationObj.newice.fieldtitleenglishlabel}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="label_en" ng-model="newObj.label_en" maxlength="30" required>
+	      </div>
+	    </div>
+
+	    <div class="col-xs-6">
+	      <label for="label_fr">{{translationObj.newice.fieldtitlefrenchlabel}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="label_fr" ng-model="newObj.label_fr" maxlength="30" required>
+	      </div>
+	    </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newice.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newice.buttontitlediscard}}</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newice.buttontitlekeepchanges}}</button>
+</div>
