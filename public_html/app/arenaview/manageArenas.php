@@ -230,6 +230,35 @@ function getArenaIces($mysqli, $arenaid, $language) {
 };
 
 /**
+ * This function gets the details of web site info for an arena from database
+ */
+function getArenaWebsite($mysqli, $arenaid, $language) {
+	try {
+		$query = "SELECT cwp.*, getWsTextLabel(label, 'fr-ca') label_fr, getWsTextLabel(label, 'en-ca') label_en
+							FROM cpa_ws_arenas cwp
+							WHERE cwp.arenaid = $arenaid";
+		$result = $mysqli->query($query);
+		$data = array();
+		$data['data'] = array();
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		if (!isset($data['data'][0])) {
+			$data['data'][0]['id'] = 0;
+		}
+		return $data;
+		exit;
+	} catch(Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		return $data;
+		exit;
+	}
+};
+
+/**
  * This function gets the details of one arena from database
  */
 function getArenaDetails($mysqli, $id, $language) {
@@ -247,6 +276,7 @@ function getArenaDetails($mysqli, $id, $language) {
 		while ($row = $result->fetch_assoc()) {
 			$row['ices'] = getArenaIces($mysqli, $id, $language)['data'];
 			$row['rooms'] = getArenaIceRooms($mysqli, $id, null, $language)['data'];
+			$row['website'] = getArenaWebsite($mysqli, $id, $language)['data'][0];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -378,6 +408,54 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 	return $data;
 };
 
+function updateWebsite($mysqli, $arenaid, $arena) {
+	$data = array();
+	$id =						$mysqli->real_escape_string(isset($arena['id']) 				? (int)$arena['id'] : 0);
+//	$name =					$mysqli->real_escape_string(isset($arena['name']) 			? $arena['name'] : '');
+	$label =				$mysqli->real_escape_string(isset($arena['label']) 			? (int)$arena['label'] : 0);
+	$label_fr =			$mysqli->real_escape_string(isset($arena['label_fr']) 	? $arena['label_fr'] : '');
+	$label_en =			$mysqli->real_escape_string(isset($arena['label_en']) 	? $arena['label_en'] : '');
+	$address1 =			$mysqli->real_escape_string(isset($arena['address1']) 	? $arena['address1'] : '');
+	$address2 =			$mysqli->real_escape_string(isset($arena['address2']) 	? $arena['address2'] : '');
+	$link =					$mysqli->real_escape_string(isset($arena['link']) 			? $arena['link'] : '');
+	$arenaindex =		$mysqli->real_escape_string(isset($arena['arenaindex']) ? (int)$arena['arenaindex'] : 0);
+	$publish =			$mysqli->real_escape_string(isset($arena['publish']) 		? (int)$arena['publish'] : 0);
+
+	if ($id != 0) { // Arena already defined in cpa_ws_arenas
+		$query = "UPDATE cpa_ws_arenas SET address1 = '$address1', address2 = '$address2', link = '$link', arenaindex = $arenaindex, publish = $publish 
+							WHERE id = $id";
+		if ($mysqli->query($query)) {
+			$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
+			if ($mysqli->query($query)) {
+				$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
+				if ($mysqli->query($query)) {
+					$data['success'] = true;
+					$data['message'] = 'Arena updated successfully.';
+				} else {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+			} else {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		} else {
+			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		}
+	} else { // Arena not already defined in cpa_ws_arenas
+		$query = "INSERT INTO cpa_ws_arenas (arenaid, name, address1, address2, link, publish, arenaindex, label)
+							VALUES ($arenaid, 'name', '$address1', '$address2', '$link', $publish, $arenaindex, create_wsText('$label_en','$label_fr'))";
+		if ($mysqli->query($query)) {
+			$data['success'] = true;
+			$data['id'] = (int) $mysqli->insert_id;
+			$data['message'] = 'Arena inserted successfully.';
+		} else {
+			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		}
+	}
+	return $data;
+	exit;
+};
+
+
 function updateEntireArena($mysqli, $arena) {
 	try {
 		$data = array();
@@ -389,6 +467,9 @@ function updateEntireArena($mysqli, $arena) {
 		}
 		if ($mysqli->real_escape_string(isset($arena['rooms']))) {
 			$data['rooms'] = updateEntireIceRooms($mysqli, $id, null, $arena['rooms']);
+		}
+		if ($mysqli->real_escape_string(isset($arena['website']))) {
+			$data['rooms'] = updateWebsite($mysqli, $id, $arena['website']);
 		}
 		$mysqli->close();
 

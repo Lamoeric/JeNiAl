@@ -1,0 +1,94 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.ices.formtitleices}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editIce({})"></button></h3>
+		<br>
+		<div ng-repeat="ice in currentArena.ices" ng-if="currentArena.ices.length!=0" class="blackcurvyborder">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-success" style="margin-bottom:0px">
+		        <div class="panel-heading">
+							<a data-target="#ice{{$index}}" data-toggle="collapse" class="pointerlist">
+								<strong><big>{{ice.code}}&nbsp;-&nbsp;{{ice.icelabel}}</big></strong>
+							</a>
+							<span style="float:right">
+								<child-edit-button 			obj="ice" objlist="currentArena.ices" callback="editIce(ice)"></child-edit-button>
+								<child-delete-button 		obj="ice" objlist="currentArena.ices" callback="setDirty()"></child-delete-button>
+								<child-undelete-button 	obj="ice" objlist="currentArena.ices" callback="setDirty()"></child-undelete-button>
+								<child-status-indicator obj="ice"></child-status-indicator>
+							</span>
+							<br>
+							<small><b>{{translationObj.ices.fieldtitlecode}}</b>:&nbsp;{{ice.code}}&nbsp;
+											<b>{{translationObj.ices.fieldtitlefrenchlabel}}</b>:&nbsp;{{ice.label_fr}}&nbsp;
+											<b>{{translationObj.ices.fieldtitleenglishlabel}}</b>:&nbsp;{{ice.label_en}}
+							</small>
+	          </div>
+						<div id="ice{{$index}}" class="panel-collapse collapse">
+		          <div class="panel-body">
+
+								<div id="icetab{{$index}}" class="maintab">
+									<ul id="icetabheader{{$index}}" class="nav nav-tabs">
+										<li class="active pointerlist"><a data-toggle="tab" data-target="#subdetails{{$index}}">{{translationObj.ices.panetitlerooms}}</a></li>
+									</ul>
+
+									<div id="icetabcontent{{$index}}" class="tab-content maintabcontent">
+										<div id="subdetails{{$index}}" class="tab-pane fade in active maintabpane">
+											</form><!-- Don't know why, but it fixes a bug...do not remove !-->
+								      <form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm">
+
+										    <h3>{{translationObj.ices.buttontitleroom}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editRoom(ice, {})"></button></h3>
+												<div ng-repeat="room in ice.rooms">
+										    	<div class="row">
+
+												    <div class="col-xs-3">
+												      <label for="label_en">{{translationObj.ices.fieldtitleenglishlabel}}</label>
+												    	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												        <input type="text" class="form-control" id="label_en" ng-model="room.label_en" maxlength="30" disabled>
+												      </div>
+												    </div>
+
+												    <div class="col-xs-3">
+												      <label for="label_fr">{{translationObj.ices.fieldtitlefrenchlabel}}</label>
+												    	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												        <input type="text" class="form-control" id="label_fr" ng-model="room.label_fr" maxlength="30" disabled>
+												      </div>
+												    </div>
+
+												    <div class="col-xs-4">
+													      <label for="code">{{translationObj.ices.fieldtitlecomment}}</label>
+												    	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+																<input type="text" name="code" class="form-control" id="code" ng-model="room.comments" maxlength="200" disabled>
+												      </div>
+												    </div>
+
+										      	<div class="col-xs-2">
+													    <label>&nbsp;</label>
+											      	<div class="input-group">
+										    				<span>
+																	<child-edit-button 			obj="room" objlist="ice.rooms" callback="editRoom(ice, room)"></child-edit-button>
+																	<child-delete-button 		obj="room" objlist="ice.rooms" callback="setDirty()"></child-delete-button>
+																	<child-undelete-button 	obj="room" objlist="ice.rooms" callback="setDirty()"></child-undelete-button>
+																	<child-status-indicator obj="room"></child-status-indicator>
+																</span>
+														  </div>
+													  </div>
+												  </div>
+											 	</div>
+
+										  </form>
+								    </div>
+
+							    </div>
+							  </div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  	
+  </div>
+</div>

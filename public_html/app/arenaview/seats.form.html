@@ -1,0 +1,106 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.seats.formtitleseats}}</h3>
+		<br>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="sectiontype">{{translationObj.seats.fieldtitlesectiontype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="sectiontype" ng-model="currentArena.seats.sectiontype" required>
+						<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+	      <label for="sectionfirst">{{translationObj.seats.fieldtitlesectionfirst}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="sectionfirst" class="form-control" id="sectionfirst" ng-model="currentArena.seats.sectionfirst" maxlength="3" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2">
+	      <label for="sectionnb">{{translationObj.seats.fieldtitlesectionnb}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="sectionnb" class="form-control" id="sectionnb" ng-model="currentArena.seats.sectionnb" maxlength="2" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2" ng-show="currentArena.seats.sectiontype=='1'">
+	      <label for="sectioninc">{{translationObj.seats.fieldtitlesectioninc}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="sectioninc" class="form-control" id="sectioninc" ng-model="currentArena.seats.sectioninc" maxlength="3" required>
+	      </div>
+	    </div>
+	  </div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="rowtype">{{translationObj.seats.fieldtitlerowtype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="rowtype" ng-model="currentArena.seats.rowtype" required>
+						<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+	      <label for="rowfirst">{{translationObj.seats.fieldtitlerowfirst}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="rowfirst" class="form-control" id="rowfirst" ng-model="currentArena.seats.rowfirst" maxlength="3" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2">
+	      <label for="rownb">{{translationObj.seats.fieldtitlerownb}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="rownb" class="form-control" id="rownb" ng-model="currentArena.seats.rownb" maxlength="2" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2" ng-show="currentArena.seats.rowtype=='1'">
+	      <label for="rowinc">{{translationObj.seats.fieldtitlerowinc}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="rowinc" class="form-control" id="rowinc" ng-model="currentArena.seats.rowinc" maxlength="3" required>
+	      </div>
+	    </div>
+	  </div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="seattype">{{translationObj.seats.fieldtitleseattype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="seattype" ng-model="currentArena.seats.seattype" required>
+						<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+	      <label for="seatfirst">{{translationObj.seats.fieldtitleseatfirst}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="seatfirst" class="form-control" id="seatfirst" ng-model="currentArena.seats.seatfirst" maxlength="3" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2">
+	      <label for="seatnb">{{translationObj.seats.fieldtitleseatnb}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="seatnb" class="form-control" id="seatnb" ng-model="currentArena.seats.seatnb" maxlength="2" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2" ng-show="currentArena.seats.seattype=='1'">
+	      <label for="seatinc">{{translationObj.seats.fieldtitleseatinc}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="seatinc" class="form-control" id="seatinc" ng-model="currentArena.seats.seatinc" maxlength="3" required>
+	      </div>
+	    </div>
+	  </div>
+
+  </div>
+</div>
