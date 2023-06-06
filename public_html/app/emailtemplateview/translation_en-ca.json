@@ -1,0 +1,26 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter email templates..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Email templates"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No email template found"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Email Template Details"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Email sent."},
+
+	{"formname":"details", "fieldname":"fieldtemplatename", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldactive", "text":"Active"},
+
+	{"formname":"newemailtemplate", "fieldname":"formtitleeditdocument", "text":"New Email Template"},
+	{"formname":"newemailtemplate", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"newemailtemplate", "fieldname":"formerrormessage", "text":"All the fields are mandatory."},
+	{"formname":"newemailtemplate", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newemailtemplate", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"sendemailaddress", "fieldname":"formtitlesendtestemail", "text":"Send Test Email"},
+	{"formname":"sendemailaddress", "fieldname":"fieldtitleemailaddress", "text":"Email Address"},
+	{"formname":"sendemailaddress", "fieldname":"formerrormessage", "text":"All the fields are mandatory."},
+	{"formname":"sendemailaddress", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"sendemailaddress", "fieldname":"buttontitlekeepchanges", "text":"Send"}
+]

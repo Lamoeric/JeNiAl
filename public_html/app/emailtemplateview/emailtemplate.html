@@ -1,0 +1,26 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-4">
+	      <label for="templatename">{{translationObj.details.fieldtemplatename}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="templatename" class="form-control" id="templatename" ng-model="currentEmailtemplate.templatename" maxlength="100" required>
+	      </div>
+	    </div>
+      <div class="col-xs-2">
+	      <label for="availableonline">{{translationObj.details.fieldactive}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="availableonline" ng-model="currentEmailtemplate.active" >
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+      		</select>
+      	</div>
+      </div>
+	  </div>
+
+		<div>
+			<emailtemplateviewer paragraphlist="currentEmailtemplate.paragraphs" set-dirty="setDirty()" convert="convertParagraph(paragraph)"></paragraphviewer>
+		</div>
+</div>

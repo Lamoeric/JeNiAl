@@ -1,0 +1,23 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./emailtemplateview/emailtemplate.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentEmailtemplate.templatename" defaulttitle="translationObj.main.formtitledetails" object="currentEmailtemplate"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentEmailtemplate==null"></main-delete-button>
+					<button class="btn btn-primary glyphicon glyphicon-envelope" ng-click="sendTestEmail()" ng-disabled="currentEmailtemplate==null || detailsForm.$dirty"></button>
+					
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentEmailtemplate">
+						<div ng-include="'emailtemplateview/emailtemplate.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>
