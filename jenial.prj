@@ -1,0 +1,22 @@
+[Project ID]
+Signature=UE Proj: v.1
+Unicode=2
+[Project Information]
+	Use Relative Directory=1
+	Relative to Project File=1
+	Include Sub Directories=1
+	Project Tagfile=
+	Project Wordfile=
+	Project TpFile=
+	Filter=
+	Create Tagfile=0
+[Files]
+	0=.\
+	1=..\..\..\Users\lamouree\Documents\projets\CPA\Notes.txt
+[Group Filter]
+	.\=*.*
+[FilesU]
+0=.+AFw-
+1=..+AFw-..+AFw-..+AFw-Users+AFw-lamouree+AFw-Documents+AFw-projets+AFw-CPA+AFw-Notes.txt
+[Group FilterU]
+.+AFw-=+ACo-.+ACo-
