@@ -1,0 +1,118 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newperformance.formtitleeditperformance}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+      <div class="col-xs-4">
+	      <label for="location">{{translationObj.newperformance.fieldtype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <select class="form-control" id="type" ng-model="newObj.type" required>
+						<option ng-repeat="performancetype in performancetypes" value="{{performancetype.code}}">{{performancetype.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="performancedate">{{translationObj.newperformance.fielddate}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="date" class="form-control" id="perfdate" ng-model="newObj.perfdate" required>
+      	</div>
+      </div>
+
+      <div class="col-xs-8">
+	      <label for="label_en">{{translationObj.newperformance.fieldlabel_en}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="label_en"  ng-model="newObj.label_en" maxlength="200" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-8">
+	      <label for="label_fr">{{translationObj.newperformance.fieldlabel_fr}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="label_fr"  ng-model="newObj.label_fr" maxlength="200" required>
+	      </div>
+      </div>
+			<div class="clearfix"></div>
+      <div class="col-xs-5">
+	      <label for="arena">{{translationObj.newperformance.fieldarena}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)" required>
+						<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+      		</select>
+      	</div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="iceid">{{translationObj.newperformance.fieldice}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="iceid" ng-model="newObj.iceid">
+						<option ng-repeat="ice in ices" value="{{ice.id}}">{{ice.label}}</option>
+      		</select>
+      	</div>
+      </div>
+			<div class="clearfix"></div>
+      <div class="col-xs-3">
+	      <label for="endtime">{{translationObj.newperformance.fieldstarttime}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="time" class="form-control" id="starttime" ng-model="newObj.starttime" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="endtime">{{translationObj.newperformance.fieldendtime}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="time" class="form-control" id="endtime" ng-model="newObj.endtime">
+	      </div>
+      </div>
+			<div class="clearfix"></div>
+      <div class="col-xs-3">
+	      <label for="skatersarrivaltime">{{translationObj.newperformance.fieldskatersarrivaltime}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="time" class="form-control" id="skatersarrivaltime" ng-model="newObj.skatersarrivaltime" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="skatersdeparturetime">{{translationObj.newperformance.fieldskatersdeparturetime}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="time" class="form-control" id="skatersdeparturetime" ng-model="newObj.skatersdeparturetime">
+	      </div>
+      </div>
+			<div class="clearfix"></div>
+      <div class="col-xs-3">
+	      <label for="volunteersarrivaltime">{{translationObj.newperformance.fieldvolunteersarrivaltime}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="time" class="form-control" id="volunteersarrivaltime" ng-model="newObj.volunteersarrivaltime" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="volunteersdeparturetime">{{translationObj.newperformance.fieldvolunteersdeparturetime}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="time" class="form-control" id="volunteersdeparturetime" ng-model="newObj.volunteersdeparturetime">
+	      </div>
+      </div>
+
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newperformance.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newperformance.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newperformance.buttontitlekeepchanges}}</button>
+</div>

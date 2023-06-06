@@ -1,0 +1,28 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formtitlesubtitle", "text":"VOTRE FACTURE #"},
+	{"formname":"main", "fieldname":"formtitlebacktobills", "text":">> Vos factures"},
+
+	{"formname":"main", "fieldname":"fieldtitlebill", "text":"Facture "},
+	{"formname":"main", "fieldname":"buttontitleviewbill", "text":"Voir"},
+	{"formname":"main", "fieldname":"fieldtitlesession", "text":"Description"},
+	{"formname":"main", "fieldname":"fieldtitletotalamount", "text":"Total"},
+	{"formname":"main", "fieldname":"fieldtitlebalance", "text":"Balance"},
+	{"formname":"main", "fieldname":"fieldtitlebillingdate", "text":"Date"},
+
+	{"formname":"main", "fieldname":"labeltitlebillto", "text":"Facturé à :"},
+	{"formname":"main", "fieldname":"labeltitledate", "text":"Date :"},
+	{"formname":"main", "fieldname":"labeltitlehaspaymentagreement", "text":"Entente de paiement :"},
+	{"formname":"main", "fieldname":"labeltitlepaymentagreementnote", "text":"Note entente de paiement :"},
+	{"formname":"main", "fieldname":"labeltitleinvoiceno", "text":"No. facture"},
+	{"formname":"main", "fieldname":"labeltitleoldinvoiceno", "text":"Ancien no. facture"},
+	{"formname":"main", "fieldname":"labeltitlenewinvoiceno", "text":"Nouveau no. facture"},
+	{"formname":"main", "fieldname":"labeltitledetails", "text":"Détails"},
+	{"formname":"main", "fieldname":"labeltitleamount", "text":"Montant"},
+	{"formname":"main", "fieldname":"labeltitlesubtotal", "text":"Sous-total"},
+	{"formname":"main", "fieldname":"labeltitletotal", "text":"Total"},
+	{"formname":"main", "fieldname":"labeltitletransactions", "text":"Transactions"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

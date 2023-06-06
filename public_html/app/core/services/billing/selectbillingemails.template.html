@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selectbillingemails.formtitleselectbillingemails}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-12">
+	      <label for="billingname">{{translationObj.selectbillingemails.fieldtitlebillingemail}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="billingname" ng-model="newObj.billingemail" required ng-options="billingemail.label for billingemail in billingemails track by billingemail.label">
+          </select>
+
+          <!-- <select class="form-control" id="billingname" ng-model="newObj.billingemail" required>
+						<option ng-repeat="billingemail in billingemails" value="{{billingemail.fullname}}">{{billingemail.fullname}} ({{billingemail.email}})</option>
+		      </select> -->
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.selectbillingemails.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectbillingemails.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.selectbillingemails.buttontitleselectbillingemail}}</button>
+</div>

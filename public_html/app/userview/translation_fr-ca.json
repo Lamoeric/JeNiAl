@@ -1,0 +1,43 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer usagers..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Usagers"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun usager trouvé"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails de l'usager"},
+	{"formname":"main", "fieldname":"buttontitleresetpassword", "text":"Réinitialiser"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
+	{"formname":"main", "fieldname":"msgresetaccount", "text":"Le mot de passe de l'usager sera modifié aléatoirement et un courriel lui sera envoyé. Voulez-vous continuer?"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations générales"},
+	{"formname":"details", "fieldname":"fieldtitleuserid", "text":"Code usager"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom complet"},
+	{"formname":"details", "fieldname":"fieldtitlepreferedlanguage", "text":"Langue"},
+	{"formname":"details", "fieldname":"fieldtitlepassword", "text":"Mot de passe"},
+	{"formname":"details", "fieldname":"fieldtitleemail", "text":"Courriel"},
+	{"formname":"details", "fieldname":"fieldtitlepasswordexpired", "text":"Mot de passe expiré"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
+	{"formname":"details", "fieldname":"formtitleroles", "text":"Rôles"},
+	{"formname":"details", "fieldname":"fieldtitlerole", "text":"Rôle"},
+	{"formname":"details", "fieldname":"fieldtitlecontactfullname", "text":"Nom du contact"},
+	{"formname":"details", "fieldname":"buttontitleemptycontact", "text":"Vider contact"},
+
+	{"formname":"newuser", "fieldname":"formtitlenewuser", "text":"Nouvel usager"},
+	{"formname":"newuser", "fieldname":"fieldtitleuserid", "text":"Code usager"},
+	{"formname":"newuser", "fieldname":"fieldtitlefullname", "text":"Nom complet"},
+	{"formname":"newuser", "fieldname":"fieldtitlepassword", "text":"Mot de passe"},
+	{"formname":"newuser", "fieldname":"fieldtitlepreferedlanguage", "text":"Langue"},
+	{"formname":"newuser", "fieldname":"fieldtitleemail", "text":"Courriel"},
+	{"formname":"newuser", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newuser", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newuser", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"newrole", "fieldname":"formtitlenewrole", "text":"Nouveau rôle"},
+	{"formname":"newrole", "fieldname":"fieldtitlerole", "text":"Rôle"},
+	{"formname":"newrole", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newrole", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newrole", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}
+
+]

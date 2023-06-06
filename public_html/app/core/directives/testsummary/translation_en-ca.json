@@ -1,0 +1,10 @@
+[
+	{"formname":"testsummary", "fieldname":"formtitleskills", "text":"Skills"},
+	{"formname":"testsummary", "fieldname":"formtitledances", "text":"Dance"},
+	{"formname":"testsummary", "fieldname":"formtitlefreestyle", "text":"Free Style"},
+	{"formname":"testsummary", "fieldname":"formtitleinterpretives", "text":"Interpretative"},
+	{"formname":"testsummary", "fieldname":"formtitlecompetitives", "text":"Competitive"},
+	{"formname":"testsummary", "fieldname":"fieldsingle", "text":"Single"},
+	{"formname":"testsummary", "fieldname":"fieldcouple", "text":"Couple"},
+	{"formname":"testsummary", "fieldname":"fielddance", "text":"Dance"}
+]

@@ -1,0 +1,16 @@
+[
+	{"formname":"newlink", "fieldname":"formtitle", "text":"Link"},
+	{"formname":"newlink", "fieldname":"fieldlinkname", "text":"Name"},
+	{"formname":"newlink", "fieldname":"fieldlabelen", "text":"French Labe"},
+	{"formname":"newlink", "fieldname":"fieldlabelfr", "text":"English Label"},
+	{"formname":"newlink", "fieldname":"fieldlinkposition", "text":"Position"},
+	{"formname":"newlink", "fieldname":"fieldlinkindex", "text":"Index"},
+	{"formname":"newlink", "fieldname":"fieldlinktype", "text":"Type"},
+	{"formname":"newlink", "fieldname":"fieldlinkpage", "text":"Page"},
+	{"formname":"newlink", "fieldname":"fieldlinksection", "text":"Section"},
+	{"formname":"newlink", "fieldname":"fieldlinkdocumentid", "text":"Document"},
+	{"formname":"newlink", "fieldname":"fieldlinkexternal", "text":"External"},
+	{"formname":"newregistration", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newregistration", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newregistration", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"}
+]

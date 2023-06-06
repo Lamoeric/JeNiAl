@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.canceltransaction.formtitlecanceltransaction}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-10">
+	      <label for="transactiontype">{{translationObj.canceltransaction.fieldcancelreason}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="cancelreason" ng-model="newObj.cancelreason" required>
+						<option ng-repeat="transactioncancel in transactioncancels" value="{{transactioncancel.code}}">{{transactioncancel.text}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-5">
+	      <label for="transactiondate">{{translationObj.canceltransaction.fieldcanceledby}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="canceledby" class="form-control" id="canceledby" ng-model="newObj.canceledby" disabled>
+	      </div>
+	    </div>
+      <div class="col-xs-5">
+	      <label for="transactionamount">{{translationObj.canceltransaction.fieldcanceleddate}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="canceleddate" class="form-control" id="canceleddate" ng-model="newObj.canceleddate" disabled>
+	      </div>
+	    </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.canceltransaction.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.canceltransaction.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.canceltransaction.buttontitlekeepchanges}}</button>
+</div>

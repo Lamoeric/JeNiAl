@@ -1,0 +1,21 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.financial.formtitle}}</h3>
+
+    <div class="row">
+			<div class="col-xs-3">
+        <label><center>{{translationObj.financial.graphtitlerevenuepercode}}&nbsp;({{currentDashboard.financialrevenuespertype.totalrevenues}})</center></label>
+        <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="currentDashboard.financialrevenuespertype.data" chart-labels="currentDashboard.financialrevenuespertype.labels" chart-options="options"> </canvas>
+      </div>
+    </div>
+		<h3>{{translationObj.summary.graphtitlerevenuepersession}}</h3>
+    <div class="row">
+      <!-- Comparison total number of skaters per type -->
+      <div class="col-xs-10">
+        <!-- <label><center>{{translationObj.summary.graphtitleallskaterspertypecomparison}}</center></label> -->
+        <canvas id="bar" class="chart chart-bar chart-md ng-isolate-scope" chart-data="[currentDashboard.financialrevenuespersession.data, currentDashboard.financialrevenuespersession.data2]" chart-labels="currentDashboard.financialrevenuespersession.labels" chart-series="[translationObj.financial.labeltotalrevenus,translationObj.financial.labeltotalpaid]" chart-options="options"> </canvas>
+      </div>
+    </div>
+
+  </div>
+</div>

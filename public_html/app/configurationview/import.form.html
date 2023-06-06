@@ -1,0 +1,23 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemainimport}}</h3>
+		<div class="row">
+			<div class="col-xs-3">
+				<label>&nbsp;</label>
+				<div class="input-group">
+					<button class="btn btn-primary" type="file" ngf-select="importSCRegistrations($file, $invalidFiles)" accept=".csv" ngf-max-size="4MB" ng-if="userInfo.privileges.admin_update==true">{{translationObj.import.buttontitleimportregistrations}}</button>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-xs-3">
+				<label>&nbsp;</label>
+				<div class="input-group">
+					<!-- <button class="btn btn-primary" type="file" ngf-select="importSCTests($file, $invalidFiles)" accept=".csv" ngf-max-size="4MB" ng-if="userInfo.privileges.admin_update==true">{{translationObj.import.buttontitleimporttests}}</button> -->
+				</div>
+			</div>
+		</div>
+
+  </div>
+</div>

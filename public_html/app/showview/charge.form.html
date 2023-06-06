@@ -1,0 +1,54 @@
+<div class="form-group row">
+	<div class="grid">
+		<!-- <h3>Charges ({{currentShow.charges.length}})</h3> -->
+		<h3>{{translationObj.charges.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowCharge({})"></button></h3>
+		<!-- <div class="row">
+			<div class="col-xs-5">
+				<button class="btn btn-primary" ng-click="editShowCharge({})"><span>{{translationObj.charges.buttontitlenewcharge}}</span></button>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-xs-12">
+
+				<hr>
+				<div ng-repeat="charge in currentShow.showCharges">
+					<div class="row">
+						<div class="col-xs-1">
+							<label for="chargecode" ng-show="$index==0">{{translationObj.charges.fieldcharge}}</label>
+							<input type="text" class="form-control" id="chargecode" ng-model="charge.chargecode" disabled>
+						</div>
+						<div class="col-xs-3">
+							<label for="chargelabel" ng-show="$index==0">{{translationObj.charges.fieldlabel}}</label>
+							<input type="text" class="form-control" id="chargelabel" ng-model="charge.chargelabel" disabled>
+						</div>
+						<div class="col-xs-2">
+							<label for="amount" ng-show="$index==0">{{translationObj.charges.fieldamount}}</label>
+							<input type="text" class="form-control" id="amount" ng-model="charge.amount" disabled>
+						</div>
+			      <div class="col-xs-1">
+				      <label for="startdate" ng-show="$index==0">{{translationObj.charges.fieldstartdate}}</label>
+			      	<input type="text" class="form-control" id="startdate" ng-model="charge.startdatestr" disabled>
+			      </div>
+			      <div class="col-xs-1">
+				      <label for="enddate" ng-show="$index==0">{{translationObj.charges.fieldenddate}}</label>
+			      	<input type="text" class="form-control" id="enddate" ng-model="charge.enddatestr" disabled>
+			      </div>
+
+						<div class="col-xs-2">
+							<label ng-show="$index==0">&nbsp;</label>
+							<div class="input-group">
+								<span>
+									<child-edit-button 			obj="charge" objlist="currentShow.showCharges" callback="editShowCharge(charge)"></child-edit-button>
+									<child-delete-button 		obj="charge" objlist="currentShow.showCharges" callback="setDirty()"></child-delete-button>
+									<child-undelete-button 	obj="charge" objlist="currentShow.showCharges" callback="setDirty()"></child-undelete-button>
+									<child-status-indicator obj="charge"></child-status-indicator>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

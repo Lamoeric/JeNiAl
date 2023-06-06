@@ -1,0 +1,74 @@
+<!-- Left Pane -->
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div> -->
+<!-- Right Pane -->
+<div cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<!-- Main title -->
+	<div><h2>{{translationObj.dashboard.formtitledashboard}}</h2></div>
+
+	<!-- Buttons -->
+	<!-- <main-new-button new-callback="createNew()" ng-if="userInfo.privileges.session_create"></main-new-button> -->
+	<!-- <main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty)" ng-if="userInfo.privileges.session_update==true"></main-save-button> -->
+  <!--	<main-delete-button delete-callback="deleteFromDB()"></main-delete-button>-->
+	<!-- <button class="btn btn-primary" ng-click="activateSession()" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_update"==true>{{translationObj.sessions.buttontitlesetactive}}</button> -->
+	<!-- <button class="btn btn-primary" ng-click="copySession()" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_create==true">{{translationObj.sessions.buttontitlecopysession}}</button> -->
+	<form class="form-horizontal" role="form" name="upperForm">
+		<div class="form-group">
+		  <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+		    <label for="sessionname">{{translationObj.dashboard.fieldsessionname}}</label>
+				<!-- <div class="input-group"> -->
+					<select class="form-control" ng-model="sessionid" ng-change="onSessionChange()" ignore-dirty>
+						<option ng-repeat="tsid in sessions" value="{{tsid.id}}">{{tsid.label}}</option>
+					</select>
+				<!-- </div> -->
+		  </div>
+			<!-- <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+				<span class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentDashboard==null" >{{translationObj.dashboard.buttontitlereports}}<span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+						<li class="pointerlist"><a ng-click="this.printReport('sessionschedule')">{{translationObj.dashboard.reporttitlesessionschedule}}</a></li>
+					</ul>
+				</span>
+			</div> -->
+		</div>
+  </form>
+
+	<!-- <div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div> -->
+
+	<!-- <div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+	</div> -->
+
+  <ul class="nav nav-tabs">
+    <li class="active pointerlist"><a data-toggle="tab" data-target="#summary">{{translationObj.dashboard.panetitlesummary}}</a></li>
+    <li class="pointerlist"><a data-toggle="tab" data-target="#coursesdetails">{{translationObj.dashboard.panetitlecoursesdetails}}</a></li>
+    <li class="pointerlist"><a data-toggle="tab" data-target="#financial">{{translationObj.dashboard.panetitlefinancial}}</a></li>
+  </ul>
+
+  <div class="tab-content">
+  	<!-- Summary -->
+    <div id="summary" class="tab-pane fade in active">
+      <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentDashboard" class="ng-hide">
+				<div ng-include="'dashboardview/summary.form.html'"></div>
+		  </form>
+    </div>
+
+  	<!-- Courses Details -->
+    <div id="coursesdetails" class="tab-pane fade">
+      <form class="form-horizontal well" role="form" name="coursesdetailsForm" ng-show="currentDashboard" class="ng-hide">
+				<div ng-include="'dashboardview/details.form.html'"></div>
+		  </form>
+    </div>
+
+		<!-- Financial Details -->
+    <div id="financial" class="tab-pane fade">
+      <form class="form-horizontal well" role="form" name="financialForm" ng-show="currentDashboard" class="ng-hide">
+				<div ng-include="'dashboardview/financial.form.html'"></div>
+		  </form>
+    </div>
+
+	</div>
+</div>

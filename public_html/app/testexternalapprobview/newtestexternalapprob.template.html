@@ -1,0 +1,51 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newregistration.formtitle}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-5">
+				<label for="coachid">{{translationObj.newregistration.fieldcoach}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="newObj.coachid" required>
+						<option ng-repeat="coach in coaches" value="{{coach.id}}">{{coach.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="name">{{translationObj.newregistration.fieldmember}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" value="{{newObj.member.firstname}} {{newObj.member.lastname}}" disabled required>
+					<span class="input-group-addon">
+						<search-member-button-glass is-full-copy="true" callback="null" is-form-pristine="1!=1" member="newObj.member"></search-member-button-glass>
+					</span>
+				</div>
+			</div>
+
+			<!-- <div class="col-xs-5">
+				<label for="name">{{translationObj.newregistration.fieldmember}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" value="{{newObj.member.firstname}} {{newObj.member.lastname}}" disabled required>
+				</div>
+			</div> -->
+
+			<div class="col-xs-1 ng-hide">
+				<!-- Field is here only for the "required" validation -->
+				<input type="text" class="form-control ng-hide" id="memberid" ng-model="newObj.member.id" disabled ng-show="false" required ng-cloak>
+			</div>
+
+		</div>
+		<!-- <search-member-button is-full-copy="true" callback="null" is-form-pristine="1!=1" member="newObj.member"></search-member-button> -->
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newregistration.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newregistration.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newregistration.buttontitlekeepchanges}}</button>
+</div>

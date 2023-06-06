@@ -1,0 +1,32 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formtitleregistration", "text":"INSCRIPTION"},
+	{"formname":"main", "fieldname":"fieldtitleskater", "text":"Patineur : "},
+	{"formname":"main", "fieldname":"fieldtitlesession", "text":"Session : "},
+	{"formname":"main", "fieldname":"fieldtitlesessiondates", "text":"Dates : "},
+	{"formname":"main", "fieldname":"fieldtitlecourse", "text":"Cours"},
+	{"formname":"main", "fieldname":"fieldtitlenbofcoursesleft", "text":"Nb de cours"},
+	{"formname":"main", "fieldname":"fieldtitlecourseprice", "text":"Prix"},
+	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">> Page d'accueil"},
+
+	{"formname":"main", "fieldname":"formtitlecharges", "text":"Charges"},
+	{"formname":"main", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"main", "fieldname":"fieldtitlelabel", "text":"Libellé"},
+	{"formname":"main", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"main", "fieldname":"fieldtitleamount", "text":"Montant"},
+	{"formname":"main", "fieldname":"fieldtitleregulationread", "text":"Le membre a lu et accepté les règlements du club"},
+	{"formname":"main", "fieldname":"fieldtitlecomments", "text":"Commentaires"},
+	{"formname":"main", "fieldname":"fieldtitlenbofskater", "text":"Places dispo."},
+	{"formname":"main", "fieldname":"buttontitleaccept", "text":"Confirmer"},
+	{"formname":"main", "fieldname":"msgconfirmregistration", "text":"Êtes-vous certain de vouloir confirmer cette inscription?"},
+	{"formname":"main", "fieldname":"msgconfirmregistration2", "text":"Par la suite, toutes les modifications à l'inscription devront se faire en personne."},
+	{"formname":"main", "fieldname":"msginvalidregistration", "text":"<b>Inscription invalide</b><br>Vous devez sélectionner au moins un nouveau cours."},
+	{"formname":"main", "fieldname":"msgselectline", "text":"Cliquer sur une ligne pour sélectionner le cours."},
+	{"formname":"main", "fieldname":"msgregistrationcompleted", "text":"Inscription complétée."},
+	{"formname":"main", "fieldname":"msgregistrationerror", "text":"Erreur. Un cours que vous avez sélectionné n'a plus de place libre. Essayez de nouveau."},
+	{"formname":"main", "fieldname":"msgerrskateralreadyhasaregistration", "text":"Le patineur est déjà inscrit pour cette session."},
+	{"formname":"main", "fieldname":"buttontitleclearcoursecodesfilter", "text":"Vider filtre"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

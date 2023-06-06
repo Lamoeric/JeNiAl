@@ -1,0 +1,8 @@
+[
+	{"formname":"main", "fieldname":"formttitlesignin", "text":"Connexion"},
+	{"formname":"main", "fieldname":"formttitleforgotmypassword", "text":"J'ai oublié mon nom d'utilisateur ou mon mot de passe"},
+	{"formname":"main", "fieldname":"msgerrinvalidlogin", "text":"Informations de connexion invalides"},
+	{"formname":"main", "fieldname":"buttontitlelogin", "text":"Connexion"},
+
+	{"formname":"main", "fieldname":"test", "text":""}
+]

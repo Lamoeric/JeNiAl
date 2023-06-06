@@ -1,0 +1,15 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formtitlesubtitle", "text":"YOUR BILLS"},
+	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">>Welcome Page"},
+
+	{"formname":"main", "fieldname":"fieldtitlebill", "text":"Bill "},
+	{"formname":"main", "fieldname":"buttontitleviewbill", "text":"View"},
+	{"formname":"main", "fieldname":"fieldtitlesession", "text":"Description"},
+	{"formname":"main", "fieldname":"fieldtitletotalamount", "text":"Total"},
+	{"formname":"main", "fieldname":"fieldtitlebalance", "text":"Balance"},
+	{"formname":"main", "fieldname":"fieldtitlebillingdate", "text":"Date"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

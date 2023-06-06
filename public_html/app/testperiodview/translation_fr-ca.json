@@ -1,0 +1,31 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer test periods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Test Periods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune période de test trouvée"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+
+	{"formname":"selecttestperiod", "fieldname":"formtitle", "text":"Sélectionner une session de test"},
+	{"formname":"selecttestperiod", "fieldname":"fieldtestsessionname", "text":"Session de test"},
+	{"formname":"selecttestperiod", "fieldname":"fieldtestperiod", "text":"Période de test"},
+	{"formname":"selecttestperiod", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"selecttestperiod", "fieldname":"buttontitlekeepchanges", "text":"Sélectionner"},
+	{"formname":"selecttestperiod", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"testperiod", "fieldname":"fieldtitlewarmup", "text":"Réchauff."},
+	{"formname":"testperiod", "fieldname":"fiedtitleduration", "text":"Durée"},
+	{"formname":"testperiod", "fieldname":"fieldtitlestart", "text":"Début"},
+	{"formname":"testperiod", "fieldname":"fieldtitleend", "text":"Fin"},
+	{"formname":"testperiod", "fieldname":"buttontitlestart", "text":"Début"},
+	{"formname":"testperiod", "fieldname":"buttontitlestop", "text":"Fin"},
+	{"formname":"testperiod", "fieldname":"buttontitleended", "text":"Fini"},
+	{"formname":"testperiod", "fieldname":"fieldtitleskater", "text":"Patineur"},
+	{"formname":"testperiod", "fieldname":"fieldtitlepartner", "text":"Partenaire"},
+	{"formname":"testperiod", "fieldname":"fieldtitlemusic", "text":"Musique"},
+	{"formname":"testperiod", "fieldname":"fieldtitlepartnersteps", "text":"Pas inversé"},
+	{"formname":"testperiod", "fieldname":"partnerstepsyes", "text":"Oui"},
+	{"formname":"testperiod", "fieldname":"partnerstepsno", "text":"Non"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

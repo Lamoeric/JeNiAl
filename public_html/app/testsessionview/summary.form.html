@@ -1,0 +1,129 @@
+<div class="form-group row">
+	<div class="grid">
+
+		<form>
+			<div ng-repeat="day in currentTestsession.days" class="blackcurvyborder">
+				<h3>{{translationObj.summary.titleday}} {{$index + 1}}</h3>
+				<div class="row">
+					<div class="col-xs-2">
+						<label for="testdate">{{translationObj.summary.fieldtestdate}}</label>
+						<input type="text" class="form-control" id="testdate" ng-model="day.testdatestr" disabled>
+					</div>
+				</div>
+
+					<form>
+						<div ng-repeat="period in day.periods" class="blackcurvyborder">
+							<h3>{{translationObj.summary.titleperiod}} {{$index + 1}}</h3>
+							<div class="row">
+								<div class="col-xs-2">
+									<label for="arena">{{translationObj.summary.fieldarena}}</label>
+									<select class="form-control" id="arena" ng-model="period.arenaid" disabled>
+										<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+									</select>
+								</div>
+								<div class="col-xs-2">
+									<label for="ice">{{translationObj.summary.fieldice}}</label>
+									<input type="text" class="form-control" id="ice" ng-model="period.icelabel" disabled>
+								</div>
+								<div class="col-xs-2">
+									<label for="starttime">{{translationObj.summary.fieldstarttime}}</label>
+									<input type="text" class="form-control" id="starttime" ng-model="period.starttime" disabled>
+								</div>
+								<div class="col-xs-2">
+									<label for="endtime">{{translationObj.summary.fieldendtime}}</label>
+									<input type="text" class="form-control" id="endtime" ng-model="period.endtime" disabled>
+								</div>
+							</div>
+
+								<form>
+									<div ng-repeat="group in period.groups" >
+											<div ng-repeat="skater in group.skaters">
+												<div class="row" id="childform1">
+
+													<div class="col-xs-2">
+											      <label for="skaterfullname" ng-show="$index==0">{{translationObj.summary.fieldskater}}</label>
+														<input type="text" class="form-control" id="skaterfullname" value="{{skater.firstname}} {{skater.lastname}}" disabled>
+										      </div>
+
+                          <div class="col-xs-3">
+											      <label for="testlabel" ng-show="$index==0">{{translationObj.summary.fieldtest}}</label>
+														<input type="text" class="form-control" id="testlabel" value="{{group.testtypelabel}} {{group.testtype == 'DANCE' ? group.testlevellabel : ''}} {{group.testlabel}}" disabled>
+										      </div>
+
+													<div class="col-xs-2">
+											      <label for="summarycode" ng-show="$index==0">{{translationObj.summary.fieldcode}}</label>
+														<input type="text" class="form-control" id="summarycode" ng-model="skater.summarycode" disabled>
+										      </div>
+
+                          <div class="col-xs-2">
+														<label for="result" ng-show="$index==0">{{translationObj.summary.fieldresult}}</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+															<select class="form-control" ng-model="skater.result" ng-change="onTestResultChange(skater)" ng-disabled="currentTestsession.islock">
+																<option ng-repeat="testresult in testresults" value="{{testresult.code}}">{{testresult.text}}</option>
+															</select>
+														</div>
+													</div>
+
+
+                          <div class="col-xs-2">
+														<label ng-show="$index==0">&nbsp;</label>
+														<div class="input-group">
+															<span>
+																<child-status-indicator obj="skater"></child-status-indicator>
+															</span>
+														</div>
+													</div>
+
+													<!-- <div class="col-xs-2">
+														<label for="partnerid" ng-show="$index==0">Partner{{translationObj.schedule.fieldpartnerid}}</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+															<select class="form-control" ng-model="skater.partnerid" disabled>
+																<option ng-repeat="partner in allPartners" value="{{partner.id}}">{{partner.text}}</option>
+															</select>
+														</div>
+													</div> -->
+
+													<!-- <div class="col-xs-3">
+											      <label for="musiclabel" ng-show="$index==0">Music</label>
+														<input type="text" class="form-control" id="musiclabel" ng-model="skater.musiclabel" disabled>
+										      </div>
+
+													<div class="col-xs-1">
+											      <label for="partnersteps" ng-show="$index==0">Steps</label>
+														<input type="text" class="form-control" id="partnersteps" ng-model="skater.partnersteps" disabled>
+										      </div>
+
+													<div class="col-xs-2">
+											      <label for="comments" ng-show="$index==0">Comments</label>
+														<input type="text" class="form-control" id="comments" ng-model="skater.comments" disabled>
+										      </div> -->
+
+													<!-- <div class="col-xs-2">
+														<label ng-show="$index==0">&nbsp;</label>
+														<div class="input-group">
+															<span>
+																<child-edit-button 					obj="skater" objlist="group.skaters" callback="editTestSkater(skater)"></child-edit-button>
+																<child-moveup-button 				obj="skater" objlist="group.skaters" prop="'sequence'" callback="setDirty()" is-form-pristine="group.skaters.indexOf(skater)==0"></child-moveup-button>
+																<child-movedown-button 			obj="skater" objlist="group.skaters" prop="'sequence'" callback="setDirty()" is-form-pristine="group.skaters.indexOf(skater)==group.skaters.length-1"></child-movedown-button>
+																<child-moveright-button 		obj="skater" objlist="group.skaters" callback="moveSkaterToGroup"></child-moveright-button>
+																<child-status-indicator obj="skater"></child-status-indicator>
+															</span>
+														</div>
+													</div> -->
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</form>
+
+						</div>
+					</form>
+
+			</div>
+		</form>
+
+  </div>
+</div>

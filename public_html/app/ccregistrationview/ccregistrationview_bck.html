@@ -1,0 +1,87 @@
+<div class="content">
+	<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<br>
+				<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
+				<h3>{{translationObj.main.formtitlewelcome}} {{userInfo.userfullname}}</h3>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="content well">
+					<div class="row">
+						<div class="col-md-10">
+							<div class="content">
+								<div class="row">
+									<a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+									<h3>{{translationObj.main.formtitleregistration}}</h3>
+									<p><b>{{translationObj.main.fieldtitleskater}}</b>&nbsp;{{currentRegistration.member.firstname}}&nbsp;{{currentRegistration.member.lastname}}</p>
+									<p><b>{{translationObj.main.fieldtitlesession}}</b>&nbsp;{{currentRegistration.sessionname}}</p>
+									<p><b>{{translationObj.main.fieldtitlesessiondates}}</b>&nbsp;{{currentRegistration.coursesstartdate}}&nbsp;-&nbsp;{{currentRegistration.coursesenddate}}</p>
+									<p>{{translationObj.main.msgselectline}}</p>
+									<table width="100%" class="table table-striped">
+										<tbody>
+											<tr>
+												<th>{{translationObj.main.fieldtitlecourse}}</th>
+												<th>{{translationObj.main.fieldtitlenbofcoursesleft}}</th>
+												<th>{{translationObj.main.fieldtitlenbofskater}}</th>
+												<th class="coursetablefeestd">{{translationObj.main.fieldtitlecourseprice}}</th>
+												<th></th>
+											</tr>
+									  	<tr ng-repeat="course in currentRegistration.courses | filter : filterCourses" ng-click="onCourseSelected(course)" style="cursor: pointer">
+									  		<td width="50%"><strong>{{course.label}} {{course.courselevellabel}}</strong><br><small>{{course.schedule}}</small></td>
+									  		<td width="15%">{{course.nbofcourses}}</td>
+												<td width="15%">{{course.maxnumberskater/1 - course.nbofskaters/1}}</td>
+									  		<td width="15%" class="coursetablefeestd">{{course.fees | currency}}</td>
+									  		<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="course.selected=='1'"></span></td>
+									  	</tr>
+									  </tbody>
+									</table>
+
+									<h3>{{translationObj.main.formtitlecharges}}</h3>
+									<table width="100%" class="table table-striped">
+										<tr>
+											<th>{{translationObj.main.fieldtitlelabel}}</th>
+											<th>{{translationObj.main.fieldtitletype}}</th>
+											<th></th>
+											<th class="coursetablefeestd">{{translationObj.main.fieldtitleamount}}</th>
+											<th></th>
+										</tr>
+								  	<tr ng-repeat="charge in currentRegistration.charges | filter : filterCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer">
+								  		<td width="30%">{{charge.label}}</td>
+								  		<td width="20%">{{charge.typelabel}}</td>
+								  		<td width="30%"><i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i></td>
+								  		<td width="10%" class="coursetablefeestd">{{charge.amount | currency}}</td>
+								  		<td width="10%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span></td>
+								  	</tr>
+									</table>
+									<hr>
+									<table width="100%" class="table table-striped">
+								  	<tr>
+								  		<td width="60%"><h3>Total</h3></td>
+								  		<td width="5%" class="coursetablefeestd"><h3>{{currentRegistration.totalamount | currency}}</h3></td>
+								  	</tr>
+									</table>
+									<label for="comments">{{translationObj.main.fieldtitlecomments}}</label>
+									<textarea class="form-control" id="comments" ng-model="currentRegistration.comments" maxlength="1024"></textarea>
+									<br>
+									<!-- <label><input type="checkbox" ng-model="currentRegistration.regulationsread" ng-true-value="'1'">{{translationObj.main.fieldtitleregulationread}}<i style="color:red"> *</i></label> -->
+									<center>
+										<button class="btn btn-primary" ng-click="confirmRegistration()" >{{translationObj.main.buttontitleaccept}}</button>
+									</center>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<img style="display:block;margin:auto;" src="../privateimages/cpa_logo.jpg" alt="logo">
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

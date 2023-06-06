@@ -1,0 +1,35 @@
+<h3>{{translationObj.test.formtitledances}}</h3>
+<div ng-repeat="dance in currentSkater.dances">
+  <!-- <div ng-show="$index != 0 && (currentSkater.dances[$index].level != currentSkater.dances[$index-1].level)"><hr></div> -->
+
+  <!-- <h3 ng-show="$index == 0 || (currentSkater.dances[$index].level != currentSkater.dances[$index-1].level)">{{currentSkater.dances[$index].testlevellabel}}</h3> -->
+  <div class="row">
+    <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+      <label for="testid" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtest}}</label>
+      <label for="testid" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtest}}</label>
+      <div class="input-group" ng-show="$index == 0 || currentSkater.dances[$index].testid != currentSkater.dances[$index-1].testid">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-refresh"></i></span>
+        <input type="text" class="form-control" id="testlabel" ng-model="dance.testlabel" ng-show="dance.testlabel != null" disabled>
+      </div>
+    </div>
+    <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+      <label for="testdate" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestdate}}</label>
+      <label for="testdate" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestdate}}</label>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        <input type="text" class="form-control" id="testdate" ng-model="dance.testdatestr" disabled>
+      </div>
+    </div>
+    <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+      <label for="success" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestsuccess}}</label>
+      <label for="success" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestsuccess}}</label>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        <select class="form-control" id="success" ng-model="dance.success" disabled>
+          <option ng-repeat="answer in testresults" value="{{answer.code}}">{{answer.text}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <hr class="hidden-md hidden-lg">
+</div>

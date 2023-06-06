@@ -1,0 +1,65 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.selectmembers.formtitleselectmembers}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+      <div class="col-xs-5">
+	      <label>{{translationObj.selectmembers.fieldmembers}}</label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div ng-repeat="membermailfilter in membermailfilters">
+        <div class="col-xs-3">
+          <label>
+            <input type="radio" ng-model="newObj.registration" id="registration" value="{{membermailfilter.code}}"/>{{membermailfilter.text}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row" ng-hide="newObj.registration!='PERCOURSE'">
+      <div class="col-xs-5">
+        <hr><label>{{translationObj.selectmembers.fieldcourse}}</label>
+      </div>
+    </div>
+    <div class="form-group row" ng-hide="newObj.registration!='PERCOURSE'">
+      <div ng-repeat="course in activeCourses">
+        <div class="col-xs-4">
+          <label>
+            <input type="checkbox" ng-model="newObj.courses[$index]" ng-true-value="'{{course.id}}'" ng-false-value="null"/>{{course.label}} ({{course.name}})
+          </label>
+        </div>
+      </div>
+        <!-- <p>{{newObj.coursesselected.toString()}}</p> -->
+    </div>
+    <div class="form-group row">
+			<div class="col-xs-5">
+	      <hr><label>{{translationObj.selectmembers.fieldqualifications}}</label>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div ng-repeat="qualification in qualifications">
+        <div class="col-xs-4">
+          <label>
+            <input type="checkbox" ng-model="newObj.qualifications[$index]" ng-true-value="'{{qualification.code}}'" ng-false-value="null"/>{{qualification.text}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.selectmembers.msgerratleastonecriterion}}
+	</div>
+  <div class="alert alert-danger" id="editObjCoursedMandatory" style="display:none;">
+		{{translationObj.selectmembers.msgerratleastonecourse}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.selectmembers.buttontitlediscard}}</button>
+	<!-- <button type="button" class="btn btn-primary" ng-click="cancel(true)"	>{{translationObj.selectmembers.buttontitledismiss}}</button>
+	<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.selectmembers.buttontitleclearform}}</button> -->
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.selectmembers.buttontitleapplyselectmembers}}</button>
+</div>

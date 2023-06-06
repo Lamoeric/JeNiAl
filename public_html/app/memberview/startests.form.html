@@ -1,0 +1,45 @@
+<div class="form-group">
+	<div>
+		<h3>{{translationObj.startest.formtitletests}}</h3>
+	  <ul class="nav nav-tabs">
+	    <li class="active pointerlist"><a data-toggle="tab" data-target="#starsummary">{{translationObj.startest.panetitlesummary}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#starskills">{{translationObj.startest.panetitleskills}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#stardances">{{translationObj.startest.panetitledance}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#starfreestyle">{{translationObj.startest.panetitlefreestyle}}</a></li>
+	  </ul>
+
+	  <div class="tab-content">
+	  	<!-- Summary -->
+	    <div id="starsummary" class="tab-pane fade in active">
+	    	<form></form> <!-- fake form to correct bug -->
+	      <form class="form-horizontal well" role="form" name="startestSummaryForm" ng-show="currentMember">
+					<star-test-summary summary="currentMember.summary"></star-test-summary>
+			  </form>
+	    </div>
+
+	  	<!-- Skills -->
+	    <div id="starskills" class="tab-pane fade">
+	      <form class="form-horizontal well" role="form" name="startestSkillsForm" ng-show="currentMember">
+					<div ng-include="'./memberview/startestskills.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Dances -->
+	    <div id="stardances" class="tab-pane fade">
+	      <!-- <form class="form-horizontal well pre-scrollable" id="map5" role="form" name="startestDanceForm" ng-show="currentMember"> -->
+	      <form class="form-horizontal well" role="form" name="startestDanceForm" ng-show="currentMember">
+					<div ng-include="'./memberview/startestdance.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Free Style -->
+	    <div id="starfreestyle" class="tab-pane fade">
+	      <!-- <form class="form-horizontal well pre-scrollable" id="map5" role="form" name="startestFreestyleForm" ng-show="currentMember"> -->
+	      <form class="form-horizontal well" role="form" name="startestFreestyleForm" ng-show="currentMember">
+					<div ng-include="'./memberview/startestfreestyle.form.html'"></div>
+			  </form>
+	    </div>
+
+	  </div>
+	</div>
+</div>

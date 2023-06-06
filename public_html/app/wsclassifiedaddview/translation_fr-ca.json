@@ -1,0 +1,36 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer annonces..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Annonces"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune annonce trouvée"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails de l'annonce"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitleenglishdescription", "text":"Description anglaise"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchdescription", "text":"Description française"},
+	{"formname":"details", "fieldname":"fieldtitleprice", "text":"Prix"},
+	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publier"},
+	{"formname":"details", "fieldname":"fieldtitlepictureindex", "text":"Index"},
+	{"formname":"details", "fieldname":"fieldtitleimagewidth", "text":"Largeur"},
+	{"formname":"details", "fieldname":"fieldtitleimageheight", "text":"Hauteur"},
+	{"formname":"details", "fieldname":"fieldtitleimagetype", "text":"Type"},
+	{"formname":"details", "fieldname":"buttontitleloadmainimage", "text":"Import de l'image"},
+	{"formname":"details", "fieldname":"msgerrinvalidfile", "text":"Image non valide"},
+	{"formname":"details", "fieldname":"msgerrinvalidfilesize", "text":"Image non valide - taille du fichier plus grand que "},
+	{"formname":"details", "fieldname":"msgerrinvalidmaxwidth", "text":"Image non valide - largeur de l'image plus grande que "},
+	{"formname":"details", "fieldname":"msgerrinvalidmaxheight", "text":"Image non valide - hauteur de l'image plus grande que "},
+	{"formname":"details", "fieldname":"helptextimagespecifications", "text":"L'image doit être de type jpg, être de moins de 300Kb et de dimensions moins de 1000px X 1000px"},
+	{"formname":"details", "fieldname":"msguploadcompleted", "text":"L'image a été importée."},
+	{"formname":"details", "fieldname":"formtitlepicture", "text":"Images supplémentaires"},
+
+	{"formname":"newclassifiedadd", "fieldname":"formtitleeditclassifiedadd", "text":"Nouvelle annonce"},
+	{"formname":"newclassifiedadd", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newclassifiedadd", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newclassifiedadd", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newclassifiedadd", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

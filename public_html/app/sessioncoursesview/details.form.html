@@ -1,0 +1,32 @@
+<div class="form-group">
+	<div>
+		<h3>{{course.name}}</h3>
+		  <p ng-if="currentEvent.type==1"><b>{{translationObj.details.coursetype}}</b>: {{currentCourse.courselabel}}&nbsp;<b>{{translationObj.details.courselevel}}</b>: {{currentCourse.levellabel}}</p>
+		  <p ng-if="currentEvent.type==2"><b>{{translationObj.details.coursetype}}</b>: {{translationObj.details.shownumber}}</p>
+		  <p><b>{{translationObj.details.labelnbofskaters}}</b>: {{currentCourse.members.length}}</p>
+<!--		  <p><b>{{translationObj.details.labelcourse}}</b>: {{currentCourse.courselabel}} <b>{{translationObj.details.labelenglishlabel}}</b>: {{currentCourse.label_en}} <b>{{translationObj.details.labelfrenchlabel}}</b>: {{currentCourse.label_fr}} <b>{{translationObj.details.labelfees}}</b>: {{currentCourse.fees}} <b>{{translationObj.details.labelnbofskaters}}</b>: {{currentCourse.members.length}}</p>
+-->
+			<div>
+				<table width="100%" border="1">
+					<tr>
+						<th>{{translationObj.details.labelskater}}</th>
+						<th ng-if="currentEvent.type==1">{{translationObj.details.labelsublevel}}</th>
+			  		<th ng-repeat="date in currentCourse.dates" class="verticalTableHeader">{{date.coursedate}}</th>
+						<th></th>
+					</tr>
+					<tr ng-repeat="member in currentCourse.members">
+			  		<td nowrap>{{member.firstname}} {{member.lastname}}</td>
+			  		<td ng-if="currentEvent.type==1">
+		      		<select class="form-control" id="sublevelcode" ng-model="member.sublevelcode" style="width:150px">
+								<option ng-repeat="sublevel in courseSublevels" value="{{sublevel.code}}">{{sublevel.text}}</option>
+		      		</select>
+			  		</td>
+			  		<td align="center" ng-repeat="date2 in member.dates">
+			  			<span ng-if="date2.ispresent==1 || date2.ispresent==0 || date2.ispresent==null"><input type="checkbox" ng-true-value="'1'" ng-false-value="'0'" ng-model="date2.ispresent" ></span>
+			  			<span ng-if="date2.ispresent!=1 && date2.ispresent!=0">{{date2.ispresent}}</span>
+			  		</td>
+			  	</tr>
+				</table>
+			</div>
+  </div>
+</div>

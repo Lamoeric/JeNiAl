@@ -1,0 +1,28 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formtitlesubtitle", "text":"YOUR BILL #"},
+	{"formname":"main", "fieldname":"formtitlebacktobills", "text":">>Your Bills"},
+
+	{"formname":"main", "fieldname":"fieldtitlebill", "text":"Bill "},
+	{"formname":"main", "fieldname":"buttontitleviewbill", "text":"View"},
+	{"formname":"main", "fieldname":"fieldtitlesession", "text":"Description"},
+	{"formname":"main", "fieldname":"fieldtitletotalamount", "text":"Total"},
+	{"formname":"main", "fieldname":"fieldtitlebalance", "text":"Balance"},
+	{"formname":"main", "fieldname":"fieldtitlebillingdate", "text":"Date"},
+
+	{"formname":"main", "fieldname":"labeltitlebillto", "text":"Bill To:"},
+	{"formname":"main", "fieldname":"labeltitledate", "text":"Date:"},
+	{"formname":"main", "fieldname":"labeltitlehaspaymentagreement", "text":"Has Payment Agreement:"},
+	{"formname":"main", "fieldname":"labeltitlepaymentagreementnote", "text":"Payment Agreement Note:"},
+	{"formname":"main", "fieldname":"labeltitleinvoiceno", "text":"Invoice No."},
+	{"formname":"main", "fieldname":"labeltitleoldinvoiceno", "text":"Old Invoice No"},
+	{"formname":"main", "fieldname":"labeltitlenewinvoiceno", "text":"New Invoice No"},
+	{"formname":"main", "fieldname":"labeltitledetails", "text":"Details"},
+	{"formname":"main", "fieldname":"labeltitleamount", "text":"Amount"},
+	{"formname":"main", "fieldname":"labeltitlesubtotal", "text":"Sub total"},
+	{"formname":"main", "fieldname":"labeltitletotal", "text":"Total"},
+	{"formname":"main", "fieldname":"labeltitletransactions", "text":"Transactions"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

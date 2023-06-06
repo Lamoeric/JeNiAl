@@ -1,0 +1,25 @@
+[
+	{"formname":"edittransaction", "fieldname":"formtitlenewtransaction", "text":"Nouvelle transaction"},
+	{"formname":"edittransaction", "fieldname":"fieldtransactiontype", "text":"Type de transaction"},
+	{"formname":"edittransaction", "fieldname":"fieldtransactiondate", "text":"Date"},
+	{"formname":"edittransaction", "fieldname":"fieldtransactionamount", "text":"Montant"},
+	{"formname":"edittransaction", "fieldname":"fieldpaymentmethod", "text":"Méthode de paiement"},
+	{"formname":"edittransaction", "fieldname":"fieldcheckno", "text":"No de chèque"},
+	{"formname":"edittransaction", "fieldname":"fieldreceivedby", "text":"Reçu par"},
+	{"formname":"edittransaction", "fieldname":"fieldemitedby", "text":"Émis par"},
+	{"formname":"edittransaction", "fieldname":"fieldcomments", "text":"Commentaires"},
+	{"formname":"edittransaction", "fieldname":"fieldreceiptno", "text":"No de reçu"},
+	{"formname":"edittransaction", "fieldname":"fieldpaperreceiptno", "text":"No de reçu papier"},
+	{"formname":"edittransaction", "fieldname":"formerrormessage", "text":"Tous les champs, sauf les commentaires, sont obligatoires."},
+	{"formname":"edittransaction", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"edittransaction", "fieldname":"buttontitlekeepchanges", "text":"Sauvegarder"},
+	
+	{"formname":"canceltransaction", "fieldname":"formtitlenewtransaction", "text":"Annulation transaction"},
+	{"formname":"canceltransaction", "fieldname":"fieldcancelreason", "text":"Raison d'annulation"},
+	{"formname":"canceltransaction", "fieldname":"fieldcanceleddate", "text":"Date"},
+	{"formname":"canceltransaction", "fieldname":"fieldcanceledby", "text":"Annulé par"},
+	{"formname":"canceltransaction", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"canceltransaction", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"canceltransaction", "fieldname":"buttontitlekeepchanges", "text":"Sauvegarder"}
+
+]

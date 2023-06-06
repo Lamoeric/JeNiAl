@@ -1,0 +1,118 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{currentTestperiod.periodlabel}}</h3>
+
+			<div ng-repeat="group in currentTestperiod.groups" class="blackcurvyborder">
+				<div class="row">
+					<div class="col-xs-12">
+						<b><a data-target="#{{group.id}}" data-toggle="collapse" class="pointerlist">{{group.grouplabel}}</a></b><br>
+						<!-- <input type="text" class="form-control" id="testlabel" value="{{group.testtypelabel}} {{group.testtype == 'DANCE' ? group.testlevellabel : ''}} {{group.testlabel}}" disabled> -->
+						{{group.testtypelabel}} {{group.testtype == 'DANCE' ? group.testlevellabel : ''}} {{group.testlabel}}
+					</div>
+					<div class="col-xs-3 col-md-1">
+						<!-- <label for="warmupduration">Warmup</label><br> -->
+						<b>{{translationObj.testperiod.fieldtitlewarmup}}</b><br>
+						{{group.warmupduration}}
+						<!-- <input type="text" class="form-control" id="warmupduration" ng-model="group.warmupduration" disabled> -->
+					</div>
+					<div class="col-xs-3 col-md-1">
+						<b>{{translationObj.testperiod.fiedtitleduration}}</b><br>
+						{{group.testduration}}
+						<!-- <input type="text" class="form-control" id="testduration" ng-model="group.testduration" disabled> -->
+					</div>
+					<!-- <div class="clearfix visible-xs"></div> -->
+					<div class="col-xs-3 col-md-1">
+						<b>{{translationObj.testperiod.fieldtitlestart}}</b><br>
+						{{group.warmuprealstarttime ? group.warmuprealstarttime : group.estimatedstarttime ? group.estimatedstarttime : group.starttime}}
+						<!-- <input type="text" class="form-control" id="starttime" ng-model="group.starttime" disabled> -->
+					</div>
+					<div class="col-xs-3 col-md-1">
+						<b>{{translationObj.testperiod.fieldtitleend}}</b><br>
+						{{group.realendtime ? group.realendtime : group.estimatedendtime ? group.estimatedendtime : group.endtime}}
+					</div>
+					<div class="clearfix visible-xs"></div>
+					<div class="col-xs-8 col-md-3 col-lg-2">
+						<label class="clearfix visible-md visible-lg">&nbsp;</label>
+						<div class="input-group">
+							<span>
+								<button class="btn btn-primary" ng-click="startGroupWarmup(group)" 	ng-show="!group.teststatus">										<span>{{translationObj.testperiod.buttontitlestart}}</span></button>
+								<button class="btn btn-primary" ng-click="stopGroup(group, true)" 	ng-show="group.teststatus == 'STARTED'">				<span>{{translationObj.testperiod.buttontitlestop}}</span></button>
+								<button class="btn btn-primary" 																		ng-show="group.teststatus == 'ENDDED'" disabled><span>{{translationObj.testperiod.buttontitleended}}</span></button>
+
+								<child-moveup-button 			obj="group" objlist="currentTestperiod.groups" prop="'sequence'" callback="saveToDB()" is-form-pristine="currentTestperiod.groups.indexOf(group)==0  || (currentTestperiod.groups[$index-1].teststatus)" ng-show="!group.teststatus"></child-moveup-button>
+								<child-movedown-button 		obj="group" objlist="currentTestperiod.groups" prop="'sequence'" callback="saveToDB()" is-form-pristine="currentTestperiod.groups.indexOf(group)==currentTestperiod.groups.length-1 || (currentTestperiod.groups[$index+1].teststatus)" ng-show="!group.teststatus"></child-movedown-button>
+
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div id="{{group.id}}" class="collapse">
+					<form >
+						<div id="childform1">
+							<div ng-repeat="skater in group.skaters" class="blackcurvyborder">
+								<div class="row" id="childform1">
+
+									<div class="col-xs-12 col-md-3 col-lg-2">
+										<b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.testperiod.fieldtitleskater}}<br></b>
+										<b class="hidden-md hidden-lg">{{translationObj.testperiod.fieldtitleskater}}<br></b>
+										{{skater.firstname}} {{skater.lastname}}
+									</div>
+									<div class="clearfix visible-xs"></div>
+
+									<!-- Filler just so the edit/delete/move buttons are aligned -->
+									<div class="col-md-7" ng-show="skater.testtype != 'DANCE'">
+									</div>
+
+									<div class="col-xs-12 col-md-2" ng-show="skater.testtype == 'DANCE'">
+										<b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.testperiod.fieldtitlepartner}}<br></b>
+										<b class="hidden-md hidden-lg">{{translationObj.testperiod.fieldtitlepartner}}<br></b>
+										{{skater.partnerfirstname}} {{skater.partnerlastname}}
+									</div>
+
+									<div class="clearfix visible-xs"></div>
+									<div class="col-xs-12 col-md-2 col-lg-3" ng-show="skater.testtype == 'DANCE'">
+										<b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.testperiod.fieldtitlemusic}}<br></b>
+										<b class="hidden-md hidden-lg">{{translationObj.testperiod.fieldtitlemusic}}<br></b>
+										{{skater.musiclabel}}
+									</div>
+
+									<div class="clearfix visible-xs"></div>
+									<div class="col-xs-12 col-md-2 col-lg-2" ng-show="skater.testtype == 'DANCE'">
+										<b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.testperiod.fieldtitlepartnersteps}}<br></b>
+										<b class="hidden-md hidden-lg">{{translationObj.testperiod.fieldtitlepartnersteps}}<br></b>
+										{{skater.partnersteps == 1 ? translationObj.testperiod.partnerstepsyes : translationObj.testperiod.partnerstepsno}}
+									</div>
+
+
+									<div class="clearfix visible-xs"></div>
+									<div class="col-xs-12 col-md-3 col-lg-2">
+										<b ng-show="$index==0" class="visible-md visible-lg">&nbsp;<br></b>
+										<div class="input-group">
+											<span>
+												<!-- <child-edit-button 					obj="skater" objlist="group.skaters" callback="editTestSkater(group, skater)"></child-edit-button> -->
+
+												<button class="btn btn-primary" ng-click="startSkaterTest(group, skater)" ng-show="group.teststatus  == 'STARTED' && !skater.teststatus"><span>{{translationObj.testperiod.buttontitlestart}}</span></button>
+												<button class="btn btn-primary" ng-click="stopSkaterTest(group, skater)" 	ng-show="skater.teststatus == 'STARTED'"><span>{{translationObj.testperiod.buttontitlestop}}</span></button>
+												<button class="btn btn-primary" 																					ng-show="skater.teststatus == 'ENDDED'" disabled><span>{{translationObj.testperiod.buttontitleended}}</span></button>
+
+												<child-moveup-button 				obj="skater" objlist="group.skaters" prop="'sequence'" 	callback="saveToDB()" 				is-form-pristine="$index==0 || (group.skaters[$index-1].teststatus)"  												ng-show="!skater.teststatus && group.skaters.length!=1"></child-moveup-button>
+												<child-movedown-button 			obj="skater" objlist="group.skaters" prop="'sequence'" 	callback="saveToDB()" 				is-form-pristine="$index==group.skaters.length-1 || (group.skaters[$index+1].teststatus)"  		ng-show="!skater.teststatus && group.skaters.length!=1"></child-movedown-button>
+												<!-- <child-moveright-button 		obj="skater" objlist="group.skaters" 										callback="moveSkaterToGroup"																																																ng-show="!skater.teststatus"></child-moveright-button> -->
+
+												<!-- <button class="btn btn-primary" ng-click="startSkaterTest(skater)" ng-show="!skater.status || skater.status=='NOTSTARTED'"><span>Start</span></button>
+												<button class="btn btn-primary" ng-click="stopSkaterTest(skater)" ng-show="skater.status && skater.status=='STARTED'"><span>Stop</span></button> -->
+												<!-- <child-status-indicator obj="skater"></child-status-indicator> -->
+
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+  </div>
+</div>

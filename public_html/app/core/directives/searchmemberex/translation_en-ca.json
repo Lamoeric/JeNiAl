@@ -1,0 +1,21 @@
+[
+	{"formname":"searchmember", "fieldname":"buttontitlesearch", "text":"Search Member..."},
+	{"formname":"searchmember", "fieldname":"buttontitlecopy", "text":"Copy Info from Member..."},
+	{"formname":"searchmembers", "fieldname":"formtitlesearchmembers", "text":"Member Search"},
+	{"formname":"searchmembers", "fieldname":"mainfilter", "text":"Filter Member"},
+	{"formname":"searchmembers", "fieldname":"noresultfound", "text":"No member found"},
+	{"formname":"searchmembers", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"searchmembers", "fieldname":"fieldlastname", "text":"Last Name"},
+	{"formname":"searchmembers", "fieldname":"members", "text":"Members"},
+	{"formname":"searchmembers", "fieldname":"selectedmembers", "text":"Selected Members"},
+	{"formname":"searchmembers", "fieldname":"formerrormessage", "text":"You must select a member."},
+	{"formname":"searchmembers", "fieldname":"buttontitlecopyall", "text":"Copy All"},
+	{"formname":"searchmembers", "fieldname":"buttontitlesearchmembers", "text":"Search"},
+	{"formname":"searchmembers", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"searchmembers", "fieldname":"buttontitlekeepchanges", "text":"Select Member"},
+	{"formname":"searchmembers", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"searchmembers", "fieldname":"fieldSurname", "text":"Last Name"},
+	{"formname":"searchmembers", "fieldname":"fieldcourse", "text":"Courses"},
+	{"formname":"searchmembers", "fieldname":"fieldmembers", "text":"Members"},
+	{"formname":"searchmembers", "fieldname":"fieldqualifications", "text":"Qualification"}
+]

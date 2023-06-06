@@ -1,0 +1,27 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer clubs..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Clubs"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun club trouvé"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitleclub", "text":"club"},
+	{"formname":"details", "fieldname":"fieldtitleorgno", "text":"No Organisation"},
+	{"formname":"details", "fieldname":"fieldtitlefriendly", "text":"Club ami"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+
+	{"formname":"editclub", "fieldname":"formtitleeditclub", "text":"Nouveau club"},
+	{"formname":"editclub", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"editclub", "fieldname":"fieldtitleclub", "text":"Club"},
+	{"formname":"editclub", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"editclub", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"editclub", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails du club"},
+	{"formname":"main", "fieldname":"panetitledetails", "text":"Club"},
+	{"formname":"main", "fieldname":"panetitlecontacts", "text":"Contacts"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs, sauf le no d'organisation, sont obligatoires."}
+
+]

@@ -1,0 +1,22 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formtitleyourprofile", "text":"VOTRE PROFIL"},
+	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">> Page d'accueil"},
+
+	{"formname":"main", "fieldname":"fieldnewuserid", "text":"Code utilisateur"},
+	{"formname":"main", "fieldname":"fieldfirstname", "text":"Prénom"},
+	{"formname":"main", "fieldname":"fieldlastname", "text":"Nom de famille"},
+	{"formname":"main", "fieldname":"fieldhomephone", "text":"Téléphone maison"},
+	{"formname":"main", "fieldname":"fieldcellphone", "text":"Téléphone celullaire"},
+	{"formname":"main", "fieldname":"fieldofficephone", "text":"Téléphone bureau"},
+	{"formname":"main", "fieldname":"fieldofficephoneext", "text":"Téléphone bureau ext."},
+	{"formname":"main", "fieldname":"fieldemail", "text":"Adresse courriel"},
+	{"formname":"main", "fieldname":"fieldpreferedlanguage", "text":"Langue"},
+	{"formname":"main", "fieldname":"buttontitlesave", "text":"Sauvegarder"},
+	{"formname":"main", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"formsuccessmessage", "text":"Modifications sauvegardées."},
+	{"formname":"main", "fieldname":"formerrormsguseridalreadyinuse", "text":"Code utilisateur déjà utilisé. Modifications non sauvegardées."},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

@@ -1,0 +1,133 @@
+<!--<div class="form-group row" style="position:absolute;height:80%;overflow-y:auto;width:98%">-->
+<div class="form-group row">
+	<h3>{{translationObj.registrationsummary.formtitleskater}}</h3>
+	<table width="100%" class="table table-striped">
+  	<tr>
+  		<td width="40%"><b>{{translationObj.registrationsummary.fieldlastname}}</b>: {{currentRegistration.member.lastname}}</td>
+  		<td width="40%"><b>{{translationObj.registrationsummary.fieldfirstname}}</b>: {{currentRegistration.member.firstname}}</td>
+  		<td width="20%"><b>{{translationObj.registrationsummary.fieldgender}}</b>: {{currentRegistration.member.gender}}</td>
+  	</tr>
+  	<tr>
+  		<td colspan="3"><b>{{translationObj.registrationsummary.fieldaddress}}</b>: {{currentRegistration.member.address1}} {{currentRegistration.member.address2}}, {{currentRegistration.member.town}}, {{currentRegistration.member.postalcode}}</td>
+  	<tr>
+  	<tr>
+  		<td><b>{{translationObj.registrationsummary.fieldhomephone}}</b>: {{currentRegistration.member.homephone}}</td>
+  		<td><b>{{translationObj.registrationsummary.fieldcellphone}}</b>: {{currentRegistration.member.cellphone}}</td>
+  		<td><b>{{translationObj.registrationsummary.fieldotherphone}}</b>: {{currentRegistration.member.otherphone}}</td>
+  	<tr>
+  		<td colspan="3"><b>{{translationObj.registrationsummary.fieldemail}}</b>: {{currentRegistration.member.email}}</td>
+  	</tr>
+  	<tr>
+  		<td colspan="3"><b>{{translationObj.registrationsummary.fieldemail2}}</b>: {{currentRegistration.member.email2}}</td>
+  	</tr>
+  	<tr>
+  		<td><b>{{translationObj.registrationsummary.fieldhealthcareno}}</b>: {{currentRegistration.member.healthcareno}}</td>
+  		<td colspan="2"><b>{{translationObj.registrationsummary.fieldhealthcareexpdate}}</b>: {{currentRegistration.member.healthcareexp}}</td>
+  	</tr>
+	</table>
+
+	<h3>{{translationObj.registrationsummary.formtitlecontacts}}</h3>
+	<table width="100%"  class="table table-striped">
+		<tr>
+			<th>{{translationObj.registrationsummary.fieldtype}}</th>
+			<th>{{translationObj.registrationsummary.fieldlastname}}</th>
+			<th>{{translationObj.registrationsummary.fieldfirstname}}</th>
+			<th>{{translationObj.registrationsummary.fieldhomephone}}</th>
+			<th>{{translationObj.registrationsummary.fieldcellphone}}</th>
+			<th>{{translationObj.registrationsummary.fieldofficephone}}</th>
+		</tr>
+  	<tr ng-repeat="contact in currentRegistration.member.contacts">
+  		<td>{{contact.relationname}}</td>
+  		<td>{{contact.lastname}}</td>
+  		<td>{{contact.firstname}}</td>
+  		<td>{{contact.homephone}}</td>
+  		<td>{{contact.cellphone}}</td>
+  		<td>{{contact.officephone}} {{contact.officeext}}</td>
+  	</tr>
+	</table>
+	
+	<div ng-if="currentRegistration.courses != null">
+		<h3>{{translationObj.registrationsummary.formtitlecourses}}</h3>
+		<table width="100%"  class="table table-striped">
+			<tr>
+				<th>{{translationObj.registrationsummary.fieldname2}}</th>
+				<th>{{translationObj.registrationsummary.fieldcourses}}</th>
+				<th>{{translationObj.registrationsummary.fieldlevel}}</th>
+				<th>{{translationObj.registrationsummary.fieldschedule}}</th>
+				<th></th>
+				<th class="coursetablefeestd">{{translationObj.registrationsummary.fieldamount}}</th>
+			</tr>
+	  	<tr ng-repeat="course in currentRegistration.courses | filter:filterSelected">
+	  		<td width="10%">{{course.name}}</td>
+	  		<td width="10%">{{course.label}}</td>
+	  		<td width="10%">{{course.courselevellabel}}</td>
+	  		<td width="30%">{{course.schedule}}</td>
+	  		<td width="5%"><i>{{getCourseDelta(course)}}</i></td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees_billing | currency}}</td>
+	  	</tr>
+		</table>
+	</div>
+
+	<div ng-if="currentRegistration.shownumbers != null">
+		<h3>{{translationObj.registrationsummary.formtitlenumbers}}</h3>
+		<table width="100%"  class="table table-striped">
+			<tr>
+				<th>{{translationObj.registrationsummary.fieldname2}}</th>
+				<th>{{translationObj.registrationsummary.fieldcourses}}</th>
+				<th>{{translationObj.registrationsummary.fieldschedule}}</th>
+				<th></th>
+				<th class="coursetablefeestd">{{translationObj.registrationsummary.fieldamount}}</th>
+			</tr>
+	  	<tr ng-repeat="number in currentRegistration.shownumbers | filter:filterSelected">
+	  		<td width="10%">{{number.name}}</td>
+	  		<td width="10%">{{number.label}}</td>
+	  		<td width="30%">{{number.schedule}}</td>
+	  		<td width="5%"><i>{{getCourseDelta(number)}}</i></td>
+	  		<td width="5%" class="coursetablefeestd">{{number.fees_billing | currency}}</td>
+	  	</tr>
+		</table>
+	</div>
+
+	<h3>{{translationObj.registrationsummary.formtitlecharges}}</h3>
+	<table width="100%"  class="table table-striped">
+		<tr>
+			<th>{{translationObj.registrationsummary.fieldcode}}</th>
+			<th>{{translationObj.registrationsummary.fieldlabel}}</th>
+			<th>{{translationObj.registrationsummary.fieldtype}}</th>
+			<th></th>
+			<th></th>
+			<th class="coursetablefeestd">{{translationObj.registrationsummary.fieldamount}}</th>
+		</tr>
+  	<tr ng-repeat="charge in currentRegistration.charges | filter:filterSelected">
+  		<td width="10%">{{charge.code}}</td>
+  		<td width="10%">{{charge.label}}<br><small>{{charge.comments}}</small></td>
+  		<td width="10%">{{charge.typelabel}}</td>
+  		<td width="30%"><i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i></td>
+	  	<td width="5%"><i>{{getChargeDelta(charge)}}</i></td>
+  		<td width="5%" class="coursetablefeestd">{{charge.amount | currency}}</td>
+  	</tr>
+	</table>
+	<br>
+	<table width="100%" class="table table-striped">
+  	<tr>
+  		<td width="90%"><h3>Total</h3></td>
+  		<td width="10%" class="coursetablefeestd"><h3>{{currentRegistration.totalamount | currency}}</h3></td>
+  	</tr>
+	</table>
+<hr>
+	<table width="100%">
+  	<tr>
+	  	<td colspan=3><label><input type="checkbox" ng-model="currentRegistration.regulationsread" ng-true-value="'1'">{{translationObj.registrationsummary.fieldregulationread}}</label> </td>
+  	</tr>
+  	<tr>
+	  	<td colspan=3><label for="comments">{{translationObj.registrationsummary.fieldcomments}}</label><textarea class="form-control" id="comments" ng-model="currentRegistration.comments" maxlength="1024"> </textarea><br></td>
+  	</tr>
+  	<tr>
+  		<td width="10%"><button class="btn btn-primary" ng-click="draftRegistration()" ng-disabled="currentRegistration.status!='PRESENTED' && currentRegistration.status!='PRESENTED-R'" ng-if="currentRegistration.status!='ACCEPTED'"><span>{{translationObj.registrationsummary.buttontitlebacktodraft}}</span></button></td>
+<!--	  	<td width="80%" align="center"><label><input type="checkbox" ng-model="currentRegistration.regulationsread" ng-true-value="'1'" ng-disabled="currentRegistration.status!='PRESENTED'">I have read and accepted the club regulations</label> </td> -->
+	  	<td width="80%" align="center"></td>
+  		<td width="10%" class="coursetablefeestd"><button class="btn btn-primary" ng-click="acceptRegistration()" ng-disabled="(currentRegistration.status!='PRESENTED' && currentRegistration.status!='PRESENTED-R')" ng-if="currentRegistration.status!='ACCEPTED'"><span>{{translationObj.registrationsummary.buttontitleaccept}}</span></button></td>
+  	</tr>
+	</table>
+
+</div>

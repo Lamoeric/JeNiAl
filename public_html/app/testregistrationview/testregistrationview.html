@@ -1,0 +1,98 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./testregistrationview/testregistration.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentTestregistration.firstname + '  ' + currentTestregistration.lastname" defaulttitle="translationObj.main.formtitledetails" object="currentTestregistration"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()" is-form-pristine="!currentTestsession.canRegister" ng-if="userInfo.privileges.testregistration_create==true"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty" ng-if="userInfo.privileges.testregistration_update==true"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="!currentTestsession.canUnregister" ng-if="userInfo.privileges.testregistration_delete==true"></main-delete-button>
+
+					<form class="form-horizontal" role="form" name="upperForm">
+						<div class="form-group">
+						  <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+						    <label for="sessionname">{{translationObj.registration.fieldtestsessionname}}</label>
+								<div class="input-group">
+									<select class="form-control" ng-model="currentTestsession.id" ng-change="onTestSessionChange()" ignore-dirty>
+										<option ng-repeat="tsid in allTestsSessions" value="{{tsid.id}}">{{tsid.text}}</option>
+									</select>
+									<span class="input-group-addon pointerlist" ng-click="displayTestSessionDetails()"><i class="glyphicon glyphicon-info-sign"></i></span>
+						  	</div>
+						  </div>
+							<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+								<label for="registrationstartdate">{{translationObj.registration.fieldstartdate}}</label>
+								<input type="date" class="form-control" id="registrationstartdate" ng-model="currentTestsession.registrationstartdate" disabled ignore-dirty>
+							</div>
+							<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+								<label for="registrationenddate">{{translationObj.registration.fieldenddate}}</label>
+								<input type="date" class="form-control" id="registrationenddate" ng-model="currentTestsession.registrationenddate" disabled ignore-dirty>
+							</div>
+							<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+								<label for="cancellationenddate">{{translationObj.registration.fieldcancelenddate}}</label>
+								<input type="date" class="form-control" id="cancellationenddate" ng-model="currentTestsession.cancellationenddate" disabled ignore-dirty>
+							</div>
+						</div>
+				  </form>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentTestregistration">
+            <div ng-include="'testregistrationview/testregistration.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>
+
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div>
+<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<div ng-if="currentTestregistration!=null"><h2>{{currentTestregistration.firstname}} {{currentTestregistration.lastname}}</h2></div>
+	<div ng-if="currentTestregistration==null"><h2>{{translationObj.registration.formtitle}}</h2></div>
+
+	<main-new-button new-callback="createNew()" is-form-pristine="!currentTestsession.canRegister" ng-if="userInfo.privileges.testregistration_create==true"></main-new-button>
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty" ng-if="userInfo.privileges.testregistration_update==true"></main-save-button>
+	<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="!currentTestsession.canUnregister" ng-if="userInfo.privileges.testregistration_delete==true"></main-delete-button>
+
+	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div>
+
+	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+	</div>
+
+	<form class="form-horizontal" role="form" name="upperForm">
+		<div class="form-group">
+		  <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+		    <label for="sessionname">{{translationObj.registration.fieldtestsessionname}}</label>
+				<div class="input-group">
+					<select class="form-control" ng-model="currentTestsession.id" ng-change="onTestSessionChange()" ignore-dirty>
+						<option ng-repeat="tsid in allTestsSessions" value="{{tsid.id}}">{{tsid.text}}</option>
+					</select>
+					<span class="input-group-addon pointerlist" ng-click="displayTestSessionDetails()"><i class="glyphicon glyphicon-info-sign"></i></span>
+		  	</div>
+		  </div>
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+				<label for="registrationstartdate">{{translationObj.registration.fieldstartdate}}</label>
+				<input type="date" class="form-control" id="registrationstartdate" ng-model="currentTestsession.registrationstartdate" disabled ignore-dirty>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+				<label for="registrationenddate">{{translationObj.registration.fieldenddate}}</label>
+				<input type="date" class="form-control" id="registrationenddate" ng-model="currentTestsession.registrationenddate" disabled ignore-dirty>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+				<label for="cancellationenddate">{{translationObj.registration.fieldcancelenddate}}</label>
+				<input type="date" class="form-control" id="cancellationenddate" ng-model="currentTestsession.cancellationenddate" disabled ignore-dirty>
+			</div>
+		</div>
+  </form>
+
+  <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentTestregistration" class="ng-hide">
+		<div ng-include="'testregistrationview/testregistration.html'"></div>
+  </form>
+</div> -->

@@ -1,0 +1,16 @@
+[
+	{"formname":"newlink", "fieldname":"formtitle", "text":"Lien"},
+	{"formname":"newlink", "fieldname":"fieldlinkname", "text":"Nom"},
+	{"formname":"newlink", "fieldname":"fieldlabelen", "text":"Libellé anglais"},
+	{"formname":"newlink", "fieldname":"fieldlabelfr", "text":"Libellé français"},
+	{"formname":"newlink", "fieldname":"fieldlinkposition", "text":"Position"},
+	{"formname":"newlink", "fieldname":"fieldlinkindex", "text":"Index"},
+	{"formname":"newlink", "fieldname":"fieldlinktype", "text":"Type"},
+	{"formname":"newlink", "fieldname":"fieldlinkpage", "text":"Page"},
+	{"formname":"newlink", "fieldname":"fieldlinksection", "text":"Section"},
+	{"formname":"newlink", "fieldname":"fieldlinkdocumentid", "text":"Document"},
+	{"formname":"newlink", "fieldname":"fieldlinkexternal", "text":"Externe"},
+	{"formname":"newlink", "fieldname":"formerrormessage", "text":"Tous les champs sont requis."},
+	{"formname":"newlink", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newlink", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

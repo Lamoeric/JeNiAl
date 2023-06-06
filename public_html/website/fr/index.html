@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('index', 'fr-ca')" ng-cloak>
+<head>
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="../images/logo_jenial.png" type="image/x-icon">
+  <title ng-bind="currentpage.globalsections.footer.label"></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Template CSS Files
+  ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="../plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="../plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="../plugins/slider/slider.css">
+  <!-- owl craousel css -->
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.theme.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="../plugins/facncybox/jquery.fancybox.css">
+  <!-- Alertify -->
+  <link rel="stylesheet" href="../../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../../dist/alertify.default.css" />
+  <!-- template main css file -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!--
+==================================================
+Main menu Section Start
+================================================== -->
+<ng-include src="'../templates/mainmenu.template.html'"></ng-include>
+
+<!--
+==================================================
+Slider Section Start
+================================================== -->
+<section id="hero-area" ng-if="currentpage.globalsections.mainslider">
+  <h1 class="wow fadeInUp animated cd-headline slide text-center" data-wow-delay=".4s" >
+    {{currentpage.globalsections.mainslider.title}}<br ng-if="currentpage.globalsections.mainslider.subtitle">{{currentpage.globalsections.mainslider.subtitle}}
+  </h1>
+</section>
+
+<!--
+==================================================
+Scrolling Message Section Start
+================================================== -->
+<section id="scrollsection" ng-if="currentpage.globalsections.scrollingmessage">
+  {{currentsection=currentpage.globalsections.scrollingmessage;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="scroll-left">
+        <p>{{currentpage.globalsections.scrollingmessage.title}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--
+==================================================
+Main Message Section Start
+================================================== -->
+<section id="about" ng-if="currentpage.globalsections.mainmessage">
+  {{currentsection=currentpage.globalsections.mainmessage;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+        <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+        <ng-include src="'../templates/paragraph.template.html'"></ng-include>
+        <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Newslist CAROUSEL Section Start
+================================================== -->
+<section id="about" ng-if="currentpage.globalsections.newssummarycarousel">
+  {{currentsection=currentpage.globalsections.newssummarycarousel;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="block wow fadeInLeft" data-wow-delay=".3s" data-wow-duration="500ms">
+          <div>
+            <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="newssummarycarousel" style="float:left">{{currentpage.globalsections.newssummarycarousel.title}}</h3>
+            <a style="float:right;margin-top:20px" href="news.html">[Toutes les nouvelles]</a>
+          </div>
+          <!-- <div> -->
+          <!-- <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" ng-if="currentpage.globalsections.newssummarycarousel.subtitle && currentpage.globalsections.newssummarycarousel.subtitle!=''">{{currentpage.globalsections.newssummarycarousel.subtitle}}</h3> -->
+          <!-- <a href="news.html">Voir toutes les nouvelles</a> -->
+          <!-- </div> -->
+          <div id="newsCarousel" class="carousel slide text-center" data-ride="carousel" data-interval="3000">
+            <!-- <div id="newsCarousel" class="carousel slide text-center" data-ride="carousel"> -->
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <!-- <li data-target="#newsCarousel" ng-repeat="onenews in currentpage.globalsections.newssummarycarousel.news" class="active" data-slide-to="{{$index}}" ng-if="{{$index==0}}" ></li> -->
+              <li data-target="#newsCarousel" ng-repeat="onenews in currentpage.globalsections.newssummarycarousel.news" ng-class="{'active':$index==0}" data-slide-to="{{$index}}"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+              <div class="item" ng-class="{'active':$index==0}" ng-repeat="onenews in currentpage.globalsections.newssummarycarousel.news">
+                <h4><div ng-bind-html="onenews.shortversion"></div></h4>
+              </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#newsCarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#newsCarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Newslist FIX Section Start
+================================================== -->
+<section id="about">
+  <div class="container">
+    <div class="row">
+      <!-- News list -->
+      <div ng-class="[newscolumn]" ng-if="currentpage.globalsections.newssummaryfix">
+        {{currentsection=currentpage.globalsections.newssummaryfix;""}}
+        <div>
+          <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="newssummaryfix" style="float:left">{{currentpage.globalsections.newssummaryfix.title}}</h3>
+          <a style="float:right;margin-top:20px" href="news.html">[Toutes les nouvelles]</a>
+        </div>
+        <div class="row">
+          <div class="col-xs-12" ng-repeat="onenews in currentpage.globalsections.newssummaryfix.news">
+            <div class="subtitle-des wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms">
+              <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms"><a href="news.html#newsid{{onenews.id}}">{{onenews.title}}</a></h3>
+              <p ng-bind-html="onenews.shortversion"></p>
+              <!-- <a href="news.html#newsid{{onenews.id}}">[Détails]</a> -->
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permament news 1 permanentnews1-->
+      <div ng-class="[newscolumn]" ng-if="currentpage.globalsections.permanentnews1">
+        {{currentsection=currentpage.globalsections.permanentnews1;""}}
+        <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+        <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <ng-include src="'../templates/paragraphhtml.template.html'"></ng-include>
+          </div>
+        </div>
+
+        <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+      </div>
+
+      <!-- Permament news 2 permanentnews2-->
+      <div ng-class="[newscolumn]" ng-if="currentpage.globalsections.permanentnews2">
+        {{currentsection=currentpage.globalsections.permanentnews2;""}}
+        <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+
+        <!-- <div class="block">
+          <img class="img-responsive" ng-src="/websiteimages/sections/{{currentpage.globalsections.permanentnews2.imagefilename}}" alt="">
+        </div> -->
+
+        <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <ng-include src="'../templates/paragraphhtml.template.html'"></ng-include>
+          </div>
+        </div>
+
+        <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Weekly Schedule Section Start
+================================================== -->
+<section id="about" ng-if="currentpage.globalsections.weeklyschedule">
+  {{currentsection=currentpage.globalsections.weeklyschedule;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">
+          <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+          <a href="schedule.html">Voir tout l'horaire</a>
+          <!-- TODO : Need to put this whole section dependant on presence of a weekly schedule or not -->
+          <h3>Semaine du {{currentpage.globalsections.weeklyschedule.allschedules.schedules[0][0].weekfirstdate}} au {{currentpage.globalsections.weeklyschedule.allschedules.schedules[0][0].weeklastdate}}</h3>
+
+          <div class="form-group row wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <div align="left">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Jour</th>
+                  <th>Date</th>
+                  <th>Cours/numéro</th>
+                  <th>Lieu</th>
+                </tr>
+                <tr ng-repeat="schedule in currentpage.globalsections.weeklyschedule.allschedules.schedules[0]">
+                  <td>{{schedule.daylabel}}</td>
+                  <td>{{schedule.coursedate}} de {{schedule.starttime}} à {{schedule.endtime}}</td>
+                  <td>{{schedule.courselabel}}&nbsp;{{schedule.courselevellabel}} <span ng-show="schedule.canceled==1"><font color="red">&nbsp;(Annulé)</font></span></td>
+                  <td>{{schedule.location}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Programslist Section Start
+================================================== -->
+<section id="about" class="works" ng-if="currentpage.globalsections.programslist">
+  {{currentsection=currentpage.globalsections.programslist;""}}
+  <div class="container">
+    <div class="section-heading">
+      <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-4 col-xs-12" ng-repeat="oneprogram in currentpage.globalsections.programslist.programs">
+        {{currentsection=oneprogram;""}}
+        <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
+          <div class="img-wrapper">
+            <!-- <div style="background: url('/websiteimages/sections/{{oneprogram.imagefilename}}') no-repeat center center; background-size: contain;" alt="logo-patinage-star"></div> -->
+            <img ng-src="/websiteimages/sections/{{oneprogram.imagefilename}}" class="img-responsive" alt="{{oneprogram.title}}" >
+            <!-- <img ng-src="/websiteimages/sections/{{oneprogram.imagefilename}}" style="background no-repeat center center; background-size: contain;" alt="{{oneprogram.title}}" > -->
+            <div class="overlay">
+              <div class="buttons">
+                <a target="_blank" ng-href="{{oneprogram.href}}">Détails</a>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <h4><a ng-href="{{oneprogram.href}}">{{oneprogram.title}}</a></h4>
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+    Partners Section Start
+================================================== -->
+<ng-include src="'../templates/partners.template.html'"></ng-include>
+
+<!--
+==================================================
+Call To Action Section Start
+================================================== -->
+<ng-include src="'../templates/calltoaction.template.html'"></ng-include>
+
+<!--
+==================================================
+Footer Section Start
+================================================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="col-md-8">
+      <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://jenial.jenial.ca" target="_blank">JeNiAl</a>.</p>
+    </div>
+  </div>
+</footer> <!-- /#footer -->
+
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="../plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="../plugins/form-validation/jquery.form.js"></script>
+    <script src="../plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- owl carouserl js -->
+	<script src="../plugins/owl-carousel/owl.carousel.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="../plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- angular js -->
+	<script src="../plugins/angularJS/angular.min.js"></script>
+	<!-- wow js -->
+	<script src="../plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="../plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="../plugins/facncybox/jquery.fancybox.js"></script>
+	<!-- template main js -->
+	<script src="../js/main.js"></script>
+  <!-- Alertify -->
+  <script type="text/javascript" src="../../dist/alertify.min.js"></script>
+  <!-- angular JS module and controler -->
+	<script src="../js/app.js"></script>
+  <!-- Remarkable -->
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+ 	</body>
+</html>

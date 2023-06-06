@@ -1,0 +1,21 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter testperiods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Testperiods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No test period found"},
+
+	{"formname":"selectcourseandelement", "fieldname":"formtitleselectcourse", "text":"Select Course and Element"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcoursename", "text":"Course"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcoursesubgroup", "text":"Subgroups"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcanskatecategory", "text":"Category"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcanskatetest", "text":"Test"},
+	{"formname":"selectcourseandelement", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"selectcourseandelement", "fieldname":"buttontitlekeepchanges", "text":"Select"},
+	{"formname":"selectcourseandelement", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+
+	{"formname":"main", "fieldname":"formtitlecanskateevaluation", "text":"CanSkate Evaluation"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

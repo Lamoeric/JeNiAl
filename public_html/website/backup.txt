@@ -1,0 +1,856 @@
+<!--
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s">
+        <div class="team-img">
+            <img src="images/boardmembers/nadia_desilets.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Nadia Désilets</h3>
+        <p class="team_designation">Présidente</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".5s">
+        <div class="team-img">
+          <img src="images/boardmembers/marie_josee_garant.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Marie-Josée Garant</h3>
+        <p class="team_designation">Trésorière</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".7s">
+        <div class="team-img">
+          <img src="images/boardmembers/stephanie_ouellet.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Stéphanie Ouellet</h3>
+        <p class="team_designation">Vice-présidente</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".9s">
+        <div class="team-img">
+          <img src="images/boardmembers/delia_iordache.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Delia Iordache</h3>
+        <p class="team_designation">Administratrice</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".9s">
+        <div class="team-img">
+          <img src="images/boardmembers/eric_lamoureux.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Eric Lamoureux</h3>
+        <p class="team_designation">Administrateur</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".9s">
+        <div class="team-img">
+          <img src="images/boardmembers/nathalie_roy.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Nathalie Roy</h3>
+        <p class="team_designation">Administratrice</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".9s">
+        <div class="team-img">
+          <img src="images/boardmembers/julie_morier.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Julie Morier</h3>
+        <p class="team_designation">Administratrice</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".9s">
+        <div class="team-img">
+          <img src="images/boardmembers/julie_parent.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Julie Parent</h3>
+        <p class="team_designation">Directrice des tests</p>
+        <p class="team_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore .</p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+</div> -->
+
+
+<div class="col-md-4">
+    <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s">
+        <div class="team-img">
+            <img src="images/coaches/jessica_cadorette.jpg" class="team-pic" alt="">
+        </div>
+        <h3 class="team_name">Jessica Cadorette</h3>
+        <p class="team_designation">Entraîneure Patinage Plus et privé</p>
+        <p class="team_text">
+          <b>Email</b> : jesscadorette1999@gmail.com<br>
+          <b>Téléphone</b> : 438-492-5377 (cell)<br>
+          <b>Enseigne depuis</b> : 2015<br>
+          <b>Niveau</b> 1 (en cours)<br>
+          <b>Danse</b> : or<br>
+          <b>Habiletés</b> : or<br>
+          <b>Style libre</b> : or<br>
+          <b>Interprétation</b> : or<br><br>
+          <b>Expérience niveau compétition</b> :<br>
+          <li>A compétionné jusqu'au niveau compétitif novice</li>
+          <li>A participé aux sous-sections du Québec</li>
+        </p>
+        <!-- <p class="social-icons">
+            <a href="#" class="facebook" target="_blank"><i class="ion-social-facebook-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-twitter-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-linkedin-outline"></i></a>
+            <a href="#" target="_blank"><i class="ion-social-googleplus-outline"></i></a>
+        </p> -->
+    </div>
+</div>
+
+
+
+
+
+<!--
+==================================================
+    Canskate section style="padding-top: 960px; margin-top: -90px;"
+================================================== -->
+<div class="row"  >
+  <div class="col-md-6">
+    <div class="block">
+      <img class="img-responsive" src="images/programs/canskate.jpg" alt="">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="block">
+      <h2 class="subtitle wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms" id="canskate">Patinage plus</h2>
+      <h3 class="wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms">Pour les débutants</h3>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Le programme Patinage Plus est axé sur l'exécution de six mouvements fondamentaux : déplacement avant, déplacement arrière, arrêt, virage, pirouette et saut.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Le programme comporte six étapes d'apprentissage, avec un septième niveau pour les patineurs qui souhaitent passer au patinage artistique.  Il y a 6 habiletés de patinage  pour chaque étape.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Les habiletés sont réparties selon la progression, de très simples aux plus complexes. Chaque phase met l'accent sur un point principal. Une fois que les habiletés de chaque phase sont maîtrisées, un écusson est décerné.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Les patineurs progressent à leur propre rythme et les entraîneurs rendent les séances actives au moyen de matériel didactique, de musique et de toute une gamme d'activités qui créent un environnement amusant et favorisent ainsi l'apprentissage.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Au club on retrouve DEUX catégories :
+        <li>les débutants/étape 1</li>
+        <li>les groupes étapes 2 à 6</li>
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Nous accordons une attention particulière aux enfants âgés de 3 à 5 ans. Les entraîneurs, aidés par les assistants de programme, ont développé des circuits et des activités ludiques pour les tout-petits.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Le rapport entraîneur-élèves est de 1 pour 15.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- End section -->
+<!--
+==================================================
+    Young Talents section
+================================================== -->
+<div class="row"  >
+  <div class="col-md-6">
+    <div class="block">
+      <img class="img-responsive" src="images/programs/youngtalents.jpg" alt="">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="block">
+        <h2 class="subtitle wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms" id="youngtalents">Jeunes Talents</h2>
+        <h3 class="wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms">Trois pas vers le STAR !</h3>
+        <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+          Au club, nous croyons au bon développement des patineurs c'est pourquoi nous avons mis sur pieds le programme Jeunes Talent 1, 2, et 3.
+        </p>
+        <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+          Ce programme est une transition entre les cours de Patinage Plus et les cours privés (Programme Star).
+        </p>
+        <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+          Les cours de Jeunes Talent 1,2 ou 3  sont donnés par un entraîneur et non par un assistant de programme. Le ratio est de 10 patineurs pour un entraîneur.
+        </p>
+        <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+          Ce programme de développement des patineurs doit :<br>
+          <li>permettre aux patineurs de développer leurs habiletés de patin.</li>
+          <li>permettre un développement progressif, illimité et adapté à chacun.</li>
+          <li>offrir un suivi adéquat pour chaque patineur.</li>
+        </p>
+        <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+          * Les patineurs de ce programme devront participer à une compétition.
+        </p>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- End section -->
+<!--
+==================================================
+    STAR section
+================================================== -->
+<div class="row"  >
+  <div class="col-md-6">
+    <div class="block">
+      <img class="img-responsive" src="images/programs/stars.jpg" alt="">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="block">
+      <h2 class="subtitle wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms" id="star">Patinage STAR</h2>
+      <h3 class=" wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms"><b>S</b>uccès, <b>T</b>ests, <b>A</b>ccomplissement, <b>R</b>econnaissance</h3>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Voilà en quoi consiste Patinage STAR ! Unique au Canada, Patinage STAR offre aux patineurs de tout âge l'occasion d'apprendre - dans les cours privés - les habiletés de patinage de base dans ces quatre disciplines :
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        <li>Habiletés de patinage</li>
+        <li>Style libre</li>
+        <li>Danse sur glace</li>
+        <li>Patinage d'interprétation</li>
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        <b>Habiletés de patinage</b><br>
+        Les habiletés de patinage sont une combinaison de mouvements fondamentaux de patinage, exécutés sur un tracé en solo. Les mouvements sont tirés des anciennes figures imposées, du style libre et de la danse sur glace. Les éléments de base de toutes les disciplines du patinage artistique sont intégrés dans le programme.
+        <br>
+        L'objectif du programme d'habiletés de patinage est la maîtrise des éléments fondamentaux du patinage – qualité des courbes, contrôle, puissance et vitesse.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        <b>Style libre</b><br>
+        Le style libre se compose de l'exécution de sauts, de pirouettes, de jeux de pied, de mouvements de transition et de poussées-élans, soit de façon isolée ou en séquence avec la musique.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        <b>Danse sur glace</b><br>
+        Composé de tests de sept niveaux, le programme de tests de danse enseigne la synchronisation, la musicalité, l'interprétation du rythme, la structure ainsi que les habiletés de base du patinage comme les courbes, l'évolution, le contrôle et l'unisson.
+        <br>
+        Les danses du programme de Patinage STAR peuvent être exécutées dans n'importe quel ordre mais un candidat doit réussir le nombre exigé de danses d'un test de danse avant de passer au niveau suivant.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        <b>Patinage d'interprétation</b><br>
+        L'objectif du programme de patinage d'interprétation est d'encourager et de développer la créativité, l'expression, la musicalité, le mouvement, l'interprétation de la musique ainsi que l'utilisation d'espace, le rythme, l'alignement et le style des patineurs. Le programme donne aux patineurs la chance d'examiner l'aspect de performance du patinage sans mettre l'accent sur les éléments techniques.
+        <br>
+        Les tests d'interprétation consistent à présenter un programme et à interpréter un morceau de musique d'une durée de 2 à 3 minutes (+/- 10 secondes). Les patineurs peuvent subir des tests d'interprétation seuls ou en couple (homme/femme, femme/femme ou homme/homme) à quatre niveaux.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        <b>À NOTER</b><br>
+        Il n’est pas nécessaire d’avoir terminé tous les écussons du programme Patinage Plus pour suivre des cours semi-privés ou privés.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- End section -->
+<!--
+==================================================
+    Stroking section
+================================================== -->
+<div class="row"  >
+  <div class="col-md-6">
+    <div class="block">
+      <img class="img-responsive" src="images/programs/stroking.jpg" alt="">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="block">
+      <h2 class="subtitle wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms" id="stroking">Poussée élan</h2>
+      <h3 class=" wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms">Pour améliorer l'endurance et la vitesse</h3>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Aussi connu comme <b>«strocking»</b>, le poussée élan est un entraînement intensif sur glace. Ce cours, d'une durée de 30 minutes, est donné par un entraîneur certifié. Les patineurs feront entre autre des exercices de poussées-élans, de croisés, de virages et de courbes sur une musique entraînante. Ce cours vise à améliorer l'endurance cardio-vasculaire, l'agileté, la musculation et la posture.
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- End section -->
+<!--
+==================================================
+    Off-ice section
+================================================== -->
+<div class="row"  >
+  <div class="col-md-6">
+    <div class="block">
+      <img class="img-responsive" src="images/programs/off_ice.jpg" alt="">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="block">
+      <h2 class="subtitle wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms" id="off_ice">Hors-glace</h2>
+      <h3 class=" wow fadeInUp animated" data-wow-delay=".3s" data-wow-duration="500ms">Pour un bon entraînement </h3>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Au club, nous croyons qu'il est important de développer un patineur à tous les niveaux. Comme le patin est un sport qui sollicite une bonne flexibilité, un bon maintien de la posture ainsi que des mouvements corporels très précis lors de sauts et de pirouettes, il est essentiel d'offrir aux patineurs un cours de hors-glace.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        Ce cours se compose donc d'exercices visant à renforcer les muscles et les articulations, de  sessions de danses, de ballet, de Pilates ainsi que d'exercices développant l'endurance cardio-vasculaire des patineurs.
+      </p>
+      <p class="subtitle-des wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="500ms">
+        L’intégration d’un entraînement hors glace régulier dans le plan d’entraînement de l’athlète assurera que nos membres font tout ce qu’ils peuvent pour atteindre leur propre niveau d’excellence – quel que soit le programme de Patinage Canada auquel ils sont inscrits.
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- End section -->
+
+
+
+<section class="company-description" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+        <!-- Begin carousel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="images/tests/test1.jpg" alt="Test">
+              <!-- <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div> -->
+            </div>
+
+            <div class="item">
+              <img src="images/tests/test2.jpg" alt="Test">
+              <!-- <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div> -->
+            </div>
+
+            <div class="item">
+              <img src="images/tests/test3.jpg" alt="Test">
+              <!-- <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a> -->
+        </div>
+        <!-- End carousel -->
+
+      </div>
+      <div class="col-md-6">
+        <div class="block">
+          <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="tests">Les tests de Patinage Canada</h3>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="tests">Pour les patineurs du Patinage STAR</h3>
+          <p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequun. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="company-description" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="block">
+          <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="invitations">Les compétitions</h3>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="invitations">Pour les patineurs au privé</h3>
+          <p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+            Les patineurs au privé qui sont intéressés à s'initier à la compétition peuvent le faire par le biais d'un éventail de compétitions invitations organisées par les différents clubs.
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            Ces compétitions offrent des catégories spécifiques pour ces patineurs et respectent les critères de  la Fédération  de patinage artistique du Québec.
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            Il ne faut pas oublier de faire parvenir les feuilles de résultats et de classement à cette adresse :  cpaacadie-competitions@hotmail.ca
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+        <!-- Begin carousel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="images/invitations/invitation1.jpg" alt="Test">
+              <!-- <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div> -->
+            </div>
+
+            <div class="item">
+              <img src="images/invitations/invitation2.jpg" alt="Test">
+              <!-- <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div> -->
+            </div>
+
+            <div class="item">
+              <img src="images/invitations/invitation3.jpg" alt="Test">
+              <!-- <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div> -->
+        <!-- End carousel -->
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="company-description" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+        <!-- Begin carousel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="images/activities/activity1.jpg" alt="Activité spéciale">
+              <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <img src="images/activities/activity2.jpg" alt="Activité spéciale">
+              <div class="carousel-caption">
+                <p>Fête d'Halloween</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <img src="images/activities/activity3.jpg" alt="Activité spéciale">
+              <div class="carousel-caption">
+                <p>Fête de Noël</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a> -->
+        </div>
+        <!-- End carousel -->
+
+      </div>
+      <div class="col-md-6">
+        <div class="block">
+          <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="activities">Les activités spéciales</h3>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="activities">On a BEAUCOUP de plaisir sur la glace . . .</h3>
+          <p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+            Durant la saison, une foule d'activités ont lieu, dont :
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Fête d'Halloween, au mois d'octobre</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Journée «Pyjama», au mois de novembre</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Fête de Noël, au mois de décembre</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Festival sportif</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Les jeux de Montréal</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Le gala méritas</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Le spectacle de fin d'année</li>
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            Consultez le calendrier de la saison pour de plus amples détails.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="company-description" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="block">
+          <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="shows">Le spectacle de fin d'année</h3>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="shows">Revue sur glace</h3>
+          <p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+            Chaque année, le CPA l'Acadie présente un spectacle pour clôturer sa saison régulière. Cet événement se veut une récompense et un encouragement pour les patineurs.
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Les pratiques du spectacle débutent dès la fin de la saison régulière.  Un horaire est établi en fonction des participants.</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Pour les élèves qui ne participent pas au spectacle, les cours se terminent aux dates indiquées au calendrier de la session.</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Les pratiques prévues à l’horaire sont obligatoires pour tous les patineurs participant au spectacle.  Une seule absence est tolérée.</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Une contribution est exigée de tous les patineurs participant au spectacle pour défrayer le coût des costumes.</li>
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            Le CPA l’Acadie se réserve le droit d’annuler le spectacle de fin d’année en tout temps.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+        <!-- Begin carousel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="images/endofyearshow/show1.jpg" alt="Spectacle 2016">
+              <div class="carousel-caption">
+                <p>Spectacle 2016 - Vlad Ghiea photographe</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <img src="images/endofyearshow/show2.jpg" alt="Spectacle 2016">
+              <div class="carousel-caption">
+                <p>Spectacle 2016 - Vlad Ghiea photographe</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <img src="images/endofyearshow/show3.jpg" alt="Spectacle 2016">
+              <div class="carousel-caption">
+                <p>Spectacle 2016 - Vlad Ghiea photographe</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left and right controls -->
+          <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a> -->
+        </div>
+        <!-- End carousel -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="company-description" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="aga">L'assemblée générale annuelle</h3>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="aga">Vous êtes les bienvenus</h3>
+          <p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+            Notre assemblée générale annuelle (AGA) a lieu chaque été et est ouvert à tous les parents et les membres du club. Un ordre du jour officiel est suivi, y compris ce qui suit:
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">États financiers</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Rapport d'activités du club</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Ratification des décisions prises par le Conseil d'administration</li>
+            <li class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">Élections aux postes vacants</li>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="rules">Règlements concernant les inscriptions</h3>
+<p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+  1. Les cours doivent être payés en totalité à l’inscription.<br>
+  2. Le coût des cours privés (dans le programme Patinage STAR) n’inclut pas les frais de l’entraîneur professionnel.<br>
+  3. En tout temps, un remboursement peut être émis sur demande au prorata du nombre de cours écoulés.<br>
+  4. Les frais d’inscription de 60$ ne sont pas remboursables.<br>
+  5. Des frais de 35 $ seront exigés pour les chèques sans provision.<br>
+</p>
+<h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="rules">Comportement à l'aréna</h3>
+<p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+  1. Ne jamais laisser votre enfant seul à l’aréna. Le CPA l'Acadie n’est pas un service de garde.<br>
+  2. Les patineurs doivent arriver au moins 15 minutes avant le début du cours et être présents pour la période d’échauffement obligatoire.<br>
+  3. Tous les patineurs doivent se changer et mettre leurs patins dans les chambres réservées à cette fin. Pour des raisons de sécurité, il est strictement interdit d’utiliser les estrades. Un seul parent par famille est admis dans les chambres. Les estrades sont réservées aux parents et aux spectateurs. Les assurances du club ne couvrent pas les blessures causées à un patineur qui tomberait dans les estrades. De plus, le béton endommage les lames des patins.<br>
+  4. Les parents ne doivent pas porter dans leurs bras des enfants portant des patins.<br>
+  5. Les parents n’ont pas accès à la patinoire et doivent demeurer dans les estrades durant la leçon. Il est défendu de s’asseoir de l’autre coté de la patinoire (banc des joueurs) et de donner des directives à son enfant durant la leçon.<br>
+  6. Les parents qui le désirent doivent s’adresser au professionnel responsable du groupe AVANT ou APRÈS la leçon. Les assistants de programme du Patinage Plus sont bénévoles et relèvent du professionnel autorisé et présent sur la patinoire.<br>
+  7. Tout écart de langage ou impolitesse de la part de patineurs ou de parents envers les entraîneurs, les assistants de programme, les bénévoles ou la direction ne seront pas tolérés. L’expulsion de la patinoire sera immédiate. Aucun remboursement ne sera effectué.<br>
+  8. Il est défendu de mâcher de la gomme, de manger et de boire autre chose que de l’eau sur la glace.<br>
+  9. Les parents qui désirent obtenir des informations ou qui auraient des commentaires au sujet des cours doivent s’adresser à la direction.<br>
+</p>
+<h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="rules">Habillement</h3>
+<p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+  1. Le port du casque protecteur de type hockey homologué CSA (pas de casque de vélo) est obligatoire pour les patineurs jusqu’à la fin de l’étape 5. Le casque doit être de la bonne grandeur et être ajusté correctement.<br>
+  2. Le port de l’habit de neige n’est pas accepté. Les patineurs doivent porter des vêtements adéquats leur permettant de bouger aisément.<br>
+  3. Les patins doivent être en bon état et de préférence avec une bottine rigide. Les lames doivent être vérifiées et aiguisées.<br>
+  4. Tous les patineurs doivent porter des gants ou des mitaines durant les leçons.<br>
+  5. Il est interdit de porter le jeans, le pantalon large ou trop long, jupe longue, foulard, manteau d’hiver et gants de hockey.<br>
+</p>
+<h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="rules">Prise de photos</h3>
+<p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+  1. À l’occasion de certaines activités ou lors des cours, tests ou compétitions, le CPA l’Acadie peut prendre des photos des patineurs. Les photos prises dans le cadre de ces activités pourront être utilisées à l’interne (affichage, programme du spectacle, dépliants, etc.) ou sur le site internet du club. En aucun temps, les patineurs ne seront nommément identifiés. En tout temps, une photo pourra être retirée à la demande du parent.
+</p>
+<h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="rules">Les droits du Club</h3>
+<p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+  1. Les patineurs ainsi que leurs parents doivent se conformer aux règlements du club en tout temps. La direction se réserve le droit d’expulser ou d’interdire l’accès aux patineurs ou aux parents qui ne respectent pas les règlements.<br>
+  2. La direction se réserve le droit de retirer un enfant du programme (pour les débutants, après le 3e cours) si celui-ci n’est pas en mesure de suivre de façon adéquate et autonome les leçons offertes par le club.<br>
+  3. Le club ne peut être tenu responsable d’accidents, d’objets perdus ou volés.<br>
+  4. Le club se réserve le droit d’annuler un cours si le nombre d’inscriptions est insuffisant.<br>
+  5. Le club n’est pas responsable du temps de glace perdu en raison d’événements hors de son contrôle. Aucune reprise n’est prévue.<br>
+</p>
+
+
+<div class="row">
+  <div class="col-sm-4 col-xs-12">
+    <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
+      <div class="img-wrapper">
+        <img src="images/sections/canskate.jpg" class="img-responsive" alt="Patinage Plus" >
+        <div class="overlay">
+          <div class="buttons">
+            <a target="_blank" href="service.html#canskate">Détails</a>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <h4><a href="service.html#canskate">Patinage Plus</a></h4>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm-4 col-xs-12">
+    <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
+      <div class="img-wrapper">
+        <img src="images/sections/youngtalents.jpg" class="img-responsive" alt="Jeune Talents" >
+        <div class="overlay">
+          <div class="buttons">
+            <a target="_blank" href="service.html#youngtalents">Détails</a>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <h4><a href="service.html#youngtalents">Jeunes Talents</a></h4>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm-4 col-xs-12">
+    <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
+      <div class="img-wrapper">
+        <img src="images/sections/stars.jpg" class="img-responsive" alt="Patinage STAR" >
+        <div class="overlay">
+          <div class="buttons">
+            <a target="_blank" href="service.html#star">Détails</a>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <h4><a href="service.html#star">Patinage STAR</a></h4>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm-4 col-xs-12">
+    <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="600ms">
+      <div class="img-wrapper">
+        <img src="images/sections/stroking.jpg" class="img-responsive" alt="Poussée élan" >
+        <div class="overlay">
+          <div class="buttons">
+            <a target="_blank" href="service.html#stroking">Détails</a>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <h4><a href="service.html#youngtalents">Poussée élan</a></h4>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="col-sm-4 col-xs-12">
+    <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="900ms">
+      <div class="img-wrapper">
+        <img src="images/sections/off_ice.jpg" class="img-responsive" alt="Hors-glace" >
+        <div class="overlay">
+          <div class="buttons">
+            <!-- <a rel="gallery" class="fancybox" href="images/portfolio/item-5.jpg">Demo</a> -->
+            <a target="_blank" href="service.html#off_ice">Détails</a>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <h4><a href="service.html#off_ice">Hors-glace</a></h4>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <h2 class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".3s">Aréna Marcelin-Wilson</h2>
+    <p>11 301, boul de l'Acadie<br>Montréal, QC H3M 2T1<p>
+    <div class="map-area">
+      <div class="map">
+        <iframe width="100%" height="400" frameborder="0" style="border:0" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJoYl78YYYyUwRGJ1JWRKMt8I&key=AIzaSyAyMoWr0Sv-SYeSry4lRWX8dPKTXh3FokE"></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h2 class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".3s">Aréna St-Louis</h2>
+    <p>5633, rue St Dominique<br>Montréal, QC H2T 1V7<p>
+    <div class="map-area">
+      <div class="map">
+        <iframe width="100%" height="400" frameborder="0" style="border:0" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJMZC8oXsZyUwRdcW1cCb5Hxs&key=AIzaSyAyMoWr0Sv-SYeSry4lRWX8dPKTXh3FokE"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h2 class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".3s">Aréna Howie-Morentz</h2>
+    <p>8650, Avenue Querbes<br>Montréal, QC H3N 2G5<p>
+    <div class="map-area">
+      <div class="map">
+        <iframe width="100%" height="400" frameborder="0" style="border:0" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJdaRZ4_wYyUwR-ecc5S4aw44&key=AIzaSyAyMoWr0Sv-SYeSry4lRWX8dPKTXh3FokE"></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h2 class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".3s">Aréna Ahuntsic</h2>
+    <p>10560, rue St Hubert<br>Montréal, QC H2C 2H7<p>
+    <div class="map-area">
+      <div class="map">
+        <iframe width="100%" height="400" frameborder="0" style="border:0" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJQSPBProYyUwRxKAuPARE57M&key=AIzaSyAyMoWr0Sv-SYeSry4lRWX8dPKTXh3FokE"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <section id="gallery" class="gallery">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-xs-12">
+        <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="500ms" data-wow-delay="0ms" style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+          <div class="img-wrapper">
+            <img src="../images/gallery/show2016/show1.jpg" class="img-responsive" alt="Spectacle 2016">
+            <div class="overlay">
+              <div class="buttons">
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show1.jpg">Spectacle 2016</a>
+              </div>
+              <div class="buttons" hidden>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show2.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show3.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show4.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show5.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show6.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show7.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show8.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show9.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show10.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show11.jpg"></a>
+                <a rel="show2016" class="fancybox" href="../images/gallery/show2016/show12.jpg"></a>
+              </div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section> -->

@@ -1,0 +1,29 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formttextsignin", "text":"Please sign in to access the page you want"},
+	{"formname":"main", "fieldname":"formttitlesignin", "text":"SIGN IN"},
+	{"formname":"main", "fieldname":"formttitlenotregisteredyet", "text":"NOT REGISTERED YET?"},
+	{"formname":"main", "fieldname":"formttitleskatingspacedef", "text":"If your children are already registerd at the club, you should register at MY SKATING SPACE."},
+	{"formname":"main", "fieldname":"formttitlemanageservice", "text":"Manage your services the way you want"},
+	{"formname":"main", "fieldname":"formttitlecentreyoucan", "text":"With MY SKATING SPACE, you can:"},
+	{"formname":"main", "fieldname":"formttitlemodifydata", "text":"Manage your personal profile and your child's profile"},
+	{"formname":"main", "fieldname":"formttitleconsultdata", "text":"Consult your child's data and follow their progress"},
+	{"formname":"main", "fieldname":"formttitlemodifyskaterdata", "text":"Manage your skaters' data"},
+	{"formname":"main", "fieldname":"formttitlepreregister", "text":"Register your child to the skating sessions"},
+	{"formname":"main", "fieldname":"formttitleconsultbilling", "text":"Consult your billing online"},
+	{"formname":"main", "fieldname":"formttitlepreregistration", "text":"Pré-inscription"},
+	{"formname":"main", "fieldname":"formttitlepreregistrationdef", "text":"If your children are NOT already registered at the club, you must first pre-register them using the pre-registration form."},
+	{"formname":"main", "fieldname":"formttitlepreregistrationdef2", "text":"PLEASE DO NOT PRE-REGISTER YOUR CHILDREN IF THEY WERE PREVIOUSLY REGISTERED AT THE CLUB."},
+	{"formname":"main", "fieldname":"formttitlepreregistrationdef3", "text":"Once your children pre-registered, a email will be sent to inform you on how to register them."},
+	{"formname":"main", "fieldname":"formttitleforgotmypassword", "text":"I forgot my username or password"},
+
+	{"formname":"main", "fieldname":"msgerrinvalidlogin", "text":"Invalid login info"},
+	{"formname":"main", "fieldname":"buttontitlelogin", "text":"Sign in"},
+	{"formname":"main", "fieldname":"buttontitleregister", "text":"Sign up"},
+	{"formname":"main", "fieldname":"buttontitlepreregister", "text":"Pre-registration"},
+
+
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

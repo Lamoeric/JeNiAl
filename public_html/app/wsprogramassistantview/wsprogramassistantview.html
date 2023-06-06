@@ -1,0 +1,22 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./wsprogramassistantview/wsprogramassistant.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentWsprogramassistant.firstname + ' ' + currentWsprogramassistant.lastname" defaulttitle="translationObj.main.formtitledetails" object="currentWsprogramassistant"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentWsprogramassistant==null"></main-delete-button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentWsprogramassistant">
+						<div ng-include="'wsprogramassistantview/wsprogramassistant.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>

@@ -1,0 +1,9 @@
+[
+	{"formname":"editpaymentagreement", "fieldname":"formtitlepaymentagreement", "text":"Edit Payment Agreement"},
+	{"formname":"editpaymentagreement", "fieldname":"fieldhaspaymentagreement", "text":"Has Payment Agreement"},
+	{"formname":"editpaymentagreement", "fieldname":"fieldpaymentagreementnote", "text":"Note"},
+	{"formname":"editpaymentagreement", "fieldname":"formerrormessage", "text":"All fields, except comments, are mandatory."},
+	{"formname":"editpaymentagreement", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"editpaymentagreement", "fieldname":"buttontitlekeepchanges", "text":"Save"}
+
+]

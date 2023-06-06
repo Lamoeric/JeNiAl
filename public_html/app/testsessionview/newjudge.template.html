@@ -1,0 +1,35 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newjudge.titleeditjudge}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group row">
+
+			<div class="col-xs-5">
+	      <label for="judgesid">{{translationObj.newjudge.fieldjudge}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="judgesid" ng-model="newObj.judgesid" required>
+						<option ng-repeat="judge in allJudges" value="{{judge.id}}">{{judge.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+			<!-- <div class="col-xs-3">
+				<label for="judgeno">Judge No<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" class="form-control" id="judgeno" ng-model="newObj.judgeno" min="1" max="99" required>
+				</div>
+			</div> -->
+
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newjudge.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newjudge.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newjudge.buttontitlekeepchanges}}</button>
+</div>

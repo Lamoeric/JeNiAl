@@ -1,0 +1,10 @@
+[
+	{"formname":"cssummary", "fieldname":"formtitlestage", "text":"Étape"},
+	{"formname":"cssummary", "fieldname":"formtitlebalance", "text":"Équilibre"},
+	{"formname":"cssummary", "fieldname":"titlebalance", "text":"Équilibre"},
+	{"formname":"cssummary", "fieldname":"formtitlecontrol", "text":"Maîtrise"},
+	{"formname":"cssummary", "fieldname":"titlecontrol", "text":"Maîtrise"},
+	{"formname":"cssummary", "fieldname":"formtitleagility", "text":"Agilité"},
+	{"formname":"cssummary", "fieldname":"titleagility", "text":"Agilité"},
+	{"formname":"cssummary", "fieldname":"titlebadge", "text":"Badge"}
+]

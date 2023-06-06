@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="cpa_admin" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="cpa_admin" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="cpa_admin" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="cpa_admin" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title ng-bind="'JeNiAl - ' + $root.title">JeNiAl</title>
+  <link rel="shortcut icon" href="../../images/logo_jenial.png" type="image/x-icon">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../dist/angular-busy.css">
+	<!-- <link rel="stylesheet" href="../../dist/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="../../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../../dist/alertify.default.css" />
+	<link rel="stylesheet" href="../../dist/angular-bootstrap-toggle.min.css" />
+	<link rel="stylesheet" href="../cpa_admin.css" />
+</head>
+<body>
+	<script type="text/javascript" src="../../dist/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="../../dist/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../dist/angular.min.js"></script>
+	<script type="text/javascript" src="../../dist/angular-resource.min.js"></script>
+	<script type="text/javascript" src="../../dist/angular-animate.js"></script>
+	<script type="text/javascript" src="../../dist/angular-route.min.js"></script>
+	<script type="text/javascript" src="../../dist/ui-bootstrap-tpls-1.3.3.min.js"></script>
+	<script type="text/javascript" src="../../dist/ng-file-upload.min.js"></script>
+
+	<script type="text/javascript" src="../../dist/alertify.min.js"></script>
+	<script type="text/javascript" src="../../dist/angular-busy.js"></script>
+	<script type="text/javascript" src="../../dist/ng-currency.min.js"></script>
+	<script type="text/javascript" src="../../dist/angular-bootstrap-toggle.js"></script>
+	<script type="text/javascript" src="../../dist/angular-locale_es-ar.js"></script>
+
+	<script type="text/javascript" src="../core/core.module.js"></script>
+	<script type="text/javascript" src="../core/services/dialog/dialog.service.js"></script>
+	<script type="text/javascript" src="../core/services/parseisodate/parseisodate.service.js"></script>
+
+	<script type="text/javascript" src="sessionscheduleview.js"></script>
+
+	<div ng-app="cpa_admin" ng-controller="sessionscheduleviewCtrl">
+		<table width='100%'>
+			<tr heigth='100'>
+				<td width='20%'><img style="vertical-align:middle" src="../../privateimages/cpa_logo.jpg" alt="logo"></td>
+				<td width='60%' align='center'>
+          <h1 ng-show="language=='fr-ca'">Calendrier</h1>
+          <h1 ng-show="language=='en-ca'">Calendar</h1>
+          <h1>{{currentSession.label_txt}}</h1>
+        </td>
+				<td width='20%'></td>
+			</tr>
+		</table>
+		<center>
+		<table width='80%' border=0 cellspacing=2>
+			<tr align='center' valign='top' ng-repeat="row in currentSession.monthArr track by $index">
+				<td ng-repeat="col in row track by $index">
+					<!-- {{$parent.$index}}  {{$index}} -->
+					<!-- <h1>{{col.month}} {{col.year}}</h1> -->
+					<div ng-bind-html="col.html"></div>
+				</td>
+			</tr>
+		</table>
+	</center>
+	<table width='100%'>
+		<tr heigth='100'>
+			<td width='20%'></td>
+      <td width='60%' ng-show="language=='fr-ca'"><p>X - Aréna fermée ou cours annulés<br>@ - Inscription<br>* - date importante</p></td>
+      <td width='60%' ng-show="language=='en-ca'"><p>X - Arena closed or courses canceled<br>@ - Registration<br>* - Important Date</p></td>
+			<td width='20%'></td>
+		</tr>
+	</table>
+
+
+
+	</div>
+</body>
+</html>

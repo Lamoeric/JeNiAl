@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('session', 'fr-ca')">
+<head>
+  <script>
+    var shiftWindow = function() { scrollBy(0, -110) };
+    window.addEventListener("hashchange", shiftWindow);
+    function load() { if (window.location.hash) shiftWindow(); }
+  </script>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="../../../images/logo_jenial.png" type="image/x-icon">
+  <title ng-bind="currentpage.globalsections.footer.label"></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Template CSS Files
+  ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="../../../plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="../../../plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="../../../plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="../../../plugins/slider/slider.css">
+  <!-- owl craousel css -->
+  <link rel="stylesheet" href="../../../plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="../../../plugins/owl-carousel/owl.theme.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="../../../plugins/facncybox/jquery.fancybox.css">
+  <!-- angular Busy -->
+  <link rel="stylesheet" href="../../../plugins/angularBusy/angular-busy.css">
+  <!-- Alertify -->
+  <link rel="stylesheet" href="../../../../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../../../../dist/alertify.default.css" />
+  <!-- template main css file -->
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body onload="load()">
+<!--
+==================================================
+Main menu Section Start
+================================================== -->
+<ng-include src="'../../../templates/mainmenu.template.html'"></ng-include>
+
+<!--
+==================================================
+Main header Section Start
+================================================== -->
+<ng-include src="'../../../templates/mainheader.template.html'"></ng-include>
+
+<!--
+==================================================
+    Session Description Section Start
+================================================== -->
+<section id="company-description" ng-if="currentpage.globalsections.session">
+  {{currentsection=currentpage.globalsections.session;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 wow fadeInLeft" data-wow-delay=".3s" >
+        <div class="block">
+          <img class="img-responsive" ng-src="/websiteimages/sections/{{currentpage.globalsections.session.imagefilename}}" alt="">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="block">
+          <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+
+          <p  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
+            La session de patinage actuelle est :
+          </p>
+          <p  class="wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <b>{{currentpage.globalsections.activesessioninfo.sessionlabel}}</b><br>
+            Date de début des cours : <b>{{currentpage.globalsections.activesessioninfo.coursesstartdate}}</b><br>
+            Date de fin des cours : <b>{{currentpage.globalsections.activesessioninfo.coursesenddate}}</b>
+          </p>
+          <a href="../../../../app/sessionscheduleview/sessionscheduleview.html?language=fr-ca&sessionid={{currentpage.globalsections.session.activesessioninfo.id}}" target="_blank">Voir le calendrier de la session</a><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+    Schedule Description Section Start
+================================================== -->
+<section id="company-description" ng-if="currentpage.globalsections.schedule">
+  {{currentsection=currentpage.globalsections.schedule;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">{{currentpage.globalsections.activesessioninfo.sessionlabel}}</h3>
+          <ng-include src="'../../../templates/paragraph.template.html'"></ng-include>
+<!--          <a href="../../../../app/reports/sessionschedule.php?language=fr-ca&sessionid={{currentpage.globalsections.activesessioninfo.id}}" target="_blank">Voir le sommaire de l'horaire</a><br> !-->
+          <a href="schedule.html">Voir l'horaire détaillé par semaine</a>
+          <div class="form-group row wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <div align="left">
+            	<table width="100%" class="table table-striped">
+            		<tbody>
+            			<tr>
+            				<th>Nom</th>
+            				<th>Cours</th>
+            				<th>Horaire</th>
+            				<th>Nb patineur</th>
+            				<th>Nb de cours</th>
+            				<th>Prix</th>
+            			</tr>
+            	  	<tr ng-repeat="course in currentpage.globalsections.activesessioninfo.courses">
+            	  		<td width="10%">{{course.name}}</td>
+            	  		<!-- <td width="20%"> <font color="red"> ng-class="{ 'color=red: course.nbofskaters < course.maxnumberskater }">{{course.label}} {{course.courselevellabel}}<font></td> -->
+            	  		<td width="20%">{{course.label}} {{course.courselevellabel}} <span ng-show="course.nbofskaters/1 >= course.maxnumberskater/1"><font color='red'>(complet)<font></span></td>
+            	  		<td width="40%">{{course.schedule}}</td>
+            	  		<td width="10%">{{course.maxnumberskater}}</td>
+            	  		<td width="10%">{{course.nbofcourses}}</td>
+            	  		<td width="10%" class="coursetablefeestd">{{course.fees | currency}}</td>
+            	  	</tr>
+            	  </tbody>
+            	</table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+    Registrations Description Section Start
+================================================== -->
+<section id="company-description" ng-if="currentpage.globalsections.registrations">
+  {{currentsection=currentpage.globalsections.registrations;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">{{currentpage.globalsections.activesessioninfo.sessionlabel}}</h3>
+
+          <ng-include src="'../../../templates/toplinks.template.html'"></ng-include>
+          <ng-include src="'../../../templates/paragraph.template.html'"></ng-include>
+          <ng-include src="'../../../templates/bottomlinks.template.html'"></ng-include>
+
+          <div class="form-group row wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms" ng-show="currentpage.globalsections.session.activesessioninfo.registrations.length!=0">
+            <div align="left">
+            	<table width="100%" class="table table-striped">
+            		<tbody>
+            			<tr>
+            				<th>Lieu</th>
+            				<th>Date</th>
+            				<th>Heure de début</th>
+            				<th>Heure de fin</th>
+            			</tr>
+            	  	<tr ng-repeat="registration in currentpage.globalsections.activesessioninfo.registrations">
+            	  		<td width="25%">{{registration.location}}</td>
+            	  		<td width="25%">{{registration.registrationdate}}</td>
+            	  		<td width="25%">{{registration.starttime}}</td>
+            	  		<td width="25%">{{registration.endtime}}</td>
+            	  	</tr>
+            	  </tbody>
+            	</table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+    Rules Description Section Start
+================================================== -->
+<section id="company-description" ng-if="currentpage.globalsections.rules">
+  {{currentsection=currentpage.globalsections.rules;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+          <ng-include src="'../../../templates/toplinks.template.html'"></ng-include>
+
+          <div class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" ng-bind-html="currentpage.globalsections.activesessioninfo.rules"></div>
+
+          <ng-include src="'../../../templates/bottomlinks.template.html'"></ng-include>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+    Sessiongroup Section  Start
+================================================== -->
+<section id="company-description">
+  <div class="container">
+
+    <div class="row" ng-repeat="onesession in currentpage.globalsections.sessiongroup">
+      {{currentsection=onesession;""}}
+      <div class="col-md-4" ng-show="$even">
+        <div class="block">
+          <img class="img-responsive" ng-src="/websiteimages/sections/{{onesession.imagefilename}}" alt="">
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+        <ng-include src="'../../../templates/toplinks.template.html'"></ng-include>
+        <ng-include src="'../../../templates/paragraph.template.html'"></ng-include>
+        <ng-include src="'../../../templates/bottomlinks.template.html'"></ng-include>
+      </div>
+
+      <div class="col-md-4" ng-show="$odd">
+        <div class="block">
+          <img class="img-responsive" ng-src="/websiteimages/sections/{{onesession.imagefilename}}" alt="">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!--
+==================================================
+    Partners Section Start
+================================================== -->
+<ng-include src="'../../../templates/partners.template.html'"></ng-include>
+
+<!--
+==================================================
+Call To Action Section Start
+================================================== -->
+<ng-include src="'../../../templates/calltoaction.template.html'"></ng-include>
+
+<!--
+==================================================
+Footer Section Start
+================================================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="col-md-8">
+      <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://jenial.jenial.ca" target="_blank">JeNiAl</a>.</p>
+    </div>
+  </div>
+</footer> <!-- /#footer -->
+
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="../../../plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="../../../plugins/form-validation/jquery.form.js"></script>
+    <script src="../../../plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- owl carouserl js -->
+	<script src="../../../plugins/owl-carousel/owl.carousel.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="../../../plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- angular js -->
+	<script src="../../../plugins/angularJS/angular.min.js"></script>
+	<!-- wow js -->
+	<script src="../../../plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="../../../plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="../../../plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- angular Busy -->
+  <script src="../../../plugins/angularBusy/angular-busy.js"></script>
+	<!-- template main js -->
+	<script src="../../../js/main.js"></script>
+  <!-- Alertify -->
+  <script type="text/javascript" src="../../../../dist/alertify.min.js"></script>
+  <!-- angular JS module and controler -->
+	<script src="../../../js/app.js"></script>
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+ 	</body>
+</html>

@@ -1,0 +1,34 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer charges..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Charges"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune charge trouvée"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails de la charge"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
+
+	{"formname":"details", "fieldname":"formtitlemaininformation", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitleamount", "text":"Montant"},
+	{"formname":"details", "fieldname":"fieldtitlealwaysdisplay", "text":"Toujours afficher"},
+	{"formname":"details", "fieldname":"fieldtitlealwaysselected", "text":"Toujours sélectionner"},
+	{"formname":"details", "fieldname":"fieldtitlenonrefundable", "text":"Non remboursable"},
+	{"formname":"details", "fieldname":"fieldtitleisonline", "text":"Disponible en ligne"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"details", "fieldname":"formtitlerules", "text":"Règles"},
+	{"formname":"details", "fieldname":"fieldtitleruletype", "text":"Type de règle"},
+	{"formname":"details", "fieldname":"fieldtitleruleparameters", "text":"Paramètres de règle"},
+
+	{"formname":"newcharge", "fieldname":"formtitlenewcharge", "text":"Nouvelle charge"},
+	{"formname":"newcharge", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"newcharge", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newcharge", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newcharge", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}
+
+]

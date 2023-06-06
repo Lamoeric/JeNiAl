@@ -1,0 +1,32 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter roles..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Roles"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No role found"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Role Details"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitleid", "text":"Id"},
+	{"formname":"details", "fieldname":"fieldtitlerole", "text":"Role"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"details", "fieldname":"formtitleprivileges", "text":"Privileges"},
+	{"formname":"details", "fieldname":"fieldtitleprivilege", "text":"Privilege"},
+
+	{"formname":"newrole", "fieldname":"formtitlenewrole", "text":"New Role"},
+	{"formname":"newrole", "fieldname":"fieldtitlerole", "text":"Role"},
+	{"formname":"newrole", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"newrole", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newrole", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newrole", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"newprivilege", "fieldname":"formtitlenewprivilege", "text":"Edit Privilege"},
+	{"formname":"newprivilege", "fieldname":"fieldtitleprivilege", "text":"Privilege"},
+	{"formname":"newprivilege", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newprivilege", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newprivilege", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}
+
+]

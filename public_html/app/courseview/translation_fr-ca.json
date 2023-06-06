@@ -1,0 +1,46 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer cours..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Cours"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun cours trouvé"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails du cours"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitleclub", "text":"club"},
+	{"formname":"details", "fieldname":"fieldtitleorgno", "text":"No Organisation"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitlecolor", "text":"Couleur pour l'horaire"},
+
+	{"formname":"editcourse", "fieldname":"formtitleeditcourse", "text":"Nouveau cours"},
+	{"formname":"editcourse", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"editcourse", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editcourse", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"editcourse", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"editcourse", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"editlevel", "fieldname":"formtitleeditlevel", "text":"Éditer niveau"},
+	{"formname":"editlevel", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editlevel", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"editlevel", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"editlevel", "fieldname":"fieldtitlecolor", "text":"Couleur pour l'horaire"},
+	{"formname":"editlevel", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"editlevel", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"editlevel", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
+	{"formname":"details", "fieldname":"fieldtitleacceptreg", "text":"Accepte inscription"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitleenglishshortdesc", "text":"Libellé court anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchshortdesc", "text":"Libellé court français"},
+	{"formname":"details", "fieldname":"formtitlelevels", "text":"Niveaux"},
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}
+
+]

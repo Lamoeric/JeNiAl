@@ -1,0 +1,18 @@
+<section id="clients" ng-if="currentpage.globalsections.partners">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="subtitle text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay=".3s">{{currentpage.globalsections.partners.navbarlabel}}</h2>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col-md-2" ng-repeat="oneicon in currentpage.globalsections.partners.icons">
+        <div style="height:100px;width:100px;">
+          <a  href="{{oneicon.link}}" target="_blank">
+            <img style="position: absolute; right: 0; bottom: 0;" ng-src="/websiteimages/partners/{{oneicon.imagefilename}}" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

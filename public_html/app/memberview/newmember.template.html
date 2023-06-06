@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newmember.formtitlenewmember}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-5">
+      	<label for="first">{{translationObj.newmember.fieldfirstname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" name="newMember_first" class="form-control" id="newMember_first" ng-model="newObj.firstname" maxlength="40" required>
+	      </div>
+      </div>
+      <div class="col-xs-5">
+	      <label for="last">{{translationObj.newmember.fieldlastname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" name="newMember_lastname" class="form-control" id="newMember_lastname" ng-model="newObj.lastname" maxlength="40" required>
+	      </div>
+      </div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newmember.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newmember.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newmember.buttontitlekeepchanges}}</button>
+</div>

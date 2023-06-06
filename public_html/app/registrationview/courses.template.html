@@ -1,0 +1,67 @@
+<div class="form-group row" >
+<div align="left"><h3>{{translationObj.courses.formtitlecourses}}</h3></div><span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
+<button class="btn btn-primary btn-sm" ng-click="clearCourseCodesFilter()"><span>{{translationObj.courses.buttontitleclearcoursecodesfilter}}</span></button>
+<!-- <span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span> -->
+
+	<table width="100%" class="table table-striped">
+		<tbody>
+			<tr>
+				<th>{{translationObj.courses.fieldname2}}</th>
+				<th>{{translationObj.courses.fieldcourse}}</th>
+				<th>{{translationObj.courses.fieldschedule}}</th>
+				<th>{{translationObj.courses.fieldnbofskater}}</th>
+				<th>{{translationObj.courses.fieldnbofcoursesleft}}</th>
+				<th>{{translationObj.courses.fieldstatus}}</th>
+				<th class="coursetablefeestd">{{translationObj.courses.fieldcourseprice}}</th>
+				<th class="coursetablefeestd">{{translationObj.courses.fieldactualamount}}</th>
+				<th class="coursetablefeestd">{{translationObj.courses.fieldpaidamount}}</th>
+				<th class="coursetablefeestd">{{translationObj.courses.fieldbillingamount}}</th>
+				<th></th>
+			</tr>
+	  	<tr ng-repeat="course in currentRegistration.courses | filter : filterCourses" ng-click="onCourseSelected(course)" style="cursor: pointer">
+	  		<td width="10%">{{course.name}}</td>
+	  		<td width="10%">{{course.label}} {{course.courselevellabel}}</td>
+	  		<td width="30%">{{course.schedule}}</td>
+	  		<td width="5%">{{course.nbofskaters}}/{{course.maxnumberskater}}</td>
+	  		<td width="5%">{{course.nbofcoursesleft}}/{{course.nbofcourses}}</td>
+	  		<td width="5%"><i>{{getCourseDelta(course)}}</i></td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees | currency}}</td>
+	  		<!-- <td width="5%" class="coursetablefeestd">{{course.fees/course.nbofcourses  * course.nbofcoursesleft | currency}}</td> -->
+	  		<td width="5%" class="coursetablefeestd">{{course.prorata | currency}}</td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees_old | currency}}</td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees_billing | currency}}</td>
+<!--	  		<td width="5%" class="coursetableselectedtd"><input type="checkbox" ng-model="course.selected" ng-true-value="'1'" ng-change="onCourseSelected(null)" ng-disabled="(currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R') || course.deltacode == 'REMOVED_CLOSED'"></td>-->
+	  		<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="course.selected=='1'"></span></td>
+	  	</tr>
+	  </tbody>
+	</table>
+
+<h3>{{translationObj.courses.formtitlecharges}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="addChargeOrDiscount()" ng-disabled="currentRegistration.status != 'DRAFT' && currentRegistration.status != 'DRAFT-R'"></button>&nbsp;<button class="btn btn-primary" ng-click="addSpecialCharge()" ng-disabled="currentRegistration.status != 'DRAFT' && currentRegistration.status != 'DRAFT-R'">{{translationObj.courses.buttontitleaddspecialcharge}}</button>&nbsp;<button class="btn btn-primary" ng-click="addSpecialDiscount()" ng-disabled="currentRegistration.status != 'DRAFT' && currentRegistration.status != 'DRAFT-R'">{{translationObj.courses.buttontitleaddspecialdiscount}}</button></h3>
+	<table width="100%" class="table table-striped">
+		<tr><th>{{translationObj.courses.fieldcode}}</th>
+				<th>{{translationObj.courses.fieldlabel}}</th>
+				<th>{{translationObj.courses.fieldtype}}</th>
+				<th></th>
+				<th>&nbsp;</th>
+				<th class="coursetablefeestd">{{translationObj.courses.fieldamount}}</th>
+				<th></th></tr>
+	  	<tr ng-repeat="charge in currentRegistration.charges | filter : filterCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer">
+	  		<td width="10%">{{charge.code}}</td>
+	  		<td width="20%">{{charge.label}}<br><small>{{charge.comments}}</small></td>
+	  		<td width="10%">{{charge.typelabel}}</td>
+	  		<td width="30%"><i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i></td>
+	  		<td width="5%"><i>{{getChargeDelta(charge)}}</i></td>
+	  		<td width="5%" class="coursetablefeestd">{{charge.amount | currency}}</td>
+<!--	  		<td width="5%" class="coursetableselectedtd"><input type="checkbox" ng-model="charge.selected" ng-true-value="'1'" ng-change="onChargeSelected(null)" ng-disabled="charge.alwaysselected=='1' || currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R'"></td>-->
+	  		<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span></td>
+	  	</tr>
+	</table>
+<hr>
+	<table width="100%" class="table table-striped">
+  	<tr>
+  		<td width="60%"><h3>Total</h3></td>
+  		<td width="5%" class="coursetablefeestd"><h3>{{currentRegistration.totalamount | currency}}</h3></td>
+  		<td width="5%" class="coursetablefeestd"><button class="btn btn-primary" ng-click="presentRegistrationEx()" ng-disabled="(currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R') || presentInProgress == true" ng-if="currentRegistration.status!='PRESENTED' && currentRegistration.status!='ACCEPTED'"><span>{{translationObj.courses.buttontitlepresent}}</span></button></td>
+  	</tr>
+	</table>
+</div>

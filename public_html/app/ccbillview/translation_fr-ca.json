@@ -1,0 +1,15 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formtitlesubtitle", "text":"VOS FACTURES"},
+	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">> Page d'accueil"},
+
+	{"formname":"main", "fieldname":"fieldtitlebill", "text":"Facture "},
+	{"formname":"main", "fieldname":"buttontitleviewbill", "text":"Voir"},
+	{"formname":"main", "fieldname":"fieldtitlesession", "text":"Description"},
+	{"formname":"main", "fieldname":"fieldtitletotalamount", "text":"Total"},
+	{"formname":"main", "fieldname":"fieldtitlebalance", "text":"Balance"},
+	{"formname":"main", "fieldname":"fieldtitlebillingdate", "text":"Date"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

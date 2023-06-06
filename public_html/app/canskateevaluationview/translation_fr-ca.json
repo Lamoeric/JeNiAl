@@ -1,0 +1,20 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer testperiods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Testperiods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune période de test trouvée"},
+
+	{"formname":"selectcourseandelement", "fieldname":"formtitleselectcourse", "text":"Sélectionner le cours et l'élément"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcoursename", "text":"Cours"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcoursesubgroup", "text":"Sous-groupe"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcanskatecategory", "text":"Catégorie"},
+	{"formname":"selectcourseandelement", "fieldname":"fieldcanskatetest", "text":"Test"},
+	{"formname":"selectcourseandelement", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"selectcourseandelement", "fieldname":"buttontitlekeepchanges", "text":"Sélectionner"},
+	{"formname":"selectcourseandelement", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"main", "fieldname":"formtitlecanskateevaluation", "text":"Évaluation PP"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

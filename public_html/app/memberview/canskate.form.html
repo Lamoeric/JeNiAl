@@ -1,0 +1,51 @@
+<div class="form-group">
+	<div>
+		<h3>{{translationObj.canskate.formtitlecanskate}}</h3>
+	  <ul class="nav nav-tabs">
+	    <li class="active pointerlist"><a data-toggle="tab" data-target="#summee">{{translationObj.canskate.panetitlesummary}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#balance">{{translationObj.canskate.panetitlebalance}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#control">{{translationObj.canskate.panetitlecontrol}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#agility">{{translationObj.canskate.panetitleagility}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#precanskate">{{translationObj.canskate.panetitleprecanskate}}</a></li>
+	  </ul>
+
+	  <div class="tab-content">
+	  	<!-- Summary -->
+	    <div id="summee" class="tab-pane fade in active">
+	    	<form></form> <!-- fake form to correct bug -->
+	      <form class="form-horizontal well" role="form" name="canskateSummaryForm" ng-show="currentMember" class="ng-hide">
+					<!--<div ng-include="'../common/manageTestSummary/memberCSSummaryForm.html'"></div>-->
+      		<cs-summary member="currentMember" is-disabled="false" set-dirty='setDirty()'></cs-summary>
+			  </form>
+	    </div>
+
+	  	<!-- Balance -->
+	    <div id="balance" class="tab-pane fade">
+	      <form class="form-horizontal well" role="form" name="canskateBalanceForm" ng-show="currentMember" class="ng-hide">
+					<div ng-include="'./memberview/canskatebalance.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Control -->
+	    <div id="control" class="tab-pane fade">
+	      <form class="form-horizontal well" role="form" name="canskateControlForm" ng-show="currentMember" class="ng-hide">
+					<div ng-include="'./memberview/canskatecontrol.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Agility -->
+	    <div id="agility" class="tab-pane fade">
+	      <form class="form-horizontal well" role="form" name="canskateAgilityForm" ng-show="currentMember" class="ng-hide">
+					<div ng-include="'./memberview/canskateagility.form.html'"></div>
+			  </form>
+	    </div>
+
+			<!-- Pre canskate -->
+	    <div id="precanskate" class="tab-pane fade">
+	      <form class="form-horizontal well" role="form" name="precanskateForm" ng-show="currentMember" class="ng-hide">
+					<div ng-include="'./memberview/precanskate.form.html'"></div>
+			  </form>
+	    </div>
+	  </div>
+	</div>
+</div>

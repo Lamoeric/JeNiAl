@@ -1,0 +1,24 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer période de test..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Test Periods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune période de test trouvée"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+
+
+	{"formname":"selecttestperiod", "fieldname":"formtitle", "text":"Sélectionner une session de test"},
+	{"formname":"selecttestperiod", "fieldname":"fieldtestsessionname", "text":"Session de test"},
+	{"formname":"selecttestperiod", "fieldname":"fieldtestperiod", "text":"Période de test"},
+	{"formname":"selecttestperiod", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"selecttestperiod", "fieldname":"buttontitlekeepchanges", "text":"Sélectionner"},
+	{"formname":"selecttestperiod", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"testperiod", "fieldname":"fieldtitlestart", "text":"Début :"},
+	{"formname":"testperiod", "fieldname":"fieldtitleend", "text":"Fin :"},
+	{"formname":"testperiod", "fieldname":"fieldtitlewarmup", "text":"Réchauffement"},
+	{"formname":"testperiod", "fieldname":"fieldtitleinprogress", "text":"En cours"},
+	{"formname":"testperiod", "fieldname":"fieldtitleended", "text":"Fini"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

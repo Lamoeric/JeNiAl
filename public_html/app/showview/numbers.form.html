@@ -1,0 +1,195 @@
+<div class="form-group">
+	<h3>{{translationObj.numbers.formtitlenumbers}}&nbsp;({{filtered.length}}/{{currentShow.numbers.length}})&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowNumber({})"></button></h3>
+<!--<span ng-repeat="numbercode in currentShow.numbercodes"><label><input type="checkbox" ng-model="numbercode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{numbercode.numbercodelabel}} </label>&nbsp;&nbsp;</span>
+	<button class="btn btn-primary btn-sm" ng-click="clearCourseCodesFilter()"><span>{{translationObj.numbers.buttontitleclearnumbercodesfilter}}</span></button>!-->
+	<br>
+
+	<div ng-repeat="number in filtered = (currentShow.numbers | filter : filterNumbers)" class="blackcurvyborder">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-info" style="margin-bottom:0px">
+	        <div class="panel-heading">
+						<a data-target="#numbers{{$index}}" data-toggle="collapse" class="pointerlist">
+							<strong><big>{{number.name}}&nbsp;-&nbsp;{{number.numberlabel}}</big></strong>
+						</a>
+						<span style="float:right">
+							<child-edit-button 			obj="number" objlist="currentShow.numbers" callback="editShowNumber(number)"></child-edit-button>
+							<child-delete-button 		obj="number" objlist="currentShow.numbers" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="number" objlist="currentShow.numbers" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="number"></child-status-indicator>
+						</span>
+						<br>
+						<small>
+					  	<p><b>{{translationObj.numbers.fieldname}}</b>:&nbsp;{{number.name}}&nbsp;<b>{{translationObj.numbers.fieldlabel}}</b>:&nbsp;{{number.numberlabel}}&nbsp;<b>{{translationObj.numbers.fieldfees}}</b>:&nbsp;{{number.fees | number:2}}&nbsp;<b>{{translationObj.numbers.fieldduration}}</b>:&nbsp;{{number.duration | convertSecondToString}}</p>
+					  	<p><b>{{translationObj.numbers.fieldmusic}}</b>:&nbsp;{{number.music}}&nbsp;<b>{{translationObj.numbers.fieldlight}}</b>:&nbsp;{{number.lights}}</p>
+					  	<p><b>{{translationObj.numbers.fieldnbschedule}}</b>:&nbsp;{{number.schedules.length}}&nbsp;<b>{{translationObj.numbers.fielddatesgenerated}}</b>:&nbsp;{{number.datesgeneratedlabel}}&nbsp;<b>{{translationObj.numbers.fieldcanbeinperformance}}</b>:&nbsp;{{number.canbeinperformancelabel}}&nbsp;<b>{{translationObj.numbers.fieldregistrationtype}}</b>:&nbsp;{{number.registrationtypelabel}}&nbsp;<b>{{translationObj.numbers.fieldmandatory}}</b>:&nbsp;{{number.mandatorylabel}}</p>
+					  	<p><b>{{translationObj.numbers.fieldnbstaff}}</b>:&nbsp;{{number.staffs.length}}&nbsp;<b>{{translationObj.numbers.fieldnbinvite}}</b>:&nbsp;{{number.invites.length}}&nbsp;<b>{{translationObj.numbers.fieldnbregistration}}</b>:&nbsp;{{number.registrationcount}}</p>
+						</small>
+					</div>
+
+					<div id="numbers{{$index}}" class="panel-collapse collapse">
+	          <div class="panel-body" >
+
+							<form>
+					      <label for="name">{{translationObj.numbers.fieldcomment}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					        <textarea type="text" class="form-control" name="comments" ng-model="number.comments" maxlength="2000" disabled> </textarea>
+					      </div>
+							</form>
+
+							<div id="numbertab{{$index}}" class="maintab">
+								<ul id="numbertabheader{{$index}}" class="nav nav-tabs">
+									<li class="active pointerlist"><a data-toggle="tab" data-target="#subnumberstaffs{{$index}}">{{translationObj.numbers.panetitlestaffs}}</a></li>
+							    <li class="pointerlist"><a data-toggle="tab" data-target="#subnumberschedules{{$index}}">{{translationObj.numbers.panetitleschedules}}</a></li>
+							    <li class="pointerlist"><a data-toggle="tab" data-target="#subnumberinvites{{$index}}">{{translationObj.numbers.panetitleinvites}}</a></li>
+								</ul>
+
+								<div id="numbertabcontent{{$index}}" class="tab-content maintabcontent">
+
+							    <div id="subnumberstaffs{{$index}}" class="tab-pane fade in active maintabpane">
+							      <form class="form-horizontal well intabsingleformnox" role="form" name="staffsForm">
+											<strong>{{translationObj.numbers.formtitlestaff}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowNumberStaff(number, {})"></button></strong>
+											<div ng-repeat="staff in number.staffs">
+												<div class="row">
+										      <div class="col-xs-2">
+											      <label for="staffcode" ng-show="$index==0">{{translationObj.numbers.fieldtype}}</label>
+										        <input type="text" class="form-control" value="{{staff.staffcodelabel}}" disabled>
+										      </div>
+
+										      <div class="col-xs-2">
+											      <label for="staffname" ng-show="$index==0">{{translationObj.numbers.fieldname}}</label>
+										        <input type="text" class="form-control" value="{{staff.name}}" disabled>
+										      </div>
+
+									      	<div class="col-xs-2">
+												    <label ng-show="$index==0">&nbsp;</label>
+										      	<div class="input-group">
+									    				<span>
+																<child-edit-button 			obj="staff" objlist="number.staffs" callback="editShowNumberStaff(number, staff)"></child-edit-button>
+																<child-delete-button 		obj="staff" objlist="number.staffs" callback="setDirty()"></child-delete-button>
+																<child-undelete-button 	obj="staff" objlist="number.staffs" callback="setDirty()"></child-undelete-button>
+																<child-status-indicator obj="staff"></child-status-indicator>
+															</span>
+													  </div>
+												  </div>
+
+									      </div>
+									    </div>
+										</form>
+									</div>
+									
+							    <div id="subnumberschedules{{$index}}" class="tab-pane fade maintabpane">
+							      <form class="form-horizontal well intabsingleformnox" role="form" name="scheduleForm">
+											<strong>{{translationObj.numbers.formtitleschedule}}&nbsp;
+												<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowNumberSchedule(number, {})"></button>&nbsp;
+												<button class="btn btn-primary" ng-click="generatePracticeDates(number)" ng-if="userInfo.privileges.session_update==true"><span ng-if="number.datesgenerated=='0'">{{translationObj.numbers.buttontitlegeneratedates}}</span><span ng-if="number.datesgenerated=='1'">{{translationObj.numbers.buttontitleregeneratedates}}</span></button>
+											</strong>
+											
+											<div ng-repeat="schedule in number.schedules">
+												<div class="row">
+
+										      <div class="col-xs-2">
+											      <label for="arena" ng-show="$index==0">{{translationObj.numbers.fieldarena}}</label>
+										      		<select class="form-control" id="arena" ng-model="schedule.arenaid" disabled>
+																<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+										      		</select>
+										      </div>
+
+										      <div class="col-xs-2">
+											      <label for="iceid" ng-show="$index==0">{{translationObj.numbers.fieldice}}</label>
+										        	<input type="text" class="form-control" ng-model="schedule.icelabel" disabled>
+										      </div>
+
+									      	<div class="col-xs-2">
+												    <label ng-show="$index==0">{{translationObj.numbers.fieldday}}</label>
+															<select class="form-control" ng-model="schedule.day" disabled>
+													    	<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
+													    </select>
+												  </div>
+
+										      <div class="col-xs-1">
+											      <label for="starttime" ng-show="$index==0">{{translationObj.numbers.fieldstarttime}}</label>
+										        	<input type="text" class="form-control" ng-model="schedule.starttimestr" disabled>
+										      </div>
+
+										      <div class="col-xs-1">
+											      <label for="endtime" ng-show="$index==0">{{translationObj.numbers.fieldendtime}}</label>
+										        	<input type="text" class="form-control" ng-model="schedule.endtimestr" disabled>
+										      </div>
+
+										      <div class="col-xs-1">
+											      <label for="duration" ng-show="$index==0">{{translationObj.numbers.fieldduration}}</label>
+										        	<input type="text" class="form-control" ng-model="schedule.duration" disabled>
+										      </div>
+
+									      	<div class="col-xs-2">
+												    <label ng-show="$index==0">&nbsp;</label>
+										      	<div class="input-group">
+									    				<span>
+																<child-edit-button 			obj="schedule" objlist="number.schedules" callback="editShowNumberSchedule(number, schedule)"></child-edit-button>
+																<child-delete-button 		obj="schedule" objlist="number.schedules" callback="setDirty()"></child-delete-button>
+																<child-undelete-button 	obj="schedule" objlist="number.schedules" callback="setDirty()"></child-undelete-button>
+																<child-status-indicator obj="schedule"></child-status-indicator>
+															</span>
+													  </div>
+												  </div>
+
+											  </div> <!-- div class="row" -->
+										  </div> <!-- ng-repeat schedules -->
+									
+										</form>
+									</div>
+
+							    <div id="subnumberinvites{{$index}}" class="tab-pane fade maintabpane">
+							      <form class="form-horizontal well intabsingleformnox" role="form" name="invitesForm">
+											<button class="btn btn-primary" ng-click="editShowNumberInviteSkater(number)">{{translationObj.numbers.buttontitleinviteskater}}</button>
+<!--
+											<strong>{{translationObj.numbers.formtitleinvites}}
+												&nbsp;<button class="btn btn-primary" ng-click="editShowNumberInvite(number, {}, 1)">{{translationObj.numbers.buttontitleinvitegroup}}</button>
+												&nbsp;<button class="btn btn-primary" ng-click="editShowNumberInvite(number, {}, 2)">{{translationObj.numbers.buttontitleinviteskater}}</button>
+												&nbsp;<search-member-ex-button members="number.members"></search-member-ex-button>
+											</strong>
+											<div ng-repeat="invite in number.invites">
+												<div class="row">
+										      <div class="col-xs-2">
+											      <label for="invitetype" ng-show="$index==0">{{translationObj.numbers.fieldtype}}</label>
+										        <input type="text" class="form-control" value="{{invite.typelabel}}" disabled>
+										      </div>
+
+										      <div class="col-xs-4">
+											      <label for="invitename" ng-show="$index==0">{{translationObj.numbers.fieldname}}</label>
+										        <input type="text" class="form-control" value="{{invite.name}}" disabled>
+										      </div>
+
+									      	<div class="col-xs-2">
+												    <label ng-show="$index==0">&nbsp;</label>
+										      	<div class="input-group">
+									    				<span>
+																<child-edit-button 			obj="invite" objlist="number.invites" callback="editShowNumberInvite(number, invite)"></child-edit-button>
+																<child-delete-button 		obj="invite" objlist="number.invites" callback="setDirty()"></child-delete-button>
+																<child-undelete-button 	obj="invite" objlist="number.invites" callback="setDirty()"></child-undelete-button>
+																<child-status-indicator obj="invite"></child-status-indicator>
+															</span>
+													  </div>
+												  </div>
+
+									      </div>
+									    </div>
+-->
+									    
+										</form>
+									</div>
+									
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

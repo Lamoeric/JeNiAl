@@ -1,0 +1,29 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer tâches..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Tâches"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune tâche trouvée"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitletask", "text":"tâche"},
+	{"formname":"details", "fieldname":"fieldtitlecategory", "text":"Catégorie"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitleenglishdesc", "text":"Description anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchdesc", "text":"Description français"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
+
+	{"formname":"edittask", "fieldname":"formtitleedittask", "text":"Nouvelle tâche"},
+	{"formname":"edittask", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"edittask", "fieldname":"fieldtitletask", "text":"Tâche"},
+	{"formname":"edittask", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"edittask", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"edittask", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails de la tâche"},
+	{"formname":"main", "fieldname":"panetitledetails", "text":"Tâche"},
+	{"formname":"main", "fieldname":"panetitlecontacts", "text":"Contacts"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."}
+
+]

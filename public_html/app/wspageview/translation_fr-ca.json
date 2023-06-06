@@ -1,0 +1,41 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer pages..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Pages"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune page trouvée"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails page"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlelabel", "text":"Description"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchnavbarlabel", "text":"Libelé français barre de menu"},
+	{"formname":"details", "fieldname":"fieldtitleenglishnavbarlabel", "text":"Libelé anglais barre de menu"},
+	{"formname":"details", "fieldname":"fieldtitlepageindex", "text":"Index"},
+	{"formname":"details", "fieldname":"fieldtitlenavbarvisible", "text":"Visible barre de menu"},
+	{"formname":"details", "fieldname":"fieldtitlenavbarusesection", "text":"Détailler les sections dans le menu"},
+	{"formname":"details", "fieldname":"fieldtitlesectionindex", "text":"Index"},
+	{"formname":"details", "fieldname":"fieldtitlevisible", "text":"Visible"},
+	{"formname":"details", "fieldname":"fieldtitlevisibleinnavbar", "text":"Visible barre de menu"},
+	{"formname":"details", "fieldname":"buttontitlesection", "text":"Sections"},
+
+	{"formname":"newsection", "fieldname":"formtitleeditsection", "text":"Éditer section"},
+	{"formname":"newsection", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newsection", "fieldname":"fieldtitlesectionindex", "text":"Index"},
+	{"formname":"newsection", "fieldname":"fieldtitlevisible", "text":"Visible"},
+	{"formname":"newsection", "fieldname":"fieldtitlevisibleinnavbar", "text":"Visible barre de menu"},
+	{"formname":"newsection", "fieldname":"fieldtitleparagraphindex", "text":"Index"},
+	{"formname":"newsection", "fieldname":"fieldtitlefrenchparagraphtext", "text":"Paragraphe français"},
+	{"formname":"newsection", "fieldname":"fieldtitleenglishparagraphtext", "text":"Paragraphe anglais"},
+	{"formname":"newsection", "fieldname":"fieldtitlepublish", "text":"Publier"},
+	{"formname":"newsection", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newsection", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newsection", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"newpage", "fieldname":"formtitleeditarena", "text":"Nouvelle page"},
+	{"formname":"newpage", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newpage", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newpage", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newpage", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

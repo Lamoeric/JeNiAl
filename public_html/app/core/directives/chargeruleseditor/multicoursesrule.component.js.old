@@ -1,0 +1,15 @@
+// This directive has only a template for a multi courses rule
+angular.module('core').component("multicoursesrule", {
+		templateUrl:'core/directives/chargeruleseditor/multicoursesrule.template.html',
+    controller: multicoursesruleController,
+    bindings: {
+      newObj: '=',
+      translationObj: "="
+    }
+});
+
+function multicoursesruleController () {
+  var ctrl = this;
+
+  ctrl.scope.translationObj = this.translationObj;
+}

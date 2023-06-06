@@ -1,0 +1,121 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newnumber.formtitleeditcourse}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.newnumber.fieldname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="name" name="name" ng-model="newObj.name" maxlength="120" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="label_en">{{translationObj.newnumber.fieldenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="label_en" name="label_en" ng-model="newObj.label_en" maxlength="200" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="label_fr">{{translationObj.newnumber.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="label_fr" name="label_fr" ng-model="newObj.label_fr" maxlength="200" required>
+	      </div>
+      </div>
+
+	    <div class="col-xs-3">
+	      <label for="fees">{{translationObj.newnumber.fieldfees}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	      	<input type="text" class="form-control" id="fees" ng-model="newObj.fees"  ng-currency required>
+	    	</div>
+	    </div>
+
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.newnumber.fieldduration}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="number" class="form-control" id="duration" name="duration" ng-model="newObj.duration" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.newnumber.fieldlight}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="light" name="light" ng-model="newObj.lights" maxlength="200" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.newnumber.fieldmusic}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="music" name="music" ng-model="newObj.music" maxlength="50" required>
+	      </div>
+      </div>
+
+			<div class="clearfix"></div>
+			
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.newnumber.fieldstartdate}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	        <input type="date" class="form-control" id="practicesstartdate" name="practicesstartdate" ng-model="newObj.practicesstartdate" >
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.newnumber.fieldenddate}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	        <input type="date" class="form-control" id="practicesenddate" name="practicesenddate" ng-model="newObj.practicesenddate">
+	      </div>
+      </div>
+
+      <div class="col-xs-6">
+	      <label for="registrationtype">{{translationObj.newnumber.fieldregistrationtype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="registrationtype" ng-model="newObj.registrationtype" required>
+						<option ng-repeat="numberregistrationtype in numberregistrationtypes" value="{{numberregistrationtype.code}}">{{numberregistrationtype.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+      <div class="col-xs-6">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="newObj.canbeinperformance" ng-true-value="1"  ng-false-value="0">{{translationObj.newnumber.fieldcanbeinperformance}}</label>
+	      </div>
+	    </div>
+
+      <div class="col-xs-6">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="newObj.mandatory" ng-true-value="1"  ng-false-value="0">{{translationObj.newnumber.fieldmandatory}}</label>
+	      </div>
+	    </div>
+
+      <div class="col-xs-12">
+	      <label for="name">{{translationObj.newnumber.fieldcomments}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <textarea type="text" class="form-control" id="comments" name="comments" ng-model="newObj.comments" maxlength="2000"> </textarea>
+	      </div>
+      </div>
+
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newnumber.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newnumber.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newnumber.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,31 @@
+<?php
+/*
+* Author : Eric Lamoureux
+*
+* File contains function to get the list of short versions of the 3 last news from the DB
+*
+*/
+require_once('./../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+
+$language = $_POST['language'];
+try {
+  $query = "SELECT getWSTextLabel(cwn.shortversion, '$language') shortversion
+            FROM cpa_ws_news cwn
+            WHERE cwn.publish = 1
+            ORDER by cwn.publishdate DESC limit 3";
+  $result = $mysqli->query($query);
+  $data = array();
+  $data['data'] = array();
+  while ($row = $result->fetch_assoc()) {
+    $data['data'][] = $row;
+  }
+  $data['success'] = true;
+  echo json_encode($data);
+  exit;
+}catch (Exception $e) {
+  $data = array();
+  $data['success'] = false;
+  $data['message'] = $e->getMessage();
+  echo json_encode($data);
+  exit;
+}

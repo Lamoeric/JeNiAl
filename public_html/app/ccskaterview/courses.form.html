@@ -1,0 +1,25 @@
+<div class="row">
+  <div ng-repeat="course in currentSkater.courses">
+    <div class="row">
+      <div class="col-xs-12" ng-show="$index!=0 && currentSkater.courses[$index].sessionlabel != currentSkater.courses[$index-1].sessionlabel"><hr>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <label class="hidden-xs" ng-show="$index==0">{{translationObj.courses.fieldtitlesession}}</label>
+        <label class="hidden-md hidden-lg" ng-show="currentSkater.courses[$index].sessionlabel != currentSkater.courses[$index-1].sessionlabel">{{translationObj.courses.fieldtitlesession}}</label>
+        <div class="input-group" ng-show="currentSkater.courses[$index].sessionlabel != currentSkater.courses[$index-1].sessionlabel">
+          {{course.sessionlabel}}
+          <span class="help-block"><small>{{course.coursesstartdate}} - {{course.coursesenddate}}</small></span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-5">
+        <label class="hidden-xs" ng-show="$index==0">{{translationObj.courses.fieldtitlecourse}}</label>
+        <label class="hidden-md hidden-lg" ng-show="currentSkater.courses[$index].sessionlabel != currentSkater.courses[$index-1].sessionlabel">{{translationObj.courses.fieldtitlecourse}}</label>
+        <div class="input-group">
+          {{course.courselabel}} {{course.courselevellabel}} ({{course.name}})
+        </div>
+        <span ng-show="course.registrationenddate!=null&&course.registrationenddate!=''"><small>{{translationObj.courses.fieldtitleenddate}}: {{course.registrationenddate}}</small></span>
+        <span class="help-block"><small>{{course.schedule}}</small></span>
+      </div>
+    </div>
+  </div>
+</div>

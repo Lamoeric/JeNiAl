@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newcoach.formtitleeditcoach}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+      <div class="col-xs-4">
+		    <label for="coachtype">{{translationObj.newcoach.fieldtype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+			  	<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="coachtype" name="coachtype" ng-model="newObj.coachtype" ng-change="setMemberDirty();newObj.status = (newObj.status != 'New' ? 'Modified' : 'New');" required>
+			    	<option ng-repeat="coachtype in coachtypes" value="{{coachtype.code}}">{{coachtype.text}}</option>
+			    </select>
+			  </div>
+      </div>
+
+    	<div class="col-xs-4">
+		    <label for="coachname">{{translationObj.newcoach.fieldcoachpartner}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+			  	<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+		    	<select class="form-control" id="coachname" name="coachname" ng-model="newObj.coachid" ng-change="setMemberDirty(newObj);" required>
+		    		<option ng-repeat="coach1 in allcoaches" value="{{coach1.id}}">{{coach1.text}}</option>
+			    </select>
+			  </div>
+		  </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newcoach.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newcoach.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newcoach.buttontitlekeepchanges}}</button>
+</div>

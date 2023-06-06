@@ -1,0 +1,21 @@
+<h2>{{translationObj.leftPane.maintitle}} ({{results.length}})</h2>
+<div class="btn-group">
+	<input id="searchinput" type="search" class="form-control" ng-model="searchFilter" placeholder="{{translationObj.leftPane.mainfilter}}" aria-label="{{translationObj.leftPane.mainfilter}}">
+  <span id="searchclear" class="glyphicon glyphicon-remove-circle" clear-search-button></span>
+</div>
+<button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button></button>
+<button class="btn btn-primary glyphicon glyphicon-filter" main-filter-button></button>
+<br><br>
+<div class="row leftpane">
+<!--	<div ng-include="'codeview/codegroup.template.html'"></div>-->
+	<div ng-include="leftpanetemplate"></div>
+<!--	
+	<codegroup class="callout"
+       ng-repeat="codegroup in codeGroups | filter:searchFilter as results"
+	     ng-class="{ 'selected-class-name': $index == selectedIndex }"
+       ng-click="this.setCurrent(codegroup, $index)">
+  </codegroup>-->
+</div>
+<li class="animate-repeat" ng-if="results.length == 0">
+	<strong>tt{{translationObj.leftPane.noresult}}</strong>
+</li>

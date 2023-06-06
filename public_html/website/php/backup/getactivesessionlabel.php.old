@@ -1,0 +1,27 @@
+<?php
+/*
+* Author : Eric Lamoureux
+*
+* File contains function to get the name and label of the active session from the DB
+*
+*/
+require_once('./../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+
+$language = $_POST['language'];
+try {
+  $query = "SELECT name, getTextLabel(cs.label, '$language') label FROM cpa_sessions cs where cs.active = 1";
+  $result = $mysqli->query($query);
+  $data = array();
+  // $data['data'] = array();
+  $row = $result->fetch_assoc();
+  $data['data'] = $row;
+  $data['success'] = true;
+  echo json_encode($data);
+  exit;
+}catch (Exception $e) {
+  $data = array();
+  $data['success'] = false;
+  $data['message'] = $e->getMessage();
+  echo json_encode($data);
+  exit;
+}

@@ -1,0 +1,162 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.searchmembers.formtitlesearchmembers}}</h4>
+</div>
+<div class="modal-body row">
+	<div>
+    <div class="col-xs-3" style="height:310px">
+			<div class="form-group row">
+				<div class="grid">
+		      <div class="col-xs-12">
+						<div class="btn-group">
+							<input id="searchinput" type="search" class="form-control" ng-model="searchFilter" placeholder="{{translationObj.searchmembers.mainfilter}}" aria-label="{{translationObj.searchmembers.mainfilter}}">
+						  <span id="searchclear" class="glyphicon glyphicon-remove-circle" clear-search-button></span>
+						</div>
+						<br><br>
+						<div style="height:280px;overflow-y:auto;width:99%;border:1px solid;">
+						  <div ng-repeat="leftobj in leftobjs | filter:searchFilter:customSearch as results">
+						  	<div class="callout" ng-class="{ 'selected-class-name': $index == selectedObjectIndex }" ng-click="this.setCurrent(leftobj, $index)">
+						  		<div><p>{{leftobj.firstname}} {{leftobj.lastname}}</p></div>
+						  	</div>
+						  </div>
+							<li class="animate-repeat" ng-if="results.length == 0">
+								<strong>{{translationObj.searchmembers.noresultfound}}</strong>
+							</li>
+						</div>
+    			</div>
+    		</div>
+  		</div>
+  	</div>
+    <div class="col-xs-9">
+  		<form class="form-horizontal" role="form" name="newDetailsForm">
+				<div class="form-group row">
+					<div class="grid">
+						<div class="row">
+				      <div class="col-xs-4">
+					      <label for="firstname">{{translationObj.searchmembers.fieldfirstname}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									<input type="text" name="firstname" class="form-control" id="first" ng-model="currentObject.firstname" maxlength="40" disabled>
+					      </div>
+					    </div>
+				      <div class="col-xs-4">
+					      <label for="lastname">{{translationObj.searchmembers.fieldlastname}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					        <input type="text" class="form-control" id="lastname" ng-model="currentObject.lastname" maxlength="40" disabled>
+					      </div>
+				      </div>
+	    				<div class="col-xs-3">
+					      <label for="gender">{{translationObj.searchmembers.fieldgender}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
+					        <input type="text" class="form-control" id="gender" ng-model="currentObject.gendertext" maxlength="40" disabled>
+<!--				          <select class="form-control" id="gender" ng-model="currentObject.gender" disabled>
+										<option ng-repeat="gender in genders" value="{{gender.code}}">{{gender.text}}</option>
+						      </select>-->
+					      </div>
+			      	</div>
+			      </div>
+						<div class="row">
+				      <div class="col-xs-4">
+				      	<label for="address1">{{translationObj.searchmembers.fieldaddress}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					        <input type="text" name="address1" class="form-control" id="address1" ng-model="currentObject.address1" maxlength="100" disabled>
+					      </div>
+				      </div>
+				      <div class="col-xs-4">
+					      <label for="street">{{translationObj.searchmembers.fieldaddress2}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+						        <input type="text" class="form-control" id="address2" ng-model="currentObject.address2" maxlength="100" disabled>
+					      </div>
+				      </div>
+				      <div class="col-xs-3">
+					      <label for="town">{{translationObj.searchmembers.fieldtown}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				  				<input type="text" class="form-control" id="town" ng-model="currentObject.town" maxlength="100" disabled>
+				      	</div>
+				      </div>
+			      </div>
+						<div class="row">
+				      <div class="col-xs-4">
+					      <label for="province">{{translationObj.searchmembers.fieldprovince}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					        <input type="text" class="form-control" id="province" ng-model="currentObject.provincetext" maxlength="40" disabled>
+<!--						      <select class="form-control" id="province" ng-model="currentObject.province" disabled>
+										<option ng-repeat="province in provinces" value="{{province.code}}">{{province.text}}</option>
+									</select>					-->
+				      	</div>
+				      </div>
+				      <div class="col-xs-4">
+					      <label for="postalcode">{{translationObj.searchmembers.fieldpostalcode}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				        	<input type="text" class="form-control" id="postalcode" ng-model="currentObject.postalcode" maxlength="7" disabled>
+				      	</div>
+				      </div>
+			      </div>
+						<div class="row">
+				      <div class="col-xs-4">
+					      <label for="homephone">{{translationObj.searchmembers.fieldhomephone}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+				        	<input type="text" class="form-control" id="homephone" ng-model="currentObject.homephone" maxlength="14" disabled>
+				      	</div>
+				      </div>
+				      <div class="col-xs-4">
+					      <label for="cellphone">{{translationObj.searchmembers.fieldcellphone}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					        <input type="text" class="form-control" id="cellphone" ng-model="currentObject.cellphone" maxlength="14" disabled>
+				      	</div>
+				      </div>
+				      <div class="col-xs-3">
+					      <label for="otherphone">{{translationObj.searchmembers.fieldotherphone}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+				        	<input type="text" class="form-control" id="otherphone" ng-model="currentObject.otherphone" maxlength="14" disabled>
+				      	</div>
+				      </div>
+			      </div>
+						<div class="row">
+				      <div class="col-xs-4">
+					      <label for="birthday">{{translationObj.searchmembers.fielddateofbirth}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					        <input type="text" class="form-control" id="birthday" ng-model="currentObject.birthday" maxlength="10" disabled>
+				      	</div>
+				        <span class="help-block">YYYY-MM-DD</span>
+				      </div>
+				      <div class="col-xs-4">
+					      <label for="healthcareno">{{translationObj.searchmembers.fieldhealthcareno}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
+				        	<input type="text" class="form-control" id="healthcareno" ng-model="currentObject.healthcareno" maxlength="12" disabled>
+				      	</div>
+				      </div>
+				      <div class="col-xs-3">
+					      <label for="healthcareexp">{{translationObj.searchmembers.fieldhealthcareexpdate}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				        	<input type="text" class="form-control" id="healthcareexp" ng-model="currentObject.healthcareexp" maxlength="7" disabled>
+				      	</div>
+				      	<span class="help-block">YYYY-MM</span>
+				      </div>
+			      </div>
+		      </div>
+	      </div>
+	     </form>
+    </div>
+	</div>
+</div>
+
+<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+ {{translationObj.searchmembers.formerrormessage}}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.searchmembers.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.searchmembers.buttontitlekeepchanges}}</button>
+</div>

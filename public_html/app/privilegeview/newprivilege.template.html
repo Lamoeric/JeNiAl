@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newprivilege.formtitlenewprivilege}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-4">
+	      <label for="code">{{translationObj.newprivilege.fieldtitlecode}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="code" ng-model="newObj.code" maxlength="30" required>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="description">{{translationObj.newprivilege.fieldtitledescription}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="description" ng-model="newObj.description" maxlength="200" required>
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newprivilege.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newprivilege.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newprivilege.buttontitlekeepchanges}}</button>
+</div>

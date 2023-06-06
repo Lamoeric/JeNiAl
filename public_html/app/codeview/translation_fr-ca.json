@@ -1,0 +1,39 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer codes..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Codes"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun code trouvé"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"msgcodealreadydefined", "text":"Code déjà défini."},
+	{"formname":"main", "fieldname":"msgsequencealreadydefined", "text":"Séquence déjà définie."},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails code de groupe"},
+
+	{"formname":"details", "fieldname":"buttontitlenewcode", "text":"Nouveau code"},
+	{"formname":"details", "fieldname":"fieldtitlecodegroupname", "text":"Code de groupe"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitlesequence", "text":"Séquence"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"details", "fieldname":"buttontitlenewcode", "text":"Nouveau"},
+
+	{"formname":"editcodegroup", "fieldname":"formtitleeditcodegroup", "text":"Éditer code de groupe"},
+	{"formname":"editcodegroup", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editcodegroup", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"editcodegroup", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"editcodegroup", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"editcodegroup", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"editcodegroup", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"editcode", "fieldname":"formtitleeditcodegroup", "text":"Éditer code"},
+	{"formname":"editcode", "fieldname":"fieldtitlecodegroup", "text":"Code de groupe"},
+	{"formname":"editcode", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editcode", "fieldname":"fieldtitlesequence", "text":"Séquence"},
+	{"formname":"editcode", "fieldname":"fieldtitleactive", "text":"Actif"},
+	{"formname":"editcode", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
+	{"formname":"editcode", "fieldname":"fieldtitlefrenchlabel", "text":"Libelé français"},
+	{"formname":"editcode", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"editcode", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"editcode", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

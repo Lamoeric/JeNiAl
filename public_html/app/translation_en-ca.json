@@ -1,0 +1,6 @@
+[
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No results found..."},
+	{"formname":"general", "fieldname":"new", "text":"New"},
+	{"formname":"general", "fieldname":"save", "text":"Save"},
+	{"formname":"general", "fieldname":"delete", "text":"Delete"}
+]

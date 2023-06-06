@@ -1,0 +1,9 @@
+[
+	{"formname":"editpaymentagreement", "fieldname":"formtitlepaymentagreement", "text":"Éditer entente de paiement"},
+	{"formname":"editpaymentagreement", "fieldname":"fieldhaspaymentagreement", "text":"A une entente de paiement"},
+	{"formname":"editpaymentagreement", "fieldname":"fieldpaymentagreementnote", "text":"Note"},
+	{"formname":"editpaymentagreement", "fieldname":"formerrormessage", "text":"Tous les champs, sauf les commentaires, sont obligatoires."},
+	{"formname":"editpaymentagreement", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"editpaymentagreement", "fieldname":"buttontitlekeepchanges", "text":"Sauvegarder"}
+
+]

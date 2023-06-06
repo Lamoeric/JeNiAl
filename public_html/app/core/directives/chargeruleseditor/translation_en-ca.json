@@ -1,0 +1,11 @@
+[
+	{"formname":"newrule", "fieldname":"formtitle", "text":"Rule"},
+	{"formname":"newrule", "fieldname":"fieldruletype", "text":"Rule Type"},
+	{"formname":"newrule", "fieldname":"fieldcourse", "text":"Course"},
+	{"formname":"newrule", "fieldname":"fieldcourselevel", "text":"Course Level"},
+	{"formname":"newrule", "fieldname":"fieldcoursenumber", "text":"Number of Courses"},
+	{"formname":"newrule", "fieldname":"fieldnbofmember", "text":"Number of Family Members"},
+	{"formname":"newrule", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newrule", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newrule", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"}
+]

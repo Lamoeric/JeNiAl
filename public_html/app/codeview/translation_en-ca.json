@@ -1,0 +1,40 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter codes..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Codes"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No code found"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"msgcodealreadydefined", "text":"Code already defined."},
+	{"formname":"main", "fieldname":"msgsequencealreadydefined", "text":"Sequence already defined."},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Group Code Details"},
+
+	{"formname":"details", "fieldname":"buttontitlenewcode", "text":"New Code"},
+	{"formname":"details", "fieldname":"fieldtitlecodegroupname", "text":"Group Code"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitlesequence", "text":"Sequence"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"buttontitlenewcode", "text":"New"},
+
+	{"formname":"editcodegroup", "fieldname":"formtitleeditcodegroup", "text":"Edit Group Code"},
+	{"formname":"editcodegroup", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editcodegroup", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"editcodegroup", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"editcodegroup", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"editcodegroup", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"editcodegroup", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"editcode", "fieldname":"formtitleeditcodegroup", "text":"Edit Code"},
+	{"formname":"editcode", "fieldname":"fieldtitlecodegroup", "text":"Group Code"},
+	{"formname":"editcode", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editcode", "fieldname":"fieldtitlesequence", "text":"Sequence"},
+	{"formname":"editcode", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"editcode", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"editcode", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"editcode", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"editcode", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"editcode", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"}
+
+]

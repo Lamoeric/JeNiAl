@@ -1,0 +1,78 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-4">
+	      <label for="name">{{translationObj.details.fieldtitlefirstname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="firstname" class="form-control" id="firstname" ng-model="currentWsprogramassistant.firstname" maxlength="40" required>
+	      </div>
+	    </div>
+			<div class="col-xs-4">
+	      <label for="name">{{translationObj.details.fieldtitlelastname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="lastname" class="form-control" id="lastname" ng-model="currentWsprogramassistant.lastname" maxlength="40" required>
+	      </div>
+	    </div>
+			<div class="col-xs-2">
+				<label for="active">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="publish" ng-model="currentWsprogramassistant.publish" required>
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-if="currentWsprogramassistant.imagefilename && currentWsprogramassistant.imageinfo">
+
+			<div class="col-xs-3">
+				<div class="team-member">
+					<div class="team-img">
+						<img ng-src="../websiteimages/programassistants/{{currentWsprogramassistant.displayimagefilename}}" class="team-pic" alt="">
+					</div>
+					<h3 class="team_name">{{currentWsprogramassistant.fullname}}</h3>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="width" class="form-control" id="width" ng-model="currentWsprogramassistant.imageinfo[0]" disabled>
+	      </div>
+
+				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="height" class="form-control" id="height" ng-model="currentWsprogramassistant.imageinfo[1]" disabled>
+	      </div>
+
+				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="type" class="form-control" id="type" ng-model="currentWsprogramassistant.imageinfo['mime']" disabled>
+	      </div>
+			</div>
+
+		</div>
+
+		<!-- Filler -->
+		<div class="row">
+			<div class="col-xs-4">
+				<label>&nbsp;</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>&nbsp;
+				<deletewebsiteimagebutton subdir="'programassistants'" context="'programassistants'" obj="currentWsprogramassistant" callback="setCurrentInternal(currentWsprogramassistant)" is-disabled="!currentWsprogramassistant.imagefilename"></deletewebsiteimagebutton>
+				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
+  		</div>
+  	</div>
+
+  </div>
+</div>

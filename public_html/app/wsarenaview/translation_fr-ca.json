@@ -1,0 +1,25 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer aréna..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Aréna"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun aréna trouvé"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails aréna"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlelabelfr", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitlelabelen", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitleaddress1", "text":"Adresse 1"},
+	{"formname":"details", "fieldname":"fieldtitleaddress2", "text":"Adresse 2"},
+	{"formname":"details", "fieldname":"fieldtitlelink", "text":"Lien"},
+	{"formname":"details", "fieldname":"fieldtitlearenaindex", "text":"Index"},
+	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publier"},
+
+	{"formname":"newarena", "fieldname":"formtitleeditarena", "text":"Nouvelle aréna"},
+	{"formname":"newarena", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newarena", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newarena", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newarena", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

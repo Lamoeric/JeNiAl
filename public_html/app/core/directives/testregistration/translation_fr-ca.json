@@ -1,0 +1,22 @@
+[
+	{"formname":"newregistration", "fieldname":"formtitle", "text":"Inscription"},
+	{"formname":"newregistration", "fieldname":"fieldtestsession", "text":"Session de test"},
+	{"formname":"newregistration", "fieldname":"fieldcoach", "text":"Entraîneur"},
+	{"formname":"newregistration", "fieldname":"fieldmember", "text":"Membre"},
+	{"formname":"newregistration", "fieldname":"fieldtesttype", "text":"Type de test"},
+	{"formname":"newregistration", "fieldname":"fieldtestid", "text":"Test"},
+	{"formname":"newregistration", "fieldname":"fieldpartnerid", "text":"Partenaire"},
+	{"formname":"newregistration", "fieldname":"fieldpartnersteps", "text":"Pas inverse?"},
+	{"formname":"newregistration", "fieldname":"fieldmusicid", "text":"Musique"},
+	{"formname":"newregistration", "fieldname":"fieldfees", "text":"Frais"},
+	{"formname":"newregistration", "fieldname":"fieldcomments", "text":"Commentaire"},
+	{"formname":"newregistration", "fieldname":"fieldcanceled", "text":"Annulé"},
+	{"formname":"newregistration", "fieldname":"fieldapprobationstatus", "text":"Statut d'approbation"},
+	{"formname":"newregistration", "fieldname":"fieldapprovedby", "text":"Approuvé par"},
+	{"formname":"newregistration", "fieldname":"fieldapprovedon", "text":"Approuvé le"},
+	{"formname":"newregistration", "fieldname":"fieldcreatedby", "text":"Créée par "},
+	{"formname":"newregistration", "fieldname":"fieldcreatedon", "text":" le "},
+	{"formname":"newregistration", "fieldname":"formerrormessage", "text":"Tous les champs sont requis."},
+	{"formname":"newregistration", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newregistration", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

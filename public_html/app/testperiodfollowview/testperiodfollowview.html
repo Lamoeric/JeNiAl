@@ -1,0 +1,25 @@
+<!-- Left Pane -->
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div> -->
+<!-- Right Pane -->
+<!-- <div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}"> -->
+	<!-- Main title : Only display if currentTestperiod is not null -->
+
+	<div ng-if="currentTestperiod!=null"><h2>{{currentTestperiod.code}} {{currentTestperiod.type}}</h2></div>
+	<div ng-if="currentTestperiod==null"><h2>Testperiod Details</h2></div>
+
+	<!-- Buttons -->
+	<!-- <main-new-button new-callback="createNew()"></main-new-button>
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+	<main-delete-button delete-callback="deleteFromDB()"></main-delete-button> -->
+	<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+			  <form class="form-horizontal well" role="form" name="detailsForm"  ng-show="currentTestperiod" class="ng-hide">
+					<div ng-include="'testperiodfollowview/testperiodfollow.html'"></div>
+			  </form>
+			</div>
+		</div>
+	</div>
+<!-- </div> -->

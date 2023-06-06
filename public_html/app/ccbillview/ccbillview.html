@@ -1,0 +1,86 @@
+<form class="form-horizontal" role="form" name="detailsForm">
+	<div class="content">
+		<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<br>
+					<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
+					<h3>{{translationObj.main.formtitlewelcome}} {{userInfo.userfullname}}</h3>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="content well">
+						<div class="row">
+							<div class="col-md-10">
+								<div class="content">
+									<div class="row">
+										<a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+										<h3>{{translationObj.main.formtitlesubtitle}}</h3>
+
+										<div ng-repeat="bill in currentBills">
+								    	<div class="row">
+
+										    <div class="col-xs-6 col-md-2">
+													<label ng-show="$index==0" class="visible-md visible-lg">{{translationObj.main.fieldtitlebill}}</label>
+													<label class="hidden-md hidden-lg">{{translationObj.main.fieldtitlebill}}</label>
+													<div class="input-group">
+														<a ng-href="index.html#!/ccsinglebillview/{{bill.id}}">{{translationObj.main.fieldtitlebill}} {{bill.id}}</a>
+													</div>
+										    </div>
+												<div class="col-xs-6 col-md-2">
+													<label ng-show="$index==0" class="visible-md visible-lg">{{translationObj.main.fieldtitlebillingdate}}</label>
+													<label class="hidden-md hidden-lg">{{translationObj.main.fieldtitlebillingdate}}</label>
+													<div class="input-group">
+														{{bill.billingdate}}
+													</div>
+										    </div>
+												<div class="col-xs-12 col-md-3">
+													<label ng-show="$index==0" class="visible-md visible-lg">{{translationObj.main.fieldtitlesession}}</label>
+													<label class="hidden-md hidden-lg">{{translationObj.main.fieldtitlesession}}</label>
+													<div class="input-group">
+														{{bill.sessionlabel}}
+											    </div>
+										    </div>
+												<div class="col-xs-6 col-md-2">
+													<label ng-show="$index==0" class="visible-md visible-lg">{{translationObj.main.fieldtitletotalamount}}</label>
+													<label class="hidden-md hidden-lg">{{translationObj.main.fieldtitletotalamount}}</label>
+													<div class="input-group">
+														{{bill.totalamount | currency}}
+											    </div>
+										    </div>
+												<!-- <div class="col-xs-2">
+													{{bill.paidamount | currency}}
+										    </div> -->
+												<div class="col-xs-6 col-md-2">
+													<label ng-show="$index==0" class="visible-md visible-lg">{{translationObj.main.fieldtitlebalance}}</label>
+													<label class="hidden-md hidden-lg">{{translationObj.main.fieldtitlebalance}}</label>
+													<div class="input-group">
+														{{bill.totalamount/1 + bill.paidamount/1 | currency}}
+											    </div>
+										    </div>
+												<!-- <div class="col-xs-1">
+													<label ng-show="$index==0" class="visible-md visible-lg">&nbsp;</label>
+													<div class="input-group">
+														<button type="button" class="btn btn-primary btn-sm glyphicon glyphicon-eye-open" ng-click="viewBill(bill.id)"></button>
+										    	</div>
+										    </div> -->
+									    </div>
+											<hr class="hidden-md hidden-lg">
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-md-2">
+								<img style="display:block;margin:auto;" src="../privateimages/cpa_logo.jpg" alt="logo">
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

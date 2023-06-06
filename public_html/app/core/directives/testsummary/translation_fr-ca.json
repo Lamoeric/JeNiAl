@@ -1,0 +1,10 @@
+[
+	{"formname":"testsummary", "fieldname":"formtitleskills", "text":"Habiletés"},
+	{"formname":"testsummary", "fieldname":"formtitledances", "text":"Danse"},
+	{"formname":"testsummary", "fieldname":"formtitlefreestyle", "text":"Style libre"},
+	{"formname":"testsummary", "fieldname":"formtitleinterpretives", "text":"Interprétation"},
+	{"formname":"testsummary", "fieldname":"formtitlecompetitives", "text":"Compétition"},
+	{"formname":"testsummary", "fieldname":"fieldsingle", "text":"Simple"},
+	{"formname":"testsummary", "fieldname":"fieldcouple", "text":"Couple"},
+	{"formname":"testsummary", "fieldname":"fielddance", "text":"Danse"}
+]

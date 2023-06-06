@@ -1,0 +1,43 @@
+<!-- <span float:right><button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button></span><br> -->
+<!-- {{currentCourseElement.canskatecategory.stage}} : {{currentCourseElement.canskatetest.label}} -->
+<!-- <label for="canskatetest">{{translationObj.selectcourseandelement.fieldcanskatetest}}<i style="color:red"> *</i></label> -->
+<!-- <div class="input-group"> -->
+<div class="form-group row">
+	<div class="grid">
+		<h4>{{currentCourseElement.sessionscourse.label}} ({{currentCourseElement.sessionscourse.name}})&nbsp;{{currentCourseElement.sessionscoursesubgroup.label}}</h4>
+		<h4>{{currentCourseElement.canskatecategory.label}}&nbsp;{{currentCourseElement.canskatecategory.stage}}&nbsp;({{currentCourseElement.details.minnboftestrequired}}/{{currentCourseElement.details.maxnboftests}})
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-3" >
+				<select class="form-control" id="canskatetest" ng-model="currentCourseElement.canskatetest" required ng-options="canskatetest.label for canskatetest in currentCourseElement.canskatecategory.tests track by canskatetest.id " ng-change="onCanskatetestChange()">
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+<!-- <span><button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button></span> -->
+<div class="form-group row">
+	<div class="grid">
+		<div ng-repeat="member in currentCourseElement.members">
+			<div class="row">
+				<div class="col-xs-8 col-sm-8 col-md-3" >
+					<h4>{{member.firstname}}&nbsp;{{member.lastname}}&nbsp;({{member.testscount}}/{{currentCourseElement.details.minnboftestrequired}})</h4>
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3">
+					<toggle ng-model="member.tests['0'].success" ng-change="onTestChange(member, member.tests['0'])" on="" off="" onstyle='btn-success' offstyle="btn-danger" width="60"></toggle>
+				</div>
+			</div>
+			<div class="row">
+				<div ng-repeat="test in member.tests | filter:{type:'SUBTEST'}">
+					<div class="col-xs-6 col-sm-8 col-md-3" style="text-align: right">
+						<h4>{{test.label}}
+							<toggle ng-model="test.success" ng-change="onTestChange(member, test)" on="" off="" onstyle='btn-success' offstyle="btn-danger" width="60"></toggle>
+						</h4>
+					</div>
+					<div class="clearfix visible-md visible-lg"></div>
+  			</div>
+			</div>
+			<hr>
+		</div>
+  </div>
+</div>

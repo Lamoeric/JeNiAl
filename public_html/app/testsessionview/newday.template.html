@@ -1,0 +1,23 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newday.titleeditday}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="testdate">{{translationObj.newday.fieldtestdate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="date" name="testdate" class="form-control" id="code" ng-model="newObj.testdate" required>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newday.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newday.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newday.buttontitlekeepchanges}}</button>
+</div>

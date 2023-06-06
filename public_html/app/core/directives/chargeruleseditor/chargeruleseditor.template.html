@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newrule.formtitle}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-7">
+				<label for="ruletype">{{translationObj.newrule.fieldruletype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="ruletypeobj" ng-model="newObj.ruletypeobj" required ng-options="ruletypeobj.text for ruletypeobj in ruletypes track by ruletypeobj.code" ng-change="control.onRuleTypeChange(newObj)"></select>
+
+					<!-- <select class="form-control" ng-model="newObj.ruletype" ng-change="control.onRuleTypeChange(newObj)" required>
+						<option ng-repeat="ruletype in ruletypes track by $index" value="{{ruletype.code}}">{{ruletype.text}}</option>
+					</select> -->
+				</div>
+			</div>
+			<!-- <multicoursesrule new-obj="newObj" translation-obj="translationObj" ng-transclude></multicoursesrule> -->
+			<div ng-include="'./core/directives/chargeruleseditor/multicoursesrule.template.html'" ng-if="newObj.ruletype==1"></div>
+			<div ng-include="'./core/directives/chargeruleseditor/multimembersrule.template.html'" ng-if="newObj.ruletype==2"></div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newrule.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newrule.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"	ng-disabled="currentTestsession.isClosed">{{translationObj.newrule.buttontitlekeepchanges}}</button>
+</div>

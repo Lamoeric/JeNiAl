@@ -1,0 +1,43 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{currentTestperiod.periodlabel}}
+			&nbsp;<button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button>
+		</h3>
+		<div ng-repeat="group in currentTestperiod.groups | filter:{teststatus : '!ENDDED'}" class="blackcurvyborder" >
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-lg-4">
+					<b><a data-target="#{{group.id}}" data-toggle="collapse" class="pointerlist" >{{group.grouplabel}}</a></b><br>
+					<!-- <b><a data-target="#{{group.id}}" data-toggle="collapse" class="pointerlist" >{{group.grouplabel}}</a></b><br> -->
+					<!-- {{group.testtypelabel}} {{group.testtype == 'DANCE' ? group.testlevellabel : ''}} {{group.testlabel}} -->
+				</div>
+				<div class="clearfix visible-lg"></div>
+				<div class="col-xs-12 col-md-6 col-lg-4">
+					<b>{{translationObj.testperiod.fieldtitlestart}}</b>&nbsp;{{group.warmuprealstarttime ? group.warmuprealstarttime : group.estimatedstarttime ? group.estimatedstarttime : group.starttime}}
+					<b>{{translationObj.testperiod.fieldtitleend}}</b>&nbsp;{{group.realendtime ? group.realendtime : group.estimatedendtime ? group.estimatedendtime : group.endtime}}
+				</div>
+			</div>
+
+			<div id="{{group.id}}" class="collapse" ng-class="{ 'in':group.teststatus == 'STARTED'|| $index==0 }">
+			<!-- <div id="{{group.id}}" class="collapse" ng-class="{ 'in':group.teststatus == 'STARTED' }"> -->
+				<div class="row">
+					<div class="col-xs-8 col-md-3 col-lg-2">
+						<span style="color:blue" ng-show="group.warmupduration!=0">{{translationObj.testperiod.fieldtitlewarmup}}</span>
+					</div>
+					<div class="col-xs-4 col-md-3 col-lg-2">
+						<b ng-show="group.teststatus=='STARTED' && group.warmuprealendtime==null" >{{translationObj.testperiod.fieldtitleinprogress}}</b>
+						<b ng-show="(group.teststatus=='STARTED' && group.warmuprealendtime!=null) || group.teststatus=='ENDDED' " >{{translationObj.testperiod.fieldtitleended}}</b>
+					</div>
+				</div>
+				<div ng-repeat="skater in group.skaters" class="row">
+					<div class="col-xs-8 col-md-3 col-lg-2">
+						<span style="color:blue">{{skater.firstname}} {{skater.lastname}}</span>
+					</div>
+					<div class="col-xs-4 col-md-3 col-lg-2">
+						<b ng-show="skater.teststatus == 'STARTED'" >{{translationObj.testperiod.fieldtitleinprogress}}</b>
+						<b ng-show="skater.teststatus == 'ENDDED'" >{{translationObj.testperiod.fieldtitleended}}</b>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+</div>

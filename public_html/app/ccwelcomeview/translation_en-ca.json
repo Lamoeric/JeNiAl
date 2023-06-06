@@ -1,0 +1,19 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formtitleyouraccount", "text":"YOUR ACCOUNT"},
+	{"formname":"main", "fieldname":"formtitleyourprofile", "text":"Your profile"},
+	{"formname":"main", "fieldname":"formtitlechangepassword", "text":"Change password"},
+	{"formname":"main", "fieldname":"formtitleconsultbills", "text":"See your last bills"},
+	{"formname":"main", "fieldname":"formtitleyourskaters", "text":"YOUR SKATERS"},
+
+	{"formname":"main", "fieldname":"fieldtitleskatecanadano", "text":"Skate Canada No"},
+	{"formname":"main", "fieldname":"fieldtitlefirstname", "text":"First Name"},
+	{"formname":"main", "fieldname":"fieldtitlelastname", "text":"Last Name"},
+	{"formname":"main", "fieldname":"fieldtitlebirthday", "text":"DOB"},
+	{"formname":"main", "fieldname":"buttontitleregister", "text":"Register"},
+	{"formname":"main", "fieldname":"buttontitlemodifyregister", "text":"Modify Registration"},
+	{"formname":"main", "fieldname":"labeleditprofil", "text":"Edit Profil"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

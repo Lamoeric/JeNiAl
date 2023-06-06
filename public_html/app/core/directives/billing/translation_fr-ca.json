@@ -1,0 +1,36 @@
+[
+	{"formname":"singlebill", "fieldname":"formtitle", "text":"Facturation"},
+	{"formname":"singlebill", "fieldname":"fieldmemberfullname", "text":"Membre"},
+	{"formname":"singlebill", "fieldname":"fieldbillid", "text":"No facture"},
+	{"formname":"singlebill", "fieldname":"fieldproductfullname", "text":"Produit"},
+	{"formname":"singlebill", "fieldname":"fieldprice", "text":"Prix"},
+	{"formname":"singlebill", "fieldname":"fieldpaymentmethod", "text":"Méthode de paiement"},
+	{"formname":"singlebill", "fieldname":"fieldrepaymentmethod", "text":"Méthode de remboursement"},
+	{"formname":"singlebill", "fieldname":"fieldcheckno", "text":"No de chèque"},
+	{"formname":"singlebill", "fieldname":"fieldreceivedby", "text":"Reçu par"},
+	{"formname":"singlebill", "fieldname":"fieldemitedby", "text":"Émis par"},
+	{"formname":"singlebill", "fieldname":"buttontitlecreatebill", "text":"Facturer"},
+	{"formname":"singlebill", "fieldname":"buttontitlepaybill", "text":"Payer"},
+	{"formname":"singlebill", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"singlebill", "fieldname":"buttontitlekeepchanges", "text":"Fermer"},
+	{"formname":"singlebill", "fieldname":"msgcreatebill", "text":"Êtes-vous certain de vouloir créer une facture pour ce produit?"},
+	{"formname":"singlebill", "fieldname":"msgpaybill", "text":"Êtes-vous certain de vouloir payer cette facture?"},
+
+	{"formname":"bill", "fieldname":"labeltitlebillto", "text":"Facturé à"},
+	{"formname":"bill", "fieldname":"labeltitledate", "text":"Date"},
+	{"formname":"bill", "fieldname":"labeltitleinvoiceno", "text":"No. facture"},
+	{"formname":"bill", "fieldname":"labeltitleoldinvoiceno", "text":"Ancien no. facture"},
+	{"formname":"bill", "fieldname":"labeltitlenewinvoiceno", "text":"Nouveau no. facture"},
+	{"formname":"bill", "fieldname":"labeltitlesplitinvoiceno", "text":"Séparé de no. facture"},
+	{"formname":"bill", "fieldname":"labeltitlepaymentagreement", "text":"Entente de paiement"},
+	{"formname":"bill", "fieldname":"labeltitlepaymentagreementnote", "text":"Note entente de paiement"},
+	{"formname":"bill", "fieldname":"labeltitledetails", "text":"Détails"},
+	{"formname":"bill", "fieldname":"labeltitleamount", "text":"Montant"},
+	{"formname":"bill", "fieldname":"labeltitlesubtotal", "text":"Sous-total"},
+	{"formname":"bill", "fieldname":"labeltitletotal", "text":"Total"},
+	{"formname":"bill", "fieldname":"labeltitletransactions", "text":"Transactions"},
+
+	{"formname":"splitbill", "fieldname":"msgbillsplittingreload", "text":"La facture a été séparée, veuillez rafraîchir la sélection."},
+	{"formname":"splitbill", "fieldname":"msgvalidatebillsplitting", "text":"Êtes-vous certain de vouloir séparer cette inscription dans une autre facture?"}
+
+]

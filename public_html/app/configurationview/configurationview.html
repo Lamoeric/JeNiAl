@@ -1,0 +1,59 @@
+<!-- Left Pane -->
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div> -->
+<!-- Right Pane -->
+<div class="col-xs-12 col-sm-12" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<div ng-if="currentConfiguration!=null"><h2>{{translationObj.main.mainformtitle}}</h2></div>
+
+	<!-- Buttons -->
+	<!-- <main-new-button new-callback="createNew()"></main-new-button> -->
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !boardForm.$dirty && !emailForm.$dirty" ng-if="userInfo.privileges.admin_update==true"></main-save-button>
+	<!-- <main-delete-button delete-callback="deleteFromDB()"></main-delete-button> -->
+
+	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div>
+
+	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+		<li class="pointerlist"><a data-toggle="tab" data-target="#address">{{translationObj.main.panetitleaddress}}</a></li>
+	</div>
+
+	<ul class="nav nav-tabs">
+		<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>
+		<li class="pointerlist"><a data-toggle="tab" data-target="#board">{{translationObj.main.panetitleboardmembers}}</a></li>
+		<li class="pointerlist"><a data-toggle="tab" data-target="#email">{{translationObj.main.panetitleemail}}</a></li>
+		<li class="pointerlist"><a data-toggle="tab" data-target="#import">{{translationObj.main.panetitleimport}}</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<!-- Main Configuration -->
+		<div id="info" class="tab-pane fade in active">
+			<form class="form-horizontal well" role="form" name="detailsForm" class="ng-hide">
+				<div ng-include="'configurationview/details.form.html'"></div>
+			</form>
+		</div>
+
+		<!-- Board Members -->
+		<div id="board" class="tab-pane fade">
+			<form class="form-horizontal well" role="form" name="boardForm" class="ng-hide">
+				<div ng-include="'configurationview/boardmembers.form.html'"></div>
+			</form>
+		</div>
+
+		<!-- Email configuration -->
+		<div id="email" class="tab-pane fade">
+			<form class="form-horizontal well" role="form" name="emailForm" class="ng-hide">
+				<div ng-include="'configurationview/email.form.html'"></div>
+			</form>
+		</div>
+
+		<!-- Email configuration -->
+		<div id="import" class="tab-pane fade">
+			<form class="form-horizontal well" role="form" name="importForm" class="ng-hide">
+				<div ng-include="'configurationview/import.form.html'"></div>
+			</form>
+		</div>
+
+	</div> <!-- <div class="tab-content"> -->

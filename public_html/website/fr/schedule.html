@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('schedule', 'fr-ca')">
+<head>
+  <script>
+    var shiftWindow = function() { scrollBy(0, -110) };
+    window.addEventListener("hashchange", shiftWindow);
+    function load() { if (window.location.hash) shiftWindow(); }
+  </script>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="../images/logo_jenial.png" type="image/x-icon">
+  <title ng-bind="currentpage.globalsections.footer.label"></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Template CSS Files
+  ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="../plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="../plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="../plugins/slider/slider.css">
+  <!-- owl craousel css -->
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.theme.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="../plugins/facncybox/jquery.fancybox.css">
+  <!-- Alertify -->
+  <link rel="stylesheet" href="../../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../../dist/alertify.default.css" />
+  <!-- template main css file -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body onload="load()">
+
+<!--
+==================================================
+Main menu Section Start
+================================================== -->
+<ng-include src="'../templates/mainmenu.template.html'"></ng-include>
+
+<!--
+==================================================
+Main header Section Start
+================================================== -->
+<ng-include src="'../templates/mainheader.template.html'"></ng-include>
+
+<!--
+==================================================
+Schedule Section Start
+================================================== -->
+<section class="company-description" ng-if="currentpage.globalsections.allschedules">
+  <div class="container">
+    <h3 class="subtitle wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" id="allschedules">{{currentpage.globalsections.allschedules.title}}</h3>
+    <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" ng-if="currentpage.globalsections.allschedules.subtitle && currentpage.globalsections.allschedules.subtitle!=''">{{currentpage.globalsections.allschedules.subtitle}}</h3>
+    <label for="currentCourse">Filtrer par cours/numéro</label>
+		<div class="input-group">
+			<select class="form-control" id="currentCourseCode" ng-model="currentpage.currentCourseCode" ng-options="course.code + ' - ' + course.courselabel + ' ' + (course.courselevellabel?course.courselevellabel:'') for course in currentpage.globalsections.allschedules.coursecodes">
+				<option value="">&nbsp;<option>
+			</select>
+  	</div>
+
+		<!-- Unfiltered, per week schedule -->
+    <div class="row" ng-repeat="oneweek in currentpage.globalsections.allschedules.allschedules.schedules" ng-if="currentpage.currentCourseCode==null">
+      <div class="col-md-12">
+        <div class="block">
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">Semaine du {{oneweek[0].weekfirstdate}} au {{oneweek[0].weeklastdate}}</h3>
+
+          <div class="form-group row wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <div align="left">
+
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Jour</th>
+                  <th>Date</th>
+                  <th>Cours/numéro</th>
+                  <th>Lieu</th>
+                </tr>
+                <tr ng-repeat="schedule in oneweek">
+                  <td>{{schedule.daylabel}}</td>
+                  <td>{{schedule.coursedate}} de {{schedule.starttime}} à {{schedule.endtime}}</td>
+                  <td>{{schedule.courselabel}}&nbsp;{{schedule.courselevellabel}} <span ng-show="schedule.canceled==1"><font color="red">&nbsp;(Annulé)</font></span></td>
+                  <td>{{schedule.location}}</td>
+                </tr>
+              </table>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+		<!-- Filtered, per course/number schedule -->
+    <div class="row" ng-if="currentpage.currentCourseCode!=null">
+      <div class="col-md-12">
+        <div class="block">
+          <h3 class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms">&nbsp;</h3>
+
+          <div class="form-group row wow fadeInUp" data-wow-delay=".7s" data-wow-duration="500ms">
+            <div align="left">
+
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Jour</th>
+                  <th>Date</th>
+                  <th>Lieu</th>
+                  <th>Note</th>
+                </tr>
+	                <tr ng-repeat="schedule in filtered = (currentpage.globalsections.allschedules.allschedules | filter : filterCourses)">
+	                  <td>{{schedule.daylabel}}</td>
+	                  <td>{{schedule.coursedate}} de {{schedule.starttime}} à {{schedule.endtime}}</td>
+	                  <td>{{schedule.location}}</td>
+	                  <td><span ng-show="schedule.canceled==1"><font color="red">&nbsp;Annulé</font></span></td>
+	                </tr>
+              </table>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+==================================================
+    Partners Section Start
+================================================== -->
+<section id="clients" ng-if="currentpage.globalsections.partners">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="subtitle text-center wow fadeInUp animated" data-wow-duration="500ms" data-wow-delay=".3s">{{currentpage.globalsections.partners.navbarlabel}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2" ng-repeat="oneicon in currentpage.globalsections.partners.icons">
+        <div style="height:100px;width:100px;">
+          <a  href="{{oneicon.link}}" target="_blank">
+            <img style="position: absolute; right: 0; bottom: 0;" ng-src="/websiteimages/partners/{{oneicon.imagefilename}}" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Call To Action Section Start
+================================================== -->
+<section id="call-to-action" ng-if="currentpage.globalsections.calltoaction">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h2 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">{{currentpage.globalsections.calltoaction.navbarlabel}}</h2>
+          <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">{{currentpage.globalsections.calltoaction.title}}</p>
+          <a href="contact.html" class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">{{currentpage.globalsections.calltoaction.subtitle}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="social-networks wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
+          <a ng-href="https://www.facebook.com/{{currentpage.globalsections.footer.facebookgroup}}" class="Facebook" ng-if="currentpage.globalsections.footer.facebookgroup">
+            <i class="ion-social-facebook"></i>
+          </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Footer Section Start
+================================================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="col-md-8">
+      <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://jenial.jenial.ca" target="_blank">JeNiAl</a>.</p>
+    </div>
+  </div>
+</footer> <!-- /#footer -->
+
+<!-- Template Javascript Files
+================================================== -->
+<!-- jquery -->
+<script src="../plugins/jQurey/jquery.min.js"></script>
+<!-- Form Validation -->
+  <script src="../plugins/form-validation/jquery.form.js"></script>
+  <script src="../plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- owl carouserl js -->
+	<script src="../plugins/owl-carousel/owl.carousel.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="../plugins/bootstrap/bootstrap.min.js"></script>
+	<!-- angular js -->
+	<script src="../plugins/angularJS/angular.min.js"></script>
+	<!-- wow js -->
+	<script src="../plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="../plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="../plugins/facncybox/jquery.fancybox.js"></script>
+	<!-- template main js -->
+	<script src="../js/main.js"></script>
+	<!-- Alertify -->
+	<script type="text/javascript" src="../../dist/alertify.min.js"></script>
+	<!-- angular JS module and controler -->
+	<script src="../js/app.js"></script>
+  <!-- Remarkable -->
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+</body>
+</html>

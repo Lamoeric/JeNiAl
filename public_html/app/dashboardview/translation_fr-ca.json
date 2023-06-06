@@ -1,0 +1,36 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer sessions..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Sessions"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune session trouvée"},
+	{"formname":"leftPane", "fieldname":"labeltitleactive", "text":"active"},
+
+	{"formname":"dashboard", "fieldname":"formtitledashboard", "text":"Tableau de bord"},
+	{"formname":"dashboard", "fieldname":"panetitlesummary", "text":"Sommaire"},
+	{"formname":"dashboard", "fieldname":"panetitlecoursesdetails", "text":"Détails des cours"},
+	{"formname":"dashboard", "fieldname":"panetitlefinancial", "text":"Détails financiers"},
+	{"formname":"dashboard", "fieldname":"buttontitlereports", "text":"Rapports"},
+	{"formname":"dashboard", "fieldname":"fieldsessionname", "text":"Sessions"},
+	{"formname":"dashboard", "fieldname":"labelnumberofskaters", "text":"Nombre de patineurs"},
+	{"formname":"dashboard", "fieldname":"labelspacesleft", "text":"Places disponibles"},
+	{"formname":"dashboard", "fieldname":"labelreturningskaters", "text":"Patineurs réinscrits"},
+	{"formname":"dashboard", "fieldname":"labelnewskaters", "text":"Nouveaux patineurs"},
+
+	{"formname":"summary", "fieldname":"formtitle", "text":"Sommaire"},
+	{"formname":"summary", "fieldname":"formsubtitlecourses", "text":"Sommaire des cours par type"},
+	{"formname":"summary", "fieldname":"formsubtitleallcourses", "text":"Sommaire total des cours"},
+	{"formname":"summary", "fieldname":"graphtitleallskaters", "text":"Total des patineurs-cours"},
+	{"formname":"summary", "fieldname":"graphtitleallskaterspertype", "text":"Total patineurs-cours par type de cours"},
+	{"formname":"summary", "fieldname":"graphtitlereturningskaters", "text":"Patineurs réinscrits"},
+	{"formname":"summary", "fieldname":"graphtitleallskaterspertypecomparison", "text":"Comparaison total par type de cours"},
+	{"formname":"summary", "fieldname":"graphtitleskaterspernbofcourses", "text":"Patineurs par nombre de cours"},
+	{"formname":"summary", "fieldname":"graphtitlerevenuepersession", "text":"Revenus par session"},
+
+	{"formname":"courses", "fieldname":"formtitle", "text":"Détails des cours"},
+
+	{"formname":"financial", "fieldname":"formtitle", "text":"Détails financiers"},
+	{"formname":"financial", "fieldname":"graphtitlerevenuepercode", "text":"Revenus par code de cours"},
+	{"formname":"financial", "fieldname":"labeltotalrevenus", "text":"Revenus"},
+	{"formname":"financial", "fieldname":"labeltotalpaid", "text":"Montant payé"},
+
+	{"formname":"courses", "fieldname":"", "text":""}
+]

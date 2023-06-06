@@ -1,0 +1,25 @@
+<div class="modal-header">
+	<h4 class="modal-title">New Role</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" user="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-8">
+	      <label for="code">Role:</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <select class="form-control" id="type" ng-model="newObj.roleid">
+						<option ng-repeat="priv in roles" value="{{priv.id}}">{{priv.text}}</option>
+		      </select>
+	      </div>
+			</div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		All fields are mandatory.
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>Discard Changes</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>Keep Changes</button>
+</div>

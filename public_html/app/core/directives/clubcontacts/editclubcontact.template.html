@@ -1,0 +1,89 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.editcontacts.formtitle}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+
+		      <div class="col-xs-3">
+			      <label for="relation">{{translationObj.editcontacts.fieldrelation}}<i style="color:red"> *</i></label>
+		      	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+		      		<select class="form-control" id="relation" ng-model="newObj.contacttype" maxlength="20">
+								<option ng-repeat="contacttype in contacttypes" value="{{contacttype.code}}">{{contacttype.text}}</option>
+		      		</select>
+		      	</div>
+		      </div>
+
+		      <div class="col-xs-4">
+		      	<label for="first">{{translationObj.editcontacts.fieldfirstname}}<i style="color:red"> *</i></label>
+		      	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			        <input type="text" class="form-control" id="firstname" name="firstname" ng-model="newObj.firstname" maxlength="40" required>
+			      </div>
+		      </div>
+
+		      <div class="col-xs-4">
+			      <label for="last">{{translationObj.editcontacts.fieldlastname}}<i style="color:red"> *</i></label>
+		      	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			        <input type="text" class="form-control" id="lastname" name="lastname" ng-model="newObj.lastname" maxlength="40" required>
+			      </div>
+		      </div>
+
+			    <div class="col-xs-3">
+			      <label for="homephone">{{translationObj.editcontacts.fieldhomephone}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+			      	<input type="text" class="form-control" id="homephone" ng-model="newObj.homephone" maxlength="14" format-phone>
+			    	</div>
+			    </div>
+
+			    <div class="col-xs-3">
+			      <label for="cellphone">{{translationObj.editcontacts.fieldcellphone}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+			        <input type="text" class="form-control" id="cellphone" ng-model="newObj.cellphone" maxlength="14" format-phone>
+			    	</div>
+			    </div>
+
+			    <div class="col-xs-3">
+			      <label for="otherphone">{{translationObj.editcontacts.fieldofficephone}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+			      	<input type="text" class="form-control" id="otherphone" ng-model="newObj.officephone" maxlength="14" format-phone>
+			    	</div>
+			    </div>
+			    <div class="col-xs-3">
+			      <label for="officeext">{{translationObj.editcontacts.fieldofficephoneext}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+			      	<input type="text" class="form-control" id="officeext" ng-model="newObj.officeext" maxlength="6">
+			    	</div>
+			    </div>
+
+			    <div class="col-xs-5">
+			      <label for="email">{{translationObj.editcontacts.fieldemail}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+			      	<input type="text" class="form-control" id="email" ng-model="newObj.email" maxlength="100">
+			    	</div>
+			    </div>
+
+			    <!-- <div class="col-xs-3">
+						<br><label><input type="checkbox" ng-model="newObj.incaseofemergency" ng-true-value="'1'">{{translationObj.editcontacts.fieldincaseofemergency}}</label>
+					</div> -->
+
+
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.editcontacts.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <contact-copy-from-member></contact-copy-from-member> -->
+<!--  <button type="button" id="butEditContactFormCopy" class="btn btn-primary" ng-click="copyFromMember()">Copy From Member</button>-->
+  <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.editcontacts.buttontitlediscard}}</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.editcontacts.buttontitlekeepchanges}}</button>
+</div>

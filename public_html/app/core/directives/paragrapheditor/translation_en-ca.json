@@ -1,0 +1,28 @@
+[
+	{"formname":"paragraphviewer", "fieldname":"listtitleparagraph", "text":"Paragraphs"},
+	{"formname":"paragraphviewer", "fieldname":"titledraganddrop", "text":"Drag and drop to reorder"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphvisible", "text":"Published"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphnotvisible", "text":"Not Published"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphvisiblepreview", "text":"Visible (preview)"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphnotvisiblepreview", "text":"Hidden (preview)"},
+
+	{"formname":"newparagraph", "fieldname":"formtitleeditparagraph", "text":"Edit Paragraph"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlefrenchtitle", "text":"French Title"},
+	{"formname":"newparagraph", "fieldname":"fieldtitletitle", "text":"Title"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleenglishtitle", "text":"English Title"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlefrenchsubtitle", "text":"French Sub Title"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlesubtitle", "text":"Sub Title"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleenglishsubtitle", "text":"English Sub Title"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleparagraphindex", "text":"Index"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlefrenchparagraphtext", "text":"French Paragraph"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleparagraphtext", "text":"Paragraph"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleenglishparagraphtext", "text":"English Paragraph"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlepublish", "text":"Publish"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlepreview", "text":"Visible (preview)"},
+	{"formname":"newparagraph", "fieldname":"formerrormessage", "text":"All the fields are mandatory."},
+	{"formname":"newparagraph", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newparagraph", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"end", "fieldname":"nothing", "text":"fin de fichier"}
+
+]

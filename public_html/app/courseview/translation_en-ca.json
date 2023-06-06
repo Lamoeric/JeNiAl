@@ -1,0 +1,46 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter courses..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Courses"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No course found"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Course Details"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitleclub", "text":"club"},
+	{"formname":"details", "fieldname":"fieldtitleorgno", "text":"Organization No"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"fieldtitlecolor", "text":"Schedule Color"},
+
+	{"formname":"editcourse", "fieldname":"formtitleeditcourse", "text":"New Course"},
+	{"formname":"editcourse", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"editcourse", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editcourse", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"editcourse", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"editcourse", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"editlevel", "fieldname":"formtitleeditlevel", "text":"Edit Level"},
+	{"formname":"editlevel", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"editlevel", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"editlevel", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"editlevel", "fieldname":"fieldtitlecolor", "text":"Schedule Color"},
+	{"formname":"editlevel", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"editlevel", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"editlevel", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"details", "fieldname":"fieldtitleacceptreg", "text":"Accept Registration"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitleenglishshortdesc", "text":"Short English Description"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchshortdesc", "text":"Short French Description"},
+	{"formname":"details", "fieldname":"formtitlelevels", "text":"Levels"},
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}
+
+]

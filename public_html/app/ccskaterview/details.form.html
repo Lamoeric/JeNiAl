@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
+    <label for="firstname">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input type="text" name="firstname" class="form-control input-sm" name="firstname" id="firstname" ng-model="currentSkater.firstname" maxlength="40" required>
+    </div>
+  </div>
+  <div class="clearfix visible-xs"></div>
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
+    <label for="lastname">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input type="text" class="form-control input-sm" name="lastname" id="lastname" ng-model="currentSkater.lastname" maxlength="40" required>
+    </div>
+  </div>
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+    <label for="gender">{{translationObj.details.fieldgender}}</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
+      <select class="form-control input-sm" id="gender" ng-model="currentSkater.gender">
+        <option ng-repeat="gender in genders" value="{{gender.code}}">{{gender.text}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+    <label for="language">{{translationObj.details.fieldlanguage}}</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+      <select class="form-control input-sm" id="language" ng-model="currentSkater.language">
+        <option ng-repeat="language in languages" value="{{language.code}}">{{language.text}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+    <label for="birthday">{{translationObj.details.fielddateofbirth}}</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+      <input type="text" class="form-control input-sm" id="birthday" ng-model="currentSkater.birthday" maxlength="10">
+    </div>
+    <span class="help-block">YYYY-MM-DD</span>
+  </div>
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
+    <label for="healthcareno">{{translationObj.details.fieldhealthcareno}}</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
+      <input type="text" class="form-control input-sm" id="healthcareno" name="healthcareno" ng-model="currentSkater.healthcareno" maxlength="12">
+    </div>
+  </div>
+  <div class="col-xs-11 col-sm-4 col-md-4 col-lg-3">
+    <label for="healthcareexp">{{translationObj.details.fieldhealthcareexpdate}}</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+      <input type="text" class="form-control input-sm" id="healthcareexp" ng-model="currentSkater.healthcareexp" maxlength="7" >
+    </div>
+    <span class="help-block">YYYY-MM</span>
+  </div>
+  <div class="col-xs-11 col-sm-6 col-md-6 col-lg-3">
+    <label for="skatecanadano">{{translationObj.details.fieldskatecanadano}}</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      <input type="text" class="form-control input-sm" id="skatecanadano" ng-model="currentSkater.skatecanadano" maxlength="20" capitalize disabled>
+    </div>
+  </div>
+</div>

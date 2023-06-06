@@ -1,0 +1,159 @@
+<div class="form-group row">
+	<button class="btn btn-primary" ng-click="createGroups()" ng-disabled="!currentTestsession||!canCreateGroups||currentTestsession.islock"><span>{{translationObj.schedule.buttontitlecreategroup}}</span></button>
+	<div class="grid">
+
+		<form>
+			<div ng-repeat="day in currentTestsession.days" class="blackcurvyborder">
+				<h3>{{translationObj.schedule.titleday}} {{$index + 1}}</h3>
+				<div class="row">
+					<div class="col-xs-2">
+						<label for="testdate">{{translationObj.schedule.fieldtestdate}}</label>
+						<input type="text" class="form-control" id="testdate" ng-model="day.testdatestr" disabled>
+					</div>
+				</div>
+
+					<form>
+						<div ng-repeat="period in day.periods" class="blackcurvyborder">
+							<h3>{{translationObj.schedule.titleperiod}} {{$index + 1}}</h3>
+							<div class="row">
+								<div class="col-xs-2">
+									<a ng-href="#!/testperiodview/testsessionid/{{currentTestsession.id}}/testperiodid/{{period.id}}" target="_blank">{{translationObj.schedule.linkviewperiod}}</a>
+								</div>
+								<div class="col-xs-2">
+									<a ng-href="#!/testperiodfollowview/testsessionid/{{currentTestsession.id}}/testperiodid/{{period.id}}" target="_blank">{{translationObj.schedule.linkfollowperiod}}</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-2">
+									<label for="arena">{{translationObj.schedule.fieldarena}}</label>
+									<select class="form-control" id="arena" ng-model="period.arenaid" disabled>
+										<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+									</select>
+								</div>
+								<div class="col-xs-2">
+									<label for="ice">{{translationObj.schedule.fieldice}}</label>
+									<input type="text" class="form-control" id="ice" ng-model="period.icelabel" disabled>
+								</div>
+								<div class="col-xs-2">
+									<label for="starttime">{{translationObj.schedule.fieldstarttime}}</label>
+									<input type="text" class="form-control" id="starttime" ng-model="period.starttime" disabled>
+								</div>
+								<div class="col-xs-2">
+									<label for="endtime">{{translationObj.schedule.fieldendtime}}</label>
+									<input type="text" class="form-control" id="endtime" ng-model="period.endtime" disabled>
+								</div>
+							</div>
+
+								<form>
+									<div ng-repeat="group in period.groups" class="blackcurvyborder">
+										<div class="row">
+											<div class="col-xs-5">
+												<label for="testlabel"><a data-target="#{{group.id}}" data-toggle="collapse" class="pointerlist">{{translationObj.schedule.fieldgroup}} {{group.grouplabel}}</a></label>
+												<input type="text" class="form-control" id="testlabel" value="{{group.testtypelabel}} {{group.testtype == 'DANCE' ? group.testlevellabel : ''}} {{group.testlabel}}" disabled>
+											</div>
+											<div class="col-xs-1">
+												<label for="warmupduration">{{translationObj.schedule.fieldwarmup}}</label>
+												<input type="text" class="form-control" id="warmupduration" ng-model="group.warmupduration" disabled>
+											</div>
+											<div class="col-xs-1">
+												<label for="testduration">{{translationObj.schedule.fieldtestduration}}</label>
+												<input type="text" class="form-control" id="testduration" ng-model="group.testduration" disabled>
+											</div>
+											<div class="col-xs-1">
+												<label for="starttime">{{translationObj.schedule.fieldstarttime}}</label>
+												<input type="text" class="form-control" id="starttime" ng-model="group.starttime" disabled>
+											</div>
+											<div class="col-xs-1">
+												<label for="endtime">{{translationObj.schedule.fieldendtime}}</label>
+												<input type="text" class="form-control" id="endtime" ng-model="group.endtime" disabled>
+											</div>
+											<div class="col-xs-2">
+												<label>&nbsp;</label>
+												<div class="input-group">
+													<span>
+														<child-edit-button 				obj="group" objlist="period.groups" callback="editTestSessionGroup(group, null)" is-form-pristine="currentTestsession.islock"></child-edit-button>
+														<child-moveup-button 			obj="group" objlist="period.groups" prop="'sequence'" callback="setDirty()" is-form-pristine="period.groups.indexOf(group)==0||currentTestsession.islock"></child-moveup-button>
+														<child-movedown-button 		obj="group" objlist="period.groups" prop="'sequence'" callback="setDirty()" is-form-pristine="period.groups.indexOf(group)==period.groups.length-1||currentTestsession.islock"></child-movedown-button>
+														<child-moveright-button 	obj="group" objlist="period.groups" callback="moveGroupToPeriod" is-form-pristine="currentTestsession.islock"></child-moveright-button>
+														<!-- <child-delete-button 		obj="group" objlist="currentTestsession.groups" callback="setDirty()"></child-delete-button>
+														<child-undelete-button 	obj="group" objlist="currentTestsession.groups" callback="setDirty()"></child-undelete-button> -->
+														<child-status-indicator obj="group"></child-status-indicator>
+													</span>
+												</div>
+											</div>
+										</div>
+
+										<div id="{{group.id}}" class="collapse">
+											<form >
+												<div id="childform1">
+													<div ng-repeat="skater in group.skaters">
+														<div class="row" id="childform1">
+
+															<div class="col-xs-2">
+													      <label for="skaterfullname" ng-show="$index==0">{{translationObj.schedule.fieldskater}}</label>
+																<input type="text" class="form-control" id="skaterfullname" value="{{skater.firstname}} {{skater.lastname}}" disabled>
+												      </div>
+
+															<!-- Filler just so the edit/delete/move buttons are aligned -->
+															<div class="col-xs-7" ng-show="skater.testtype != 'DANCE'">
+															</div>
+
+															<div class="col-xs-2" ng-show="skater.testtype == 'DANCE'">
+																<label for="partnerid" ng-show="$index==0">{{translationObj.schedule.fieldpartner}}</label>
+																<div class="input-group">
+																	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+																	<select class="form-control" ng-model="skater.partnerid" disabled>
+																		<option ng-repeat="partner in allPartners" value="{{partner.id}}">{{partner.text}}</option>
+																	</select>
+																</div>
+															</div>
+
+															<div class="col-xs-3" ng-show="skater.testtype == 'DANCE'">
+													      <label for="musicid" ng-show="$index==0">{{translationObj.schedule.fieldmusic}}</label>
+																<select class="form-control" ng-model="skater.musicid" disabled>
+																	<option ng-repeat="music in allDanceMusics" value="{{music.id}}">{{music.label}}</option>
+																</select>
+																<!-- <input type="text" class="form-control" id="musiclabel" ng-model="skater.musiclabel" disabled> -->
+												      </div>
+
+															<div class="col-xs-2" ng-show="skater.testtype == 'DANCE'">
+													      <label for="partnersteps" ng-show="$index==0">{{translationObj.schedule.fieldpartnersteps}}</label>
+																<select class="form-control" ng-model="skater.partnersteps" disabled>
+																	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+																</select>
+												      </div>
+
+															<!-- <div class="col-xs-2">
+													      <label for="comments" ng-show="$index==0">Comments</label>
+																<input type="text" class="form-control" id="comments" ng-model="skater.comments" disabled>
+												      </div> -->
+
+															<div class="col-xs-2">
+																<label ng-show="$index==0">&nbsp;</label>
+																<div class="input-group">
+																	<span>
+																		<child-edit-button 					obj="skater" objlist="group.skaters" callback="editTestSkater(group, skater)" is-form-pristine="currentTestsession.islock"></child-edit-button>
+																		<child-moveup-button 				obj="skater" objlist="group.skaters" prop="'sequence'" callback="setDirty()" is-form-pristine="group.skaters.indexOf(skater)==0||currentTestsession.islock"></child-moveup-button>
+																		<child-movedown-button 			obj="skater" objlist="group.skaters" prop="'sequence'" callback="setDirty()" is-form-pristine="group.skaters.indexOf(skater)==group.skaters.length-1||currentTestsession.islock"></child-movedown-button>
+																		<child-moveright-button 		obj="skater" objlist="group.skaters" callback="moveSkaterToGroup" is-form-pristine="currentTestsession.islock"></child-moveright-button>
+																		<child-status-indicator obj="skater"></child-status-indicator>
+																	</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</form>
+
+						</div>
+					</form>
+
+			</div>
+		</form>
+
+  </div>
+</div>

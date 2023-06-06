@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('service', 'fr-ca')">
+<head>
+  <script>
+    var shiftWindow = function() { scrollBy(0, -110) };
+    window.addEventListener("hashchange", shiftWindow);
+    function load() { if (window.location.hash) shiftWindow(); }
+  </script>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="../../../images/logo_jenial.png" type="image/x-icon">
+  <title ng-bind="currentpage.globalsections.footer.label"></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Template CSS Files
+  ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="../../../plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="../../../plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="../../../plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="../../../plugins/slider/slider.css">
+  <!-- owl craousel css -->
+  <link rel="stylesheet" href="../../../plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="../../../plugins/owl-carousel/owl.theme.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="../../../plugins/facncybox/jquery.fancybox.css">
+  <!-- Alertify -->
+  <link rel="stylesheet" href="../../../../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../../../../dist/alertify.default.css" />
+  <!-- template main css file -->
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body onload="load()">
+<!--
+==================================================
+Main menu Section Start
+================================================== -->
+<ng-include src="'../../../templates/mainmenu.template.html'"></ng-include>
+
+<!--
+==================================================
+Main header Section Start
+================================================== -->
+<ng-include src="'../../../templates/mainheader.template.html'"></ng-include>
+
+<!--
+==================================================
+    Programs Page Section  Start
+================================================== -->
+<section id="service-page" ng-if="currentpage.globalsections.programs">
+  {{currentsection=currentpage.globalsections.programs;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+        <ng-include src="'../../../templates/toplinks.template.html'"></ng-include>
+        <ng-include src="'../../../templates/paragraph.template.html'"></ng-include>
+        <ng-include src="'../../../templates/bottomlinks.template.html'"></ng-include>
+      </div>
+    </div>
+    <hr>
+
+    <div class="row" ng-repeat="oneprogram in currentpage.globalsections.programgroup">
+      {{currentsection=oneprogram;""}}
+      <div class="col-md-6" ng-show="$even">
+        <div class="block">
+          <img class="img-responsive" ng-src="/websiteimages/sections/{{oneprogram.imagefilename}}" alt="">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
+        <ng-include src="'../../../templates/toplinks.template.html'"></ng-include>
+        <ng-include src="'../../../templates/paragraph.template.html'"></ng-include>
+        <ng-include src="'../../../templates/bottomlinks.template.html'"></ng-include>
+      </div>
+      <div class="col-md-6" ng-show="$odd">
+        <div class="block">
+          <img class="img-responsive" ng-src="/websiteimages/sections/{{oneprogram.imagefilename}}" alt="">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+==================================================
+    Partners Section Start
+================================================== -->
+<ng-include src="'../../../templates/partners.template.html'"></ng-include>
+
+<!--
+==================================================
+Call To Action Section Start
+================================================== -->
+<ng-include src="'../../../templates/calltoaction.template.html'"></ng-include>
+
+<!--
+==================================================
+Footer Section Start
+================================================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="col-md-8">
+      <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://jenial.jenial.ca" target="_blank">JeNiAl</a>.</p>
+    </div>
+  </div>
+</footer> <!-- /#footer -->
+
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="../../../plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="../../../plugins/form-validation/jquery.form.js"></script>
+    <script src="../../../plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- owl carouserl js -->
+	<script src="../../../plugins/owl-carousel/owl.carousel.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="../../../plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- angular js -->
+	<script src="../../../plugins/angularJS/angular.min.js"></script>
+	<!-- wow js -->
+	<script src="../../../plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="../../../plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="../../../plugins/facncybox/jquery.fancybox.js"></script>
+	<!-- template main js -->
+	<script src="../../../js/main.js"></script>
+  <!-- Alertify -->
+  <script type="text/javascript" src="../../../../dist/alertify.min.js"></script>
+  <!-- angular JS module and controller -->
+	<script src="../../../js/app.js"></script>
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+ 	</body>
+</html>

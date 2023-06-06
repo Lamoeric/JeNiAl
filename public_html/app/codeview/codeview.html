@@ -1,0 +1,21 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+ <row>
+	 <newleftpane leftpanetemplatefullpath="./codeview/codegroup.template.html"></newleftpane>
+	 <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+		 <div id="mainrowright" class="row mainrowright">
+			 <div class="grid">
+				 <displayerror></displayerror>
+				 <displaymaintitle maintitle="currentCodeGroup.code + ' - ' + currentCodeGroup.text" defaulttitle="translationObj.main.formtitledetails" object="currentCodeGroup"></displaymaintitle>
+
+				 <main-new-button new-callback="createNew()"></main-new-button>
+			 	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine"></main-save-button>
+
+				 <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentCodeGroup">
+					 <div ng-include="'codeview/code.html'"></div>
+				 </form>
+
+			 </div>
+		 </div>
+	 </div>
+ </row>
+</section>

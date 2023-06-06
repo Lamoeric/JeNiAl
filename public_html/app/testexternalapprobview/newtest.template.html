@@ -1,0 +1,37 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newtest.formtitleedittest}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+
+			<div class="col-xs-5">
+				<label for="testtype">{{translationObj.newtest.fieldtesttype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.testtype" required ng-change="onTestTypeChange(newObj)">
+						<option ng-repeat="type in testtypes" value="{{type.code}}">{{type.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-7">
+				<label for="testsid">{{translationObj.newtest.fieldtestid}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.testsid" required ng-change="onTestChange(newObj)">
+						<option ng-repeat="testByType in allTestsByType" value="{{testByType.id}}">{{testByType.text}}</option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newtest.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newtest.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newtest.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,8 @@
+[
+	{"formname":"main", "fieldname":"formttitlesignin", "text":"Log in"},
+	{"formname":"main", "fieldname":"formttitleforgotmypassword", "text":"I forgot my username or password"},
+	{"formname":"main", "fieldname":"msgerrinvalidlogin", "text":"Invalid login info"},
+	{"formname":"main", "fieldname":"buttontitlelogin", "text":"Log in"},
+
+	{"formname":"main", "fieldname":"test", "text":""}
+]

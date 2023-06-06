@@ -1,0 +1,22 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./wsdocumentview/wsdocument.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentWsdocument.documentname" defaulttitle="translationObj.main.formtitledetails" object="currentWsdocument"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentWsdocument==null"></main-delete-button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentWsdocument">
+						<div ng-include="'wsdocumentview/wsdocument.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>

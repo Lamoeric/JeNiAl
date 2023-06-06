@@ -1,0 +1,64 @@
+<div class="form-group">
+	<div>
+		<h3>{{translationObj.test.formtitletests}}</h3>
+	  <ul class="nav nav-tabs">
+	    <li class="active pointerlist"><a data-toggle="tab" data-target="#summary">{{translationObj.test.panetitlesummary}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#skills">{{translationObj.test.panetitleskills}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#dances">{{translationObj.test.panetitledance}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#freestyle">{{translationObj.test.panetitlefreestyle}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#interpretives">{{translationObj.test.panetitleinterpretives}}</a></li>
+	    <li class="pointerlist"><a data-toggle="tab" data-target="#competitives">{{translationObj.test.panetitlecompetitives}}</a></li>
+	  </ul>
+
+	  <div class="tab-content">
+	  	<!-- Summary -->
+	    <div id="summary" class="tab-pane fade in active">
+	    	<form></form> <!-- fake form to correct bug -->
+	      <form class="form-horizontal well" role="form" name="testSummaryForm" ng-show="currentMember">
+					<test-summary summary="currentMember.summary"></test-summary>
+					<!--<div ng-include="'./core/directives/testsummary/testsummary.template.html'"></div>-->
+			  </form>
+	    </div>
+
+	  	<!-- Skills -->
+	    <div id="skills" class="tab-pane fade">
+	      <form class="form-horizontal well" role="form" name="testSkillsForm" ng-show="currentMember">
+					<div ng-include="'./memberview/testskills.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Dances -->
+	    <div id="dances" class="tab-pane fade">
+	      <!-- <form class="form-horizontal well pre-scrollable" id="map5" role="form" name="testDanceForm" ng-show="currentMember"> -->
+	      <form class="form-horizontal well" role="form" name="testDanceForm" ng-show="currentMember">
+					<div ng-include="'./memberview/testdance.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Free Style -->
+	    <div id="freestyle" class="tab-pane fade">
+	      <!-- <form class="form-horizontal well pre-scrollable" id="map5" role="form" name="testFreestyleForm" ng-show="currentMember"> -->
+	      <form class="form-horizontal well" role="form" name="testFreestyleForm" ng-show="currentMember">
+					<div ng-include="'./memberview/testfreestyle.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Interpretives -->
+	    <div id="interpretives" class="tab-pane fade">
+	      <!-- <form class="form-horizontal well pre-scrollable" id="map5" role="form" name="testInterpretivesForm" ng-show="currentMember"> -->
+	      <form class="form-horizontal well" role="form" name="testInterpretivesForm" ng-show="currentMember">
+					<div ng-include="'./memberview/testinterpretive.form.html'"></div>
+			  </form>
+	    </div>
+
+	  	<!-- Competitives -->
+	    <div id="competitives" class="tab-pane fade">
+	      <!-- <form class="form-horizontal well pre-scrollable" id="map5" role="form" name="testCompetitivesForm" ng-show="currentMember"> -->
+	      <form class="form-horizontal well" role="form" name="testCompetitivesForm" ng-show="currentMember">
+					<div ng-include="'./memberview/testcompetitive.form.html'"></div>
+			  </form>
+	    </div>
+
+	  </div>
+	</div>
+</div>

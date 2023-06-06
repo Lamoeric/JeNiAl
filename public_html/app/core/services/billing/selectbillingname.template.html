@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selectbillingname.formtitleselectbillingname}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-7">
+	      <label for="billingname">{{translationObj.selectbillingname.fieldtitlebillingname}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="billingname" ng-model="newObj.billingname" required>
+						<option ng-repeat="billingname in billingnames" value="{{billingname.fullname}}">{{billingname.fullname}}</option>
+		      </select>
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    You must select a name for the bill.
+  </div>
+</div>
+<div class="modal-footer">
+<!--	<button type="button" class="btn btn-primary" ng-click="cancel()">Discard Changes</button> -->
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.selectbillingname.buttontitleselectbillingname}}</button>
+</div>

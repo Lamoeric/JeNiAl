@@ -1,0 +1,5 @@
+[
+	{"formname":"showagreement", "fieldname":"formtitleagreement", "text":"Club Regulations"},
+	{"formname":"showagreement", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"showagreement", "fieldname":"buttontitlekeepchanges", "text":"I have read and I agree to these terms"}
+]

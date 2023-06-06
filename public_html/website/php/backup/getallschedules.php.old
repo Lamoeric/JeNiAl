@@ -1,0 +1,38 @@
+<?php
+/*
+* Author : Eric Lamoureux
+*
+* File contains function to get the list of schedules for all courses of active session
+*
+*/
+require_once('./../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+
+$language = $_POST['language'];
+try {
+  $query = "SELECT cscd.*, getTextLabel(cscd.label, '$language') datelabel, getTextLabel(csc.label, '$language') courselabel, getCodeDescription('days', cscd.day, '$language') daylabel, WEEK(coursedate) weekno,
+                    DATE_ADD(coursedate, INTERVAL - WEEKDAY(coursedate+1) DAY) weekfirstdate, DATE_ADD(coursedate, INTERVAL - WEEKDAY(coursedate+1)+6 DAY) weeklastdate, WEEKDAY(coursedate) weekdayno,
+                    getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
+                    concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
+                          if ((iceid is null or iceid = 0), '',  getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'))) location
+            FROM cpa_sessions_courses_dates cscd
+            JOIN cpa_sessions_courses csc ON csc.id = cscd.sessionscoursesid
+            JOIN cpa_sessions cs ON cs.id = csc.sessionid
+            WHERE cs.active = 1
+            AND coursedate >= curdate()
+            ORDER BY cscd.coursedate, cscd.starttime, csc.coursecode, csc.courselevel";
+  $result = $mysqli->query($query);
+  $data = array();
+  $data['data'] = array();
+  while ($row = $result->fetch_assoc()) {
+    $data['data'][] = $row;
+  }
+  $data['success'] = true;
+  echo json_encode($data);
+  exit;
+}catch (Exception $e) {
+  $data = array();
+  $data['success'] = false;
+  $data['message'] = $e->getMessage();
+  echo json_encode($data);
+  exit;
+}

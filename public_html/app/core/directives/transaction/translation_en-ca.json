@@ -1,0 +1,4 @@
+[
+	{"formname":"main", "fieldname":"buttontitleaddtransaction", "text":"Add Transaction..."},
+	{"formname":"main", "fieldname":"buttontitleedittransaction", "text":"Edit Transaction..."}
+]

@@ -1,0 +1,12 @@
+[
+	{"formname":"selectmembers", "fieldname":"formtitleselectmembers", "text":"Choisir membres"},
+	{"formname":"selectmembers", "fieldname":"fieldcourse", "text":"Cours"},
+	{"formname":"selectmembers", "fieldname":"fieldmembers", "text":"Membres"},
+	{"formname":"selectmembers", "fieldname":"fieldqualifications", "text":"Qualifications"},
+	{"formname":"selectmembers", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"selectmembers", "fieldname":"buttontitledismiss", "text":"Retirer filtre"},
+	{"formname":"selectmembers", "fieldname":"buttontitleclearform", "text":"Vider formulaire"},
+	{"formname":"selectmembers", "fieldname":"buttontitleapplyselectmembers", "text":"Choisir"},
+	{"formname":"selectmembers", "fieldname":"msgerratleastonecriterion", "text":"Vous devez sélectionner au moins un critère"},
+	{"formname":"selectmembers", "fieldname":"msgerratleastonecourse", "text":"Vous devez sélectionner au moins un cours"}
+]

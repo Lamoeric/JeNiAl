@@ -1,0 +1,94 @@
+<div class="form-group">
+  <div class="grid">
+		<h3>{{translationObj.contacts.formtitle}}</h3>
+    <div class="row">
+      <div class="col-xs-5">
+		<add-club-contact-button objlist="contacts" club="club" is-form-pristine="newContactDisabled"></add-club-contact-button>
+  </div>
+</div>
+
+			<div ng-repeat="contact in contacts">
+				<hr>
+				<div class="row">
+					<div class="col-xs-3">
+						<span>
+							<edit-club-contact-button obj="contact" objlist="contacts" club="club" callback="setDirty()" is-form-pristine="newContactDisabled"></edit-club-contact-button>
+							<child-delete-button 		obj="contact" objlist="contacts" callback="setDirty()" is-form-pristine="newContactDisabled"></child-delete-button>
+							<child-undelete-button 	obj="contact" objlist="contacts" callback="setDirty()" is-form-pristine="newContactDisabled"></child-undelete-button>
+							<child-status-indicator obj="contact"></child-status-indicator>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+					  <label for="relationname">{{translationObj.contacts.fieldrelation}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					    <input type="text" class="form-control" id="relationname" name="relationname" ng-model="contact.relationname" disabled maxlength="40" required>
+						</div>
+					</div>
+
+					<div class="col-xs-3">
+						<label for="first">{{translationObj.contacts.fieldfirstname}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					    <input type="text" class="form-control" id="firstname" name="firstname" ng-model="contact.firstname" disabled maxlength="40" required>
+					  </div>
+					</div>
+
+					<div class="col-xs-3">
+					  <label for="last">{{translationObj.contacts.fieldlastname}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					    <input type="text" class="form-control" id="lastname" name="lastname" ng-model="contact.lastname" disabled maxlength="40" required>
+					  </div>
+					</div>
+					<div class="col-xs-3">
+					  <label for="homephone">{{translationObj.contacts.fieldhomephone}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					  	<input type="text" class="form-control" id="homephone" ng-model="contact.homephone" disabled maxlength="14">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+					  <label for="cellphone">{{translationObj.contacts.fieldcellphone}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					    <input type="text" class="form-control" id="cellphone" ng-model="contact.cellphone" disabled maxlength="14">
+						</div>
+					</div>
+
+					<div class="col-xs-3">
+					  <label for="otherphone">{{translationObj.contacts.fieldofficephone}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					  	<input type="text" class="form-control" id="otherphone" ng-model="contact.officephone" disabled maxlength="14">
+						</div>
+					</div>
+
+					<div class="col-xs-3">
+					  <label for="otherphone">{{translationObj.contacts.fieldofficephoneext}}</label>
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					  	<input type="text" class="form-control" id="otherphone" ng-model="contact.officeext" disabled maxlength="6">
+						</div>
+					</div>
+					<!-- <div class="col-xs-3">
+						<br><label><input type="checkbox" ng-model="contact.incaseofemergency" ng-true-value="'1'" disabled>{{translationObj.contacts.fieldincaseofemergency}}</label>
+					</div> -->
+				</div>
+				<div class="row">
+			    <div class="col-xs-5">
+			      <label for="email">{{translationObj.contacts.fieldemail}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+			      	<input type="text" class="form-control" id="email" ng-model="contact.email" maxlength="100" disabled>
+			    	</div>
+			    </div>
+				</div>
+			</div>
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<form class="form-horizontal" role="form" name="editObjForm">
+  <div class="modal-header">
+    <h4 class="modal-title">Login</h4>
+  </div>
+  <div class="modal-body">
+      <div class="row form-group">
+
+        <div class="col-xs-10">
+        	<!-- <label for="first">User Id<i style="color:red"> *</i></label> -->
+        	<div class="input-group">
+  				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+  	        <input type="text" name="userid" class="form-control" id="userid" ng-model="newObj.userid" maxlength="40" ng-required=true>
+  	      </div>
+        </div>
+
+      </div>
+
+      <div class="row form-group">
+
+        <div class="col-xs-10">
+        	<!-- <label for="first">Password<i style="color:red"> *</i></label> -->
+        	<div class="input-group">
+  				  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+  	        <input type="password" name="password" class="form-control" id="password" ng-model="newObj.password" maxlength="40" ng-required=true>
+  	      </div>
+        </div>
+
+      </div>
+    <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+      All fields are mandatory.
+    </div>
+    <div class="alert alert-danger" id="invalidLogin" style="display:none;">
+      Invalid login info.
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary glyphicon glyphicon-exclamation-sign" ng-click="forgotPassword()"></button>
+  	<button type="button" class="btn btn-primary glyphicon glyphicon-remove" ng-click="cancel()"></button>
+  	<button type="submit" class="btn btn-primary glyphicon glyphicon-ok" ng-click="ok()"></button>
+  </div>
+</form>

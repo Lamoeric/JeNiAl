@@ -1,0 +1,182 @@
+<form class="form-horizontal" role="form" name="detailsForm">
+	<div class="content">
+		<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<br>
+					<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
+					<h3>{{translationObj.main.formtitlewelcome}} {{userInfo.userfullname}}</h3>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="content well">
+						<div class="row">
+							<div class="col-md-10">
+								<div class="content">
+									<div class="row">
+										<a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+										<h3>{{translationObj.main.formtitleyourprofile}}</h3>
+
+										<div class="row">
+											<div class="col-xs-12">
+												<div class="alert alert-danger" id="globalErrorMessage" style="display:none;">
+													<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+												</div>
+												<div class="alert alert-success" id="globalSuccessMessage" style="display:none;">
+													<li ng-repeat="error in globalSuccessMessage">{{error}}</li>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+											<label for="newuserid">{{translationObj.main.fieldnewuserid}}<i style="color:red"> *</i></label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												<input type="text" name="newuserid" class="form-control input-sm" id="newuserid" ng-model="currentUser.contact.newuserid" maxlength="200" required>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+											<label for="firstname">{{translationObj.main.fieldfirstname}}<i style="color:red"> *</i></label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												<input type="text" name="firstname" class="form-control input-sm" id="firstname" ng-model="currentUser.contact.firstname" maxlength="40" required>
+											</div>
+										</div>
+
+										<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+											<label for="lastname">{{translationObj.main.fieldlastname}}<i style="color:red"> *</i></label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												<input type="text" name="lastname" class="form-control input-sm" id="lastname" ng-model="currentUser.contact.lastname" maxlength="40" required>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+								      <label for="homephone">{{translationObj.main.fieldhomephone}}</label>
+								    	<div class="input-group">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+								      	<input type="text" class="form-control input-sm" id="homephone" ng-model="currentUser.contact.homephone" maxlength="14" format-phone>
+								    	</div>
+								    </div>
+
+								    <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+								      <label for="cellphone">{{translationObj.main.fieldcellphone}}</label>
+								    	<div class="input-group">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+								        <input type="text" class="form-control input-sm" id="cellphone" ng-model="currentUser.contact.cellphone" maxlength="14" format-phone>
+								    	</div>
+								    </div>
+							    </div>
+
+									<div class="row">
+								    <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+								      <label for="otherphone">{{translationObj.main.fieldofficephone}}</label>
+								    	<div class="input-group">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+								      	<input type="text" class="form-control input-sm" id="otherphone" ng-model="currentUser.contact.officephone" maxlength="14" format-phone>
+								    	</div>
+								    </div>
+								    <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+								      <label for="officeext">{{translationObj.main.fieldofficephoneext}}</label>
+								    	<div class="input-group">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+								      	<input type="text" class="form-control input-sm" id="officeext" ng-model="currentUser.contact.officeext" maxlength="6">
+								    	</div>
+								    </div>
+									</div>
+
+									<div class="row">
+										<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+											<label for="preferedlanguage">{{translationObj.main.fieldpreferedlanguage}}<i style="color:red"> *</i></label>
+							      	<div class="input-group">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+							          <select class="form-control input-sm" name="preferedlanguage" id="language" ng-model="currentUser.contact.preferedlanguage" required>
+													<option ng-repeat="language in preferedlanguages" value="{{language.code}}">{{language.text}}</option>
+									      </select>
+								      </div>
+								    </div>
+							    </div>
+
+									<div class="row">
+										<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
+								      <label for="email">{{translationObj.main.fieldemail}}<i style="color:red"> *</i></label>
+								    	<div class="input-group">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+								      	<input type="text" class="form-control input-sm" id="email" ng-model="currentUser.contact.email" maxlength="100" required>
+								    	</div>
+								    </div>
+							    </div>
+
+									<div class="row">
+										<div class="col-xs-12">
+											<center>
+												<br>
+												<button type="button" class="btn btn-primary" ng-click="saveProfileDetails()">{{translationObj.main.buttontitlesave}}</button>
+											</center>
+								    </div>
+							    </div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<img style="display:block;margin:auto;" src="../privateimages/cpa_logo.jpg" alt="logo">
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- <footer id="myFooter">
+		<div class="container">
+				<div class="row">
+						<div class="col-sm-3">
+								<h2 class="logo"><a href="#"> LOGO </a></h2>
+						</div>
+						<div class="col-sm-2">
+								<h5>Get started</h5>
+								<ul>
+										<li><a href="#">Home</a></li>
+										<li><a href="#">Sign up</a></li>
+										<li><a href="#">Downloads</a></li>
+								</ul>
+						</div>
+						<div class="col-sm-2">
+								<h5>About us</h5>
+								<ul>
+										<li><a href="#">Company Information</a></li>
+										<li><a href="#">Contact us</a></li>
+										<li><a href="#">Reviews</a></li>
+								</ul>
+						</div>
+						<div class="col-sm-2">
+								<h5>Support</h5>
+								<ul>
+										<li><a href="#">FAQ</a></li>
+										<li><a href="#">Help desk</a></li>
+										<li><a href="#">Forums</a></li>
+								</ul>
+						</div>
+						<div class="col-sm-3">
+								<div class="social-networks">
+										<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+										<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+										<a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+								</div>
+								<button type="button" class="btn btn-default">Contact us</button>
+						</div>
+				</div>
+		</div>
+		<div class="footer-copyright">
+				<p>© 2016 Copyright Text </p>
+		</div>
+</footer> -->

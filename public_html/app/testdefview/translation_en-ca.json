@@ -1,0 +1,33 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter tests..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Tests Categories"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No test categories found"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Test Category Details"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."},
+
+	{"formname":"details", "fieldname":"formtitlemaininformation", "text":"Main Informations"},
+	{"formname":"details", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"details", "fieldname":"fieldtitlelevel", "text":"Level"},
+	{"formname":"details", "fieldname":"fieldtitlesubtype", "text":"Subtype"},
+	{"formname":"details", "fieldname":"fieldtitlesequence", "text":"Sequence"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldtitlescore", "text":"Score"},
+	{"formname":"details", "fieldname":"fieldtitlemintestsucceed", "text":"Min nbr of tests to succeed"},
+	{"formname":"details", "fieldname":"fieldtitlewarmupduration", "text":"Warmup Duration"},
+	{"formname":"details", "fieldname":"fieldtitletestduration", "text":"Test Duration"},
+	{"formname":"details", "fieldname":"fieldtitleversion", "text":"Version"},
+
+	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"New Test Definition"},
+	{"formname":"newtest", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"newtest", "fieldname":"fieldtitlelevel", "text":"Level"},
+	{"formname":"newtest", "fieldname":"fieldtitlesubtype", "text":"Subtype"},
+	{"formname":"newtest", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"newtest", "fieldname":"formerrormessage", "text":"Type, level and name are mandatory."},
+	{"formname":"newtest", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newtest", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}
+
+]

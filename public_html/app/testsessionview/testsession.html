@@ -1,0 +1,114 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.testsession.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-2">
+	      <label for="id">{{translationObj.testsession.fieldsessionno}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+					<input type="text" name="id" class="form-control" id="id" ng-model="currentTestsession.id" maxlength="10" disabled>
+	      </div>
+	    </div>
+			<div class="col-xs-3">
+	      <label for="homeclub">{{translationObj.testsession.fieldhomeclub}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="homeclub" ng-model="currentTestsession.homeclub" ng-required="true" ng-disabled="!canUpdateTestSession || currentTestsession.islock">
+			    	<option ng-repeat="homeclub in homeclubs" value="{{homeclub.code}}">{{homeclub.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+			<div class="col-xs-3">
+	      <label for="testdirectorid">{{translationObj.testsession.fieldtestdirector}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="testdirectorid" ng-model="currentTestsession.testdirectorid" ng-required="true" ng-disabled="currentTestsession.islock">
+			    	<option ng-repeat="testdirector in allTestDirectors" value="{{testdirector.id}}">{{testdirector.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+	  </div>
+		<div class="row">
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.testsession.fieldname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentTestsession.name" maxlength="120" ng-required="true" ng-disabled="currentTestsession.islock">
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="label_en">{{translationObj.testsession.fieldenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentTestsession.label_en" maxlength="200" ng-required="true" ng-disabled="currentTestsession.islock">
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="label_fr">{{translationObj.testsession.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentTestsession.label_fr" maxlength="200" ng-required="true" ng-disabled="currentTestsession.islock">
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-3">
+	      <label for="extrafeesoption">{{translationObj.testsession.fieldextrafeesoptions}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="extrafeesoption" ng-model="currentTestsession.extrafeesoption" ng-required="true" ng-disabled="!canUpdateTestSession || currentTestsession.islock">
+			    	<option ng-repeat="extrafeesoption in extrafeesoptions" value="{{extrafeesoption.code}}">{{extrafeesoption.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="registrationstartdate">{{translationObj.testsession.fieldregistrationstartdate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="registrationstartdate" ng-model="currentTestsession.registrationstartdate" ng-required="true" ng-disabled="currentTestsession.islock">
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="registrationenddate" >{{translationObj.testsession.fieldregistrationenddate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="registrationenddate" ng-model="currentTestsession.registrationenddate" ng-required="true" ng-disabled="currentTestsession.islock">
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="cancellationenddate" >{{translationObj.testsession.fieldcancellationenddate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="cancellationenddate" ng-model="currentTestsession.cancellationenddate" ng-required="true" ng-disabled="currentTestsession.islock">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="active">{{translationObj.testsession.fieldpublish}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="publish" ng-model="currentTestsession.publish" required ng-disabled="currentTestsession.islock">
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="active">{{translationObj.testsession.fieldpublishschedule}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="publishschedule" ng-model="currentTestsession.publishschedule" required ng-disabled="currentTestsession.islock">
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+  </div>
+</div>

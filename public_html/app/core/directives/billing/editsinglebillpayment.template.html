@@ -1,0 +1,78 @@
+<div class="modal-header"  cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<h4 class="modal-title">{{translationObj.singlebill.formtitle}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-7">
+				<label for="memberfullname">{{translationObj.singlebill.fieldmemberfullname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="memberfullname" class="form-control" id="memberfullname" ng-model="newObj.memberfullname" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-3">
+				<label>{{translationObj.singlebill.fieldbillid}}</label>
+				<div class="input-group">
+					<input type="text" name="billid" class="form-control" id="billid" ng-model="newObj.billid" disabled>
+				</div>
+			</div>
+
+			<!-- <div class="col-xs-7" ng-hide="newObj.paidinfull==1">
+				<label for="productfullname">{{translationObj.singlebill.fieldproductfullname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+					<input type="text" name="productfullname" class="form-control" id="productfullname" ng-model="newObj.productfullname" disabled>
+				</div>
+			</div> -->
+
+			<div class="col-xs-7" ng-hide="newObj.paidinfull==1">
+	      <label for="paymentmethod">{{translationObj.singlebill.fieldpaymentmethod}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="paymentmethod" ng-model="newObj.paymentmethod" required>
+						<option ng-repeat="paymentmethod in paymentmethods" value="{{paymentmethod.code}}">{{paymentmethod.text}}</option>
+		      </select>
+	      </div>
+      </div>
+
+			<div class="col-xs-3" ng-hide="newObj.paidinfull==1">
+				<label for="price">{{translationObj.singlebill.fieldprice}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="transactionamount" class="form-control" id="transactionamount" ng-model="newObj.transactionamount" ng-currency disabled>
+				</div>
+			</div>
+
+      <div class="col-xs-7" ng-hide="newObj.paidinfull==1">
+	      <label for="receivedby" ng-hide="newObj.transactiontype!='PAYMENT'" >{{translationObj.singlebill.fieldreceivedby}}</label>
+				<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="receivedby" class="form-control" id="receivedby" ng-model="newObj.receivedby" maxlength="128" required disabled>
+	      </div>
+      </div>
+
+			<div class="col-xs-6">
+				<label>&nbsp;</label>
+				<div class="input-group">
+					<button type="button" class="btn btn-primary" ng-click="control.payBill(newObj)" ng-if="newObj.paidinfull==0">{{translationObj.singlebill.buttontitlepaybill}}</button>
+				</div>
+			</div>
+
+			<div class="col-xs-12 center">
+				<center><print-bill-button current-bill-id="newObj.billid" ng-show="newObj.paidinfull==1"></print-bill-button>
+				<send-bill-by-email-button current-bill-id="newObj.billid" ng-show="newObj.paidinfull==1"></send-bill-by-email-button></center>
+			</div>
+
+		</div>
+		<!-- <p ng-show="newObj.createdby&&newObj.createdby!=''">{{translationObj.singlebill.fieldcreatedby}}{{newObj.createdbyfullname}}{{translationObj.singlebill.fieldcreatedon}}{{newObj.createdon}}</p> -->
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.singlebill.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<!-- <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.singlebill.buttontitlediscard}}</button> -->
+	<button type="button" class="btn btn-primary" ng-click="ok()"	ng-disabled="currentTestsession.isClosed">{{translationObj.singlebill.buttontitlekeepchanges}}</button>
+</div>

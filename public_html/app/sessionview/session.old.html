@@ -1,0 +1,137 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>Main information</h3>
+		<div class="row">
+      <div class="col-xs-3">          
+	      <label for="name">Code:</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>
+					<input type="text" name="code" class="form-control" id="code" ng-model="currentCourse.code" maxlength="10" required disabled>
+					<span ng-show="detailsForm.code.$touched && detailsForm.code.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+      <div class="col-xs-4">          
+	      <label for="name">Name:</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentCourse.name" maxlength="120" required>
+					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+	    <div class="col-xs-2">          
+	      <label for="active">Active:</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="active" ng-model="currentCourse.active" required>
+			    	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>	
+			    </select>
+	      </div>
+	    </div>
+	    <div class="col-xs-2">          
+	      <label for="acceptregistrations">Accept Registrations:</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="acceptregistrations" ng-model="currentCourse.acceptregistrations" required>
+			    	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>	
+			    </select>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">          
+	      <label for="name">English Label:</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentCourse.label_en" maxlength="200" required>
+					<span ng-show="detailsForm.label_en.$touched && detailsForm.label_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">          
+	      <label for="name">French Label:</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentCourse.label_fr" maxlength="200" required>
+					<span ng-show="detailsForm.label_fr.$touched && detailsForm.label_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">          
+	      <label for="name">English Short Description:</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="shortdesc_en" class="form-control" id="shortdesc_en" ng-model="currentCourse.shortdesc_en" maxlength="200">
+					<span ng-show="detailsForm.shortdesc_en.$touched && detailsForm.shortdesc_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">          
+	      <label for="name">French Short Description:</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="shortdesc_fr" class="form-control" id="shortdesc_fr" ng-model="currentCourse.shortdesc_fr" maxlength="200">
+					<span ng-show="detailsForm.shortdesc_fr.$touched && detailsForm.shortdesc_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+    <hr><h3>Levels</h3>
+		<div class="row">
+      <div class="col-xs-5">
+				<a class="btn btn-primary" ng-click="editLevel({})">
+      		<span>New Level</span>
+      	</a>    	
+      </div>
+    </div>
+		<div ng-repeat="level in currentCourse.levels">
+    	<div class="row">  
+		    
+		    <div class="col-xs-2">          
+		      <label for="code">Code:</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" name="code" class="form-control" id="code" ng-model="level.code" maxlength="10" disabled>
+		      </div>
+		    </div>
+		    
+		    <div class="col-xs-2">          
+		      <label for="label_en">English Label:</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		        <input type="text" class="form-control" id="label_en" ng-model="level.label_en" maxlength="30" disabled>
+		      </div>
+		    </div>
+		
+		    <div class="col-xs-2">          
+		      <label for="label_fr">French Label:</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		        <input type="text" class="form-control" id="label_fr" ng-model="level.label_fr" maxlength="30" disabled>
+		      </div>
+		    </div>
+
+      	<div class="col-xs-2">
+			    <label>&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<child-edit-button 			obj="level" objlist="currentCourse.levels" callback="editIce(level)"></child-edit-button>
+							<child-delete-button 		obj="level" objlist="currentCourse.levels" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="level" objlist="currentCourse.levels" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="level"></child-status-indicator>
+<!--
+							<a class="btn btn-primary glyphicon glyphicon-pencil" ng-click="editLevel(level)"></a>
+							<a class="btn btn-primary glyphicon glyphicon-trash" 	ng-click="deleteLevel(level)"  		ng-show="(!level.status || (level.status && (level.status != 'Deleted' || level.status == null)))"></a>
+					    <a class="btn btn-primary glyphicon glyphicon-repeat" ng-click="undeleteLevel(level);" 	ng-show="level.status && level.status == 'Deleted'"></a>
+							<span class="glyphicon glyphicon-remove" 	style="color:red" ng-show="level.status && level.status == 'Deleted'"></span>
+							<span class="glyphicon glyphicon-pencil" 	style="color:red" ng-show="level.status && level.status == 'Modified'"></span>
+							<span class="glyphicon glyphicon-plus" 		style="color:red" ng-show="level.status && level.status == 'New'"></span>
+-->
+						</span>
+				  </div>
+			  </div>
+		  </div>
+	 	</div>
+  </div>
+</div>

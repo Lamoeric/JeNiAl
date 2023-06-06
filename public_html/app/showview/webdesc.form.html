@@ -1,0 +1,64 @@
+<!-- <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentShow" class="ng-hide"> -->
+  <div class="form-group row">
+  	<div class="grid">
+      <h3>{{translationObj.websitedesc.formtitle}}</h3>
+  			
+  			
+			<div class="row">
+
+				<div class="col-xs-3">
+					<div class="team-member">
+						<div class="team-img">
+							<img ng-src="../websiteimages/shows/{{currentShow.displayimagefilename}}" class="team-pic" alt="">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-2">
+					<label for="name">{{translationObj.websitedesc.fieldtitleimagewidth}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+						<input type="text" name="width" class="form-control" id="width" ng-model="currentShow.imageinfo[0]" disabled>
+		      </div>
+
+					<label for="name">{{translationObj.websitedesc.fieldtitleimageheight}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+						<input type="text" name="height" class="form-control" id="height" ng-model="currentShow.imageinfo[1]" disabled>
+		      </div>
+
+					<label for="name">{{translationObj.websitedesc.fieldtitleimagetype}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+						<input type="text" name="type" class="form-control" id="type" ng-model="currentShow.imageinfo['mime']" disabled>
+		      </div>
+				</div>
+
+			</div>
+
+			<!-- Filler -->
+			<div class="row">
+				<div class="col-xs-4">
+					<label>&nbsp;</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<label>{{translationObj.websitedesc.msgImageNotSupported}}</label>
+					<div class="input-group">
+						<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.websitedesc.buttontitleloadmainimage}}</button>&nbsp;
+						<deletewebsiteimagebutton subdir="'sections'" context="'sections'" obj="currentShow" callback="setCurrentInternal(currentShow)" is-disabled="!currentShow.imagefilename"></deletewebsiteimagebutton>
+						<span class="help-block">{{translationObj.websitedesc.helptextimagespecifications}}</span>
+	  			</div>
+	  		</div>
+	  	</div>
+	  </div>
+
+		<div>
+			<paragraphviewer paragraphlist="currentShow.paragraphs" set-dirty="setDirty()" convert="convertParagraph(paragraph)"></paragraphviewer>
+		</div>
+
+
+  </div>
+<!-- </form> -->

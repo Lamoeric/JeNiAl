@@ -1,0 +1,32 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formtitleregistration", "text":"REGISTRATION"},
+	{"formname":"main", "fieldname":"fieldtitleskater", "text":"Skater:"},
+	{"formname":"main", "fieldname":"fieldtitlesession", "text":"Session:"},
+	{"formname":"main", "fieldname":"fieldtitlesessiondates", "text":"Dates:"},
+	{"formname":"main", "fieldname":"fieldtitlecourse", "text":"Course"},
+	{"formname":"main", "fieldname":"fieldtitlenbofcoursesleft", "text":"Nb of Courses"},
+	{"formname":"main", "fieldname":"fieldtitlecourseprice", "text":"Price"},
+	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">>Welcome Page"},
+
+	{"formname":"main", "fieldname":"formtitlecharges", "text":"Charges"},
+	{"formname":"main", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"main", "fieldname":"fieldtitlelabel", "text":"Label"},
+	{"formname":"main", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"main", "fieldname":"fieldtitleamount", "text":"Amount"},
+	{"formname":"main", "fieldname":"fieldtitleregulationread", "text":"Member has read and accepted the club regulations"},
+	{"formname":"main", "fieldname":"fieldtitlecomments", "text":"Comments"},
+	{"formname":"main", "fieldname":"fieldtitlenbofskater", "text":"Nb places left"},
+	{"formname":"main", "fieldname":"buttontitleaccept", "text":"Confirm"},
+	{"formname":"main", "fieldname":"msgconfirmregistration", "text":"Are you sure you want to confirm this registration?"},
+	{"formname":"main", "fieldname":"msgconfirmregistration2", "text":"All further modifications to the registration will have to be made in person only."},
+	{"formname":"main", "fieldname":"msginvalidregistration", "text":"<b>Invalid registration</b><br>You must select at least one new course."},
+	{"formname":"main", "fieldname":"msgselectline", "text":"Click on a line to select a course."},
+	{"formname":"main", "fieldname":"msgregistrationcompleted", "text":"Registration completed."},
+	{"formname":"main", "fieldname":"msgregistrationerror", "text":"Error. A course you selected is full. Please try again."},
+	{"formname":"main", "fieldname":"msgerrskateralreadyhasaregistration", "text":"Skater is already registered for this session."},
+	{"formname":"main", "fieldname":"buttontitleclearcoursecodesfilter", "text":"Clear Filter"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

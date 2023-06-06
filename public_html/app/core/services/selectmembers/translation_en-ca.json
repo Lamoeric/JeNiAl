@@ -1,0 +1,12 @@
+[
+	{"formname":"selectmembers", "fieldname":"formtitleselectmembers", "text":"Select Members"},
+	{"formname":"selectmembers", "fieldname":"fieldcourse", "text":"Courses"},
+	{"formname":"selectmembers", "fieldname":"fieldmembers", "text":"Members"},
+	{"formname":"selectmembers", "fieldname":"fieldqualifications", "text":"Qualifications"},
+	{"formname":"selectmembers", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"selectmembers", "fieldname":"buttontitledismiss", "text":"Dismiss selectmembers"},
+	{"formname":"selectmembers", "fieldname":"buttontitleclearform", "text":"Clear Form"},
+	{"formname":"selectmembers", "fieldname":"buttontitleapplyselectmembers", "text":"Select"},
+	{"formname":"selectmembers", "fieldname":"msgerratleastonecriterion", "text":"You must have at least one criterion"},
+	{"formname":"selectmembers", "fieldname":"msgerratleastonecourse", "text":"You must select at least one course"}
+]

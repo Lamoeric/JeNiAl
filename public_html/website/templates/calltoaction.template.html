@@ -1,0 +1,20 @@
+<section id="call-to-action" ng-if="currentpage.globalsections.calltoaction">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h2 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">{{currentpage.globalsections.calltoaction.navbarlabel}}</h2>
+          <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">{{currentpage.globalsections.calltoaction.title}}</p>
+          <a href="contact.html" class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">{{currentpage.globalsections.calltoaction.subtitle}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="social-networks wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
+          <a ng-href="https://www.facebook.com/{{currentpage.globalsections.footer.facebookgroup}}" class="Facebook" ng-if="currentpage.globalsections.footer.facebookgroup">
+            <i class="ion-social-facebook"></i>
+          </a>
+      </div>
+    </div>
+  </div>
+</section>

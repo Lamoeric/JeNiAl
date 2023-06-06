@@ -1,0 +1,50 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./userview/user.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentUser.userid + ' - ' + currentUser.fullname" defaulttitle="translationObj.main.formtitledetails" object="currentUser"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.user_create==true"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty" ng-if="userInfo.privileges.user_update==true"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentUser == null || currentUser.userid=='fulladmin'" ng-if="userInfo.privileges.security_delete==true"></main-delete-button>
+
+					<button class="btn btn-primary" ng-click="resetAccount()" ng-disabled="!currentUser || !isFormPristine || detailsForm.$dirty" ng-if="userInfo.privileges.user_resetpassword==true">{{translationObj.main.buttontitleresetpassword}}</button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentUser">
+            <div ng-include="'userview/user.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>
+
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div>
+<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<div ng-if="currentUser!=null"><h2>{{currentUser.userid}} - {{currentUser.fullname}}</h2></div>
+	<div ng-if="currentUser==null"><h2>{{translationObj.main.formtitledetails}}</h2></div>
+
+	<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.user_create==true"></main-new-button>
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty" ng-if="userInfo.privileges.user_update==true"></main-save-button>
+	<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentUser == null || currentUser.userid=='fulladmin'" ng-if="userInfo.privileges.security_delete==true"></main-delete-button>
+
+	<button class="btn btn-primary" ng-click="resetAccount()" ng-disabled="!currentUser || !isFormPristine || detailsForm.$dirty" ng-if="userInfo.privileges.user_resetpassword==true">{{translationObj.main.buttontitleresetpassword}}</button>
+
+	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div>
+
+	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+	</div>
+
+  <form class="form-horizontal well" user="form" name="detailsForm" ng-show="currentUser" class="ng-hide">
+		<div ng-include="'userview/user.html'"></div>
+  </form>
+</div> -->

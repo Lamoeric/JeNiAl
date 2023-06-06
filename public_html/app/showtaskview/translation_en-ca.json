@@ -1,0 +1,29 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter tasks..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Tasks"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No task found"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Information"},
+	{"formname":"details", "fieldname":"fieldtitletask", "text":"task"},
+	{"formname":"details", "fieldname":"fieldtitlecategory", "text":"Category"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"fieldtitleenglishdesc", "text":"English Description"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchdesc", "text":"French Description"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+
+	{"formname":"edittask", "fieldname":"formtitleedittask", "text":"New Task"},
+	{"formname":"edittask", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"edittask", "fieldname":"fieldtitletask", "text":"Task"},
+	{"formname":"edittask", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"edittask", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"edittask", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Task Details"},
+	{"formname":"main", "fieldname":"panetitledetails", "text":"Task"},
+	{"formname":"main", "fieldname":"panetitlecontacts", "text":"Contacts"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields, except organisation no, are mandatory."}
+
+]

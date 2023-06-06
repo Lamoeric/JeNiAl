@@ -1,0 +1,57 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.billslist.formtitlebills}}</h3>
+
+			<div ng-repeat="bill in currentMember.bills">
+				<div class="row">
+
+					<div class="col-xs-11 col-sm-2 col-md-2 col-lg-1">
+						<label class="visible-sm visible-md visible-lg" ng-show="$index==0">{{translationObj.billslist.fieldtitlebill}}</label>
+						<label class="visible-xs">{{translationObj.billslist.fieldtitlebill}}</label>
+						<div class="input-group">
+							{{translationObj.billslist.fieldtitlebill}} {{bill.id}}
+						</div>
+					</div>
+					<div class="col-xs-11 col-sm-2 col-md-2 col-lg-1">
+						<label class="visible-sm visible-md visible-lg" ng-show="$index==0">{{translationObj.billslist.fieldtitlebillingdate}}</label>
+						<label class="visible-xs">{{translationObj.billslist.fieldtitlebillingdate}}</label>
+						<div class="input-group">
+							{{bill.billingdate}}
+						</div>
+					</div>
+					<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+						<label class="visible-sm visible-md visible-lg" ng-show="$index==0">{{translationObj.billslist.fieldtitlesession}}</label>
+						<label class="visible-xs">{{translationObj.billslist.fieldtitlesession}}</label>
+						<div class="input-group">
+							{{bill.sessionlabel}}
+						</div>
+					</div>
+					<div class="col-xs-11 col-sm-2 col-md-2 col-lg-1">
+						<label class="visible-sm visible-md visible-lg" ng-show="$index==0">{{translationObj.billslist.fieldtitletotalamount}}</label>
+						<label class="visible-xs">{{translationObj.billslist.fieldtitletotalamount}}</label>
+						<div class="input-group">
+							{{bill.totalamount | currency}}
+						</div>
+					</div>
+					<div class="col-xs-11 col-sm-2 col-md-2 col-lg-1">
+						<label class="visible-sm visible-md visible-lg" ng-show="$index==0">{{translationObj.billslist.fieldtitlebalance}}</label>
+						<label class="visible-xs">{{translationObj.billslist.fieldtitlebalance}}</label>
+						<div class="input-group">
+							{{bill.totalamount/1 + bill.paidamount/1 | currency}}
+						</div>
+					</div>
+					<div class="col-xs-11 col-sm-2 col-md-2 col-lg-1">
+						<label class="visible-sm visible-md visible-lg" ng-show="$index==0">&nbsp;</label>
+						<label class="visible-xs">&nbsp;</label>
+						<div class="input-group">
+							<button type="button" class="btn btn-primary glyphicon glyphicon-eye-open" ng-click="viewBill(bill.id)"></button>
+							<send-bill-by-email-button current-bill-id="bill.id" promise="promise"></send-bill-by-email-button>
+						</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+
+
+  </div>
+</div>

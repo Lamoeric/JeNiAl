@@ -1,0 +1,30 @@
+<?php
+/*
+* Author : Eric Lamoureux
+*
+* File contains function to get the list of program assistants from the DB
+*
+*/
+require_once('./../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+
+try {
+  $query = "SELECT firstname, lastname, concat(firstName, ' ', lastname) fullname, imagefilename
+            FROM cpa_ws_programassistants
+            WHERE publish = 1
+            ORDER BY lastname, firstname";
+  $result = $mysqli->query($query);
+  $data = array();
+  $data['data'] = array();
+  while ($row = $result->fetch_assoc()) {
+    $data['data'][] = $row;
+  }
+  $data['success'] = true;
+  echo json_encode($data);
+  exit;
+}catch (Exception $e) {
+  $data = array();
+  $data['success'] = false;
+  $data['message'] = $e->getMessage();
+  echo json_encode($data);
+  exit;
+}

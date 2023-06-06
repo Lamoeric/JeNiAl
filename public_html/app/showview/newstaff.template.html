@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newstaff.formtitleeditstaff}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+
+      <div class="col-xs-3">
+	      <label for="staffcode">{{translationObj.newstaff.fieldtype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="staffcode" ng-model="newObj.staffcode" ng-change="onStaffcodeChange(newObj)" required>
+						<option ng-repeat="staffcode in numberstaffcodes" value="{{staffcode.code}}">{{staffcode.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+      <div class="col-xs-5">
+	      <label for="memberid">{{translationObj.newstaff.fieldmember}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="memberid" ng-model="newObj.memberid" required>
+						<option ng-repeat="coach in staffs" value="{{coach.id}}">{{coach.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+<!--
+      <div class="col-xs-4">
+	      <label for="statuscode">{{translationObj.newstaff.fieldstatus}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="statuscode" ng-model="newObj.statuscode" required>
+						<option ng-repeat="statuscode in personnelstatus" value="{{statuscode.code}}">{{statuscode.text}}</option>
+      		</select>
+      	</div>
+      </div>
+!-->
+
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newstaff.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newstaff.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newstaff.buttontitlekeepchanges}}</button>
+</div>

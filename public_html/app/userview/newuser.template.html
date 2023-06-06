@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newuser.formtitlenewuser}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" user="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-4">
+	      <label for="userid">{{translationObj.newuser.fieldtitleuserid}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="userid" ng-model="newObj.userid" maxlength="128" required>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="fullname">{{translationObj.newuser.fieldtitlefullname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="fullname" ng-model="newObj.fullname" maxlength="120" required>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="password">{{translationObj.newuser.fieldtitlepassword}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        	<input type="text" class="form-control" id="password" ng-model="newObj.password" maxlength="30" required>
+	      </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="preferedlanguage">{{translationObj.newuser.fieldtitlepreferedlanguage}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <select class="form-control" name="preferedlanguage" id="language" ng-model="newObj.preferedlanguage" required>
+						<option ng-repeat="language in preferedlanguages" value="{{language.code}}">{{language.text}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-8">
+				<label for="email">{{translationObj.newuser.fieldtitleemail}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<input type="text" class="form-control" id="email" ng-model="newObj.email" maxlength="200" required>
+				</div>
+			</div>
+
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newuser.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newuser.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newuser.buttontitlekeepchanges}}</button>
+</div>

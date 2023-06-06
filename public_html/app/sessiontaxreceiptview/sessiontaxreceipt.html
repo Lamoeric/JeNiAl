@@ -1,0 +1,24 @@
+<div class="form-group row">
+	<div class="grid">
+		<h4>{{translationObj.details.formtitleforentiresession}}</h4>
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+				<label for="sessionname">{{translationObj.details.fieldtitlesessionname}}</label>
+				<select class="form-control" id="sessionname" ng-model="currentSessiontaxreceipt.session" required ng-options="session.label for session in sessions track by session.label" ng-change="onSessionChange()" ignore-dirty>
+				</select>
+				<!-- <select class="form-control" ng-model="currentSessiontaxreceipt.session" ng-change="onSessionChange()" ignore-dirty>
+					<option ng-repeat="tsid in sessions" value="{{tsid.id}}">{{tsid.label}}</option>
+				</select> -->
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+				<label>&nbsp;</label><br>
+				<!-- <button class="btn btn-primary" ng-click="sendTaxReceiptToAll()">{{translationObj.details.buttontitlesendreceipt}}</button> -->
+				<button class="btn btn-primary" ng-click="startSending()">{{translationObj.details.buttontitlesendreceipt}}</button>
+			</div>
+			<!-- <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+				<label>&nbsp;</label><br>
+				<button class="btn btn-primary" ng-click="startSending()">Start Sending</button>
+			</div> -->
+		</div>
+	</div>
+</div>

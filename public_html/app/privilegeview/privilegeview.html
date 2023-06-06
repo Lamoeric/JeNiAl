@@ -1,0 +1,22 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./privilegeview/privilege.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentPrivilege.id + ' - ' + currentPrivilege.code" defaulttitle="translationObj.main.formtitledetails" object="currentPrivilege"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.privilege_create==true"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty" ng-if="userInfo.privileges.security_update==true"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" ng-if="userInfo.privileges.security_delete==true"></main-delete-button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentPrivilege">
+            <div ng-include="'privilegeview/privilege.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>

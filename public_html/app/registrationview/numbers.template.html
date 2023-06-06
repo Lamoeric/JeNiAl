@@ -1,0 +1,58 @@
+<div class="form-group row" >
+<div align="left"><h3>{{translationObj.numbers.formtitlenumbers}}</h3></div>
+
+	<table width="100%" class="table table-striped">
+		<tbody>
+			<tr>
+				<th>{{translationObj.numbers.fieldname2}}</th>
+				<th>{{translationObj.numbers.fieldcourse}}</th>
+				<th>{{translationObj.numbers.fieldschedule}}</th>
+				<th></th>
+				<th>{{translationObj.numbers.fieldstatus}}</th>
+				<th class="coursetablefeestd">{{translationObj.numbers.fieldcourseprice}}</th>
+				<th class="coursetablefeestd">{{translationObj.numbers.fieldpaidamount}}</th>
+				<th class="coursetablefeestd">{{translationObj.numbers.fieldbillingamount}}</th>
+				<th></th>
+			</tr>
+	  	<tr ng-repeat="course in currentRegistration.shownumbers" ng-click="onCourseSelected(course)" style="cursor: pointer">
+	  		<td width="10%">{{course.name}}</td>
+	  		<td width="10%">{{course.label}}</td>
+	  		<td width="30%">{{course.schedule}}</td>
+	  		<td width="5%"><span ng-show="course.mandatory==1"><i style="color:red">{{translationObj.numbers.msgmandatory}}</i></span></td>
+	  		<td width="5%"><i>{{getCourseDelta(course)}}</i></td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees | currency}}</td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees_old | currency}}</td>
+	  		<td width="5%" class="coursetablefeestd">{{course.fees_billing | currency}}</td>
+	  		<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="course.selected=='1'"></span></td>
+	  	</tr>
+	  </tbody>
+	</table>
+
+<h3>{{translationObj.numbers.formtitlecharges}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="addChargeOrDiscount()" ng-disabled="currentRegistration.status != 'DRAFT' && currentRegistration.status != 'DRAFT-R'"></button>&nbsp;<button class="btn btn-primary" ng-click="addSpecialCharge()" ng-disabled="currentRegistration.status != 'DRAFT' && currentRegistration.status != 'DRAFT-R'">{{translationObj.numbers.buttontitleaddspecialcharge}}</button>&nbsp;<button class="btn btn-primary" ng-click="addSpecialDiscount()" ng-disabled="currentRegistration.status != 'DRAFT' && currentRegistration.status != 'DRAFT-R'">{{translationObj.numbers.buttontitleaddspecialdiscount}}</button></h3>
+	<table width="100%" class="table table-striped">
+		<tr><th>{{translationObj.numbers.fieldcode}}</th>
+				<th>{{translationObj.numbers.fieldlabel}}</th>
+				<th>{{translationObj.numbers.fieldtype}}</th>
+				<th></th>
+				<th>&nbsp;</th>
+				<th class="coursetablefeestd">{{translationObj.numbers.fieldamount}}</th>
+				<th></th></tr>
+	  	<tr ng-repeat="charge in currentRegistration.charges | filter : filterCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer">
+	  		<td width="10%">{{charge.code}}</td>
+	  		<td width="20%">{{charge.label}}<br><small>{{charge.comments}}</small></td>
+	  		<td width="10%">{{charge.typelabel}}</td>
+	  		<td width="30%"><i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i></td>
+	  		<td width="5%"><i>{{getChargeDelta(charge)}}</i></td>
+	  		<td width="5%" class="coursetablefeestd">{{charge.amount | currency}}</td>
+	  		<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span></td>
+	  	</tr>
+	</table>
+<hr>
+	<table width="100%" class="table table-striped">
+  	<tr>
+  		<td width="60%"><h3>Total</h3></td>
+  		<td width="5%" class="coursetablefeestd"><h3>{{currentRegistration.totalamount | currency}}</h3></td>
+  		<td width="5%" class="coursetablefeestd"><button class="btn btn-primary" ng-click="presentRegistrationEx()" ng-disabled="(currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R') || presentInProgress == true" ng-if="currentRegistration.status!='PRESENTED' && currentRegistration.status!='ACCEPTED'"><span>{{translationObj.numbers.buttontitlepresent}}</span></button></td>
+  	</tr>
+	</table>
+</div>

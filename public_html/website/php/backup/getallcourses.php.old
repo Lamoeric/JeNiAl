@@ -1,0 +1,49 @@
+<?php
+/*
+* Author : Eric Lamoureux
+*
+* File contains function to get the list of courses for the active session from the DB
+*
+*/
+require_once('./../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+
+$language = $_POST['language'];
+try {
+  $query = "SELECT csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater,
+                  getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
+                  getTextLabel(csc.label, '$language') label,
+                  csc.fees,
+                  (select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0) nbofcourses,
+                  (select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
+                																				if ((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
+                																				getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
+                																				' - ',
+                																				substr(starttime FROM 1 FOR 5),
+                																				' - ',
+                																				substr(endtime FROM 1 FOR 5))
+                																SEPARATOR ', ') schedule
+                						from cpa_sessions_courses_schedule
+                						where sessionscoursesid = csc.id) schedule
+                from cpa_sessions_courses csc
+                join cpa_courses cc ON cc.code = csc.coursecode
+                join cpa_sessions cs ON cs.id = csc.sessionid
+                where cs.active = 1
+                and datesgenerated = 1
+                and cc.acceptregistrations = 1
+                order by coursecode, courselevel, csc.name";
+  $result = $mysqli->query($query);
+  $data = array();
+  $data['data'] = array();
+  while ($row = $result->fetch_assoc()) {
+    $data['data'][] = $row;
+  }
+  $data['success'] = true;
+  echo json_encode($data);
+  exit;
+}catch (Exception $e) {
+  $data = array();
+  $data['success'] = false;
+  $data['message'] = $e->getMessage();
+  echo json_encode($data);
+  exit;
+}

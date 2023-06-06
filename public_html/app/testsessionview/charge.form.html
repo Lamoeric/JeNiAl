@@ -1,0 +1,46 @@
+<div class="form-group row">
+	<div class="grid">
+		<!-- <h3>Charges ({{currentTestsession.charges.length}})</h3> -->
+		<h3>{{translationObj.charges.formtitle}}</h3>
+		<div class="row">
+			<!-- <div class="col-xs-5">
+				<button class="btn btn-primary" ng-click="editCharge({})"><span>{{translationObj.charges.buttontitlenewcharge}}</span></button>
+			</div> -->
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+
+				<hr>
+				<div ng-repeat="charge in currentTestsession.charges">
+					<div class="row">
+						<div class="col-xs-2">
+							<label for="chargecode" ng-show="$index==0">{{translationObj.charges.fieldcharge}}</label>
+							<input type="text" class="form-control" id="chargecode" ng-model="charge.chargecode" disabled>
+						</div>
+						<div class="col-xs-3">
+							<label for="chargelabel" ng-show="$index==0">{{translationObj.charges.fieldlabel}}</label>
+							<input type="text" class="form-control" id="chargelabel" ng-model="charge.chargelabel" disabled>
+						</div>
+						<div class="col-xs-2">
+							<label for="amount" ng-show="$index==0">{{translationObj.charges.fieldamount}}</label>
+							<input type="text" class="form-control" id="amount" ng-model="charge.amount" disabled ng-currency>
+						</div>
+
+						<div class="col-xs-2">
+							<label ng-show="$index==0">&nbsp;</label>
+							<div class="input-group">
+								<span>
+									<child-edit-button 			obj="charge" objlist="currentTestsession.charges" callback="editCharge(charge)" is-form-pristine="currentTestsession.islock"></child-edit-button>
+									<!-- <child-delete-button 		obj="charge" objlist="currentTestsession.charges" callback="setDirty()"></child-delete-button>
+									<child-undelete-button 	obj="charge" objlist="currentTestsession.charges" callback="setDirty()"></child-undelete-button> -->
+									<child-status-indicator obj="charge"></child-status-indicator>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

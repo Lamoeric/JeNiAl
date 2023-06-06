@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selectperiod.formtitleselectperiod}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-10">
+	      <label for="periodid">{{translationObj.selectperiod.fieldperiod}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="periodid" ng-model="newObj.periodid" required>
+						<option ng-repeat="period in newObj.periodList" value="{{period.id}}">{{period.fullname}}</option>
+		      </select>
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.selectperiod.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectperiod.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.selectperiod.buttontitlekeepchanges}}</button>
+</div>

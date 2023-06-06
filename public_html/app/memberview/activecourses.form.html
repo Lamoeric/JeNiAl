@@ -1,0 +1,28 @@
+<div class="form-group">
+	<div>
+		<h3>{{translationObj.activecourse.formtitleactivecourses}}</h3>
+	  <form class="form-horizontal well" role="form" name="activeCoursesForm" ng-show="currentMember">
+	  	<div ng-repeat="course in currentMember.activecourses"
+	  		<br>
+				<hr>
+			  <p><b>{{translationObj.activecourse.fieldcourse}}</b> {{course.courselabel}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldlevel}}</b> {{course.courselevel}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldname}}</b> {{course.name}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldfees}}</b> {{course.fees}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldschedule}}</b> {{course.schedule}}</p>
+
+				<div style="overflow-x:auto;">
+					<table width="100%" border="1">
+						<tr>
+							<th>{{translationObj.activecourse.columntitledate}}</th>
+				  		<th ng-repeat="date in course.dates" class="verticalTableHeader">{{date.coursedate}}</th>
+							<th></th>
+						</tr>
+						<tr>
+				  		<td nowrap>{{currentMember.lastname}}, {{currentMember.firstname}}</td>
+				  		<!-- TODO : this should be the attendance of the member -->
+				  		<td ng-repeat="date in course.dates" class='coursetableselectedtd'>{{date.ispresent}}</th>
+				  	</tr>
+					</table>
+				</div>
+
+			</div>
+	  </form>
+  </div>
+</div>

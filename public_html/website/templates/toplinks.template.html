@@ -1,0 +1,8 @@
+<!-- <span ng-repeat="onelink in currentpage.globalsections.club.toplinks"> -->
+<span ng-repeat="onelink in currentsection.toplinks">
+  <!-- <a href="{{(onelink.linktype==1?onelink.linkpage+'.html'+(onelink.linksection&&onelink.linksection!=''?'#'+onelink.linksection:'') : (onelink.linktype==2?'../documents/'+language+'/'+onelink.filename : (onelink.linktype==3? onelink.linkexternal: 'not supported yet')))}}">{{onelink.label}}</a><br> -->
+  <a href="{{onelink.linkpage+'.html'+(onelink.linksection&&onelink.linksection!=''?'#'+onelink.linksection:'')}}" ng-if="onelink.linktype==1">{{onelink.label}}</a><br ng-if="onelink.linktype==1">
+  <a href="{{'/websitedocuments/'+language+'/'+onelink.filename}}" ng-if="onelink.linktype==2">{{onelink.label}}</a><br ng-if="onelink.linktype==2">
+  <a href="{{onelink.linkexternal}}" ng-if="onelink.linktype==3">{{onelink.label}}</a><br ng-if="onelink.linktype==3">
+  <iframe width="560" height="315" ng-src="{{onelink.linkexternal}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen  ng-if="onelink.linktype==4"></iframe><br ng-if="onelink.linktype==4">
+</span>

@@ -1,0 +1,144 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-3">
+	      <label for="name">{{translationObj.details.fieldtitlecode}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>
+					<input type="text" name="code" class="form-control" id="code" ng-model="currentCourse.code" maxlength="10" required disabled>
+					<span ng-show="detailsForm.code.$touched && detailsForm.code.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+      <div class="col-xs-4">
+	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentCourse.name" maxlength="120" required>
+					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+	    <div class="col-xs-2">
+	      <label for="active">{{translationObj.details.fieldtitleactive}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="active" ng-model="currentCourse.active" required>
+			    	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+	    <div class="col-xs-2">
+	      <label for="acceptregistrations">{{translationObj.details.fieldtitleacceptreg}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="acceptregistrations" ng-model="currentCourse.acceptregistrations" required>
+			    	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="name">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentCourse.label_en" maxlength="200" required>
+					<span ng-show="detailsForm.label_en.$touched && detailsForm.label_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="name">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentCourse.label_fr" maxlength="200" required>
+					<span ng-show="detailsForm.label_fr.$touched && detailsForm.label_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="name">{{translationObj.details.fieldtitleenglishshortdesc}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="shortdesc_en" class="form-control" id="shortdesc_en" ng-model="currentCourse.shortdesc_en" maxlength="200" required>
+					<span ng-show="detailsForm.shortdesc_en.$touched && detailsForm.shortdesc_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="name">{{translationObj.details.fieldtitlefrenchshortdesc}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="shortdesc_fr" class="form-control" id="shortdesc_fr" ng-model="currentCourse.shortdesc_fr" maxlength="200" required>
+					<span ng-show="detailsForm.shortdesc_fr.$touched && detailsForm.shortdesc_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="colorpicker">{{translationObj.details.fieldtitlecolor}}</label>
+				<div class="input-group">
+					<input type="color" id="colorpicker" ng-model="currentCourse.schedulecolor">
+				</div>
+			</div>
+		</div>
+
+
+    <hr><h3>{{translationObj.details.formtitlelevels}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editLevel({})"></button></h3>
+		<!-- <div class="row">
+      <div class="col-xs-5">
+				<button class="btn btn-primary" ng-click="editLevel({})"></button>
+      </div>
+    </div> -->
+		<div ng-repeat="level in currentCourse.levels">
+    	<div class="row">
+
+		    <div class="col-xs-2">
+		      <label for="code">{{translationObj.details.fieldtitlecode}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" name="code" class="form-control" id="code" ng-model="level.code" maxlength="10" disabled>
+		      </div>
+		    </div>
+
+		    <div class="col-xs-2">
+		      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		        <input type="text" class="form-control" id="label_en" ng-model="level.label_en" maxlength="30" disabled>
+		      </div>
+		    </div>
+
+		    <div class="col-xs-2">
+		      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		        <input type="text" class="form-control" id="label_fr" ng-model="level.label_fr" maxlength="30" disabled>
+		      </div>
+		    </div>
+
+				<div class="col-xs-2">
+		      <label for="label_fr">{{translationObj.details.fieldtitlecolor}}</label>
+		    	<div class="input-group">
+						<input type="color" id="colorpicker" ng-model="level.schedulecolor" disabled>
+		      </div>
+		    </div>
+
+      	<div class="col-xs-2">
+			    <label>&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<child-edit-button 			obj="level" objlist="currentCourse.levels" callback="editLevel(level)"></child-edit-button>
+							<child-delete-button 		obj="level" objlist="currentCourse.levels" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="level" objlist="currentCourse.levels" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="level"></child-status-indicator>
+						</span>
+				  </div>
+			  </div>
+		  </div>
+	 	</div>
+  </div>
+</div>

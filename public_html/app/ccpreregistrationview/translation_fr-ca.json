@@ -1,0 +1,42 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"PRÉ-INSCRIPTION"},
+	{"formname":"main", "fieldname":"formtitlepreregistration", "text":"PRÉ-INSCRIPTION"},
+	{"formname":"main", "fieldname":"formtitleskaters", "text":"PATINEURS"},
+	{"formname":"main", "fieldname":"formtitleskater", "text":"PATINEUR #"},
+	{"formname":"main", "fieldname":"formtitleparent1", "text":"PARENT #1"},
+	{"formname":"main", "fieldname":"formtitleparent2", "text":"PARENT #2"},
+	{"formname":"main", "fieldname":"formtitleaddress", "text":"ADRESSE"},
+
+	{"formname":"main", "fieldname":"usesecondcontact", "text":"Ajouter un deuxième parent"},
+	{"formname":"main", "fieldname":"fieldnewuserid", "text":"Code utilisateur"},
+	{"formname":"main", "fieldname":"fieldfirstname", "text":"Prénom"},
+	{"formname":"main", "fieldname":"fieldlastname", "text":"Nom de famille"},
+	{"formname":"main", "fieldname":"fieldhomephone", "text":"Téléphone maison"},
+	{"formname":"main", "fieldname":"fieldcellphone", "text":"Téléphone celullaire"},
+	{"formname":"main", "fieldname":"fieldofficephone", "text":"Téléphone bureau"},
+	{"formname":"main", "fieldname":"fieldofficephoneext", "text":"Téléphone bureau ext."},
+	{"formname":"main", "fieldname":"fieldemail", "text":"Adresse courriel"},
+	{"formname":"main", "fieldname":"fieldpreferedlanguage", "text":"Langue"},
+	{"formname":"main", "fieldname":"fieldaddress1", "text":"Adresse"},
+	{"formname":"main", "fieldname":"fieldtown", "text":"Ville"},
+	{"formname":"main", "fieldname":"fieldpostalcode", "text":"Code postal"},
+	{"formname":"main", "fieldname":"fieldrelation", "text":"Relation"},
+	{"formname":"main", "fieldname":"fieldlanguage", "text":"Langue"},
+	{"formname":"main", "fieldname":"fieldgender", "text":"Genre"},
+	{"formname":"main", "fieldname":"fielddateofbirth", "text":"Date de naissance"},
+	{"formname":"main", "fieldname":"fieldskatecanadano", "text":"No patinage Canada"},
+	{"formname":"main", "fieldname":"fieldhelpskatecanadano", "text":"Optionnel, si connu."},
+	{"formname":"main", "fieldname":"fieldusepreviousaddress", "text":"Même adresse"},
+	
+	{"formname":"main", "fieldname":"msgconfirmsave", "text":"Assurez-vous que votre adresse courriel est bien valide, c'est celle qui servira pour communiquer avec vous.\nVoulez-vous continuer?"},
+
+	{"formname":"main", "fieldname":"buttontitlesave", "text":"Sauvegarder"},
+	{"formname":"main", "fieldname":"buttontitleaddskater", "text":"Ajouter patineur"},
+	{"formname":"main", "fieldname":"buttontitledeleteskater", "text":"Retirer patineur"},
+	{"formname":"main", "fieldname":"formerrormessage", "text":"Tous les champs marqués d'un astérix sont obligatoires et il doit y avoir au moins un patineur."},
+	{"formname":"main", "fieldname":"formsuccessmessage", "text":"Informations pour la pré-inscription sauvegardées."},
+	{"formname":"main", "fieldname":"formerrormsguseridalreadyinuse", "text":"Code utilisateur déjà utilisé. Modifications non sauvegardées."},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

@@ -1,0 +1,24 @@
+<?php
+session_start();
+$mysql_hostname = "localhost";
+$mysql_user 		= "root";
+$mysql_password = 'jenial123';
+$mysql_database = null;
+$mysqli = null;
+$_SESSION["DATABASENAME"] = "DEMO"; // DEMO ou ACADIE
+if (isset($_SESSION["DATABASENAME"]) && !empty($_SESSION["DATABASENAME"])) {
+	$mysql_database = "cpa_".$_SESSION["DATABASENAME"];
+
+	$mysqli = new mysqli($mysql_hostname, $mysql_user, $mysql_password, $mysql_database) or die("Oops some thing went wrong");
+	// Check connection
+	if (mysqli_connect_errno()) {
+	    printf("Unable to connect to database: %s %s", mysqli_connect_error(), $_SESSION["DATABASENAME"]);
+	    exit();
+	}
+	$mysqli->autocommit(TRUE);
+	$mysqli->query("SET SESSION query_cache_type=0");
+	$mysqli->set_charset('utf8mb4');
+} else {
+//	printf("Unable to connect to database: databasename not set test");
+}
+?>

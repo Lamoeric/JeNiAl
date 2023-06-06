@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.searchbill.formtitlesearchbill}}</h4>
+</div>
+<div class="modal-body row">
+	<div>
+    <div class="col-xs-3" style="height:310px">
+			<div class="form-group row">
+				<div class="grid">
+		      <div class="col-xs-12">
+						<div class="btn-group">
+							<input id="searchinput" type="search" class="form-control" ng-model="searchFilter" placeholder="{{translationObj.searchleftPane.mainfilter}}" aria-label="{{translationObj.searchleftPane.mainfilter}}">
+						  <span id="searchclear" class="glyphicon glyphicon-remove-circle" clear-search-button></span>
+						</div>
+						<br><br>
+						<div style="height:270px;overflow-y:auto;width:99%;border:1px solid;">
+						  <div ng-repeat="leftobj in leftobjs | filter:searchFilter as results">
+						  	<div class="callout" ng-class="{ 'selected-class-name': $index == selectedObjectIndex }" ng-click="this.setCurrent(leftobj, $index)">
+						  		<div><p>{{leftobj.billingname}} {{leftobj.totalamount}}</p></div>
+						  	</div>
+						  </div>
+							<li class="animate-repeat" ng-if="results.length == 0">
+								<strong>{{translationObj.searchbill.noresult}}</strong>
+							</li>
+						</div>
+    			</div>
+    		</div>
+  		</div>
+  	</div>
+    <div class="col-xs-9">
+  		<form class="form-horizontal" role="form" name="newDetailsForm">
+				<div class="form-group row">
+					<div class="grid">
+						<div class="row">
+				      <div class="col-xs-8">
+					      <label for="billingname">{{translationObj.searchbill.fieldtitlename}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									<input type="text" name="billingname" class="form-control" id="billingname" ng-model="currentObject.billingname" disabled>
+					      </div>
+					    </div>
+			      </div>
+						<div class="row">
+	    				<div class="col-xs-4">
+					      <label for="totalamount">{{translationObj.searchbill.fieldtitletotalamount}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <input type="text" class="form-control" name="totalamount" id="totalamount" ng-model="currentObject.totalamount" disabled>
+					      </div>
+			      	</div>
+	    				<div class="col-xs-4">
+					      <label for="paidamount">{{translationObj.searchbill.fieldtitlepaidamount}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <input type="text" class="form-control" name="paidamount" id="paidamount" ng-model="currentObject.paidamount" disabled>
+					      </div>
+			      	</div>
+			      </div>
+		      </div>
+	      </div>
+			</form>
+    </div>
+	</div>
+</div>
+
+<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+ {{translationObj.searchbill.formerrormessage}}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.searchbill.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.searchbill.buttontitlekeepchanges}}</button>
+</div>

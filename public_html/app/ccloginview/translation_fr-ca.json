@@ -1,0 +1,30 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formttextsignin", "text":"Pour accéder à la page désirée, connectez-vous"},
+	{"formname":"main", "fieldname":"formttitlesignin", "text":"CONNEXION"},
+	{"formname":"main", "fieldname":"formttitlenotregisteredyet", "text":"PAS ENCORE INSCRIT?"},
+	{"formname":"main", "fieldname":"formttitleskatingspacedef", "text":"Si vos enfants sont déjà inscrits au club de patinage, vous devriez vous inscrire à MON ESPACE PATIN."},
+	{"formname":"main", "fieldname":"formttitlemanageservice", "text":"Gérez vos services comme vous le voulez"},
+	{"formname":"main", "fieldname":"formttitlecentreyoucan", "text":"Avec MON ESPACE PATIN, vous pouvez :"},
+	{"formname":"main", "fieldname":"formttitlemodifydata", "text":"Modifier votre profil et celui de vos enfants"},
+	{"formname":"main", "fieldname":"formttitleconsultdata", "text":"Consulter le dossier de vos enfants et suivre leur évolution"},
+	{"formname":"main", "fieldname":"formttitlemodifyskaterdata", "text":"Modifier les données personnelles de vos patineurs"},
+	{"formname":"main", "fieldname":"formttitlepreregister", "text":"Inscrire vos enfants aux sessions de patinage"},
+	{"formname":"main", "fieldname":"formttitleconsultbilling", "text":"Consulter vos factures"},
+	{"formname":"main", "fieldname":"formttitlepreregistration", "text":"Pré-inscription"},
+	{"formname":"main", "fieldname":"formttitlepreregistrationdef", "text":"Si vos enfants NE sont PAS déjà inscrits au club de patinage, vous devez passer par le formulaire de pré-inscription."},
+	{"formname":"main", "fieldname":"formttitlepreregistrationdef2", "text":"MERCI DE NE PAS PRÉ-INSCRIRE VOS ENFANTS SI ILS ONT DÉJÀ ÉTÉ INSCRITS AU CLUB."},
+	{"formname":"main", "fieldname":"formttitlepreregistrationdef3", "text":"Une fois vos enfants pré-inscrits, un courriel vous sera envoyé pour vous expliquer comment procéder à l'inscription en ligne."},
+	{"formname":"main", "fieldname":"formttitleforgotmypassword", "text":"J'ai oublié mon nom d'utilisateur ou mon mot de passe"},
+
+	{"formname":"main", "fieldname":"msgerrinvalidlogin", "text":"Informations de connexion invalides"},
+
+	{"formname":"main", "fieldname":"buttontitlelogin", "text":"Connexion"},
+	{"formname":"main", "fieldname":"buttontitleregister", "text":"Inscription"},
+	{"formname":"main", "fieldname":"buttontitlepreregister", "text":"Pré-inscription"},
+
+
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

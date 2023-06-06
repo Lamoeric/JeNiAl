@@ -1,0 +1,24 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer privilèges..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Privilèges"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun privilège trouvé"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails du privilège"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitleid", "text":"Id"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitledescription", "text":"Description"},
+
+	{"formname":"newprivilege", "fieldname":"formtitlenewprivilege", "text":"Nouveau privilège"},
+	{"formname":"newprivilege", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"newprivilege", "fieldname":"fieldtitledescription", "text":"Description"},
+	{"formname":"newprivilege", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newprivilege", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newprivilege", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}
+
+]

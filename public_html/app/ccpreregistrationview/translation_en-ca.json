@@ -1,0 +1,42 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":PRE-REGISTRATION"},
+	{"formname":"main", "fieldname":"formtitlepreregistration", "text":"PRE-REGISTRATION"},
+	{"formname":"main", "fieldname":"formtitleskaters", "text":"SKATERS"},
+	{"formname":"main", "fieldname":"formtitleskater", "text":"SKATER #"},
+	{"formname":"main", "fieldname":"formtitleparent1", "text":"PARENT #1"},
+	{"formname":"main", "fieldname":"formtitleparent2", "text":"PARENT #2"},
+	{"formname":"main", "fieldname":"formtitleaddress", "text":"ADDRESS"},
+
+	{"formname":"main", "fieldname":"usesecondcontact", "text":"Add a second parent"},
+	{"formname":"main", "fieldname":"fieldnewuserid", "text":"User id"},
+	{"formname":"main", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"main", "fieldname":"fieldlastname", "text":"Last Name"},
+	{"formname":"main", "fieldname":"fieldhomephone", "text":"Home Phone"},
+	{"formname":"main", "fieldname":"fieldcellphone", "text":"Cell Phone"},
+	{"formname":"main", "fieldname":"fieldofficephone", "text":"Office Phone"},
+	{"formname":"main", "fieldname":"fieldofficephoneext", "text":"Office Phone Ext."},
+	{"formname":"main", "fieldname":"fieldemail", "text":"Email Address"},
+	{"formname":"main", "fieldname":"fieldpreferedlanguage", "text":"Language"},
+	{"formname":"main", "fieldname":"fieldaddress1", "text":"Address"},
+	{"formname":"main", "fieldname":"fieldtown", "text":"Town"},
+	{"formname":"main", "fieldname":"fieldpostalcode", "text":"Postal Code"},
+	{"formname":"main", "fieldname":"fieldrelation", "text":"Relation"},
+	{"formname":"main", "fieldname":"fieldlanguage", "text":"Language"},
+	{"formname":"main", "fieldname":"fieldgender", "text":"Gender"},
+	{"formname":"main", "fieldname":"fielddateofbirth", "text":"Birthday"},
+	{"formname":"main", "fieldname":"fieldskatecanadano", "text":"Skate Can. No"},
+	{"formname":"main", "fieldname":"fieldhelpskatecanadano", "text":"Optionnal, if known."},
+	{"formname":"main", "fieldname":"fieldusepreviousaddress", "text":"Same address"},
+	
+	{"formname":"main", "fieldname":"msgconfirmsave", "text":"Make sure the email addres you provided is valid, it will be used to communicate with you.\nDo you want to continue?"},
+
+	{"formname":"main", "fieldname":"buttontitlesave", "text":"Save"},
+	{"formname":"main", "fieldname":"buttontitleaddskater", "text":"Add a skater"},
+	{"formname":"main", "fieldname":"buttontitledeleteskater", "text":"Remove a skater"},
+	{"formname":"main", "fieldname":"formerrormessage", "text":"All fields marked with a * are mandatory and there must be at least one skater."},
+	{"formname":"main", "fieldname":"formsuccessmessage", "text":"Pre-registration saved."},
+	{"formname":"main", "fieldname":"formerrormsguseridalreadyinuse", "text":"User id already used. Modifications not saved."},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

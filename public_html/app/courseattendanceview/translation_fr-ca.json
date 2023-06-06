@@ -1,0 +1,22 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer testperiods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Testperiods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune période de test trouvée"},
+
+	{"formname":"selectcoursedate", "fieldname":"formtitleselectdate", "text":"Sélectionner la date"},
+	{"formname":"selectcoursedate", "fieldname":"fieldcoursename", "text":"Cours"},
+	{"formname":"selectcoursedate", "fieldname":"fieldcoursedate", "text":"Date"},
+	{"formname":"selectcoursedate", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"selectcoursedate", "fieldname":"buttontitlekeepchanges", "text":"Sélectionner"},
+	{"formname":"selectcoursedate", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"selectcoursedate", "fieldname":"fielderrormessage", "text":"Aucun cours disponible à ce moment"},
+
+	{"formname":"main", "fieldname":"formtitleattendance", "text":"Présences"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+
+	{"formname":"attendance", "fieldname":"formtitlestaff", "text":"Personel (permanent)"},
+	{"formname":"attendance", "fieldname":"formtitlestaffrepl", "text":"Personel (remplacement)"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

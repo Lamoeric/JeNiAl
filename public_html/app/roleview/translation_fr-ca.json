@@ -1,0 +1,32 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer rôles..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Rôles"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun rôle trouvé"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails du rôle"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitleid", "text":"Id"},
+	{"formname":"details", "fieldname":"fieldtitlerole", "text":"Rôle"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"formtitleprivileges", "text":"Privilèges"},
+	{"formname":"details", "fieldname":"fieldtitleprivilege", "text":"Privilège"},
+
+	{"formname":"newrole", "fieldname":"formtitlenewrole", "text":"Nouveau rôle"},
+	{"formname":"newrole", "fieldname":"fieldtitlerole", "text":"Rôle"},
+	{"formname":"newrole", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newrole", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newrole", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newrole", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"newprivilege", "fieldname":"formtitlenewprivilege", "text":"Éditer privilège"},
+	{"formname":"newprivilege", "fieldname":"fieldtitleprivilege", "text":"Privilège"},
+	{"formname":"newprivilege", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newprivilege", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newprivilege", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}
+
+]

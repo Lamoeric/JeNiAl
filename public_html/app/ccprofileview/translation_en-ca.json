@@ -1,0 +1,22 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formtitleyourprofile", "text":"YOUR PROFILE"},
+	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">>Welcome Page"},
+
+	{"formname":"main", "fieldname":"fieldnewuserid", "text":"User id"},
+	{"formname":"main", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"main", "fieldname":"fieldlastname", "text":"Last Name"},
+	{"formname":"main", "fieldname":"fieldhomephone", "text":"Home Phone"},
+	{"formname":"main", "fieldname":"fieldcellphone", "text":"Cell Phone"},
+	{"formname":"main", "fieldname":"fieldofficephone", "text":"Office Phone"},
+	{"formname":"main", "fieldname":"fieldofficephoneext", "text":"Office Phone Ext."},
+	{"formname":"main", "fieldname":"fieldemail", "text":"Email Address"},
+	{"formname":"main", "fieldname":"fieldpreferedlanguage", "text":"Language"},
+	{"formname":"main", "fieldname":"buttontitlesave", "text":"Save"},
+	{"formname":"main", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"main", "fieldname":"formsuccessmessage", "text":"Modifications saved."},
+	{"formname":"main", "fieldname":"formerrormsguseridalreadyinuse", "text":"User id already used. Modifications not saved."},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

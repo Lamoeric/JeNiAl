@@ -1,0 +1,24 @@
+[
+	{"formname":"changepassword", "fieldname":"formtitle", "text":"Password Change"},
+	{"formname":"changepassword", "fieldname":"labelreason", "text":"Your password is expired. You must change it."},
+	{"formname":"changepassword", "fieldname":"fieldtitleoldpassword", "text":"Old Password"},
+	{"formname":"changepassword", "fieldname":"fieldtitlenewpassword", "text":"New Password"},
+	{"formname":"changepassword", "fieldname":"fieldtitleshowpassword", "text":"Show Password"},
+	{"formname":"changepassword", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"changepassword", "fieldname":"buttontitlekeepchanges", "text":"Save"},
+	{"formname":"changepassword", "fieldname":"formerrormessageallmandatory", "text":"All fields are mandatory."},
+	{"formname":"changepassword", "fieldname":"formerrormessageinvalidlogin", "text":"Invalid info."},
+	{"formname":"changepassword", "fieldname":"formerrormessagepwdmustdiffer", "text":"The new password must be different than the old one."},
+	{"formname":"changepassword", "fieldname":"msgpasswordchanged", "text":"Password Changed"},
+
+	{"formname":"forgotpassword", "fieldname":"formtitle", "text":"Forgotten Password"},
+	{"formname":"forgotpassword", "fieldname":"labelinstructions", "text":"Enter your user code or your email address."},
+	{"formname":"forgotpassword", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"forgotpassword", "fieldname":"buttontitlekeepchanges", "text":"Send"},
+	{"formname":"forgotpassword", "fieldname":"formerrormessageallmandatory", "text":"All fields are mandatory."},
+	{"formname":"forgotpassword", "fieldname":"formerrormessageinvalidlogin", "text":"Unknown email address or user code."},
+
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Email Sent"},
+
+	{"formname":"changepassword", "fieldname":"test", "text":"test"}
+]

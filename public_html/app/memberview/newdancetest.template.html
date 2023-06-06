@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newtest.formtitleedittest}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+      <div class="col-xs-4">
+		    <label for="testid">{{translationObj.newtest.fieldtest}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+			  	<span class="input-group-addon"><i class="glyphicon glyphicon-refresh"></i></span>
+					<select class="form-control" id="testid" name="testid" ng-model="newObj.testid" ng-disabled="newObj.id != null" required>
+			    	<option ng-repeat="dance in dances" value="{{dance.id}}">{{dance.text}}</option>
+			    </select>
+			  </div>
+      </div>
+
+    	<div class="col-xs-4">
+	      <label for="testdate">{{translationObj.newtest.fieldtestdate}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        	<input type="date" class="form-control" id="testdate" name="testdate" ng-model="newObj.testdate" required>
+      	</div>
+		  </div>
+	    <div class="col-xs-2">
+	      <label for="success">{{translationObj.newtest.fieldtestsuccess}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <select class="form-control" id="success" ng-model="newObj.success" required>
+						<option ng-repeat="answer in testresults" value="{{answer.code}}">{{answer.text}}</option>
+		      </select>
+	    	</div>
+	    </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newtest.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newtest.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newtest.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selectgroup.formtitleselectgroup}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-4">
+        <div class="input-group">
+          <br><label><input type="checkbox" ng-model="newObj.allowAllGroups" ng-true-value="'1'" ng-change="OnAllGroupsChange(newObj)">{{translationObj.selectgroup.fieldallowallgroups}}</label>
+        </div>
+      </div>
+      <div class="col-xs-10">
+	      <label for="groupid">{{translationObj.selectgroup.fieldgroup}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="groupid" ng-model="newObj.groupid" required>
+						<option ng-repeat="group in newObj.groupList" value="{{group.id}}">{{group.fullname}}</option>
+		      </select>
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.selectgroup.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel(newObj)">{{translationObj.selectgroup.buttontitlecreatenewgroup}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectgroup.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.selectgroup.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,13 @@
+<!-- Left Pane -->
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div> -->
+<!-- Right Pane -->
+	<!-- Main title : Only display if currentCourseattendance is not null -->
+	<div><h2>{{translationObj.main.formtitlecanskateevaluation}}&nbsp;&nbsp;<span float:right><button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button></span></h2></div>
+
+	<div cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	  <form class="form-horizontal well" role="form" name="detailsForm"  ng-show="currentCourseElement" class="ng-hide">
+			<div ng-include="'canskateevaluationview/canskateevaluation.html'"></div>
+	  </form>
+	</div>

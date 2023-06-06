@@ -1,0 +1,15 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+		<displaymaintitle maintitle="currentCourseDetails.courselabel + ' (' + currentCourseDetails.name + ')'" defaulttitle="translationObj.main.formtitleattendance" object="currentCourseDetails"></displaymaintitle>
+		{{currentCourseDetails.coursedatetime}}<br>
+		{{currentCourseDetails.courselocation}}
+		<!-- <div ng-if="currentCourseattendance==null"><h2>{{translationObj.main.formtitleattendance}}</h2></div> -->
+		<span float:right><button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button></span><br>
+
+		<!-- <div cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}"> -->
+		  <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm"  ng-show="currentCourseattendance" class="ng-hide">
+				<div ng-include="'courseattendanceview/courseattendance.html'"></div>
+		  </form>
+		<!-- </div> -->
+	</row>
+</section>

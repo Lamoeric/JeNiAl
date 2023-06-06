@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title">New user</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" user="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-4">
+	      <label for="code">User<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="code" ng-model="newObj.code" maxlength="30" required>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="description">Description<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="description" ng-model="newObj.description" maxlength="200" required>
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    All fields are mandatory.
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">Discard Changes</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">Save Changes</button>
+</div>

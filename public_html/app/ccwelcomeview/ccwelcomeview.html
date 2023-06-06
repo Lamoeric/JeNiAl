@@ -1,0 +1,107 @@
+<div class="content">
+	<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<br>
+				<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
+				<h3>{{translationObj.main.formtitlewelcome}} {{userInfo.userfullname}}</h3>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="content well">
+					<div class="row">
+						<div class="col-md-10">
+							<div class="content">
+								<div class="row">
+									<h3>{{translationObj.main.formtitleyouraccount}}</h3>
+									<ul><a href="#!/ccprofileview">{{translationObj.main.formtitleyourprofile}}</a></ul>
+									<ul><a class="active pointerlist" ng-click="changePassword()">{{translationObj.main.formtitlechangepassword}}</a></ul>
+									<ul><a href="#!/ccbillview">{{translationObj.main.formtitleconsultbills}}</a></ul>
+								</div>
+								<div class="row">
+									<h3>{{translationObj.main.formtitleyourskaters}}</h3>
+								</div>
+								<div ng-repeat="skater in currentDetails.skaters">
+									<div class="row">
+										<div class="col-xs-12 col-md-6">
+											<div class="input-group">
+												<p>{{skater.firstname}}&nbsp;{{skater.lastname}}</p>
+											</div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+												<a class="active pointerlist" ng-click="viewSkater(skater.id)">{{translationObj.main.labeleditprofil}}</a></br>
+												<span ng-repeat="registration in skater.registrations">
+													<span ng-if="registration.registrationid==null"><a class="active pointerlist" ng-click="registerSkater(skater.id, registration.sessionid)">{{translationObj.main.buttontitleregister}}&nbsp;{{registration.sessionlabel}}</a></br></span>
+													<span ng-if="registration.registrationid!=null"><a class="active pointerlist" ng-click="registerSkater(skater.id, registration.sessionid)">{{translationObj.main.buttontitlemodifyregister}}&nbsp;{{registration.sessionlabel}}</a></br></span>
+<!--
+													<span ng-if="registration.registrationid!=null"><p>{{translationObj.main.buttontitleregister}}&nbsp;{{registration.sessionlabel}}</p></br></span>
+													<span ng-if="registration.registrationid==null"><a class="active pointerlist" ng-click="registerSkater(skater.id, registration.sessionid)">{{translationObj.main.buttontitleregister}}&nbsp;{{registration.sessionlabel}}</a></br></span>
+													<span ng-if="registration.registrationid!=null">{{registration.sessionlabel}}</br></span>
+!-->
+												</span>
+												<span ng-repeat="registration in skater.showsregistrations">
+													<span ng-if="registration.showregistrationid==null"><a class="active pointerlist" ng-click="registerSkaterShow(skater.id, registration.showid)">{{translationObj.main.buttontitleregister}}&nbsp;{{registration.showlabel}}</a></br></span>
+													<span ng-if="registration.showregistrationid!=null">{{registration.showlabel}}</br></span>
+												</span>
+										</div>
+									</div>
+									<hr>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<img style="display:block;margin:auto;" src="../privateimages/cpa_logo.jpg" alt="logo">
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <footer id="myFooter">
+		<div class="container">
+				<div class="row">
+						<div class="col-sm-3">
+								<h2 class="logo"><a href="#"> LOGO </a></h2>
+						</div>
+						<div class="col-sm-2">
+								<h5>Get started</h5>
+								<ul>
+										<li><a href="#">Home</a></li>
+										<li><a href="#">Sign up</a></li>
+										<li><a href="#">Downloads</a></li>
+								</ul>
+						</div>
+						<div class="col-sm-2">
+								<h5>About us</h5>
+								<ul>
+										<li><a href="#">Company Information</a></li>
+										<li><a href="#">Contact us</a></li>
+										<li><a href="#">Reviews</a></li>
+								</ul>
+						</div>
+						<div class="col-sm-2">
+								<h5>Support</h5>
+								<ul>
+										<li><a href="#">FAQ</a></li>
+										<li><a href="#">Help desk</a></li>
+										<li><a href="#">Forums</a></li>
+								</ul>
+						</div>
+						<div class="col-sm-3">
+								<div class="social-networks">
+										<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+										<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+										<a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+								</div>
+								<button type="button" class="btn btn-default">Contact us</button>
+						</div>
+				</div>
+		</div>
+		<div class="footer-copyright">
+				<p>© 2016 Copyright Text </p>
+		</div>
+</footer> -->

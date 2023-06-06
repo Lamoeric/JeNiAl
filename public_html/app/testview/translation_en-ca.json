@@ -1,0 +1,29 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter tests..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Tests"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No test found"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Informations"},
+	{"formname":"details", "fieldname":"fieldtitletestdefinition", "text":"Test Definition"},
+	{"formname":"details", "fieldname":"fieldtitlesubtype", "text":"Subtype"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"fieldtitlesequence", "text":"Sequence"},
+	{"formname":"details", "fieldname":"fieldtitleequivalence", "text":"Equivalence"},
+	{"formname":"details", "fieldname":"fieldtitlesummarycode", "text":"Summary Code"},
+	{"formname":"details", "fieldname":"fieldtitlepartnerstepscode", "text":"Partner Steps Summary Code"},
+	{"formname":"details", "fieldname":"fieldtitlemusics", "text":"Musics"},
+
+	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"New Test"},
+	{"formname":"newtest", "fieldname":"fieldtitletestdefinition", "text":"Test Definition"},
+	{"formname":"newtest", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"newtest", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newtest", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newtest", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."}
+
+]

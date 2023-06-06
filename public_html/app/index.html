@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="cpa_admin" class="no-js lt-ie9 lt-ie8 lt-ie7" updatelanguage> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="cpa_admin" class="no-js lt-ie9 lt-ie8" updatelanguage> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="cpa_admin" class="no-js lt-ie9" updatelanguage> <![endif]-->
+<!--[if gt IE 8]>      <html ng-app="cpa_admin" class="no-js" updatelanguage> <![endif]-->
+<html ng-app="cpa_admin" class="no-js" updatelanguage>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title ng-bind="'JeNiAl - ' + $root.title">JeNiAl</title>
+  <link rel="shortcut icon" href="../images/logo_jenial.png" type="image/x-icon">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../dist/angular-busy.css">
+	<link rel="stylesheet" href="../dist/bootstrap.min.css">
+	<link rel="stylesheet" href="../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../dist/alertify.default.css" />
+	<link rel="stylesheet" href="../dist/angular-bootstrap-toggle.min.css" />
+	<link rel="stylesheet" href="../dist/jquery.fancybox.css" />
+	<link rel="stylesheet" href="cpa_admin.css" />
+  <link rel="stylesheet" href="footer.css">
+</head>
+<body>
+	<div ng-include="'./navbar/commonNavBar.html'"></div>
+
+  <div ng-view style="height:100%"></div>
+
+  <!-- <SCRIPT >
+  	function resize() {
+  		repositionDiv()
+  	}
+  </SCRIPT> -->
+
+	<script type="text/javascript" src="../dist/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="../dist/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../dist/angular.min.js"></script>
+	<script type="text/javascript" src="../dist/angular-resource.min.js"></script>
+	<script type="text/javascript" src="../dist/angular-animate.js"></script>
+	<script type="text/javascript" src="../dist/angular-route.min.js"></script>
+	<script type="text/javascript" src="../dist/ui-bootstrap-tpls-1.3.3.min.js"></script>
+	<script type="text/javascript" src="../dist/ng-file-upload.min.js"></script>
+	<script type="text/javascript" src="../dist/Chart.min.js"></script>
+	<script type="text/javascript" src="../dist/angular-chart.min.js"></script>
+	<script type="text/javascript" src="../dist/jquery.fancybox.js"></script>
+
+	<script type="text/javascript" src="../dist/alertify.min.js"></script>
+	<script type="text/javascript" src="../dist/angular-busy.js"></script>
+	<script type="text/javascript" src="../dist/ng-currency.min.js"></script>
+	<script type="text/javascript" src="../dist/angular-bootstrap-toggle.js"></script>
+	<script type="text/javascript" src="../dist/angular-locale_es-ar.js"></script>
+
+	<script type="text/javascript" src="../dist/angular-drag-and-drop-lists.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+
+  <script src="app.js"></script>
+
+  <script type="text/javascript" src="core/core.module.js"></script>
+  <script type="text/javascript" src="core/controllers/childeditor/childeditor.controller.js"></script>
+  <script type="text/javascript" src="core/controllers/childeditorex/childeditorex.controller.js"></script>
+  <script type="text/javascript" src="core/controllers/searcheditor/searcheditor.controller.js"></script>
+  <script type="text/javascript" src="core/services/authentication/login.controller.js"></script>
+  <script type="text/javascript" src="core/services/authentication/changepassword.controller.js"></script>
+  <script type="text/javascript" src="core/services/authentication/forgotpassword.controller.js"></script>
+
+  <script type="text/javascript" src="core/services/anycode/anycode.service.js"></script>
+  <script type="text/javascript" src="core/services/dialog/dialog.service.js"></script>
+  <script type="text/javascript" src="core/services/lists/lists.service.js"></script>
+  <!-- <script type="text/javascript" src="core/services/searchmember/searchmember.service.js"></script> -->
+  <script type="text/javascript" src="core/services/editcontact/editcontact.service.js"></script>
+  <script type="text/javascript" src="core/services/billing/billing.service.js"></script>
+  <script type="text/javascript" src="core/services/transaction/transaction.service.js"></script>
+  <script type="text/javascript" src="core/services/coursesublevel/coursesublevel.service.js"></script>
+  <script type="text/javascript" src="core/services/arena/arena.service.js"></script>
+  <script type="text/javascript" src="core/services/authentication/authentication.service.js"></script>
+  <script type="text/javascript" src="core/services/translation/translation.service.js"></script>
+  <script type="text/javascript" src="core/services/pricing/pricing.service.js"></script>
+  <script type="text/javascript" src="core/services/parseisodate/parseisodate.service.js"></script>
+  <script type="text/javascript" src="core/services/agreementdialog/agreementdialog.service.js"></script>
+  <script type="text/javascript" src="core/services/selectmembers/selectmembers.service.js"></script>
+  <script type="text/javascript" src="core/services/reporting/reporting.service.js"></script>
+  <script type="text/javascript" src="core/services/paymentagreement/paymentagreement.service.js"></script>
+
+  <script type="text/javascript" src="core/directives/leftpane/leftpane.directive.js"></script>
+  <script type="text/javascript" src="core/directives/leftpane/newleftpane.directive.js"></script>
+  <script type="text/javascript" src="core/directives/leftpane/initmainsection.directive.js"></script>
+  <script type="text/javascript" src="core/directives/displayerror/displayerror.directive.js"></script>
+  <script type="text/javascript" src="core/directives/displaymaintitle/displaymaintitle.directive.js"></script>
+  <!-- <script type="text/javascript" src="core/directives/leftpane/newrightpane.directive.js"></script> -->
+  <script type="text/javascript" src="core/directives/clearsearch/clearsearchbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/clearsearchex/clearsearchbuttonex.directive.js"></script>
+  <script type="text/javascript" src="core/directives/mainfilter/mainfilterbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/mainrefresh/mainrefreshbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/mainsave/mainsavebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/mainnew/mainnewbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/maindelete/maindeletebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childstatus/childstatusindicator.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childundelete/childundeletebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childdelete/childdeletebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childcancel/childcancelbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childedit/childeditbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childmoveup/childmoveupbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childmovedown/childmovedownbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/childmoveright/childmoverightbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/newmember/newmemberbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/searchmember/searchmemberbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/searchmember/searchmemberbuttonglass.directive.js"></script>
+  <script type="text/javascript" src="core/directives/searchmemberex/searchmemberexbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/formatphone/formatphone.directive.js"></script>
+  <script type="text/javascript" src="core/directives/formatbirthdate/formatbirthdate.directive.js"></script>
+  <script type="text/javascript" src="core/directives/formatyearmonthdate/formatyearmonthdate.directive.js"></script>
+  <script type="text/javascript" src="core/directives/genhealthcareno/genhealthcareno.directive.js"></script>
+  <script type="text/javascript" src="core/directives/clubcontacts/clubcontacts.directive.js"></script>
+  <script type="text/javascript" src="core/directives/clubcontacts/editclubcontact.directive.js"></script>
+  <script type="text/javascript" src="core/directives/clubcontacts/addclubcontact.directive.js"></script>
+  <script type="text/javascript" src="core/directives/contacts/contacts.directive.js"></script>
+  <script type="text/javascript" src="core/directives/contacts/editcontact.directive.js"></script>
+  <script type="text/javascript" src="core/directives/contacts/addcontact.directive.js"></script>
+  <script type="text/javascript" src="core/directives/contacts/selectcontact.directive.js"></script>
+  <script type="text/javascript" src="core/directives/contacts/contactcopyfrommember.directive.js"></script>
+  <script type="text/javascript" src="core/directives/capitalize/capitalize.directive.js"></script>
+  <script type="text/javascript" src="core/directives/testsummary/testsummary.directive.js"></script>
+  <script type="text/javascript" src="core/directives/testsummary/startestsummary.directive.js"></script>
+  <script type="text/javascript" src="core/directives/cssummary/cssummary.directive.js"></script>
+  <script type="text/javascript" src="core/directives/billing/billing.directive.js"></script>
+  <script type="text/javascript" src="core/directives/billing/printbillbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/billing/splitbillbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/billing/singlechargebilling.directive.js"></script>
+  <script type="text/javascript" src="core/directives/billing/singlebillpayment.directive.js"></script>
+  <script type="text/javascript" src="core/directives/transaction/addtransactionbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/transaction/canceltransactionbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/logout/logoutbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/login/loginbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/switchlanguage/switchlanguagebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/updatelanguage/updatelanguage.directive.js"></script>
+  <script type="text/javascript" src="core/directives/scrolldetector/scrolldetector.directive.js"></script>
+  <script type="text/javascript" src="core/directives/billing/sendbillbyemailbutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/testregistration/edittestregistration.directive.js"></script>
+  <script type="text/javascript" src="core/directives/ignoredirty/ignoredirty.directive.js"></script>
+  <script type="text/javascript" src="core/directives/chargeruleseditor/chargeruleseditor.directive.js"></script>
+  <script type="text/javascript" src="core/directives/linkeditor/linkeditor.directive.js"></script>
+  <script type="text/javascript" src="core/directives/replacespaces/replacespaces.directive.js"></script>
+  <script type="text/javascript" src="core/directives/deletewebsiteimage/deletewebsiteimagebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/presencemultistate/presencemultistatebutton.directive.js"></script>
+  <script type="text/javascript" src="core/directives/convertSecondToString/convertSecondToString.directive.js"></script>
+  <script type="text/javascript" src="core/directives/paragrapheditor/paragraphviewer.directive.js"></script>
+  <script type="text/javascript" src="core/directives/paymentagreement/addpaymentagreement.directive.js"></script>
+
+  <script type="text/javascript" src="codeview/codeview.js"></script>
+
+  <script type="text/javascript" src="chargeview/chargeview.js"></script>
+
+  <script type="text/javascript" src="testview/testview.js"></script>
+
+  <script type="text/javascript" src="testdefview/testdefview.js"></script>
+
+  <script type="text/javascript" src="testcsview/testcsview.js"></script>
+
+  <script type="text/javascript" src="arenaview/arenaview.js"></script>
+
+  <script type="text/javascript" src="clubview/clubview.js"></script>
+
+  <script type="text/javascript" src="courseview/courseview.js"></script>
+
+  <script type="text/javascript" src="courseattendanceview/courseattendanceview.js"></script>
+
+  <script type="text/javascript" src="canskateevaluationview/canskateevaluationview.js"></script>
+
+  <script type="text/javascript" src="preregistrationview/preregistrationview.js"></script>
+  
+  <script type="text/javascript" src="registrationview/registrationview.js"></script>
+
+  <script type="text/javascript" src="sessioncoursesview/sessioncoursesview.js"></script>
+
+  <script type="text/javascript" src="sessionview/sessionview.js"></script>
+  
+  <script type="text/javascript" src="showview/showview.js"></script>
+
+  <script type="text/javascript" src="showtaskview/showtaskview.js"></script>
+
+  <script type="text/javascript" src="memberview/memberview.js"></script>
+
+  <script type="text/javascript" src="contactview/contactview.js"></script>
+
+  <script type="text/javascript" src="privilegeview/privilegeview.js"></script>
+
+  <script type="text/javascript" src="roleview/roleview.js"></script>
+
+  <script type="text/javascript" src="userview/userview.js"></script>
+
+  <script type="text/javascript" src="userprofileview/userprofileview.js"></script>
+
+  <script type="text/javascript" src="testsessionview/testsessionview.js"></script>
+
+  <script type="text/javascript" src="teststarsessionview/teststarsessionview.js"></script>
+
+  <script type="text/javascript" src="testperiodview/testperiodview.js"></script>
+
+  <script type="text/javascript" src="testperiodfollowview/testperiodfollowview.js"></script>
+
+  <script type="text/javascript" src="testregistrationview/testregistrationview.js"></script>
+
+  <script type="text/javascript" src="testexternalapprobview/testexternalapprobview.js"></script>
+
+  <script type="text/javascript" src="dashboardview/dashboardview.js"></script>
+
+  <script type="text/javascript" src="teststarregistrationview/teststarregistrationview.js"></script>
+
+  <script type="text/javascript" src="configurationview/configurationview.js"></script>
+
+  <script type="text/javascript" src="welcomeview/welcomeview.js"></script>
+
+  <script type="text/javascript" src="loginview/loginview.js"></script>
+
+  <script type="text/javascript" src="billview/billview.js"></script>
+
+  <script type="text/javascript" src="sessiontaxreceiptview/sessiontaxreceiptview.js"></script>
+
+  <script type="text/javascript" src="wssectionview/wssectionview.js"></script>
+
+  <script type="text/javascript" src="wspageview/wspageview.js"></script>
+  <script type="text/javascript" src="wsnewpageview/wspageview.js"></script>
+
+  <script type="text/javascript" src="wsprogramassistantview/wsprogramassistantview.js"></script>
+
+  <script type="text/javascript" src="wsboardmemberview/wsboardmemberview.js"></script>
+
+  <script type="text/javascript" src="wspartnerview/wspartnerview.js"></script>
+
+  <script type="text/javascript" src="wscoachview/wscoachview.js"></script>
+
+  <script type="text/javascript" src="wsnewsview/wsnewsview.js"></script>
+
+  <script type="text/javascript" src="wseventview/wseventview.js"></script>
+
+  <script type="text/javascript" src="wsarenaview/wsarenaview.js"></script>
+
+  <script type="text/javascript" src="wscontactview/wscontactview.js"></script>
+
+  <script type="text/javascript" src="wsdocumentview/wsdocumentview.js"></script>
+
+  <script type="text/javascript" src="wscostumeview/wscostumeview.js"></script>
+
+  <script type="text/javascript" src="wsboutiqueview/wsboutiqueview.js"></script>
+
+  <script type="text/javascript" src="wsclassifiedaddview/wsclassifiedaddview.js"></script>
+
+  <!-- Espace Client -->
+
+  <script type="text/javascript" src="ccwelcomeview/ccwelcomeview.js"></script>
+  <script type="text/javascript" src="ccloginview/ccloginview.js"></script>
+  <script type="text/javascript" src="ccregisterview/ccregisterview.js"></script>
+  <script type="text/javascript" src="ccprofileview/ccprofileview.js"></script>
+  <script type="text/javascript" src="ccbillview/ccbillview.js"></script>
+  <script type="text/javascript" src="ccsinglebillview/ccsinglebillview.js"></script>
+  <script type="text/javascript" src="ccskaterview/ccskaterview.js"></script>
+  <script type="text/javascript" src="ccregistrationview/ccregistrationview.js"></script>
+  <script type="text/javascript" src="ccpreregistrationview/ccpreregistrationview.js"></script>
+  <script type="text/javascript" src="ccshowregistrationview/ccshowregistrationview.js"></script>
+
+  <!-- <script type="text/javascript" src="sessionscheduleview/sessionscheduleview.js"></script> -->
+
+</body>
+</html>

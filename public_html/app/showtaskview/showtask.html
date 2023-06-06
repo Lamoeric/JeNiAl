@@ -1,0 +1,59 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-1">
+	      <label for="id">id</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+        	<input type="text" class="form-control" id="id" ng-model="currentTask.id" maxlength="11" disabled>
+	      </div>
+      </div>
+			<div class="clearfix"></div>
+      <div class="col-xs-5">
+	      <label for="arena">{{translationObj.details.fieldtitlecategory}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="arena" ng-model="currentTask.category"" required>
+						<option ng-repeat="taskcategory in taskcategories" value="{{taskcategory.code}}">{{taskcategory.text}}</option>
+      		</select>
+      	</div>
+      </div>
+			<div class="clearfix"></div>
+			<div class="col-xs-7">
+	      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        	<input type="text" class="form-control" id="label_en" ng-model="currentTask.label_en" maxlength="200" required>
+	      </div>
+      </div>
+			<div class="col-xs-8">
+	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        	<input type="text" class="form-control" id="label_fr" ng-model="currentTask.label_fr" maxlength="200" required>
+	      </div>
+      </div>
+			<div class="col-xs-8">
+	      <label for="label_en">{{translationObj.details.fieldtitleenglishdesc}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<textarea class="form-control" id="desc_en" ng-model="currentTask.desc_en" maxlength="200"> </textarea>
+	      </div>
+      </div>
+			<div class="col-xs-8">
+	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchdesc}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<textarea class="form-control" id="label_fr" ng-model="currentTask.desc_fr" maxlength="200"> </textarea>
+	      </div>
+      </div>
+			<div class="clearfix"></div>
+      <div class="col-xs-2">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="currentTask.active" ng-true-value="'1'">{{translationObj.details.fieldtitleactive}}</label>
+	      </div>
+	    </div>
+  	</div>
+  </div>
+</div>

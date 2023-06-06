@@ -1,0 +1,111 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.searchcontacts.formtitle}}</h4>
+</div>
+<div class="modal-body row"  style="height:350px">
+	<div>
+    <div class="col-xs-3" style="height:310px">
+			<div class="form-group row">
+				<div class="grid">
+		      <div class="col-xs-12">
+						<div class="btn-group">
+							<input id="searchinput" type="search" class="form-control" ng-model="searchFilter" placeholder="{{translationObj.searchcontacts.mainfilter}}" aria-label="{{translationObj.searchcontacts.mainfilter}}">
+						  <span id="searchclear" class="glyphicon glyphicon-remove-circle" clear-search-button></span>
+						</div>
+						<br><br>
+						<div style="height:280px;overflow-y:auto;width:99%;border:1px solid;">
+						  <div ng-repeat="leftobj in leftobjs | filter:searchFilter:customSearch as results">
+						  	<div class="callout" ng-class="{ 'selected-class-name': $index == selectedObjectIndex }" ng-click="this.setCurrent(leftobj, $index)">
+						  		<div><p>{{leftobj.firstname}} {{leftobj.lastname}}</p></div>
+						  	</div>
+						  </div>
+							<li class="animate-repeat" ng-if="results.length == 0">
+								<strong>{{translationObj.searchcontacts.noresultfound}}</strong>
+							</li>
+						</div>
+    			</div>
+    		</div>
+  		</div>
+  	</div>
+    <div class="col-xs-9">
+  		<form class="form-horizontal" role="form" name="newDetailsForm">
+				<div class="form-group row">
+					<div class="grid">
+						<div class="row">
+						<br><br><br>
+				      <div class="col-xs-4">
+				      	<label for="first">{{translationObj.searchcontacts.fieldfirstname}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					        <input type="text" class="form-control" id="firstname" name="firstname" ng-model="currentObject.firstname" maxlength="40" disabled>
+					      </div>
+				      </div>
+
+				      <div class="col-xs-4">
+					      <label for="last">{{translationObj.searchcontacts.fieldlastname}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					        <input type="text" class="form-control" id="lastname" name="lastname" ng-model="currentObject.lastname" maxlength="40" disabled>
+					      </div>
+				      </div>
+			      </div>
+
+						<div class="row">
+					    <div class="col-xs-4">
+					      <label for="homephone">{{translationObj.searchcontacts.fieldhomephone}}</label>
+					    	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					      	<input type="text" class="form-control" id="homephone" ng-model="currentObject.homephone" maxlength="14" disabled>
+					    	</div>
+					    </div>
+
+					    <div class="col-xs-4">
+					      <label for="cellphone">{{translationObj.searchcontacts.fieldcellphone}}</label>
+					    	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					        <input type="text" class="form-control" id="cellphone" ng-model="currentObject.cellphone" maxlength="14" disabled>
+					    	</div>
+					    </div>
+				    </div>
+
+						<div class="row">
+					    <div class="col-xs-4">
+					      <label for="otherphone">{{translationObj.searchcontacts.fieldofficephone}}</label>
+					    	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					      	<input type="text" class="form-control" id="otherphone" ng-model="currentObject.officephone" maxlength="14" disabled>
+					    	</div>
+					    </div>
+					    <div class="col-xs-4">
+					      <label for="officeext">{{translationObj.searchcontacts.fieldofficephoneext}}</label>
+					    	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					      	<input type="text" class="form-control" id="officeext" ng-model="currentObject.officeext" maxlength="6" disabled>
+					    	</div>
+					    </div>
+				    </div>
+
+						<div class="row">
+					    <div class="col-xs-8">
+					      <label for="email">{{translationObj.searchcontacts.fieldemail}}</label>
+					    	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					      	<input type="text" class="form-control" id="email" ng-model="currentObject.email" maxlength="100" disabled>
+					    	</div>
+					    </div>
+			      </div>
+
+		      </div>
+	      </div>
+	     </form>
+    </div>
+	</div>
+</div>
+
+<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+  {{translationObj.searchcontacts.formerrormessage}}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.searchcontacts.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel('createNew')" ng-show="!searchParams.nocreatenew">{{translationObj.searchcontacts.buttontitlecreatenew}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.searchcontacts.buttontitlekeepchanges}}</button>
+</div>

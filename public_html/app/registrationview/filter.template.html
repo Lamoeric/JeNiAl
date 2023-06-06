@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.filter.formtitlefilter}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+      <div class="col-xs-7">
+	      <label for="sessionid">{{translationObj.filter.fieldsessionid}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="sessionid" ng-model="newObj.sessionid">
+						<option ng-repeat="session in sessions" value="{{session.id}}">{{session.label}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-5">
+	      <label for="course">{{translationObj.filter.fieldactiveonly}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <select class="form-control" id="activeOnly" ng-model="newObj.activeOnly">
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+		      </select>
+	      </div>
+      </div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.filter.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel(true)"	>{{translationObj.filter.buttontitledismiss}}</button>
+	<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.filter.buttontitleclearform}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.filter.buttontitleapplyfilter}}</button>
+</div>

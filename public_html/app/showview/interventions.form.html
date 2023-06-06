@@ -1,0 +1,43 @@
+<div class="form-group">
+	<h3>{{translationObj.interventions.formtitleinterventions}}&nbsp;({{filtered.length}}/{{currentShow.interventions.length}})&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowIntervention({})"></button></h3>
+<!--<span ng-repeat="interventioncode in currentShow.interventioncodes"><label><input type="checkbox" ng-model="interventioncode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{interventioncode.interventioncodelabel}} </label>&nbsp;&nbsp;</span>
+	<button class="btn btn-primary btn-sm" ng-click="clearCourseCodesFilter()"><span>{{translationObj.interventions.buttontitleclearinterventioncodesfilter}}</span></button>!-->
+	<br>
+
+	<div ng-repeat="intervention in filtered = (currentShow.interventions | filter : filterInterventions)" class="blackcurvyborder">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-warning" style="margin-bottom:0px">
+	        <div class="panel-heading">
+						<a data-target="#interventions{{$index}}" data-toggle="collapse" class="pointerlist">
+							<strong><big>{{intervention.name}}</big></strong>
+						</a>
+						<span style="float:right">
+							<child-edit-button 			obj="intervention" objlist="currentShow.interventions" callback="editShowIntervention(intervention)"></child-edit-button>
+							<child-delete-button 		obj="intervention" objlist="currentShow.interventions" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="intervention" objlist="currentShow.interventions" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="intervention"></child-status-indicator>
+						</span>
+						<br>
+						<small>
+					  	<p><b>{{translationObj.interventions.fieldname}}</b>:&nbsp;{{intervention.name}}&nbsp;<b>{{translationObj.interventions.fieldlabel}}</b>:&nbsp;{{intervention.interventionlabel}}&nbsp;<b>{{translationObj.interventions.fieldduration}}</b>:&nbsp;{{intervention.duration | convertSecondToString}}</p>
+					  	<p><b>{{translationObj.interventions.fieldmusic}}</b>:&nbsp;{{intervention.music}}&nbsp;<b>{{translationObj.interventions.fieldlight}}</b>:&nbsp;{{intervention.lights}}</p>
+						</small>
+					</div>
+
+					<div id="interventions{{$index}}" class="panel-collapse collapse">
+	          <div class="panel-body" >
+							<form>
+					      <label for="name">{{translationObj.interventions.fieldcomment}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					        <textarea type="text" class="form-control" name="comments" ng-model="intervention.comments" maxlength="2000" disabled> </textarea>
+					      </div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

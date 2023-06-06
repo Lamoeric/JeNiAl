@@ -1,0 +1,106 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+	<row>
+		<newleftpane leftpanetemplatefullpath="./registrationview/registration.template.html"></newleftpane>
+		<div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+			<div id="mainrowright" class="row mainrowright">
+				<div class="grid">
+					<displayerror></displayerror>
+					<div>
+						<h2 ng-if="currentRegistration!=null"><span class="glyphicon glyphicon-edit" ng-if="currentRegistration.status=='DRAFT'" style="font-size:25px"></span><span class="glyphicon glyphicon-edit" ng-if="currentRegistration.status=='DRAFT-R'" style="color:red;font-size:25px"></span><span class="glyphicon glyphicon-share" ng-if="currentRegistration.status=='PRESENTED'" style="font-size:25px"></span><span class="glyphicon glyphicon-share" ng-if="currentRegistration.status=='PRESENTED-R'" style="color:red;font-size:25px"></span><span class="glyphicon glyphicon-check" ng-if="currentRegistration.status=='ACCEPTED'" style="font-size:25px"></span>
+							{{currentRegistration.id}} - {{currentRegistration.sessionname}} - {{currentRegistration.registrationdatestr}} - {{currentRegistration.member.firstname}} {{currentRegistration.member.lastname}}</h2>
+						<h2 ng-if="currentRegistration==null">{{translationObj.main.formtitledetails}}</h2>
+					</div>
+
+					<main-new-button new-callback="createNew()" is-form-pristine="activeSession==null" ng-if="userInfo.privileges.registration_create==true"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !memberForm.$dirty && !contactForm.$dirty && !summaryForm.$dirty"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R'"></main-delete-button>
+					<button class="btn btn-primary" ng-click="this.reviseRegistration()" ng-disabled="currentRegistration.status!='ACCEPTED'" ng-if="userInfo.privileges.registration_revise==true"><span>{{translationObj.main.buttontitlerevise}}</span></button>
+
+					<form class="form-horizontal" role="form" name="upperForm">
+						<div class="form-group">
+						  <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+						    <label for="eventname">{{translationObj.sessioncourses.fieldeventname}}</label>
+								<div class="input-group">
+				      		<select class="form-control" ng-model="currentEvent" ng-options="event as event.text for event in allSessionsAndShows" ng-change="onCurrentEventChange()" ignore-dirty>
+									</select>
+						  	</div>
+						  </div>
+						</div>
+				  </form>
+
+					<div id="maintab" class="maintab">
+						<ul id="maintabheader" class="nav nav-tabs">
+							<li class="active pointerlist"><a data-toggle="tab" data-target="#member">{{translationObj.main.panetitlemember}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#contacts">{{translationObj.main.panetitlecontacts}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#testsummary">{{translationObj.main.panetitletests}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#startestsummary">{{translationObj.main.panetitlestartests}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#canskatesummary">{{translationObj.main.panetitlecanskate}}</a></li>
+					    <li class="pointerlist" ng-if="currentRegistration.eventtype==1"><a data-toggle="tab" data-target="#courses">{{translationObj.main.panetitlecourses}}</a></li>
+					    <li class="pointerlist" ng-if="currentRegistration.eventtype==2"><a data-toggle="tab" data-target="#numbers">{{translationObj.main.panetitlenumbers}}</a></li>
+					    <li class="pointerlist" ng-show="currentRegistration.status=='PRESENTED' || currentRegistration.status=='PRESENTED-R' || currentRegistration.status=='ACCEPTED'"><a data-toggle="tab" data-target="#summary">{{translationObj.main.panetitlesummary}}</a></li>
+					    <li class="pointerlist" ng-show="currentRegistration.status=='ACCEPTED'"><a data-toggle="tab" data-target="#bill">{{translationObj.main.panetitlebill}}</a></li>
+						</ul>
+
+						<div id="maintabcontent" class="tab-content maintabcontent">
+							<div id="member" class="tab-pane fade in active maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="memberForm" ng-show="currentRegistration">
+									<div ng-include="'./registrationview/member.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="contacts" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="contactForm" ng-show="currentRegistration">
+					      	<contacts set-dirty="setDirty()" contacts="currentRegistration.member.contacts" member="currentRegistration.member" new-contact-disabled="currentRegistration.status!='DRAFT' || (currentRegistration.member == null || currentRegistration.member.id == null)"></contacts>
+							  </form>
+					    </div>
+
+					    <div id="testsummary" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="testsummaryForm" ng-show="currentRegistration">
+					      	<test-summary summary="currentRegistration.member.summary"></test-summary>
+							  </form>
+					    </div>
+
+					    <div id="startestsummary" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="startestsummaryForm" ng-show="currentRegistration">
+									<star-test-summary summary="currentRegistration.member.summary"></star-test-summary>
+						  </form>
+					    </div>
+
+					    <div id="canskatesummary" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="canskatesummaryForm" ng-show="currentRegistration">
+					      	<cs-summary member="currentRegistration.member" is-disabled="true" ></cs-summary>
+							  </form>
+					    </div>
+
+					    <div id="courses" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="coursesForm" ng-show="currentRegistration">
+									<div ng-include="'./registrationview/courses.template.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="numbers" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="numbersForm" ng-show="currentRegistration">
+									<div ng-include="'./registrationview/numbers.template.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="summary" class="tab-pane fade maintabpane" ng-show="currentRegistration.status=='PRESENTED' || currentRegistration.status=='PRESENTED-R' || currentRegistration.status=='ACCEPTED'">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="summaryForm" ng-show="currentRegistration">
+									<div ng-include="'./registrationview/registrationsummary.template.html'"></div>
+						    </form>
+					    </div>
+
+					    <div id="bill" class="tab-pane fade maintabpane" ng-show="currentRegistration.status=='ACCEPTED'">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="billForm" ng-show="currentRegistration">
+					      	<billing current-bill="currentRegistration.bill" current-language="currentLanguage" allow-splitting="false"></billing>
+						    </form>
+					    </div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</row>
+</section>

@@ -1,0 +1,32 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter test periods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Test Periods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No test period found"}
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+
+	{"formname":"selecttestperiod", "fieldname":"formtitle", "text":"Select a test period"},
+	{"formname":"selecttestperiod", "fieldname":"fieldtestsessionname", "text":"Test Session"},
+	{"formname":"selecttestperiod", "fieldname":"fieldtestperiod", "text":"Test Period"},
+	{"formname":"selecttestperiod", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"selecttestperiod", "fieldname":"buttontitlekeepchanges", "text":"Select"},
+	{"formname":"selecttestperiod", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+
+	{"formname":"testperiod", "fieldname":"fieldtitlewarmup", "text":"Warmup"},
+	{"formname":"testperiod", "fieldname":"fiedtitleduration", "text":"Duration"},
+	{"formname":"testperiod", "fieldname":"fieldtitlestart", "text":"Start"},
+	{"formname":"testperiod", "fieldname":"fieldtitleend", "text":"End"},
+	{"formname":"testperiod", "fieldname":"buttontitlestart", "text":"Start"},
+	{"formname":"testperiod", "fieldname":"buttontitlestop", "text":"End"},
+	{"formname":"testperiod", "fieldname":"buttontitleended", "text":"Ended"},
+	{"formname":"testperiod", "fieldname":"fieldtitleskater", "text":"Skater"},
+	{"formname":"testperiod", "fieldname":"fieldtitlepartner", "text":"Partner"},
+	{"formname":"testperiod", "fieldname":"fieldtitlemusic", "text":"Music"},
+	{"formname":"testperiod", "fieldname":"fieldtitlepartnersteps", "text":"Partner Steps"},
+	{"formname":"testperiod", "fieldname":"partnerstepsyes", "text":"Yes"},
+	{"formname":"testperiod", "fieldname":"partnerstepsno", "text":"No"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+
+]

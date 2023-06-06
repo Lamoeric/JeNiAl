@@ -1,0 +1,48 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.testsessiondetails.formtitletestsessiondetails}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-10">
+        <table width="100%" border="1">
+					<tr>
+            <th colspan="4">{{translationObj.testsessiondetails.titleperiods}}</th>
+          </tr>
+          <tr>
+            <th>{{translationObj.testsessiondetails.fielddate}}</th>
+            <th>{{translationObj.testsessiondetails.fieldlocation}}</th>
+            <th>{{translationObj.testsessiondetails.fieldstarttime}}</th>
+            <th>{{translationObj.testsessiondetails.fieldendtime}}</th>
+          </tr>
+          <tr ng-repeat="period in currentTestsession.periods">
+            <td>{{period.testdate}}</td>
+            <td>{{period.arenalabel + (period.icelabel && period.icelabel != '' ? ' ' + period.icelabel : '')}}</td>
+            <td> {{period.starttime}}</td>
+            <td>{{period.endtime}}</td>
+          </tr>
+        </table><br><br>
+				<table width="100%" border="1">
+					<tr>
+            <th colspan="2">{{translationObj.testsessiondetails.titlefees}}</th>
+          </tr>
+          <tr ng-repeat="charge in currentTestsession.charges">
+            <td>{{charge.chargelabel}}</td>
+            <td>{{charge.amount}}</td>
+          </tr>
+					<tr>
+            <td>{{translationObj.testsessiondetails.extrafeesoptions}}</th>
+            <td>{{currentTestsession.extrafeesoptionlabel}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+	</form>
+	<!-- <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newtest.formerrormessage}}
+	</div> -->
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.testsessiondetails.buttontitlediscard}}</button>
+	<!-- <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newtest.buttontitlekeepchanges}}</button> -->
+</div>

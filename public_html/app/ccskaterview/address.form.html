@@ -1,0 +1,90 @@
+<hr>
+<div class="row">
+  <div class="col-xs-11 col-md-5">
+  	<label for="address1">{{translationObj.address.fieldaddress1}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+      <input type="text" name="address1" class="form-control input-sm" id="address1" ng-model="currentSkater.address1" maxlength="100">
+    </div>
+  </div>
+  <div class="col-xs-11 col-md-4">
+    <label for="address2">{{translationObj.address.fieldaddress2}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+        <input type="text" class="form-control input-sm" id="address2" ng-model="currentSkater.address2" maxlength="100">
+    </div>
+  </div>
+  <div class="col-xs-11 col-md-3">
+    <label for="town">{{translationObj.address.fieldtown}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+			<input type="text" class="form-control input-sm" id="town" ng-model="currentSkater.town" maxlength="100">
+  	</div>
+  </div>
+  <div class="col-xs-11 col-md-3">
+    <label for="province">{{translationObj.address.fieldprovince}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+      <select class="form-control input-sm" id="province" ng-model="currentSkater.province">
+				<option ng-repeat="province in provinces" value="{{province.code}}">{{province.text}}</option>
+			</select>
+  	</div>
+  </div>
+  <div class="col-xs-11 col-md-2">
+    <label for="postalcode">{{translationObj.address.fieldpostalcode}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+    	<input type="text" class="form-control input-sm" id="postalcode" ng-model="currentSkater.postalcode" maxlength="7" capitalize>
+  	</div>
+  </div>
+  <div class="col-xs-11 col-md-3">
+    <label for="country">{{translationObj.address.fieldcountry}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+  		<select class="form-control input-sm" id="country" ng-model="currentSkater.country" maxlength="20">
+				<option ng-repeat="country in countries" value="{{country.code}}">{{country.text}}</option>
+  		</select>
+  	</div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-11 col-md-3">
+    <label for="homephone">{{translationObj.address.fieldhomephone}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+    	<input type="text" class="form-control input-sm" id="homephone" ng-model="currentSkater.homephone" maxlength="14" format-phone>
+  	</div>
+  </div>
+  <div class="col-xs-11 col-md-3">
+    <label for="cellphone">{{translationObj.address.fieldcellphone}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+      <input type="text" class="form-control input-sm" id="cellphone" ng-model="currentSkater.cellphone" maxlength="14" format-phone>
+  	</div>
+  </div>
+  <div class="col-xs-11 col-md-3">
+    <label for="otherphone">{{translationObj.address.fieldotherphone}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+    	<input type="text" class="form-control input-sm" id="otherphone" ng-model="currentSkater.otherphone" maxlength="20">
+  	</div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-11 col-md-5">
+    <label for="email">{{translationObj.address.fieldemail}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+    	<input type="text" class="form-control input-sm" id="email" ng-model="currentSkater.email" maxlength="100">
+  	</div>
+  </div>
+  <div class="col-xs-11 col-md-5">
+    <label for="email2">{{translationObj.address.fieldemail2}}</label>
+  	<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+    	<input type="text" class="form-control input-sm" id="email2" ng-model="currentSkater.email2" maxlength="100">
+  	</div>
+  </div>
+</div>

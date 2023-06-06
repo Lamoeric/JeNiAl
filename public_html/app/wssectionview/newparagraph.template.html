@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newparagraph.formtitleeditice}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.newparagraph.fieldtitleenglishtitle}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="title_en" class="form-control" id="title_en" ng-model="newObj.title_en" maxlength="2000">
+	      </div>
+	    </div>
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.newparagraph.fieldtitlefrenchtitle}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="title_fr" class="form-control" id="title_fr" ng-model="newObj.title_fr" maxlength="2000">
+	      </div>
+      </div>
+
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.newparagraph.fieldtitleenglishsubtitle}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="subtitle_en" class="form-control" id="subtitle_en" ng-model="newObj.subtitle_en" maxlength="2000">
+	      </div>
+	    </div>
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.newparagraph.fieldtitlefrenchsubtitle}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="subtitle_fr" class="form-control" id="subtitle_fr" ng-model="newObj.subtitle_fr" maxlength="2000">
+	      </div>
+      </div>
+
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.newparagraph.fieldtitleenglishparagraphtext}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<!-- <input type="text" name="paragraphtext_en" class="form-control" id="paragraphtext_en" ng-model="newObj.paragraphtext_en" maxlength="2000" required> -->
+          <textarea class="form-control" name="paragraphtext_en" id="paragraphtext_en" ng-model="newObj.paragraphtext_en" maxlength="2000" rows="5" required></textarea>
+	      </div>
+	    </div>
+      <div class="col-xs-6">
+	      <label for="name">{{translationObj.newparagraph.fieldtitlefrenchparagraphtext}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<!-- <input type="text" name="paragraphtext_fr" class="form-control" id="paragraphtext_fr" ng-model="newObj.paragraphtext_fr" maxlength="2000" required> -->
+          <textarea class="form-control" name="paragraphtext_fr" id="paragraphtext_fr" ng-model="newObj.paragraphtext_fr" maxlength="2000" rows="5" required></textarea>
+	      </div>
+      </div>
+
+	    <div class="col-xs-6">
+	      <label for="code">{{translationObj.newparagraph.fieldtitleparagraphindex}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" name="paragraphindex" class="form-control" id="paragraphindex" ng-model="newObj.paragraphindex" min="1" max="99" required>
+	      </div>
+	    </div>
+
+      <div class="col-xs-6">
+	      <label for="active">{{translationObj.newparagraph.fieldtitlepublish}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="publish" ng-model="newObj.publish" required>
+			    	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+    </div>
+
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newparagraph.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newparagraph.buttontitlediscard}}</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newparagraph.buttontitlekeepchanges}}</button>
+</div>

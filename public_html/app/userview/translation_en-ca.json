@@ -1,0 +1,43 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter users..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Users"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No user found"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"User Details"},
+	{"formname":"main", "fieldname":"buttontitleresetpassword", "text":"Reset"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."},
+	{"formname":"main", "fieldname":"msgresetaccount", "text":"The user password will be generated randomly and a email will be sent. Do you want to continue?"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Informations"},
+	{"formname":"details", "fieldname":"fieldtitleuserid", "text":"User Code"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Full Name"},
+	{"formname":"details", "fieldname":"fieldtitlepreferedlanguage", "text":"Language"},
+	{"formname":"details", "fieldname":"fieldtitlepassword", "text":"Password"},
+	{"formname":"details", "fieldname":"fieldtitleemail", "text":"Email"},
+	{"formname":"details", "fieldname":"fieldtitlepasswordexpired", "text":"Expired Password"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"details", "fieldname":"formtitleroles", "text":"Roles"},
+	{"formname":"details", "fieldname":"fieldtitlerole", "text":"Role"},
+	{"formname":"details", "fieldname":"fieldtitlecontactfullname", "text":"Contact Full Name"},
+	{"formname":"details", "fieldname":"buttontitleemptycontact", "text":"Clear Contact"},
+
+	{"formname":"newuser", "fieldname":"formtitlenewuser", "text":"New User"},
+	{"formname":"newuser", "fieldname":"fieldtitleuserid", "text":"User Code"},
+	{"formname":"newuser", "fieldname":"fieldtitlefullname", "text":"Full Name"},
+	{"formname":"newuser", "fieldname":"fieldtitlepassword", "text":"Password"},
+	{"formname":"newuser", "fieldname":"fieldtitlepreferedlanguage", "text":"Language"},
+	{"formname":"newuser", "fieldname":"fieldtitleemail", "text":"Email"},
+	{"formname":"newuser", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newuser", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newuser", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"newrole", "fieldname":"formtitlenewrole", "text":"New Role"},
+	{"formname":"newrole", "fieldname":"fieldtitlerole", "text":"Role"},
+	{"formname":"newrole", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newrole", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newrole", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}
+
+]

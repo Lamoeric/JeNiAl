@@ -1,0 +1,121 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+	<row>
+		<newleftpane leftpanetemplatefullpath="./sessionview/session.template.html"></newleftpane>
+		<div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+			<div id="mainrowright" class="row mainrowright">
+				<div class="grid">
+					<displayerror></displayerror>
+					<displaymaintitle maintitle="currentSession.name" defaulttitle="translationObj.main.formtitledetails" object="currentSession"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.session_create"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty)" ng-if="userInfo.privileges.session_update==true"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" ng-if="userInfo.privileges.session_delete"></main-delete-button>
+					<button class="btn btn-primary" ng-click="activateSession()" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_update"==true>{{translationObj.sessions.buttontitlesetactive}}</button>
+					<button class="btn btn-primary" ng-click="copySession()" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_create==true">{{translationObj.sessions.buttontitlecopysession}}</button>
+				  <span class="dropdown">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_print==true">{{translationObj.sessions.buttontitlereports}}<span class="caret"></span></button>
+				    <ul class="dropdown-menu" role="menu">
+							<li class="dropdown-header">{{translationObj.sessions.reportdividercourses}}</li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionSchedule')">{{translationObj.sessions.reporttitlesessionschedule}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCoursesSummary')">{{translationObj.sessions.reporttitlesessioncoursessummary}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCoursesList')">{{translationObj.sessions.reporttitlesessioncourseslist}}</a></li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCoursesListActive')">{{translationObj.sessions.reporttitlesessioncourselistactive}}</a></li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCoursesCount')">{{translationObj.sessions.reporttitlesessioncoursecount}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCourseAttendance')">{{translationObj.sessions.reporttitlesessioncoursesattendance}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCoachesSchedule')">{{translationObj.sessions.reporttitlesessioncoachesschedule}}</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">{{translationObj.sessions.reportdividerregistrations}}</li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionSCRegistrations')">{{translationObj.sessions.reporttitlesessionSCRegistrations}}</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">{{translationObj.sessions.reportdividerbilling}}</li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionBillingList')">{{translationObj.sessions.reporttitlesessionBillinglist}}</a></li>
+							<li class="pointerlist"><a ng-click="this.exportBills()">{{translationObj.sessions.reporttitleexpsessionBillinglist}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionTaxReceipt')">{{translationObj.sessions.reporttitlesessionTaxReceipt}}</a></li>
+					  </ul>
+					</span>
+
+					<div id="maintab" class="maintab">
+						<ul id="maintabheader" class="nav nav-tabs">
+							<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.sessions.panetitledetails}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#registrations">{{translationObj.sessions.panetitleregistrations}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#events">{{translationObj.sessions.panetitleevents}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#rules">{{translationObj.sessions.panetitlerules}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#icetime">{{translationObj.sessions.panetitleicetimes}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#charge">{{translationObj.sessions.panetitlecharges}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#course">{{translationObj.sessions.panetitlecourses}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#coursesdates">{{translationObj.sessions.panetitlecoursesdates}}</a></li>
+						</ul>
+
+						<div id="maintabcontent" class="tab-content maintabcontent">
+							<div id="info" class="tab-pane fade in active maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm" ng-show="currentSession" >
+									 <div ng-include="'sessionview/details.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="registrations" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="registrationsForm" ng-show="currentSession" >
+									 <div ng-include="'sessionview/registrations.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="events" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="eventsForm" ng-show="currentSession" >
+									 <div ng-include="'sessionview/events.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="rules" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="rulesForm" ng-show="currentSession" >
+									 <div ng-include="'sessionview/rules.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="icetime" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="icetimeForm" ng-show="currentSession" >
+									<div ng-include="'sessionview/icetime.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="charge" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="sessionchargeForm" ng-show="currentSession" >
+									<div ng-include="'sessionview/charge.form.html'"></div>
+						    </form>
+					    </div>
+
+							<!--
+					    <div id="course" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="sessioncourseForm" ng-show="currentSession" >
+									<div ng-include="'sessionview/course.form.html'"></div>
+						    </form>
+					    </div>
+							!-->
+							
+					    <div id="course" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="sessioncourseForm" ng-show="currentSession" >
+									<div ng-include="'sessionview/course2.form.html'"></div>
+						    </form>
+					    </div>
+
+<!--
+					    <div id="coursesdates" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="sessioncoursesdatesForm" ng-show="currentSession" >
+									<div ng-include="'sessionview/coursedates.form.html'"></div>
+						    </form>
+					    </div>
+!-->
+
+					    <div id="coursesdates" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformnox" role="form" name="sessioncoursesdatesForm" ng-show="currentSession" >
+									<div ng-include="'sessionview/coursedates2.form.html'"></div>
+						    </form>
+					    </div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</row>
+</section>

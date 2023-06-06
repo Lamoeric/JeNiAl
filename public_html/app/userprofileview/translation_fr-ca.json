@@ -1,0 +1,20 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer usagers..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Usagers"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun usager trouvé"},
+
+	{"formname":"main", "fieldname":"buttontitlechangepassword", "text":"Changer mot de passe"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
+	{"formname":"main", "fieldname":"msgpasswordchanged", "text":"Mot de passe modifié"},
+
+	{"formname":"details", "fieldname":"titlemaininfo", "text":"Informations générales"},
+	{"formname":"details", "fieldname":"fielduserid", "text":"Usager"},
+	{"formname":"details", "fieldname":"fieldname", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldpreferedlanguage", "text":"Langue"},
+	{"formname":"details", "fieldname":"fieldpassword", "text":"Mot de passe"},
+	{"formname":"details", "fieldname":"fieldemail", "text":"Courriel"},
+	{"formname":"details", "fieldname":"titleroles", "text":"Rôles"}
+
+]

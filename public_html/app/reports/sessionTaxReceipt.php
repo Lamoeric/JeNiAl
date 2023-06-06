@@ -1,0 +1,274 @@
+<?php
+//============================================================+
+// File name   : sessionTaxReceipt.php
+// Begin       : 2017-02-13
+// Last Update :
+//
+// Description : session Tax receipts
+//
+// Author: Eric Lamoureux
+//
+//============================================================+
+
+// TODO : we need to use the cpa_configuration table for the organisation field.
+
+// Include the main TCPDF library (search for installation path).
+require_once('../../include/tcpdf_include.php');
+require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../include/nocache.php');
+require_once('customheader.php');
+require_once('getSessionLabel.php');
+require_once('mypdf_footer.php');
+require_once('createFileName.php');
+
+set_time_limit(500);
+
+// Input parameters
+$language = 'fr-ca';
+$sessionid = null;
+$memberid = null;
+$output = 'I';
+if (isset($_GET['language']) && !empty(isset($_GET['language']))) {
+	$language = $_GET['language'];
+}
+if (isset($_POST['language']) && !empty(isset($_POST['language']))) {
+	$language = $_POST['language'];
+}
+if (isset($_GET['memberid']) && !empty(isset($_GET['memberid']))) {
+	$memberid = $_GET['memberid'];
+}
+if (isset($_POST['memberid']) && !empty(isset($_POST['memberid']))) {
+	$memberid = $_POST['memberid'];
+}
+if (isset($_GET['sessionid']) && !empty(isset($_GET['sessionid']))) {
+	$sessionid = $_GET['sessionid'];
+}
+if (isset($_POST['sessionid']) && !empty(isset($_POST['sessionid']))) {
+	$sessionid = $_POST['sessionid'];
+}
+if (isset($_GET['output']) && !empty(isset($_GET['output']))) {
+	$output = $_GET['output'];
+}
+if (isset($_POST['output']) && !empty(isset($_POST['output']))) {
+	$output = $_POST['output'];
+}
+
+// create new PDF document
+$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, false, 'ISO-8859-1', false);
+
+// set document information
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor(PDF_AUTHOR);
+$pdf->SetTitle('');
+$pdf->SetSubject('');
+$pdf->SetKeywords('');
+
+// set some language-dependent strings (optional)
+if (@file_exists(dirname(__FILE__).'/lang/'.$language.'/'.basename(__FILE__))) {
+	require_once(dirname(__FILE__).'/lang/'.$language.'/'.basename(__FILE__));
+	$pdf->setLanguageArray($l);
+}
+
+$data = getSessionLabel($mysqli, $sessionid, $language);
+$sessionlabel = $data['data'][0]['sessionlabel'];
+
+$data = getClubInfo($mysqli, $language);
+if (count($data['data']) < 1) throw new Exception("You must define a club president for this report to work", 1);
+$clubDirector = $data['data'][0]['presidentfirstname'] . ' ' . $data['data'][0]['presidentlastname'];
+$organizationname = $data['data'][0]['cpalongname'];
+$organizationaddress = $data['data'][0]['cpaaddress'];
+
+$needles = array("<br>", "&#13;", "<br/>", "\\n");
+$replacement = "<br>";
+$organizationaddress = str_replace($needles, $replacement, $organizationaddress);
+
+// set default header data
+$pdf->SetHeaderData(PDF_HEADER_LOGO, 20, utf8_decode($l['w_title']), $sessionlabel, array(0,0,0), array(0,0,0));
+
+// set header and footer fonts
+$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// set default monospaced font
+$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// set margins
+$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+// set auto page breaks
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+// set image scale factor
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// ---------------------------------------------------------
+
+// set default font subsetting mode
+$pdf->setFontSubsetting(true);
+
+// Set font
+// dejavusans is a UTF-8 Unicode font, if you only need to
+// print standard ASCII chars, you can use core fonts like
+// helvetica or times to reduce file size.
+$pdf->SetFont('times', '', 10, '', true);
+
+$filename = 'sessionTaxReceipt.pdf';
+
+if ($sessionid != null && $memberid != null) {
+	$data = getMemberBillingList($mysqli, $sessionid, $memberid, $language);
+} else if ($sessionid != null) {
+	$data = getSessionBillingList($mysqli, $sessionid, $language);
+}
+$billingList = $data['data'];
+
+$pageno = 1;
+for ($x = 0; $x < count($billingList); $x++) {
+// for ($x = 0; $x < 57; $x++) {
+	$bill = $billingList[$x];
+
+  $participant = '<b>' . $bill['firstname'] . ' ' . $bill['lastname'] . '</b><br>' . $bill['address1'] . '<br>';
+	if (!empty($bill['address2'])) {
+		$participant .= $bill['address2'] . '<br>';
+	}
+	$participant .= $bill['town'] . ', ' . $bill['province'] . '<br>';
+	$participant .= $bill['postalcode'] . '<br>';
+	$participant .= '<b>' . $l['w_birthday'] . '</b>' . ' ' . $bill['birthday'];
+  $html  = '<table border="1" width="100%" cellpadding="5">';
+  $html .=  '<tr>';
+  $html .=    '<td width="20%" align="right"><b>' . $l['w_organization'] . '</b></td>';
+  $html .=    '<td width="80%" align="left"><b>' . $organizationname . '</b><br>' . $organizationaddress . '</td>';
+  $html .=  '</tr>';
+  $html .=  '<tr>';
+  $html .=    '<td width="20%" align="right"><b>' . $l['w_participant'] . '</b></td>';
+  $html .=    '<td width="80%" align="left">' . $participant . '</td>';
+  $html .=  '</tr>';
+  $html .=  '<tr>';
+  $html .=    '<td width="20%" align="right"><b>' . $l['w_activity'] . '</b></td>';
+  $html .=    '<td width="80%" align="left">' . $l['w_activityname'] . '</td>';
+  $html .=  '</tr>';
+  $html .=  '<tr>';
+  $html .=    '<td width="20%" align="right"><b>' . $l['w_amountadmissible'] . '</b></td>';
+  $html .=    '<td width="80%" align="left">' . number_format($bill['subtotal'], 2, ".", " ") . '</td>';
+  $html .=  '</tr>';
+  $html .=  '<tr>';
+  $html .=    '<td width="20%" align="right"><br><br><b>' . $l['w_payername'] . '</b></td>';
+  $html .=    '<td width="80%" align="left">&nbsp;</td>';
+  $html .=  '</tr>';
+  $html .=  '<tr>';
+  $html .=    '<td width="20%" align="right"><br><br><b>' . $l['w_authorizedsigner'] . '</b></td>';
+  $html .=    '<td width="80%" align="left">'. $clubDirector . '<br>' . $l['w_president'] . '</td>';
+  $html .=  '</tr>';
+  $html .= '</table>';
+
+	$pdf->AddPage();
+  $pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pageno++;
+}
+// ---------------------------------------------------------
+
+// Close and output PDF document
+// This method has several options, check the source code documentation for more information.
+if ($output == 'F') {
+	$filename = createFileName();
+	$pdf->Output($filename, 'F');
+	echo $filename;
+} else if ($output == 'I') {
+	$pdf->Output($filename, 'I');
+}
+
+//============================================================+
+// END OF FILE
+//============================================================+
+
+/**
+ * This function gets all the bills for the session.
+ * The bills are used to determine the amount of the receipt
+ */
+function getSessionBillingList($mysqli, $sessionid, $language) {
+	try {
+		if (empty($sessionid)) throw new Exception("Invalid session id.");
+		$query = "SELECT cr.id, cm.firstname, cm.lastname, cm.birthday, cm.address1, cm.address2,cm.town, cm.province, cm.postalcode, cm.country, cbr.subtotal
+              FROM cpa_registrations cr
+              JOIN cpa_sessions cs ON cs.id = cr.sessionid
+              JOIN cpa_bills_registrations cbr ON cbr.registrationid = cr.id
+              JOIN cpa_bills cb ON cb.id = cbr.billid
+              JOIN cpa_members cm ON cm.id = cr.memberid
+              WHERE cs.id = $sessionid
+              AND (relatednewregistrationid = 0 or relatednewregistrationid is null)
+              AND cb.relatednewbillid is null
+              ORDER BY cm.lastname, cm.firstname";
+		$result = $mysqli->query($query);
+		$data = array();
+		$data['data'] = array();
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		return $data;
+	} catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		return $data;
+	}
+};
+
+/**
+ * This function gets all the bills for the session and the member.
+ * The bills are used to determine the amount of the receipt
+ */
+function getMemberBillingList($mysqli, $sessionid, $memberid, $language) {
+	try {
+		if (empty($sessionid)) throw new Exception("Invalid session id.");
+		if (empty($memberid)) throw new Exception("Invalid member id.");
+		$query = "SELECT cr.id, cm.firstname, cm.lastname, cm.birthday, cm.address1, cm.address2,cm.town, cm.province, cm.postalcode, cm.country, cbr.subtotal
+              FROM cpa_registrations cr
+              JOIN cpa_sessions cs ON cs.id = cr.sessionid
+              JOIN cpa_bills_registrations cbr ON cbr.registrationid = cr.id
+              JOIN cpa_bills cb ON cb.id = cbr.billid
+              JOIN cpa_members cm ON cm.id = cr.memberid
+              WHERE cs.id = $sessionid AND cm.id = $memberid
+              AND (relatednewregistrationid = 0 or relatednewregistrationid is null)
+              AND cb.relatednewbillid is null
+              ORDER BY cm.lastname, cm.firstname";
+		$result = $mysqli->query($query);
+		$data = array();
+		$data['data'] = array();
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		return $data;
+	} catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		return $data;
+	}
+};
+
+/**
+ * This function gets the club director
+ */
+function getClubInfo($mysqli, $language) {
+	try {
+		$query = "SELECT cc.presidentfirstname, cc.presidentlastname, getTextLabel(cc.cpalongname, '$language') cpalongname, getTextLabel(cc.cpaaddress, '$language') cpaaddress
+              FROM cpa_configuration cc
+              WHERE 1=1";
+		$result = $mysqli->query($query);
+		$data = array();
+		$data['data'] = array();
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		return $data;
+	} catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		return $data;
+	}
+};

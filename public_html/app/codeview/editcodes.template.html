@@ -1,0 +1,74 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.editcode.formtitleeditcodegroup}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+
+	    <div class="col-xs-4">
+	      <label for="ctname">{{translationObj.editcode.fieldtitlecodegroup}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="ctname" ng-model="newObj.ctname" disabled required>
+			    	<option ng-repeat="codeGroup in leftobjs" value="{{codeGroup.code}}">{{codeGroup.code}}</option>
+			    </select>
+	      </div>
+	    </div>
+
+      <div class="col-xs-4">
+	      <label for="code">{{translationObj.editcode.fieldtitlecode}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="code" ng-model="newObj.code" ng-disabled="!newObj.status || newObj.status!='New'" maxlength="30" required>
+	        <span ng-show="editObjForm.code.$touched && editObjForm.code.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+      </div>
+
+	    <div class="col-xs-2">
+	      <label for="sequence">{{translationObj.editcode.fieldtitlesequence}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="sequence" ng-model="newObj.sequence" minvalue="0" required>
+	      </div>
+	    </div>
+
+      <div class="col-xs-2">
+	      <label for="active">{{translationObj.editcode.fieldtitleactive}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <select class="form-control" id="active" ng-model="newObj.active" required>
+						<option value="1">Yes</option>
+						<option value="0">No</option>
+		      </select>
+	      </div>
+      </div>
+
+      <div class="col-xs-6">
+	      <label for="label_en">{{translationObj.editcode.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="code" ng-model="newObj.label_en" maxlength="200" required>
+	        <span ng-show="editObjForm.label_en.$touched && editObjForm.label_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+      </div>
+
+      <div class="col-xs-6">
+	      <label for="label_fr">{{translationObj.editcode.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="code" ng-model="newObj.label_fr" maxlength="200" required>
+	        <span ng-show="editObjForm.label_fr.$touched && editObjForm.label_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+      </div>
+
+
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.editcode.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" id="butEditCodeFormCancel" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.editcode.buttontitlediscard}}</button>
+  <button type="button" id="butEditCodeFormOk" 		class="btn btn-primary" ng-click="ok()"			>{{translationObj.editcode.buttontitlekeepchanges}}</button>
+</div>

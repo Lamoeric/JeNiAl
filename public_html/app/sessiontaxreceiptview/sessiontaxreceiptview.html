@@ -1,0 +1,19 @@
+<!-- Left Pane -->
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div> -->
+<!-- Right Pane -->
+	<!-- Main title : Only display if currentSessiontaxreceipt is not null -->
+	<div ng-if="currentSessiontaxreceipt!=null">
+		<!-- <h4>{{currentCourseDetails.courselabel}} ({{currentCourseDetails.name}}) {{currentCourseDetails.text}}</h4> -->
+		<!-- <span><button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button></span> -->
+	</div>
+
+	<div cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	  <form class="form-horizontal well" role="form" name="detailsForm">
+			<div ng-include="'sessiontaxreceiptview/sessiontaxreceipt.html'"></div>
+	  </form>
+		<form class="form-horizontal well" role="form" name="membersForm">
+			<div ng-include="'sessiontaxreceiptview/membertaxreceipt.html'"></div>
+	  </form>
+	</div>

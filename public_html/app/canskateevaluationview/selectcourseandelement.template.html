@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selectcourseandelement.formtitleselectcourse}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-10 col-md-10">
+		    <label for="sessionscourse">{{translationObj.selectcourseandelement.fieldcoursename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+          <select class="form-control" id="sessionscourse" ng-model="newObj.sessionscourse" required ng-options="sessionscourse.label + ' (' + sessionscourse.name + ')' for sessionscourse in activeCoursesWithSubgroups track by sessionscourse.id">
+          </select>
+		  	</div>
+		  </div>
+      <div class="clearfix visible-xs visible-md visible-lg"></div>
+      <div class="col-xs-10 col-md-10">
+		    <label for="sessionscoursesubgroup">{{translationObj.selectcourseandelement.fieldcoursesubgroup}}</label>
+				<div class="input-group">
+          <select class="form-control" id="sessionscoursesubgroup" ng-model="newObj.sessionscoursesubgroup" ng-options="sessionscoursesubgroup.label for sessionscoursesubgroup in newObj.sessionscourse.subgroups track by sessionscoursesubgroup.id">
+          </select>
+		  	</div>
+		  </div>
+      <div class="clearfix visible-xs visible-md visible-lg"></div>
+      <div class="col-xs-10 col-md-10">
+		    <label for="canskatecategory">{{translationObj.selectcourseandelement.fieldcanskatecategory}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+          <select class="form-control" id="canskatecategory" ng-model="newObj.canskatecategory" required ng-options="canskatecategory.label + ' - ' + canskatecategory.stage for canskatecategory in canskateTests track by canskatecategory.id">
+          </select>
+		  	</div>
+		  </div>
+      <div class="col-xs-10 col-md-10">
+		    <label for="canskatetest">{{translationObj.selectcourseandelement.fieldcanskatetest}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+          <select class="form-control" id="canskatetest" ng-model="newObj.canskatetest" required ng-options="canskatetest.label for canskatetest in newObj.canskatecategory.tests track by canskatetest.id ">
+          </select>
+		  	</div>
+		  </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.selectcourseandelement.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectcourseandelement.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.selectcourseandelement.buttontitlekeepchanges}}</button>
+</div>

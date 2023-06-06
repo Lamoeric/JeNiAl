@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newtest.formtitlenewtest}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-4">
+	      <label for="canskateid">{{translationObj.newtest.fieldtitlecategory}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="canskateid" ng-model="newObj.canskateid" required>
+						<option ng-repeat="idd in canskateids" value="{{idd.id}}">{{idd.category}} - {{idd.stage}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="type">{{translationObj.newtest.fieldtitletype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <select class="form-control" id="type" name="type" ng-model="newObj.type" required>
+						<option ng-repeat="testtype in testtypes" value="{{testtype.code}}">{{testtype.text}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="name">{{translationObj.newtest.fieldtitlename}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="30" required>
+					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newtest.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newtest.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.newtest.buttontitlekeepchanges}}</button>
+</div>

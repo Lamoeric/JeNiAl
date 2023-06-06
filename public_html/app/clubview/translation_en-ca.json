@@ -1,0 +1,27 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter clubs..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Clubs"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No club found"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Information"},
+	{"formname":"details", "fieldname":"fieldtitleclub", "text":"club"},
+	{"formname":"details", "fieldname":"fieldtitleorgno", "text":"Organization No"},
+	{"formname":"details", "fieldname":"fieldtitlefriendly", "text":"Friendly"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+
+	{"formname":"editclub", "fieldname":"formtitleeditclub", "text":"New Club"},
+	{"formname":"editclub", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"editclub", "fieldname":"fieldtitleclub", "text":"Club"},
+	{"formname":"editclub", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"editclub", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"editclub", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Club Details"},
+	{"formname":"main", "fieldname":"panetitledetails", "text":"Club"},
+	{"formname":"main", "fieldname":"panetitlecontacts", "text":"Contacts"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields, except organisation no, are mandatory."}
+
+]

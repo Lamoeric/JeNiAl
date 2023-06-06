@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.editcourse.formtitleeditcourse}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-5">
+				<label for="code">{{translationObj.editcourse.fieldtitlecode}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="code" class="form-control" id="code" ng-model="newObj.code" maxlength="10" required>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="name">{{translationObj.editcourse.fieldtitlename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="120" required>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.editcourse.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.editcourse.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.editcourse.buttontitlekeepchanges}}</button>
+</div>

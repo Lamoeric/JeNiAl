@@ -1,0 +1,127 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newregistration.formtitle}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-6">
+				<label for="coachid">{{translationObj.newregistration.fieldcoach}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="newObj.coachid" required ng-disabled="!canEditRegistration(newObj)">
+						<option ng-repeat="coach in coaches" value="{{coach.id}}">{{coach.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="name">{{translationObj.newregistration.fieldmember}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" value="{{newObj.member.firstname}} {{newObj.member.lastname}}" disabled required>
+					<span class="input-group-addon" ng-hide="!canEditRegistration(newObj)">
+						<search-member-button-glass is-full-copy="true" callback="null" is-form-pristine="1!=1" member="newObj.member"></search-member-button-glass>
+					</span>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="testtype">{{translationObj.newregistration.fieldtesttype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.testtype" required ng-change="onTestTypeChange(newObj)" ng-disabled="!canEditRegistration(newObj) || (newObj.member.id == null)">
+						<option ng-repeat="type in startesttypes" value="{{type.code}}">{{type.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="testid">{{translationObj.newregistration.fieldtestid}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.testid" required ng-change="onTestChange(newObj)" ng-disabled="!canEditRegistration(newObj) || (newObj.member.id == null)">
+						<option ng-repeat="testByType in allStarTestsByType" value="{{testByType.id}}">{{testByType.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-12">
+				<label for="testsid">{{translationObj.newregistration.fieldmusicid}}<i style="color:red" ng-show="newObj.testtype == 'DANCE' && danceMusics.length != 0"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-music"></i></span>
+					<!-- <select class="form-control" ng-model="newObj.musicid" ng-required="newObj.testtype == 'DANCE' && danceMusics.length != 0" ng-disabled="newObj.testtype != 'DANCE'"> -->
+					<select class="form-control" ng-model="newObj.musicid" ng-disabled="!canEditRegistration(newObj) || newObj.testtype != 'DANCE'">
+						<option ng-repeat="music in danceMusics" value="{{music.id}}">{{music.label}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="partnerid">{{translationObj.newregistration.fieldpartnerid}}<i style="color:red" ng-show="newObj.testtype == 'DANCE'"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="newObj.partnerid" ng-required="newObj.testtype == 'DANCE'" ng-disabled="!canEditRegistration(newObj) || newObj.testtype != 'DANCE'">
+						<option ng-repeat="partner in allPartners" value="{{partner.id}}">{{partner.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="approbationstatus">{{translationObj.newregistration.fieldapprobationstatus}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-check"></i></span>
+					<select class="form-control" ng-model="newObj.approbationstatus" required ng-disabled="!canEditRegistration(newObj, 'approbationstatus')">
+						<option ng-repeat="approb in approbationstatus" value="{{approb.code}}">{{approb.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="approvedby">{{translationObj.newregistration.fieldapprovedby}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="approvedby" ng-model="newObj.approvedby" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="approvedon">{{translationObj.newregistration.fieldapprovedon}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="datetime" name="name" class="form-control" id="approvedon" ng-model="newObj.approvedon" disabled>
+				</div>
+			</div>
+
+			<!-- <div class="col-xs-5">
+				<label for="partnersteps">{{translationObj.newregistration.fieldpartnersteps}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="newObj.partnersteps" ng-disabled="newObj.testtype != 'DANCE'">
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+					</select>
+				</div>
+			</div> -->
+
+			<!-- <div class="col-xs-4">
+        <div class="input-group">
+          <br><label><input type="checkbox" ng-model="newObj.canceled" ng-true-value="'1'" ng-disabled="canCancelRegistration">{{translationObj.newregistration.fieldcanceled}}</label>
+        </div>
+      </div> -->
+
+			<div class="col-xs-6">
+				<!-- Field is here only for the "required" validation -->
+				<input type="text" class="form-control" id="memberid" ng-model="newObj.member.id" disabled ng-show="false" required>
+			</div>
+
+		</div>
+		<p ng-show="newObj.createdby&&newObj.createdby!=''">{{translationObj.newregistration.fieldcreatedby}}{{newObj.createdby}}{{translationObj.newregistration.fieldcreatedon}}{{newObj.createdon}}</p>
+		<!-- <search-member-button is-full-copy="true" callback="null" is-form-pristine="1!=1" member="newObj.member"></search-member-button> -->
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newregistration.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newregistration.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"	ng-disabled="currentTestsession.isClosed">{{translationObj.newregistration.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,32 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.editsignedtestsheet.formtitleeditsignedtestsheet}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+
+			<div class="col-xs-11 col-sm-11 col-md-8 col-lg-8">
+				<label for="testdirectorid">{{translationObj.editsignedtestsheet.fieldtestdirector}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="testdirectorid" ng-model="newObj.testdirectorid">
+						<option ng-repeat="testdirector in allTestDirectors" value="{{testdirector.id}}">{{testdirector.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<br>
+				<button class="btn btn-primary" type="file" ngf-select="uploadSignedApprobationSheet($file, $invalidFiles, newObj)" accept="image/jpeg" ngf-max-size="4MB" ng-disabled="newObj.testdirectorid==null">{{translationObj.editsignedtestsheet.buttontitleuploadfile}}</button>
+			</div>
+
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.editsignedtestsheet.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.editsignedtestsheet.buttontitlediscard}}</button>
+	<!-- <button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.editsignedtestsheet.buttontitlekeepchanges}}</button> -->
+</div>

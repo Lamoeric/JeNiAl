@@ -1,0 +1,6 @@
+[
+	{"formname":"main", "fieldname":"imagedeleted", "text":"Image détruite."},
+	{"formname":"main", "fieldname":"imagenotdeleted", "text":"Image pas détruite."},
+	{"formname":"main", "fieldname":"confirmimagedeletion", "text":"Êtes-vous certain de vouloir détruire cette image? Cette opération ne peut être annulée."},
+	{"formname":"main", "fieldname":"test", "text":""}
+]

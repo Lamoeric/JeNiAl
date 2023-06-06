@@ -1,0 +1,36 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter sessions..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Sessions"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No session found"},
+	{"formname":"leftPane", "fieldname":"labeltitleactive", "text":"active"},
+
+	{"formname":"dashboard", "fieldname":"formtitledashboard", "text":"Dashboard"},
+	{"formname":"dashboard", "fieldname":"panetitlesummary", "text":"Summary"},
+	{"formname":"dashboard", "fieldname":"panetitlecoursesdetails", "text":"Courses Details"},
+	{"formname":"dashboard", "fieldname":"panetitlefinancial", "text":"Fiancial Details"},
+	{"formname":"dashboard", "fieldname":"buttontitlereports", "text":"Reports"},
+	{"formname":"dashboard", "fieldname":"fieldsessionname", "text":"Sessions"},
+	{"formname":"dashboard", "fieldname":"labelnumberofskaters", "text":"Number of skaters"},
+	{"formname":"dashboard", "fieldname":"labelspacesleft", "text":"Spaces left"},
+	{"formname":"dashboard", "fieldname":"labelreturningskaters", "text":"Returning Skaters"},
+	{"formname":"dashboard", "fieldname":"labelnewskaters", "text":"New Skaters"},
+
+	{"formname":"summary", "fieldname":"formtitle", "text":"Summary"},
+	{"formname":"summary", "fieldname":"formsubtitlecourses", "text":"Course Summary per Type"},
+	{"formname":"summary", "fieldname":"formsubtitleallcourses", "text":"Course Total Summary"},
+	{"formname":"summary", "fieldname":"graphtitleallskaters", "text":"Total number of skaters-courses"},
+	{"formname":"summary", "fieldname":"graphtitleallskaterspertype", "text":"Total skaters-courses per course type"},
+	{"formname":"summary", "fieldname":"graphtitlereturningskaters", "text":"Returning Skaters"},
+	{"formname":"summary", "fieldname":"graphtitleallskaterspertypecomparison", "text":"Comparison Total per course type"},
+	{"formname":"summary", "fieldname":"graphtitleskaterspernbofcourses", "text":"Skaters per number of courses"},
+	{"formname":"summary", "fieldname":"graphtitlerevenuepersession", "text":"Revenus per session"},
+
+	{"formname":"courses", "fieldname":"formtitle", "text":"Courses Details"},
+
+	{"formname":"financial", "fieldname":"formtitle", "text":"Financial Details"},
+	{"formname":"financial", "fieldname":"graphtitlerevenuepercode", "text":"Revenue per course code"},
+	{"formname":"financial", "fieldname":"labeltotalrevenus", "text":"Revenus"},
+	{"formname":"financial", "fieldname":"labeltotalpaid", "text":"Amount Paid"},
+
+	{"formname":"courses", "fieldname":"", "text":""}
+]

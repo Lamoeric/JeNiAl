@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REMOTE_ADDR} !^00\.00\.00\.00
+RewriteCond %{REQUEST_URI} !^/downpage.php [NC]
+RewriteRule .* /downpage.php [R,L]

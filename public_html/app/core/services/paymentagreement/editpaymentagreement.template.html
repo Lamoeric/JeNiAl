@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.editpaymentagreement.formtitlepaymentagreement}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+    	
+      <div class="col-xs-10">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="newObj.haspaymentagreement" ng-true-value="'1'" ng-false-value="'0'">{{translationObj.editpaymentagreement.fieldhaspaymentagreement}}</label>
+	      </div>
+	    </div>
+
+      <div class="col-xs-10">
+	      <label for="comments">{{translationObj.editpaymentagreement.fieldpaymentagreementnote}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<textarea name="paymentagreementnote" class="form-control" id="paymentagreementnote" ng-model="newObj.paymentagreementnote" maxlength="1024"></textarea>
+	      </div>
+	    </div>
+      
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.edittransaction.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.editpaymentagreement.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.editpaymentagreement.buttontitlekeepchanges}}</button>
+</div>

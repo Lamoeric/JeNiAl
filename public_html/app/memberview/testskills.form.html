@@ -1,0 +1,56 @@
+<div class="form-group">
+  <div class="grid">
+		<h3>{{translationObj.skill.formtitleskill}}</h3>
+    <div class="row">
+      <div class="col-xs-5">
+				<a class="btn btn-primary" ng-click="editSkillTest({}, 1)">
+      		<span>{{translationObj.skill.buttontitlenewskill}}</span>
+      	</a>
+      </div>
+    </div>
+		<div ng-repeat="skill in currentMember.abilities">
+
+			<div class="row">
+	      <div class="col-xs-11 col-sm-11 col-md-4 col-lg-3">
+			    <label for="testlabel" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtest}}</label>
+			    <label for="testlabel" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtest}}</label>
+	      	<div class="input-group" ng-show="$index == 0 || currentMember.abilities[$index].testid != currentMember.abilities[$index-1].testid">
+				  	<span class="input-group-addon"><i class="glyphicon glyphicon-refresh"></i></span>
+	        	<input type="text" class="form-control" id="testlabel" ng-model="skill.testlabel" ng-show="skill.testlabel != null" disabled>
+				  </div>
+	      </div>
+	      <div class="col-xs-11 col-sm-11 col-md-3 col-lg-2">
+		      <label for="testdate" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestdate}}</label>
+		      <label for="testdate" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestdate}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	        	<input type="text" class="form-control" id="testdate" ng-model="skill.testdatestr" disabled>
+	      	</div>
+	      </div>
+	      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+		      <label for="success" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestsuccess}}</label>
+		      <label for="success" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestsuccess}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	          <select class="form-control" id="success" ng-model="skill.success" disabled>
+							<option ng-repeat="answer in testresults" value="{{answer.code}}">{{answer.text}}</option>
+			      </select>
+	      	</div>
+	      </div>
+      	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+			    <label class="visible-md visible-lg" ng-show="$index==0">&nbsp;</label>
+			    <label class="visible-xs visible-sm hidden-md hidden-lg">&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<child-edit-button 			obj="skill" objlist="currentMember.abilities" callback="editSkillTest(skill, 1)" ng-show="skill.testdatestr!=null"></child-edit-button>
+							<child-delete-button 		obj="skill" objlist="currentMember.abilities" callback="setDirty()" ng-show="skill.testdatestr != null"></child-delete-button>
+							<child-undelete-button 	obj="skill" objlist="currentMember.abilities" callback="setDirty()" ng-show="skill.testdatestr != null"></child-undelete-button>
+							<child-status-indicator obj="skill"></child-status-indicator>
+						</span>
+				  </div>
+			  </div>
+		  </div>
+
+		</div>
+	</div>
+</div>

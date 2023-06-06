@@ -1,0 +1,34 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter charges..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Charges"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No charge found"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Charge Details"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."},
+
+	{"formname":"details", "fieldname":"formtitlemaininformation", "text":"Main Informations"},
+	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"details", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
+	{"formname":"details", "fieldname":"fieldtitleamount", "text":"Amount"},
+	{"formname":"details", "fieldname":"fieldtitlealwaysdisplay", "text":"Always Display"},
+	{"formname":"details", "fieldname":"fieldtitlealwaysselected", "text":"Always Selected"},
+	{"formname":"details", "fieldname":"fieldtitlenonrefundable", "text":"Non Refundable"},
+	{"formname":"details", "fieldname":"fieldtitleisonline", "text":"Available Online"},
+	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},
+	{"formname":"details", "fieldname":"formtitlerules", "text":"Rules"},
+	{"formname":"details", "fieldname":"fieldtitleruletype", "text":"Rule Type"},
+	{"formname":"details", "fieldname":"fieldtitleruleparameters", "text":"Rule Parameters"},
+
+	{"formname":"newcharge", "fieldname":"formtitlenewcharge", "text":"New charge"},
+	{"formname":"newcharge", "fieldname":"fieldtitlecode", "text":"Code"},
+	{"formname":"newcharge", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newcharge", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newcharge", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}
+
+]

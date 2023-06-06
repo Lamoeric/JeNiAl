@@ -1,0 +1,53 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newperiod.titleeditperiod}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group row">
+
+			<div class="col-xs-5">
+	      <label for="arena">{{translationObj.newperiod.fieldarena}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)" required>
+						<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+      		</select>
+      	</div>
+      </div>
+
+			<div class="col-xs-5">
+	      <label for="iceno">{{translationObj.newperiod.fieldice}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="iceno" ng-model="newObj.iceid">
+						<option ng-repeat="ice in ices" value="{{ice.id}}">{{ice.label}}</option>
+      		</select>
+      	</div>
+      </div>
+
+			<div class="col-xs-5">
+				<label for="starttime">{{translationObj.newperiod.fieldstarttime}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="starttime" class="form-control" id="starttime" ng-model="newObj.starttime" required>
+				</div>
+			</div>
+
+			<div class="col-xs-5">
+				<label for="endtime">{{translationObj.newperiod.fieldendtime}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="endtime" class="form-control" id="endtime" ng-model="newObj.endtime" required>
+				</div>
+			</div>
+
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newperiod.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newperiod.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newperiod.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,26 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer testperiods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Testperiods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune période de test trouvée"},
+
+	{"formname":"main", "fieldname":"formtitleattendance", "text":"Reçus d'impôt"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+
+	{"formname":"details", "fieldname":"formtitleforentiresession", "text":"Reçus pour les participants de la session"},
+	{"formname":"details", "fieldname":"fieldtitlesessionname", "text":"Session"},
+	{"formname":"details", "fieldname":"buttontitlesendreceipt", "text":"Envoyer"},
+
+	{"formname":"members", "fieldname":"formtitleformember", "text":"Reçus pour un participant de la session"},
+	{"formname":"members", "fieldname":"fieldtitlesessionname", "text":"Session"},
+	{"formname":"members", "fieldname":"fieldtitlemember", "text":"Membre"},
+	{"formname":"members", "fieldname":"buttontitlesendreceipt", "text":"Envoyer"},
+
+	{"formname":"selectmemberemails", "fieldname":"formtitleselectmemberemails", "text":"Choisir adresse courriel"},
+	{"formname":"selectmemberemails", "fieldname":"fieldtitlebillingemail", "text":"Adresse courriel"},
+	{"formname":"selectmemberemails", "fieldname":"formerrormessage", "text":"Vous devez choisir une adresse de courriel."},
+	{"formname":"selectmemberemails", "fieldname":"buttontitleselectbillingemail", "text":"Choisir courriel"},
+	{"formname":"selectmemberemails", "fieldname":"buttontitlediscard", "text":"Annuler"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

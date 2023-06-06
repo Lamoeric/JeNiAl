@@ -1,0 +1,22 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./roleview/role.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currentRole.roleid + ' - ' + currentRole.rolename" defaulttitle="translationObj.main.formtitledetails" object="currentRole"></displaymaintitle>
+
+					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.role_create==true"></main-new-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty) || (currentRole.roleid=='fulladmin')" ng-if="userInfo.privileges.role_update==true"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentRole.roleid=='fulladmin'" ng-if="userInfo.privileges.security_delete==true"></main-delete-button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentRole">
+            <div ng-include="'roleview/role.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>

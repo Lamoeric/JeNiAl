@@ -1,0 +1,46 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.performanceprices.formtitle}}
+			&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformancePrice(performance, {})"></button>
+			&nbsp;<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'PRICE')">{{translationObj.performanceprices.buttontitlecopyfrom}}</button>
+		</h3>
+		<div class="row">
+			<div class="col-xs-12">
+				<hr>
+				<div ng-repeat="price in performance.prices">
+					<div class="row">
+						<div class="col-xs-1">
+							<label for="chargecode" ng-show="$index==0">{{translationObj.performanceprices.fieldtype}}</label>
+							<input type="text" class="form-control" id="chargecode" ng-model="price.pricetypelabel" disabled>
+						</div>
+						<div class="col-xs-2">
+							<label for="amount" ng-show="$index==0">{{translationObj.performanceprices.fieldamount}}</label>
+							<input type="text" class="form-control" id="amount" ng-model="price.amount" disabled>
+						</div>
+			      <div class="col-xs-1">
+				      <label for="agemin" ng-show="$index==0">{{translationObj.performanceprices.fieldagemin}}</label>
+			      	<input type="text" class="form-control" id="startdate" ng-model="price.agemin" disabled>
+			      </div>
+			      <div class="col-xs-1">
+				      <label for="agemax" ng-show="$index==0">{{translationObj.performanceprices.fieldagemax}}</label>
+			      	<input type="text" class="form-control" id="enddate" ng-model="price.agemax" disabled>
+			      </div>
+
+						<div class="col-xs-2">
+							<label ng-show="$index==0">&nbsp;</label>
+							<div class="input-group">
+								<span>
+									<child-edit-button 			obj="price" objlist="performance.prices" callback="editShowPerformancePrice(performance, price)"></child-edit-button>
+									<child-delete-button 		obj="price" objlist="performance.prices" callback="setDirty()"></child-delete-button>
+									<child-undelete-button 	obj="price" objlist="performance.prices" callback="setDirty()"></child-undelete-button>
+									<child-status-indicator obj="price"></child-status-indicator>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

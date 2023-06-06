@@ -1,0 +1,25 @@
+[
+	{"formname":"selectbillingname", "fieldname":"formtitleselectbillingname", "text":"Choisir nom de facturation"},
+	{"formname":"selectbillingname", "fieldname":"fieldtitlebillingname", "text":"Nom de facturation"},
+	{"formname":"selectbillingname", "fieldname":"buttontitleselectbillingname", "text":"Choisir nom"},
+
+	{"formname":"selectbillingemails", "fieldname":"formtitleselectbillingemails", "text":"Choisir adresse courriel"},
+	{"formname":"selectbillingemails", "fieldname":"fieldtitlebillingemail", "text":"Adresse courriel"},
+	{"formname":"selectbillingemails", "fieldname":"formerrormessage", "text":"Vous devez choisir une adresse de courriel pour envoyer la facture."},
+	{"formname":"selectbillingemails", "fieldname":"buttontitleselectbillingemail", "text":"Choisir courriel"},
+	{"formname":"selectbillingemails", "fieldname":"buttontitlediscard", "text":"Anuler"},
+
+	{"formname":"searchbill", "fieldname":"formtitlesearchbill", "text":"Recherche de facture"},
+	{"formname":"searchbill", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"searchbill", "fieldname":"fieldtitletotalamount", "text":"Montant total"},
+	{"formname":"searchbill", "fieldname":"fieldtitlepaidamount", "text":"Montant payé"},
+	{"formname":"searchbill", "fieldname":"formerrormessage", "text":"Vous devez choisir une facture."},
+	{"formname":"searchbill", "fieldname":"noresult", "text":"Aucune facture trouvée..."},
+	{"formname":"searchbill", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"searchbill", "fieldname":"buttontitlekeepchanges", "text":"Sélectionner facture"},
+
+	{"formname":"splitbill", "fieldname":"msgvalidatebillsplitting", "text":"Êtes-vous certain de vouloir séparer cette inscription dans une autre facture?"},
+	{"formname":"splitbill", "fieldname":"msgbillsplittingreload", "text":"La facture a été séparée, veuillez rafraîchir la sélection."},
+
+	{"formname":"selectbillingname", "fieldname":"test", "text":"Test"}
+]

@@ -1,0 +1,21 @@
+[
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formttitlesignin", "text":"INSCRIPTION"},
+	{"formname":"main", "fieldname":"fieldtitleemail", "text":"Adresse courriel"},
+	{"formname":"main", "fieldname":"fieldtitlefirstname", "text":"Prénom"},
+	{"formname":"main", "fieldname":"fieldtitlelastname", "text":"Nom"},
+	{"formname":"main", "fieldname":"fieldhelpemail", "text":"Utilisez l'adresse email à laquelle vous avez reçu l'invitation."},
+	{"formname":"main", "fieldname":"fieldtitleuserid", "text":"Code utilisateur"},
+	{"formname":"main", "fieldname":"fieldhelpuserid", "text":"8 caractères ou plus"},
+	{"formname":"main", "fieldname":"buttontitlevalidateemail", "text":"Valider"},
+	{"formname":"main", "fieldname":"buttontitlecreateaccount", "text":"Créer mon compte"},
+	{"formname":"main", "fieldname":"msginfocreateaccount", "text":"Suite à la création du compte, un courriel vous sera envoyé avec votre mot de passe temporaire."},
+	{"formname":"main", "fieldname":"msgerremailalreadyinuse", "text":"Courriel est déjà utilisé par un autre usager."},
+	{"formname":"main", "fieldname":"msgerremailinvalid", "text":"Courriel n'est pas un courriel en utilisation."},
+	{"formname":"main", "fieldname":"msgerruseridalreadyinuse", "text":"Ce code d'utilisateur est déjà utilisé par un autre usager."},
+
+
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

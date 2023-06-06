@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selecttestperiod.formtitle}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-10 col-md-5">
+		    <label for="sessionname">{{translationObj.selecttestperiod.fieldtestsessionname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<select class="form-control" ng-model="newObj.testsessionid" ng-change="onTestSessionChange(newObj)" required>
+						<option ng-repeat="testsession in allTestsSessions" value="{{testsession.id}}">{{testsession.text}}</option>
+					</select>
+					<!-- <span class="input-group-addon pointerlist" ng-click="displayTestSessionDetails()"><i class="glyphicon glyphicon-info-sign"></i></span> -->
+		  	</div>
+		  </div>
+      <div class="clearfix visible-xs"></div>
+      <div class="col-xs-10 col-md-5">
+		    <label for="sessionname">{{translationObj.selecttestperiod.fieldtestperiod}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<select class="form-control" ng-model="newObj.testperiodid" required>
+						<option ng-repeat="testperiod in testPeriodsForSession" value="{{testperiod.id}}">{{testperiod.text}}</option>
+					</select>
+		  	</div>
+		  </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.selecttestperiod.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selecttestperiod.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.selecttestperiod.buttontitlekeepchanges}}</button>
+</div>

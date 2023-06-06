@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.selectmemberemails.formtitleselectmemberemails}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-12">
+	      <label for="email">{{translationObj.selectmemberemails.fieldtitlebillingemail}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="email" ng-model="newObj.email" required ng-options="email.label for email in memberemails track by email.label">
+          </select>
+	      </div>
+      </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.selectmemberemails.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectmemberemails.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.selectmemberemails.buttontitleselectbillingemail}}</button>
+</div>

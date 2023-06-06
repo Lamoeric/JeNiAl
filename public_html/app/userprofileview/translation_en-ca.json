@@ -1,0 +1,19 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter users..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Users"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No user found"},
+
+	{"formname":"main", "fieldname":"buttontitlechangepassword", "text":"Change password"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."},
+	{"formname":"main", "fieldname":"msgpasswordchanged", "text":"Password changed"},
+
+	{"formname":"details", "fieldname":"titlemaininfo", "text":"Main Informations"},
+	{"formname":"details", "fieldname":"fielduserid", "text":"User"},
+	{"formname":"details", "fieldname":"fieldname", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldpreferedlanguage", "text":"Language"},
+	{"formname":"details", "fieldname":"fieldpassword", "text":"Password"},
+	{"formname":"details", "fieldname":"fieldemail", "text":"Email"},
+	{"formname":"details", "fieldname":"titleroles", "text":"Roles"}
+]

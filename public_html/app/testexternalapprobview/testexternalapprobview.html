@@ -1,0 +1,83 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+  <row>
+    <newleftpane leftpanetemplatefullpath="./testexternalapprobview/testexternalapprob.template.html"></newleftpane>
+    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+      <div id="mainrowright" class="row mainrowright">
+        <div class="grid">
+          <displayerror></displayerror>
+          <displaymaintitle maintitle="currenttestexternalapprob.member.firstname + ' ' + currenttestexternalapprob.member.lastname" defaulttitle="translationObj.main.formtitledetails" object="currenttestexternalapprob"></displaymaintitle>
+
+					<main-new-button 		new-callback="createNew()" 				 																	ng-if="userInfo.privileges.testregistration_create==true"></main-new-button>
+					<button class="btn btn-primary glyphicon glyphicon-save" ng-click="approveAprobation()" ng-if="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true" ng-disabled="isFormPristine && !detailsForm.$dirty"></button>
+					<main-delete-button delete-callback="deleteFromDB()" 																		ng-if="userInfo.privileges.testregistration_delete==true"></main-delete-button>
+
+					<span class="dropdown" ng-if="userInfo.privileges.testregistration_revise==true">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li class="pointerlist"><a ng-click="this.printReport('testExternalPermissionBlank')" >{{translationObj.main.reporttestapprobationblanksheet}}</a></li>
+							<li class="pointerlist"><a ng-click="this.printReport('testExternalPermission')" ng-hide="currenttestexternalapprob==null || currenttestexternalapprob.approbationstatus!=1">{{translationObj.main.reporttestapprobationsheet}}</a></li>
+						</ul>
+					</span>
+
+          <span class="dropdown" ng-if="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true" ng-disabled="isFormPristine && !detailsForm.$dirty">
+        		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonsendemail}}<span class="caret"></span></button>
+        		<ul class="dropdown-menu">
+        			<li class="pointerlist"><a ng-click="sendEmailToCoach()" ng-show="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true">{{translationObj.main.buttontitlesendmailtocoach}}</a></li>
+        			<li class="pointerlist"><a ng-click="sendEmailToCoach(true)" ng-show="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true">{{translationObj.main.buttontitlesendmailtocoachccdirector}}</a></li>
+        		</ul>
+        	</span>
+        
+        	<button class="btn btn-primary" ng-click="editSignedApprobationSheet();" ng-if="userInfo.privileges.testregistration_revise==true">{{translationObj.main.buttontitleuploadfile}}</button>
+
+          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currenttestexternalapprob">
+						<div ng-include="'testexternalapprobview/testexternalapprob.html'"></div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </row>
+</section>
+
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div>
+<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<div ng-if="currenttestexternalapprob!=null"><h2>{{currenttestexternalapprob.firstname}} {{currenttestexternalapprob.lastname}}</h2></div>
+	<div><h2>{{translationObj.testexternalapprob.formtitle}}</h2></div>
+
+	<main-new-button 		new-callback="createNew()" 				 																													ng-if="userInfo.privileges.testregistration_create==true"></main-new-button>
+	<button class="btn btn-primary glyphicon glyphicon-save" ng-click="approveAprobation()" ng-if="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true" ng-disabled="isFormPristine && !detailsForm.$dirty"></button>
+	<main-delete-button delete-callback="deleteFromDB()" 	ng-if="userInfo.privileges.testregistration_delete==true"></main-delete-button>
+
+	<span class="dropdown" ng-if="userInfo.privileges.testregistration_revise==true">
+		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+			<li class="pointerlist"><a ng-click="this.printReport('testExternalPermissionBlank')" >{{translationObj.main.reporttestapprobationblanksheet}}</a></li>
+			<li class="pointerlist"><a ng-click="this.printReport('testExternalPermission')" ng-hide="currenttestexternalapprob==null || currenttestexternalapprob.approbationstatus!=1">{{translationObj.main.reporttestapprobationsheet}}</a></li>
+		</ul>
+	</span>
+
+	<span class="dropdown" ng-if="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true" ng-disabled="isFormPristine && !detailsForm.$dirty">
+		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonsendemail}}<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+			<li class="pointerlist"><a ng-click="sendEmailToCoach()" ng-show="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true">{{translationObj.main.buttontitlesendmailtocoach}}</a></li>
+			<li class="pointerlist"><a ng-click="sendEmailToCoach(true)" ng-show="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true">{{translationObj.main.buttontitlesendmailtocoachccdirector}}</a></li>
+		</ul>
+	</span>
+
+
+	<button class="btn btn-primary" ng-click="editSignedApprobationSheet();" ng-if="userInfo.privileges.testregistration_revise==true">{{translationObj.main.buttontitleuploadfile}}</button>
+
+	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
+		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
+	</div>
+
+	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
+		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
+	</div>
+
+  <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currenttestexternalapprob!=null">
+		<div ng-include="'testexternalapprobview/testexternalapprob.html'"></div>
+  </form>
+</div> -->

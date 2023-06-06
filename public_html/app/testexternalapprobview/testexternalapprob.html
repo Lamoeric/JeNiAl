@@ -1,0 +1,131 @@
+<div class="form-group row">
+	<div class="grid">
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+				<label for="name">{{translationObj.main.fieldname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" value="{{currenttestexternalapprob.member.firstname}} {{currenttestexternalapprob.member.lastname}}" disabled required>
+					<span class="input-group-addon">
+						<search-member-button-glass is-full-copy="true" callback="null" is-form-pristine="1!=1" member="currenttestexternalapprob.member" ng-show="currenttestexternalapprob.id == null"></search-member-button-glass>
+					</span>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3" ng-show="currenttestexternalapprob.member!=null">
+				<label for="coachid">{{translationObj.main.fieldcoach}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="currenttestexternalapprob.coachid" required ng-disabled="(currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2">
+						<option ng-repeat="coach in coaches" value="{{coach.id}}">{{coach.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3" ng-show="currenttestexternalapprob.coachid!=null">
+				<label for="clubcode">{{translationObj.main.fieldclub}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="currenttestexternalapprob.clubcode" ng-disabled="(currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2">
+						<option ng-repeat="club in homeclubs" value="{{club.code}}">{{club.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-5 col-lg-5" ng-show="currenttestexternalapprob.coachid!=null">
+				<label>&nbsp;</label>
+				<input type="text" name="clubname" class="form-control" id="clubname" ng-model="currenttestexternalapprob.clubname" ng-disabled="currenttestexternalapprob.clubcode!='OTHER' || ((currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2)" maxlength="200">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3" ng-show="(currenttestexternalapprob.clubcode!=null && currenttestexternalapprob.clubcode!='OTHER') || (currenttestexternalapprob.clubname!='' && currenttestexternalapprob.clubname!= null)">
+				<label for="testdate">{{translationObj.main.fieldtestdate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="testdate" class="form-control" id="testdate" ng-model="currenttestexternalapprob.testdate" ng-required ng-disabled="(currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2">
+				</div>
+			</div>
+		</div>
+
+    <hr><h3>{{translationObj.main.titletest}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editTest({})" ng-show="currenttestexternalapprob.testdate!=null" ng-disabled="(currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2"></button></h3>
+
+		<div ng-repeat="test in currenttestexternalapprob.tests">
+    	<div class="row">
+
+				<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+					<label for="testtype" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.main.fieldtesttype}}</label>
+					<label for="testtype" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.main.fieldtesttype}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" ng-model="test.testtype" disabled>
+							<option ng-repeat="type in testtypes" value="{{type.code}}">{{type.text}}</option>
+						</select>
+					</div>
+				</div>
+
+		    <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+		      <label for="testsid" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.main.fieldtestsid}}</label>
+		      <label for="testsid" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.main.fieldtestsid}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" ng-model="test.testsid" disabled>
+							<option ng-repeat="testdef in allTests" value="{{testdef.id}}">{{testdef.text}}</option>
+						</select>
+		      </div>
+		    </div>
+
+      	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+			    <label class="visible-md visible-lg" ng-show="$index==0">&nbsp;</label>
+			    <label class="visible-xs visible-sm hidden-md hidden-lg">&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<!-- <child-edit-button 			obj="test" objlist="currenttestexternalapprob.tests" callback="editTest(test)"></child-edit-button> -->
+							<child-delete-button 		obj="test" objlist="currenttestexternalapprob.tests" callback="setDirty()" is-form-pristine="(currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2"></child-delete-button>
+							<child-undelete-button 	obj="test" objlist="currenttestexternalapprob.tests" callback="setDirty()" is-form-pristine="(currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise!=true) || currenttestexternalapprob.approbationstatus != 2"></child-undelete-button>
+							<child-status-indicator obj="test"></child-status-indicator>
+						</span>
+				  </div>
+					<hr class="visible-xs visible-sm hidden-md hidden-lg">
+			  </div>
+
+			</div>
+	 	</div>
+
+		<!-- <div class="row">
+			<div class="col-xs-12 col-xs-offset-4">
+				<br>
+			</div>
+  	</div> -->
+		<hr>
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3" ng-if="currenttestexternalapprob.id != null">
+				<label for="approbationstatus">{{translationObj.main.fieldapprobationstatus}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-check"></i></span>
+					<select class="form-control" ng-model="currenttestexternalapprob.approbationstatus" required ng-disabled="currenttestexternalapprob.id == null || userInfo.privileges.testregistration_revise!=true">
+						<option ng-repeat="approb in approbationstatus" value="{{approb.code}}">{{approb.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3" ng-if="currenttestexternalapprob.id != null">
+				<label for="testdirectorid">{{translationObj.main.fieldtestdirector}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="testdirectorid" ng-model="currenttestexternalapprob.testdirectorid" ng-required="currenttestexternalapprob.id != null" ng-disabled="currenttestexternalapprob.id == null || userInfo.privileges.testregistration_revise!=true">
+						<option ng-repeat="testdirector in allTestDirectors" value="{{testdirector.id}}">{{testdirector.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<br>
+		<p ng-show="currenttestexternalapprob.createdby&&currenttestexternalapprob.createdby!=''">{{translationObj.main.fieldcreatedby}}{{currenttestexternalapprob.createdby}}{{translationObj.main.fieldcreatedon}}{{currenttestexternalapprob.createdon}}</p>
+		<div class="row">
+			<div class="col-xs-12 col-xs-offset-4">
+				<!-- <button class="btn btn-primary" ng-click="submitAprobation()" ng-show="currenttestexternalapprob.tests && currenttestexternalapprob.tests.length!=0">{{translationObj.main.buttontitlesubmit}}</button> -->
+				<button class="btn btn-primary" ng-click="submitAprobation()" ng-show="currenttestexternalapprob.tests && currenttestexternalapprob.tests.length!=0" ng-if="currenttestexternalapprob.id == null">{{translationObj.main.buttontitlesubmit}}</button>
+				<!-- <button class="btn btn-primary" ng-click="approveAprobation()" ng-if="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true" ng-disabled="isFormPristine && !detailsForm.$dirty">{{translationObj.main.buttontitleapprove}}</button> -->
+				<!-- <button class="btn btn-primary" ng-click="sendEmailToTestDirector()"  ng-if="currenttestexternalapprob.id != null && userInfo.privileges.testregistration_revise==true" ng-disabled="isFormPristine && !detailsForm.$dirty">{{translationObj.main.buttontitlesendmailtocoach}}</button> -->
+				<!-- <button class="btn btn-primary" ng-click="sendEmailToTestDirector()">{{translationObj.main.buttontitlesendmailtocoach}}</button> -->
+  		</div>
+  	</div>
+  </div>
+</div>

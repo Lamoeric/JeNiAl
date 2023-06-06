@@ -1,0 +1,152 @@
+<div class="form-group row">
+	<div class="grid">
+    <!-- <h3>{{translationObj.main.formtitlemaininformation}}</h3> -->
+		<div class="row">
+      <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+	      <label for="firstname">{{translationObj.main.fieldname}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="firstname" class="form-control" id="firstname" value="{{currentTestregistration.firstname}} {{currentTestregistration.lastname}}" disabled>
+	      </div>
+	    </div>
+			<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+				<label>{{translationObj.main.fieldcoach}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="currentTestregistration.coachid" required ng-disabled="currentTestsession.isClosed">
+						<option ng-repeat="coach in coaches" value="{{coach.id}}">{{coach.text}}</option>
+					</select>
+				</div>
+			</div>
+  	</div>
+
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">
+	      <label for="comments">{{translationObj.main.fieldcomments}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        	<textarea class="form-control" id="comments" ng-model="currentTestregistration.comments" maxlength="1024" rows="3" ng-disabled="currentTestsession.isClosed"> </textarea>
+	      </div>
+      </div>
+    </div>
+
+
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+	      <label for="fees">{{translationObj.main.fieldfees}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="fees" class="form-control" id="fees" ng-model="currentTestregistration.fees" disabled ng-currency>
+	      </div>
+	    </div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+	      <label for="extrafees">{{translationObj.main.fieldextrafees}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="extrafees" class="form-control" id="extrafees" ng-model="currentTestregistration.extrafees" disabled ng-currency>
+	      </div>
+	    </div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+	      <label for="total">{{translationObj.main.fieldtotal}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="total" class="form-control" id="total" ng-model="currentTestregistration.total" disabled ng-currency>
+	      </div>
+	    </div>
+    </div>
+
+		<br>
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">
+				<div class="blackcurvyborder">
+					<label>{{translationObj.main.labeltestdirectoronly}}</label>
+	        <div class="input-group">
+						<input type="checkbox" ng-model="currentTestregistration.extskater" ng-true-value="'1'" disabled>{{translationObj.main.fieldextskater}}<br>
+	          <input type="checkbox" ng-model="currentTestregistration.approbreceived" ng-true-value="'1'" ng-disabled="currentTestregistration.extskater!=1">{{translationObj.main.fieldapprobreceived}}
+	        </div>
+      	</div>
+      </div>
+    </div>
+
+    <hr><h3>{{translationObj.main.titletest}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editTest({})" ng-disabled="!currentTestsession.canRegister"></button></h3>
+		<!-- <div class="row">
+      <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5">
+				<button class="btn btn-primary" ng-click="editTest({})" ng-disabled="!currentTestsession.canRegister"></button>
+      </div>
+    </div> -->
+
+		<div ng-repeat="test in currentTestregistration.tests">
+    	<div class="row">
+
+				<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+					<label for="testtype" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.main.fieldtesttype}}</label>
+					<label for="testtype" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.main.fieldtesttype}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" ng-model="test.testtype" disabled>
+							<option ng-repeat="type in testtypes" value="{{type.code}}">{{type.text}}</option>
+						</select>
+					</div>
+				</div>
+
+		    <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+		      <label for="testsid" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.main.fieldtestsid}}</label>
+		      <label for="testsid" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.main.fieldtestsid}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" ng-model="test.testsid" disabled>
+							<option ng-repeat="testdef in allTests" value="{{testdef.id}}">{{testdef.text}}</option>
+						</select>
+		      </div>
+		    </div>
+
+		    <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+		      <label for="partnerid" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.main.fieldpartnerid}}</label>
+		      <label for="partnerid" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.main.fieldpartnerid}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<select class="form-control" ng-model="test.partnerid" disabled>
+							<option ng-repeat="partner in allPartners" value="{{partner.id}}">{{partner.text}}</option>
+						</select>
+		      </div>
+		    </div>
+
+				<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+		      <label for="musicid" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.main.fieldmusicid}}</label>
+		      <label for="musicid" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.main.fieldmusicid}}</label>
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-music"></i></span>
+						<select class="form-control" ng-model="test.musicid" disabled>
+							<option ng-repeat="music in allDanceMusics" value="{{music.id}}">{{music.label}}</option>
+						</select>
+		      </div>
+		    </div>
+
+      	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+			    <label class="visible-md visible-lg" ng-show="$index==0">&nbsp;</label>
+			    <label class="visible-xs visible-sm hidden-md hidden-lg">&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<child-edit-button 			obj="test" objlist="currentTestregistration.tests" callback="editTest(test)"></child-edit-button>
+							<child-delete-button 		obj="test" objlist="currentTestregistration.tests" is-form-pristine="!currentTestsession.canUnregister" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="test" objlist="currentTestregistration.tests" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="test"></child-status-indicator>
+						</span>
+				  </div>
+					<hr class="visible-xs visible-sm hidden-md hidden-lg">
+			  </div>
+
+			</div>
+			<!--
+			<div class="row">
+				<div class="col-xs-9">
+		    	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+		        <input type="text" class="form-control" id="comments" ng-model="test.comments" disabled>
+		      </div>
+		    </div>
+	 		</div>
+		  -->
+	 	</div>
+  </div>
+</div>

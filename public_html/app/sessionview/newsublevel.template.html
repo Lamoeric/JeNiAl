@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newsublevel.formtitleeditsublevel}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+
+      <div class="col-xs-2">
+	      <label for="code">{{translationObj.newsublevel.fieldcode}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        	<input type="text" class="form-control" id="code" ng-model="newObj.code" maxlength="30" required capitalize>
+      	</div>
+      </div>
+
+      <div class="col-xs-4">
+	      <label for="label_en">{{translationObj.newsublevel.fieldenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        	<input type="text" class="form-control" id="label_en" ng-model="newObj.label_en" maxlength="300" required>
+      	</div>
+      </div>
+
+      <div class="col-xs-4">
+	      <label for="label_fr">{{translationObj.newsublevel.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        	<input type="text" class="form-control" id="label_fr" ng-model="newObj.label_fr" maxlength="300" required>
+      	</div>
+      </div>
+
+      <div class="col-xs-2">
+	      <label for="sequence">{{translationObj.newsublevel.fieldsequence}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        	<input type="number" class="form-control" id="sequence" ng-model="newObj.sequence" min="0" max="99" required>
+      	</div>
+      </div>
+
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newsublevel.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newsublevel.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newsublevel.buttontitlekeepchanges}}</button>
+</div>

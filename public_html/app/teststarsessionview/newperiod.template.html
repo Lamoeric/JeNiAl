@@ -1,0 +1,101 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newperiod.formtitleeditcoursedate}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+
+      <div class="col-xs-5">
+	      <label for="arena">{{translationObj.newperiod.fieldarena}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+						<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+      		</select>
+      	</div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="iceno">{{translationObj.newperiod.fieldice}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="iceno" ng-model="newObj.iceid" ng-disabled="newObj.id != null && newObj.manual == '0'">
+						<option ng-repeat="ice in ices" value="{{ice.id}}">{{ice.label}}</option>
+      		</select>
+      	</div>
+      </div>
+
+      <div class="col-xs-4">
+	      <label for="name">{{translationObj.newperiod.fielddate}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="date" class="form-control" id="coursedate" name="coursedate" ng-model="newObj.perioddate" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+	      </div>
+      </div>
+
+    	<div class="col-xs-3">
+		    <label>{{translationObj.newperiod.fieldday}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+			  	<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.day" disabled>
+			    	<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
+			    </select>
+			  </div>
+		  </div>
+
+      <div class="col-xs-3">
+	      <label for="starttime">{{translationObj.newperiod.fieldstarttime}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        	<input type="text" class="form-control" id="starttime" ng-model="newObj.starttime" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+      	</div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="endtime">{{translationObj.newperiod.fieldendtime}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        	<input type="text" class="form-control" id="endtime" ng-model="newObj.endtime" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+      	</div>
+      </div>
+
+      <!-- <div class="col-xs-2">
+	      <label for="duration">{{translationObj.newperiod.fieldduration}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        	<input type="text" class="form-control" id="duration" ng-model="newObj.duration" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+      	</div>
+      </div> -->
+
+      <div class="col-xs-5">
+	      <label for="label_en">{{translationObj.newperiod.fieldenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="label_en" name="label_en" ng-model="newObj.label_en" maxlength="200">
+	      </div>
+      </div>
+
+      <div class="col-xs-5">
+	      <label for="label_fr">{{translationObj.newperiod.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	        <input type="text" class="form-control" id="label_fr" name="label_fr" ng-model="newObj.label_fr" maxlength="200">
+	      </div>
+      </div>
+
+      <div class="col-xs-2">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="newObj.canceled" ng-true-value="'1'" ng-disabled="newObj.registrations.length!=0">{{translationObj.newperiod.fieldcanceled}}</label>
+	      </div>
+	    </div>
+
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newperiod.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newperiod.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.newperiod.buttontitlekeepchanges}}</button>
+</div>

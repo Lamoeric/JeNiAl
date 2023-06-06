@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newperformanceprice.formtitleeditprice}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+      <div class="col-xs-5">
+	      <label for="pricetype">{{translationObj.newperformanceprice.fieldpricetype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+      		<select class="form-control" id="chargecode" ng-model="newObj.pricetype" required ng-disabled="newObj.id != null">
+						<option ng-repeat="showpricetype in showpricetypes" value="{{showpricetype.code}}">{{showpricetype.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+	    <div class="col-xs-3">
+	      <label for="amount">{{translationObj.newperformanceprice.fieldamount}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	      	<input type="text" class="form-control" id="amount" ng-model="newObj.amount" ng-currency required>
+	    	</div>
+	    </div>
+			
+			<div class="clearfix"></div>
+
+      <div class="col-xs-3">
+	      <label for="agemin">{{translationObj.newperformanceprice.fieldagemin}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	      	<input type="text" class="form-control" id="agemin" ng-model="newObj.agemin">
+  	    </div>
+      </div>
+
+      <div class="col-xs-3">
+	      <label for="agemax">{{translationObj.newperformanceprice.fieldagemax}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+	      	<input type="text" class="form-control" id="agemax" ng-model="newObj.agemax">
+  	    </div>
+      </div>
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newperformanceprice.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newperformanceprice.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newperformanceprice.buttontitlekeepchanges}}</button>
+</div>

@@ -1,0 +1,50 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newtest.formtitlenewtest}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-4">
+	      <label for="type">{{translationObj.newtest.fieldtitletype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <select class="form-control" id="type" name="type" ng-model="newObj.type" required>
+						<option ng-repeat="testtype in testtypes" value="{{testtype.code}}">{{testtype.text}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="level">{{translationObj.newtest.fieldtitlelevel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <select class="form-control" id="level" name="level" ng-model="newObj.level" required>
+						<option ng-repeat="testlevel in testlevels" value="{{testlevel.code}}">{{testlevel.text}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-3">
+	      <label for="subtype">{{translationObj.newtest.fieldtitlesubtype}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+          <select class="form-control" id="subtype" ng-model="newObj.subtype">
+						<option ng-repeat="testsubtype in testsubtypes" value="{{testsubtype.code}}">{{testsubtype.text}}</option>
+		      </select>
+	      </div>
+      </div>
+      <div class="col-xs-4">
+	      <label for="name">{{translationObj.newtest.fieldtitlename}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="30" required>
+	      </div>
+	    </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newtest.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newtest.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newtest.buttontitlekeepchanges}}</button>
+</div>

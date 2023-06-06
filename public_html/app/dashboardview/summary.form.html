@@ -1,0 +1,40 @@
+<div class="form-group row">
+	<div class="grid">
+    <h1>{{translationObj.summary.formtitle}}</h1>
+    <h3>{{translationObj.summary.formsubtitleallcourses}}</h3>
+    <div class="row">
+      <!-- Total number of skaters-courses -->
+      <div class="col-xs-3">
+        <label><center>{{translationObj.summary.graphtitleallskaters}}&nbsp;({{currentDashboard.summaryskaterscourses.numberofskaterscourses}}/{{currentDashboard.summaryskaterscourses.totalnbofplaces}})&nbsp;{{((currentDashboard.summaryskaterscourses.numberofskaterscourses/currentDashboard.summaryskaterscourses.totalnbofplaces)*100).toFixed(2)}}%</center></label>
+        <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="[currentDashboard.summaryskaterscourses.numberofskaterscourses,currentDashboard.summaryskaterscourses.nbofplacesleft]" chart-labels="[translationObj.dashboard.labelnumberofskaters, translationObj.dashboard.labelspacesleft]" chart-options="options"> </canvas>
+      </div>
+
+      <!-- Total number of skaters-courses per type -->
+      <div class="col-xs-3">
+        <label><center>{{translationObj.summary.graphtitleallskaterspertype}}&nbsp;({{currentDashboard.summaryskaterscoursespertype.numberofskaterscourses}}/{{currentDashboard.summaryskaterscoursespertype.totalnbofplaces}})</center></label>
+        <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="currentDashboard.summaryskaterscoursespertype.data" chart-labels="currentDashboard.summaryskaterscoursespertype.labels" chart-options="options"> </canvas>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Returning skaters -->
+      <div class="col-xs-3">
+        <label><center>{{translationObj.summary.graphtitlereturningskaters}}&nbsp;({{currentDashboard.returningskaters.numberreturningskaters}}/{{currentDashboard.returningskaters.numberofskaters}})</center></label>
+        <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="[currentDashboard.returningskaters.numberreturningskaters, currentDashboard.returningskaters.numbernewskaters]" chart-labels="[translationObj.dashboard.labelreturningskaters, translationObj.dashboard.labelnewskaters]" chart-options="options"> </canvas>
+      </div>
+      <!-- skaters per nb of courses selected -->
+      <div class="col-xs-3">
+        <label><center>{{translationObj.summary.graphtitleskaterspernbofcourses}}</center></label>
+        <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="currentDashboard.skaterspernbofcourses.data" chart-labels="currentDashboard.skaterspernbofcourses.labels" chart-options="options"> </canvas>
+      </div>
+    </div>
+    <h3>{{translationObj.summary.graphtitleallskaterspertypecomparison}}</h3>
+    <div class="row">
+      <!-- Comparison total number of skaters per type -->
+      <div class="col-xs-10">
+        <!-- <label><center>{{translationObj.summary.graphtitleallskaterspertypecomparison}}</center></label> -->
+        <canvas id="bar" class="chart chart-bar chart-md ng-isolate-scope" chart-data="currentDashboard.summaryskaterscoursespertypecomp.data" chart-labels="currentDashboard.summaryskaterscoursespertypecomp.labels" chart-series="currentDashboard.summaryskaterscoursespertypecomp.series" chart-options="options"> </canvas>
+      </div>
+    </div>
+
+  </div>
+</div>

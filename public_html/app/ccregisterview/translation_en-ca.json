@@ -1,0 +1,20 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
+	{"formname":"main", "fieldname":"formttitlesignin", "text":"SIGN UP"},
+	{"formname":"main", "fieldname":"fieldtitleemail", "text":"Email Address"},
+	{"formname":"main", "fieldname":"fieldtitlefirstname", "text":"First name"},
+	{"formname":"main", "fieldname":"fieldtitlelastname", "text":"Last name"},
+	{"formname":"main", "fieldname":"fieldhelpemail", "text":"Use the email on which you received the invite."},
+	{"formname":"main", "fieldname":"fieldtitleuserid", "text":"User id"},
+	{"formname":"main", "fieldname":"fieldhelpuserid", "text":"8 letters or more."},
+	{"formname":"main", "fieldname":"buttontitlevalidateemail", "text":"Validate"},
+	{"formname":"main", "fieldname":"buttontitlecreateaccount", "text":"Create my Account"},
+	{"formname":"main", "fieldname":"msginfocreateaccount", "text":"After the account creation, an email will be sent to you with your temporary password."},
+	{"formname":"main", "fieldname":"msgerremailalreadyinuse", "text":"Email is already in use by another user."},
+	{"formname":"main", "fieldname":"msgerremailinvalid", "text":"Email is not an email in use."},
+	{"formname":"main", "fieldname":"msgerruseridalreadyinuse", "text":"User id is already used."},
+
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

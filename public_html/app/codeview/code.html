@@ -1,0 +1,59 @@
+<div class="form-group">
+  <div class="grid">
+    <div class="row">
+      <div class="col-xs-5">
+				<a class="btn btn-primary" ng-click="createNewCode()">
+      		<span>{{translationObj.details.buttontitlenewcode}}</span>
+      	</a>
+      </div>
+		</div>
+		<div ng-repeat="code in codes">
+    	<div class="row">
+<!--    		
+		    <div class="col-xs-2">
+		      <label for="ctname">{{translationObj.details.fieldtitlecodegroupname}}</label>
+					<input type="text" name="ctname" class="form-control" id="first" ng-model="code.ctname" maxlength="30" required disabled>
+		    </div>
+-->
+		    <div class="col-xs-2">
+		      <label for="code">{{translationObj.details.fieldtitlecode}}</label>
+	        <input type="text" class="form-control" id="code" ng-model="code.code" maxlength="30" required disabled>
+		    </div>
+
+		    <div class="col-xs-1">
+		      <label for="sequence">{{translationObj.details.fieldtitlesequence}}</label>
+	        <input type="text" class="form-control" id="sequence" ng-model="code.sequence" minvalue="0" required disabled>
+		    </div>
+
+		    <div class="col-xs-1">
+		      <label for="active">{{translationObj.details.fieldtitleactive}}</label>
+	        <select class="form-control" id="active" ng-model="code.active" disabled>
+						<option value="1">Yes</option>
+						<option value="0">No</option>
+		      </select>
+		    </div>
+
+		    <div class="col-xs-2">
+		      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}</label>
+	        <input type="text" class="form-control" id="label_en" ng-model="code.label_en" maxlength="200" disabled>
+		    </div>
+
+		    <div class="col-xs-2">
+		      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}</label>
+	        <input type="text" class="form-control" id="label_fr" ng-model="code.label_fr" maxlength="200" disabled>
+		    </div>
+      	<div class="col-xs-2">
+			    <label>&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<child-edit-button 			obj="code" objlist="codes" callback="editCode(code)"></child-edit-button>
+							<child-delete-button 		obj="code" objlist="codes" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="code" objlist="codes" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="code"></child-status-indicator>
+						</span>
+				  </div>
+			  </div>
+		  </div>
+		</div>
+	</div>
+</div>

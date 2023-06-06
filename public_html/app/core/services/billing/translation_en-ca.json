@@ -1,0 +1,25 @@
+[
+	{"formname":"selectbillingname", "fieldname":"formtitleselectbillingname", "text":"Select Billing Name"},
+	{"formname":"selectbillingname", "fieldname":"fieldtitlebillingname", "text":"Billing Name"},
+	{"formname":"selectbillingname", "fieldname":"buttontitleselectbillingname", "text":"Select Name"},
+
+	{"formname":"selectbillingemails", "fieldname":"formtitleselectbillingemails", "text":"Select Billing Email"},
+	{"formname":"selectbillingemails", "fieldname":"fieldtitlebillingemail", "text":"Billing Email"},
+	{"formname":"selectbillingemails", "fieldname":"formerrormessage", "text":"You must select a email address to send the bill."},
+	{"formname":"selectbillingemails", "fieldname":"buttontitleselectbillingemail", "text":"Select Email"},
+	{"formname":"selectbillingemails", "fieldname":"buttontitlediscard", "text":"Cancel"},
+
+	{"formname":"searchbill", "fieldname":"formtitlesearchbill", "text":"Search Bills"},
+	{"formname":"searchbill", "fieldname":"fieldtitlename", "text":"Name"},
+	{"formname":"searchbill", "fieldname":"fieldtitletotalamount", "text":"Total Amount"},
+	{"formname":"searchbill", "fieldname":"fieldtitlepaidamount", "text":"Paid Amount"},
+	{"formname":"searchbill", "fieldname":"formerrormessage", "text":"You must select a bill."},
+	{"formname":"searchbill", "fieldname":"noresult", "text":"No bills found..."},
+	{"formname":"searchbill", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"searchbill", "fieldname":"buttontitlekeepchanges", "text":"Select Bill"},
+
+	{"formname":"splitbill", "fieldname":"msgvalidatebillsplitting", "text":"Are you sure you want to split this registration into a new bill?"},
+	{"formname":"splitbill", "fieldname":"msgbillsplittingreload", "text":"The bill has been split, please refresh."},
+
+	{"formname":"searchbill", "fieldname":"test", "text":"Test"}
+]

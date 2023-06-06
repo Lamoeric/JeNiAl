@@ -1,0 +1,55 @@
+<div class="form-group">
+	<div>
+		<h3>{{translationObj.coursedates.formtitlecoursedates}}</h3>
+	  <ul class="nav nav-tabs">
+			<li class="pointerlist" ng-repeat="course in currentSession.sessionCourses">
+		    <a data-toggle="tab" data-target="#{{course.namenospace}}">{{course.name}}</a>
+		  </li>
+	  </ul>
+
+	  <div class="tab-content">
+	    	<div ng-repeat="course in currentSession.sessionCourses" id="{{course.namenospace}}" class="tab-pane fade">
+		      <form class="form-horizontal well pre-scrollable" id="map2" role="form" name="{{course.namenospace}}" ng-show="currentSession" class="ng-hide">
+						<h3>{{course.name}}</h3>
+					  <p><b>{{translationObj.coursedates.fieldcourse}}</b>: {{course.courselabel}} <b>{{translationObj.coursedates.fieldenglishlabel}}</b>: {{course.label_en}} <b>{{translationObj.coursedates.fieldfrenchlabel}}</b>: {{course.label_fr}} <b>{{translationObj.coursedates.fieldfees}}</b>: {{course.fees | number:2}}</p>
+						<div>
+							<hr>
+						  <div>
+								<button class="btn btn-primary" ng-click="editSessionCourseDate(course, {})"><span>{{translationObj.coursedates.buttontitlenewcoursedate}}</span></button>
+						  </div><br>
+							<table width="100%" class="table table-striped">
+								<tr><th  NOWRAP>{{translationObj.coursedates.fieldno}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldarena}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldice}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldday}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fielddate}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldstarttime}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldendtime}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldduration}}</th>
+										<th  NOWRAP>{{translationObj.coursedates.fieldcanceled}}</th>
+										<th>{{translationObj.coursedates.fieldfrenchlabel}}</th>
+										<th>{{translationObj.coursedates.fieldenglishlabel}}</th>
+										<th></th></tr>
+							  	<tr ng-repeat="date in course.dates">
+							  		<td width="5%"  NOWRAP>{{$index+1}}</td>
+							  		<td width="10%" NOWRAP>{{date.arenalabel}}</td>
+							  		<td width="10%" NOWRAP>{{date.icelabel}}</td>
+							  		<td width="5%"  NOWRAP>{{date.daylabel}}</td>
+							  		<td width="5%"  NOWRAP>{{date.coursedate}}</td>
+							  		<td width="5%"  NOWRAP>{{date.starttime}}</td>
+							  		<td width="5%"  NOWRAP>{{date.endtime}}</td>
+							  		<td width="5%"  NOWRAP>{{date.duration}}</td>
+							  		<td width="5%"  NOWRAP>{{date.canceled}}</td>
+							  		<td width="25%">{{date.label_fr}}</td>
+							  		<td width="25%">{{date.label_en}}</td>
+							  		<td width="5%">
+											<child-edit-button obj="date" objlist="course.dates" callback="editSessionCourseDate(course, date)"></child-edit-button>
+							  		</td>
+							  	</tr>
+							</table>
+						</div>
+				  </form>
+	    	</div>
+    </div>
+  </div>
+</div>

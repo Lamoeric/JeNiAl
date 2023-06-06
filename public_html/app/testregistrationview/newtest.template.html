@@ -1,0 +1,88 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.newtest.formtitleedittest}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+
+			<div class="col-xs-5">
+				<label for="testtype">{{translationObj.newtest.fieldtesttype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.testtype" required ng-change="onTestTypeChange(newObj)" ng-disabled="!currentTestsession.canRegister">
+						<option ng-repeat="type in testtypes" value="{{type.code}}">{{type.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-5">
+				<label for="testsid">{{translationObj.newtest.fieldtestid}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.testsid" required ng-change="onTestChange(newObj)" ng-disabled="!currentTestsession.canRegister">
+						<option ng-repeat="testByType in allTestsByType" value="{{testByType.id}}">{{testByType.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-10">
+				<label for="testsid">{{translationObj.newtest.fieldmusicid}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-music"></i></span>
+					<select class="form-control" ng-model="newObj.musicid" ng-required="newObj.testtype == 'DANCE'" ng-disabled="newObj.testtype != 'DANCE' || currentTestsession.isClosed">
+						<option ng-repeat="music in danceMusics" value="{{music.id}}">{{music.label}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-5">
+				<label for="partnerid">{{translationObj.newtest.fieldpartnerid}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="newObj.partnerid" ng-disabled="newObj.testtype != 'DANCE' || currentTestsession.isClosed">
+						<option ng-repeat="partner in allPartners" value="{{partner.id}}">{{partner.text}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-xs-5">
+				<label for="partnersteps">{{translationObj.newtest.fieldpartnersteps}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" ng-model="newObj.partnersteps" ng-disabled="newObj.testtype != 'DANCE' || currentTestsession.isClosed">
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+					</select>
+				</div>
+			</div>
+			<!-- <div class="col-xs-5">
+				<label for="fees">{{translationObj.newtest.fieldfees}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" class="form-control" id="fees" ng-model="newObj.fees" ng-currency disabled>
+				</div>
+			</div> -->
+
+			<!-- <div class="col-xs-10">
+				<label for="comments">{{translationObj.newtest.fieldcomments}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+					<input type="text" class="form-control" id="comments" ng-model="newObj.comments">
+				</div>
+			</div> -->
+
+			<div class="col-xs-4">
+        <div class="input-group">
+          <br><label><input type="checkbox" ng-model="newObj.canceled" ng-true-value="'1'" ng-disabled="!currentTestsession.canCancelRegistration || currentTestsession.isClosed">{{translationObj.newtest.fieldcanceled}}</label>
+        </div>
+      </div>
+
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newtest.formerrormessage}}
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newtest.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"	ng-disabled="currentTestsession.isClosed">{{translationObj.newtest.buttontitlekeepchanges}}</button>
+</div>

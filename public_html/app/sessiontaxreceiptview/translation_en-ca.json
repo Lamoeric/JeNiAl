@@ -1,0 +1,17 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter testperiods..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Testperiods"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No test period found"},
+
+	{"formname":"main", "fieldname":"formtitleattendance", "text":"Tax Receipts"},
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
+
+	{"formname":"selectmemberemails", "fieldname":"formtitleselectmemberemails", "text":"Select Member Email"},
+	{"formname":"selectmemberemails", "fieldname":"fieldtitlebillingemail", "text":"Member Email"},
+	{"formname":"selectmemberemails", "fieldname":"formerrormessage", "text":"You must select a email address."},
+	{"formname":"selectmemberemails", "fieldname":"buttontitleselectbillingemail", "text":"Select Email"},
+	{"formname":"selectmemberemails", "fieldname":"buttontitlediscard", "text":"Cancel"},
+
+	{"formname":"leftPane", "fieldname":"", "text":""}
+]

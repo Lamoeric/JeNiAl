@@ -1,0 +1,29 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer tests..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Tests"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun test trouvé"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitletestdefinition", "text":"Définition de test"},
+	{"formname":"details", "fieldname":"fieldtitlesubtype", "text":"Sous-type"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchlabel", "text":"Libellé français"},
+	{"formname":"details", "fieldname":"fieldtitlesequence", "text":"Séquence"},
+	{"formname":"details", "fieldname":"fieldtitleequivalence", "text":"Équivalence"},
+	{"formname":"details", "fieldname":"fieldtitlesummarycode", "text":"Code sommaire"},
+	{"formname":"details", "fieldname":"fieldtitlepartnerstepscode", "text":"Code sommaire pas partenaire"},
+	{"formname":"details", "fieldname":"fieldtitlemusics", "text":"Musiques"},
+
+	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"Nouveau de test"},
+	{"formname":"newtest", "fieldname":"fieldtitletestdefinition", "text":"Définition de test"},
+	{"formname":"newtest", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newtest", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newtest", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newtest", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."}
+
+]

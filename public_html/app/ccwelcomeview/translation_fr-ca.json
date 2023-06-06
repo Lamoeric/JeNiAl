@@ -1,0 +1,19 @@
+[
+	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
+	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
+	{"formname":"main", "fieldname":"formtitleyouraccount", "text":"VOTRE COMPTE"},
+	{"formname":"main", "fieldname":"formtitleyourprofile", "text":"Votre profil"},
+	{"formname":"main", "fieldname":"formtitlechangepassword", "text":"Changer de mot de passe"},
+	{"formname":"main", "fieldname":"formtitleconsultbills", "text":"Consulter vos dernières factures"},
+	{"formname":"main", "fieldname":"formtitleyourskaters", "text":"VOS PATINEURS"},
+
+	{"formname":"main", "fieldname":"fieldtitleskatecanadano", "text":"No pat. Canada"},
+	{"formname":"main", "fieldname":"fieldtitlefirstname", "text":"Prénom"},
+	{"formname":"main", "fieldname":"fieldtitlelastname", "text":"Nom"},
+	{"formname":"main", "fieldname":"fieldtitlebirthday", "text":"Date naissance"},
+	{"formname":"main", "fieldname":"buttontitleregister", "text":"Inscription"},
+	{"formname":"main", "fieldname":"buttontitlemodifyregister", "text":"Modifier inscription"},
+	{"formname":"main", "fieldname":"labeleditprofil", "text":"Éditer profil"},
+
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
+]

@@ -1,0 +1,195 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.email.formtitleemailconfig}}</h3>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="input-group">
+					<label><input type="checkbox" ng-model="currentConfiguration.issmtp" ng-true-value="'1'" >&nbsp;{{translationObj.email.fieldtitleissmtp}}</label>
+				</div>
+			</div>
+    </div>
+		<div class="row">
+      <div class="col-xs-3">
+	      <label for="smtpdebuglevel">{{translationObj.email.fieldtitlesmtpdebug}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="smtpdebuglevel" ng-model="currentConfiguration.smtpdebuglevel">
+						<option ng-repeat="smtpdebuglevel in smtpdebuglevels" value="{{smtpdebuglevel.code}}">{{smtpdebuglevel.text}}</option>
+		      </select>
+	      </div>
+				<!-- <span class="help-block">{{translationObj.email.fieldhelpsmtpdebug}}</span> -->
+	    </div>
+      <div class="col-xs-3">
+	      <label for="smtpdebugoutputformat">{{translationObj.email.fieldtitledebugoutput}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="smtpdebugoutputformat" ng-model="currentConfiguration.smtpdebugoutputformat">
+						<option ng-repeat="smtpdebugformat in smtpdebugformats" value="{{smtpdebugformat.code}}">{{smtpdebugformat.text}}</option>
+		      </select>
+	      </div>
+				<!-- <span class="help-block">{{translationObj.email.fieldhelpdebugoutput}}</span> -->
+	    </div>
+    </div>
+		<div class="row">
+	    <!-- SMTP security (tls, ssl) -->
+			<div class="col-xs-3">
+	      <label for="smtpsecure">{{translationObj.email.fieldtitlesmtpsecure}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="smtpsecure" ng-model="currentConfiguration.smtpsecure">
+						<option ng-repeat="smtpsecureformat in smtpsecureformats" value="{{smtpsecureformat.code}}">{{smtpsecureformat.text}}</option>
+		      </select>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpsmtpsecure}}</span>
+	    </div>
+	    <!-- Host -->
+      <div class="col-xs-4">
+	      <label for="smtphost">{{translationObj.email.fieldtitlehost}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="host" class="form-control" id="smtphost" ng-model="currentConfiguration.smtphost" maxlength="250" required>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelphost}}</span>
+	    </div>
+	    <!-- SMTP port -->
+      <div class="col-xs-4">
+	      <label for="smtpport">{{translationObj.email.fieldtitleport}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="port" class="form-control" id="smtpport" ng-model="currentConfiguration.smtpport" maxlength="5" required>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpport}}</span>
+	    </div>
+  	</div>
+		<div class="row">
+	    <!-- Authorization type  (None, SMTP, oAuth2)-->
+      <div class="col-xs-3">
+	      <label for="smtpauth">{{translationObj.email.fieldtitleauthtype}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="debugoutput" ng-model="currentConfiguration.authtype">
+						<option ng-repeat="type in authorizationtypes" value="{{type.code}}">{{type.text}}</option>
+		      </select>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpauthtype}}</span>
+	    </div>
+	    <!-- Email/user name -->
+      <div class="col-xs-4">
+	      <label for="smtpusername">{{translationObj.email.fieldtitleusername}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="smtpusername" ng-model="currentConfiguration.smtpusername" ng-required="currentConfiguration.authtype!=1" ng-disabled="currentConfiguration.authtype==null || currentConfiguration.authtype==1" maxlength="250">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpusername}}</span>
+	    </div>
+	    <!-- Email password -->
+      <div class="col-xs-4">
+	      <label for="smtppassword">{{translationObj.email.fieldtitlepassword}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="password" class="form-control" id="smtppassword" ng-model="currentConfiguration.smtppassword" ng-required="currentConfiguration.authtype==2" ng-disabled="currentConfiguration.authtype==null || currentConfiguration.authtype!=2" maxlength="250">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelppassword}}</span>
+	    </div>
+  	</div>
+
+		<div class="row">
+    	<!-- oAuth2 Provider -->
+      <div class="col-xs-2">
+	      <label for="oauthprovider">{{translationObj.email.fieldtitleoauthprovider}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="oauthprovider" ng-model="currentConfiguration.oauthprovider" ng-required="currentConfiguration.authtype==3" ng-disabled="currentConfiguration.authtype==null || currentConfiguration.authtype!=3">
+						<option ng-repeat="provider in authorizationproviders" value="{{provider.code}}">{{provider.text}}</option>
+		      </select>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpoauthprovider}}</span>
+	    </div>
+    </div>
+    
+		<div class="row">
+    	<!-- oAuth client ID -->
+			<div class="col-xs-4">
+	      <label for="oauthclientid">{{translationObj.email.fieldtitleoauthclientid}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="oauthclientid" ng-model="currentConfiguration.oauthclientid" maxlength="250" ng-required="currentConfiguration.authtype==3" ng-disabled="currentConfiguration.authtype==null || currentConfiguration.authtype!=3">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpoauthclientid}}</span>
+	    </div>
+    	<!-- oAuth client secret -->
+			<div class="col-xs-4">
+	      <label for="oauthclientsecret">{{translationObj.email.fieldtitleoauthclientsecret}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="password" class="form-control" id="oauthclientsecret" ng-model="currentConfiguration.oauthclientsecret" maxlength="250" ng-required="currentConfiguration.authtype==3" ng-disabled="currentConfiguration.authtype==null || currentConfiguration.authtype!=3">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpoauthclientsecret}}</span>
+	    </div>
+    	<!-- oAuth2 refresh token -->
+      <div class="col-xs-4">
+	      <label for="oauthrefreshtoken">{{translationObj.email.fieldtitleoauthrefreshtoken}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="password" class="form-control" id="oauthrefreshtoken" ng-model="currentConfiguration.oauthrefreshtoken" maxlength="250" ng-required="currentConfiguration.authtype==3" ng-disabled="currentConfiguration.authtype==null || currentConfiguration.authtype!=3">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpoauthrefreshtoken}}</span>
+	    </div>
+  	</div>
+  	
+		<div class="row">
+    	<!-- Email "FROM" -->
+      <div class="col-xs-3">
+	      <label for="smtpsetfrom">{{translationObj.email.fieldtitlesetfrom}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="smtpsetfrom" ng-model="currentConfiguration.smtpsetfrom" maxlength="250" required>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpsetfrom}}</span>
+	    </div>
+    	<!-- Email "FROM" full name -->
+			<div class="col-xs-4">
+	      <label for="smtpsetfullnamefrom">{{translationObj.email.fieldtitlesetfullnamefrom}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="smtpsetfullnamefrom" ng-model="currentConfiguration.smtpsetfullnamefrom" maxlength="250" required>
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpsetfrom}}</span>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-3">
+	      <label for="smtpaddreplyto">{{translationObj.email.fieldtitleaddreplyto}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="smtpaddreplyto" ng-model="currentConfiguration.smtpaddreplyto" maxlength="250">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpaddreplyto}}</span>
+	    </div>
+			<div class="col-xs-4">
+	      <label for="smtpfullnamereplyto">{{translationObj.email.fieldtitlefullnamereplyto}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="smtpfullnamereplyto" ng-model="currentConfiguration.smtpfullnamereplyto" maxlength="250">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpaddreplyto}}</span>
+	    </div>
+  	</div>
+		<div class="row">
+			<div class="col-xs-3">
+	      <label for="smtptestemailaddress">{{translationObj.email.fieldtitlesmtptestemailaddress}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="smtptestemailaddress" ng-model="currentConfiguration.smtptestemailaddress" maxlength="250">
+	      </div>
+				<span class="help-block">{{translationObj.email.fieldhelpsmtptestemailaddress}}</span>
+	    </div>
+			<div class="col-xs-3">
+				<label>&nbsp;</label>
+				<div class="input-group">
+					<button class="btn btn-primary" ng-click="sendTestEmail()" ng-disabled="!isFormPristine || detailsForm.$dirty || emailForm.$dirty">{{translationObj.email.buttontitletestemail}}</button>
+				</div>
+			</div>
+  	</div>
+  </div>
+</div>

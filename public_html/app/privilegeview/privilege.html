@@ -1,0 +1,28 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-2">
+	      <label for="id">{{translationObj.details.fieldtitleid}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="id" ng-model="currentPrivilege.id" maxlength="11" disabled>
+	      </div>
+      </div>
+      <div class="col-xs-2">
+	      <label for="code">{{translationObj.details.fieldtitlecode}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="code" ng-model="currentPrivilege.code" maxlength="30" required>
+	      </div>
+      </div>
+      <div class="col-xs-8">
+	      <label for="description">{{translationObj.details.fieldtitledescription}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        	<input type="text" class="form-control" id="description" ng-model="currentPrivilege.description" maxlength="200" required>
+	      </div>
+      </div>
+    </div>
+  </div>
+</div>

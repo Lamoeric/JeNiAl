@@ -1,0 +1,36 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer partenaires..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Partenaires"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun partenaire trouvé"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails partenaire"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publier"},
+	{"formname":"details", "fieldname":"fieldtitlepartnerindex", "text":"Index"},
+	{"formname":"details", "fieldname":"fieldtitlelink_fr", "text":"Lien Internet français"},
+	{"formname":"details", "fieldname":"fieldtitlelink_en", "text":"Lien Internet anglais"},
+	{"formname":"details", "fieldname":"fieldtitleimagefrwidth", "text":"Largeur"},
+	{"formname":"details", "fieldname":"fieldtitleimagefrheight", "text":"Hauteur"},
+	{"formname":"details", "fieldname":"fieldtitleimagefrtype", "text":"Type"},
+	{"formname":"details", "fieldname":"buttontitleloadmainimagefr", "text":"Import de l'image française"},
+	{"formname":"details", "fieldname":"fieldtitleimageenwidth", "text":"Largeur"},
+	{"formname":"details", "fieldname":"fieldtitleimageenheight", "text":"Hauteur"},
+	{"formname":"details", "fieldname":"fieldtitleimageentype", "text":"Type"},
+	{"formname":"details", "fieldname":"buttontitleloadmainimageen", "text":"Import de l'image anglaise"},
+	{"formname":"details", "fieldname":"msgerrinvalidfile", "text":"Image non valide"},
+	{"formname":"details", "fieldname":"msgerrinvalidfilesize", "text":"Image non valide - taille du fichier plus grand que "},
+	{"formname":"details", "fieldname":"msgerrinvalidmaxwidth", "text":"Image non valide - largeur de l'image plus grande que "},
+	{"formname":"details", "fieldname":"msgerrinvalidmaxheight", "text":"Image non valide - hauteur de l'image plus grande que "},
+	{"formname":"details", "fieldname":"helptextimagespecifications", "text":"L'image doit être de type jpg, être de moins de 300Kb et de dimensions moins de 500px X 500px"},
+	{"formname":"details", "fieldname":"msguploadcompleted", "text":"L'image a été importée."},
+
+	{"formname":"newpartner", "fieldname":"formtitleeditpreogramassistant", "text":"Nouvel assistant de programme"},
+	{"formname":"newpartner", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newpartner", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newpartner", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newpartner", "fieldname":"buttontitlekeepchanges", "text":"Conserver"}
+]

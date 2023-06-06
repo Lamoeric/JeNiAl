@@ -1,0 +1,24 @@
+[
+	{"formname":"changepassword", "fieldname":"formtitle", "text":"Changement de mot de passe"},
+	{"formname":"changepassword", "fieldname":"labelreason", "text":"Votre mot de passe est expiré. Vous devez changer votre mot de passe."},
+	{"formname":"changepassword", "fieldname":"fieldtitleoldpassword", "text":"Vieux mot de passe"},
+	{"formname":"changepassword", "fieldname":"fieldtitlenewpassword", "text":"Nouveau mot de passe"},
+	{"formname":"changepassword", "fieldname":"fieldtitleshowpassword", "text":"Afficher mot de passe"},
+	{"formname":"changepassword", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"changepassword", "fieldname":"buttontitlekeepchanges", "text":"Sauvegarder"},
+	{"formname":"changepassword", "fieldname":"formerrormessageallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"changepassword", "fieldname":"formerrormessageinvalidlogin", "text":"Informations invalides."},
+	{"formname":"changepassword", "fieldname":"formerrormessagepwdmustdiffer", "text":"Le nouveau mot de passe doit être différent de l'ancien."},
+	{"formname":"changepassword", "fieldname":"msgpasswordchanged", "text":"Mot de passe changé"},
+
+	{"formname":"forgotpassword", "fieldname":"formtitle", "text":"Mot de passe oublié"},
+	{"formname":"forgotpassword", "fieldname":"labelinstructions", "text":"Entrez votre code d'usager ou votre adresse courriel."},
+	{"formname":"forgotpassword", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"forgotpassword", "fieldname":"buttontitlekeepchanges", "text":"Envoyer"},
+	{"formname":"forgotpassword", "fieldname":"formerrormessageallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"forgotpassword", "fieldname":"formerrormessageinvalidlogin", "text":"Adresse courriel ou code usager inconnu."},
+
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Courriel envoyé"},
+
+	{"formname":"changepassword", "fieldname":"test", "text":"test"}
+]

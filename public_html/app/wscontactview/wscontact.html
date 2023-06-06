@@ -1,0 +1,213 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-4">
+	      <label for="fscname">{{translationObj.details.fieldtitlefscname}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="fscname" class="form-control" id="fscname" ng-model="currentWscontact.fscname" maxlength="40" required disabled>
+	      </div>
+	    </div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+	      <label for="label_en">{{translationObj.details.fieldtitlelabelen}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentWscontact.label_en" maxlength="200" required>
+	      </div>
+	    </div>
+      <div class="col-xs-4">
+	      <label for="label_fr">{{translationObj.details.fieldtitlelabelfr}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentWscontact.label_fr" maxlength="200" required>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	      <label for="address1">{{translationObj.details.fieldtitleaddress1}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="address1" class="form-control" id="address1" ng-model="currentWscontact.address1" maxlength="100" required>
+	      </div>
+	    </div>
+      <div class="col-xs-4">
+	      <label for="address2">{{translationObj.details.fieldtitleaddress2}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="address2" class="form-control" id="address2" ng-model="currentWscontact.address2" maxlength="100">
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	      <label for="email1">{{translationObj.details.fieldtitleemail1}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="email1" class="form-control" id="email1" ng-model="currentWscontact.email1" maxlength="100" required>
+	      </div>
+	    </div>
+      <div class="col-xs-4">
+	      <label for="email2">{{translationObj.details.fieldtitleemail2}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="email2" class="form-control" id="email2" ng-model="currentWscontact.email2" maxlength="100">
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	      <label for="phone1">{{translationObj.details.fieldtitlephone1}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="phone1" class="form-control" id="phone1" ng-model="currentWscontact.phone1" maxlength="14" required format-phone>
+	      </div>
+	    </div>
+      <div class="col-xs-4">
+	      <label for="phone2">{{translationObj.details.fieldtitlephone2}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="phone2" class="form-control" id="phone2" ng-model="currentWscontact.phone2" maxlength="14" format-phone>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	      <label for="orgno">{{translationObj.details.fieldtitleorgno}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="orgno" class="form-control" id="orgno" ng-model="currentWscontact.orgno" maxlength="10">
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	      <label for="facebookgroup">{{translationObj.details.fieldtitlefacebookgroup}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="facebookgroup" class="form-control" id="facebookgroup" ng-model="currentWscontact.facebookgroup" maxlength="40">
+	      </div>
+	    </div>
+	   </div>
+			<!-- <div class="col-xs-4">
+	      <label for="twitteraccunt">{{translationObj.details.fieldtitletwitteraccount}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="twitteraccount" class="form-control" id="twitteraccount" ng-model="currentWscontact.twitteraccount" maxlength="40">
+	      </div>
+	    </div> -->
+		<div class="row">
+      <div class="col-xs-4">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="currentWscontact.supportfrench" ng-true-value="'1'" >{{translationObj.details.fieldtitlesupportfrench}}</label>
+	      </div>
+	    </div>
+			<div class="col-xs-4">
+      	<div class="input-group">
+					<br><label><input type="checkbox" ng-model="currentWscontact.supportenglish" ng-true-value="'1'" >{{translationObj.details.fieldtitlesupportenglish}}</label>
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="input-group">
+					<br><label><input type="checkbox" ng-model="currentWscontact.supportmyskatingspace" ng-true-value="'1'" >{{translationObj.details.fieldtitlesupportmyskatingspace}}</label>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="input-group">
+					<br><label><input type="checkbox" ng-model="currentWscontact.supportmotion" ng-true-value="'1'" >{{translationObj.details.fieldtitlesupportmotion}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-if="currentWscontact.logofilename && currentWscontact.logoinfo">
+
+			<div class="col-xs-3">
+				<div class="team-member">
+					<div class="team-img">
+						<img ng-src="../website/images/{{currentWscontact.displaylogofilename}}" class="team-pic" alt="">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="width" class="form-control" id="width" ng-model="currentWscontact.logoinfo[0]" disabled>
+	      </div>
+				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="height" class="form-control" id="height" ng-model="currentWscontact.logoinfo[1]" disabled>
+	      </div>
+				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="type" class="form-control" id="type" ng-model="currentWscontact.logoinfo['mime']" disabled>
+	      </div>
+			</div>
+		</div>
+
+		<!-- Filler -->
+		<div class="row">
+			<div class="col-xs-4">
+				<label>&nbsp;</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<button class="btn btn-primary" type="file" ngf-select="uploadMainLogo($file, $invalidFiles)" accept="image/jpeg,image/png" ngf-max-height="32" ngf-max-width="300" ngf-max-size="20KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>
+				<span class="help-block">{{translationObj.details.helptextlogospecifications}}</span>
+  		</div>
+  	</div>
+
+		<div class="row" ng-if="currentWscontact.sliderfilename && currentWscontact.sliderinfo">
+
+			<div class="col-xs-3">
+				<div class="team-member">
+					<div class="team-img">
+						<img ng-src="../website/images/{{currentWscontact.displaysliderfilename}}" class="team-pic" alt="">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="width" class="form-control" id="width" ng-model="currentWscontact.sliderinfo[0]" disabled>
+	      </div>
+				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="height" class="form-control" id="height" ng-model="currentWscontact.sliderinfo[1]" disabled>
+	      </div>
+				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="type" class="form-control" id="type" ng-model="currentWscontact.sliderinfo['mime']" disabled>
+	      </div>
+			</div>
+		</div>
+
+		<!-- Filler -->
+		<div class="row">
+			<div class="col-xs-4">
+				<label>&nbsp;</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<button class="btn btn-primary" type="file" ngf-select="uploadMainSlider($file, $invalidFiles)" accept="image/jpeg;image/png" ngf-max-size="200KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainslider}}</button>
+				<span class="help-block">{{translationObj.details.helptextsliderspecifications}}</span>
+  		</div>
+  	</div>
+
+  </div>
+</div>

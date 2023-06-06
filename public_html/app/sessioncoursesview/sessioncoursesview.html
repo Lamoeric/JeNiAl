@@ -1,0 +1,122 @@
+<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
+	<row>
+		<newleftpane leftpanetemplatefullpath="./sessioncoursesview/sessioncourses.template.html"></newleftpane>
+		<div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+			<div id="mainrowright" class="row mainrowright">
+				<div class="grid">
+					<displayerror></displayerror>
+					<displaymaintitle maintitle="currentCourse.name + ' - ' + currentCourse.courselabel + ' '  + (currentCourse.levellabel?currentCourse.levellabel:'')" defaulttitle="translationObj.main.formtitledetails" object="currentCourse"></displaymaintitle>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !staffsForm.$dirty" ng-if="userInfo.privileges.sessioncourse_update==true"></main-save-button>
+					<span class="dropdown">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentCourse==null">{{translationObj.sessioncourses.buttontitlereports}}<span class="caret"></span></button>
+				    <ul class="dropdown-menu" ng-if="currentEvent.type==1">
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCoursesList')">{{translationObj.sessioncourses.reporttitlesessioncourselist}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCoursesListActive')">{{translationObj.sessioncourses.reporttitlesessioncourselistactive}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCourseSchedule')">{{translationObj.sessioncourses.reporttitlesessioncourseschedule}}</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">{{translationObj.sessioncourses.reportdividerattendance}}</li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCourseAttendance')">{{translationObj.sessioncourses.reporttitlesessioncourseattendance}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('sessionCourseAttendanceBySubLevel')">{{translationObj.sessioncourses.reporttitlesessioncourseattendancesub}}</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">{{translationObj.sessioncourses.reportdividercanskatecourse}}</li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCourseCSProgress')">{{translationObj.sessioncourses.reporttitlecanskateprogressreport}}</a></li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCourseCSReportCard')">{{translationObj.sessioncourses.reporttitlecanskatereportcard}}</a></li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCoursePreCSReportCard')">{{translationObj.sessioncourses.reporttitleprecanskatereportcard}}</a></li>
+				    </ul>
+				    <ul class="dropdown-menu" ng-if="currentEvent.type==2">
+				      <li class="pointerlist"><a ng-click="this.printReport('showNumbersInvitesList')">{{translationObj.sessioncourses.reporttitlesessionnumberlist}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('showNumbersInvitesListActive')">{{translationObj.sessioncourses.reporttitlesessionnumberlistactive}}</a></li>
+				      <li class="pointerlist"><a ng-click="this.printReport('showPracticeSchedule')">{{translationObj.sessioncourses.reporttitlesessionnumberschedule}}</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">{{translationObj.sessioncourses.reportdividerattendance}}</li>
+							<li class="pointerlist"><a ng-click="this.printReport('sessionCourseAttendance')">{{translationObj.sessioncourses.reporttitlesessionnumberattendance}}</a></li>
+				    </ul>
+					</span>
+
+					<form class="form-horizontal" role="form" name="upperForm">
+						<div class="form-group">
+						  <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+						    <label for="eventname">{{translationObj.sessioncourses.fieldeventname}}</label>
+								<div class="input-group">
+				      		<select class="form-control" ng-model="currentEvent" ng-options="event as event.text for event in allSessionsAndShows" ng-change="onCurrentEventChange()" ignore-dirty>
+									</select>
+						  	</div>
+						  </div>
+						</div>
+				  </form>
+
+					<div id="maintab" class="maintab">
+						<ul id="maintabheader" class="nav nav-tabs">
+							<li class="active pointerlist"><a data-toggle="tab" data-target="#skater">{{translationObj.sessioncourses.tabtitleskaterlist}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#coach">{{translationObj.sessioncourses.tabtitlecoachesandap}}</a></li>
+						</ul>
+
+						<div id="maintabcontent" class="tab-content maintabcontent">
+
+							<div id="skater" class="tab-pane fade in active maintabpane">
+					      <form class="form-horizontal well intabsingleformxy" role="form" name="detailsForm" ng-show="currentCourse">
+									 <div ng-include="'./sessioncoursesview/details.form.html'"></div>
+							  </form>
+					    </div>
+
+					    <div id="coach" class="tab-pane fade maintabpane">
+					      <form class="form-horizontal well intabsingleformxy" role="form" name="staffsForm" ng-show="currentCourse">
+									<div ng-include="'./sessioncoursesview/coach.form.html'"></div>
+							  </form>
+					    </div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</row>
+</section>
+
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<leftpane></leftpane>
+</div>
+<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+	<div ng-if="currentCourse!=null"><h2>{{currentCourse.name}}</h2></div>
+	<div ng-if="currentCourse==null"><h2>{{translationObj.sessioncourses.formtitlesessioncoursedetails}}</h2></div>
+
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !staffsForm.$dirty" ng-if="userInfo.privileges.sessioncourse_update==true"></main-save-button>
+
+  <span class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentCourse==null">{{translationObj.sessioncourses.buttontitlereports}}<span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li class="pointerlist"><a ng-click="this.printReport('sessionCoursesList')">{{translationObj.sessioncourses.reporttitlesessioncourselist}}</a></li>
+      <li class="pointerlist"><a ng-click="this.printReport('sessionCoursesListActive')">{{translationObj.sessioncourses.reporttitlesessioncourselistactive}}</a></li>
+      <li class="pointerlist"><a ng-click="this.printReport('sessionCourseSchedule')">{{translationObj.sessioncourses.reporttitlesessioncourseschedule}}</a></li>
+			<li role="separator" class="divider"></li>
+			<li class="dropdown-header">{{translationObj.sessioncourses.reportdividerattendance}}</li>
+			<li class="pointerlist"><a ng-click="this.printReport('sessionCourseAttendance')">{{translationObj.sessioncourses.reporttitlesessioncourseattendance}}</a></li>
+      <li class="pointerlist"><a ng-click="this.printReport('sessionCourseAttendanceBySubLevel')">{{translationObj.sessioncourses.reporttitlesessioncourseattendancesub}}</a></li>
+			<li role="separator" class="divider"></li>
+			<li class="dropdown-header">{{translationObj.sessioncourses.reportdividercanskatecourse}}</li>
+			<li class="pointerlist"><a ng-click="this.printReport('sessionCourseCSProgress')">{{translationObj.sessioncourses.reporttitlecanskateprogressreport}}</a></li>
+			<li class="pointerlist"><a ng-click="this.printReport('sessionCourseCSReportCard')">{{translationObj.sessioncourses.reporttitlecanskatereportcard}}</a></li>
+			<li class="pointerlist"><a ng-click="this.printReport('sessionCoursePreCSReportCard')">{{translationObj.sessioncourses.reporttitleprecanskatereportcard}}</a></li>
+    </ul>
+	</span>
+
+  <ul class="nav nav-tabs">
+    <li class="active pointerlist"><a data-toggle="tab" data-target="#skater">{{translationObj.sessioncourses.tabtitleskaterlist}}</a></li>
+    <li class="pointerlist"><a data-toggle="tab" data-target="#coach">{{translationObj.sessioncourses.tabtitlecoachesandap}}</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="skater" class="tab-pane fade in active">
+      <form class="form-horizontal well pre-scrollable" id="attendance" role="form" name="detailsForm" ng-show="currentCourse">
+				 <div ng-include="'./sessioncoursesview/details.form.html'"></div>
+		  </form>
+    </div>
+
+    <div id="coach" class="tab-pane fade">
+      <form class="form-horizontal well pre-scrollable" id="attendance"  role="form" name="staffsForm" ng-show="currentCourse">
+				<div ng-include="'./sessioncoursesview/coach.form.html'"></div>
+		  </form>
+    </div>
+	</div>
+</div> -->

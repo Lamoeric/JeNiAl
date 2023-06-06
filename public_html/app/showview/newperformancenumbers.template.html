@@ -1,0 +1,161 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newperformancenumbers.formtitleeditperformance}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group row">
+		  <div class="col-md-12">
+		    <div class="simpleDemo row">
+
+					<!-- Final performance list -->
+				  <div class="col-md-4">
+					  <div class="panel panel-success">
+				      <div class="panel-heading">
+			          <h3 class="panel-title">{{translationObj.newperformancenumbers.listtitlealreadyselected}}&nbsp;({{newObj.models.lists.performanceNumbers.length}})</h3>
+				      </div>
+		          <div class="panel-body" >
+
+								<ul dnd-list="newObj.models.lists.performanceNumbers">
+							    <li ng-repeat="item in newObj.models.lists.performanceNumbers"
+							        dnd-draggable="item"
+							        dnd-moved="newObj.models.lists.performanceNumbers.splice($index, 1)"
+							        dnd-effect-allowed="move"
+							        dnd-selected="newObj.models.selected = item"
+							        ng-class="{'perfonumberselected': newObj.models.selected === item,'perfonumbertype-1': item.numberObj.type==1&&newObj.models.selected !== item,'perfonumbertype-2': item.numberObj.type==2&&newObj.models.selected !== item}"
+							        >
+							        <div>
+								        <span ng-if="item.numberObj.type==1">{{item.numberObj.numberlabel}}</span>
+								        <span ng-if="item.numberObj.type==2">{{item.numberObj.interventionlabel}}</span>
+								        <span style="float:right">{{item.numberObj.duration | convertSecondToString}}</span>
+							        </div> 
+							    </li>
+								</ul>
+
+				    	</div>
+						</div>
+					</div>
+					<!-- End Final performance list -->
+
+				  <div class="col-md-8">
+						<!-- Let's try to put tabs here... -->
+						<div id="tabperfonumber" class="maintab">
+							<ul id="tabperfonumberheader" class="nav nav-tabs">
+								<li class="active pointerlist"><a data-toggle="tab" data-target="#subperfonumbernumber">{{translationObj.newperformancenumbers.panetitlenumbers}}</a></li>
+						    <li class="pointerlist"><a data-toggle="tab" data-target="#subperfonumberassign">{{translationObj.newperformancenumbers.panetitleassignations}}</a></li>
+							</ul>
+
+				    	<!-- Main tab content-->
+							<div id="tabperfonumbercontent" class="tab-content maintabcontent">
+
+								<!-- Performance numbers and interventions selection tab -->
+						    <div id="subperfonumbernumber" class="tab-pane fade in active maintabpane">
+						      <form class="form-horizontal well intabsingleformnox" role="form" name="subnumberForm">
+										<!-- Numbers selection list -->
+									  <div class="col-md-6">
+										  <div class="panel panel-info">
+									      <div class="panel-heading">
+								          <h3 class="panel-title">{{translationObj.newperformancenumbers.listtitlenumbers}}&nbsp;({{newObj.models.lists.remainingNumbers.length}})</h3>
+									      </div>
+							          <div class="panel-body" >
+
+													<ul dnd-list="newObj.models.lists.remainingNumbers">
+												    <li ng-repeat="item in newObj.models.lists.remainingNumbers"
+												        dnd-draggable="item"
+												        dnd-moved="newObj.models.lists.remainingNumbers.splice($index, 1)"
+												        dnd-effect-allowed="move"
+												        dnd-selected="newObj.models.selected = item"
+							        					ng-class="{'perfonumberselected': newObj.models.selected === item,'perfonumbertype-1': item.numberObj.type==1&&newObj.models.selected !== item,'perfonumbertype-2': item.numberObj.type==2&&newObj.models.selected !== item}">
+												        {{item.numberObj.numberlabel}}<span style="float:right">{{item.numberObj.duration | convertSecondToString}}</span>
+												    </li>
+													</ul>
+
+									    	</div>
+											</div>
+										</div>
+										<!-- End Numbers selection list -->
+										
+										<!-- Interventions selection list -->
+									  <div class="col-md-6">
+										  <div class="panel panel-warning">
+									      <div class="panel-heading">
+								          <h3 class="panel-title">{{translationObj.newperformancenumbers.listtitleinterventions}}&nbsp;({{newObj.models.lists.remainingInterventions.length}})</h3>
+									      </div>
+							          <div class="panel-body" >
+
+													<ul dnd-list="newObj.models.lists.remainingInterventions">
+												    <li ng-repeat="item in newObj.models.lists.remainingInterventions"
+												        dnd-draggable="item"
+												        dnd-moved="newObj.models.lists.remainingInterventions.splice($index, 1)"
+												        dnd-effect-allowed="move"
+												        dnd-selected="newObj.models.selected = item"
+	        							        ng-class="{'perfonumberselected': newObj.models.selected === item,'perfonumbertype-1': item.numberObj.type==1&&newObj.models.selected !== item,'perfonumbertype-2': item.numberObj.type==2&&newObj.models.selected !== item}">
+												        {{item.numberObj.interventionlabel}}<span style="float:right">{{item.numberObj.duration | convertSecondToString}}</span>
+												    </li>
+													</ul>
+
+									    	</div>
+											</div>
+										</div>
+										<!-- End Interventions selection list -->
+									</form>
+					    	</div>
+								<!-- End Performance numbers and interventions selection tab -->
+					    	
+								<!-- Performance numbers details and assignation tab -->
+						    <div id="subperfonumberassign" class="tab-pane fade maintabpane">
+						      <form class="form-horizontal well intabsingleformnox" role="form" name="subassignForm">
+										
+								    <div class="form-group row">
+								    	<div ng-if="newObj.models.selected.numberObj.type==1">
+												<h3>{{newObj.models.selected.numberObj.numberlabel}}</h3>
+						  					<p><b>{{translationObj.numbers.fieldmusic}}</b>:&nbsp;{{newObj.models.selected.numberObj.music}}<br><b>{{translationObj.numbers.fieldlight}}</b>:&nbsp;{{newObj.models.selected.numberObj.lights}}</p>
+
+									      <div class="col-xs-6">
+										      <label for="room">{{translationObj.newperformancenumbers.fieldroom}}</label>
+									      	<div class="input-group">
+													  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									      		<select class="form-control" id="arenaroom" ng-model="newObj.models.selected.roomid">
+															<option ng-repeat="arenaroom in arenaRooms" value="{{arenaroom.id}}">{{arenaroom.roomlabel}}</option>
+									      		</select>
+									      	</div>
+									      </div>
+
+											</div>
+								    	<div ng-if="newObj.models.selected.numberObj.type==2">
+												<h3>{{newObj.models.selected.numberObj.interventionlabel}}</h3>
+						  					<p><b>{{translationObj.numbers.fieldmusic}}</b>:&nbsp;{{newObj.models.selected.numberObj.music}}<br><b>{{translationObj.numbers.fieldlight}}</b>:&nbsp;{{newObj.models.selected.numberObj.lights}}</p>
+											</div>
+<!--								      <div class="col-xs-5">
+									      <label for="name">{{translationObj.newnumber.fieldname}}<i style="color:red"> *</i></label>
+								      	<div class="input-group">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									        <input type="text" class="form-control" id="name" name="name" ng-model="newObj.models.selected.numberlabel" maxlength="120" disabled>
+									      </div>
+								      </div>
+-->
+								    </div>
+										
+									</form>
+					    	</div>
+								<!-- End Performance numbers details and assignation tab -->
+								
+				    	</div>
+				    	<!-- end main tab content-->
+		
+			    	</div>
+			    	<!-- end tab -->
+
+			    </div>
+		    </div>
+			</div>
+    	
+  	</div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newperformancenumbers.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newperformancenumbers.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newperformancenumbers.buttontitlekeepchanges}}</button>
+</div>

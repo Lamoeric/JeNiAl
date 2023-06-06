@@ -1,0 +1,33 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer tests..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Catégories de test"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune catégorie de test trouvé"},
+
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails de la catégorie d'un test"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
+
+	{"formname":"details", "fieldname":"formtitlemaininformation", "text":"Informations"},
+	{"formname":"details", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"details", "fieldname":"fieldtitlelevel", "text":"Niveau"},
+	{"formname":"details", "fieldname":"fieldtitlesubtype", "text":"Sous-type"},
+	{"formname":"details", "fieldname":"fieldtitlesequence", "text":"Séquence"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldtitlescore", "text":"Pointage"},
+	{"formname":"details", "fieldname":"fieldtitlemintestsucceed", "text":"Nbr min. de tests pour réussir"},
+	{"formname":"details", "fieldname":"fieldtitlewarmupduration", "text":"Durée réchauffement"},
+	{"formname":"details", "fieldname":"fieldtitletestduration", "text":"Durée du test"},
+	{"formname":"details", "fieldname":"fieldtitleversion", "text":"Version"},
+
+	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"Nouvelle définition de test"},
+	{"formname":"newtest", "fieldname":"fieldtitletype", "text":"Type"},
+	{"formname":"newtest", "fieldname":"fieldtitlelevel", "text":"Niveau"},
+	{"formname":"newtest", "fieldname":"fieldtitlesubtype", "text":"Sous-type"},
+	{"formname":"newtest", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newtest", "fieldname":"formerrormessage", "text":"Le type, le niveau et le nom sont obligatoires."},
+	{"formname":"newtest", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newtest", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}
+
+]

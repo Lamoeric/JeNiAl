@@ -1,0 +1,142 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.searchmembers.formtitlesearchmembers}}</h4>
+</div>
+<div class="modal-body row">
+	<div>
+	  <form class="form-horizontal" role="form" name="editObjForm">
+			<div class="form-group row" >
+				
+		      <div class="col-xs-4">
+		      	
+<!--						<div class="form-group"> -->
+							<div class="col-xs-10">
+				      	<label for="first">{{translationObj.searchmembers.fieldfirstname}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					        <input type="text" name="firstname" class="form-control" id="firstname" ng-model="newObj.filter.firstname" maxlength="40">
+					      </div>
+				      </div>
+				      <div class="col-xs-10">
+					      <label for="last">{{translationObj.searchmembers.fieldLastname}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					        <input type="text" name="lastname" class="form-control" id="lastname" ng-model="newObj.filter.lastname" maxlength="40">
+					      </div>
+				      </div>
+				      <div class="col-xs-10">
+					      <label for="course">{{translationObj.searchmembers.fieldcourse}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+				          <select class="form-control" id="course" ng-model="newObj.filter.course">
+										<option ng-repeat="course in sessionCourses" value="{{course.id}}">{{course.text}}</option>
+						      </select>
+					      </div>
+				      </div>
+				      <div class="col-xs-10">
+					      <label for="registration">{{translationObj.searchmembers.fieldmembers}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+				          <select class="form-control" id="registration" ng-model="newObj.filter.registration">
+										<option ng-repeat="registrationfilter in registrationfilters" value="{{registrationfilter.code}}">{{registrationfilter.text}}</option>
+						      </select>
+					      </div>
+				      </div>
+							<div class="col-xs-10">
+					      <label for="registration">{{translationObj.searchmembers.fieldqualifications}}</label>
+				      	<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+				          <select class="form-control" id="qualification" ng-model="newObj.filter.qualification">
+										<option ng-repeat="qualification in qualifications" value="{{qualification.code}}">{{qualification.text}}</option>
+						      </select>
+					      </div>
+				      </div>
+				      
+<!--						</div>-->
+		      	
+							<div class="col-xs-7">
+					      <label></label>
+				      	<div class="input-group">
+					      	<button class="btn btn-primary" ng-click='control.search()'>{{translationObj.searchmembers.buttontitlesearchmembers}}</button>
+					      </div>
+				      </div>
+			
+					</div>
+		      <div class="col-xs-8">
+				    <div class="simpleDemo row">
+						  <div class="col-xs-4">
+								<div class="btn-group">
+									<input id="searchinput" type="search" class="form-control" ng-model="searchFilter" placeholder="{{translationObj.searchmembers.mainfilter}}" aria-label="{{translationObj.searchmembers.mainfilter}}">
+								  <span id="searchclear" class="glyphicon glyphicon-remove-circle" clear-search-button></span>
+								</div>
+								<br><br>
+							  <div class="panel panel-success">
+						      <div class="panel-heading">
+					          <h3 class="panel-title">{{translationObj.searchmembers.members}}&nbsp;({{results.length}})</h3>
+						      </div>
+				          <div class="panel-body" style="height:280px;overflow-y:auto;">
+
+										<ul dnd-list="membersAvailable">
+									    <!-- The dnd-draggable directive makes an element draggable and will
+									         transfer the object that was assigned to it. If an element was
+									         dragged away, you have to remove it from the original list
+									         yourself using the dnd-moved attribute -->
+									    <li ng-repeat="item in membersAvailable | filter:searchFilter:control.customSearch as results"
+									        dnd-draggable="item"
+									        dnd-moved="control.movedFromAvailable(item)"
+									        dnd-effect-allowed="move"
+									        dnd-selected="newObj.selectedItem = item"
+									        ng-class="{'selected': newObj.selectedItem === item}">
+									        {{item.firstname}}&nbsp;{{item.lastname}}
+									    </li>
+										</ul>
+
+						    	</div>
+								</div>
+							</div>
+
+						  <div class="col-xs-3">
+				      	<button class="btn btn-primary" ng-click='control.copyAll(searchFilter, filtered)'>{{translationObj.searchmembers.buttontitlecopyall}}</button>
+						  </div>
+						  <div class="col-xs-4">
+								<div class="btn-group">
+									<input id="searchinput2" type="search" class="form-control" ng-model="searchFilter2" placeholder="{{translationObj.searchmembers.mainfilter}}" aria-label="{{translationObj.searchmembers.mainfilter}}">
+								  <clear-search-button-ex searchfilter="searchFilter2"></clear-search-button-ex>
+								</div>
+								<br><br>
+							  <div class="panel panel-warning">
+						      <div class="panel-heading">
+					          <h3 class="panel-title">{{translationObj.searchmembers.selectedmembers}}&nbsp;({{results2.length}})</h3>
+						      </div>
+				          <div class="panel-body" style="height:280px;overflow-y:auto;">
+
+										<ul dnd-list="newObj.selectedMembers">
+									    <!-- The dnd-draggable directive makes an element draggable and will
+									         transfer the object that was assigned to it. If an element was
+									         dragged away, you have to remove it from the original list
+									         yourself using the dnd-moved attribute -->
+									    <li ng-repeat="item in newObj.selectedMembers | filter:searchFilter2:control.customSearch as results2"
+									        dnd-effect-allowed=""
+									        dnd-selected="newObj.selectedItem = item"
+									        ng-class="{'selected': newObj.selectedItem === item}">
+									        <div><span ng-if="item.registered==0" style="float:right" class="glyphicon glyphicon-remove-circle" ng-click="control.remove(item)"></span>{{item.firstname}}&nbsp;{{item.lastname}}</div>
+									    </li>
+										</ul>
+
+						    	</div>
+								</div>
+							</div>
+						</div>
+					</div>
+    		
+  		</div>
+    </form>
+	</div>
+</div>
+
+<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+ {{translationObj.searchmembers.formerrormessage}}
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.searchmembers.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.searchmembers.buttontitlekeepchanges}}</button>
+</div>

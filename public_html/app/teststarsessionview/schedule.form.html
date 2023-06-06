@@ -1,0 +1,63 @@
+<div class="form-group row">
+  <div class="grid">
+		<h3>{{translationObj.schedule.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSchedule({})" ng-disabled="currentTestsession.islock"></button></h3>
+    <span style="float:right">
+      <button class="btn btn-primary" ng-click="generatePeriods()" ng-disabled="currentTestsession.islock"><span ng-if="currentTestsession.periodsgenerated=='0'">{{translationObj.schedule.buttontitlegenerateperiods}}</span><span ng-if="currentTestsession.periodsgenerated=='1'">{{translationObj.schedule.buttontitleregenerateperiods}}</span></button>
+    </span>
+    <div class="row">
+      <div class="col-xs-12">
+
+  			<div ng-repeat="schedule in currentTestsession.schedules">
+					<hr>
+
+					<form>
+					  <div class="row">
+				      <div class="col-xs-2">
+					      <label for="arena" ng-show="$index==0">{{translationObj.schedule.fieldarena}}</label>
+			      		<select class="form-control" id="arena" ng-model="schedule.arenaid" ng-change="onArenaChange()" disabled>
+									<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+			      		</select>
+				      </div>
+
+				      <div class="col-xs-2">
+					      <label for="iceid" ng-show="$index==0">{{translationObj.schedule.fieldice}}</label>
+				        <input type="text" class="form-control" id="iceid" name="iceid" ng-model="schedule.icelabel" disabled>
+				      </div>
+
+              <div class="col-xs-2">
+					      <label for="day" ng-show="$index==0">{{translationObj.schedule.fieldday}}</label>
+			      		<select class="form-control" id="day" ng-model="schedule.day" disabled>
+									<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
+			      		</select>
+				      </div>
+
+              <div class="col-xs-2">
+					      <label for="starttime" ng-show="$index==0">{{translationObj.schedule.fieldstarttime}}</label>
+				        <input type="text" class="form-control" id="starttime" name="starttime" ng-model="schedule.starttime" disabled>
+				      </div>
+
+				      <div class="col-xs-2">
+					      <label for="endtime" ng-show="$index==0">{{translationObj.schedule.fieldendtime}}</label>
+				        <input type="text" class="form-control" id="endtime" name="endtime" ng-model="schedule.endtime" disabled>
+				      </div>
+
+				      <div class="col-xs-2">
+					      <label ng-show="$index==0">&nbsp;</label>
+				      	<div class="input-group">
+			    				<span>
+										<child-edit-button 			obj="schedule" objlist="currentTestsession.schedules" callback="editSchedule(schedule)" is-form-pristine="currentTestsession.islock"></child-edit-button>
+										<child-delete-button 		obj="schedule" objlist="currentTestsession.schedules" callback="setDirty()" is-form-pristine="currentTestsession.islock"></child-delete-button>
+										<child-undelete-button 	obj="schedule" objlist="currentTestsession.schedules" callback="setDirty()" is-form-pristine="currentTestsession.islock"></child-undelete-button>
+										<child-status-indicator obj="schedule"></child-status-indicator>
+									</span>
+							  </div>
+				      </div>
+
+				    </div>
+					</form>
+				</div>
+
+      </div>
+    </div>
+  </div>
+</div>

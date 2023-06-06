@@ -1,0 +1,115 @@
+<div class="form-group row">
+	<table width="100%">
+		<tr>
+			<td width="75%">
+				<table width="100%">
+					<tr><td width="20%"><B>{{translationObj.bill.labeltitleinvoiceno}}</B>:</td><td>{{currentBill.id}}</td></tr>
+		  		<tr><td width="20%"><b>{{translationObj.bill.labeltitlebillto}}</b>:</td><td>{{currentBill.billingname}}</td></tr>
+		  		<tr><td width="20%"><B>{{translationObj.bill.labeltitledate}}</B>:</td><td>{{currentBill.billingdate}}</td></tr>
+		  		<tr><td width="20%"><B>{{translationObj.bill.labeltitlepaymentagreement}}</B>:</td><td>{{currentBill.haspaymentagreementstr}}</td></tr>
+		  		<tr ng-show="currentBill.haspaymentagreement==1"><td width="20%"><B>{{translationObj.bill.labeltitlepaymentagreementnote}}</B>:</td><td>{{currentBill.paymentagreementnote}}</td></tr>
+		  		<tr ng-show="currentBill.relatedoldbillid"><td width="20%"><B>{{translationObj.bill.labeltitleoldinvoiceno}}</B>:</td><td><a class="active pointerlist" ng-click="viewBill(currentBill.relatedoldbillid)">{{currentBill.relatedoldbillid}}</a></td></tr>
+		  		<tr ng-show="currentBill.relatednewbillid"><td width="20%"><B>{{translationObj.bill.labeltitlenewinvoiceno}}</B>:</td><td><a class="active pointerlist" ng-click="viewBill(currentBill.relatednewbillid)">{{currentBill.relatednewbillid}}</a></td></tr>
+		  		<tr ng-show="currentBill.splitfrombillid"><td width="20%"><B>{{translationObj.bill.labeltitlesplitinvoiceno}}</B>:</td><td><a class="active pointerlist" ng-click="viewBill(currentBill.splitfrombillid)">{{currentBill.splitfrombillid}}</a></td></tr>
+				</table>
+			</td>
+			<td width="25%">
+				<print-bill-button current-bill-id="currentBill.id" ng-show="currentBill.relatednewbillid==null"></print-bill-button>
+				<send-bill-by-email-button current-bill-id="currentBill.id" ng-show="currentBill.relatednewbillid==null"></send-bill-by-email-button>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table width="100%"  class="table">
+		<tr>
+			<th align="center">{{translationObj.bill.labeltitledetails}}</th>
+			<th class="coursetablefeestd">{{translationObj.bill.labeltitleamount}}</th>
+		</tr>
+		<tr ng-repeat="registration in currentBill.registrations">
+			<td colspan="2">
+				<table width="100%" class="table table-striped">
+			  	<tr>
+						<td><h3>{{registration.member.firstname}} {{registration.member.lastname}} ({{registration.member.skatecanadano}})</h3></td>
+						<td><split-bill-button current-bill-id="currentBill.id" current-registration-id="registration.registrationid" ng-show="allowSplitting && currentBill.registrations.length > 1 && currentBill.relatednewbillid==null"></split-bill-button></td>
+			  	</tr>
+			  	<tr ng-repeat="course in registration.courses">
+			  		<td width="90%">{{course.courselabel}} {{course.courselevellabel}} ({{course.name}})</td>
+			  		<td width="10%" class="coursetablefeestd">{{course.amount | currency}}</td>
+			  	</tr>
+			  	<tr ng-repeat="shownumber in registration.shownumbers">
+			  		<td width="90%">{{shownumber.numberlabel}} ({{shownumber.name}})</td>
+			  		<td width="10%" class="coursetablefeestd">{{shownumber.amount | currency}}</td>
+			  	</tr>
+					<tr ng-repeat="test in registration.tests">
+			  		<td width="90%">{{test.testlabel}}<br><small>{{test.comments}}</small></td>
+			  		<td width="10%" class="coursetablefeestd">{{test.amount | currency}}</td>
+			  	</tr>
+			  	<tr ng-repeat="charge in registration.charges">
+			  		<td width="90%">{{charge.chargelabel}} ({{charge.code}}) <i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i><br><small>{{charge.comments}}</small></td>
+			  		<td width="10%" class="coursetablefeestd">{{charge.amount | currency}}</td>
+			  	</tr>
+			  	<tr ng-repeat="discount in registration.discounts">
+			  		<td width="90%">{{discount.chargelabel}} ({{discount.code}})<br><small>{{discount.comments}}</small></td>
+			  		<td width="10%" class="coursetablefeestd">-{{discount.amount | currency}}</td>
+			  	</tr>
+			  	<tr>
+			  		<td width="90%" class="coursetablefeestd"><b>{{translationObj.bill.labeltitlesubtotal}}</b></td>
+			  		<td width="10%" class="coursetablefeestd"><b>{{registration.subtotal | currency}}</b></td>
+			  	</tr>
+		  	</table>
+		  </td>
+		</tr>
+	</table>
+	<table width="100%" class="table">
+  	<tr>
+  		<td width="90%" class="coursetablefeestd"><h3>{{translationObj.bill.labeltitletotal}}</h3></td>
+  		<td width="10%" class="coursetablefeestd"><h3>{{currentBill.totalamount | currency}}</h3></td>
+  	</tr>
+	</table>
+	<table width="100%" class="table table-striped">
+		<tr>
+			<th align="center">{{translationObj.bill.labeltitletransactions}}</th>
+			<th class="coursetablefeestd">{{translationObj.bill.labeltitleamount}}</th>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table width="100%" class="table table-striped">
+			  	<tr ng-repeat="transaction in currentBill.transactions">
+			  		<td width="80%" class="coursetablefeestd">{{transaction.transactiontypelabel}} {{transaction.transactiondate}} ({{transaction.paymentmethodlabel}})
+			  			<br>
+			  			<small>{{transaction.comments}}</small>
+			  			<span ng-if="transaction.iscanceled==1"><small>{{transaction.cancelreasonlabel}}</small></span>
+			  		</td>
+  					<td width="10%"><cancel-transaction-button objlist="currentBill.transactions" current-transaction="transaction" current-bill="currentBill" is-form-pristine="false" ng-show="currentBill.relatednewbillid==null&&transaction.iscanceled==0"></cancel-transaction-button></td>
+<!--						<td width="10%"><child-delete-button obj="transaction" objlist="currentBill.transactions" callback=""></child-delete-button></td> !-->
+			  		<td width="10%" class="coursetablefeestd">
+			  			<span ng-if="transaction.iscanceled==0">{{transaction.transactionamount | currency}}</span>
+			  			<del ng-if="transaction.iscanceled==1">{{transaction.transactionamount | currency}}</del>
+			  		</td>
+			  	</tr>
+			  	<tr>
+			  		<td width="90%" class="coursetablefeestd"><b>{{translationObj.bill.labeltitlesubtotal}}</b></td>
+			  		<td width="10%">&nbsp;</td>
+			  		<td width="10%" class="coursetablefeestd"><b>{{currentBill.paymentsubtotal | currency}}</b></td>
+			  	</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table width="100%">
+  	<tr>
+  		<td width="100">
+  			<add-transaction-button objlist="currentBill.transactions" current-bill="currentBill" is-form-pristine="false" ng-show="currentBill.relatednewbillid==null"></add-transaction-button>
+  			<add-payment-agreement-button objlist="currentBill.transactions" current-bill="currentBill" is-form-pristine="false" ng-show="currentBill.relatednewbillid==null"></add-payment-agreement-button>
+  		</td>
+  	</tr>
+	</table>
+
+	<br>
+	<table width="100%">
+  	<tr>
+  		<td width="90%" class="coursetablefeestd"><h3>{{translationObj.bill.labeltitletotal}}</h3></td>
+  		<td width="10%" class="coursetablefeestd"><h3>{{currentBill.realtotalamount | currency}}</h3></td>
+  	</tr>
+	</table>
+</div>

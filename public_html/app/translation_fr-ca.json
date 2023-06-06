@@ -1,0 +1,6 @@
+[
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun résultat trouvé..."},
+	{"formname":"general", "fieldname":"new", "text":"Nouveau"},
+	{"formname":"general", "fieldname":"save", "text":"Saugegarder"},
+	{"formname":"general", "fieldname":"delete", "text":"Détruire"}
+]

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('about', 'fr-ca')">
+<head>
+  <script>
+    var shiftWindow = function() { scrollBy(0, -110) };
+    window.addEventListener("hashchange", shiftWindow);
+    function load() {
+      if (window.location.hash) {
+        shiftWindow();
+      }
+    }
+  </script>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="../images/logo_jenial.png" type="image/x-icon">
+  <title ng-bind="currentpage.globalsections.footer.label"></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Template CSS Files
+  ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="../plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="../plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="../plugins/slider/slider.css">
+  <!-- owl craousel css -->
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.theme.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="../plugins/facncybox/jquery.fancybox.css">
+  <!-- angular Busy -->
+  <link rel="stylesheet" href="../plugins/angularBusy/angular-busy.css">
+  <!-- Alertify -->
+  <link rel="stylesheet" href="../../dist/alertify.core.css" />
+	<link rel="stylesheet" href="../../dist/alertify.default.css" />
+  <!-- template main css file -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body onload="load()" ng-cloak>
+
+<!--
+==================================================
+Main menu Section Start
+================================================== -->
+<ng-include src="'../templates/mainmenu.template.html'"></ng-include>
+
+<!--
+==================================================
+Main header Section Start
+================================================== -->
+<ng-include src="'../templates/mainheader.template.html'"></ng-include>
+
+<!--
+==================================================
+    Club Description Section Start
+================================================== -->
+<section id="company-description" ng-if="currentpage.globalsections.club" ng-cloak>
+  {{currentsection=currentpage.globalsections.club;""}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeInLeft" data-wow-delay=".3s" >
+        <img ng-src="/websiteimages/sections/{{currentpage.globalsections.club.imagefilename}}" alt="" class="img-responsive">
+      </div>
+      <div class="col-md-6">
+        <div class="block">
+          <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+          <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+          <ng-include src="'../templates/paragraph.template.html'"></ng-include>
+          <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+Board Members Section Start
+================================================== -->
+<section id="team" ng-if="currentpage.globalsections.boardmembers" ng-cloak>
+  {{currentsection=currentpage.globalsections.boardmembers;""}}
+  <div class="container">
+    <div class="row">
+      <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+      <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+      <ng-include src="'../templates/paragraph.template.html'"></ng-include>
+      <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+
+      <!-- Board members repeat section -->
+      <div class="col-md-3" ng-repeat="onemember in currentpage.globalsections.boardmembers.boardmembers" style="min-height:450px;max-height:450px">
+        <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s">
+          <div class="team-img">
+            <img ng-src="/websiteimages/boardmembers/{{onemember.imagefilename}}" class="team-pic" alt="">
+          </div>
+          <h3 class="team_name">{{onemember.firstname}}&nbsp;{{onemember.lastname}}</h3>
+          <p class="team_designation" ng-bind-html="onemember.desc"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+==================================================
+Coaches Section Start
+================================================== -->
+<section id="team" ng-if="currentpage.globalsections.coaches" ng-cloak>
+  {{currentsection=currentpage.globalsections.coaches;""}}
+  <div class="container">
+    <div class="row">
+      <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+      <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+      <ng-include src="'../templates/paragraph.template.html'"></ng-include>
+      <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+
+      <!-- Coach repeat section -->
+      <div class="col-md-3" ng-repeat="onecoach in currentpage.globalsections.coaches.coaches">
+        <div class="team-member wow fadeInLeft" style="height:700px" data-wow-duration="500ms" data-wow-delay=".3s">
+          <div class="team-img">
+            <img ng-src="/websiteimages/coaches/{{onecoach.imagefilename}}" class="team-pic" alt="">
+          </div>
+          <h3 class="team_name">{{onecoach.firstname}}&nbsp;{{onecoach.lastname}}</h3>
+          <p class="team_designation">{{onecoach.availabilitytext}}</p>
+          <p class="team_designation" ng-bind-html="onecoach.desc"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+==================================================
+Assistants Section Start
+================================================== -->
+<section id="team" ng-if="currentpage.globalsections.programassistants" ng-cloak>
+  {{currentsection=currentpage.globalsections.programassistants;""}}
+  <div class="container">
+    <div class="row">
+      <ng-include src="'../templates/sectiontitle.template.html'"></ng-include>
+      <ng-include src="'../templates/toplinks.template.html'"></ng-include>
+      <ng-include src="'../templates/paragraph.template.html'"></ng-include>
+      <ng-include src="'../templates/bottomlinks.template.html'"></ng-include>
+
+      <!-- Assistants repeat section -->
+      <div class="col-md-3" ng-repeat="assistant in currentpage.globalsections.programassistants.programassistants" style="min-height:300px;max-height:300px">
+        <div class="team-member wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".3s">
+          <div class="team-img">
+            <img ng-src="/websiteimages/programassistants/{{assistant.imagefilename}}" class="team-pic" alt="">
+          </div>
+          <h3 class="team_name">{{assistant.fullname}}</h3>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+==================================================
+    Partners Section Start
+================================================== -->
+<ng-include src="'../templates/partners.template.html'"></ng-include>
+
+<!--
+==================================================
+Call To Action Section Start
+================================================== -->
+<ng-include src="'../templates/calltoaction.template.html'"></ng-include>
+
+<!--
+==================================================
+Footer Section Start
+================================================== -->
+<!-- <footer ng-include="'../templates/footer.template.html'"></footer> -->
+<footer id="footer" ng-cloak>
+  <div class="container">
+    <div class="col-md-8">
+      <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://jenial.jenial.ca" target="_blank">JeNiAl</a>.</p>
+    </div>
+  </div>
+</footer>
+
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="../plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="../plugins/form-validation/jquery.form.js"></script>
+    <script src="../plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- owl carouserl js -->
+	<script src="../plugins/owl-carousel/owl.carousel.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="../plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- angular js -->
+	<script src="../plugins/angularJS/angular.min.js"></script>
+	<!-- wow js -->
+	<script src="../plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="../plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="../plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- Alertify -->
+  <script type="text/javascript" src="../../dist/alertify.min.js"></script>
+  <!-- Remarkable -->
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+  <!-- angular JS module and controller -->
+	<script src="../js/app.js"></script>
+	<!-- template main js -->
+	<script src="../js/main.js"></script>
+ 	</body>
+</html>

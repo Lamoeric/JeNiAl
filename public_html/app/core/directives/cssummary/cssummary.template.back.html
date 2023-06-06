@@ -1,0 +1,221 @@
+<div class="form-group">
+	<div class="grid">
+
+		<div class="row">
+			<div class="col-xs-3"><h3>{{translationObj.cssummary.formtitlestage}}</h3></div>
+			<div class="col-xs-2"><h3>{{translationObj.cssummary.formtitlebalance}}</h3></div>
+			<div class="col-xs-2"><h3>{{translationObj.cssummary.formtitlecontrol}}</h3></div>
+			<div class="col-xs-2"><h3>{{translationObj.cssummary.formtitleagility}}</h3></div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-1">
+				<h3>1</h3>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+					<input type="date" class="form-control" name="stage1" id="stage1" ng-change="setDirty2();" ng-model="member.csstagebadges['0'].badgedate" ng-disabled="isDisabled">
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="balance1" id="balance1" ng-model="member.csbalanceribbons['0'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="control1" id="control1" ng-model="member.cscontrolribbons['0'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="agility1" id="agility1" ng-model="member.csagilityribbons['0'].ribbondate" disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xs-1">
+				<h3>2</h3>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+					<input type="date" class="form-control" name="stage2" id="stage2" ng-change="setDirty2();" ng-model="member.csstagebadges['1'].badgedate" ng-disabled="isDisabled">
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="balance2" id="balance2" ng-model="member.csbalanceribbons['1'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="control2" id="control2" ng-model="member.cscontrolribbons['1'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="agility2" id="agility2" ng-model="member.csagilityribbons['1'].ribbondate" disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xs-1">
+				<h3>3</h3>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+					<input type="date" class="form-control" name="stage3" id="stage3" ng-change="setDirty2();" ng-model="member.csstagebadges['2'].badgedate" ng-disabled="isDisabled">
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="balance3" id="balance3" ng-model="member.csbalanceribbons['2'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="control3" id="control3" ng-model="member.cscontrolribbons['2'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="agility3" id="agility3" ng-model="member.csagilityribbons['2'].ribbondate" disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xs-1">
+				<h3>4</h3>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+					<input type="date" class="form-control" name="stage4" id="stage4" ng-change="setDirty2();" ng-model="member.csstagebadges['3'].badgedate" ng-disabled="isDisabled">
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="balance4" id="balance4" ng-model="member.csbalanceribbons['3'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="control4" id="control4" ng-model="member.cscontrolribbons['3'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="agility4" id="agility4" ng-model="member.csagilityribbons['3'].ribbondate" disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xs-1">
+				<h3>5</h3>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+					<input type="date" class="form-control" name="stage5" id="stage5" ng-change="setDirty2();" ng-model="member.csstagebadges['4'].badgedate" ng-disabled="isDisabled">
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="balance5" id="balance5" ng-model="member.csbalanceribbons['4'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="control5" id="control5" ng-model="member.cscontrolribbons['4'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="agility5" id="agility5" ng-model="member.csagilityribbons['4'].ribbondate" disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xs-1">
+				<h3>6</h3>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+					<input type="date" class="form-control" name="stage6" id="stage6" ng-change="setDirty2();" ng-model="member.csstagebadges['5'].badgedate" ng-disabled="isDisabled">
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="balance6" id="balance6" ng-model="member.csbalanceribbons['5'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="control6" id="control6" ng-model="member.cscontrolribbons['5'].ribbondate" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" name="agility6" id="agility6" ng-model="member.csagilityribbons['5'].ribbondate" disabled>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
