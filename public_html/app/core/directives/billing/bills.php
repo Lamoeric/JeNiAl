@@ -543,12 +543,13 @@ function getBillInt($mysqli, $billid, $language) {
 
 /**
  * This function updates a bill paidamount by adding the $amount.
- * If totalamount + paidamount == 0, set paidinfull to true (1)
+ * If totalamount + paidamount <= 0, set paidinfull to true (1)
+  lamouree 9/05/2023 changed the condition for the paidinfull from == 0 to <=0
  */
 function updateBillPaidAmountInt($mysqli, $billid, $amount) {
 	$query = "UPDATE cpa_bills
 						SET paidamount = paidamount + $amount,
-						paidinfull = if (totalamount + paidamount = 0, 1, 0)
+						paidinfull = if (totalamount + paidamount <= 0, 1, 0)
 						WHERE id = '$billid'";
 	if ($mysqli->query($query)) {
 	} else {
@@ -560,7 +561,7 @@ function updateBillPaidAmountInt($mysqli, $billid, $amount) {
 
 /**
  * This function updates a bill paidamount by adding the $amount.
- * If totalamount + paidamount == 0, set paidinfull to true (1)
+ * If totalamount + paidamount <= 0, set paidinfull to true (1)
  */
 function updateBillPaidAmount($mysqli, $billid, $amount) {
 	try {
@@ -876,9 +877,12 @@ function copyBillInt($mysqli, $billid, $relatedoldregistrationid, $newbillingdat
 									FROM cpa_bills_details where billid = '$billid' AND registrationid != '$relatedoldregistrationid'";
 				if ($mysqli->query($query)) {
 					// Changes the total amount of the new bill
-					$query = "UPDATE cpa_bills SET totalamount = (SELECT sum(subtotal) FROM cpa_bills_registrations WHERE billid = '$newbillid')
+					$query = "UPDATE cpa_bills 
+										SET totalamount = (SELECT sum(subtotal) FROM cpa_bills_registrations WHERE billid = '$newbillid')
 										WHERE id = '$newbillid'";
-					if (!$mysqli->query($query)) {
+					if ($mysqli->query($query)) {
+						updateBillPaidAmountInt($mysqli, $newbillid, 0);
+					} else {
 						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 					}
 				} else {

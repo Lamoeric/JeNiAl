@@ -915,10 +915,14 @@ function insertBill($mysqli, $registration) {
 
 /*
 	This function updates the bill total amount in the db
+	lamouree 9/05/2023 added the paidinfull flag to the SQL command to update it when copying registration.
 */
 function updateBillTotal($mysqli, $newbillid, $subtotal) {
 	$data = array();
-	$query = "UPDATE cpa_bills SET totalamount = totalamount + $subtotal where id = '$newbillid' ";
+	$query = "UPDATE cpa_bills 
+						SET totalamount = totalamount + $subtotal,
+						paidinfull = if (totalamount + paidamount <= 0, 1, 0)
+						WHERE id = '$newbillid' ";
 	if ($mysqli->query($query)) {
 	} else {
 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
