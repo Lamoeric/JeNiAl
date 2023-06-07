@@ -26,7 +26,9 @@
 							<li class="pointerlist"><a ng-click="this.exportMembers()">{{translationObj.main.exportmemberstitle}}</a></li>
 				    </ul>
 					</span>
-
+					
+					<sendemailtemplate is-form-pristine="currentMember==null" contacts="currentMember.contactsforemail"></sendemailtemplate>
+					
 					<div id="maintab" class="maintab">
 						<ul id="maintabheader" class="nav nav-tabs">
 							<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>

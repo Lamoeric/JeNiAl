@@ -126,6 +126,17 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				for (var x = 0; x < $scope.currentMember.csstagebadges.length; x++) {
 					$scope.currentMember.csstagebadges[x].badgedate = parseISOdateService.parseDateWithoutTime($scope.currentMember.csstagebadges[x].badgedate);
 				}
+				/* Let's create the list of email for the "send email template" directive */
+				$scope.currentMember.contactsforemail = [];
+				if ($scope.currentMember.email != null && $scope.currentMember.email != '') {
+					$scope.currentMember.contactsforemail.push({'firstname':$scope.currentMember.firstname, 'lastname':$scope.currentMember.lastname,'email':$scope.currentMember.email});
+				}
+				if ($scope.currentMember.email2 != null && $scope.currentMember.email2 != '') {
+					$scope.currentMember.contactsforemail.push({'firstname':$scope.currentMember.firstname, 'lastname':$scope.currentMember.lastname,'email':$scope.currentMember.email2});
+				}
+				for (var x = 0; x < $scope.currentMember.contacts.length; x++) {
+					$scope.currentMember.contactsforemail.push({'firstname':$scope.currentMember.contacts[x].firstname, 'lastname':$scope.currentMember.contacts[x].lastname,'email':$scope.currentMember.contacts[x].email});
+				}
 			} else {
 				dialogService.displayFailure(data);
 			}

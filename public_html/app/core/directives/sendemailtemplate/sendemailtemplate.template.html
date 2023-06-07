@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.sendemailtemplate.formtitlesendemail}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+		  <div class="col-xs-7">
+		    <label for="eventname">{{translationObj.sendemailtemplate.fieldtitletemplates}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+      		<select class="form-control" ng-model="newObj.templateselected" ng-options="template as template.templatename for template in allEmailTemplates track by template.id" required>
+					</select>
+		  	</div>
+		  </div>
+      <div class="col-xs-6">
+				<label ng-repeat="language2 in preferedlanguages">
+					<input type="radio" ng-model="newObj.language" name="language" value="{{language2.code}}" >&nbsp;&nbsp;{{language2.text}}&nbsp;&nbsp;
+				</label>
+	    </div>
+      <div class="col-xs-12">
+   			<hr>
+ 				<label>{{translationObj.sendemailtemplate.formtitleemails}}<i style="color:red"> *</i></label>
+	    </div>
+	    <div class="col-xs-12">
+  	  	<span ng-repeat="contact in newObj.contacts">
+  	  	<label><input type="checkbox" ng-model="contact.selected" ng-true-value="'1'" "> {{contact.firstname+' '+contact.lastname+' ('+contact.email+')'}} </label></br>
+  	  	</span>
+    	</div>
+    </div>
+
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.sendemailtemplate.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.sendemailtemplate.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.sendemailtemplate.buttontitlekeepchanges}}</button>
+</div>

@@ -138,6 +138,9 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
 		case "getAllShowTasks":
 			getAllShowTasks($mysqli, $_POST['language']);
 			break;
+		case "getAllEmailTemplates":
+			getAllEmailTemplates($mysqli, $_POST['language']);
+			break;
 		default:
 			invalidRequest();
 	}
@@ -1349,6 +1352,29 @@ function getAllShowTasks($mysqli, $language) {
 							WHERE cst.active = 1
 							ORDER BY cct.sequence, cst.id";
 		$result = $mysqli->query( $query );
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+};
+
+function getAllEmailTemplates($mysqli, $language) {
+	try {
+		$query = "SELECT id, templatename
+							FROM cpa_emails_templates
+							where active = 1
+							order by id DESC";
+		$result = $mysqli->query( $query );
+		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}

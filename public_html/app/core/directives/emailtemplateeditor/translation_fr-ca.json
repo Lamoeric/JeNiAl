@@ -1,0 +1,29 @@
+[
+	{"formname":"paragraphviewer", "fieldname":"listtitleparagraph", "text":"Courriel"},
+	{"formname":"paragraphviewer", "fieldname":"listtitlelanguage", "text":"Langue"},
+	{"formname":"paragraphviewer", "fieldname":"titledraganddrop", "text":"Glisser-déposer pour réordonner"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphvisible", "text":"Publié"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphnotvisible", "text":"Non publié"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphvisiblepreview", "text":"Visible (preview)"},
+	{"formname":"paragraphviewer", "fieldname":"paragraphnotvisiblepreview", "text":"Invisible (preview)"},
+
+	{"formname":"newparagraph", "fieldname":"formtitleeditparagraph", "text":"Éditer paragraphe"},
+	{"formname":"newparagraph", "fieldname":"fieldtitletitle", "text":"Titre"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlefrenchtitle", "text":"Titre français"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleenglishtitle", "text":"Titre anglais"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlefrenchsubtitle", "text":"Sous-titre français"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlesubtitle", "text":"Sous-titre"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleenglishsubtitle", "text":"Sous-titre anglais"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleparagraphindex", "text":"Index"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlefrenchparagraphtext", "text":"Paragraphe français"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleparagraphtext", "text":"Paragraphe"},
+	{"formname":"newparagraph", "fieldname":"fieldtitleenglishparagraphtext", "text":"Paragraphe anglais"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlepublish", "text":"Publier"},
+	{"formname":"newparagraph", "fieldname":"fieldtitlepreview", "text":"Visible (preview)"},
+	{"formname":"newparagraph", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newparagraph", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newparagraph", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"end", "fieldname":"nothing", "text":"fin de fichier"}
+
+]

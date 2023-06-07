@@ -1,0 +1,10 @@
+[
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Email sent"},
+	
+	{"formname":"sendemailtemplate", "fieldname":"formtitlesendemail", "text":"Send Email Template"},
+	{"formname":"sendemailtemplate", "fieldname":"formtitleemails", "text":"Emails"},
+	{"formname":"sendemailtemplate", "fieldname":"fieldtitletemplates", "text":"Template"},
+	{"formname":"sendemailtemplate", "fieldname":"formerrormessage", "text":"You must select a template and an email address."},
+	{"formname":"sendemailtemplate", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"sendemailtemplate", "fieldname":"buttontitlekeepchanges", "text":"Send"}
+]
