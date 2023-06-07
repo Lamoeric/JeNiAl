@@ -1,0 +1,49 @@
+<div class="form-group row">
+	<div class="grid">
+<!--		<div ng-if="currentArena.ices.length==0"> -->
+	    <h3>{{translationObj.rooms.formtitlerooms}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editRoom(currentArena, {})" ng-if="currentArena.ices.length==0"></button></h3>
+	    <p ng-if="currentArena.ices.length!=0">{{translationObj.rooms.msgroomsforices}}</p>
+			<div ng-repeat="room in currentArena.rooms">
+	    	<div class="row">
+
+			    <div class="col-xs-3">
+			      <label for="label_en">{{translationObj.rooms.fieldtitleenglishlabel}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			        <input type="text" class="form-control" id="label_en" ng-model="room.label_en" maxlength="30" disabled>
+			      </div>
+			    </div>
+
+			    <div class="col-xs-3">
+			      <label for="label_fr">{{translationObj.rooms.fieldtitlefrenchlabel}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			        <input type="text" class="form-control" id="label_fr" ng-model="room.label_fr" maxlength="30" disabled>
+			      </div>
+			    </div>
+
+			    <div class="col-xs-4">
+				      <label for="code">{{translationObj.rooms.fieldtitlecomment}}</label>
+			    	<div class="input-group">
+						  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input type="text" name="code" class="form-control" id="code" ng-model="room.comments" maxlength="200" disabled>
+			      </div>
+			    </div>
+
+	      	<div class="col-xs-2">
+				    <label>&nbsp;</label>
+		      	<div class="input-group">
+	    				<span>
+								<child-edit-button 			obj="room" objlist="ice.rooms" callback="editRoom(currentArena, room)"></child-edit-button>
+								<child-delete-button 		obj="room" objlist="ice.rooms" callback="setDirty()"></child-delete-button>
+								<child-undelete-button 	obj="room" objlist="ice.rooms" callback="setDirty()"></child-undelete-button>
+								<child-status-indicator obj="room"></child-status-indicator>
+							</span>
+					  </div>
+				  </div>
+			  </div>
+		 	</div>
+<!--		</div> -->
+
+  </div>
+</div>

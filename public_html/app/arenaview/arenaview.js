@@ -33,7 +33,7 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 	$scope.isFormPristine = true;
 
 	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty) {
+		if ($scope.detailsForm.$dirty||$scope.icesForm.$dirty||$scope.roomsForm.$dirty||$scope.websiteForm.$dirty||$scope.seatsForm.$dirty) {
 			return true;
 		}
 		return false;
@@ -41,11 +41,19 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 
 	$scope.setDirty = function() {
 		$scope.detailsForm.$dirty = true;
+		$scope.icesForm.$dirty = true;
+		$scope.roomsForm.$dirty = true;
+		$scope.seatssForm.$dirty = true;
+		$scope.websiteForm.$dirty = true;
 		$scope.isFormPristine = false;
 	};
 
 	$scope.setPristine = function() {
 		$scope.detailsForm.$setPristine();
+		$scope.icesForm.$setPristine();
+		$scope.roomsForm.$setPristine();
+		$scope.seatsForm.$setPristine();
+		$scope.websiteForm.$setPristine();
 		$scope.isFormPristine = true;
 	};
 
@@ -148,7 +156,13 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 		$scope.globalWarningMessage = [];
 
 		if ($scope.detailsForm.$invalid) {
-				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
+			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrdetailsallmandatory);
+		}
+
+		if ($scope.websiteForm.$invalid) {
+			if ($scope.currentArena.website.publish == 1) {
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrwebsiteallmandatory);
+			}
 		}
 
 		if ($scope.globalErrorMessage.length != 0) {
@@ -332,6 +346,7 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 	$scope.refreshAll = function() {
 		$scope.getAllArenas();
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'seatingassigntypes', 'sequence', 'seatingassigntypes');
 		translationService.getTranslation($scope, 'arenaview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}
