@@ -38,6 +38,7 @@
 	{"formname":"ices", "fieldname":"fieldtitleenglishlabel", "text":"Libelé anglais"},
 	{"formname":"ices", "fieldname":"fieldtitlecomment", "text":"Commentaires"},
 	{"formname":"ices", "fieldname":"panetitlerooms", "text":"Chambres"},
+	{"formname":"ices", "fieldname":"panetitleseats", "text":"Sièges"},
 
 	{"formname":"website", "fieldname":"formtitlewebsite", "text":"Site web"},
 	{"formname":"website", "fieldname":"fieldtitlelabelfr", "text":"Libellé français"},
@@ -61,6 +62,7 @@
 	{"formname":"seats", "fieldname":"fieldtitleseatfirst", "text":"Premier siège"},
 	{"formname":"seats", "fieldname":"fieldtitleseatnb", "text":"Nombre de siège"},
 	{"formname":"seats", "fieldname":"fieldtitleseatinc", "text":"Incrément"},
+	{"formname":"seats", "fieldname":"msgseatsforices", "text":"Si l'aréna comporte plusieurs glaces, la définition des sièges se trouve dans l'onglet Glaces, sous les différentes glaces."},
 
 	{"formname":"newice", "fieldname":"formtitleeditice", "text":"Éditer glace"},
 	{"formname":"newice", "fieldname":"fieldtitlecode", "text":"Code"},

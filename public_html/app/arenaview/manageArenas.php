@@ -178,55 +178,97 @@ function getAllArenas($mysqli) {
  * This function gets the details of all rooms for an arena ice from database
  */
 function getArenaIceRooms($mysqli, $arenaid, $iceid, $language) {
-	try {
-		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr, getTextLabel(label, '$language') as roomlabel 
-							FROM cpa_arenas_ices_rooms 
-							WHERE arenaid = $arenaid
-							AND iceid " . ($iceid == null? "is null" : "= $iceid");
-		$result = $mysqli->query($query);
-		$data = array();
-		$data['data'] = array();
-		while ($row = $result->fetch_assoc()) {
-			$data['data'][] = $row;
-		}
-		$data['success'] = true;
-		return $data;
-		exit;
-	} catch(Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
-		exit;
+	$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr, getTextLabel(label, '$language') as roomlabel 
+						FROM cpa_arenas_ices_rooms 
+						WHERE arenaid = $arenaid
+						AND iceid " . ($iceid == null? "is null" : "= $iceid");
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$data['data'][] = $row;
 	}
+	$data['success'] = true;
+	return $data;
+	exit;
+};
+
+/**
+ * This function gets the details of all seats for an arena ice from database
+ */
+function getArenaIceSeats($mysqli, $arenaid, $iceid, $language) {
+	$query = "SELECT *
+						FROM cpa_arenas_ices_seats 
+						WHERE arenaid = $arenaid
+						AND iceid = $iceid";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$row['sectionnb'] = 	(int)$row['sectionnb'];
+		$row['sectioninc'] = 	(int)$row['sectioninc'];
+		$row['rownb'] = 			(int)$row['rownb'];
+		$row['rowinc'] = 			(int)$row['rowinc'];
+		$row['seatnb'] = 			(int)$row['seatnb'];
+		$row['seatinc'] = 		(int)$row['seatinc'];
+		$data['data'][] = $row;
+	}
+	if (!isset($data['data'][0])) {
+		$data['data'][0]['id'] = null;
+	}
+	$data['success'] = true;
+	return $data;
+	exit;
 };
 
 /**
  * This function gets the details of all ices for an arena from database
  */
 function getArenaIces($mysqli, $arenaid, $language) {
-	try {
-		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr, getTextLabel(label, '$language') as icelabel 
-							FROM cpa_arenas_ices 
-							WHERE arenaid = $arenaid";
-		$result = $mysqli->query($query);
-		$data = array();
-		$data['data'] = array();
-		while ($row = $result->fetch_assoc()) {
-			$iceid = $row['id'];
-			$row['rooms'] = getArenaIceRooms($mysqli, $arenaid, $iceid, $language)['data'];
-			$data['data'][] = $row;
-		}
-		$data['success'] = true;
-		return $data;
-		exit;
-	} catch(Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
-		exit;
+	$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr, getTextLabel(label, '$language') as icelabel 
+						FROM cpa_arenas_ices 
+						WHERE arenaid = $arenaid";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$iceid = $row['id'];
+		$row['rooms'] = getArenaIceRooms($mysqli, $arenaid, $iceid, $language)['data'];
+		$row['seats'] = getArenaIceSeats($mysqli, $arenaid, $iceid, $language)['data'][0];
+		$data['data'][] = $row;
 	}
+	$data['success'] = true;
+	return $data;
+	exit;
+};
+
+/**
+ * This function gets the details of all seats for an arena from database
+ */
+function getArenaSeats($mysqli, $arenaid, $language) {
+	$query = "SELECT *
+						FROM cpa_arenas_ices_seats 
+						WHERE arenaid = $arenaid
+						AND iceid is null";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$row['sectionnb'] = 	(int)$row['sectionnb'];
+		$row['sectioninc'] = 	(int)$row['sectioninc'];
+		$row['rownb'] = 			(int)$row['rownb'];
+		$row['rowinc'] = 			(int)$row['rowinc'];
+		$row['seatnb'] = 			(int)$row['seatnb'];
+		$row['seatinc'] = 		(int)$row['seatinc'];
+		$data['data'][] = $row;
+	}
+	if (!isset($data['data'][0])) {
+		$data['data'][0]['id'] = null;
+	}
+
+	$data['success'] = true;
+	return $data;
+	exit;
 };
 
 /**
@@ -276,6 +318,7 @@ function getArenaDetails($mysqli, $id, $language) {
 		while ($row = $result->fetch_assoc()) {
 			$row['ices'] = getArenaIces($mysqli, $id, $language)['data'];
 			$row['rooms'] = getArenaIceRooms($mysqli, $id, null, $language)['data'];
+			$row['seats'] = getArenaSeats($mysqli, $id, $language)['data'][0];
 			$row['website'] = getArenaWebsite($mysqli, $id, $language)['data'][0];
 			$data['data'][] = $row;
 		}
@@ -347,6 +390,58 @@ function updateEntireIceRooms($mysqli, $arenaid, $iceid, $rooms) {
 };
 
 /**
+ * This function will handle insert/update/delete of ice seats in DB
+ * @throws Exception
+ */
+function updateSeats($mysqli, $arenaid, $iceid, $seats) {
+	$data = array();
+	$id = 					$mysqli->real_escape_string(isset($seats['id'])						? (int)$seats['id'] : 0);
+	$sectiontype = 	$mysqli->real_escape_string(isset($seats['sectiontype'])	? (int)$seats['sectiontype'] : 0);
+	$sectionfirst = $mysqli->real_escape_string(isset($seats['sectionfirst'])	? $seats['sectionfirst'] : 'A');
+	$sectionnb = 		$mysqli->real_escape_string(isset($seats['sectionnb'])		? (int)$seats['sectionnb'] : 0);
+	$sectioninc = 	$mysqli->real_escape_string(isset($seats['sectioninc'])		? (int)$seats['sectioninc'] : 0);
+	$rowtype = 			$mysqli->real_escape_string(isset($seats['rowtype'])			? (int)$seats['rowtype'] : 1);
+	$rowfirst = 		$mysqli->real_escape_string(isset($seats['rowfirst'])			? $seats['rowfirst'] : '100');
+	$rownb = 				$mysqli->real_escape_string(isset($seats['rownb'])				? (int)$seats['rownb'] : 0);
+	$rowinc = 			$mysqli->real_escape_string(isset($seats['rowinc'])				? (int)$seats['rowinc'] : 0);
+	$seattype = 		$mysqli->real_escape_string(isset($seats['seattype'])			? (int)$seats['seattype'] : 1);
+	$seatfirst = 		$mysqli->real_escape_string(isset($seats['seatfirst'])		? $seats['seatfirst'] : '1');
+	$seatnb = 			$mysqli->real_escape_string(isset($seats['seatnb'])				? (int)$seats['seatnb'] : 1);
+	$seatinc = 			$mysqli->real_escape_string(isset($seats['seatinc'])			? (int)$seats['seatinc'] : 0);
+
+	if ($id == 0) {
+		if ($iceid == null) {
+			$query = "INSERT INTO cpa_arenas_ices_seats(id, arenaid, iceid, sectiontype, sectionfirst, sectionnb, sectioninc, rowtype, rowfirst, 
+																									rownb, rowinc, seattype, seatfirst, seatnb, seatinc) 
+							  VALUES (null, $arenaid, null, $sectiontype, '$sectionfirst', $sectionnb, $sectioninc, $rowtype,
+							          '$rowfirst', $rownb, $rowinc, $seattype, '$seatfirst', $seatnb, $seatinc)";
+		} else {
+			$query = "INSERT INTO cpa_arenas_ices_seats(id, arenaid, iceid, sectiontype, sectionfirst, sectionnb, sectioninc, rowtype, rowfirst, 
+																									rownb, rowinc, seattype, seatfirst, seatnb, seatinc) 
+							  VALUES (null, $arenaid, $iceid, $sectiontype, '$sectionfirst', $sectionnb, $sectioninc, $rowtype,
+							          '$rowfirst', $rownb, $rowinc, $seattype, '$seatfirst', $seatnb, $seatinc)";
+		}
+		if (!$mysqli->query($query)) {
+			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		}
+		$data['optype'] = 'insert';
+	} else {
+		$query = "UPDATE cpa_arenas_ices_seats 
+						  SET sectiontype='$sectiontype',sectionfirst='$sectionfirst',sectionnb='$sectionnb',sectioninc='$sectioninc',
+						      rowtype='$rowtype',rowfirst='$rowfirst',rownb='$rownb',rowinc='$rowinc',
+						      seattype='$seattype',seatfirst='$seatfirst',seatnb='$seatnb',seatinc='$seatinc'	
+						      WHERE id = $id";
+		if (!$mysqli->query($query)) {
+			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		}
+		$data['optype'] = 'update';
+	}
+
+	$data['success'] = true;
+	return $data;
+};
+
+/**
  * This function will handle insert/update/delete of a ice in DB
  * @throws Exception
  */
@@ -397,10 +492,12 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 			}
 		}
 	}
+	
 	for ($x = 0; $x < count($ices); $x++) {
 		if (!$mysqli->real_escape_string(isset($ices[$x]['status'])) || ($mysqli->real_escape_string(isset($ices[$x]['status'])) && $ices[$x]['status'] !== 'Deleted')) {
 			if ($mysqli->real_escape_string(isset($ices[$x]['rooms']))) {
 				$data['rooms'] = updateEntireIceRooms($mysqli, $arenaid, $ices[$x]['id'], $ices[$x]['rooms']);
+				$data['seats'] = updateSeats($mysqli, $arenaid, $ices[$x]['id'], $ices[$x]['seats']);
 			}
 		}
 	}
@@ -411,7 +508,6 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 function updateWebsite($mysqli, $arenaid, $arena) {
 	$data = array();
 	$id =						$mysqli->real_escape_string(isset($arena['id']) 				? (int)$arena['id'] : 0);
-//	$name =					$mysqli->real_escape_string(isset($arena['name']) 			? $arena['name'] : '');
 	$label =				$mysqli->real_escape_string(isset($arena['label']) 			? (int)$arena['label'] : 0);
 	$label_fr =			$mysqli->real_escape_string(isset($arena['label_fr']) 	? $arena['label_fr'] : '');
 	$label_en =			$mysqli->real_escape_string(isset($arena['label_en']) 	? $arena['label_en'] : '');
@@ -467,6 +563,9 @@ function updateEntireArena($mysqli, $arena) {
 		}
 		if ($mysqli->real_escape_string(isset($arena['rooms']))) {
 			$data['rooms'] = updateEntireIceRooms($mysqli, $id, null, $arena['rooms']);
+		}
+		if ($mysqli->real_escape_string(isset($arena['seats']))) {
+			$data['seats'] = updateSeats($mysqli, $id, null, $arena['seats']);
 		}
 		if ($mysqli->real_escape_string(isset($arena['website']))) {
 			$data['rooms'] = updateWebsite($mysqli, $id, $arena['website']);

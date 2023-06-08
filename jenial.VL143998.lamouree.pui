@@ -71,6 +71,9 @@
 .+AFw- - public+AF8-html - include=1
 .+AFw- - public+AF8-html - app - registrationview=1
 .+AFw- - public+AF8-html - app - arenaview=1
+.+AFw- - documentation=1
+.+AFw- - private - localhost - include=1
+.+AFw- - public+AF8-html=1
 
 [Open Files]
 Active File Display Mode="1"
