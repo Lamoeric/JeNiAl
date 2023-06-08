@@ -28,6 +28,7 @@
 								<div id="icetab{{$index}}" class="maintab">
 									<ul id="icetabheader{{$index}}" class="nav nav-tabs">
 										<li class="active pointerlist"><a data-toggle="tab" data-target="#subdetails{{$index}}">{{translationObj.ices.panetitlerooms}}</a></li>
+										<li class="pointerlist"><a data-toggle="tab" data-target="#seatdetails{{$index}}">{{translationObj.ices.panetitleseats}}</a></li>
 									</ul>
 
 									<div id="icetabcontent{{$index}}" class="tab-content maintabcontent">
@@ -40,26 +41,26 @@
 										    	<div class="row">
 
 												    <div class="col-xs-3">
-												      <label for="label_en">{{translationObj.ices.fieldtitleenglishlabel}}</label>
+												      <label for="label_en{{$index}}">{{translationObj.ices.fieldtitleenglishlabel}}</label>
 												    	<div class="input-group">
 															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												        <input type="text" class="form-control" id="label_en" ng-model="room.label_en" maxlength="30" disabled>
+												        <input type="text" class="form-control" id="label_en{{$index}}" ng-model="room.label_en" maxlength="30" disabled>
 												      </div>
 												    </div>
 
 												    <div class="col-xs-3">
-												      <label for="label_fr">{{translationObj.ices.fieldtitlefrenchlabel}}</label>
+												      <label for="label_fr{{$index}}">{{translationObj.ices.fieldtitlefrenchlabel}}</label>
 												    	<div class="input-group">
 															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												        <input type="text" class="form-control" id="label_fr" ng-model="room.label_fr" maxlength="30" disabled>
+												        <input type="text" class="form-control" id="label_fr{{$index}}" ng-model="room.label_fr" maxlength="30" disabled>
 												      </div>
 												    </div>
 
 												    <div class="col-xs-4">
-													      <label for="code">{{translationObj.ices.fieldtitlecomment}}</label>
+													      <label for="code{{$index}}">{{translationObj.ices.fieldtitlecomment}}</label>
 												    	<div class="input-group">
 															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-																<input type="text" name="code" class="form-control" id="code" ng-model="room.comments" maxlength="200" disabled>
+																<input type="text" name="code" class="form-control" id="code{{$index}}" ng-model="room.comments" maxlength="200" disabled>
 												      </div>
 												    </div>
 
@@ -79,7 +80,110 @@
 
 										  </form>
 								    </div>
+	
+										<div id="seatdetails{{$index}}" class="tab-pane fade maintabpane">
+								      <form class="form-horizontal well intabsingleformnox" role="form" name="seatsForm">
+												<div class="row">
+													<div class="col-xs-2">
+														<label for="sectiontype">{{translationObj.seats.fieldtitlesectiontype}}<i style="color:red"> *</i></label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+															<select class="form-control" id="sectiontype" ng-model="ice.seats.sectiontype" required>
+																<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-2">
+											      <label for="sectionfirst">{{translationObj.seats.fieldtitlesectionfirst}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="text" name="sectionfirst" class="form-control" id="sectionfirst" ng-model="ice.seats.sectionfirst" maxlength="3" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2">
+											      <label for="sectionnb">{{translationObj.seats.fieldtitlesectionnb}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="sectionnb" class="form-control" id="sectionnb" ng-model="ice.seats.sectionnb" maxlength="2" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2" ng-show="ice.seats.sectiontype=='1'">
+											      <label for="sectioninc">{{translationObj.seats.fieldtitlesectioninc}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="sectioninc" class="form-control" id="sectioninc" ng-model="ice.seats.sectioninc" maxlength="3" required>
+											      </div>
+											    </div>
+											  </div>
 
+												<div class="row">
+													<div class="col-xs-2">
+														<label for="rowtype">{{translationObj.seats.fieldtitlerowtype}}<i style="color:red"> *</i></label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+															<select class="form-control" id="rowtype" ng-model="ice.seats.rowtype" required>
+																<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-2">
+											      <label for="rowfirst">{{translationObj.seats.fieldtitlerowfirst}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="text" name="rowfirst" class="form-control" id="rowfirst" ng-model="ice.seats.rowfirst" maxlength="3" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2">
+											      <label for="rownb">{{translationObj.seats.fieldtitlerownb}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="rownb" class="form-control" id="rownb" ng-model="ice.seats.rownb" maxlength="2" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2" ng-show="ice.seats.rowtype=='1'">
+											      <label for="rowinc">{{translationObj.seats.fieldtitlerowinc}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="rowinc" class="form-control" id="rowinc" ng-model="ice.seats.rowinc" maxlength="3" required>
+											      </div>
+											    </div>
+											  </div>
+
+												<div class="row">
+													<div class="col-xs-2">
+														<label for="seattype">{{translationObj.seats.fieldtitleseattype}}<i style="color:red"> *</i></label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+															<select class="form-control" id="seattype" ng-model="ice.seats.seattype" required>
+																<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-2">
+											      <label for="seatfirst">{{translationObj.seats.fieldtitleseatfirst}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="text" name="seatfirst" class="form-control" id="seatfirst" ng-model="ice.seats.seatfirst" maxlength="3" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2">
+											      <label for="seatnb">{{translationObj.seats.fieldtitleseatnb}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="seatnb" class="form-control" id="seatnb" ng-model="ice.seats.seatnb" maxlength="2" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2" ng-show="ice.seats.seattype=='1'">
+											      <label for="seatinc">{{translationObj.seats.fieldtitleseatinc}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="seatinc" class="form-control" id="seatinc" ng-model="ice.seats.seatinc" maxlength="3" required>
+											      </div>
+											    </div>
+											  </div>
+										  </form>
+							    	</div>
+	
 							    </div>
 							  </div>
 
