@@ -86,6 +86,7 @@
 	{"formname":"performances", "fieldname":"panetitlenumbers", "text":"Numbers"},
 	{"formname":"performances", "fieldname":"panetitleprices", "text":"Prices"},
 	{"formname":"performances", "fieldname":"panetitleassignations", "text":"Assignations"},
+	{"formname":"performances", "fieldname":"panetitleexceptions", "text":"Exceptions"},
 	{"formname":"performances", "fieldname":"fieldtype", "text":"Type"},
 	{"formname":"performances", "fieldname":"fielddate", "text":"Date"},
 	{"formname":"performances", "fieldname":"fieldlabel_fr", "text":"French Label"},
@@ -107,6 +108,13 @@
 	{"formname":"performanceprices", "fieldname":"fieldamount", "text":"Amount"},
 	{"formname":"performanceprices", "fieldname":"fieldagemin", "text":"Age minimum"},
 	{"formname":"performanceprices", "fieldname":"fieldagemax", "text":"Age maximum"},
+
+	{"formname":"performanceexceptions", "fieldname":"formtitle", "text":"Seating's Exceptions"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitlesection", "text":"Section"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitlerow", "text":"Row"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitleseat", "text":"Seat"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitlereason", "text":"Reason"},
+	{"formname":"performanceexceptions", "fieldname":"buttontitlecopyfrom", "text":"Copy from..."},
 
 	{"formname":"newperformanceprice", "fieldname":"formtitleeditprice", "text":"Edit"},
 	{"formname":"newperformanceprice", "fieldname":"fieldpricetype", "text":"Type"},
@@ -131,6 +139,15 @@
 	{"formname":"newperformanceassign", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
 	{"formname":"newperformanceassign", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newperformanceassign", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"newperformanceexception", "fieldname":"formtitleeditexception", "text":"Edit Exception"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitlesection", "text":"Section"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitlerow", "text":"Row"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitleseat", "text":"Seat"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitlereason", "text":"Reason"},
+	{"formname":"newperformanceexception", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newperformanceexception", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newperformanceexception", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"copyfrom", "fieldname":"formtitleeditassign", "text":"Copy from ..."},
 	{"formname":"copyfrom", "fieldname":"fieldperformance", "text":"Performance"},

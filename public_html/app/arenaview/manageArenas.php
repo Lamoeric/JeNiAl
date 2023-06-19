@@ -222,6 +222,28 @@ function getArenaIceSeats($mysqli, $arenaid, $iceid, $language) {
 };
 
 /**
+ * This function gets the details of all exceptions for an arena ice from database
+ */
+function getArenaIceExceptions($mysqli, $arenaid, $iceid, $language) {
+	$query = "SELECT *
+						FROM cpa_arenas_ices_exceptions 
+						WHERE arenaid = $arenaid
+						AND iceid " . ($iceid == null? "is null" : "= $iceid");
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$data['data'][] = $row;
+	}
+//	if (!isset($data['data'][0])) {
+//		$data['data'][0]['id'] = null;
+//	}
+	$data['success'] = true;
+	return $data;
+	exit;
+};
+
+/**
  * This function gets the details of all ices for an arena from database
  */
 function getArenaIces($mysqli, $arenaid, $language) {
@@ -235,6 +257,7 @@ function getArenaIces($mysqli, $arenaid, $language) {
 		$iceid = $row['id'];
 		$row['rooms'] = getArenaIceRooms($mysqli, $arenaid, $iceid, $language)['data'];
 		$row['seats'] = getArenaIceSeats($mysqli, $arenaid, $iceid, $language)['data'][0];
+		$row['exceptions'] = getArenaIceExceptions($mysqli, $arenaid, $iceid, $language)['data'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -319,6 +342,7 @@ function getArenaDetails($mysqli, $id, $language) {
 			$row['ices'] = getArenaIces($mysqli, $id, $language)['data'];
 			$row['rooms'] = getArenaIceRooms($mysqli, $id, null, $language)['data'];
 			$row['seats'] = getArenaSeats($mysqli, $id, $language)['data'][0];
+			$row['exceptions'] = getArenaIceExceptions($mysqli, $id, null, $language)['data'];
 			$row['website'] = getArenaWebsite($mysqli, $id, $language)['data'][0];
 			$data['data'][] = $row;
 		}
@@ -442,6 +466,51 @@ function updateSeats($mysqli, $arenaid, $iceid, $seats) {
 };
 
 /**
+ * This function will handle insert/update/delete of exceptions in the DB
+ * @throws Exception
+ */
+function updateEntireExceptions($mysqli, $arenaid, $iceid, $exceptions) {
+	$data = array();
+	for ($x = 0; $exceptions && $x < count($exceptions); $x++) {
+		$id = 			$mysqli->real_escape_string(isset($exceptions[$x]['id'])				? (int)$exceptions[$x]['id'] : '');
+		$section = 	$mysqli->real_escape_string(isset($exceptions[$x]['section'])		? $exceptions[$x]['section'] : '');
+		$row = 			$mysqli->real_escape_string(isset($exceptions[$x]['row']) 			? $exceptions[$x]['row'] : null);
+		$seat = 		$mysqli->real_escape_string(isset($exceptions[$x]['seat']) 			? $exceptions[$x]['seat'] : null);
+		$reason = 	$mysqli->real_escape_string(isset($exceptions[$x]['reason']) 		? $exceptions[$x]['reason'] : 0);
+
+		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'New') {
+			if ($iceid == null) {
+				$query = "INSERT INTO cpa_arenas_ices_exceptions (id, arenaid, iceid, section, row, seat, reason)
+									VALUES (null, $arenaid, null, $section, $row, $seat, $reason)";
+			} else {
+				$query = "INSERT INTO cpa_arenas_ices_exceptions (id, arenaid, iceid, section, row, seat, reason)
+									VALUES (null, $arenaid, $iceid, '$section', '$row', '$seat', $reason)";
+			}
+			if (!$mysqli->query($query)) {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		}
+
+		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Modified') {
+			$query = "UPDATE cpa_arenas_ices_exceptions SET section = '$section', row = '$row', seat = '$seat', reason = '$reason'	WHERE id = $id";
+			if (!$mysqli->query($query)) {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		}
+
+		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Deleted') {
+			$query = "DELETE FROM cpa_arenas_ices WHERE id = $id";
+			if (!$mysqli->query($query)) {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		}
+	}
+	
+	$data['success'] = true;
+	return $data;
+};
+
+/**
  * This function will handle insert/update/delete of a ice in DB
  * @throws Exception
  */
@@ -497,7 +566,12 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 		if (!$mysqli->real_escape_string(isset($ices[$x]['status'])) || ($mysqli->real_escape_string(isset($ices[$x]['status'])) && $ices[$x]['status'] !== 'Deleted')) {
 			if ($mysqli->real_escape_string(isset($ices[$x]['rooms']))) {
 				$data['rooms'] = updateEntireIceRooms($mysqli, $arenaid, $ices[$x]['id'], $ices[$x]['rooms']);
+			}
+			if ($mysqli->real_escape_string(isset($ices[$x]['seats']))) {
 				$data['seats'] = updateSeats($mysqli, $arenaid, $ices[$x]['id'], $ices[$x]['seats']);
+			}
+			if ($mysqli->real_escape_string(isset($ices[$x]['exceptions']))) {
+				$data['exceptions'] = updateEntireExceptions($mysqli, $arenaid, $ices[$x]['id'], $ices[$x]['exceptions']);
 			}
 		}
 	}
@@ -566,6 +640,9 @@ function updateEntireArena($mysqli, $arena) {
 		}
 		if ($mysqli->real_escape_string(isset($arena['seats']))) {
 			$data['seats'] = updateSeats($mysqli, $id, null, $arena['seats']);
+		}
+		if ($mysqli->real_escape_string(isset($arena['exceptions']))) {
+				$data['exceptions'] = updateEntireExceptions($mysqli, $id, null, $arena['exceptions']);
 		}
 		if ($mysqli->real_escape_string(isset($arena['website']))) {
 			$data['rooms'] = updateWebsite($mysqli, $id, $arena['website']);

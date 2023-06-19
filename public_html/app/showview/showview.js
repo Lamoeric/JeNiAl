@@ -1194,6 +1194,45 @@ $scope.editShowPerformanceNumbers = function(performance) {
 		});
 	};
 	
+		// This is the function that creates the modal to create/edit exception
+	$scope.editShowPerformanceException = function(performance, newException) {
+		$scope.newException = {};
+		$scope.currentException = newException;
+		$scope.currentPerformance = performance;
+		angular.copy(newException, $scope.newException);
+
+		$uibModal.open({
+				animation: false,
+					templateUrl: 'arenaview/newperformanceexception.template.html',
+					controller: 'childeditor.controller',
+				scope: $scope,
+				size: null,
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newException;
+					}
+				}
+			})
+			.result.then(function(newException) {
+				// User clicked OK and everything was valid.
+				angular.copy(newException, $scope.currentException);
+				if ($scope.currentException.id != null) {
+						$scope.currentException.status = 'Modified';
+				} else {
+					$scope.currentException.status = 'New';
+					if ($scope.currentPerformance.exceptions == null) $scope.currentPerformance.exceptions = [];
+					if ($scope.currentPerformance.exceptions.indexOf($scope.currentException) == -1) {
+						$scope.currentPerformance.exceptions.push($scope.currentException);
+					}
+				}
+				$scope.setDirty();
+			}, function() {
+					// User clicked CANCEL.
+					// alert('canceled');
+		});
+	};
+
 	// This is the function that creates the modal to copy information from another performance
 	$scope.openCopyFrom = function(performance, copyType) {
 		$scope.copyFrom = {};

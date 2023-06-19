@@ -86,6 +86,7 @@
 	{"formname":"performances", "fieldname":"panetitlenumbers", "text":"Numéros"},
 	{"formname":"performances", "fieldname":"panetitleprices", "text":"Prix"},
 	{"formname":"performances", "fieldname":"panetitleassignations", "text":"Assignations"},
+	{"formname":"performances", "fieldname":"panetitleexceptions", "text":"Exceptions"},
 	{"formname":"performances", "fieldname":"fieldtype", "text":"Type"},
 	{"formname":"performances", "fieldname":"fielddate", "text":"Date"},
 	{"formname":"performances", "fieldname":"fieldlabel_fr", "text":"Libellé français"},
@@ -123,6 +124,13 @@
 	{"formname":"performanceassigns", "fieldname":"fieldcomments", "text":"Commentaire"},
 	{"formname":"performanceassigns", "fieldname":"buttontitlecopyfrom", "text":"Copier de..."},
 
+	{"formname":"performanceexceptions", "fieldname":"formtitle", "text":"Exceptions"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitlesection", "text":"Section"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitlerow", "text":"Rangée"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitleseat", "text":"Siège"},
+	{"formname":"performanceexceptions", "fieldname":"fieldtitlereason", "text":"Raison"},
+	{"formname":"performanceexceptions", "fieldname":"buttontitlecopyfrom", "text":"Copier de..."},
+
 	{"formname":"newperformanceassign", "fieldname":"formtitleeditassign", "text":"Édition"},
 	{"formname":"newperformanceassign", "fieldname":"fieldtask", "text":"Tâche"},
 	{"formname":"newperformanceassign", "fieldname":"fieldcontactfullname", "text":"Bénévole"},
@@ -131,6 +139,15 @@
 	{"formname":"newperformanceassign", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
 	{"formname":"newperformanceassign", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newperformanceassign", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"newperformanceexception", "fieldname":"formtitleeditexception", "text":"Éditer exception"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitlesection", "text":"Section"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitlerow", "text":"Rangée"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitleseat", "text":"Siège"},
+	{"formname":"newperformanceexception", "fieldname":"fieldtitlereason", "text":"Raison"},
+	{"formname":"newperformanceexception", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newperformanceexception", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newperformanceexception", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 
 	{"formname":"copyfrom", "fieldname":"formtitleeditassign", "text":"Copier de ..."},
 	{"formname":"copyfrom", "fieldname":"fieldperformance", "text":"Performance"},

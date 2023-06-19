@@ -105,4 +105,74 @@
 	  </div>
   
   </div>
+
+	<!-- This section is for exceptions to the seats defined above -->
+	<div class="grid" ng-if="currentArena.ices.length==0">
+    <h3>{{translationObj.seats.formtitleexceptions}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editException(currentArena, {})" ng-if="currentArena.ices.length==0"></button></h3>
+		<div ng-repeat="exception in currentArena.exceptions">
+    	<div class="row">
+
+				<div class="col-xs-2">
+		      <label for="section{{$index}}">{{translationObj.seats.fieldtitlesection}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<input type="text" name="section" class="form-control" id="section{{$index}}" ng-model="exception.section" maxlength="3" disabled>
+		      </div>
+		    </div>
+
+				<div class="col-xs-2">
+		      <label for="row{{$index}}">{{translationObj.seats.fieldtitlerow}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<input type="text" name="row" class="form-control" id="row{{$index}}" ng-model="exception.row" maxlength="3" disabled>
+		      </div>
+		    </div>
+
+				<div class="col-xs-2">
+		      <label for="seat{{$index}}">{{translationObj.seats.fieldtitleseat}}</label>
+	      	<div class="input-group">
+					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<input type="text" name="seat" class="form-control" id="seat{{$index}}" ng-model="exception.seat" maxlength="3" disabled>
+		      </div>
+		    </div>
+
+
+      <div class="col-xs-2">
+	      <label for="reason{{$index}}">{{translationObj.seats.fieldtitlereason}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <select class="form-control" id="reason{{$index}}" ng-model="exception.reason" disabled>
+						<option ng-repeat="reason in seatingexceptionreasons" value="{{reason.code}}">{{reason.text}}</option>
+      		</select>
+      	</div>
+      </div>
+      	<div class="col-xs-2">
+			    <label>&nbsp;</label>
+	      	<div class="input-group">
+    				<span>
+							<child-edit-button 			obj="exception" objlist="currentArena.exceptions" callback="editException(currentArena, exception)"></child-edit-button>
+							<child-delete-button 		obj="exception" objlist="currentArena.exceptions" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="exception" objlist="currentArena.exceptions" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="exception"></child-status-indicator>
+						</span>
+				  </div>
+			  </div>
+		  </div>
+	 	</div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
