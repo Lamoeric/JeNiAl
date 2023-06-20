@@ -1,7 +1,7 @@
 [
-	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter sessions..."},
-	{"formname":"leftPane", "fieldname":"maintitle", "text":"Sessions"},
-	{"formname":"leftPane", "fieldname":"noresult", "text":"No session found"},
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter shows..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Shows"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"No show found"},
 	{"formname":"leftPane", "fieldname":"labeltitleactive", "text":"active"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
@@ -32,16 +32,8 @@
 	{"formname":"shows", "fieldname":"reporttitleshownumberssummary", "text":"Show Numbers Summary"},
 	{"formname":"shows", "fieldname":"reporttitleshownumbersinviteslist", "text":"Numbers Invites List"},
 	{"formname":"shows", "fieldname":"reporttitleshowtasklist", "text":"Tasks List per Performance"},
-	{"formname":"shows", "fieldname":"reporttitleshownumbersinvitesactivelist", "text":"Numbers Invites Active List"},
-	{"formname":"shows", "fieldname":"reporttitlesessionnumbersattendance", "text":"Numbers Attendance"},
-	{"formname":"shows", "fieldname":"reporttitlesessioncoachesschedule", "text":"Coaches Schedule"},
-	{"formname":"shows", "fieldname":"reporttitlesessionnumberlistactive", "text":"List of Active Skaters per Numbers"},
-	{"formname":"shows", "fieldname":"reporttitlesessionnumbercount", "text":"Numbers Summary and Count per Number Code (Active Skaters)"},
 	{"formname":"shows", "fieldname":"reportdividerbilling", "text":"Billing"},
-	{"formname":"shows", "fieldname":"reportdividerregistrations", "text":"Registrations"},
 	{"formname":"shows", "fieldname":"reporttitleshowBillinglist", "text":"Bill List"},
-	{"formname":"shows", "fieldname":"reporttitlesessionSCRegistrations", "text":"Skate Canada Non Registrations List"},
-	{"formname":"shows", "fieldname":"reporttitlesessionTaxReceipt", "text":"Tax Receipts"},
 
 	{"formname":"shows", "fieldname":"panetitledetails", "text":"Details"},
 	{"formname":"shows", "fieldname":"panetitleperformances", "text":"Performances"},
@@ -50,7 +42,7 @@
 	{"formname":"shows", "fieldname":"panetitlewebdesc", "text":"Web Site"},
 	{"formname":"shows", "fieldname":"panetitlecharges", "text":"Charges"},
 	{"formname":"shows", "fieldname":"panetitlerules", "text":"Rules"},
-	{"formname":"shows", "fieldname":"panetitlenumbersdates", "text":"Practices Dates"},
+	{"formname":"shows", "fieldname":"panetitlepracticesdates", "text":"Practices Dates"},
 
 	{"formname":"details", "fieldname":"formtitle", "text":"Main Information"},
 	{"formname":"details", "fieldname":"fieldname", "text":"Name"},
@@ -63,7 +55,7 @@
 	{"formname":"details", "fieldname":"fieldenglishwebsitedesc", "text":"Web Site English Description"},
 	{"formname":"details", "fieldname":"fieldfrenchwebsitedesc", "text":"Web Site French Description"},
 	{"formname":"details", "fieldname":"fieldlastupdateddate", "text":"Last Updated Date"},
-	{"formname":"details", "fieldname":"fieldprevioussessionid", "text":"Previous Session"},
+	{"formname":"details", "fieldname":"fieldsession", "text":"Session"},
 	{"formname":"details", "fieldname":"fieldactive", "text":"Active"},
 	{"formname":"details", "fieldname":"fieldpublish", "text":"Publish"},
 
@@ -151,7 +143,7 @@
 
 	{"formname":"copyfrom", "fieldname":"formtitleeditassign", "text":"Copy from ..."},
 	{"formname":"copyfrom", "fieldname":"fieldperformance", "text":"Performance"},
-	{"formname":"copyfrom", "fieldname":"formerrormessage", "text":"All fields are mandatory."}
+	{"formname":"copyfrom", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
 	{"formname":"copyfrom", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"copyfrom", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -165,16 +157,6 @@
 	{"formname":"websitedesc", "fieldname":"msgerrinvalidmaxheight", "text":"Invalid image - image height larger than "},
 	{"formname":"websitedesc", "fieldname":"helptextimagespecifications", "text":"Image must be of type jpg, be smaller than 300Kb and of size smaller than 500px X 500px."},
 	{"formname":"websitedesc", "fieldname":"msguploadcompleted", "text":"Image Imported."},
-
-	{"formname":"icetimes", "fieldname":"formtitle", "text":"Ice Time"},
-	{"formname":"icetimes", "fieldname":"buttontitlenewicetime", "text":"New Ice Time..."},
-	{"formname":"icetimes", "fieldname":"fieldarena", "text":"Arena"},
-	{"formname":"icetimes", "fieldname":"fieldice", "text":"Ice"},
-	{"formname":"icetimes", "fieldname":"fieldday", "text":"Day"},
-	{"formname":"icetimes", "fieldname":"fieldstarttime", "text":"Start Time"},
-	{"formname":"icetimes", "fieldname":"fieldendtime", "text":"End Time"},
-	{"formname":"icetimes", "fieldname":"fieldduration", "text":"Duration"},
-	{"formname":"icetimes", "fieldname":"fieldcomments", "text":"Comments"},
 
 	{"formname":"charges", "fieldname":"formtitle", "text":"Charges"},
 	{"formname":"charges", "fieldname":"buttontitlenewcharge", "text":"New charge..."},
@@ -226,9 +208,9 @@
 	{"formname":"numbers", "fieldname":"fieldnbschedule", "text":"Nbr schedule"},
 	{"formname":"numbers", "fieldname":"fielddatesgenerated", "text":"Dates generated"},
 	{"formname":"numbers", "fieldname":"fieldcanbeinperformance", "text":"Can be in a performance"},
-	{"formname":"numbers", "fieldname":"fieldregistrationtype", "text":"Registration type"},
 	{"formname":"numbers", "fieldname":"fieldmandatory", "text":"Mandatory"},
 	{"formname":"numbers", "fieldname":"fieldnbregistration", "text":"Nbr registration"},
+	{"formname":"numbers", "fieldname":"fieldregistrationtype", "text":"Registration type"},
 	{"formname":"numbers", "fieldname":"formtitleinvites", "text":"Invites"},
 	{"formname":"numbers", "fieldname":"panetitleschedules", "text":"Practices Schedule"},
 	{"formname":"numbers", "fieldname":"panetitlestaffs", "text":"Staffs"},
@@ -238,7 +220,7 @@
 	{"formname":"numberdates", "fieldname":"formtitlenumberdates", "text":"Practices Dates"},
 	{"formname":"numberdates", "fieldname":"formtitlepernumbers", "text":"Per numbers"},
 	{"formname":"numberdates", "fieldname":"formtitleperdates", "text":"Per dates"},
-	{"formname":"numberdates", "fieldname":"fieldnumber", "text":"Number"},
+	{"formname":"numberdates", "fieldname":"fieldcourse", "text":"Number"},
 	{"formname":"numberdates", "fieldname":"fieldenglishlabel", "text":"English Label"},
 	{"formname":"numberdates", "fieldname":"fieldfrenchlabel", "text":"French Label"},
 	{"formname":"numberdates", "fieldname":"fieldfees", "text":"Fees"},
@@ -256,23 +238,11 @@
 	{"formname":"numberdates", "fieldname":"fieldfrenchlabel", "text":"French Label"},
 	{"formname":"numberdates", "fieldname":"fieldenglishlabel", "text":"English Label"},
 
-	{"formname":"newnumberinvitegroup", "fieldname":"formtitleeditgroupinvite", "text":"Edit Group Invite"},
-	{"formname":"newnumberinvitegroup", "fieldname":"fieldgroupname", "text":"Group"},
-	{"formname":"newnumberinvitegroup", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
-	{"formname":"newnumberinvitegroup", "fieldname":"buttontitlediscard", "text":"Cancel"},
-	{"formname":"newnumberinvitegroup", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
-
-	{"formname":"newnumberinviteskater", "fieldname":"formtitleinviteskater", "text":"Skaters Invited"},
-	{"formname":"newnumberinviteskater", "fieldname":"listtitlealreadyselected", "text":"Invited"},
-	{"formname":"newnumberinviteskater", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
-	{"formname":"newnumberinviteskater", "fieldname":"buttontitlediscard", "text":"Cancel"},
-	{"formname":"newnumberinviteskater", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
-
-	{"formname":"newsession", "fieldname":"formtitlenewsession", "text":"New Session"},
-	{"formname":"newsession", "fieldname":"fieldname", "text":"Name"},
-	{"formname":"newsession", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
-	{"formname":"newsession", "fieldname":"buttontitlediscard", "text":"Cancel"},
-	{"formname":"newsession", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+	{"formname":"newshow", "fieldname":"formtitlenewshow", "text":"New Show"},
+	{"formname":"newshow", "fieldname":"fieldname", "text":"Name"},
+	{"formname":"newshow", "fieldname":"formerrormessage", "text":"All fields are mandatory"},
+	{"formname":"newshow", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newshow", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"newcharge", "fieldname":"formtitleeditcharge", "text":"Edit charge"},
 	{"formname":"newcharge", "fieldname":"fieldcharge", "text":"Charge"},
@@ -284,7 +254,7 @@
 	{"formname":"newcharge", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"newintervention", "fieldname":"formtitleeditintervention", "text":"Edit intervention"},
-	{"formname":"newintervention", "fieldname":"fieldintervention", "text":"Intervention"},
+	{"formname":"newintervention", "fieldname":"fieldcourse", "text":"Intervention"},
 	{"formname":"newintervention", "fieldname":"fieldname", "text":"Name"},
 	{"formname":"newintervention", "fieldname":"fieldenglishlabel", "text":"English Label"},
 	{"formname":"newintervention", "fieldname":"fieldfrenchlabel", "text":"French Label"},
@@ -297,7 +267,7 @@
 	{"formname":"newintervention", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"newnumber", "fieldname":"formtitleeditnumber", "text":"Edit Number"},
-	{"formname":"newnumber", "fieldname":"fieldnumber", "text":"Number"},
+	{"formname":"newnumber", "fieldname":"fieldcourse", "text":"Number"},
 	{"formname":"newnumber", "fieldname":"fieldname", "text":"Name"},
 	{"formname":"newnumber", "fieldname":"fieldenglishlabel", "text":"English Label"},
 	{"formname":"newnumber", "fieldname":"fieldfrenchlabel", "text":"French Label"},
@@ -330,17 +300,17 @@
 	{"formname":"newnumberdates", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newnumberdates", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
-	{"formname":"newicetimes", "fieldname":"formtitleediticetime", "text":"Edit Ice Time"},
-	{"formname":"newicetimes", "fieldname":"fieldarena", "text":"Arena"},
-	{"formname":"newicetimes", "fieldname":"fieldice", "text":"Ice"},
-	{"formname":"newicetimes", "fieldname":"fieldday", "text":"Day"},
-	{"formname":"newicetimes", "fieldname":"fieldstarttime", "text":"Start Time"},
-	{"formname":"newicetimes", "fieldname":"fieldendtime", "text":"End Time"},
-	{"formname":"newicetimes", "fieldname":"fieldduration", "text":"Duration"},
-	{"formname":"newicetimes", "fieldname":"fieldcomments", "text":"Comments"},
-	{"formname":"newicetimes", "fieldname":"formerrormessage", "text":"All fields, except comments, are mandatory."},
-	{"formname":"newicetimes", "fieldname":"buttontitlediscard", "text":"Cancel"},
-	{"formname":"newicetimes", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+	{"formname":"newnumberinvitegroup", "fieldname":"formtitleeditgroupinvite", "text":"Edit Group Invite"},
+	{"formname":"newnumberinvitegroup", "fieldname":"fieldgroupname", "text":"Group"},
+	{"formname":"newnumberinvitegroup", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newnumberinvitegroup", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newnumberinvitegroup", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"newnumberinviteskater", "fieldname":"formtitleinviteskater", "text":"Skaters Invited"},
+	{"formname":"newnumberinviteskater", "fieldname":"listtitlealreadyselected", "text":"Invited"},
+	{"formname":"newnumberinviteskater", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newnumberinviteskater", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newnumberinviteskater", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"newregistrations", "fieldname":"formtitleeditregistration", "text":"Edit Registration Activity"},
 	{"formname":"newregistrations", "fieldname":"fieldlocation", "text":"Location"},
@@ -400,15 +370,6 @@
 	{"formname":"newstaff", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
 	{"formname":"newstaff", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newstaff", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
-
-	{"formname":"newsublevel", "fieldname":"formtitleeditsublevel", "text":"Edit Sublevel"},
-	{"formname":"newsublevel", "fieldname":"fieldsequence", "text":"Sequence"},
-	{"formname":"newsublevel", "fieldname":"fieldcode", "text":"Code"},
-	{"formname":"newsublevel", "fieldname":"fieldenglishlabel", "text":"English Label"},
-	{"formname":"newsublevel", "fieldname":"fieldfrenchlabel", "text":"French Label"},
-	{"formname":"newsublevel", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
-	{"formname":"newsublevel", "fieldname":"buttontitlediscard", "text":"Cancel"},
-	{"formname":"newsublevel", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"numbers", "fieldname":"", "text":""}
 ]

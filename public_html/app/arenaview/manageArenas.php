@@ -75,48 +75,41 @@ function insert_arena($mysqli) {
  * @throws Exception
  */
 function update_arena($mysqli, $arena) {
-	try {
-		$data = array();
-		$id =						$mysqli->real_escape_string(isset($arena['id']) 					? (int)$arena['id'] : '');
-		$name =					$mysqli->real_escape_string(isset($arena['name']) 				? $arena['name'] : '');
-		$label =				$mysqli->real_escape_string(isset($arena['label']) 			? (int)$arena['label'] : '');
-		$label_fr =			$mysqli->real_escape_string(isset($arena['label_fr']) 		? $arena['label_fr'] : '');
-		$label_en =			$mysqli->real_escape_string(isset($arena['label_en']) 		? $arena['label_en'] : '');
-		$address =			$mysqli->real_escape_string(isset($arena['address']) 		? $arena['address'] : '');
-		$nbrofice =			$mysqli->real_escape_string(isset($arena['nbrofice']) 		? (int)$arena['nbrofice'] : 1);
-		$active =				$mysqli->real_escape_string(isset($arena['active']) 			? (int)$arena['active'] : 0);
+	$data = array();
+	$id =						$mysqli->real_escape_string(isset($arena['id']) 					? (int)$arena['id'] : '');
+	$name =					$mysqli->real_escape_string(isset($arena['name']) 				? $arena['name'] : '');
+	$label =				$mysqli->real_escape_string(isset($arena['label']) 			? (int)$arena['label'] : '');
+	$label_fr =			$mysqli->real_escape_string(isset($arena['label_fr']) 		? $arena['label_fr'] : '');
+	$label_en =			$mysqli->real_escape_string(isset($arena['label_en']) 		? $arena['label_en'] : '');
+	$address =			$mysqli->real_escape_string(isset($arena['address']) 		? $arena['address'] : '');
+	$nbrofice =			$mysqli->real_escape_string(isset($arena['nbrofice']) 		? (int)$arena['nbrofice'] : 1);
+	$active =				$mysqli->real_escape_string(isset($arena['active']) 			? (int)$arena['active'] : 0);
 
-		if ($name == '' || $id == '') {
-			throw new Exception("Required fields missing, Please enter and submit");
-		}
+	if ($name == '' || $id == '') {
+		throw new Exception("Required fields missing, Please enter and submit");
+	}
 
-		$query = "UPDATE cpa_arenas SET name = '$name', address = '$address', active = '$active' WHERE id = $id";
+	$query = "UPDATE cpa_arenas SET name = '$name', address = '$address', active = '$active' WHERE id = $id";
+	if ($mysqli->query($query)) {
+		$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
 		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
+			$data['success'] = true;
+			$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
 			if ($mysqli->query($query)) {
 				$data['success'] = true;
-				$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-				if ($mysqli->query($query)) {
-					$data['success'] = true;
-					$data['message'] = 'Arena updated successfully.';
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$data['message'] = 'Arena updated successfully.';
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("update_arena.label_en ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception("update_arena.label_fr ". $mysqli->sqlstate.' - '. $mysqli->error);
 		}
-		return $data;
-		exit;
-	} catch(Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
-		exit;
+	} else {
+		throw new Exception("update_arena.arena ". $mysqli->sqlstate.' - '. $mysqli->error);
 	}
+	$data['message'] = 'Arena updated successfully.';
+	return $data;
+	exit;
 };
 
 /**
@@ -375,7 +368,7 @@ function updateEntireIceRooms($mysqli, $arenaid, $iceid, $rooms) {
 			$query = "INSERT INTO cpa_arenas_ices_rooms (id, arenaid, iceid, label, comments)
 								VALUES (null, $arenaid, " . ($iceid==null?" null" : "$iceid") . ", create_systemText('$label_en', '$label_fr'), '$comments')";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireIceRooms.insert ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
@@ -387,13 +380,13 @@ function updateEntireIceRooms($mysqli, $arenaid, $iceid, $rooms) {
 					$data['success'] = true;
 					$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
 					if (!$mysqli->query($query)) {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception("updateEntireIceRooms.label_en ". $mysqli->sqlstate.' - '. $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception("updateEntireIceRooms.label_fr ". $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireIceRooms.update ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
@@ -402,14 +395,15 @@ function updateEntireIceRooms($mysqli, $arenaid, $iceid, $rooms) {
 			if ($mysqli->query($query)) {
 				$query = "DELETE FROM cpa_text WHERE id = $label";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception("updateEntireIceRooms.delete text ". $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireIceRooms.delete rooms". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 	}
 	$data['success'] = true;
+	$data['message'] = 'Rooms updated successfully';
 	return $data;
 };
 
@@ -419,6 +413,7 @@ function updateEntireIceRooms($mysqli, $arenaid, $iceid, $rooms) {
  */
 function updateSeats($mysqli, $arenaid, $iceid, $seats) {
 	$data = array();
+	$data['success'] = false;
 	$id = 					$mysqli->real_escape_string(isset($seats['id'])						? (int)$seats['id'] : 0);
 	$sectiontype = 	$mysqli->real_escape_string(isset($seats['sectiontype'])	? (int)$seats['sectiontype'] : 0);
 	$sectionfirst = $mysqli->real_escape_string(isset($seats['sectionfirst'])	? $seats['sectionfirst'] : 'A');
@@ -448,7 +443,7 @@ function updateSeats($mysqli, $arenaid, $iceid, $seats) {
 		if (!$mysqli->query($query)) {
 			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 		}
-		$data['optype'] = 'insert';
+		$data['message'] = 'Seats inserted successfully';
 	} else {
 		$query = "UPDATE cpa_arenas_ices_seats 
 						  SET sectiontype='$sectiontype',sectionfirst='$sectionfirst',sectionnb='$sectionnb',sectioninc='$sectioninc',
@@ -458,7 +453,7 @@ function updateSeats($mysqli, $arenaid, $iceid, $seats) {
 		if (!$mysqli->query($query)) {
 			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 		}
-		$data['optype'] = 'update';
+		$data['message'] = 'Seats updated successfully';
 	}
 
 	$data['success'] = true;
@@ -481,32 +476,33 @@ function updateEntireExceptions($mysqli, $arenaid, $iceid, $exceptions) {
 		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'New') {
 			if ($iceid == null) {
 				$query = "INSERT INTO cpa_arenas_ices_exceptions (id, arenaid, iceid, section, row, seat, reason)
-									VALUES (null, $arenaid, null, $section, $row, $seat, $reason)";
+									VALUES (null, $arenaid, null, '$section', '$row', '$seat', $reason)";
 			} else {
 				$query = "INSERT INTO cpa_arenas_ices_exceptions (id, arenaid, iceid, section, row, seat, reason)
 									VALUES (null, $arenaid, $iceid, '$section', '$row', '$seat', $reason)";
 			}
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireExceptions.insert ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
 		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Modified') {
-			$query = "UPDATE cpa_arenas_ices_exceptions SET section = '$section', row = '$row', seat = '$seat', reason = '$reason'	WHERE id = $id";
+			$query = "UPDATE cpa_arenas_ices_exceptions SET section = '$section', row = '$row', seat = '$seat', reason = '$reason' WHERE id = $id";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireExceptions.update ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
 		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Deleted') {
 			$query = "DELETE FROM cpa_arenas_ices WHERE id = $id";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireExceptions.delete ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 	}
 	
 	$data['success'] = true;
+	$data['message'] = "Exceptions updated successfully";
 	return $data;
 };
 
@@ -527,7 +523,7 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 			$query = "INSERT INTO cpa_arenas_ices (id, arenaid, code, label)
 								VALUES (null, $arenaid, '$code', create_systemText('$label_en', '$label_fr'))";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireIces.insert ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
@@ -539,13 +535,13 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 					$data['success'] = true;
 					$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
 					if (!$mysqli->query($query)) {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception("updateEntireIces.label_en ". $mysqli->sqlstate.' - '. $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception("updateEntireIces.label_fr ". $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireIces.update ice ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
@@ -554,10 +550,10 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 			if ($mysqli->query($query)) {
 				$query = "DELETE FROM cpa_text WHERE id = $label";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception("updateEntireIces.delete label ". $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception("updateEntireIces.delete ice ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 	}
@@ -576,6 +572,7 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 		}
 	}
 	$data['success'] = true;
+	$data['message'] = 'Seats updated successfully.';
 	return $data;
 };
 
@@ -600,7 +597,7 @@ function updateWebsite($mysqli, $arenaid, $arena) {
 				$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
 				if ($mysqli->query($query)) {
 					$data['success'] = true;
-					$data['message'] = 'Arena updated successfully.';
+					$data['message'] = 'Web site updated successfully.';
 				} else {
 					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 				}
@@ -616,7 +613,7 @@ function updateWebsite($mysqli, $arenaid, $arena) {
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			$data['id'] = (int) $mysqli->insert_id;
-			$data['message'] = 'Arena inserted successfully.';
+			$data['message'] = 'Web site inserted successfully.';
 		} else {
 			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 		}
@@ -631,7 +628,7 @@ function updateEntireArena($mysqli, $arena) {
 		$data = array();
 		$id = $mysqli->real_escape_string(isset($arena['id']) ? $arena['id'] : '');
 
-		$data['successarena'] = update_arena($mysqli, $arena);
+		$data['arena'] = update_arena($mysqli, $arena);
 		if ($mysqli->real_escape_string(isset($arena['ices']))) {
 			$data['successices'] = updateEntireIces($mysqli, $id, $arena['ices']);
 		}
@@ -645,18 +642,17 @@ function updateEntireArena($mysqli, $arena) {
 				$data['exceptions'] = updateEntireExceptions($mysqli, $id, null, $arena['exceptions']);
 		}
 		if ($mysqli->real_escape_string(isset($arena['website']))) {
-			$data['rooms'] = updateWebsite($mysqli, $id, $arena['website']);
+			$data['website'] = updateWebsite($mysqli, $id, $arena['website']);
 		}
 		$mysqli->close();
 
 		$data['success'] = true;
-		$data['message'] = 'Arena updated successfully.';
+		$data['message'] = "Arena updated successfully.";
 		echo json_encode($data);
 		exit;
 	} catch(Exception $e) {
-		$data = array();
 		$data['success'] = false;
-		$data['message'] = $e->getMessage();
+		$data['message'] = "updateEntireArena ". $e->getMessage();
 		echo json_encode($data);
 		exit;
 	}

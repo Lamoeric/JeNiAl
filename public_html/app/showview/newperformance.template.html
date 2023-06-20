@@ -5,7 +5,7 @@
   <form class="form-horizontal" role="form" name="editObjForm">
     <div class="form-group row">
       <div class="col-xs-4">
-	      <label for="location">{{translationObj.newperformance.fieldtype}}<i style="color:red"> *</i></label>
+	      <label for="type">{{translationObj.newperformance.fieldtype}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
           <select class="form-control" id="type" ng-model="newObj.type" required>
@@ -15,7 +15,7 @@
       </div>
 
       <div class="col-xs-3">
-	      <label for="performancedate">{{translationObj.newperformance.fielddate}}<i style="color:red"> *</i></label>
+	      <label for="perfdate">{{translationObj.newperformance.fielddate}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 	        <input type="date" class="form-control" id="perfdate" ng-model="newObj.perfdate" required>
@@ -59,7 +59,7 @@
       </div>
 			<div class="clearfix"></div>
       <div class="col-xs-3">
-	      <label for="endtime">{{translationObj.newperformance.fieldstarttime}}<i style="color:red"> *</i></label>
+	      <label for="starttime">{{translationObj.newperformance.fieldstarttime}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 	        <input type="time" class="form-control" id="starttime" ng-model="newObj.starttime" required>
