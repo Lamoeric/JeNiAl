@@ -39,6 +39,7 @@
 	{"formname":"ices", "fieldname":"fieldtitlecomment", "text":"Comments"},
 	{"formname":"ices", "fieldname":"panetitlerooms", "text":"Rooms"},
 	{"formname":"ices", "fieldname":"panetitleseats", "text":"Seats"},
+	{"formname":"ices", "fieldname":"panetitleexceptions", "text":"Exceptions"},
 
 	{"formname":"website", "fieldname":"formtitlewebsite", "text":"WebSite"},
 	{"formname":"website", "fieldname":"fieldtitlefrenchlabel", "text":"French Label"},
@@ -62,6 +63,7 @@
 	{"formname":"seats", "fieldname":"fieldtitleseatfirst", "text":"First Seat"},
 	{"formname":"seats", "fieldname":"fieldtitleseatnb", "text":"Number of Seats"},
 	{"formname":"seats", "fieldname":"fieldtitleseatinc", "text":"Increment"},
+	{"formname":"seats", "fieldname":"fieldtitlereason", "text":"Reason"},
 	{"formname":"seats", "fieldname":"msgseatsforices", "text":"If the arena has multiple ices, the seats are defined in the Ices tab under each ice."},
 
 	{"formname":"newice", "fieldname":"formtitleeditice", "text":"Edit Ice"},
@@ -79,6 +81,15 @@
 	{"formname":"newroom", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
 	{"formname":"newroom", "fieldname":"buttontitlediscard", "text":"Discard"},
 	{"formname":"newroom", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"newexception", "fieldname":"formtitleeditexception", "text":"Edit Exception"},
+	{"formname":"newexception", "fieldname":"fieldtitlesection", "text":"Section"},
+	{"formname":"newexception", "fieldname":"fieldtitlerow", "text":"Row"},
+	{"formname":"newexception", "fieldname":"fieldtitleseat", "text":"Seat"},
+	{"formname":"newexception", "fieldname":"fieldtitlereason", "text":"Reason"},
+	{"formname":"newexception", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newexception", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newexception", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"newarena", "fieldname":"formtitleeditarena", "text":"New Arena"},
 	{"formname":"newarena", "fieldname":"fieldtitlename", "text":"Name"},

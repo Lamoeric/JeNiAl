@@ -43,25 +43,6 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	invalidRequest();
 };
 
-// Try to get the course codes for the filter
-// function getShowCourseCodes($mysqli, $showid, $language) {
-//	$data = array();
-//	$data['data'] = array();
-//	$query = "select distinct cc.code, getTextLabel(cc.label, '$language') coursecodelabel
-//						from cpa_shows_courses csc
-//						join cpa_courses cc ON cc.code = csc.coursecode
-//						where csc.showid = $showid
-//						and cc.active = 1
-//						and cc.acceptregistrations = 1
-//						order by cc.code";
-//	$result = $mysqli->query($query);
-//	while ($row = $result->fetch_assoc()) {
-//		$data['data'][] = $row;
-//	}
-//	$data['success'] = true;
-//	return $data;
-//};
-
 /**
  * This function will handle the copy show operation.
  * @throws Exception
@@ -135,37 +116,10 @@ function copyShow($mysqli, $showid, $copyicetimes, $copycourses, $copycharges, $
 								} else {
 									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 								}
-
-
-								// $query = "SELECT /*id, showscoursesid,*/ arenaid, iceid, day, starttime, endtime, duration FROM cpa_shows_courses_schedule WHERE showscoursesid = $showscoursesid";
-								// $result2 = $mysqli->query($query);
-								// while ($row2 = $result2->fetch_assoc()) {
-									// $arenaid = $row2['arenaid'];
-									// $iceid = $row2['iceid'];
-									// $day = $row2['day'];
-									// $starttime = $row2['starttime'];
-									// $endtime = $row2['endtime'];
-									// $duration = $row2['duration'];
-									// $query = "INSERT INTO cpa_shows_courses_schedule(id, showscoursesid, arenaid, iceid, day, starttime, endtime, duration
-									// 					VALUES (null, $newshowscoursesid, $arenaid, $iceid, $day, '$starttime', '$endtime', $duration)";
-								// 	if ($mysqli->query($query)) {
-								// 	} else {
-								// 	 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								// 	 	}
-								// }
 							} else {
 			 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			 			 	}
 						}
-
-						// $query = "INSERT INTO cpa_shows_courses(id, showid, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, datesgenerated)
-						// 						SELECT null, $id, coursecode, courselevel, name, create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), fees, minnumberskater, maxnumberskater, 0
-						// 							FROM cpa_shows_courses where showid = $showid";
-						// if ($mysqli->query($query)) {
-						// 	$data['success'] = true;
-						// } else {
-						//  		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						//  	}
 					}
 				}
 			} else {
@@ -214,59 +168,6 @@ function activateShow($mysqli, $showid) {
 		exit;
 	}
 };
-
-/**
- * This function will handle insertion of a new icetime in DB
- * @throws Exception
- */
-//function updateEntireIcetimes($mysqli, $showid, $icetimes) {
-//	try {
-//		$data = array();
-//		for ($x = 0; $x < count($icetimes); $x++) {
-//			$id = 				$mysqli->real_escape_string(isset($icetimes[$x]['id']) 				? $icetimes[$x]['id'] : '');
-//			$arenaid = 		$mysqli->real_escape_string(isset($icetimes[$x]['arenaid']) 		? $icetimes[$x]['arenaid'] : '');
-//			$day = 				$mysqli->real_escape_string(isset($icetimes[$x]['day']) 				? $icetimes[$x]['day'] : '');
-//			$starttime = 	$mysqli->real_escape_string(isset($icetimes[$x]['starttime']) 	? $icetimes[$x]['starttime'] : '');
-//			$endtime = 		$mysqli->real_escape_string(isset($icetimes[$x]['endtime']) 		? $icetimes[$x]['endtime'] : '');
-//			$duration = 	$mysqli->real_escape_string(isset($icetimes[$x]['duration']) 	? $icetimes[$x]['duration'] : 0);
-//			$iceid = 			$mysqli->real_escape_string(isset($icetimes[$x]['iceid']) 			? $icetimes[$x]['iceid'] : '0');
-//			$comment = 		$mysqli->real_escape_string(isset($icetimes[$x]['comment']) 		? $icetimes[$x]['comment'] : '');
-//
-//			if ($mysqli->real_escape_string(isset($icetimes[$x]['status'])) and $icetimes[$x]['status'] == 'New') {
-//				$query = "INSERT into cpa_shows_icetimes (showid, arenaid, day, starttime, endtime, duration, iceid, comment)
-//									VALUES ('$showid', '$arenaid', $day, '$starttime', '$endtime', $duration, '$iceid', '$comment')";
-//				if ($mysqli->query($query)) {
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//
-//			if ($mysqli->real_escape_string(isset($icetimes[$x]['status'])) and $icetimes[$x]['status'] == 'Modified') {
-//				$query = "UPDATE cpa_shows_icetimes
-//									SET arenaid = '$arenaid', day = $day, starttime = '$starttime', endtime = '$endtime', duration = $duration, iceid = '$iceid', comment = '$comment'
-//									WHERE id = '$id'";
-//				if ($mysqli->query($query)) {
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//
-//			if ($mysqli->real_escape_string(isset($icetimes[$x]['status'])) and $icetimes[$x]['status'] == 'Deleted') {
-//				$query = "DELETE FROM cpa_shows_icetimes WHERE id = '$id'";
-//				if ($mysqli->query($query)) {
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//		}
-//	} catch (Exception $e) {
-//		$data = array();
-//		$data['success'] = false;
-//		$data['message'] = $e->getMessage();
-//		echo json_encode($data);
-//		exit;
-//	}
-//};
 
 function updateEntireShowNumberSchedule($mysqli, $showid, $numberid, $schedules) {
 	try {
@@ -371,75 +272,6 @@ function updateEntireShowNumberDates($mysqli, $showid, $numberid, $dates) {
 	return $data;
 };
 
-//function updateEntireShowCourseSublevel($mysqli, $showid, $showscoursesid, $sublevels) {
-//	try {
-//		$data = array();
-//		$data['inserted'] = 0;
-//		$data['updated'] = 0;
-//		$data['deleted'] = 0;
-//		for ($x = 0; $x < count($sublevels); $x++) {
-//			$id = 								$mysqli->real_escape_string(isset($sublevels[$x]['id']) 							? (int)$sublevels[$x]['id'] : '');
-//			$code = 							$mysqli->real_escape_string(isset($sublevels[$x]['code']) 						? $sublevels[$x]['code'] : '');
-//			$label = 							$mysqli->real_escape_string(isset($sublevels[$x]['label']) 						? $sublevels[$x]['label'] : '');
-//			$label_en = 					$mysqli->real_escape_string(isset($sublevels[$x]['label_en']) 				? $sublevels[$x]['label_en'] : '');
-//			$label_fr = 					$mysqli->real_escape_string(isset($sublevels[$x]['label_fr']) 				? $sublevels[$x]['label_fr'] : '');
-//			$sequence = 					$mysqli->real_escape_string(isset($sublevels[$x]['sequence']) 				? (int)$sublevels[$x]['sequence'] : 0);
-//
-//			if ($mysqli->real_escape_string(isset($sublevels[$x]['status'])) and $sublevels[$x]['status'] == 'New') {
-//				$query = "INSERT into cpa_shows_courses_sublevels (showscoursesid, code, label, sequence)
-//									VALUES ('$showscoursesid', '$code', create_systemtext('$label_en', '$label_fr'), $sequence)";
-//				if ($mysqli->query($query)) {
-//					$sublevels[$x]['id'] = $mysqli->insert_id;
-//					$data['inserted']++;
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//
-//			if ($mysqli->real_escape_string(isset($sublevels[$x]['status'])) and $sublevels[$x]['status'] == 'Modified') {
-//				$query = "UPDATE cpa_text set text = '$label_fr' where id = '$label' and language = 'fr-ca'";
-//				if ($mysqli->query($query)) {
-//					$data['success'] = true;
-//					$query = "UPDATE cpa_text set text = '$label_en' where id = '$label' and language = 'en-ca'";
-//					if ($mysqli->query($query)) {
-//						$query = "update cpa_shows_courses_sublevels set sequence = $sequence where id = $id";
-//						if ($mysqli->query($query)) {
-//							$data['updated']++;
-//						} else {
-//							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//						}
-//					} else {
-//						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//					}
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//
-//			if ($mysqli->real_escape_string(isset($sublevels[$x]['status'])) and $sublevels[$x]['status'] == 'Deleted') {
-//				$query = "DELETE FROM cpa_text WHERE id = '$label'";
-//				if ($mysqli->query($query)) {
-//					$query = "DELETE FROM cpa_shows_courses_sublevels WHERE id = $id";
-//					if ($mysqli->query($query)) {
-//						$data['deleted']++;
-//					} else {
-//						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//					}
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//		}
-//		return $data;
-//	} catch (Exception $e) {
-//		$data = array();
-//		$data['success'] = false;
-//		$data['message'] = $e->getMessage();
-//		echo json_encode($data);
-//		exit;
-//	}
-//};
-
 function updateEntireShowNumberStaff($mysqli, $showid, $numberid, $staffs) {
 	try {
 		$data = array();
@@ -450,7 +282,6 @@ function updateEntireShowNumberStaff($mysqli, $showid, $numberid, $staffs) {
 			$id = 								$mysqli->real_escape_string(isset($staffs[$x]['id']) 							? (int)$staffs[$x]['id'] : 0);
 			$memberid = 					$mysqli->real_escape_string(isset($staffs[$x]['memberid']) 				? (int)$staffs[$x]['memberid'] : 0);
 			$staffcode = 					$mysqli->real_escape_string(isset($staffs[$x]['staffcode']) 			? $staffs[$x]['staffcode'] : '');
-//			$statuscode = 				$mysqli->real_escape_string(isset($staffs[$x]['statuscode']) 			? $staffs[$x]['statuscode'] : '');
 
 			if ($mysqli->real_escape_string(isset($staffs[$x]['status'])) and $staffs[$x]['status'] == 'New') {
 				$query = "INSERT into cpa_shows_numbers_staffs (numberid, showid, memberid, staffcode)
@@ -535,8 +366,8 @@ function updateEntireShowCharges($mysqli, $showid, $showCharges) {
 			$id = 				$mysqli->real_escape_string(isset($showCharges[$x]['id']) 								? $showCharges[$x]['id'] : '');
 			$chargecode =	$mysqli->real_escape_string(isset($showCharges[$x]['chargecode']) 				? $showCharges[$x]['chargecode'] : '');
 			$amount = 		$mysqli->real_escape_string(isset($showCharges[$x]['amount']) 						? $showCharges[$x]['amount'] : '0.00');
-			$startdate = 	$mysqli->real_escape_string(isset($showCharges[$x]['startdate']) 				? $showCharges[$x]['startdate'] : null);
-			$enddate = 		$mysqli->real_escape_string(isset($showCharges[$x]['enddate']) 					? $showCharges[$x]['enddate'] : null);
+			$startdate = 	isset($showCharges[$x]['startdate']) 				? $mysqli->real_escape_string($showCharges[$x]['startdate']) : null;
+			$enddate = 		isset($showCharges[$x]['enddate']) 					? $mysqli->real_escape_string($showCharges[$x]['enddate']) : null;
 
 			if ($mysqli->real_escape_string(isset($showCharges[$x]['status'])) and $showCharges[$x]['status'] == 'New') {
 				$query = "INSERT into cpa_shows_charges (showid, chargecode, amount, startdate, enddate)
@@ -880,7 +711,6 @@ function updateEntireShowInterventions($mysqli, $showid, $interventions) {
 	}
 };
 
-
 function updateEntireShowNumbers($mysqli, $showid, $numbers) {
 	try {
 		$data = array();
@@ -977,59 +807,6 @@ function updateEntireShowNumbers($mysqli, $showid, $numbers) {
 	}
 };
 
-//function updateEntireShowRegistrations($mysqli, $showid, $registrations) {
-//	try {
-//		$data = array();
-//		$data['inserted'] = 0;
-//		$data['updated'] = 0;
-//		$data['deleted'] = 0;
-//		for ($x = 0; $x < count($registrations); $x++) {
-//			$id = 							$mysqli->real_escape_string(isset($registrations[$x]['id']) 								? $registrations[$x]['id'] : '');
-//			$location = 				$mysqli->real_escape_string(isset($registrations[$x]['location']) 					? $registrations[$x]['location'] : '');
-//			$registrationdate = $mysqli->real_escape_string(isset($registrations[$x]['registrationdate']) 	? $registrations[$x]['registrationdate'] : '');
-//			$starttime = 				$mysqli->real_escape_string(isset($registrations[$x]['starttime']) 					? $registrations[$x]['starttime'] : '');
-//			$endtime = 					$mysqli->real_escape_string(isset($registrations[$x]['endtime']) 						? $registrations[$x]['endtime'] : '');
-//			$comments = 				$mysqli->real_escape_string(isset($registrations[$x]['comments']) 					? $registrations[$x]['comments'] : '');
-//
-//			if ($mysqli->real_escape_string(isset($registrations[$x]['status'])) and $registrations[$x]['status'] == 'New') {
-//				$query = "INSERT into cpa_shows_registrations (showid, location, registrationdate, starttime, endtime, comments)
-//									VALUES ('$showid', '$location', '$registrationdate', '$starttime', '$endtime', '$comments')";
-//
-//				if ($mysqli->query($query)) {
-//					$registrations[$x]['id'] = $mysqli->insert_id;
-//					$data['inserted']++;
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//			if ($mysqli->real_escape_string(isset($registrations[$x]['status'])) and $registrations[$x]['status'] == 'Modified') {
-//				$query = "update cpa_shows_registrations set location = '$location', registrationdate = '$registrationdate', starttime = '$starttime', endtime = '$endtime', comments = '$comments' where id = '$id'";
-//				if ($mysqli->query($query)) {
-//					$data['updated']++;
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//			if ($mysqli->real_escape_string(isset($registrations[$x]['status'])) and $registrations[$x]['status'] == 'Deleted') {
-//				$query = "DELETE FROM cpa_shows_registrations WHERE id = '$id'";
-//
-//				if ($mysqli->query($query)) {
-//					$data['deleted']++;
-//				} else {
-//					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//				}
-//			}
-//		}
-//		return $data;
-//	} catch (Exception $e) {
-//		$data = array();
-//		$data['success'] = false;
-//		$data['message'] = $e->getMessage();
-//		echo json_encode($data);
-//		exit;
-//	}
-//};
-
 function updateEntireShowPerformanceNumbers($mysqli, $showid, $performanceid, $numbers) {
 	$data = array();
 
@@ -1059,8 +836,8 @@ function updateEntireShowPerformancePrices($mysqli, $showid, $performanceid, $pr
 			$id = 				$mysqli->real_escape_string(isset($prices[$x]['id']) 								? $prices[$x]['id'] : '');
 			$pricetype =	$mysqli->real_escape_string(isset($prices[$x]['pricetype']) 				? $prices[$x]['pricetype'] : '');
 			$amount = 		$mysqli->real_escape_string(isset($prices[$x]['amount']) 						? $prices[$x]['amount'] : '0.00');
-			$agemin = 		$mysqli->real_escape_string(isset($prices[$x]['agemin']) 						? $prices[$x]['agemin'] : null);
-			$agemax = 		$mysqli->real_escape_string(isset($prices[$x]['agemax']) 						? $prices[$x]['agemax'] : null);
+			$agemin = 		isset($prices[$x]['agemin']) 						? $mysqli->real_escape_string($prices[$x]['agemin']) : null;
+			$agemax = 		isset($prices[$x]['agemax']) 						? $mysqli->real_escape_string($prices[$x]['agemax']) : null;
 
 			if ($mysqli->real_escape_string(isset($prices[$x]['status'])) and $prices[$x]['status'] == 'New') {
 				$query = "INSERT into cpa_shows_performances_prices (showid, performanceid, pricetype, amount, agemin, agemax)
@@ -1153,6 +930,48 @@ function updateEntireShowPerformanceAssigns($mysqli, $showid, $performanceid, $a
 			}
 			if ($mysqli->real_escape_string(isset($assigns[$x]['status'])) and $assigns[$x]['status'] == 'Deleted') {
 				$query = "DELETE FROM cpa_shows_performances_assigns WHERE id = '$id'";
+				if (!$mysqli->query($query)) {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+			}
+		}
+		return $data;
+	} catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+};
+
+function updateEntireShowPerformanceExceptions($mysqli, $showid, $performanceid, $exceptions) {
+	try {
+		$data = array();
+		for ($x = 0; $x < count($exceptions); $x++) {
+			$id = 			$mysqli->real_escape_string(isset($exceptions[$x]['id']) 				? (int)$exceptions[$x]['id'] : 0);
+			$section =	$mysqli->real_escape_string(isset($exceptions[$x]['section']) 	? $exceptions[$x]['section'] : '');
+			$row = 			$mysqli->real_escape_string(isset($exceptions[$x]['row']) 			? $exceptions[$x]['row'] : '');
+			$seat = 		$mysqli->real_escape_string(isset($exceptions[$x]['seat']) 			? $exceptions[$x]['seat'] : '');
+			$reason = 	$mysqli->real_escape_string(isset($exceptions[$x]['reason']) 		? (int)$exceptions[$x]['reason'] : 0);
+
+			if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'New') {
+				$query = "INSERT into cpa_shows_performances_exceptions (showid, performanceid, section, row, seat, reason)
+									VALUES ($showid, $performanceid, '$section', '$row', '$seat', $reason)";
+				if ($mysqli->query($query)) {
+					$assigns[$x]['id'] = $mysqli->insert_id;
+				} else {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+			}
+			if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Modified') {
+				$query = "UPDATE cpa_shows_performances_exceptions SET section = '$section', row = '$row', seat = '$seat', reason = $reason where id = '$id'";
+				if (!$mysqli->query($query)) {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+			}
+			if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Deleted') {
+				$query = "DELETE FROM cpa_shows_performances_exceptions WHERE id = '$id'";
 				if (!$mysqli->query($query)) {
 					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 				}
@@ -1267,6 +1086,9 @@ function updateEntireShowPerformances($mysqli, $showid, $performances) {
 			}
 			if ($mysqli->real_escape_string(isset($performances[$x]['assigns']))) {
 				$data['assigns'] = updateEntireShowPerformanceAssigns($mysqli, $showid, $performances[$x]['id'], $performances[$x]['assigns']);
+			}
+			if ($mysqli->real_escape_string(isset($performances[$x]['exceptions']))) {
+				$data['exceptions'] = updateEntireShowPerformanceExceptions($mysqli, $showid, $performances[$x]['id'], $performances[$x]['exceptions']);
 			}
 		}
 	}
@@ -1392,9 +1214,6 @@ function update_show($mysqli, $details) {
 		$label =									$mysqli->real_escape_string(isset($details['label']) 									? (int)$details['label'] : 0);
 		$label_fr =								$mysqli->real_escape_string(isset($details['label_fr']) 							? $details['label_fr'] : '');
 		$label_en =								$mysqli->real_escape_string(isset($details['label_en']) 							? $details['label_en'] : '');
-//		$websitedesc =				$mysqli->real_escape_string(isset($details['websitedesc']) 							? (int)$details['websitedesc'] : 0);
-//		$websitedesc_fr =			$mysqli->real_escape_string(isset($details['websitedesc_fr']) 					? $details['websitedesc_fr'] : '');
-//		$websitedesc_en =			$mysqli->real_escape_string(isset($details['websitedesc_en']) 					? $details['websitedesc_en'] : '');
 		$sessionid =							$mysqli->real_escape_string(isset($details['sessionid']) 							? (int)$details['sessionid'] : 0);
 		$practicesstartdate =			$mysqli->real_escape_string(isset($details['practicesstartdatestr']) 		? $details['practicesstartdatestr'] : '');
 		$practicesenddate =				$mysqli->real_escape_string(isset($details['practicesenddatestr']) 			? $details['practicesenddatestr'] : '');
@@ -1412,17 +1231,6 @@ function update_show($mysqli, $details) {
 			if ($mysqli->query($query)) {
 				$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
 				if ($mysqli->query($query)) {
-//					$query = "UPDATE cpa_text set text = '$websitedesc_fr' where id = $websitedesc and language = 'fr-ca'";
-//					if ($mysqli->query($query)) {
-//						$query = "UPDATE cpa_text set text = '$websitedesc_en' where id = $websitedesc and language = 'en-ca'";
-//						if ($mysqli->query($query)) {
-//							$data['success'] = true;
-//						} else {
-//							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//						}
-//					} else {
-//						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-//					}
 				} else {
 					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 				}
@@ -1559,7 +1367,6 @@ function getShowNumbers($mysqli, $showid, $language) {
 		$row['invites'] 						= getShowNumberInvites($mysqli, $row['id'], $language)['data'];
 		$row['schedules'] 					= getShowNumberSchedules($mysqli, $row['id'], $language)['data'];
 		$row['dates'] 							= getShowNumberDates($mysqli, $row['id'], $language)['data'];
-//		$row['members'] 						= getShowNumberRegistrations($mysqli, $row['id'], $language)['data'];
 		$data['data'][] 						= $row;
 	}
 	$data['success'] = true;
@@ -1609,33 +1416,6 @@ function getShowNumberDates($mysqli, $numberid, $language) {
 	$data['success'] = true;
 	return $data;
 };
-
-/**
- * This function gets the details of all sublevels for a show course
- */
-//function getShowCourseSublevels($mysqli, $showscoursesid) {
-//	try {
-//		if (empty($showscoursesid)) throw new Exception("Invalid show course.");
-//		$query = "SELECT *, getEnglishTextLabel(label) label_en, getFrenchTextLabel(label) label_fr
-//							FROM cpa_shows_courses_sublevels cscs
-//							WHERE showscoursesid = $showscoursesid
-//							ORDER BY sequence";
-//		$result = $mysqli->query($query);
-//		$data = array();
-//		$data['data'] = array();
-//		while ($row = $result->fetch_assoc()) {
-//			$row['sequence'] = (int)$row['sequence'];
-//			$data['data'][] = $row;
-//		}
-//		$data['success'] = true;
-//		return $data;
-//	} catch (Exception $e) {
-//		$data = array();
-//		$data['success'] = false;
-//		$data['message'] = $e->getMessage();
-//		return $data;
-//	}
-//};
 
 /**
  * This function gets the details of all staffs for a show number
@@ -1695,34 +1475,6 @@ function getShowNumberInvites($mysqli, $numberid, $language) {
 };
 
 /**
- * This function gets the details of all registrations for a show course
- */
-//function getShowNumberRegistrations($mysqli, $numberid, $language) {
-//	try {
-//		if (empty($numberid)) throw new Exception("Invalid show number.");
-//		$query = "SELECT csci.groupormemberid id, cm.lastname, cm.firstname
-//							FROM cpa_shows_numbers_invites csci
-//							JOIN cpa_members cm ON cm.id = csci.groupormemberid
-//							WHERE numberid = $numberid
-//							AND type = 2
-//							ORDER BY cm.lastname, cm.firstname";
-//		$result = $mysqli->query($query);
-//		$data = array();
-//		$data['data'] = array();
-//		while ($row = $result->fetch_assoc()) {
-//			$data['data'][] = $row;
-//		}
-//		$data['success'] = true;
-//		return $data;
-//	} catch (Exception $e) {
-//		$data = array();
-//		$data['success'] = false;
-//		$data['message'] = $e->getMessage();
-//		return $data;
-//	}
-//};
-
-/**
  * This function gets the lists of all numbers for a performance
  */
 function getShowPerformanceNumbers($mysqli, $performanceid, $language) {
@@ -1751,6 +1503,24 @@ function getShowPerformancePrices($mysqli, $performanceid, $language) {
 						JOIN cpa_codetable cct ON cct.ctname = 'showpricetypes' AND cct.code = cspp.pricetype
 						WHERE cspp.performanceid = $performanceid
 						ORDER BY cct.sequence";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$data['data'][] = $row;
+	}
+	$data['success'] = true;
+	return $data;
+};
+
+/**
+ * This function gets the lists of all exceptions for a performance
+ */
+function getShowPerformanceExceptions($mysqli, $performanceid, $language) {
+	if (empty($performanceid)) throw new Exception("Invalid performance.");
+	$query = "SELECT cspe.*
+						FROM cpa_shows_performances_exceptions cspe
+						WHERE cspe.performanceid = $performanceid";
 	$result = $mysqli->query($query);
 	$data = array();
 	$data['data'] = array();
@@ -1801,9 +1571,10 @@ function getShowPerformances($mysqli, $showid, $language) {
 	$data = array();
 	$data['data'] = array();
 	while ($row = $result->fetch_assoc()) {
-		$row['numberlist'] = getShowPerformanceNumbers($mysqli, $row['id'], $language)['data'];
-		$row['prices'] = getShowPerformancePrices($mysqli, $row['id'], $language)['data'];
-		$row['assigns'] = getShowPerformanceAssigns($mysqli, $row['id'], $language)['data'];
+		$row['numberlist'] = 	getShowPerformanceNumbers($mysqli, $row['id'], $language)['data'];
+		$row['prices'] = 			getShowPerformancePrices($mysqli, $row['id'], $language)['data'];
+		$row['assigns'] = 		getShowPerformanceAssigns($mysqli, $row['id'], $language)['data'];
+		$row['exceptions'] = 	getShowPerformanceExceptions($mysqli, $row['id'], $language)['data'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -1977,10 +1748,6 @@ function getShowDetails($mysqli, $id, $language) {
 			$row['paragraphs'] 	  		= getShowParagraphs($mysqli, $id, $language)['data'];
   		$row['showCharges'] 			= getShowCharges($mysqli, $id, $language)['data'];
 			$row['rules'] 			  		= getShowRules($mysqli, $id, $language)['data'];
-//			$row['registrations'] 	= getShowRegistrations($mysqli, $id, $language)['data'];
-//			$row['events'] 					= getShowEvents($mysqli, $id, $language)['data'];
-//			$row['rulesen'] 			  = getShowRules($mysqli, $id, 'en-ca')['data'];
-//			$row['coursecodes'] 		= getShowCourseCodes($mysqli, $id, $language)['data'];
 			$filename = '../../../private/'. $_SERVER['HTTP_HOST'].'/website/images/shows/'.$row['imagefilename'];
 			$row['filename'] = $filename;
 			if (isset($row['imagefilename']) && !empty($row['imagefilename']) && file_exists($filename)) {

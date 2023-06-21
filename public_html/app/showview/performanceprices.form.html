@@ -10,20 +10,20 @@
 				<div ng-repeat="price in performance.prices">
 					<div class="row">
 						<div class="col-xs-1">
-							<label for="chargecode" ng-show="$index==0">{{translationObj.performanceprices.fieldtype}}</label>
-							<input type="text" class="form-control" id="chargecode" ng-model="price.pricetypelabel" disabled>
+							<label for="chargecode{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldtype}}</label>
+							<input type="text" class="form-control" id="chargecode{{$index}}" ng-model="price.pricetypelabel" disabled>
 						</div>
 						<div class="col-xs-2">
-							<label for="amount" ng-show="$index==0">{{translationObj.performanceprices.fieldamount}}</label>
-							<input type="text" class="form-control" id="amount" ng-model="price.amount" disabled>
+							<label for="amount{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldamount}}</label>
+							<input type="text" class="form-control" id="amount{{$index}}" ng-model="price.amount" disabled>
 						</div>
 			      <div class="col-xs-1">
-				      <label for="agemin" ng-show="$index==0">{{translationObj.performanceprices.fieldagemin}}</label>
-			      	<input type="text" class="form-control" id="startdate" ng-model="price.agemin" disabled>
+				      <label for="agemin{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldagemin}}</label>
+			      	<input type="text" class="form-control" id="agemin{{$index}}" ng-model="price.agemin" disabled>
 			      </div>
-			      <div class="col-xs-1">
-				      <label for="agemax" ng-show="$index==0">{{translationObj.performanceprices.fieldagemax}}</label>
-			      	<input type="text" class="form-control" id="enddate" ng-model="price.agemax" disabled>
+			      <div class="col-xs-2">
+				      <label for="agemax{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldagemax}}</label>
+			      	<input type="text" class="form-control" id="agemax{{$index}}" ng-model="price.agemax" disabled>
 			      </div>
 
 						<div class="col-xs-2">
