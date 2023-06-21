@@ -33,9 +33,9 @@
 			    <label>&nbsp;</label>
 	      	<div class="input-group">
     				<span>
-							<child-edit-button 			obj="room" objlist="ice.rooms" callback="editRoom(currentArena, room)"></child-edit-button>
-							<child-delete-button 		obj="room" objlist="ice.rooms" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 	obj="room" objlist="ice.rooms" callback="setDirty()"></child-undelete-button>
+							<child-edit-button 			obj="room" objlist="currentArena.rooms" callback="editRoom(currentArena, room)"></child-edit-button>
+							<child-delete-button 		obj="room" objlist="currentArena.rooms" callback="setDirty()"></child-delete-button>
+							<child-undelete-button 	obj="room" objlist="currentArena.rooms" callback="setDirty()"></child-undelete-button>
 							<child-status-indicator obj="room"></child-status-indicator>
 						</span>
 				  </div>

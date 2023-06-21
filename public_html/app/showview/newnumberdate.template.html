@@ -26,7 +26,7 @@
       </div>
 
       <div class="col-xs-4">
-	      <label for="name">{{translationObj.newnumberdates.fielddate}}<i style="color:red"> *</i></label>
+	      <label for="practicedate">{{translationObj.newnumberdates.fielddate}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 	        <input type="date" class="form-control" id="practicedate" name="practicedate" ng-model="newObj.practicedate" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
@@ -67,24 +67,6 @@
       	</div>
       </div>
       
-<!--      
-      <div class="col-xs-5">
-	      <label for="label_en">{{translationObj.newnumberdates.fieldenglishlabel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="label_en" name="label_en" ng-model="newObj.label_en" maxlength="200">
-	      </div>
-      </div>
-
-      <div class="col-xs-5">
-	      <label for="label_fr">{{translationObj.newnumberdates.fieldfrenchlabel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="label_fr" name="label_fr" ng-model="newObj.label_fr" maxlength="200">
-	      </div>
-      </div>
-!-->
-
       <div class="col-xs-2">
       	<div class="input-group">
 					<br><label><input type="checkbox" ng-model="newObj.canceled" ng-true-value="'1'" ng-false-value="'0'">{{translationObj.newnumberdates.fieldcanceled}}</label>

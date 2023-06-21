@@ -6,7 +6,7 @@
     <div class="form-group row">
       
       <div class="col-xs-5">
-	      <label for="pricetype">{{translationObj.newperformanceassign.fieldtask}}<i style="color:red"> *</i></label>
+	      <label for="taskid">{{translationObj.newperformanceassign.fieldtask}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
       		<select class="form-control" id="taskid" ng-model="newObj.taskid" required>
@@ -16,7 +16,7 @@
       </div>
 
       <div class="col-xs-4">
-	      <label for="agemin">{{translationObj.newperformanceassign.fieldadditionalinfo}}</label>
+	      <label for="addinfo">{{translationObj.newperformanceassign.fieldadditionalinfo}}</label>
 	    	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 	      	<input type="text" class="form-control" id="addinfo" ng-model="newObj.addinfo" maxlength="50">
@@ -26,7 +26,7 @@
 			<div class="clearfix"></div>
 
 	    <div class="col-xs-5">
-	      <label for="amount">{{translationObj.newperformanceassign.fieldcontactfullname}}<i style="color:red"> *</i></label>
+	      <label for="contactfullname">{{translationObj.newperformanceassign.fieldcontactfullname}}<i style="color:red"> *</i></label>
 	    	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 	      	<input type="text" class="form-control" id="contactfullname" ng-model="newObj.contactfullname" required disabled>
@@ -45,7 +45,7 @@
 			
 
       <div class="col-xs-12">
-	      <label for="agemax">{{translationObj.newperformanceassign.fieldcomments}}</label>
+	      <label for="comments">{{translationObj.newperformanceassign.fieldcomments}}</label>
 	    	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 						<textarea class="form-control" id="comments" ng-model="newObj.comments" maxlength="2000"> </textarea>

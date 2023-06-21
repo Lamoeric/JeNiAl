@@ -31,10 +31,10 @@
 	          <div class="panel-body" >
 
 							<form>
-					      <label for="name">{{translationObj.numbers.fieldcomment}}</label>
+					      <label for="comments{{$index}}">{{translationObj.numbers.fieldcomment}}</label>
 				      	<div class="input-group">
 								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					        <textarea type="text" class="form-control" name="comments" ng-model="number.comments" maxlength="2000" disabled> </textarea>
+					        <textarea type="text" class="form-control" id="comments{{$index}}" name="comments" ng-model="number.comments" maxlength="2000" disabled> </textarea>
 					      </div>
 							</form>
 
@@ -53,13 +53,13 @@
 											<div ng-repeat="staff in number.staffs">
 												<div class="row">
 										      <div class="col-xs-2">
-											      <label for="staffcode" ng-show="$index==0">{{translationObj.numbers.fieldtype}}</label>
-										        <input type="text" class="form-control" value="{{staff.staffcodelabel}}" disabled>
+											      <label for="staffcode{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldtype}}</label>
+										        <input type="text" id="staffcode{{$index}}" class="form-control" value="{{staff.staffcodelabel}}" disabled>
 										      </div>
 
 										      <div class="col-xs-2">
-											      <label for="staffname" ng-show="$index==0">{{translationObj.numbers.fieldname}}</label>
-										        <input type="text" class="form-control" value="{{staff.name}}" disabled>
+											      <label for="staffname{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldname}}</label>
+										        <input type="text" id="staffname{{$index}}" class="form-control" value="{{staff.name}}" disabled>
 										      </div>
 
 									      	<div class="col-xs-2">
@@ -90,37 +90,37 @@
 												<div class="row">
 
 										      <div class="col-xs-2">
-											      <label for="arena" ng-show="$index==0">{{translationObj.numbers.fieldarena}}</label>
-										      		<select class="form-control" id="arena" ng-model="schedule.arenaid" disabled>
+											      <label for="arena{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldarena}}</label>
+										      		<select class="form-control" id="arena{{$index}}" ng-model="schedule.arenaid" disabled>
 																<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
 										      		</select>
 										      </div>
 
 										      <div class="col-xs-2">
-											      <label for="iceid" ng-show="$index==0">{{translationObj.numbers.fieldice}}</label>
-										        	<input type="text" class="form-control" ng-model="schedule.icelabel" disabled>
+											      <label for="iceid{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldice}}</label>
+										        	<input type="text" id="iceid{{$index}}" class="form-control" ng-model="schedule.icelabel" disabled>
 										      </div>
 
 									      	<div class="col-xs-2">
-												    <label ng-show="$index==0">{{translationObj.numbers.fieldday}}</label>
-															<select class="form-control" ng-model="schedule.day" disabled>
+												    <label for="day{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldday}}</label>
+															<select id="day{{$index}}" class="form-control" ng-model="schedule.day" disabled>
 													    	<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
 													    </select>
 												  </div>
 
 										      <div class="col-xs-1">
-											      <label for="starttime" ng-show="$index==0">{{translationObj.numbers.fieldstarttime}}</label>
-										        	<input type="text" class="form-control" ng-model="schedule.starttimestr" disabled>
+											      <label for="starttimestr{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldstarttime}}</label>
+										        	<input type="text" id="starttimestr{{$index}}" class="form-control" ng-model="schedule.starttimestr" disabled>
 										      </div>
 
 										      <div class="col-xs-1">
-											      <label for="endtime" ng-show="$index==0">{{translationObj.numbers.fieldendtime}}</label>
-										        	<input type="text" class="form-control" ng-model="schedule.endtimestr" disabled>
+											      <label for="endtimestr{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldendtime}}</label>
+										        	<input type="text" id="endtimestr{{$index}}" class="form-control" ng-model="schedule.endtimestr" disabled>
 										      </div>
 
 										      <div class="col-xs-1">
-											      <label for="duration" ng-show="$index==0">{{translationObj.numbers.fieldduration}}</label>
-										        	<input type="text" class="form-control" ng-model="schedule.duration" disabled>
+											      <label for="duration{{$index}}" ng-show="$index==0">{{translationObj.numbers.fieldduration}}</label>
+										        	<input type="text" id="duration{{$index}}" class="form-control" ng-model="schedule.duration" disabled>
 										      </div>
 
 									      	<div class="col-xs-2">
@@ -144,40 +144,6 @@
 							    <div id="subnumberinvites{{$index}}" class="tab-pane fade maintabpane">
 							      <form class="form-horizontal well intabsingleformnox" role="form" name="invitesForm">
 											<button class="btn btn-primary" ng-click="editShowNumberInviteSkater(number)">{{translationObj.numbers.buttontitleinviteskater}}</button>
-<!--
-											<strong>{{translationObj.numbers.formtitleinvites}}
-												&nbsp;<button class="btn btn-primary" ng-click="editShowNumberInvite(number, {}, 1)">{{translationObj.numbers.buttontitleinvitegroup}}</button>
-												&nbsp;<button class="btn btn-primary" ng-click="editShowNumberInvite(number, {}, 2)">{{translationObj.numbers.buttontitleinviteskater}}</button>
-												&nbsp;<search-member-ex-button members="number.members"></search-member-ex-button>
-											</strong>
-											<div ng-repeat="invite in number.invites">
-												<div class="row">
-										      <div class="col-xs-2">
-											      <label for="invitetype" ng-show="$index==0">{{translationObj.numbers.fieldtype}}</label>
-										        <input type="text" class="form-control" value="{{invite.typelabel}}" disabled>
-										      </div>
-
-										      <div class="col-xs-4">
-											      <label for="invitename" ng-show="$index==0">{{translationObj.numbers.fieldname}}</label>
-										        <input type="text" class="form-control" value="{{invite.name}}" disabled>
-										      </div>
-
-									      	<div class="col-xs-2">
-												    <label ng-show="$index==0">&nbsp;</label>
-										      	<div class="input-group">
-									    				<span>
-																<child-edit-button 			obj="invite" objlist="number.invites" callback="editShowNumberInvite(number, invite)"></child-edit-button>
-																<child-delete-button 		obj="invite" objlist="number.invites" callback="setDirty()"></child-delete-button>
-																<child-undelete-button 	obj="invite" objlist="number.invites" callback="setDirty()"></child-undelete-button>
-																<child-status-indicator obj="invite"></child-status-indicator>
-															</span>
-													  </div>
-												  </div>
-
-									      </div>
-									    </div>
--->
-									    
 										</form>
 									</div>
 									
