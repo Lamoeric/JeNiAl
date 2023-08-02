@@ -1,0 +1,44 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.performancetickets.formtitle}}
+			&nbsp;<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'PRICE')">{{translationObj.performancetickets.buttontitlecopyfrom}}</button>
+		</h3>
+		<div class="row">
+			<div class="col-xs-12">
+				<label for="showstub" >{{translationObj.performancetickets.fieldshowstub}}</label>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstub' ng-model="ticket.showstub" ng-value="{{yesno.code}}" >&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+			<div class="col-xs-12">
+				<label for="showstub" >{{translationObj.performancetickets.fieldshowstub}}</label>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstub' ng-model="ticket.showstub" ng-value="{{yesno.code}}" >&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+			<div class="col-xs-12">
+				<label for="showstubinfo" >{{translationObj.performancetickets.fieldshowstubinfo}}</label>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstubinfo' ng-model="ticket.showstubinfo" ng-value="{{yesno.code}}" >&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+			<div class="col-xs-12">
+				<label for="showstandardinfo" >{{translationObj.performancetickets.fieldshowstandardinfo}}</label>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstandardinfo' ng-model="ticket.showstandardinfo" ng-value="{{yesno.code}}" >&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+			<div class="col-xs-12">
+				<label for="showimage" >{{translationObj.performancetickets.fieldshowimage}}</label>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showimage' ng-model="ticket.showimage" ng-value="{{yesno.code}}" >&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+
+
+
+	</div>
+</div>

@@ -30,143 +30,11 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 		case "getCourseLevels":
 			getCourseLevels($mysqli, $_POST['code'], $_POST['language']);
 			break;
-		case "activateShow":
-			activateShow($mysqli, $_POST['showid']);
-			break;
-		case "copyShow":
-			copyShow($mysqli, $_POST['showid'], $_POST['copyicetimes'], $_POST['copycourses'], $_POST['copycharges'], $_POST['copyrules']);
-			break;
 		default:
 			invalidRequest();
 	}
 } else {
 	invalidRequest();
-};
-
-/**
- * This function will handle the copy show operation.
- * @throws Exception
- */
-function copyShow($mysqli, $showid, $copyicetimes, $copycourses, $copycharges, $copyrules) {
-	try {
-		$data = array();
-		$id = "";
-		$query = "INSERT INTO cpa_shows(id, name, label, startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, active)
-							 SELECT null, 'name/nom', create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, 0
-							 	FROM cpa_shows where id = $showid";
-		if ($mysqli->query($query)) {
-			$id = (int) $mysqli->insert_id;
-			$query = "UPDATE cpa_shows SET name = concat(name, ' ',  $id) WHERE id = $id";
-			if ($mysqli->query($query)) {
-				if ($copyicetimes == false && $copycourses == false && $copycharges == false) {
-					$data['success'] = true;
-				} else {
-					if ($copyicetimes == true) {
-						$query = "INSERT INTO cpa_shows_icetimes(id, showid, arenaid, day, starttime, endtime, duration, iceid, comment)
-												SELECT null, $id, arenaid, day, starttime, endtime, duration, iceid, comment
-													FROM cpa_shows_icetimes where showid = $showid";
-						if ($mysqli->query($query)) {
-							$data['success'] = true;
-						} else {
-		 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		 			 	}
-					}
-					if ($copycharges == true) {
-						$query = "INSERT INTO cpa_shows_charges(id, showid, chargecode, amount)
-												SELECT null, $id, chargecode, amount
-													FROM cpa_shows_charges where showid = $showid";
-						if ($mysqli->query($query)) {
-							$data['success'] = true;
-						} else {
-		 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		 			 	}
-	 			 	}
-					if ($copyrules == true) {
-						$query = "INSERT INTO cpa_shows_rules(id, showid, language, rules)
-												SELECT null, $id, language, rules
-													FROM cpa_shows_rules where showid = $showid";
-						if ($mysqli->query($query)) {
-							$data['success'] = true;
-						} else {
-		 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		 			 	}
-	 			 	}
-					if ($copycourses == true) {
-						$query = "SELECT id, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, availableonline FROM cpa_shows_courses where showid = $showid";
-						$result = $mysqli->query($query);
-						while ($row = $result->fetch_assoc()) {
-							$showscoursesid = $row['id'];
-							$label = $row['label'];
-							$coursecode = $row['coursecode'];
-							$courselevel = $row['courselevel'];
-							$name = $row['name'];
-							$fees = $row['fees'];
-							$minnumberskater = $row['minnumberskater'];
-							$maxnumberskater = $row['maxnumberskater'];
-							$availableonline = $row['availableonline'];
-							$query = "INSERT INTO cpa_shows_courses(id, showid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, datesgenerated, label)
-												VALUES (null, $id, '$coursecode', '$courselevel', '$name', $fees, $minnumberskater, $maxnumberskater, $availableonline, 0, create_systemtext(getEnglishTextLabel($label), getFrenchTextLabel($label)))";
-							if ($mysqli->query($query)) {
-								$newshowscoursesid = (int) $mysqli->insert_id;
-
-								$query = "INSERT INTO cpa_shows_courses_schedule(id, showscoursesid, arenaid, iceid, day, starttime, endtime, duration)
-													SELECT null, $newshowscoursesid, arenaid, iceid, day, starttime, endtime, duration
-														FROM cpa_shows_courses_schedule WHERE showscoursesid = $showscoursesid";
-								if ($mysqli->query($query)) {
-								} else {
-									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								}
-							} else {
-			 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			 			 	}
-						}
-					}
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		}
-		echo json_encode($data);
-		exit;
-	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
-};
-
-/**
- * This function will handle the activation of the show.
- * There can only be one active show at all time.
- * @throws Exception
- */
-function activateShow($mysqli, $showid) {
-	try {
-		$data = array();
-		$query = "UPDATE cpa_shows SET active = 0";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_shows SET active = 1 WHERE id = '$showid'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		}
-		echo json_encode($data);
-		exit;
-	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
 };
 
 function updateEntireShowNumberSchedule($mysqli, $showid, $numberid, $schedules) {
@@ -903,6 +771,45 @@ function updateEntireShowPerformancePrices($mysqli, $showid, $performanceid, $pr
 	}
 };
 
+function updateEntireShowPerformanceTicket($mysqli, $showid, $performanceid, $ticket) {
+	$data = array();
+	$id = 							$mysqli->real_escape_string(isset($ticket['id']) 								? (int)$ticket['id'] : 0);
+	$showid = 					$mysqli->real_escape_string(isset($ticket['showid']) 						? (int)$ticket['showid'] : 0);
+	$performanceid = 		$mysqli->real_escape_string(isset($ticket['performanceid']) 		? (int)$ticket['performanceid'] : 0);
+	$language = 				$mysqli->real_escape_string(isset($ticket['language']) 					? $ticket['language'] : '');
+	$showstub = 				$mysqli->real_escape_string(isset($ticket['showstub']) 					? (int)$ticket['showstub'] : 0);
+	$showstubinfo = 		$mysqli->real_escape_string(isset($ticket['showstubinfo']) 			? (int)$ticket['showstubinfo'] : 0);
+	$showimage = 				$mysqli->real_escape_string(isset($ticket['showimage']) 				?	(int)$ticket['showimage'] : 0);
+	$showstandardinfo = $mysqli->real_escape_string(isset($ticket['showstandardinfo'])	? (int)$ticket['showstandardinfo'] : 0);
+	$ticketcolor = 			$mysqli->real_escape_string(isset($ticket['ticketcolor']) 			? $ticket['ticketcolor'] : '');
+	$stubcolor = 				$mysqli->real_escape_string(isset($ticket['stubcolor']) 				? $ticket['stubcolor'] : '');
+	$imagefilename = 		$mysqli->real_escape_string(isset($ticket['imagefilename']) 		? $ticket['imagefilename'] : '');
+	$notes = 						$mysqli->real_escape_string(isset($ticket['notes']) 						? $ticket['notes'] : '');
+
+	if ($id == null || $id == 0) {
+		$query = "INSERT into cpa_shows_performances_ticket (showid, performanceid, language, showstub, showstubinfo, showimage, showstandardinfo, ticketcolor, stubcolor, 
+																												 imagefilename, notes)
+							VALUES ('$showid', '$performanceid', '$language', $showstub, $showstubinfo, $showimage, $showstandardinfo, '$ticketcolor', '$stubcolor', 
+										  '$imagefilename', '$notes'";
+		if ($mysqli->query($query)) {
+			$ticket['id'] = $mysqli->insert_id;
+		} else {
+			throw new Exception($mysqli->sqlstate.' - updateEntireShowPerformanceTicket - insert - '. $mysqli->error);
+		}
+	} else {
+		$query = "UPDATE cpa_shows_performances_prices 
+							SET language = '$language', showstub = $showstub, showstubinfo = $showstubinfo, showimage = $showimage, showstandardinfo = $showstandardinfo, 
+							    ticketcolor = '$ticketcolor', stubcolor = '$stubcolor', imagefilename = '$imagefilename', notes = '$notes'
+							WHERE performanceid = $performanceid";
+		if ($mysqli->query($query)) {
+			$ticket['id'] = $mysqli->insert_id;
+		} else {
+			throw new Exception($mysqli->sqlstate.' - updateEntireShowPerformanceTicket - update - '. $mysqli->error);
+		}
+	}
+	return $data;
+};
+
 function updateEntireShowPerformanceAssigns($mysqli, $showid, $performanceid, $assigns) {
 	try {
 		$data = array();
@@ -1090,6 +997,7 @@ function updateEntireShowPerformances($mysqli, $showid, $performances) {
 			if ($mysqli->real_escape_string(isset($performances[$x]['exceptions']))) {
 				$data['exceptions'] = updateEntireShowPerformanceExceptions($mysqli, $showid, $performances[$x]['id'], $performances[$x]['exceptions']);
 			}
+			$data['ticket'] = updateEntireShowPerformanceTicket($mysqli, $showid, $performances[$x]['id'], $performances[$x]['ticket']);
 		}
 	}
 	return $data;
@@ -1514,6 +1422,30 @@ function getShowPerformancePrices($mysqli, $performanceid, $language) {
 };
 
 /**
+ * This function gets the ticket definition for a performance
+ */
+function getShowPerformanceTicket($mysqli, $performanceid, $language) {
+	if (empty($performanceid)) throw new Exception("Invalid performance.");
+	$query = "SELECT cspt.*
+						FROM cpa_shows_performances_tickets cspt
+						WHERE cspt.performanceid = $performanceid";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$row['showid'] = (int)$row['showid'];
+		$row['performanceid']= (int)$row['performanceid'];
+		$row['showstub']= (int)$row['showstub'];
+		$row['showstubinfo']= (int)$row['showstubinfo'];
+		$row['showimage']=	(int)$row['showimage'];
+		$row['showstandardinfo']= (int)$row['showstandardinfo'];
+		$data['data'][] = $row;
+	}
+	$data['success'] = true;
+	return $data;
+};
+
+/**
  * This function gets the lists of all exceptions for a performance
  */
 function getShowPerformanceExceptions($mysqli, $performanceid, $language) {
@@ -1575,6 +1507,7 @@ function getShowPerformances($mysqli, $showid, $language) {
 		$row['prices'] = 			getShowPerformancePrices($mysqli, $row['id'], $language)['data'];
 		$row['assigns'] = 		getShowPerformanceAssigns($mysqli, $row['id'], $language)['data'];
 		$row['exceptions'] = 	getShowPerformanceExceptions($mysqli, $row['id'], $language)['data'];
+		$row['ticket'] = 			getShowPerformanceTicket($mysqli, $row['id'], $language)['data'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;

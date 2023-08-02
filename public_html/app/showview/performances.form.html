@@ -29,6 +29,7 @@
 							    <li class="pointerlist"><a data-toggle="tab" data-target="#subprices{{$index}}">{{translationObj.performances.panetitleprices}}</a></li>
 							    <li class="pointerlist"><a data-toggle="tab" data-target="#subassigns{{$index}}">{{translationObj.performances.panetitleassignations}}</a></li>
 							    <li class="pointerlist"><a data-toggle="tab" data-target="#subexcepts{{$index}}">{{translationObj.performances.panetitleexceptions}}</a></li>
+							    <li class="pointerlist"><a data-toggle="tab" data-target="#subtickets{{$index}}">{{translationObj.performances.panetitletickets}}</a></li>
 								</ul>
 
 								<div id="performancetabcontent{{$index}}" class="tab-content maintabcontent">
@@ -63,6 +64,12 @@
 							    <div id="subexcepts{{$index}}" class="tab-pane fade maintabpane">
 							      <form class="form-horizontal well intabsingleformnox" role="form" name="exceptionsForm">
 									 		<div ng-include="'showview/performanceexceptions.form.html'"></div>
+									  </form>
+							    </div>
+
+							    <div id="subtickets{{$index}}" class="tab-pane fade maintabpane">
+							      <form class="form-horizontal well intabsingleformnox" role="form" name="ticketsForm">
+									 		<div ng-include="'showview/performancetickets.form.html'"></div>
 									  </form>
 							    </div>
 

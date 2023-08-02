@@ -79,6 +79,7 @@
 	{"formname":"performances", "fieldname":"panetitleprices", "text":"Prix"},
 	{"formname":"performances", "fieldname":"panetitleassignations", "text":"Assignations"},
 	{"formname":"performances", "fieldname":"panetitleexceptions", "text":"Exceptions"},
+	{"formname":"performances", "fieldname":"panetitletickets", "text":"Billets"},
 	{"formname":"performances", "fieldname":"fieldtype", "text":"Type"},
 	{"formname":"performances", "fieldname":"fielddate", "text":"Date"},
 	{"formname":"performances", "fieldname":"fieldlabel_fr", "text":"Libellé français"},
@@ -122,6 +123,10 @@
 	{"formname":"performanceassigns", "fieldname":"fieldadditionalinfo", "text":"Info"},
 	{"formname":"performanceassigns", "fieldname":"fieldcomments", "text":"Commentaire"},
 	{"formname":"performanceassigns", "fieldname":"buttontitlecopyfrom", "text":"Copier de..."},
+
+	{"formname":"performancetickets", "fieldname":"formtitle", "text":"Billets"},
+	{"formname":"performancetickets", "fieldname":"buttontitlecopyfrom", "text":"Copier de..."},
+	{"formname":"performancetickets", "fieldname":"fieldshowstub", "text":"Avec coupon"},
 
 	{"formname":"newperformanceassign", "fieldname":"formtitleeditassign", "text":"Édition"},
 	{"formname":"newperformanceassign", "fieldname":"fieldtask", "text":"Tâche"},

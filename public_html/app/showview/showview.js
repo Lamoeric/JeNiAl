@@ -60,61 +60,6 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 		$scope.isFormPristine = true;
 	};
 
-	$scope.copyShow = function(confirmed) {
-		if ($scope.isDirty()) {
-			dialogService.alertDlg($scope.translationObj.main.msgerrpleasesavefirst, null);
-		} else {
-			if ($scope.currentShow != null && !confirmed) {
-				dialogService.confirmDlg($scope.translationObj.main.msgconfirmcopy, "YESNO", $scope.copyShow, null, true);
-			} else {
-				$scope.promise = $http({
-						method: 'post',
-						url: './showview/shows.php',
-						data: $.param({'showid' : $scope.currentShow.id, 'copyicetimes' : true, 'copycourses' : true, 'copycharges' : true, 'copyrules' : true, 'type' : 'copyShow' }),
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-					}).
-					success(function(data, status, headers, config) {
-						if (data.success) {
-							dialogService.alertDlg($scope.translationObj.main.msgshowcopied, null);
-						} else {
-							dialogService.displayFailure(data);
-						}
-					}).
-					error(function(data, status, headers, config) {
-						dialogService.displayFailure(data);
-						return false;
-					});
-			}
-		}
-	};
-
-	$scope.activateShow = function() {
-		if ($scope.currentShow != null) {
-			if ($scope.isDirty()) {
-				dialogService.alertDlg($scope.translationObj.main.msgerrpleasesavefirst, null);
-			} else {
-				$scope.promise = $http({
-						method: 'post',
-						url: './showview/shows.php',
-						data: $.param({'showid' : $scope.currentShow.id, 'type' : 'activateShow' }),
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-					}).
-					success(function(data, status, headers, config) {
-						if (data.success) {
-							dialogService.alertDlg($scope.translationObj.main.msgshowactivated, null);
-							$scope.currentShow.active = "1";	//Do not relead. Set field manually.
-						} else {
-							dialogService.displayFailure(data);
-						}
-					}).
-					error(function(data, status, headers, config) {
-						dialogService.displayFailure(data);
-						return false;
-					});
-			}
-		}
-	};
-
 	$scope.getAllShows = function () {
 		$scope.promise = $http({
 				method: 'post',
@@ -1496,7 +1441,7 @@ $scope.editShowPerformanceNumbers = function(performance) {
 
 	$scope.refreshAll = function() {
 		$scope.getAllShows();
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'sequence', 'yesnos');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'days', 'sequence', 'days');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'numberstaffcodes', 'sequence', 'numberstaffcodes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'performancetypes', 'sequence', 'performancetypes');

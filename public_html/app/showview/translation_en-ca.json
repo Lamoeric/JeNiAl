@@ -79,6 +79,7 @@
 	{"formname":"performances", "fieldname":"panetitleprices", "text":"Prices"},
 	{"formname":"performances", "fieldname":"panetitleassignations", "text":"Assignations"},
 	{"formname":"performances", "fieldname":"panetitleexceptions", "text":"Exceptions"},
+	{"formname":"performances", "fieldname":"panetitletickets", "text":"Tickets"},
 	{"formname":"performances", "fieldname":"fieldtype", "text":"Type"},
 	{"formname":"performances", "fieldname":"fielddate", "text":"Date"},
 	{"formname":"performances", "fieldname":"fieldlabel_fr", "text":"French Label"},
@@ -122,6 +123,9 @@
 	{"formname":"performanceassigns", "fieldname":"fieldadditionalinfo", "text":"Infos"},
 	{"formname":"performanceassigns", "fieldname":"fieldcomments", "text":"Comments"},
 	{"formname":"performanceassigns", "fieldname":"buttontitlecopyfrom", "text":"Copy from..."},
+
+	{"formname":"performancetickets", "fieldname":"formtitle", "text":"Tickets"},
+	{"formname":"performancetickets", "fieldname":"buttontitlecopyfrom", "text":"Copy from..."},
 
 	{"formname":"newperformanceassign", "fieldname":"formtitleeditassign", "text":"Edit"},
 	{"formname":"newperformanceassign", "fieldname":"fieldtask", "text":"Task"},
