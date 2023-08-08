@@ -55,11 +55,11 @@ function getEmailtemplateDetails($mysqli, $templateid, $language){
 function sendTestEmail($mysqli, $email) {
 	try {
 		$data = array();
-		$data['success'] = false;
-		$data['message'] = 'Disabled';
+		$data['success'] = true;
+//		$data['message'] = 'Disabled';
 //		$data['message'] = 'Cette fonctionnalité est désactivée temporairement';
 		// We need to send a test email
-//		$data = sendoneemail($mysqli, $email['emailaddress'], null, $email['title'], $email['mainmessage'], '../../../../images', null, $email['language'], null, null);
+		$data = sendoneemail($mysqli, $email['emailaddress'], null, $email['title'], $email['mainmessage'], '../../../../images', null, $email['language'], null, null);
 		echo json_encode($data);
 		exit;
 	}catch (Exception $e) {
