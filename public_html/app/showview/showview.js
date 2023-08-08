@@ -892,45 +892,6 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 		});
 	};
 
-	// This is the function that creates the modal to create/edit ice times
-	$scope.editShowIcetime = function(newIcetime) {
-		$scope.newIcetime = {};
-		$scope.currentIcetime = newIcetime;
-		angular.copy(newIcetime, $scope.newIcetime);
-
-		$uibModal.open({
-				animation: false,
-				templateUrl: 'showview/newicetime.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'lg',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newIcetime;
-					}
-				}
-		})
-		.result.then(function(newIcetime) {
-			// User clicked OK and everything was valid.
-			newIcetime.icelabel = arenaService.convertArenaIceToCurrentDesc($scope, newIcetime.arenaid, newIcetime.iceid);//, 'en-ca'/*$scope.context.preferedlanguage*/);
-			angular.copy(newIcetime, $scope.currentIcetime);
-			if ($scope.currentIcetime.id != null) {
-				$scope.currentIcetime.status = 'Modified';
-			} else {
-				$scope.currentIcetime.status = 'New';
-				if ($scope.currentShow.icetimes == null)$scope.currentShow.icetimes = [];
-				if ($scope.currentShow.icetimes.indexOf($scope.currentIcetime) == -1) {
-					$scope.currentShow.icetimes.push($scope.currentIcetime);
-				}
-			}
-			$scope.setDirty();
-		}, function() {
-			// User clicked CANCEL.
-			// alert('canceled');
-		});
-	};
-
 	// This is the function that creates the modal to create/edit registrations
 	$scope.editShowRegistration = function(newRegistration) {
 		$scope.newRegistration = {};
@@ -1194,6 +1155,45 @@ $scope.editShowPerformanceNumbers = function(performance) {
 		});
 	};
 	
+		// This is the function that creates the modal to create/edit exception
+	$scope.editShowPerformanceException = function(performance, newException) {
+		$scope.newException = {};
+		$scope.currentException = newException;
+		$scope.currentPerformance = performance;
+		angular.copy(newException, $scope.newException);
+
+		$uibModal.open({
+				animation: false,
+					templateUrl: 'showview/newperformanceexception.template.html',
+					controller: 'childeditor.controller',
+				scope: $scope,
+				size: null,
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newException;
+					}
+				}
+			})
+			.result.then(function(newException) {
+				// User clicked OK and everything was valid.
+				angular.copy(newException, $scope.currentException);
+				if ($scope.currentException.id != null) {
+						$scope.currentException.status = 'Modified';
+				} else {
+					$scope.currentException.status = 'New';
+					if ($scope.currentPerformance.exceptions == null) $scope.currentPerformance.exceptions = [];
+					if ($scope.currentPerformance.exceptions.indexOf($scope.currentException) == -1) {
+						$scope.currentPerformance.exceptions.push($scope.currentException);
+					}
+				}
+				$scope.setDirty();
+			}, function() {
+					// User clicked CANCEL.
+					// alert('canceled');
+		});
+	};
+
 	// This is the function that creates the modal to copy information from another performance
 	$scope.openCopyFrom = function(performance, copyType) {
 		$scope.copyFrom = {};
@@ -1263,6 +1263,18 @@ $scope.editShowPerformanceNumbers = function(performance) {
 					newItems[x].performanceid = destination.id;
 				}
 				destination.assigns = destination.assigns.concat(newItems);
+				break;
+			case 'EXCEPTION' :
+				angular.copy(source.exceptions, newItems);
+				for (var x = destination.exceptions.length; x--;) {
+					destination.exceptions[x].status = 'Deleted';
+				}
+				for (var x = newItems.length; x--;) {
+					newItems[x].status = 'New';
+					newItems[x].id = null;
+					newItems[x].performanceid = destination.id;
+				}
+				destination.exceptions = destination.exceptions.concat(newItems);
 				break;
 		}
 	}
@@ -1399,18 +1411,6 @@ $scope.editShowPerformanceNumbers = function(performance) {
     }
   }
 
-
-	// This is the function that displays the upload error messages
-//	$scope.displayUploadError = function(errFile) {
-//		if (errFile.$error == 'maxSize') {
-//			dialogService.alertDlg($scope.translationObj.main.msgerrinvalidfilesize + errFile.$errorParam);
-//		} else if (errFile.$error == 'maxWidth') {
-//			dialogService.alertDlg($scope.translationObj.main.msgerrinvalidmaxwidth + errFile.$errorParam);
-//		} else if (errFile.$error == 'maxHeight') {
-//			dialogService.alertDlg($scope.translationObj.main.msgerrinvalidmaxheight + errFile.$errorParam);
-//		}
-//	}
-
 	// This is the function that uploads the rules file for the show
 	$scope.uploadRulesFile = function(file, errFiles, language) {
 		// $scope.f = file;
@@ -1488,25 +1488,11 @@ $scope.editShowPerformanceNumbers = function(performance) {
 		if (reportName == 'showBillingList') {
 			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id);
 		}
-//		if (reportName == 'showCourseAttendance') {
-//			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id);
-//		}
-//		if (reportName == 'showCoachesSchedule') {
-//			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id);
-//		}
-//		if (reportName == 'showTaxReceipt') {
-//			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id);
-//		}
-//		if (reportName == 'showCoursesListActive') {
-//			$window.open('./reports/showCoursesList.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id+'&activeonly=true');
-//		}
-//		if (reportName == 'showCoursesCount') {
-//			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id+'&activeonly=true');
-//		}
-//		if (reportName == 'showSCRegistrations') {
-//			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id);
-//		}
 	}
+
+	$rootScope.$on("authentication.language.changed", function (event, current, previous, eventObj) {
+		$scope.refreshAll();
+	});
 
 	$scope.refreshAll = function() {
 		$scope.getAllShows();
@@ -1517,6 +1503,7 @@ $scope.editShowPerformanceNumbers = function(performance) {
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'numberregistrationtypes', 'sequence', 'numberregistrationtypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'numberinvitetypes', 'sequence', 'numberinvitetypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'showpricetypes', 'sequence', 'showpricetypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'seatingexceptionreasons', 'sequence', 'seatingexceptionreasons');
 		arenaService.getAllArenas($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllCharges($scope, authenticationService.getCurrentLanguage());
 		listsService.getCoaches($scope, authenticationService.getCurrentLanguage());

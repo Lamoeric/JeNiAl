@@ -1,0 +1,256 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.ices.formtitleices}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editIce({})"></button></h3>
+		<br>
+		<div ng-repeat="ice in currentArena.ices" ng-if="currentArena.ices.length!=0" class="blackcurvyborder">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-success" style="margin-bottom:0px">
+		        <div class="panel-heading">
+							<a data-target="#ice{{$index}}" data-toggle="collapse" class="pointerlist">
+								<strong><big>{{ice.code}}&nbsp;-&nbsp;{{ice.icelabel}}</big></strong>
+							</a>
+							<span style="float:right">
+								<child-edit-button 			obj="ice" objlist="currentArena.ices" callback="editIce(ice)"></child-edit-button>
+								<child-delete-button 		obj="ice" objlist="currentArena.ices" callback="setDirty()"></child-delete-button>
+								<child-undelete-button 	obj="ice" objlist="currentArena.ices" callback="setDirty()"></child-undelete-button>
+								<child-status-indicator obj="ice"></child-status-indicator>
+							</span>
+							<br>
+							<small><b>{{translationObj.ices.fieldtitlecode}}</b>:&nbsp;{{ice.code}}&nbsp;
+											<b>{{translationObj.ices.fieldtitlefrenchlabel}}</b>:&nbsp;{{ice.label_fr}}&nbsp;
+											<b>{{translationObj.ices.fieldtitleenglishlabel}}</b>:&nbsp;{{ice.label_en}}
+							</small>
+	          </div>
+						<div id="ice{{$index}}" class="panel-collapse collapse">
+		          <div class="panel-body">
+
+								<div id="icetab{{$index}}" class="maintab">
+									<ul id="icetabheader{{$index}}" class="nav nav-tabs">
+										<li class="active pointerlist"><a data-toggle="tab" data-target="#subdetails{{$index}}">{{translationObj.ices.panetitlerooms}}</a></li>
+										<li class="pointerlist"><a data-toggle="tab" data-target="#seatdetails{{$index}}">{{translationObj.ices.panetitleseats}}</a></li>
+										<li class="pointerlist"><a data-toggle="tab" data-target="#exceptiondetails{{$index}}">{{translationObj.ices.panetitleexceptions}}</a></li>
+									</ul>
+
+									<div id="icetabcontent{{$index}}" class="tab-content maintabcontent">
+										<div id="subdetails{{$index}}" class="tab-pane fade in active maintabpane">
+											</form><!-- Don't know why, but it fixes a bug...do not remove !-->
+								      <form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm">
+
+										    <h3>{{translationObj.ices.buttontitleroom}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editRoom(ice, {})"></button></h3>
+												<div ng-repeat="room in ice.rooms">
+										    	<div class="row">
+
+												    <div class="col-xs-3">
+												      <label for="label_en{{$index}}">{{translationObj.ices.fieldtitleenglishlabel}}</label>
+												    	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												        <input type="text" class="form-control" id="label_en{{$index}}" ng-model="room.label_en" maxlength="30" disabled>
+												      </div>
+												    </div>
+
+												    <div class="col-xs-3">
+												      <label for="label_fr{{$index}}">{{translationObj.ices.fieldtitlefrenchlabel}}</label>
+												    	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												        <input type="text" class="form-control" id="label_fr{{$index}}" ng-model="room.label_fr" maxlength="30" disabled>
+												      </div>
+												    </div>
+
+												    <div class="col-xs-4">
+													      <label for="code{{$index}}">{{translationObj.ices.fieldtitlecomment}}</label>
+												    	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+																<input type="text" name="code" class="form-control" id="code{{$index}}" ng-model="room.comments" maxlength="200" disabled>
+												      </div>
+												    </div>
+
+										      	<div class="col-xs-2">
+													    <label>&nbsp;</label>
+											      	<div class="input-group">
+										    				<span>
+																	<child-edit-button 			obj="room" objlist="ice.rooms" callback="editRoom(ice, room)"></child-edit-button>
+																	<child-delete-button 		obj="room" objlist="ice.rooms" callback="setDirty()"></child-delete-button>
+																	<child-undelete-button 	obj="room" objlist="ice.rooms" callback="setDirty()"></child-undelete-button>
+																	<child-status-indicator obj="room"></child-status-indicator>
+																</span>
+														  </div>
+													  </div>
+												  </div>
+											 	</div>
+
+										  </form>
+								    </div>
+	
+										<div id="seatdetails{{$index}}" class="tab-pane fade maintabpane">
+								      <form class="form-horizontal well intabsingleformnox" role="form" name="seatsForm">
+												<div class="row">
+													<div class="col-xs-2">
+														<label for="sectiontype">{{translationObj.seats.fieldtitlesectiontype}}<i style="color:red"> *</i></label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+															<select class="form-control" id="sectiontype" ng-model="ice.seats.sectiontype" required>
+																<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-2">
+											      <label for="sectionfirst">{{translationObj.seats.fieldtitlesectionfirst}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="text" name="sectionfirst" class="form-control" id="sectionfirst" ng-model="ice.seats.sectionfirst" maxlength="3" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2">
+											      <label for="sectionnb">{{translationObj.seats.fieldtitlesectionnb}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="sectionnb" class="form-control" id="sectionnb" ng-model="ice.seats.sectionnb" maxlength="2" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2" ng-show="ice.seats.sectiontype=='1'">
+											      <label for="sectioninc">{{translationObj.seats.fieldtitlesectioninc}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="sectioninc" class="form-control" id="sectioninc" ng-model="ice.seats.sectioninc" maxlength="3" required>
+											      </div>
+											    </div>
+											  </div>
+
+												<div class="row">
+													<div class="col-xs-2">
+														<label for="rowtype">{{translationObj.seats.fieldtitlerowtype}}<i style="color:red"> *</i></label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+															<select class="form-control" id="rowtype" ng-model="ice.seats.rowtype" required>
+																<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-2">
+											      <label for="rowfirst">{{translationObj.seats.fieldtitlerowfirst}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="text" name="rowfirst" class="form-control" id="rowfirst" ng-model="ice.seats.rowfirst" maxlength="3" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2">
+											      <label for="rownb">{{translationObj.seats.fieldtitlerownb}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="rownb" class="form-control" id="rownb" ng-model="ice.seats.rownb" maxlength="2" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2" ng-show="ice.seats.rowtype=='1'">
+											      <label for="rowinc">{{translationObj.seats.fieldtitlerowinc}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="rowinc" class="form-control" id="rowinc" ng-model="ice.seats.rowinc" maxlength="3" required>
+											      </div>
+											    </div>
+											  </div>
+
+												<div class="row">
+													<div class="col-xs-2">
+														<label for="seattype">{{translationObj.seats.fieldtitleseattype}}<i style="color:red"> *</i></label>
+														<div class="input-group">
+															<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+															<select class="form-control" id="seattype" ng-model="ice.seats.seattype" required>
+																<option ng-repeat="seatingassigntype in seatingassigntypes" value="{{seatingassigntype.code}}">{{seatingassigntype.text}}</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-2">
+											      <label for="seatfirst">{{translationObj.seats.fieldtitleseatfirst}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="text" name="seatfirst" class="form-control" id="seatfirst" ng-model="ice.seats.seatfirst" maxlength="3" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2">
+											      <label for="seatnb">{{translationObj.seats.fieldtitleseatnb}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="seatnb" class="form-control" id="seatnb" ng-model="ice.seats.seatnb" maxlength="2" required>
+											      </div>
+											    </div>
+													<div class="col-xs-2" ng-show="ice.seats.seattype=='1'">
+											      <label for="seatinc">{{translationObj.seats.fieldtitleseatinc}}<i style="color:red"> *</i></label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+															<input type="number" name="seatinc" class="form-control" id="seatinc" ng-model="ice.seats.seatinc" maxlength="3" required>
+											      </div>
+											    </div>
+											  </div>
+										  </form>
+							    	</div>
+
+										<!-- Exceptions -->
+										<div id="exceptiondetails{{$index}}" class="tab-pane fade maintabpane">
+								      <form class="form-horizontal well intabsingleformnox" role="form" name="exceptionsForm">
+										    <h3><button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editException(ice, {})"></button></h3>
+												<div ng-repeat="exception in ice.exceptions">
+										    	<div class="row">
+
+														<div class="col-xs-2">
+												      <label for="section{{$index}}">{{translationObj.seats.fieldtitlesection}}</label>
+											      	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+																<input type="text" name="section" class="form-control" id="section{{$index}}" ng-model="exception.section" maxlength="3" disabled>
+												      </div>
+												    </div>
+
+														<div class="col-xs-2">
+												      <label for="row{{$index}}">{{translationObj.seats.fieldtitlerow}}</label>
+											      	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+																<input type="text" name="row" class="form-control" id="row{{$index}}" ng-model="exception.row" maxlength="3" disabled>
+												      </div>
+												    </div>
+
+														<div class="col-xs-2">
+												      <label for="seat{{$index}}">{{translationObj.seats.fieldtitleseat}}</label>
+											      	<div class="input-group">
+															  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+																<input type="text" name="seat" class="form-control" id="seat{{$index}}" ng-model="exception.seat" maxlength="3" disabled>
+												      </div>
+												    </div>
+
+
+										      <div class="col-xs-2">
+											      <label for="reason{{$index}}">{{translationObj.seats.fieldtitlereason}}</label>
+										      	<div class="input-group">
+														  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+										          <select class="form-control" id="reason{{$index}}" ng-model="exception.reason" disabled>
+																<option ng-repeat="reason in seatingexceptionreasons" value="{{reason.code}}">{{reason.text}}</option>
+										      		</select>
+										      	</div>
+										      </div>
+										      	<div class="col-xs-2">
+													    <label>&nbsp;</label>
+											      	<div class="input-group">
+										    				<span>
+																	<child-edit-button 			obj="exception" objlist="currentArena.exceptions" callback="editException(currentArena, exception)"></child-edit-button>
+																	<child-delete-button 		obj="exception" objlist="currentArena.exceptions" callback="setDirty()"></child-delete-button>
+																	<child-undelete-button 	obj="exception" objlist="currentArena.exceptions" callback="setDirty()"></child-undelete-button>
+																	<child-status-indicator obj="exception"></child-status-indicator>
+																</span>
+														  </div>
+													  </div>
+												  </div>
+											 	</div>
+										  </form>
+							    	</div>
+
+							    </div>
+							  </div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  	
+  </div>
+</div>

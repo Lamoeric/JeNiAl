@@ -10,14 +10,11 @@
 					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.session_create"></main-new-button>
 					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty)" ng-if="userInfo.privileges.session_update==true"></main-save-button>
 					<main-delete-button delete-callback="deleteFromDB()" ng-if="userInfo.privileges.session_delete"></main-delete-button>
-<!--
-					<button class="btn btn-primary" ng-click="activateShow()" ng-disabled="currentShow==null" ng-if="userInfo.privileges.session_update"==true>{{translationObj.shows.buttontitlesetactive}}</button>
-					<button class="btn btn-primary" ng-click="copyShow()" ng-disabled="currentShow==null" ng-if="userInfo.privileges.session_create==true">{{translationObj.shows.buttontitlecopyshow}}</button>
-!-->
+
 				  <span class="dropdown">
 				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentShow==null" ng-if="userInfo.privileges.session_print==true">{{translationObj.shows.buttontitlereports}}<span class="caret"></span></button>
 				    <ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">{{translationObj.shows.reportdividercourses}}</li>
+							<li class="dropdown-header">{{translationObj.shows.reportdividernumbers}}</li>
 				      <li class="pointerlist"><a ng-click="this.printReport('showPracticeSchedule')">{{translationObj.shows.reporttitleshowpracticeschedule}}</a></li>
 				      <li class="pointerlist"><a ng-click="this.printReport('showNumbersSummary')">{{translationObj.shows.reporttitleshownumberssummary}}</a></li>
 				      <li class="pointerlist"><a ng-click="this.printReport('showNumbersInvitesList')">{{translationObj.shows.reporttitleshownumbersinviteslist}}</a></li>
@@ -36,11 +33,7 @@
 					    <li class="pointerlist"><a data-toggle="tab" data-target="#rules">{{translationObj.shows.panetitlerules}}</a></li>
 					    <li class="pointerlist"><a data-toggle="tab" data-target="#charges">{{translationObj.shows.panetitlecharges}}</a></li>
 					    <li class="pointerlist"><a data-toggle="tab" data-target="#webdesc">{{translationObj.shows.panetitlewebdesc}}</a></li>
-					    <li class="pointerlist"><a data-toggle="tab" data-target="#numbersdates">{{translationObj.shows.panetitlecoursesdates}}</a></li>
-<!--
-					    <li class="pointerlist"><a data-toggle="tab" data-target="#icetime">{{translationObj.shows.panetitleicetimes}}</a></li>
-					    <li class="pointerlist"><a data-toggle="tab" data-target="#course">{{translationObj.shows.panetitlecourses}}</a></li>
-!-->
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#numbersdates">{{translationObj.shows.panetitlepracticesdates}}</a></li>
 						</ul>
 
 						<div id="maintabcontent" class="tab-content maintabcontent">
@@ -91,34 +84,6 @@
 									<div ng-include="'showview/numberdates.form.html'"></div>
 						    </form>
 					    </div>
-<!--
-					    <div id="rules" class="tab-pane fade maintabpane">
-					      <form class="form-horizontal well intabsingleformnox" role="form" name="rulesForm" ng-show="currentShow" >
-									 <div ng-include="'showview/rules.form.html'"></div>
-							  </form>
-					    </div>
-
-					    <div id="icetime" class="tab-pane fade maintabpane">
-					      <form class="form-horizontal well intabsingleformnox" role="form" name="icetimeForm" ng-show="currentShow" >
-									<div ng-include="'showview/icetime.form.html'"></div>
-							  </form>
-					    </div>
-
-					    <div id="charge" class="tab-pane fade maintabpane">
-					      <form class="form-horizontal well intabsingleformnox" role="form" name="showchargeForm" ng-show="currentShow" >
-									<div ng-include="'showview/charge.form.html'"></div>
-						    </form>
-					    </div>
-
-							
-					    <div id="course" class="tab-pane fade maintabpane">
-					      <form class="form-horizontal well intabsingleformnox" role="form" name="showcourseForm" ng-show="currentShow" >
-									<div ng-include="'showview/course2.form.html'"></div>
-						    </form>
-					    </div>
-
-
-!-->
 						</div>
 					</div>
 

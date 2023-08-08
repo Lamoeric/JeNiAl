@@ -33,7 +33,7 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 	$scope.isFormPristine = true;
 
 	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty) {
+		if ($scope.detailsForm.$dirty||$scope.icesForm.$dirty||$scope.roomsForm.$dirty||$scope.websiteForm.$dirty||$scope.seatsForm.$dirty) {
 			return true;
 		}
 		return false;
@@ -41,11 +41,19 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 
 	$scope.setDirty = function() {
 		$scope.detailsForm.$dirty = true;
+		$scope.icesForm.$dirty = true;
+		$scope.roomsForm.$dirty = true;
+		$scope.seatsForm.$dirty = true;
+		$scope.websiteForm.$dirty = true;
 		$scope.isFormPristine = false;
 	};
 
 	$scope.setPristine = function() {
 		$scope.detailsForm.$setPristine();
+		$scope.icesForm.$setPristine();
+		$scope.roomsForm.$setPristine();
+		$scope.seatsForm.$setPristine();
+		$scope.websiteForm.$setPristine();
 		$scope.isFormPristine = true;
 	};
 
@@ -148,7 +156,13 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 		$scope.globalWarningMessage = [];
 
 		if ($scope.detailsForm.$invalid) {
-				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
+			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrdetailsallmandatory);
+		}
+
+		if ($scope.websiteForm.$invalid) {
+			if ($scope.currentArena.website.publish == 1) {
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrwebsiteallmandatory);
+			}
 		}
 
 		if ($scope.globalErrorMessage.length != 0) {
@@ -320,7 +334,48 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 				} else {
 					$scope.currentRoom.status = 'New';
 					if ($scope.currentIce.rooms == null) $scope.currentIce.rooms = [];
-					$scope.currentIce.rooms.push($scope.currentRoom);
+					if ($scope.currentIce.rooms.indexOf($scope.currentRoom) == -1) {
+						$scope.currentIce.rooms.push($scope.currentRoom);
+					}
+				}
+				$scope.setDirty();
+			}, function() {
+					// User clicked CANCEL.
+					// alert('canceled');
+		});
+	};
+
+	// This is the function that creates the modal to create/edit exception
+	$scope.editException = function(currentIce, newException) {
+		$scope.newException = {};
+		$scope.currentException = newException;
+		$scope.currentIce = currentIce;
+		angular.copy(newException, $scope.newException);
+
+		$uibModal.open({
+				animation: false,
+					templateUrl: 'arenaview/newexception.template.html',
+					controller: 'childeditor.controller',
+				scope: $scope,
+				size: null,
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newException;
+					}
+				}
+			})
+			.result.then(function(newException) {
+				// User clicked OK and everything was valid.
+				angular.copy(newException, $scope.currentException);
+				if ($scope.currentException.id != null) {
+						$scope.currentException.status = 'Modified';
+				} else {
+					$scope.currentException.status = 'New';
+					if ($scope.currentIce.exceptions == null) $scope.currentIce.exceptions = [];
+					if ($scope.currentIce.exceptions.indexOf($scope.currentException) == -1) {
+						$scope.currentIce.exceptions.push($scope.currentException);
+					}
 				}
 				$scope.setDirty();
 			}, function() {
@@ -332,6 +387,8 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 	$scope.refreshAll = function() {
 		$scope.getAllArenas();
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'seatingassigntypes', 'sequence', 'seatingassigntypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'seatingexceptionreasons', 'sequence', 'seatingexceptionreasons');
 		translationService.getTranslation($scope, 'arenaview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}

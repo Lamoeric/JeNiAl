@@ -1,0 +1,57 @@
+<div class="form-group row">
+	<div class="grid">
+    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<div class="row">
+      <div class="col-xs-7">
+	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentArena.name" maxlength="40" required>
+					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentArena.label_en" maxlength="200" required>
+					<span ng-show="detailsForm.label_en.$touched && detailsForm.label_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+  	</div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentArena.label_fr" maxlength="200" required>
+					<span ng-show="detailsForm.label_fr.$touched && detailsForm.label_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">
+	      <label for="address">{{translationObj.details.fieldtitleaddress}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="address" class="form-control" id="address" ng-model="currentArena.address" maxlength="240" required>
+					<span ng-show="detailsForm.address.$touched && detailsForm.address.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+	      </div>
+	    </div>
+    </div>
+		<div class="row">
+      <div class="col-xs-2">
+	      <label for="active">{{translationObj.details.fieldtitleactive}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="active" ng-model="currentArena.active" required>
+			    	<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+			    </select>
+	      </div>
+	    </div>
+  	</div>
+
+  </div>
+</div>

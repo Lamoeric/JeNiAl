@@ -5,7 +5,7 @@
   <form class="form-horizontal" role="form" name="editObjForm">
     <div class="form-group row">
       <div class="col-xs-8">
-	      <label for="pricetype">{{translationObj.copyfrom.fieldperformance}}<i style="color:red"> *</i></label>
+	      <label for="performance">{{translationObj.copyfrom.fieldperformance}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
       		<select class="form-control" id="performance" ng-model="newObj.performance" required ng-options="perf as perf.performancelabel for perf in currentShow.performances">

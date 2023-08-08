@@ -1,0 +1,26 @@
+[
+	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer template courriel..."},
+	{"formname":"leftPane", "fieldname":"maintitle", "text":"Template courriel"},
+	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun template courriel trouvé"},
+
+	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails template courriel"},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Courriel envoyé."},
+
+	{"formname":"details", "fieldname":"fieldtemplatename", "text":"Nom"},
+	{"formname":"details", "fieldname":"fieldactive", "text":"Active"},
+
+	{"formname":"newemailtemplate", "fieldname":"formtitleeditemailtemplate", "text":"Nouveau template courriel"},
+	{"formname":"newemailtemplate", "fieldname":"fieldtitlename", "text":"Nom"},
+	{"formname":"newemailtemplate", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newemailtemplate", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"newemailtemplate", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"sendemailaddress", "fieldname":"formtitlesendtestemail", "text":"Envoi de courriel de test"},
+	{"formname":"sendemailaddress", "fieldname":"fieldtitleemailaddress", "text":"Adresse courriel"},
+	{"formname":"sendemailaddress", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"sendemailaddress", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"sendemailaddress", "fieldname":"buttontitlekeepchanges", "text":"Envoyer"}
+]

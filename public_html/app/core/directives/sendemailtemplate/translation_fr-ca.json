@@ -1,0 +1,11 @@
+[
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Courriel envoyé"},
+	
+	{"formname":"sendemailtemplate", "fieldname":"formtitlesendemail", "text":"Envoyer template de courriel"},
+	{"formname":"sendemailtemplate", "fieldname":"formtitleemails", "text":"Courriels"},
+	{"formname":"sendemailtemplate", "fieldname":"fieldtitletemplates", "text":"Template"},
+	{"formname":"sendemailtemplate", "fieldname":"formerrormessage", "text":"Vous devez sélectionner un template et une adresse courriel."},
+	{"formname":"sendemailtemplate", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"sendemailtemplate", "fieldname":"buttontitlekeepchanges", "text":"Envoyer"}
+
+]

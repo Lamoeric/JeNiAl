@@ -900,4 +900,25 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
     	dialogService.displayFailure(data);
     });
 	};
+
+	this.getAllEmailTemplates = function($scope, preferedlanguage) {
+		$http({
+	      method: 'post',
+	      url: './core/services/lists/lists.php',
+	      data: $.param({'language' : preferedlanguage, 'type' : 'getAllEmailTemplates'}),
+	      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	    }).
+	    success(function(data, status, headers, config) {
+	    	if (data.success && !angular.isUndefined(data.data)) {
+	    		$scope.allEmailTemplates = data.data;
+	    	} else {
+	    		if (!data.success) {
+	    			dialogService.displayFailure(data);
+	    		}
+	    	}
+	    }).
+	    error(function(data, status, headers, config) {
+	    	dialogService.displayFailure(data);
+	    });
+	};
 }]);

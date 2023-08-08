@@ -12,28 +12,28 @@
 				<div ng-repeat="registration in currentSession.registrations">
 					<div class="row">
 			      <div class="col-xs-2">
-				      <label for="location" ng-show="$index==0">{{translationObj.registrations.fieldlocation}}</label>
-			      	<input type="text" class="form-control" id="location" ng-model="registration.location" disabled>
+				      <label for="location{{$index}}" ng-show="$index==0">{{translationObj.registrations.fieldlocation}}</label>
+			      	<input type="text" class="form-control" id="location{{$index}}" ng-model="registration.location" disabled>
 			      </div>
 
 			      <div class="col-xs-2">
-				      <label for="registrationdate" ng-show="$index==0">{{translationObj.registrations.fielddate}}</label>
-			      	<input type="text" class="form-control" id="registrationdate" ng-model="registration.registrationdatestr" disabled>
+				      <label for="registrationdate{{$index}}" ng-show="$index==0">{{translationObj.registrations.fielddate}}</label>
+			      	<input type="text" class="form-control" id="registrationdate{{$index}}" ng-model="registration.registrationdatestr" disabled>
 			      </div>
 
 			      <div class="col-xs-2">
-				      <label for="starttime" ng-show="$index==0">{{translationObj.registrations.fieldstarttime}}</label>
-			      	<input type="text" class="form-control" id="starttime" ng-model="registration.starttimestr" disabled>
+				      <label for="starttime{{$index}}" ng-show="$index==0">{{translationObj.registrations.fieldstarttime}}</label>
+			      	<input type="text" class="form-control" id="starttime{{$index}}" ng-model="registration.starttimestr" disabled>
 			      </div>
 
 			      <div class="col-xs-2">
-				      <label for="endtime" ng-show="$index==0">{{translationObj.registrations.fieldendtime}}</label>
-			      	<input type="text" class="form-control" id="endtime" ng-model="registration.endtimestr" disabled>
+				      <label for="endtime{{$index}}" ng-show="$index==0">{{translationObj.registrations.fieldendtime}}</label>
+			      	<input type="text" class="form-control" id="endtime{{$index}}" ng-model="registration.endtimestr" disabled>
 			      </div>
 
 			      <div class="col-xs-2">
-				      <label for="comments" ng-show="$index==0">{{translationObj.registrations.fieldcomments}}</label>
-			      	<input type="text" class="form-control" id="comments" ng-model="registration.comments" disabled>
+				      <label for="comments{{$index}}" ng-show="$index==0">{{translationObj.registrations.fieldcomments}}</label>
+			      	<input type="text" class="form-control" id="comments{{$index}}" ng-model="registration.comments" disabled>
 			      </div>
 
 			    	<div class="col-xs-2">

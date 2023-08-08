@@ -1,0 +1,68 @@
+<form>
+	<div class="form-group row simpleDemo">
+	  <div class="col-md-12">
+			<h3>{{translationObj.paragraphviewer.listtitleparagraph}}</h3>
+
+		  <div class="panel panel-success">
+	      <div class="panel-heading">
+          <h3 class="panel-title">{{translationObj.paragraphviewer.listtitlelanguage}}
+						<label ng-repeat="language in paragraphlanguages">
+							<input type="radio" ng-model="$parent.languageSelected" name="languageselected" ng-value="{{language.code}}" ignore-dirty>&nbsp;&nbsp;{{language.text}}&nbsp;&nbsp;
+						</label>
+						<span style="float:right"><a href="https://daringfireball.net/projects/markdown/basics" title="Markdown basics" target="_blank">Markdown</a></span>
+					</h3>
+					
+	      </div>
+        <div class="panel-body" >
+					<ul dnd-list="paragraphlist"
+			        dnd-drop="dropCallback(index, item, external, type)"
+							>
+				    <!-- The dnd-draggable directive makes an element draggable and will
+				         transfer the object that was assigned to it. If an element was
+				         dragged away, you have to remove it from the original list
+				         yourself using the dnd-moved attribute -->
+				    <li ng-repeat="paragraph in paragraphlist"																																																																																																																																																																																																																																																																																																																																																																																																																																																			
+				        dnd-draggable="paragraph"
+				        dnd-moved="paragraphlist.splice($index, 1)"
+				        dnd-effect-allowed="move"
+				        >
+				        
+								<div class="form-group row">
+									<row>
+									  <div class="col-md-12">
+		    							<span style="float:right">
+		    								<span ng-if="paragraph.publish==1"><small>{{translationObj.paragraphviewer.paragraphvisible}}&nbsp;-&nbsp;</small></span>
+		    								<span ng-if="paragraph.publish==0"><small>{{translationObj.paragraphviewer.paragraphnotvisible}}</small>&nbsp;-&nbsp;</span>
+		    								<span ng-if="paragraph.visiblepreview==1"><small>{{translationObj.paragraphviewer.paragraphvisiblepreview}}</small></span>
+		    								<span ng-if="paragraph.visiblepreview==0"><small>{{translationObj.paragraphviewer.paragraphnotvisiblepreview}}</small></span>
+												<child-edit-button 			obj="paragraph" objlist="paragraphlist" callback="editParagraph(paragraph)"></child-edit-button>
+<!--
+												<child-delete-button 		obj="paragraph" objlist="paragraphlist" callback="setDirty()"></child-delete-button>
+												<child-undelete-button 	obj="paragraph" objlist="paragraphlist" callback="setDirty()"></child-undelete-button>
+-->
+												<child-status-indicator obj="paragraph"></child-status-indicator>
+											</span>
+							    	</div>
+									</row>
+									<row>
+									  <div class="col-md-12 paragraph">
+											<div class="paragraph" ng-if="$parent.languageSelected=='1'&&paragraph.msgfr!=null" ng-bind-html="paragraph.msgfr"></div>
+											<div ng-if="$parent.languageSelected=='1'&&paragraph.msgfr==null">
+								        <p>{{paragraph.paragraphtext_fr!=null && paragraph.paragraphtext_fr!='' ? paragraph.paragraphtext_fr : '[Texte vide]'}}</p>
+											</div>
+											<div class="paragraph" ng-if="$parent.languageSelected=='2'&&paragraph.msgen!=null" ng-bind-html="paragraph.msgen"></div>
+											<div ng-if="$parent.languageSelected=='2'&&paragraph.msgen==null">
+								        <p>{{paragraph.paragraphtext_en!=null && paragraph.paragraphtext_en!='' ? paragraph.paragraphtext_en : '[Texte vide]'}}</p>
+											</div>
+							    	</div>
+					    	</div>
+				        
+				    </li>
+					</ul>
+
+	    	</div>
+			</div>
+
+		</div>
+	</div>
+</form>

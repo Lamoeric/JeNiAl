@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.newexception.formtitleeditexception}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+
+	    <div class="col-xs-6">
+	      <label for="section">{{translationObj.newexception.fieldtitlesection}}<i style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="section" ng-model="newObj.section" maxlength="3" required>
+	      </div>
+	    </div>
+
+	    <div class="col-xs-6">
+	      <label for="row">{{translationObj.newexception.fieldtitlerow}}<i ng-if="newObj.seat!=null&&newObj.seat!=''" style="color:red"> *</i></label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" class="form-control" id="row" ng-model="newObj.row" maxlength="3" ng-required="newObj.seat!=null&&newObj.seat!=''">
+	      </div>
+	    </div>
+	    
+	    <div class="col-xs-6">
+	      <label for="seat">{{translationObj.newexception.fieldtitleseat}}</label>
+	    	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="seat" class="form-control" id="seat" ng-model="newObj.seat" maxlength="3" >
+	      </div>
+	    </div>
+
+      <div class="col-xs-6">
+	      <label for="reason">{{translationObj.newexception.fieldtitlereason}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <select class="form-control" id="reason" ng-model="newObj.reason" required>
+						<option ng-repeat="reason in seatingexceptionreasons" value="{{reason.code}}">{{reason.text}}</option>
+      		</select>
+      	</div>
+      </div>
+
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.newexception.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newexception.buttontitlediscard}}</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newexception.buttontitlekeepchanges}}</button>
+</div>

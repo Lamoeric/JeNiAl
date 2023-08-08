@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{translationObj.sendemailaddress.formtitlesendtestemail}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="editObjForm">
+    <div class="form-group">
+      <div class="col-xs-10">
+      	<label for="emailaddress">{{translationObj.sendemailaddress.fieldtitleemailaddress}}<i style="color:red"> *</i></label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	        <input type="text" name="emailaddress" class="form-control" id="emailaddress" ng-model="newObj.emailaddress" maxlength="250" required>
+	      </div>
+      </div>
+      <div class="col-xs-6">
+				<label ng-repeat="language2 in preferedlanguages">
+					<input type="radio" ng-model="newObj.language" name="language" value="{{language2.code}}" >&nbsp;&nbsp;{{language2.text}}&nbsp;&nbsp;
+				</label>
+	    </div>
+    </div>
+  </form>
+  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+    {{translationObj.sendemailaddress.formerrormessage}}
+  </div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.sendemailaddress.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.sendemailaddress.buttontitlekeepchanges}}</button>
+</div>
