@@ -27,9 +27,6 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 		case "insertPracticeDate":
 			insertPracticeDate($mysqli, $_POST['practicedates'], $_POST['language']);
 			break;
-		case "getCourseLevels":
-			getCourseLevels($mysqli, $_POST['code'], $_POST['language']);
-			break;
 		default:
 			invalidRequest();
 	}
@@ -787,17 +784,17 @@ function updateEntireShowPerformanceTicket($mysqli, $showid, $performanceid, $ti
 	$notes = 						$mysqli->real_escape_string(isset($ticket['notes']) 						? $ticket['notes'] : '');
 
 	if ($id == null || $id == 0) {
-		$query = "INSERT into cpa_shows_performances_ticket (showid, performanceid, language, showstub, showstubinfo, showimage, showstandardinfo, ticketcolor, stubcolor, 
+		$query = "INSERT into cpa_shows_performances_tickets (showid, performanceid, language, showstub, showstubinfo, showimage, showstandardinfo, ticketcolor, stubcolor, 
 																												 imagefilename, notes)
-							VALUES ('$showid', '$performanceid', '$language', $showstub, $showstubinfo, $showimage, $showstandardinfo, '$ticketcolor', '$stubcolor', 
-										  '$imagefilename', '$notes'";
+							VALUES ($showid, $performanceid, '$language', $showstub, $showstubinfo, $showimage, $showstandardinfo, '$ticketcolor', '$stubcolor', 
+										  '$imagefilename', '$notes')";
 		if ($mysqli->query($query)) {
 			$ticket['id'] = $mysqli->insert_id;
 		} else {
 			throw new Exception($mysqli->sqlstate.' - updateEntireShowPerformanceTicket - insert - '. $mysqli->error);
 		}
 	} else {
-		$query = "UPDATE cpa_shows_performances_prices 
+		$query = "UPDATE cpa_shows_performances_tickets 
 							SET language = '$language', showstub = $showstub, showstubinfo = $showstubinfo, showimage = $showimage, showstandardinfo = $showstandardinfo, 
 							    ticketcolor = '$ticketcolor', stubcolor = '$stubcolor', imagefilename = '$imagefilename', notes = '$notes'
 							WHERE performanceid = $performanceid";
@@ -1424,7 +1421,7 @@ function getShowPerformancePrices($mysqli, $performanceid, $language) {
 /**
  * This function gets the ticket definition for a performance
  */
-function getShowPerformanceTicket($mysqli, $performanceid, $language) {
+function getShowPerformanceTicket($mysqli, $showid, $performanceid, $language) {
 	if (empty($performanceid)) throw new Exception("Invalid performance.");
 	$query = "SELECT cspt.*
 						FROM cpa_shows_performances_tickets cspt
@@ -1434,11 +1431,28 @@ function getShowPerformanceTicket($mysqli, $performanceid, $language) {
 	$data['data'] = array();
 	while ($row = $result->fetch_assoc()) {
 		$row['showid'] = (int)$row['showid'];
-		$row['performanceid']= (int)$row['performanceid'];
-		$row['showstub']= (int)$row['showstub'];
-		$row['showstubinfo']= (int)$row['showstubinfo'];
-		$row['showimage']=	(int)$row['showimage'];
-		$row['showstandardinfo']= (int)$row['showstandardinfo'];
+		$row['performanceid'] = (int)$row['performanceid'];
+		$row['showstub'] = (int)$row['showstub'];
+		$row['showstubinfo'] = (int)$row['showstubinfo'];
+		$row['showimage'] =	(int)$row['showimage'];
+		$row['showstandardinfo'] = (int)$row['showstandardinfo'];
+		$filename = '../../../private/'. $_SERVER['HTTP_HOST'].'/website/images/shows/'.$row['imagefilename'];
+		$row['filename'] = $filename;
+		if (isset($row['imagefilename']) && !empty($row['imagefilename']) && file_exists($filename)) {
+			$row['imageinfo'] = getimagesize($filename);
+		}
+		$data['data'][] = $row;
+	}
+	if (count($data['data']) == 0) {
+		$row['showid'] = (int)$showid;
+		$row['performanceid'] = (int)$performanceid;
+		$row['language'] = 1;
+		$row['showstub'] = 0;
+		$row['showstubinfo'] = 0;
+		$row['showimage'] = 0;
+		$row['showstandardinfo'] = 1;
+		$row['stubcolor'] = '#ffffff';
+		$row['ticketcolor'] = '#ffffff';
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -1507,7 +1521,7 @@ function getShowPerformances($mysqli, $showid, $language) {
 		$row['prices'] = 			getShowPerformancePrices($mysqli, $row['id'], $language)['data'];
 		$row['assigns'] = 		getShowPerformanceAssigns($mysqli, $row['id'], $language)['data'];
 		$row['exceptions'] = 	getShowPerformanceExceptions($mysqli, $row['id'], $language)['data'];
-		$row['ticket'] = 			getShowPerformanceTicket($mysqli, $row['id'], $language)['data'];
+		$row['ticket'] = 			getShowPerformanceTicket($mysqli, $showid, $row['id'], $language)['data'][0];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -1782,26 +1796,6 @@ function updateShowNumberGeneratedFlag($mysqli, $showsnumbersid) {
 /**
  * This function gets the levels for a course
  */
-function getCourseLevels($mysqli, $code, $language) {
-	try {
-		$query = "SELECT code, getTextLabel(label, '$language') label
-							FROM cpa_courses_levels
-							WHERE coursecode = '$code'";
-		$result = $mysqli->query($query);
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$data['data'][] = $row;
-		}
-		$data['success'] = true;
-		echo json_encode($data);
-		exit;
-	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
-	}
-};
 
 function invalidRequest() {
 	$data = array();

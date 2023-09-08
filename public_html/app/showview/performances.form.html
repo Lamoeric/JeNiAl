@@ -1,7 +1,6 @@
 <div class="form-group">
 		<h3>{{translationObj.performances.formtitleperformance}}&nbsp;({{filtered.length}}/{{currentShow.performances.length}})&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformance({})"></button></h3>
 	<br>
-
 	<div ng-repeat="performance in filtered = (currentShow.performances | filter : filterPerformances)" class="blackcurvyborder">
 		<div class="row">
 			<div class="col-xs-12">
@@ -33,7 +32,7 @@
 								</ul>
 
 								<div id="performancetabcontent{{$index}}" class="tab-content maintabcontent">
-									<div id="subdetails{{$index}}" class="tab-pane fade in active maintabpane">
+									<div id="subdetails{{$index}}" class="tab-pane fade active in maintabpane">
 										</form><!-- Don't know why, but it fixes a bug...do not remove !-->
 							      <form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm">
 									  	<p><b>{{translationObj.performances.fieldlabel_fr}}</b>:&nbsp;{{performance.label_fr}}&nbsp;<b>{{translationObj.performances.fieldlabel_en}}</b>:&nbsp;{{performance.label_en}}</p>
