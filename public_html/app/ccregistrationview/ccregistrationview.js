@@ -35,7 +35,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 
 }])
 
-.controller('ccregistrationviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route', 'pricingService', 'dateFilter', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', 'agreementdialog', function($scope, $rootScope, $q, $http, $window, $location, $route, pricingService, dateFilter, authenticationService, translationService, auth, dialogService, anycodesService, agreementdialog) {
+.controller('ccregistrationviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route', 'pricingService', 'dateFilter', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', 'agreementdialog', 'billingService', function($scope, $rootScope, $q, $http, $window, $location, $route, pricingService, dateFilter, authenticationService, translationService, auth, dialogService, anycodesService, agreementdialog, billingService) {
 	$rootScope.applicationName = "EC";
 	$scope.skaterid = $route.current.params.skaterid;
 	$scope.sessionid = $route.current.params.sessionid;
@@ -77,12 +77,18 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 						// We need to simulate a revised draft (DRAFT-R) for the applyPricingRules to work properly
 						for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
 							if ($scope.currentRegistration.courses[i].selected == '1') {
-								$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].fees;
+								$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].realpaidamount ? $scope.currentRegistration.courses[i].realpaidamount : $scope.currentRegistration.courses[i].fees;
 								$scope.currentRegistration.courses[i].selected_old = $scope.currentRegistration.courses[i].selected;
+								// $scope.currentRegistration.courses[i].selected = '0';
+							} else if ($scope.currentRegistration.courses[i].selected_old == '1') {
+								$scope.currentRegistration.courses[i].selected_old = '0';
+								$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].realpaidamount;
 							}
+							$scope.setCourseDelta($scope.currentRegistration.courses[i]);
 						}
 					}
 					pricingService.applyPricingRules($scope.currentRegistration, false);
+					billingService.calculateBillAmounts($scope.currentRegistration.bill);
 			} else if (!data.success && data.errno == 997){
 				// THIS MUST NOT HAPPEN - WE NOW HAVE THE POSSIBILITY TO MODIFY THE CURRENT REGISTRATION FOR A SKATER
 				dialogService.alertDlg($scope.translationObj.main.msgerrskateralreadyhasaregistration);
@@ -95,6 +101,36 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			dialogService.displayFailure(data);
 		});
 	};
+
+	// Transforms the parameters "selected", "selected_old" and "fees_old" into a delta code
+	$scope.setCourseDelta = function(course) {
+		var delta = 0;
+		if (course.selected_old/1 == 0 && course.selected/1 == 0 && course.fees_old/1 > 0) {
+			// Course was removed in a previous revision
+			course.deltacode = 'REMOVED_CLOSED';
+		} else {
+			delta = course.selected_old/1 - course.selected/1;
+			if (delta == 0) {
+				course.deltacode = 'UNTOUCHED';
+			} else if (delta == 1) {
+				course.deltacode = 'REMOVED';
+			} else if (delta == -1) {
+				course.deltacode = 'ADDED';
+			}
+		}
+	}
+
+	// Converts the deltacode into a text
+	// Called directly by ccregistrationview.html
+	$scope.getCourseDelta = function(course) {
+		// List may not have finished loading when this method is first called
+		if ($scope.coursedeltatypes) {
+			if (course.deltacode != 'UNTOUCHED') {
+				return '(' + anycodesService.convertCodeToDesc($scope, "coursedeltatypes", course.deltacode) + ')';
+			}
+		}
+		return null;
+    }
 
 	// Validates the registration.
 	// At least one course must be selected.
@@ -122,7 +158,11 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			$scope.currentRegistration.relatedoldregistrationid = $scope.currentRegistration.id;
 			billId = -1; // means : use the same bill has the original registration
 		}
-		// For new registration, id needs to be null, and in this case we want to insert a new registration even if we are revising a old one.
+		// One last time, set the delta code
+		for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
+			$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+		}
+// For new registration, id needs to be null, and in this case we want to insert a new registration even if we are revising a old one.
 		$scope.currentRegistration.id = null;
 		$http({
 			method: 'post',
@@ -153,7 +193,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	$scope.createCoursesList = function() {
 		var list = [];
 		for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
-			if ($scope.currentRegistration.courses[i].selected == '1') {
+			if ($scope.currentRegistration.courses[i].selected == '1' && $scope.currentRegistration.courses[i].selected_old != '1') {
 				var course = $scope.currentRegistration.courses[i];
 				list.push("<strong>" + course.label + (course.courselevellabel ? "&nbsp;" + course.courselevellabel : "") + "</strong><br>" + (course.schedule ? "<small>" + course.schedule + "</small>" : ""));
 			}
@@ -200,7 +240,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
-	// When a coursecode is selected (or de-selected)
+	// When a coursecode is selected (or de-selected) for the filter
 	$scope.onCourseCodeSelected = function(coursecode) {
 		for (var i = 0; i < $scope.currentRegistration.coursecodes.length; i++) {
 			if ($scope.currentRegistration.coursecodes[i].selected == '1') {
@@ -214,17 +254,17 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	// When a course is selected (or de-selected)
 	$scope.onCourseSelected = function(course) {
 		// We can add new courses, but we cannot removed old ones
-		if (course != null && course.selected_old == '0') {
-				if (course.selected == "1") {
-					course.selected = "0";
-				} else {
-					if ((course.maxnumberskater/1 - course.nbofskaters/1) > 0) {
-						course.selected = "1";
-					}
+		if (course != null && course.selected_old == '0' && course.deltacode != 'REMOVED_CLOSED') {
+			if (course.selected == "1") {
+				course.selected = "0";
+			} else {
+				if ((course.maxnumberskater/1 - course.nbofskaters/1) > 0) {
+					course.selected = "1";
 				}
-				pricingService.applyPricingRules($scope.currentRegistration, false);
 			}
-		// }
+			pricingService.applyPricingRules($scope.currentRegistration, false);
+			billingService.calculateBillAmounts($scope.currentRegistration.bill);
+		}
 	}
 
 	// When a charge is selected (or de-selected)
@@ -243,8 +283,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
+	// Filter the courses diplayed in ccregistration.html
+	// A course that is not available online must be shown anyways if customer already paid for it (item.fees_old/1 != 0)
 	$scope.filterCourses = function(item) {
-		if (item.availableonline == 0) {
+		if (item.availableonline == 0 && item.fees_old/1 == 0) {
 			return false;
 		} else {
 			if ($scope.coursecodefilter == 1) {
@@ -275,13 +317,6 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 		$scope.coursecodefilter = null;
 	}
-
-	// $scope.filterCourses = function(item) {
-	// 	if (item.availableonline == 1) {
-	//     return true;
-	// 	}
-	// 	return false;
-	// }
 
 	$scope.filterCharges = function(item) {
 		if (item.isonline == '1') {
@@ -321,6 +356,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 
 	$scope.refreshAll = function() {
 		$scope.getSkaterRegistrationDetails();
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'coursedeltatypes',	'text', 'coursedeltatypes');
 		translationService.getTranslation($scope, 'ccregistrationview', authenticationService.getCurrentLanguage());
 	}
 
