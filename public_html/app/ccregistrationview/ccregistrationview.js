@@ -162,7 +162,12 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
 			$scope.setCourseDelta($scope.currentRegistration.courses[i]);
 		}
-// For new registration, id needs to be null, and in this case we want to insert a new registration even if we are revising a old one.
+		// Charges are not pointing to their proper ancestor
+		for (var i = 0; i < $scope.currentRegistration.charges.length; i++) {
+			$scope.currentRegistration.charges[i].oldchargeid = $scope.currentRegistration.charges[i].id;
+		}
+
+		// For new registration, id needs to be null, and in this case we want to insert a new registration even if we are revising a old one.
 		$scope.currentRegistration.id = null;
 		$http({
 			method: 'post',

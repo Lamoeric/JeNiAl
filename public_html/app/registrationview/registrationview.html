@@ -20,9 +20,8 @@
 						<div class="form-group">
 						  <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
 						    <label for="eventname">{{translationObj.sessioncourses.fieldeventname}}</label>
-								<div class="input-group">
-				      		<select class="form-control" ng-model="currentEvent" ng-options="event as event.text for event in allSessionsAndShows" ng-change="onCurrentEventChange()" ignore-dirty>
-									</select>
+							<div class="input-group">
+				      			<select id="eventname" class="form-control" ng-model="currentEvent" ng-options="event as event.text for event in allSessionsAndShows" ng-change="onCurrentEventChange()" ignore-dirty></select>
 						  	</div>
 						  </div>
 						</div>

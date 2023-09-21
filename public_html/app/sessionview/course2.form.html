@@ -1,6 +1,6 @@
 <div class="form-group">
 	<h3>{{translationObj.courses.formtitlecourses}}&nbsp;({{filtered.length}}/{{currentSession.sessionCourses.length}})&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourse({})"></button>&nbsp;<button class="btn btn-primary glyphicon glyphicon-calendar" ng-click="viewSessionSchedule()"></button></h3>
-	<span ng-repeat="coursecode in currentSession.coursecodes"><label><input type="checkbox" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
+	<span ng-repeat="coursecode in currentSession.coursecodes"><label><input type="checkbox" id="selected{{$index}}" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
 	<button class="btn btn-primary btn-sm" ng-click="clearCourseCodesFilter()"><span>{{translationObj.courses.buttontitleclearcoursecodesfilter}}</span></button>
 	<br>
 

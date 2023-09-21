@@ -8,7 +8,7 @@
       	<label for="firstname">{{translationObj.member.fieldfirstname}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="firstname" class="form-control" id="first" ng-model="currentRegistration.member.firstname" maxlength="40" required ng-disabled="currentRegistration.status!='DRAFT'">
+					<input type="text" name="firstname" class="form-control" id="firstname" ng-model="currentRegistration.member.firstname" maxlength="40" required ng-disabled="currentRegistration.status!='DRAFT'">
 	      </div>
 	    </div>
       <div class="col-xs-4">
@@ -103,10 +103,10 @@
       	</div>
       </div>
       <div class="col-xs-3">
-	      <label for="country">{{translationObj.member.fieldcountry}}<i style="color:red"> *</i></label>
+	      <label for="country1">{{translationObj.member.fieldcountry}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-      		<select class="form-control" name="country" id="country" ng-model="currentRegistration.member.country" maxlength="20" required ng-disabled="currentRegistration.status!='DRAFT'">
+      		<select class="form-control" name="country1" id="country1" ng-model="currentRegistration.member.country" maxlength="20" required ng-disabled="currentRegistration.status!='DRAFT'">
 						<option ng-repeat="country in countries" value="{{country.code}}">{{country.text}}</option>
       		</select>
       	</div>
@@ -138,14 +138,14 @@
 		</div>
 		<div class="row">
       <div class="col-xs-5">
-	      <label for="email">{{translationObj.member.fieldemail}}<i style="color:red"> *</i></label>
+	      <label for="email1">{{translationObj.member.fieldemail}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        	<input type="text" class="form-control" name="email" id="email" ng-model="currentRegistration.member.email" maxlength="100" required ng-disabled="currentRegistration.status!='DRAFT'">
+        	<input type="text" class="form-control" name="email1" id="email1" ng-model="currentRegistration.member.email" maxlength="100" required ng-disabled="currentRegistration.status!='DRAFT'">
       	</div>
       </div>
       <div class="col-xs-5">
-	      <label for="email">{{translationObj.member.fieldemail2}}</label>
+	      <label for="email2">{{translationObj.member.fieldemail2}}</label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
         	<input type="text" class="form-control" name="email2" id="email2" ng-model="currentRegistration.member.email2" maxlength="100" ng-disabled="currentRegistration.status!='DRAFT'">

@@ -1,4 +1,5 @@
 <!-- TODO : maybe we should find a better way to display the "selected" status of courses and charges in device mode -->
+<!-- Note : all labels are connected to id="comments" with a for="comments" to avoid warnings -->
 <div class="content">
 	<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
 		<div class="row">
@@ -24,21 +25,21 @@
 									<p><font color="red">{{translationObj.main.msgselectline}}</font></p>
 								</div>
 								<div><h3>{{translationObj.main.fieldtitlecourse}}</h3></div>
-								<span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
+								<span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" id="selected{{$index}}" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
 								<button class="btn btn-primary btn-sm" ng-click="clearCourseCodesFilter()"><span>{{translationObj.main.buttontitleclearcoursecodesfilter}}</span></button>
 								<div>
 									<div class="row">
 										<div class="col-xs-12 col-md-5">
-											<label class="hidden-xs">{{translationObj.main.fieldtitlecourse}}</label>
+											<label for="comments" class="hidden-xs">{{translationObj.main.fieldtitlecourse}}</label>
 										</div>
 										<div class="col-xs-12 col-md-2">
-											<label class="hidden-xs">{{translationObj.main.fieldtitlenbofcoursesleft}}</label>
+											<label for="comments" class="hidden-xs">{{translationObj.main.fieldtitlenbofcoursesleft}}</label>
 										</div>
 										<div class="col-xs-12 col-md-2">
-											<label class="hidden-xs">{{translationObj.main.fieldtitlenbofskater}}</label>
+											<label for="comments" class="hidden-xs">{{translationObj.main.fieldtitlenbofskater}}</label>
 										</div>
 										<div class="col-xs-12 col-md-2">
-											<label class="hidden-xs">{{translationObj.main.fieldtitlecourseprice}}</label>
+											<label for="comments" class="hidden-xs">{{translationObj.main.fieldtitlecourseprice}}</label>
 										</div>
 									</div>
 								</div>
@@ -79,13 +80,13 @@
 								<div>
 									<div class="row">
 										<div class="col-xs-12 col-md-5">
-											<label class="hidden-xs">{{translationObj.main.fieldtitlelabel}}</label>
+											<label for="comments" class="hidden-xs">{{translationObj.main.fieldtitlelabel}}</label>
 										</div>
 										<div class="col-xs-12 col-md-4">
-											<label class="hidden-xs">{{translationObj.main.fieldtitletype}}</label>
+											<label for="comments" class="hidden-xs">{{translationObj.main.fieldtitletype}}</label>
 										</div>
 										<div class="col-xs-12 col-md-2">
-											<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.fieldtitleamount}}</label>
+											<label for="comments" class="hidden-xs" ng-show="$index==0">{{translationObj.main.fieldtitleamount}}</label>
 										</div>
 									</div>
 								</div>
