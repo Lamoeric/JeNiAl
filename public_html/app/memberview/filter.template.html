@@ -5,14 +5,14 @@
 	<form class="form-horizontal" role="form" name="editObjForm">
 		<div class="form-group">
 			<div class="col-xs-5">
-      	<label for="first">{{translationObj.filter.fieldfirstname}}</label>
+      	<label for="firstname">{{translationObj.filter.fieldfirstname}}</label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	        <input type="text" name="firstname" class="form-control" id="firstname" ng-model="newObj.firstname" maxlength="40">
 	      </div>
       </div>
       <div class="col-xs-5">
-	      <label for="last">{{translationObj.filter.fieldLastname}}</label>
+	      <label for="lastname">{{translationObj.filter.fieldLastname}}</label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	        <input type="text" name="lastname" class="form-control" id="lastname" ng-model="newObj.lastname" maxlength="40">
@@ -37,7 +37,7 @@
 	      </div>
       </div>
 			<div class="col-xs-5">
-	      <label for="registration">{{translationObj.filter.fieldqualifications}}</label>
+	      <label for="qualification">{{translationObj.filter.fieldqualifications}}</label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
           <select class="form-control" id="qualification" ng-model="newObj.qualification">

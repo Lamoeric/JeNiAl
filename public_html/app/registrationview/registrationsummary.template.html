@@ -117,14 +117,13 @@
 <hr>
 	<table width="100%">
   	<tr>
-	  	<td colspan=3><label><input type="checkbox" ng-model="currentRegistration.regulationsread" ng-true-value="'1'">{{translationObj.registrationsummary.fieldregulationread}}</label> </td>
+	  	<td colspan=3><label><input type="checkbox" id="regulationsread" ng-model="currentRegistration.regulationsread" ng-true-value="'1'">{{translationObj.registrationsummary.fieldregulationread}}</label> </td>
   	</tr>
   	<tr>
 	  	<td colspan=3><label for="comments">{{translationObj.registrationsummary.fieldcomments}}</label><textarea class="form-control" id="comments" ng-model="currentRegistration.comments" maxlength="1024"> </textarea><br></td>
   	</tr>
   	<tr>
   		<td width="10%"><button class="btn btn-primary" ng-click="draftRegistration()" ng-disabled="currentRegistration.status!='PRESENTED' && currentRegistration.status!='PRESENTED-R'" ng-if="currentRegistration.status!='ACCEPTED'"><span>{{translationObj.registrationsummary.buttontitlebacktodraft}}</span></button></td>
-<!--	  	<td width="80%" align="center"><label><input type="checkbox" ng-model="currentRegistration.regulationsread" ng-true-value="'1'" ng-disabled="currentRegistration.status!='PRESENTED'">I have read and accepted the club regulations</label> </td> -->
 	  	<td width="80%" align="center"></td>
   		<td width="10%" class="coursetablefeestd"><button class="btn btn-primary" ng-click="acceptRegistration()" ng-disabled="(currentRegistration.status!='PRESENTED' && currentRegistration.status!='PRESENTED-R')" ng-if="currentRegistration.status!='ACCEPTED'"><span>{{translationObj.registrationsummary.buttontitleaccept}}</span></button></td>
   	</tr>
