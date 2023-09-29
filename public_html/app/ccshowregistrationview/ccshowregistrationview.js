@@ -42,7 +42,7 @@ angular.module('cpa_admin.ccshowregistrationview', ['ngRoute'])
 		  breaks:       false         // Convert '\n' in paragraphs into <br>
 //		  langPrefix:   'language-',  // CSS language prefix for fenced blocks
 //		  typographer:  false,				// Enable some language-neutral replacement + quotes beautification
-//		  quotes: '“”‘’',							// Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//		  quotes: 'ï¿½ï¿½ï¿½ï¿½',							// Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to 'ï¿½ï¿½' for Russian, 'ï¿½ï¿½' for German.
 //		  highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 	});
   $rootScope.applicationName = "EC";
@@ -216,7 +216,7 @@ $scope.insertRegistrationInDB = function() {
   // When a charge is selected (or de-selected)
 	$scope.onChargeSelected = function(charge) {
 		// TODO: add automatic charge to the list of non clickable charges
-		if (charge != null && charge.alwaysselected != '1') {
+		if (charge != null && charge.alwaysselectedonline != '1') {
 			if (charge.selected == "1") {
 				charge.selected = "0";
 			} else {
