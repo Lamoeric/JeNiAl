@@ -14,6 +14,7 @@
 	{"formname":"details", "fieldname":"fieldtitleamount", "text":"Amount"},
 	{"formname":"details", "fieldname":"fieldtitlealwaysdisplay", "text":"Always Display"},
 	{"formname":"details", "fieldname":"fieldtitlealwaysselected", "text":"Always Selected"},
+	{"formname":"details", "fieldname":"fieldtitlealwaysselectedonline", "text":"Always Selected (online only)"},
 	{"formname":"details", "fieldname":"fieldtitlenonrefundable", "text":"Non Refundable"},
 	{"formname":"details", "fieldname":"fieldtitleisonline", "text":"Available Online"},
 	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Active"},

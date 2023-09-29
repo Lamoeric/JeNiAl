@@ -160,7 +160,7 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 			}
 			$row['courses'] 			= getSessionCoursesDetails($mysqli, $registrationid, $registrationdate, $sessionid, $language)['data'];
 			$row['coursecodes'] 		= getSessionCourseCodes($mysqli, $sessionid, $language)['data'];
-			$row['charges'] 			= getChargesDetails($mysqli, $registrationid, $sessionid, $language)['data'];
+			$row['charges'] 			= getChargesDetails($mysqli, $registrationid, $sessionid, $language, true)['data'];
 			$row['familyMemberCount']	= countFamilyMembersRegistrations($mysqli, 1, $sessionid, $skaterid, $language);
 			$tmpBillData    			= getRegistrationBillInt($mysqli, $registrationid, $language)['data'];
 			if (count($tmpBillData) > 0) {

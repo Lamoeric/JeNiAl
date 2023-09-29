@@ -1,119 +1,145 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininformation}}</h3>
+		<h3>{{translationObj.details.formtitlemaininformation}}</h3>
 		<div class="row">
-      <div class="col-xs-2">
-	      <label for="code">{{translationObj.details.fieldtitlecode}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+			<div class="col-xs-2">
+				<label for="code">{{translationObj.details.fieldtitlecode}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<input type="text" name="code" class="form-control" id="code" ng-model="currentCharge.code" maxlength="10" required disabled>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="type">{{translationObj.details.fieldtitletype}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="type" ng-model="currentCharge.type" required disabled>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="type">{{translationObj.details.fieldtitletype}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="type" ng-model="currentCharge.type" required disabled>
 						<option ng-repeat="chargetype in chargetypes" value="{{chargetype.code}}">{{chargetype.text}}</option>
-		      </select>
-	      </div>
-      </div>
-    </div>
+					</select>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			<div class="col-xs-4">
+				<label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentCharge.label_en" maxlength="60" required>
-	      </div>
-	    </div>
-      <div class="col-xs-4">
-	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentCharge.label_fr" maxlength="60" required>
-	      </div>
-	    </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-2">
-	      <label for="amount">{{translationObj.details.fieldtitleamount}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="amount" ng-model="currentCharge.amount" ng-currency required>
-      	</div>
-      </div>
-	  </div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentCharge.alwaysdisplay" ng-true-value="'1'">{{translationObj.details.fieldtitlealwaysdisplay}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-2">
+				<label for="amount">{{translationObj.details.fieldtitleamount}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="amount" ng-model="currentCharge.amount" ng-currency	required>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentCharge.alwaysselected" ng-true-value="'1'">{{translationObj.details.fieldtitlealwaysselected}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="currentCharge.alwaysdisplay" ng-true-value="'1'">{{translationObj.details.fieldtitlealwaysdisplay}}
+					</label>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentCharge.nonrefundable" ng-true-value="'1'">{{translationObj.details.fieldtitlenonrefundable}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-5">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="currentCharge.alwaysselected" ng-true-value="'1'">{{translationObj.details.fieldtitlealwaysselected}}
+					</label>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentCharge.isonline" ng-true-value="'1'">{{translationObj.details.fieldtitleisonline}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-5">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="currentCharge.alwaysselectedonline" ng-true-value="'1'">{{translationObj.details.fieldtitlealwaysselectedonline}}
+					</label>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentCharge.active" ng-true-value="'1'">{{translationObj.details.fieldtitleactive}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="currentCharge.nonrefundable" ng-true-value="'1'">{{translationObj.details.fieldtitlenonrefundable}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="currentCharge.isonline" ng-true-value="'1'">{{translationObj.details.fieldtitleisonline}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="currentCharge.active" ng-true-value="'1'">{{translationObj.details.fieldtitleactive}}
+					</label>
+				</div>
+			</div>
+		</div>
 
-		<!-- <hr><h3>{{translationObj.details.formtitlerules}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editRule({})"></button></h3> -->
-		<hr><h3>{{translationObj.details.formtitlerules}}&nbsp;<chargeruleseditor type='2' rule={} charge=currentCharge is-disabled='currentCharge.rules.length == 1' callback=null></chargeruleseditor></h3>
+		<hr>
+		<h3>{{translationObj.details.formtitlerules}}&nbsp;
+			<chargeruleseditor type='2' rule={} charge=currentCharge is-disabled='currentCharge.rules.length == 1' callback=null></chargeruleseditor>
+		</h3>
 		<div ng-repeat="rule in currentCharge.rules">
-    	<div class="row">
-
-		    <div class="col-xs-5">
-		      <label for="code">{{translationObj.details.fieldtitleruletype}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" name="ruletypelabel" class="form-control" id="ruletypelabel" ng-model="rule.ruletypelabel" disabled>
-		      </div>
-		    </div>
+			<div class="row">
 
 				<div class="col-xs-5">
-		      <label for="code">{{translationObj.details.fieldtitleruleparameters}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" name="ruleparameters" class="form-control" id="ruleparameters" ng-model="rule.ruleparameters" disabled>
-		      </div>
-		    </div>
+					<label for="code">{{translationObj.details.fieldtitleruletype}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" name="ruletypelabel" class="form-control" id="ruletypelabel" ng-model="rule.ruletypelabel" disabled>
+					</div>
+				</div>
 
-      	<div class="col-xs-2">
-			    <label>&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<!-- <child-edit-button 			obj="rule" objlist="currentCharge.rules" callback="editRule(rule)"></child-edit-button> -->
-							<chargeruleseditor type='1'	rule="rule" charge="currentCharge" 				callback="setDirty()" is-disabled="false"></chargeruleseditor>
-							<child-delete-button 				obj="rule" 	objlist="currentCharge.rules" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 			obj="rule" 	objlist="currentCharge.rules" callback="setDirty()"></child-undelete-button>
-							<child-status-indicator 		obj="rule"></child-status-indicator>
+				<div class="col-xs-5">
+					<label for="code">{{translationObj.details.fieldtitleruleparameters}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" name="ruleparameters" class="form-control" id="ruleparameters" ng-model="rule.ruleparameters" disabled>
+					</div>
+				</div>
+
+				<div class="col-xs-2">
+					<label>&nbsp;</label>
+					<div class="input-group">
+						<span>
+							<chargeruleseditor type='1' rule="rule" charge="currentCharge" callback="setDirty()" is-disabled="false"></chargeruleseditor>
+							<child-delete-button obj="rule" objlist="currentCharge.rules" callback="setDirty()"></child-delete-button>
+							<child-undelete-button obj="rule" objlist="currentCharge.rules" callback="setDirty()"></child-undelete-button>
+							<child-status-indicator obj="rule"></child-status-indicator>
 						</span>
-				  </div>
-			  </div>
-		  </div>
-	 	</div>
-  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
