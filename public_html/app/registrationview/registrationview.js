@@ -495,18 +495,18 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		}
 	}
 
+	$scope.deleteRevisedRegistration = function() {
+		if ($scope.currentRegistration != null) {
+			dialogService.confirmDlg($scope.translationObj.main.msgdeleterevisedregistration, "YESNO", $scope.deleteFromDB, null, true, null);
+		}		
+	}
+
 	$scope.reviseRegistration = function() {
-		dialogService.confirmYesNo($scope.translationObj.main.msgconfirmrevise,
-			function(e) {
-				if (e) {
+		// dialogService.confirmYesNo($scope.translationObj.main.msgconfirmrevise,
+		// 	function(e) {
+		// 		if (e) {
 					// user clicked "yes"
 					$scope.newRegistration = $scope.currentRegistration;
-//					for (var i = 0; $scope.sessions && i < $scope.sessions.length; i++) {
-//						if ($scope.newRegistration.sessionid == $scope.sessions[i].id) {
-//							$scope.newRegistration.session = $scope.sessions[i];
-//							break;
-//						}
-//					}
 					$scope.newRegistration.callback = $scope.validateNewRegistration;
 					// Send the newRegistration to the modal form
 					$uibModal.open({
@@ -556,11 +556,11 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 						// alert('canceled');
 					});
 
-				} else {
-					// user clicked "no"
-				}
-			}
-		);
+				// } else {
+				// 	// user clicked "no"
+				// }
+			// }
+		// );
 	}
 
 	$scope.addRegistrationToDB = function() {

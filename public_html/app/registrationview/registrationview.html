@@ -13,8 +13,9 @@
 
 					<main-new-button new-callback="createNew()" is-form-pristine="activeSession==null" ng-if="userInfo.privileges.registration_create==true"></main-new-button>
 					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !memberForm.$dirty && !contactForm.$dirty && !summaryForm.$dirty"></main-save-button>
-					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R'"></main-delete-button>
-					<button class="btn btn-primary" ng-click="this.reviseRegistration()" ng-disabled="currentRegistration.status!='ACCEPTED'" ng-if="userInfo.privileges.registration_revise==true"><span>{{translationObj.main.buttontitlerevise}}</span></button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentRegistration.status!='DRAFT'"></main-delete-button>
+					<button class="btn btn-primary" ng-click="this.deleteRevisedRegistration()" ng-if="currentRegistration!=null && currentRegistration.status=='DRAFT-R' && userInfo.privileges.registration_revise==true"><span>{{translationObj.main.buttontitledeleterevise}}</span></button>
+					<button class="btn btn-primary" ng-click="this.reviseRegistration()" ng-disabled="currentRegistration.status!='ACCEPTED'" ng-if="currentRegistration!=null && currentRegistration.status=='ACCEPTED' && userInfo.privileges.registration_revise==true"><span>{{translationObj.main.buttontitlerevise}}</span></button>
 
 					<form class="form-horizontal" role="form" name="upperForm">
 						<div class="form-group">
