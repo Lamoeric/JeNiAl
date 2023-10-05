@@ -156,7 +156,7 @@ function getsectiontoplinks($mysqli, $sectionname, $language, $previewmode) {
   $data = array();
   $data['data'] = array();
   while ($row = $result->fetch_assoc()) {
-    $row['filename'] = htmlentities($row['filename']);
+    $row['filename'] = isset($row['filename']) ? htmlentities($row['filename']) : null;
     $data['data'][] = $row;
   }
   $data['success'] = true;
