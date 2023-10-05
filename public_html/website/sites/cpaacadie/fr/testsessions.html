@@ -15,7 +15,7 @@
   ================================================== -->
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link rel="shortcut icon" href="../../../images/logo_jenial.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/public_html/images/logo_jenial.png" type="image/x-icon">
   <title ng-bind="currentpage.globalsections.footer.label"></title>
   <meta name="description" content="">
   <meta name="keywords" content="">
@@ -29,25 +29,25 @@
   <!-- Template CSS Files
   ================================================== -->
   <!-- Twitter Bootstrs CSS -->
-  <link rel="stylesheet" href="../../../plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/bootstrap/bootstrap.min.css">
   <!-- Ionicons Fonts Css -->
-  <link rel="stylesheet" href="../../../plugins/ionicons/ionicons.min.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/ionicons/ionicons.min.css">
   <!-- animate css -->
-  <link rel="stylesheet" href="../../../plugins/animate-css/animate.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/animate-css/animate.css">
   <!-- Hero area slider css-->
-  <link rel="stylesheet" href="../../../plugins/slider/slider.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/slider/slider.css">
   <!-- owl craousel css -->
-  <link rel="stylesheet" href="../../../plugins/owl-carousel/owl.carousel.css">
-  <link rel="stylesheet" href="../../../plugins/owl-carousel/owl.theme.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/owl-carousel/owl.theme.css">
   <!-- Fancybox -->
-  <link rel="stylesheet" href="../../../plugins/facncybox/jquery.fancybox.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/facncybox/jquery.fancybox.css">
   <!-- angular Busy -->
-  <link rel="stylesheet" href="../../../plugins/angularBusy/angular-busy.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/angularBusy/angular-busy.css">
   <!-- Alertify -->
-  <link rel="stylesheet" href="../../../../dist/alertify.core.css" />
-	<link rel="stylesheet" href="../../../../dist/alertify.default.css" />
+  <link rel="stylesheet" href="/public_html/dist/alertify.core.css" />
+	<link rel="stylesheet" href="/public_html/dist/alertify.default.css" />
   <!-- template main css file -->
-  <link rel="stylesheet" href="../../../css/style.css">
+  <link rel="stylesheet" href="/public_html/website/css/style.css">
 </head>
 <body onload="load()">
 
@@ -55,13 +55,13 @@
 ==================================================
 Main menu Section Start
 ================================================== -->
-<ng-include src="'../../../templates/mainmenu.template.html'"></ng-include>
+<ng-include src="'/public_html/website/templates/mainmenu.template.html'"></ng-include>
 
 <!--
 ==================================================
 Main header Section Start
 ================================================== -->
-<ng-include src="'../../../templates/mainheader.template.html'"></ng-include>
+<ng-include src="'/public_html/website/templates/mainheader.template.html'"></ng-include>
 
 <!--
 ==================================================
@@ -71,10 +71,10 @@ Tests Sessions List Section Start
   {{currentsection=currentpage.globalsections.testsessionlist;""}}
   <div class="container">
     <div class="row">
-      <ng-include src="'../../../templates/sectiontitle.template.html'"></ng-include>
-      <ng-include src="'../../../templates/toplinks.template.html'"></ng-include>
-      <ng-include src="'../../../templates/paragraph.template.html'"></ng-include>
-      <ng-include src="'../../../templates/bottomlinks.template.html'"></ng-include>
+      <ng-include src="'/public_html/website/templates/sectiontitle.template.html'"></ng-include>
+      <ng-include src="'/public_html/website/templates/toplinks.template.html'"></ng-include>
+      <ng-include src="'/public_html/website/templates/paragraph.template.html'"></ng-include>
+      <ng-include src="'/public_html/website/templates/bottomlinks.template.html'"></ng-include>
 
       <div ng-repeat="onetestsession in currentpage.globalsections.testsessionlist.testsessionlist" >
         <div class="col-xs-12 wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms">
@@ -142,13 +142,13 @@ Tests Sessions List Section Start
 ==================================================
     Partners Section Start
 ================================================== -->
-<ng-include src="'../../../templates/partners.template.html'"></ng-include>
+<ng-include src="'/public_html/website/templates/partners.template.html'"></ng-include>
 
 <!--
 ==================================================
 Call To Action Section Start
 ================================================== -->
-<ng-include src="'../../../templates/calltoaction.template.html'"></ng-include>
+<ng-include src="'/public_html/website/templates/calltoaction.template.html'"></ng-include>
 
 <!--
 ==================================================
@@ -165,28 +165,28 @@ Footer Section Start
 	<!-- Template Javascript Files
 	================================================== -->
 	<!-- jquery -->
-	<script src="../../../plugins/jQurey/jquery.min.js"></script>
+	<script src="/public_html/website/plugins/jQurey/jquery.min.js"></script>
 	<!-- Form Validation -->
-    <script src="../../../plugins/form-validation/jquery.form.js"></script>
-    <script src="../../../plugins/form-validation/jquery.validate.min.js"></script>
+    <script src="/public_html/website/plugins/form-validation/jquery.form.js"></script>
+    <script src="/public_html/website/plugins/form-validation/jquery.validate.min.js"></script>
 	<!-- owl carouserl js -->
-	<script src="../../../plugins/owl-carousel/owl.carousel.min.js"></script>
+	<script src="/public_html/website/plugins/owl-carousel/owl.carousel.min.js"></script>
 	<!-- bootstrap js -->
-	<script src="../../../plugins/bootstrap/bootstrap.min.js"></script>
+	<script src="/public_html/website/plugins/bootstrap/bootstrap.min.js"></script>
   <!-- angular js -->
-	<script src="../../../plugins/angularJS/angular.min.js"></script>
+	<script src="/public_html/website/plugins/angularJS/angular.min.js"></script>
 	<!-- wow js -->
-	<script src="../../../plugins/wow-js/wow.min.js"></script>
+	<script src="/public_html/website/plugins/wow-js/wow.min.js"></script>
 	<!-- slider js -->
-	<script src="../../../plugins/slider/slider.js"></script>
+	<script src="/public_html/website/plugins/slider/slider.js"></script>
 	<!-- Fancybox -->
-	<script src="../../../plugins/facncybox/jquery.fancybox.js"></script>
+	<script src="/public_html/website/plugins/facncybox/jquery.fancybox.js"></script>
   <!-- Alertify -->
-  <script type="text/javascript" src="../../../../dist/alertify.min.js"></script>
+  <script type="text/javascript" src="/public_html/dist/alertify.min.js"></script>
   <!-- angular JS module and controller -->
-	<script src="../../../js/app.js"></script>
+	<script src="/public_html/website/js/app.js"></script>
 	<!-- template main js -->
-	<script src="../../../js/main.js"></script>
+	<script src="/public_html/website/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
  	</body>
 </html>

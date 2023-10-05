@@ -20,8 +20,8 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
   $scope.getcurrentpageinfo = function () {
 		return $http({
 	      method: 'post',
-        url: '../php/getcurrentpageinfo.php',					// For local dev only
-	      // url: '../../../php/getcurrentpageinfo.php',
+        url: '/public_html/website/php/getcurrentpageinfo.php',					// For local dev only
+	      //url: '../../../php/getcurrentpageinfo.php',
 	      data: $.param({'pagename' : $scope.pagename, 'costumeid' : $scope.costumeid, 'testsessionid' : $scope.testsessionid, 'previewmode' : $scope.previewMode, 'language' : $scope.language}),
 	      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).
