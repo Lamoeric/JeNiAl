@@ -9,9 +9,9 @@
 // Get the rules associated with a charge, mainly of type DISCOUNT
 function getChargesRules($mysqli, $chargecode, $language) {
 	$query = "SELECT ccr.ruletype, ccr.ruleparameters
-						FROM cpa_charges_rules ccr
-						WHERE ccr.chargecode = '$chargecode'
-						ORDER BY 'index'";
+			FROM cpa_charges_rules ccr
+			WHERE ccr.chargecode = '$chargecode'
+			ORDER BY 'index'";
 	$result = $mysqli->query($query);
 	$data = array();
 	$data['data'] = array();
@@ -24,24 +24,44 @@ function getChargesRules($mysqli, $chargecode, $language) {
 };
 
 // Get the details of all charges for a show/registration
-function getShowChargesDetails($mysqli, $registrationid, $showid, $language) {
-	$query = "SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselected, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
-              getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
-              cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, 
-              if (crcold.id is not null AND crcold.amount != 0, crcold.amount, if(crc.id is not null AND crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
-              getTextLabel(cc.label, '$language') label, 
-              if (crc.id is not null OR    (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected,
-              if (crcold.id is not null OR (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected_old,
-              if ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate)), '1', '0') active,
-              crc.comments, crc.oldchargeid
-            FROM cpa_shows_charges csc
-            LEFT JOIN cpa_registrations cr ON cr.id = $registrationid
-            JOIN cpa_charges cc ON cc.code = csc.chargecode
-            LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (crc.registrationid = cr.id OR crc.registrationid is null)
-            LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
-            WHERE csc.showid = $showid
-            AND cc.active = 1
-            ORDER BY cc.type, cc.alwaysselected DESC, cc.code";
+function getShowChargesDetails($mysqli, $registrationid, $showid, $language, $online = false) {
+	if ($online == true) {
+		$query = "SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselectedonline, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
+						getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
+						cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, 
+						if (crcold.id is not null AND crcold.amount != 0, crcold.amount, if(crc.id is not null AND crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
+						getTextLabel(cc.label, '$language') label, 
+						if (crc.id is not null OR    (cc.alwaysselectedonline AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected,
+						if (crcold.id is not null OR (cc.alwaysselectedonline AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected_old,
+						if ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate)), '1', '0') active,
+						crc.comments, crc.oldchargeid
+				FROM cpa_shows_charges csc
+				LEFT JOIN cpa_registrations cr ON cr.id = $registrationid
+				JOIN cpa_charges cc ON cc.code = csc.chargecode
+				LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (crc.registrationid = cr.id OR crc.registrationid is null)
+				LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
+				WHERE csc.showid = $showid
+				AND cc.active = 1
+				ORDER BY cc.type, cc.alwaysselectedonline DESC, cc.code";
+	} else {
+		$query = "SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselected, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
+						getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
+						cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, 
+						if (crcold.id is not null AND crcold.amount != 0, crcold.amount, if(crc.id is not null AND crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
+						getTextLabel(cc.label, '$language') label, 
+						if (crc.id is not null OR    (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected,
+						if (crcold.id is not null OR (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected_old,
+						if ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate)), '1', '0') active,
+						crc.comments, crc.oldchargeid
+				FROM cpa_shows_charges csc
+				LEFT JOIN cpa_registrations cr ON cr.id = $registrationid
+				JOIN cpa_charges cc ON cc.code = csc.chargecode
+				LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (crc.registrationid = cr.id OR crc.registrationid is null)
+				LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
+				WHERE csc.showid = $showid
+				AND cc.active = 1
+				ORDER BY cc.type, cc.alwaysselected DESC, cc.code";
+	}
 	$result = $mysqli->query($query);
 	$data = array();
 	$data['data'] = array();
@@ -55,37 +75,45 @@ function getShowChargesDetails($mysqli, $registrationid, $showid, $language) {
 };
 
 // Get the details of all charges for a session/registration
-function getChargesDetails($mysqli, $registrationid, $sessionid, $language) {
-//	$query = "SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselected, cc.nonrefundable, cc.isonline, cc.issystem,csc.startdate, csc.enddate,
-//							getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
-//							cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, if (crcold.id is not null && crcold.amount != 0, crcold.amount, if(crc.id is not null && crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
-//							getTextLabel(cc.label, '$language') label, if (crc.id is not null || cc.alwaysselected, '1', '0') selected,
-//							if (crcold.id is not null || cc.alwaysselected, '1', '0') selected_old,
-//							crc.comments, crc.oldchargeid
-//						FROM cpa_sessions_charges csc
-//						JOIN cpa_charges cc ON cc.code = csc.chargecode
-//						LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (registrationid = $registrationid or registrationid is null)
-//						LEFT OUTER JOIN cpa_registrations_charges crcold on crcold.registrationid = (select relatedoldregistrationid from cpa_registrations where id = $registrationid) and crcold.id = crc.oldchargeid
-//						WHERE csc.sessionid = $sessionid
-//						AND cc.active = 1
-//						ORDER BY cc.type, cc.alwaysselected DESC, cc.code";
-	$query = "SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselected, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
-              getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
-              cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, 
-              if (crcold.id is not null AND crcold.amount != 0, crcold.amount, if(crc.id is not null AND crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
-              getTextLabel(cc.label, '$language') label, 
-              if (crc.id is not null OR    (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected,
-              if (crcold.id is not null OR (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected_old,
-              if ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate)), '1', '0') active,
-              crc.comments, crc.oldchargeid
-            FROM cpa_sessions_charges csc
-            LEFT JOIN cpa_registrations cr ON cr.id = $registrationid
-            JOIN cpa_charges cc ON cc.code = csc.chargecode
-            LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (crc.registrationid = cr.id OR crc.registrationid is null)
-            LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
-            WHERE csc.sessionid = $sessionid
-            AND cc.active = 1
-            ORDER BY cc.type, cc.alwaysselected DESC, cc.code";
+function getChargesDetails($mysqli, $registrationid, $sessionid, $language, $online = false) {
+	if ($online == true) {
+		$query = "	SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselectedonline, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
+							getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
+							cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, 
+							if (crcold.id is not null AND crcold.amount != 0, crcold.amount, if(crc.id is not null AND crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
+							getTextLabel(cc.label, '$language') label, 
+							if (crc.id is not null OR    (cc.alwaysselectedonline AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected,
+							if (crcold.id is not null OR (cc.alwaysselectedonline AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected_old,
+							if ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate)), '1', '0') active,
+							crc.comments, crc.oldchargeid, cr.registrationdate, csc.startdate, csc.enddate
+					FROM cpa_sessions_charges csc
+					LEFT JOIN cpa_registrations cr ON cr.id = $registrationid
+					JOIN cpa_charges cc ON cc.code = csc.chargecode
+					LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (crc.registrationid = cr.id OR crc.registrationid is null)
+					LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
+					WHERE csc.sessionid = $sessionid
+					AND cc.active = 1
+					AND cc.isonline = 1
+					ORDER BY cc.type, cc.alwaysselectedonline DESC, cc.code";
+	} else {
+		$query = "	SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselected, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
+							getCodeDescription('chargerefundabletypes', cc.nonrefundable, '$language') nonrefundablelabel,
+							cc.type, getCodeDescription('chargetypes', cc.type, '$language') typelabel, 
+							if (crcold.id is not null AND crcold.amount != 0, crcold.amount, if(crc.id is not null AND crc.amount != 0, crc.amount, csc.amount)) amount /*csc.amount*/,
+							getTextLabel(cc.label, '$language') label, 
+							if (crc.id is not null OR    (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected,
+							if (crcold.id is not null OR (cc.alwaysselected AND ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate))) AND (cr.status is null or cr.status = 'DRAFT')), '1', '0') selected_old,
+							if ((csc.startdate is null OR if(cr.registrationdate is null, curdate()>= csc.startdate, cr.registrationdate >= csc.startdate)) AND (csc.enddate is null OR if(cr.registrationdate is null, curdate()<= csc.enddate, cr.registrationdate <= csc.enddate)), '1', '0') active,
+							crc.comments, crc.oldchargeid
+					FROM cpa_sessions_charges csc
+					LEFT JOIN cpa_registrations cr ON cr.id = $registrationid
+					JOIN cpa_charges cc ON cc.code = csc.chargecode
+					LEFT OUTER JOIN cpa_registrations_charges crc ON crc.chargeid = csc.id AND (crc.registrationid = cr.id OR crc.registrationid is null)
+					LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
+					WHERE csc.sessionid = $sessionid
+					AND cc.active = 1
+					ORDER BY cc.type, cc.alwaysselected DESC, cc.code";
+	}
 	$result = $mysqli->query($query);
 	$data = array();
 	$data['data'] = array();
@@ -146,19 +174,19 @@ function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
 	$data['data'] = array();
 	if ($memberid == null) $memberid = 0;
 	$query = "select csn.id, 'SHOWNUMBER' as coursecode, csn.name, csn.registrationtype, csn.mandatory, getTextLabel(csn.label, 'fr-ca') label, crc.amount realpaidamount, csn.fees, 
-									getCodeDescription('numberregistrationtypes', csn.registrationtype, '$language') registrationtypelabel,
-									getCodeDescription('yesnos', csn.mandatory/1, '$language') mandatorylabel,
+						getCodeDescription('numberregistrationtypes', csn.registrationtype, '$language') registrationtypelabel,
+						getCodeDescription('yesnos', csn.mandatory/1, '$language') mandatorylabel,
 			            if (crcold.amount is null, 0, crcold.amount) fees_old, 
 			            if (csn.mandatory = 1 and crcold.registrationid is null, 1, if (crc.selected is null, 0, crc.selected)) selected,
 			            if (crcold.selected is null, 0, crcold.selected) selected_old
-						from cpa_shows_numbers csn
-						left join cpa_registrations_numbers crc on crc.registrationid = $registrationid and crc.numberid = csn.id
-						left join cpa_registrations_numbers crcold on crcold.registrationid = (select relatedoldregistrationid from cpa_registrations where id = $registrationid) and crcold.numberid = csn.id
-						where csn.showid = $showid
-            and csn.type = 1
-            and csn.registrationtype != 1
-            and (csn.registrationtype = 3 or (csn.registrationtype = 2 and exists (select 1 from cpa_shows_numbers_invites where groupormemberid = $memberid and numberid = csn.id)))
-						order by csn.name";
+			FROM cpa_shows_numbers csn
+			left join cpa_registrations_numbers crc on crc.registrationid = $registrationid and crc.numberid = csn.id
+			left join cpa_registrations_numbers crcold on crcold.registrationid = (select relatedoldregistrationid from cpa_registrations where id = $registrationid) and crcold.numberid = csn.id
+			WHERE csn.showid = $showid
+            AND csn.type = 1
+            AND csn.registrationtype != 1
+            AND (csn.registrationtype = 3 or (csn.registrationtype = 2 and exists (select 1 from cpa_shows_numbers_invites where groupormemberid = $memberid and numberid = csn.id)))
+			ORDER BY csn.name";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['schedule'] = getShowNumberSchedule($mysqli, $row['id'], $language);
@@ -173,21 +201,21 @@ function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
 	$data = array();
 	$data['data'] = array();
 	$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater, csc.availableonline,
-							(select count(*) from cpa_sessions_courses_members cscm where sessionscoursesid = csc.id and membertype = 3 and (cscm.registrationenddate is null or cscm.registrationenddate > curdate())) nbofskaters,
-							getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
-							getTextLabel(csc.label, '$language') label, crc.amount realpaidamount,
-							csc.fees, if (crcold.amount is null, 0, crcold.amount) fees_old, /*if (crc.id is not null, '1', '0') selected,*/ if (crc.selected is null, 0, crc.selected) selected,  /*if (crcold.id is not null, '1', '0')*/ if (crcold.selected is null, 0, crcold.selected) selected_old,
-							(SELECT floor(datediff(coursesenddate, coursesstartdate)/7) FROM cpa_sessions WHERE id = $sessionid) sessionnbofweeks,
-							(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0) nbofcourses,
-							(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0 and coursedate >= '$registrationdate') nbofcoursesleft
-						from cpa_sessions_courses csc
-						join cpa_courses cc ON cc.code = csc.coursecode
-						left join cpa_registrations_courses crc on crc.registrationid = $registrationid and crc.courseid = csc.id
-						left join cpa_registrations_courses crcold on crcold.registrationid = (select relatedoldregistrationid from cpa_registrations where id = $registrationid) and crcold.courseid = csc.id
-						where csc.sessionid = $sessionid
-						and datesgenerated = 1
-						and cc.acceptregistrations = 1
-						order by coursecode, courselevel, csc.name";
+					(select count(*) from cpa_sessions_courses_members cscm where sessionscoursesid = csc.id and membertype = 3 and (cscm.registrationenddate is null or cscm.registrationenddate > curdate())) nbofskaters,
+					getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
+					getTextLabel(csc.label, '$language') label, crc.amount realpaidamount,
+					csc.fees, if (crcold.amount is null, 0, crcold.amount) fees_old, /*if (crc.id is not null, '1', '0') selected,*/ if (crc.selected is null, 0, crc.selected) selected,  /*if (crcold.id is not null, '1', '0')*/ if (crcold.selected is null, 0, crcold.selected) selected_old,
+					(SELECT floor(datediff(coursesenddate, coursesstartdate)/7) FROM cpa_sessions WHERE id = $sessionid) sessionnbofweeks,
+					(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0) nbofcourses,
+					(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0 and coursedate >= '$registrationdate') nbofcoursesleft
+			from cpa_sessions_courses csc
+			join cpa_courses cc ON cc.code = csc.coursecode
+			left join cpa_registrations_courses crc on crc.registrationid = $registrationid and crc.courseid = csc.id
+			left join cpa_registrations_courses crcold on crcold.registrationid = (select relatedoldregistrationid from cpa_registrations where id = $registrationid) and crcold.courseid = csc.id
+			where csc.sessionid = $sessionid
+			and datesgenerated = 1
+			and cc.acceptregistrations = 1
+			order by coursecode, courselevel, csc.name";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['schedule'] = getSessionCourseSchedule($mysqli, $row['id'], $language);
@@ -202,15 +230,15 @@ function countShowFamilyMembersRegistrations($mysqli, $showid, $memberid, $langu
 	$nbofmembers = 0;
 	if (!empty($memberid)) {
 		$query = "SELECT count(*) nb
-	  FROM (SELECT distinct cr.*
-	        from cpa_registrations cr
-	        join cpa_members_contacts cmc ON cmc.memberid = cr.memberid
-	        join cpa_members_contacts cmc2 ON cmc2.contactid = cmc.contactid
-	        where cr.showid = $showid
-	        and (cr.status = 'ACCEPTED' or cr.status = 'DRAFT-R' or cr.status = 'PRESENTED-R')
-					and cr.relatedoldregistrationid = 0
-	        and cr.memberid != $memberid
-	        and cmc2.memberid = $memberid) a";
+				FROM (SELECT distinct cr.*
+						from cpa_registrations cr
+						join cpa_members_contacts cmc ON cmc.memberid = cr.memberid
+						join cpa_members_contacts cmc2 ON cmc2.contactid = cmc.contactid
+						where cr.showid = $showid
+						and (cr.status = 'ACCEPTED' or cr.status = 'DRAFT-R' or cr.status = 'PRESENTED-R')
+						and cr.relatedoldregistrationid = 0
+						and cr.memberid != $memberid
+						and cmc2.memberid = $memberid) a";
 		$result = $mysqli->query($query);
 	  $row = $result->fetch_assoc();
 		$nbofmembers = $row['nb'];
@@ -225,25 +253,25 @@ function countFamilyMembersRegistrations($mysqli, $eventtype, $eventid, $memberi
 		if ($eventtype == 1) { // Session
 			$query = "SELECT count(*) nb
 					  FROM (SELECT distinct cr.*
-		        from cpa_registrations cr
-		        join cpa_members_contacts cmc ON cmc.memberid = cr.memberid
-		        join cpa_members_contacts cmc2 ON cmc2.contactid = cmc.contactid
-		        where cr.sessionid = $eventid
-		        and (cr.status = 'ACCEPTED' or cr.status = 'DRAFT-R' or cr.status = 'PRESENTED-R')
-						and cr.relatedoldregistrationid = 0
-		        and cr.memberid != $memberid
-		        and cmc2.memberid = $memberid) a";
+							from cpa_registrations cr
+							join cpa_members_contacts cmc ON cmc.memberid = cr.memberid
+							join cpa_members_contacts cmc2 ON cmc2.contactid = cmc.contactid
+							where cr.sessionid = $eventid
+							and (cr.status = 'ACCEPTED' or cr.status = 'DRAFT-R' or cr.status = 'PRESENTED-R')
+							and cr.relatedoldregistrationid = 0
+							and cr.memberid != $memberid
+							and cmc2.memberid = $memberid) a";
 		} else if ($eventtype == 2) { // Show
 			$query = "SELECT count(*) nb
 		  			FROM (SELECT distinct cr.*
-		        from cpa_registrations cr
-		        join cpa_members_contacts cmc ON cmc.memberid = cr.memberid
-		        join cpa_members_contacts cmc2 ON cmc2.contactid = cmc.contactid
-		        where cr.showid = $eventid
-		        and (cr.status = 'ACCEPTED' or cr.status = 'DRAFT-R' or cr.status = 'PRESENTED-R')
-						and cr.relatedoldregistrationid = 0
-		        and cr.memberid != $memberid
-		        and cmc2.memberid = $memberid) a";
+							from cpa_registrations cr
+							join cpa_members_contacts cmc ON cmc.memberid = cr.memberid
+							join cpa_members_contacts cmc2 ON cmc2.contactid = cmc.contactid
+							where cr.showid = $eventid
+							and (cr.status = 'ACCEPTED' or cr.status = 'DRAFT-R' or cr.status = 'PRESENTED-R')
+							and cr.relatedoldregistrationid = 0
+							and cr.memberid != $memberid
+							and cmc2.memberid = $memberid) a";
 		}
 		$result = $mysqli->query($query);
 	  $row = $result->fetch_assoc();
@@ -262,12 +290,12 @@ function memberAlreadyHasARegistration($mysqli, $registration) {
 		$sessionid = isset($registration['sessionid']) ? (int)$registration['sessionid'] : null;
 		$showid = isset($registration['showid']) ? (int)$registration['showid'] : null;
 		$query = "SELECT count(*) nb
-							FROM cpa_registrations
-							WHERE (memberid = $memberid AND memberid != 0)
-							AND id != $id "
-							. ($sessionid == null? "AND showid = $showid " : "AND sessionid = $sessionid ") .
+				FROM cpa_registrations
+				WHERE (memberid = $memberid AND memberid != 0)
+				AND id != $id "
+				. ($sessionid == null? "AND showid = $showid " : "AND sessionid = $sessionid ") .
 //							AND (($sessionid is not null AND sessionid = $sessionid) OR ($showid is not null AND showid = $showid))
-							"AND (relatednewregistrationid is null or relatednewregistrationid = 0)";
+				"AND (relatednewregistrationid is null or relatednewregistrationid = 0)";
 		$result = $mysqli->query($query);
 		while ($row = $result->fetch_assoc()) {
 			if ($row['nb'] != 0) return true;
@@ -326,7 +354,7 @@ function update_member($mysqli, $member) {
 							healthcareexp = '$healthcareexp', healthcomments = '$healthcomments', qualifications = '$qualifications', address2 = '$address2', address1 = '$address1', town = '$town',
 							province = '$province', postalcode = '$postalcode', country = '$country', homephone = '$homephone', cellphone = '$cellphone',
 							otherphone = '$otherphone', email = '$email', email2 = '$email2', reportsc = $reportsc, homeclub = '$homeclub', skaterlevel = '$skaterlevel', mainprogram = '$mainprogram', secondprogram = '$secondprogram', comments = '$comments'
-							WHERE id = $id";
+				WHERE id = $id";
 	}
 
 	if ($mysqli->query($query)) {
@@ -347,10 +375,10 @@ function copyMemberContacts($mysqli, $member) {
 	$copiedfrom =	$mysqli->real_escape_string(isset($member['copiedfrom']) 	? $member['copiedfrom'] : '');
 
 	$query = "INSERT INTO cpa_members_contacts (id, memberid, contactid, contacttype, incaseofemergency)
-						SELECT null, $memberid, contactid, contacttype, incaseofemergency
-						FROM cpa_members_contacts cmc
-						WHERE cmc.memberid = $copiedfrom
-						AND not exists (SELECT id FROM cpa_members_contacts cmc2 WHERE cmc2.memberid = $memberid AND cmc2.contactid = cmc.contactid)";
+			SELECT null, $memberid, contactid, contacttype, incaseofemergency
+			FROM cpa_members_contacts cmc
+			WHERE cmc.memberid = $copiedfrom
+			AND not exists (SELECT id FROM cpa_members_contacts cmc2 WHERE cmc2.memberid = $memberid AND cmc2.contactid = cmc.contactid)";
 	if ($mysqli->query($query)) {
 		$data['success'] = true;
 		$data['message'] = 'Member contacts copied successfully.'.$memberid.' '.$copiedfrom;
@@ -415,12 +443,12 @@ function update_registration($mysqli, $registration, $newstatus) {
 			$eventtype = 1;
 			$eventid = $sessionid;
 			$query = "INSERT INTO cpa_registrations (id, memberid, sessionid, showid, registrationdate, relatednewregistrationid, relatedoldregistrationid, status, regulationsread, comments, familycount)
-								VALUES (NULL, $memberid, $sessionid, null, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
+					VALUES (NULL, $memberid, $sessionid, null, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
 		} else {
 			$eventtype = 2;
 			$eventid = $showid;
 			$query = "INSERT INTO cpa_registrations (id, memberid, sessionid, showid, registrationdate, relatednewregistrationid, relatedoldregistrationid, status, regulationsread, comments, familycount)
-								VALUES (NULL, $memberid, null, $showid, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
+					VALUES (NULL, $memberid, null, $showid, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
 		}
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
@@ -434,16 +462,16 @@ function update_registration($mysqli, $registration, $newstatus) {
 	} else {
 		if ($showid == 0) {
 			$query = "UPDATE cpa_registrations
-								SET memberid = '$memberid', sessionid = $sessionid, showid = null, registrationdate = '$registrationdate',
-								relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
-								status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount
-								WHERE id = $id";
+					SET memberid = '$memberid', sessionid = $sessionid, showid = null, registrationdate = '$registrationdate',
+					relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
+					status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount
+					WHERE id = $id";
 		} else {
 			$query = "UPDATE cpa_registrations
-								SET memberid = '$memberid', sessionid = null, showid = $showid, registrationdate = '$registrationdate',
-								relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
-								status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount
-								WHERE id = $id";
+					SET memberid = '$memberid', sessionid = null, showid = $showid, registrationdate = '$registrationdate',
+					relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
+					status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount
+					WHERE id = $id";
 		}
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
@@ -475,9 +503,8 @@ function updateEntireRegistrationCourses($mysqli, $registrationid, $courses) {
 
 		if (($selected and $selected == '1') or ($selected_old and $selected_old == '1') or ($feesbilling and $feesbilling > 0)) {
 			$data[$courseid] = true;
-			$query = "INSERT into cpa_registrations_courses
-								(id, registrationid, courseid, amount, selected, deltacode)
-								VALUES (null, '$registrationid', '$courseid', '$feesbilling', '$selected', '$deltacode')";
+			$query = "INSERT into cpa_registrations_courses	(id, registrationid, courseid, amount, selected, deltacode)
+					VALUES (null, '$registrationid', '$courseid', '$feesbilling', '$selected', '$deltacode')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($GLOBALS['thisfilename'].'\updateEntireRegistrationCourses ' .$mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -506,7 +533,7 @@ function updateEntireRegistrationNumbers($mysqli, $registrationid, $numbers) {
 
 		if (($selected and $selected == '1') or ($selected_old and $selected_old == '1') or ($feesbilling and $feesbilling > 0)) {
 			$query = "INSERT into cpa_registrations_numbers (id, registrationid, numberid, amount, selected, deltacode)
-								VALUES (null, '$registrationid', '$numberid', '$feesbilling', '$selected', '$deltacode')";
+					VALUES (null, '$registrationid', '$numberid', '$feesbilling', '$selected', '$deltacode')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($GLOBALS['thisfilename'].'\updateEntireRegistrationNumbers ' .$mysqli->sqlstate.' - '. $mysqli->error);
 			} else {
@@ -537,9 +564,8 @@ function updateEntireRegistrationCharges($mysqli, $registrationid, $charges) {
 
 		if ($selected and $selected == '1') {
 			$data[$chargeid] = true;
-			$query = "INSERT into cpa_registrations_charges
-								(id, registrationid, chargeid, amount, comments, oldchargeid)
-								VALUES (null, '$registrationid', '$chargeid', $amount, '$comments', $oldchargeid)";
+			$query = "INSERT into cpa_registrations_charges	(id, registrationid, chargeid, amount, comments, oldchargeid)
+					VALUES (null, '$registrationid', '$chargeid', $amount, '$comments', $oldchargeid)";
 			if (!$mysqli->query($query)) {
 				throw new Exception($GLOBALS['thisfilename'].'\updateEntireRegistrationCharges ' .$mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -595,11 +621,11 @@ function validateSessionCourseMemberCount($mysqli, $registration, $language) {
 
 		// Member has selected the course - validate
 		if ($mysqli->real_escape_string(isset($sessioncourses[$x]['selected'])) and $mysqli->real_escape_string(isset($sessioncourses[$x]['selected_old'])) and $sessioncourses[$x]['selected'] == '1' and $sessioncourses[$x]['selected_old'] == '0') {
-			$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater,
-									(select count(*) from cpa_sessions_courses_members cscm where cscm.sessionscoursesid = csc.id and cscm.membertype = 3 and (cscm.registrationenddate is null or (cscm.registrationenddate > '$registrationdate' and cscm.registrationenddate != cscm.registrationstartdate))) nbofskaters
-								from cpa_sessions_courses csc
-								join cpa_courses cc ON cc.code = csc.coursecode
-								where csc.id = '$sessionscoursesid'";
+			$query = "SELECT csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater,
+							(select count(*) from cpa_sessions_courses_members cscm where cscm.sessionscoursesid = csc.id and cscm.membertype = 3 and (cscm.registrationenddate is null or (cscm.registrationenddate > '$registrationdate' and cscm.registrationenddate != cscm.registrationstartdate))) nbofskaters
+					from cpa_sessions_courses csc
+					join cpa_courses cc ON cc.code = csc.coursecode
+					where csc.id = '$sessionscoursesid'";
 			$result = $mysqli->query($query);
 			while ($row = $result->fetch_assoc()) {
 				if ((int)$row['nbofskaters'] + 1 > (int)$row['maxnumberskater']) {
@@ -629,15 +655,15 @@ function updateEntireSessionCourseMember($mysqli, $memberid, $registration, $lan
 		// Member has selected the course - insert in the cpa_sessions_courses_members table
 		if ($mysqli->real_escape_string(isset($sessioncourses[$x]['selected'])) and $mysqli->real_escape_string(isset($sessioncourses[$x]['selected_old'])) and $sessioncourses[$x]['selected'] == '1' and $sessioncourses[$x]['selected_old'] == '0') {
 			$query = "INSERT INTO cpa_sessions_courses_members (id, sessionscoursesid, memberid, membertype, registrationstartdate)
-								VALUES (NULL, '$sessionscoursesid', '$memberid', '3', '$registrationdate')";
+					VALUES (NULL, '$sessionscoursesid', '$memberid', '3', '$registrationdate')";
 			if ($mysqli->query($query)) {
-				$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater,
-												(select count(*) from cpa_sessions_courses_members cscm where cscm.sessionscoursesid = csc.id and cscm.membertype = 3 and (cscm.registrationenddate is null or (cscm.registrationenddate > '$registrationdate' and cscm.registrationenddate != cscm.registrationstartdate))) nbofskaters,
-												getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
-												getTextLabel(csc.label, '$language') label
-									from cpa_sessions_courses csc
-									join cpa_courses cc ON cc.code = csc.coursecode
-									where csc.id = '$sessionscoursesid'";
+				$query = "SELECT csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater,
+									(select count(*) from cpa_sessions_courses_members cscm where cscm.sessionscoursesid = csc.id and cscm.membertype = 3 and (cscm.registrationenddate is null or (cscm.registrationenddate > '$registrationdate' and cscm.registrationenddate != cscm.registrationstartdate))) nbofskaters,
+									getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
+									getTextLabel(csc.label, '$language') label
+						from cpa_sessions_courses csc
+						join cpa_courses cc ON cc.code = csc.coursecode
+						where csc.id = '$sessionscoursesid'";
 				$result = $mysqli->query($query);
 				while ($row = $result->fetch_assoc()) {
 					$data['data'][] = $row;
@@ -651,14 +677,13 @@ function updateEntireSessionCourseMember($mysqli, $memberid, $registration, $lan
 		// TODO : if the enddate for the course is before the start date of the courses for the session, we should delete the member from the course entirely.
 		if ($mysqli->real_escape_string(isset($sessioncourses[$x]['selected'])) and $mysqli->real_escape_string(isset($sessioncourses[$x]['selected_old'])) and $sessioncourses[$x]['selected'] == '0' and $sessioncourses[$x]['selected_old'] == '1') {
 			$query = "UPDATE cpa_sessions_courses_members
-								SET registrationenddate = '$registrationdate'
-								WHERE sessionscoursesid = '$sessionscoursesid' and memberid = '$memberid'";
+					SET registrationenddate = '$registrationdate'
+					WHERE sessionscoursesid = '$sessionscoursesid' and memberid = '$memberid'";
 			if ($mysqli->query($query)) {
 			} else {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
-
 	}
 	$data['success'] = true;
 	return $data;
@@ -670,16 +695,16 @@ function updateEntireSessionCourseMember($mysqli, $memberid, $registration, $lan
  */
 function updateEntireShowNumberMember($mysqli, $memberid, $registration, $language) {
 	$data = array();
-	$registrationdate	= $registration['registrationdatestr'];
-	$shownumbers 	= $registration['shownumbers'];
+	$registrationdate = $registration['registrationdatestr'];
+	$shownumbers = $registration['shownumbers'];
 	for($x = 0; $x < count($shownumbers); $x++) {
-		$showsnumbersid 	= $mysqli->real_escape_string(isset($shownumbers[$x]['id']) ? (int)$shownumbers[$x]['id'] : 0);
-		$showid 	= $mysqli->real_escape_string(isset($shownumbers[$x]['showid']) ? (int)$shownumbers[$x]['showid'] : 0);
+		$showsnumbersid = $mysqli->real_escape_string(isset($shownumbers[$x]['id']) ? (int)$shownumbers[$x]['id'] : 0);
+		$showid = $mysqli->real_escape_string(isset($shownumbers[$x]['showid']) ? (int)$shownumbers[$x]['showid'] : 0);
 
 		// Member has selected the number - insert in the cpa_shows_numbers_members table
 		if ($mysqli->real_escape_string(isset($shownumbers[$x]['selected'])) and $mysqli->real_escape_string(isset($shownumbers[$x]['selected_old'])) and $shownumbers[$x]['selected'] == '1' and $shownumbers[$x]['selected_old'] == '0') {
 			$query = "INSERT INTO cpa_shows_numbers_members (id, showid, numberid, memberid, registrationstartdate)
-								VALUES (NULL, (select showid from cpa_shows_numbers where id = $showsnumbersid), $showsnumbersid, $memberid, '$registrationdate')";
+					VALUES (NULL, (select showid from cpa_shows_numbers where id = $showsnumbersid), $showsnumbersid, $memberid, '$registrationdate')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -689,13 +714,12 @@ function updateEntireShowNumberMember($mysqli, $memberid, $registration, $langua
 		// TODO : if the enddate for the number is before the start date of the number practice date, we should delete the member from the number entirely.
 		if ($mysqli->real_escape_string(isset($shownumbers[$x]['selected'])) and $mysqli->real_escape_string(isset($shownumbers[$x]['selected_old'])) and $shownumbers[$x]['selected'] == '0' and $shownumbers[$x]['selected_old'] == '1') {
 			$query = "UPDATE cpa_shows_numbers_members
-								SET registrationenddate = '$registrationdate'
-								WHERE numberid = $showsnumbersid and memberid = $memberid";
+					SET registrationenddate = '$registrationdate'
+					WHERE numberid = $showsnumbersid and memberid = $memberid";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
-
 	}
 	$data['success'] = true;
 	return $data;
@@ -704,10 +728,10 @@ function updateEntireShowNumberMember($mysqli, $memberid, $registration, $langua
 // Returns the bill id of the original registration
 function getRegistrationOriginalBill($mysqli, $registrationid) {
 	$id = null;
-	$query = "select cb.id
-						from cpa_bills cb
-						JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
-						WHERE cbr.registrationid = '$registrationid' AND (cb.relatednewbillid is null OR cb.relatednewbillid = 0)";
+	$query = "SELECT cb.id
+			from cpa_bills cb
+			JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
+			WHERE cbr.registrationid = '$registrationid' AND (cb.relatednewbillid is null OR cb.relatednewbillid = 0)";
 	$result = $mysqli->query($query);
 	$data = array();
 	while ($row = $result->fetch_assoc()) {
@@ -722,24 +746,24 @@ function getRegistrationContactBill($mysqli, $contactid, $sessionid, $showid) {
 	$id = null;
 	if ($sessionid != 0 && $showid == 0) {
 		$query = "SELECT DISTINCT cb.id
-							FROM cpa_bills cb
-							JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
-							JOIN cpa_registrations cr ON cr.id = cbr.registrationid
-							JOIN cpa_members_contacts cmc ON cmc.memberid = cr.memberid
-							WHERE  cmc.contactid = $contactid
-							AND cr.sessionid = $sessionid
-							AND (cb.relatednewbillid is null OR cb.relatednewbillid = 0)
-							ORDER BY cb.id DESC";
+				FROM cpa_bills cb
+				JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
+				JOIN cpa_registrations cr ON cr.id = cbr.registrationid
+				JOIN cpa_members_contacts cmc ON cmc.memberid = cr.memberid
+				WHERE  cmc.contactid = $contactid
+				AND cr.sessionid = $sessionid
+				AND (cb.relatednewbillid is null OR cb.relatednewbillid = 0)
+				ORDER BY cb.id DESC";
 	} else {
 		$query = "SELECT DISTINCT cb.id
-							FROM cpa_bills cb
-							JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
-							JOIN cpa_registrations cr ON cr.id = cbr.registrationid
-							JOIN cpa_members_contacts cmc ON cmc.memberid = cr.memberid
-							WHERE  cmc.contactid = $contactid
-							AND cr.showid = $showid
-							AND (cb.relatednewbillid is null OR cb.relatednewbillid = 0)
-							ORDER BY cb.id DESC";
+				FROM cpa_bills cb
+				JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
+				JOIN cpa_registrations cr ON cr.id = cbr.registrationid
+				JOIN cpa_members_contacts cmc ON cmc.memberid = cr.memberid
+				WHERE  cmc.contactid = $contactid
+				AND cr.showid = $showid
+				AND (cb.relatednewbillid is null OR cb.relatednewbillid = 0)
+				ORDER BY cb.id DESC";
 	}
 	$result = $mysqli->query($query);
 	// $data = array();
@@ -758,8 +782,8 @@ function copyBill($mysqli, $billid, $relatedoldregistrationid, $newbillingdate) 
 	$newbillid = null;
 	// Copy the bill in the cpa_bills table
 	$query = "INSERT INTO cpa_bills(id, billingname, billingdate,  paidinfull, paymentduedate, relatedoldbillid, totalamount, paidamount, haspaymentagreement, paymentagreementnote)
-						SELECT null, billingname, '$newbillingdate',  0, paymentduedate, '$billid', totalamount, paidamount, haspaymentagreement, paymentagreementnote
-						FROM cpa_bills WHERE id = '$billid' ";
+			SELECT null, billingname, '$newbillingdate',  0, paymentduedate, '$billid', totalamount, paidamount, haspaymentagreement, paymentagreementnote
+			FROM cpa_bills WHERE id = '$billid' ";
 	if ($mysqli->query($query)) {
 		// Get the new billid
 		$newbillid = (int) $mysqli->insert_id;
@@ -768,17 +792,17 @@ function copyBill($mysqli, $billid, $relatedoldregistrationid, $newbillingdate) 
 		if ($mysqli->query($query)) {
 			// Copy the old bill registrations to the new bill, without the old registration
 			$query = "INSERT INTO cpa_bills_registrations(id, billid, registrationid, subtotal)
-								SELECT null, '$newbillid', registrationid, subtotal
-								FROM cpa_bills_registrations WHERE billid = '$billid' AND registrationid != '$relatedoldregistrationid'";
+					SELECT null, '$newbillid', registrationid, subtotal
+					FROM cpa_bills_registrations WHERE billid = '$billid' AND registrationid != '$relatedoldregistrationid'";
 			if ($mysqli->query($query)) {
 				// Copy the old bill details to the new bill, without the old registration
 				$query = "INSERT INTO cpa_bills_details(id, billid, registrationid, itemid, itemtype, nonrefundable, amount, comments)
-									SELECT null, '$newbillid', registrationid, itemid, itemtype, nonrefundable, amount, comments
-									FROM cpa_bills_details where billid = '$billid' AND registrationid != '$relatedoldregistrationid'";
+						SELECT null, '$newbillid', registrationid, itemid, itemtype, nonrefundable, amount, comments
+						FROM cpa_bills_details where billid = '$billid' AND registrationid != '$relatedoldregistrationid'";
 				if ($mysqli->query($query)) {
 					// Changes the total amount of the new bill
 					$query = "UPDATE cpa_bills SET totalamount = (SELECT COALESCE(sum(subtotal),0) FROM cpa_bills_registrations WHERE billid = '$newbillid')
-										WHERE id = '$newbillid'";
+							WHERE id = '$newbillid'";
 					if (!$mysqli->query($query)) {
 						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 					}
@@ -799,11 +823,11 @@ function copyBill($mysqli, $billid, $relatedoldregistrationid, $newbillingdate) 
 
 function insertBillRegistration($mysqli, $billid, $registration) {
 	$data = array();
-	$registrationid = 	$mysqli->real_escape_string(isset($registration['id'])									? $registration['id'] : '');
-	$subtotal = 				$mysqli->real_escape_string(isset($registration['totalamount'])					? $registration['totalamount'] : '0');
+	$registrationid = $mysqli->real_escape_string(isset($registration['id'])									? $registration['id'] : '');
+	$subtotal = $mysqli->real_escape_string(isset($registration['totalamount'])					? $registration['totalamount'] : '0');
 
 	$query = "INSERT into cpa_bills_registrations (id, billid, registrationid, subtotal)
-						VALUES (null, '$billid', '$registrationid', '$subtotal')";
+			VALUES (null, '$billid', '$registrationid', '$subtotal')";
 	if ($mysqli->query($query)) {
 	} else {
 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
@@ -824,9 +848,8 @@ function insertBillCharges($mysqli, $billid, $registrationid, $charges) {
 
 		if ($selected and $selected == '1') {
 			$data[$chargeid] = true;
-			$query = "INSERT into cpa_bills_details
-								(id, billid, registrationid, itemid, itemtype, nonrefundable, amount, comments)
-								VALUES (null, '$billid', '$registrationid', '$chargeid', '$type', '$nonrefundable', '$amount', '$comments')";
+			$query = "INSERT into cpa_bills_details	(id, billid, registrationid, itemid, itemtype, nonrefundable, amount, comments)
+					VALUES (null, '$billid', '$registrationid', '$chargeid', '$type', '$nonrefundable', '$amount', '$comments')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -847,9 +870,8 @@ function insertBillCourses($mysqli, $billid, $registrationid, $courses) {
 
 		if (($selected and $selected == '1') or ($selected_old and $selected_old == '1') or ($feesbilling and $feesbilling > 0)) {
 			$data[$courseid] = true;
-			$query = "INSERT into cpa_bills_details
-								(id, billid, registrationid, itemid, itemtype, amount, comments)
-								VALUES (null, '$billid', '$registrationid', '$courseid', 'COURSE', '$feesbilling', '$comments')";
+			$query = "INSERT into cpa_bills_details	(id, billid, registrationid, itemid, itemtype, amount, comments)
+					VALUES (null, '$billid', '$registrationid', '$courseid', 'COURSE', '$feesbilling', '$comments')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -870,9 +892,8 @@ function insertBillNumbers($mysqli, $billid, $registrationid, $numbers) {
 
 		if (($selected and $selected == '1') or ($selected_old and $selected_old == '1') or ($feesbilling and $feesbilling > 0)) {
 			$data[$numberid] = true;
-			$query = "INSERT into cpa_bills_details
-								(id, billid, registrationid, itemid, itemtype, amount, comments)
-								VALUES (null, '$billid', '$registrationid', '$numberid', 'NUMBER', '$feesbilling', '$comments')";
+			$query = "INSERT into cpa_bills_details	(id, billid, registrationid, itemid, itemtype, amount, comments)
+					VALUES (null, '$billid', '$registrationid', '$numberid', 'NUMBER', '$feesbilling', '$comments')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -920,9 +941,9 @@ function insertBill($mysqli, $registration) {
 function updateBillTotal($mysqli, $newbillid, $subtotal) {
 	$data = array();
 	$query = "UPDATE cpa_bills 
-						SET totalamount = totalamount + $subtotal,
-						paidinfull = if (totalamount + paidamount <= 0, 1, 0)
-						WHERE id = '$newbillid' ";
+			SET totalamount = totalamount + $subtotal,
+			paidinfull = if (totalamount + paidamount <= 0, 1, 0)
+			WHERE id = '$newbillid' ";
 	if ($mysqli->query($query)) {
 	} else {
 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);

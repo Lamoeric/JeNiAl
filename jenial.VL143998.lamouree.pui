@@ -67,15 +67,13 @@
 .+AFw- - public+AF8-html - app - reports - lang - fr-ca=1
 .+AFw- - public+AF8-html - app - reports - lang - en-ca=1
 .+AFw- - public+AF8-html - app - wsarenaview=1
-.+AFw- - public+AF8-html - app - ccregistrationview=1
 .+AFw- - public+AF8-html - include=1
-.+AFw- - public+AF8-html - app - registrationview=1
-.+AFw- - public+AF8-html - app - arenaview=1
 .+AFw- - documentation=1
 .+AFw- - private - localhost - include=1
 .+AFw- - public+AF8-html=1
 .+AFw- - public+AF8-html - app - showview=1
-.+AFw- - public+AF8-html - app - sessionview=1
+.+AFw- - public+AF8-html - vendor=1
+.+AFw- - public+AF8-html - app - reports=1
 
 [Open Files]
 Active File Display Mode="1"
@@ -107,7 +105,7 @@ Open File Line3="814"
 Open File Line30="7024"
 Open File Line31="0"
 Open File Line32="0"
-Open File Line33="56456"
+Open File Line33="56439"
 Open File Line4="5078"
 Open File Line5="43251"
 Open File Line6="0"

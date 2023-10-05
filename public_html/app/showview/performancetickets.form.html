@@ -1,0 +1,118 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.performancetickets.formtitle}}
+			&nbsp;<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'TICKET')">{{translationObj.performancetickets.buttontitlecopyfrom}}</button>
+		</h3>
+		<div class="row">
+			<div class="col-xs-6">
+				<label for="language" >{{translationObj.performancetickets.fieldlanguage}}</label></br>
+				<label ng-repeat="language in paragraphlanguages">
+					<input type="radio" name='language' id='language' ng-model="performance.ticket.language" ng-value="{{language.code}}" ng-change="setDirty()">&nbsp;&nbsp;{{language.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				<label for="showstub" >{{translationObj.performancetickets.fieldshowstub}}</label></br>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstub' id='showstub' ng-model="performance.ticket.showstub" ng-value="{{yesno.code}}" ng-change="setDirty()">&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+			<div class="col-xs-4">
+				<label for="showstubinfo" >{{translationObj.performancetickets.fieldshowstubinfo}}</label></br>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstubinfo' id='showstubinfo' ng-model="performance.ticket.showstubinfo" ng-value="{{yesno.code}}" ng-change="setDirty()">&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+			<div class="col-xs-4" ng-if="performance.ticket.showstub/1==1">
+				<label for="stubcolor">{{translationObj.performancetickets.fieldstubcolor}}</label>
+				<div class="input-group">
+					<input type="color" id="stubcolor" ng-model="performance.ticket.stubcolor" ng-change="setDirty()">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				<label for="showstandardinfo" >{{translationObj.performancetickets.fieldshowstandardinfo}}</label></br>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showstandardinfo' id='showstandardinfo' ng-model="performance.ticket.showstandardinfo" ng-value="{{yesno.code}}" ng-change="setDirty()">&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+			<div class="col-xs-4">
+				<label for="showimage" >{{translationObj.performancetickets.fieldshowimage}}</label></br>
+				<label ng-repeat="yesno in yesnos">
+					<input type="radio" name='showimage' id='showimage' ng-model="performance.ticket.showimage" ng-value="{{yesno.code}}" ng-change="setDirty()">&nbsp;&nbsp;{{yesno.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+			<div class="col-xs-4" ng-if="performance.ticket.showimage/1==0">
+				<label for="ticketcolor">{{translationObj.performancetickets.fieldticketcolor}}</label>
+				<div class="input-group">
+					<input type="color" id="ticketcolor" ng-model="performance.ticket.ticketcolor" ng-change="setDirty()">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+      <div class="col-xs-11 col-md-10">
+	      <label for="notes">{{translationObj.performancetickets.fieldnotes}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+        	<textarea class="form-control" id="notes" ng-model="performance.ticket.notes" maxlength="1000" ng-change="setDirty()"> </textarea>
+      	</div>
+      </div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xs-3">
+				<div class="team-member">
+					<div class="team-img">
+						<img ng-src="../websiteimages/shows/{{performance.ticket.displayimagefilename}}" class="team-pic" alt="">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-2">
+				<label for="name">{{translationObj.performancetickets.fieldtitleimagewidth}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="width" class="form-control" id="width" ng-model="performance.ticket.imageinfo[0]" disabled>
+	      </div>
+
+				<label for="name">{{translationObj.performancetickets.fieldtitleimageheight}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="height" class="form-control" id="height" ng-model="performance.ticket.imageinfo[1]" disabled>
+	      </div>
+
+				<label for="name">{{translationObj.performancetickets.fieldtitleimagetype}}</label>
+      	<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="type" class="form-control" id="type" ng-model="performance.ticket.imageinfo['mime']" disabled>
+	      </div>
+			</div>
+
+		</div>
+
+		<!-- Filler -->
+		<div class="row">
+			<div class="col-xs-4">
+				<label>&nbsp;</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<label>{{translationObj.performancetickets.msgImageNotSupported}}</label>
+				<div class="input-group">
+					<button class="btn btn-primary" type="file" ngf-select="uploadTicketImage($file, $invalidFiles, performance)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="1000" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.performancetickets.buttontitleloadmainimage}}</button>&nbsp;
+					<deletewebsiteimagebutton subdir="'shows'" context="'shows'" obj="performance" callback="setCurrentInternal(currentShow)" is-disabled="!performance.imagefilename"></deletewebsiteimagebutton>
+					<span class="help-block">{{translationObj.performancetickets.helptextimagespecifications}}</span>
+  			</div>
+  		</div>
+  	</div>
+
+	<button class="btn btn-primary" ng-click="printTickets(performance)" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.performancetickets.buttontitlegenerate}}</button>
+
+	</div>
+</div>

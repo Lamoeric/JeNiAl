@@ -30,7 +30,7 @@
 				</div>
 
 				<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
-					<label for="first">{{translationObj.contacts.fieldfirstname}}</label>
+					<label for="firstname">{{translationObj.contacts.fieldfirstname}}</label>
 					<div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 				    <input type="text" class="form-control" id="firstname" name="firstname" ng-model="contact.firstname" disabled maxlength="40" required>
@@ -38,7 +38,7 @@
 				</div>
 
 				<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
-				  <label for="last">{{translationObj.contacts.fieldlastname}}</label>
+				  <label for="lastname">{{translationObj.contacts.fieldlastname}}</label>
 					<div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 				    <input type="text" class="form-control" id="lastname" name="lastname" ng-model="contact.lastname" disabled maxlength="40" required>
@@ -74,24 +74,24 @@
 				</div>
 
 				<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
-				  <label for="otherphone">{{translationObj.contacts.fieldofficephoneext}}</label>
+				  <label for="officeext">{{translationObj.contacts.fieldofficephoneext}}</label>
 					<div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-				  	<input type="text" class="form-control" id="otherphone" ng-model="contact.officeext" disabled maxlength="6">
+				  	<input type="text" class="form-control" id="officeext" ng-model="contact.officeext" disabled maxlength="6">
 					</div>
 				</div>
 
 				<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
-					<br><label><input type="checkbox" ng-model="contact.incaseofemergency" ng-true-value="'1'" disabled>{{translationObj.contacts.fieldincaseofemergency}}</label>
+					<br><label><input type="checkbox" id="incaseofemergency" ng-model="contact.incaseofemergency" ng-true-value="'1'" disabled>{{translationObj.contacts.fieldincaseofemergency}}</label>
 				</div>
 			</div>
 
 			<div class="row">
 		    <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5">
-		      <label for="email">{{translationObj.contacts.fieldemail}}</label>
+		      <label for="email1">{{translationObj.contacts.fieldemail}}</label>
 		    	<div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-		      	<input type="text" class="form-control" id="email" ng-model="contact.email" maxlength="100" disabled>
+		      	<input type="text" class="form-control" id="email1" ng-model="contact.email" maxlength="100" disabled>
 		    	</div>
 		    </div>
 			</div>

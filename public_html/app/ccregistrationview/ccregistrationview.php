@@ -5,6 +5,7 @@ Author : Eric Lamoureux
 require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../include/nocache.php');
 require_once('../../include/registration.php');
+require_once('../core/directives/billing/bills.php');
 
 if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
 	$type = $_POST['type'];
@@ -37,8 +38,6 @@ function acceptRegistrationWeb($mysqli, $registration, $billid, $language, $vali
 	echo $data;
 }
 
-
-
 /**
  * This function gets the details of one member from database
  */
@@ -49,13 +48,6 @@ function getMemberDetailsInt($mysqli, $id, $language) {
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['id'] = (int) $row['id'];
-		// $row['contacts']					= getMemberContacts($mysqli, $id, $language)['data'];
-		// $row['summary'] 					= getAllTestSummary($mysqli, $id, $language);
-		// $row['csbalanceribbons'] 	= getMemberCanskateStageRibbons($mysqli, $id, 'BALANCE')['data'];
-		// $row['cscontrolribbons'] 	= getMemberCanskateStageRibbons($mysqli, $id, 'CONTROL')['data'];
-		// $row['csagilityribbons'] 	= getMemberCanskateStageRibbons($mysqli, $id, 'AGILITY')['data'];
-		//
-		// $row['csstagebadges'] 	= getMemberCanskateStageBadges($mysqli, $id, 'BALANCE')['data'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -146,39 +138,34 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 		$data = array();
 		// Check if user already has a registration for this session
 		$query = "SELECT cr.id
-							FROM cpa_registrations cr
-							where cr.memberid = $skaterid
-							and cr.sessionid = $sessionid
-							and (cr.relatednewregistrationid is null or cr.relatednewregistrationid = 0)";
+				  FROM cpa_registrations cr
+				  WHERE cr.memberid = $skaterid
+				  AND cr.sessionid = $sessionid
+				  AND (cr.relatednewregistrationid is null OR cr.relatednewregistrationid = 0)";
 		$result = $mysqli->query( $query );
 		$row = $result->fetch_assoc();
-//		if (!empty($row['registrationid'])) {
-//			$data = array();
-//			$data['success'] = false;
-//			$data['errno'] = 997;
-//			$data['message'] = "Skater is already registered for this session";
-//			echo json_encode($data);
-//			exit;
-//		}
 		if (!empty($row['id'])) {
 			$registrationid = (int)$row['id'];
-//			returnData = copyRegistration($mysqli, $registrationid, null, 'DRAFT-R') {
 		} else {
 			$registrationid = 0;
 		}
-		$query = "SELECT 	cs.id sessionid, getTextLabel(cs.label, '$language') sessionname, cs.coursesstartdate, cs.coursesenddate, $skaterid memberid
-							FROM cpa_sessions cs
-							WHERE cs.id = $sessionid";
+		$query = "SELECT cs.id sessionid, getTextLabel(cs.label, '$language') sessionname, cs.coursesstartdate, cs.coursesenddate, $skaterid memberid
+				  FROM cpa_sessions cs
+				  WHERE cs.id = $sessionid";
 		$result = $mysqli->query( $query );
 		while ($row = $result->fetch_assoc()) {
 			$temp = getMemberDetailsInt($mysqli, $skaterid, $language)['data'];
 			if (count($temp) > 0) {
 				$row['member'] = $temp[0];
 			}
-			$row['courses'] 					= getSessionCoursesDetails($mysqli, $registrationid, $registrationdate, $sessionid, $language)['data'];
-			$row['coursecodes'] 			= getSessionCourseCodes($mysqli, $sessionid, $language)['data'];
-			$row['charges'] 					= getChargesDetails($mysqli, $registrationid, $sessionid, $language)['data'];
-			$row['familyMemberCount'] = countFamilyMembersRegistrations($mysqli, 1, $sessionid, $skaterid, $language);
+			$row['courses'] 			= getSessionCoursesDetails($mysqli, $registrationid, $registrationdate, $sessionid, $language)['data'];
+			$row['coursecodes'] 		= getSessionCourseCodes($mysqli, $sessionid, $language)['data'];
+			$row['charges'] 			= getChargesDetails($mysqli, $registrationid, $sessionid, $language, true)['data'];
+			$row['familyMemberCount']	= countFamilyMembersRegistrations($mysqli, 1, $sessionid, $skaterid, $language);
+			$tmpBillData    			= getRegistrationBillInt($mysqli, $registrationid, $language)['data'];
+			if (count($tmpBillData) > 0) {
+				$row['bill'] = $tmpBillData[0];
+			}
 			$data['data'][] = $row;
 		}
 		$data['data'][0]['id'] = (int)$registrationid;
@@ -195,7 +182,7 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 };
 
 /**
- * This function gets the registration of the skaters
+ * This function gets the session rules for the session
  * @throws Exception
  */
 function getSessionRules($mysqli, $sessionid, $language){

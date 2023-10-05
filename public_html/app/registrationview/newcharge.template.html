@@ -1,33 +1,26 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newcharge.formtitleselectcharge}}</h4>
+	<h4 class="modal-title">{{translationObj.newcharge.formtitleselectcharge}}</h4>
 </div>
 <div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <table width="100%" class="table table-striped">
-  		<tr><th>{{translationObj.courses.fieldcode}}</th>
-  				<th>{{translationObj.courses.fieldlabel}}</th>
-  				<th>{{translationObj.courses.fieldtype}}</th>
-  				<!-- <th></th>
-  				<th>&nbsp;</th> -->
-  				<th class="coursetablefeestd">{{translationObj.courses.fieldamount}}</th>
-  				<th></th></tr>
-  	  	<tr ng-repeat="charge in currentRegistration.charges | filter : filterAdditionnalCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer">
-  	  		<td width="10%">{{charge.code}}</td>
-  	  		<td width="20%">{{charge.label}}</td>
-  	  		<td width="10%">{{charge.typelabel}}</td>
-  	  		<!-- <td width="30%"><i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i></td>
-  	  		<td width="5%"><i>{{getChargeDelta(charge)}}</i></td> -->
-  	  		<td width="5%" class="coursetablefeestd">{{charge.amount | currency}}</td>
-  <!--	  		<td width="5%" class="coursetableselectedtd"><input type="checkbox" ng-model="charge.selected" ng-true-value="'1'" ng-change="onChargeSelected(null)" ng-disabled="charge.alwaysselected=='1' || currentRegistration.status!='DRAFT' && currentRegistration.status!='DRAFT-R'"></td>-->
-  	  		<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span></td>
-  	  	</tr>
-  	</table>
-  </form>
-  <!-- <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newcharge.formerrormessage}}
-  </div> -->
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<table width="100%" class="table table-striped">
+			<tr>
+				<th>{{translationObj.courses.fieldcode}}</th>
+				<th>{{translationObj.courses.fieldlabel}}</th>
+				<th>{{translationObj.courses.fieldtype}}</th>
+				<th class="coursetablefeestd">{{translationObj.courses.fieldamount}}</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="charge in currentRegistration.charges | filter : filterAdditionnalCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer">
+				<td width="10%">{{charge.code}}</td>
+				<td width="20%">{{charge.label}}</td>
+				<td width="10%">{{charge.typelabel}}</td>
+				<td width="5%" class="coursetablefeestd">{{charge.amount | currency}}</td>
+				<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span></td>
+			</tr>
+		</table>
+	</form>
 </div>
 <div class="modal-footer">
-  <!-- <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newcharge.buttontitlediscard}}</button> -->
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newcharge.buttontitlekeepchanges}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newcharge.buttontitlekeepchanges}}</button>
 </div>

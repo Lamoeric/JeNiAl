@@ -10,7 +10,8 @@
 
 	{"formname":"main", "fieldname":"msgnofilter", "text":"No filter defined"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Registration Details"},
-	{"formname":"main", "fieldname":"buttontitlerevise", "text":"Revised"},
+	{"formname":"main", "fieldname":"buttontitlerevise", "text":"Revise"},
+	{"formname":"main", "fieldname":"buttontitledeleterevise", "text":"Delete Revision"},
 	{"formname":"main", "fieldname":"panetitlemember", "text":"Member"},
 	{"formname":"main", "fieldname":"panetitlecontacts", "text":"Contacts"},
 	{"formname":"main", "fieldname":"panetitletests", "text":"Tests Summary"},
@@ -22,6 +23,7 @@
 	{"formname":"main", "fieldname":"panetitlebill", "text":"Bill"},
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdeleteregistration", "text":"Do you really want to delete this registration?"},
+	{"formname":"main", "fieldname":"msgdeleterevisedregistration", "text":"Do you really want to delete this revision?"},
 	{"formname":"main", "fieldname":"buttontitlecreatenewbill", "text":"Create new bill..."},
 	{"formname":"main", "fieldname":"buttontitleselectbill", "text":"Select existing bill..."},
 	{"formname":"main", "fieldname":"msgcreatebill", "text":"Do you want to create a new bill?"},
