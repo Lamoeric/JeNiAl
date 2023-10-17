@@ -14,6 +14,10 @@
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
 	{"formname":"main", "fieldname":"msgerrdetailsallmandatory", "text":"All the fields of the Details tab are mandatory."},
 	{"formname":"main", "fieldname":"msgerrwebsiteallmandatory", "text":"All the fields of the Web Site tab are mandatory if you wish to publish this arena on the Web Site."},
+	{"formname":"main", "fieldname":"msgerrseatssectiontype", "text":"The type of value for the first section does not correspond to the required type."},
+	{"formname":"main", "fieldname":"msgerrseatsrowtype", "text":"The type of value for the first row does not correspond to the required type."},
+	{"formname":"main", "fieldname":"msgerrseatsseattype", "text":"The type of value for the first seat does not correspond to the required type."},
+	{"formname":"main", "fieldname":"msgerrseatsallmandatory", "text":"All the fields of the Seating tab are mandatory."},
 
 	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Information"},
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},

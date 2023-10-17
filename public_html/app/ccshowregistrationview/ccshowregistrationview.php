@@ -98,10 +98,10 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $showid, $reg
 			if (count($temp) > 0) {
 				$row['member'] = $temp[0];
 			}
-			$row['shownumbers'] 			= getShowNumbersDetails($mysqli, $registrationid, $registrationdate, $showid, $skaterid, $language)['data'];
+			$row['shownumbers'] 		= getShowNumbersDetails($mysqli, $registrationid, $registrationdate, $showid, $skaterid, $language)['data'];
 			$row['performances']  		= getShowPerformances($mysqli, $showid, $language)['data'];
-			$row['charges'] 					= getShowChargesDetails($mysqli, $registrationid, $showid, $language)['data'];
-			$row['familyMemberCount'] = countShowFamilyMembersRegistrations($mysqli, $showid, $skaterid, $language);
+			$row['charges'] 			= getShowChargesDetails($mysqli, $registrationid, $showid, $language, true)['data'];
+			$row['familyMemberCount']	= countShowFamilyMembersRegistrations($mysqli, $showid, $skaterid, $language);
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;

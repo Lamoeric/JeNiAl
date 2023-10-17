@@ -469,8 +469,8 @@ function updateEntireExceptions($mysqli, $arenaid, $iceid, $exceptions) {
 	for ($x = 0; $exceptions && $x < count($exceptions); $x++) {
 		$id = 			$mysqli->real_escape_string(isset($exceptions[$x]['id'])				? (int)$exceptions[$x]['id'] : '');
 		$section = 	$mysqli->real_escape_string(isset($exceptions[$x]['section'])		? $exceptions[$x]['section'] : '');
-		$row = 			$mysqli->real_escape_string(isset($exceptions[$x]['row']) 			? $exceptions[$x]['row'] : null);
-		$seat = 		$mysqli->real_escape_string(isset($exceptions[$x]['seat']) 			? $exceptions[$x]['seat'] : null);
+		$row = 			isset($exceptions[$x]['row']) ? $mysqli->real_escape_string($exceptions[$x]['row']) : null;
+		$seat = 		isset($exceptions[$x]['seat'])? $mysqli->real_escape_string($exceptions[$x]['seat']) : null;
 		$reason = 	$mysqli->real_escape_string(isset($exceptions[$x]['reason']) 		? $exceptions[$x]['reason'] : 0);
 
 		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'New') {
@@ -494,7 +494,7 @@ function updateEntireExceptions($mysqli, $arenaid, $iceid, $exceptions) {
 		}
 
 		if ($mysqli->real_escape_string(isset($exceptions[$x]['status'])) and $exceptions[$x]['status'] == 'Deleted') {
-			$query = "DELETE FROM cpa_arenas_ices WHERE id = $id";
+			$query = "DELETE FROM cpa_arenas_ices_exceptions WHERE id = $id";
 			if (!$mysqli->query($query)) {
 				throw new Exception("updateEntireExceptions.delete ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}

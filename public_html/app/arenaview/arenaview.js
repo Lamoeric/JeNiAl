@@ -155,6 +155,53 @@ angular.module('cpa_admin.arenaview', ['ngRoute'])
 		$scope.globalErrorMessage = [];
 		$scope.globalWarningMessage = [];
 
+		if ($scope.currentArena.ices.length == 0) {
+			if ($scope.seatsForm.$invalid) {
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatsallmandatory);
+			}
+			if (($scope.currentArena.seats.sectiontype && $scope.currentArena.seats.sectionfirst) && 
+			    (($scope.currentArena.seats.sectiontype == "0" && isNaN($scope.currentArena.seats.sectionfirst) == false) || 
+			    ($scope.currentArena.seats.sectiontype == "1" && isNaN($scope.currentArena.seats.sectionfirst) == true))) { 
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatssectiontype);
+			}
+
+			if (($scope.currentArena.seats.rowtype && $scope.currentArena.seats.rowfirst) && 
+			    (($scope.currentArena.seats.rowtype == "0" && isNaN($scope.currentArena.seats.rowfirst) == false) || 
+			    ($scope.currentArena.seats.rowtype == "1" && isNaN($scope.currentArena.seats.rowfirst) == true))) { 
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatsrowtype);
+			}
+
+			if (($scope.currentArena.seats.seattype && $scope.currentArena.seats.seatfirst) && 
+			    (($scope.currentArena.seats.seattype == "0" && isNaN($scope.currentArena.seats.seatfirst) == false) || 
+			    ($scope.currentArena.seats.seattype == "1" && isNaN($scope.currentArena.seats.seatfirst) == true))) { 
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatsseattype);
+			}
+		} else {
+			for (var i = 0; i < $scope.currentArena.ices.length; i++) {
+				if ($scope.icesForm["seatsForm"+i].$invalid) {
+					$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatsallmandatory);
+				}
+
+				if (($scope.currentArena.ices[i].seats.sectiontype && $scope.currentArena.ices[i].seats.sectionfirst) && 
+				    (($scope.currentArena.ices[i].seats.sectiontype == "0" && isNaN($scope.currentArena.ices[i].seats.sectionfirst) == false) || 
+				    ($scope.currentArena.ices[i].seats.sectiontype == "1" && isNaN($scope.currentArena.ices[i].seats.sectionfirst) == true))) { 
+					$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatssectiontype);
+				}
+
+				if (($scope.currentArena.ices[i].seats.rowtype && $scope.currentArena.ices[i].seats.rowfirst) && 
+				    (($scope.currentArena.ices[i].seats.rowtype == "0" && isNaN($scope.currentArena.ices[i].seats.rowfirst) == false) || 
+				    ($scope.currentArena.ices[i].seats.rowtype == "1" && isNaN($scope.currentArena.ices[i].seats.rowfirst) == true))) { 
+					$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatsrowtype);
+				}
+
+				if (($scope.currentArena.ices[i].seats.seattype && $scope.currentArena.ices[i].seats.seatfirst) && 
+				    (($scope.currentArena.ices[i].seats.seattype == "0" && isNaN($scope.currentArena.ices[i].seats.seatfirst) == false) || 
+				    ($scope.currentArena.ices[i].seats.seattype == "1" && isNaN($scope.currentArena.ices[i].seats.seatfirst) == true))) { 
+					$scope.globalErrorMessage.push($scope.translationObj.main.msgerrseatsseattype);
+				}
+			}
+		}
+
 		if ($scope.detailsForm.$invalid) {
 			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrdetailsallmandatory);
 		}

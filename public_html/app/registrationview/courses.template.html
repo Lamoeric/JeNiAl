@@ -1,7 +1,6 @@
 <div class="form-group row" >
-<div align="left"><h3>{{translationObj.courses.formtitlecourses}}</h3></div><span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
+<div align="left"><h3>{{translationObj.courses.formtitlecourses}}</h3></div><span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" id="coursecodeselected­{{$index}}" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span>
 <button class="btn btn-primary btn-sm" ng-click="clearCourseCodesFilter()"><span>{{translationObj.courses.buttontitleclearcoursecodesfilter}}</span></button>
-<!-- <span ng-repeat="coursecode in currentRegistration.coursecodes"><label><input type="checkbox" ng-model="coursecode.selected" ng-true-value="'1'" ng-change="onCourseCodeSelected(null)"> {{coursecode.coursecodelabel}} </label>&nbsp;&nbsp;</span> -->
 
 	<table width="100%" class="table table-striped">
 		<tbody>

@@ -60,61 +60,6 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 		$scope.isFormPristine = true;
 	};
 
-	$scope.copyShow = function(confirmed) {
-		if ($scope.isDirty()) {
-			dialogService.alertDlg($scope.translationObj.main.msgerrpleasesavefirst, null);
-		} else {
-			if ($scope.currentShow != null && !confirmed) {
-				dialogService.confirmDlg($scope.translationObj.main.msgconfirmcopy, "YESNO", $scope.copyShow, null, true);
-			} else {
-				$scope.promise = $http({
-						method: 'post',
-						url: './showview/shows.php',
-						data: $.param({'showid' : $scope.currentShow.id, 'copyicetimes' : true, 'copycourses' : true, 'copycharges' : true, 'copyrules' : true, 'type' : 'copyShow' }),
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-					}).
-					success(function(data, status, headers, config) {
-						if (data.success) {
-							dialogService.alertDlg($scope.translationObj.main.msgshowcopied, null);
-						} else {
-							dialogService.displayFailure(data);
-						}
-					}).
-					error(function(data, status, headers, config) {
-						dialogService.displayFailure(data);
-						return false;
-					});
-			}
-		}
-	};
-
-	$scope.activateShow = function() {
-		if ($scope.currentShow != null) {
-			if ($scope.isDirty()) {
-				dialogService.alertDlg($scope.translationObj.main.msgerrpleasesavefirst, null);
-			} else {
-				$scope.promise = $http({
-						method: 'post',
-						url: './showview/shows.php',
-						data: $.param({'showid' : $scope.currentShow.id, 'type' : 'activateShow' }),
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-					}).
-					success(function(data, status, headers, config) {
-						if (data.success) {
-							dialogService.alertDlg($scope.translationObj.main.msgshowactivated, null);
-							$scope.currentShow.active = "1";	//Do not relead. Set field manually.
-						} else {
-							dialogService.displayFailure(data);
-						}
-					}).
-					error(function(data, status, headers, config) {
-						dialogService.displayFailure(data);
-						return false;
-					});
-			}
-		}
-	};
-
 	$scope.getAllShows = function () {
 		$scope.promise = $http({
 				method: 'post',
@@ -226,8 +171,10 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 					$scope.convertParagraph($scope.currentShow.rules[i]);
 				}
 
-				// We need to reconcile the performance numbers list with the real numbers
+				// We need to reconcile the performance numbers list with the real numbers and fix the ticket display image
 				for (var i = 0; i < $scope.currentShow.performances.length; i++) {
+					// Fix the ticket display image
+	        $scope.currentShow.performances[i].ticket.displayimagefilename = $scope.currentShow.performances[i].ticket.imagefilename + '?decache=' + Math.random();
 					for (var x = 0; x < $scope.currentShow.performances[i].numberlist.length; x++) {
 						var found = false;
 						for (var y = 0; y < $scope.currentShow.numbers.length; y++) {
@@ -354,7 +301,7 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 //			$scope.currentShow.practicesenddatestr = 				dateFilter($scope.currentShow.practicesenddate, 'yyyy-MM-dd');
 			$scope.fixPerformances();
 			$scope.fixNumbers();
-
+			$scope.saveCollapseStatus();
 			$scope.promise = $http({
 				method: 'post',
 				url: './showview/shows.php',
@@ -365,6 +312,10 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 				if (data.success) {
 					// Select this show to reset everything
 					$scope.setCurrentInternal($scope.selectedLeftObj, null);
+					$timeout(function () {
+					    //DOM has finished rendering
+						$scope.restoreCollapseStatus();
+					}, 500);					
 					return true;
 				} else {
 					dialogService.displayFailure(data);
@@ -1226,6 +1177,7 @@ $scope.editShowPerformanceNumbers = function(performance) {
 	$scope.copyPerformanceItems = function(source, destination, type) {
 		if (!source || !destination || !type) return;
 		var newItems = [];
+		var newItem = {};
 		switch(type) {
 			case 'PRICE' :
 				angular.copy(source.prices, newItems);
@@ -1275,6 +1227,13 @@ $scope.editShowPerformanceNumbers = function(performance) {
 					newItems[x].performanceid = destination.id;
 				}
 				destination.exceptions = destination.exceptions.concat(newItems);
+				break;
+			case 'TICKET' :
+				angular.copy(source.ticket, newItem);
+				newItem.id = destination.ticket.id;
+				newItem.showid = destination.ticket.showid;
+				newItem.performanceid = destination.ticket.performanceid;
+				destination.ticket = newItem;
 				break;
 		}
 	}
@@ -1362,13 +1321,13 @@ $scope.editShowPerformanceNumbers = function(performance) {
 
   // This is the function that displays the upload error messages
   $scope.displayUploadError = function(errFile) {
-    // dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfile);
+    // dialogService.alertDlg($scope.translationObj.websitedesc.msgerrinvalidfile);
     if (errFile.$error == 'maxSize') {
-      dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfilesize + errFile.$errorParam);
+      dialogService.alertDlg($scope.translationObj.websitedesc.msgerrinvalidfilesize + errFile.$errorParam);
     } else if (errFile.$error == 'maxWidth') {
-      dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxwidth + errFile.$errorParam);
+      dialogService.alertDlg($scope.translationObj.websitedesc.msgerrinvalidmaxwidth + errFile.$errorParam);
     } else if (errFile.$error == 'maxHeight') {
-      dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxheight + errFile.$errorParam);
+      dialogService.alertDlg($scope.translationObj.websitedesc.msgerrinvalidmaxheight + errFile.$errorParam);
     }
   }
 
@@ -1411,42 +1370,81 @@ $scope.editShowPerformanceNumbers = function(performance) {
     }
   }
 
+  // This is the function that uploads the image for the current event
+  $scope.uploadTicketImage = function(file, errFiles, performance) {
+    $scope.f = file;
+    if (errFiles && errFiles[0]) {
+      $scope.displayUploadError(errFiles[0]);
+    }
+    if (file) {
+      if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
+        dialogService.alertDlg('only jpg files are allowed.');
+        return;
+      }
+      file.upload = Upload.upload({
+        url: './showview/uploadticketimage.php',
+        method: 'POST',
+        file: file,
+        data: {
+          'mainobj': performance
+        }
+      });
+      file.upload.then(function (data) {
+        $timeout(function () {
+          if (data.data.success) {
+            dialogService.alertDlg($scope.translationObj.websitedesc.msguploadcompleted);
+            // Select this event to reset everything
+            $scope.setCurrentInternal($scope.currentShow, null);
+          } else {
+            dialogService.displayFailure(data.data);
+          }
+        });
+      }, function (data) {
+        if (!data.success) {
+          dialogService.displayFailure(data.data);
+        }
+      }, function (evt) {
+        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+    }
+  }
+
 	// This is the function that uploads the rules file for the show
-	$scope.uploadRulesFile = function(file, errFiles, language) {
-		// $scope.f = file;
-		// $scope.language = language;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-		}
-		if (file) {
-			file.upload = Upload.upload({
-					url: './showview/uploadrulesfile.php',
-					method: 'POST',
-					file: file,
-					data: {
-									'language': language,
-									'mainobj': $scope.currentShow
-					}
-			});
-			file.upload.then(function (data) {
-				$timeout(function () {
-					if (data.data.success) {
-						dialogService.alertDlg($scope.translationObj.main.msguploadcompleted);
-						// Select this document to reset everything
-						$scope.setCurrentInternal($scope.selectedLeftObj, null);
-					} else {
-						dialogService.displayFailure(data.data);
-					}
-				});
-			}, function (data) {
-					if (!data.success) {
-						dialogService.displayFailure(data.data);
-					}
-			}, function (evt) {
-					file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-	}
+//	$scope.uploadRulesFile = function(file, errFiles, language) {
+//		// $scope.f = file;
+//		// $scope.language = language;
+//		if (errFiles && errFiles[0]) {
+//			$scope.displayUploadError(errFiles[0]);
+//		}
+//		if (file) {
+//			file.upload = Upload.upload({
+//					url: './showview/uploadrulesfile.php',
+//					method: 'POST',
+//					file: file,
+//					data: {
+//									'language': language,
+//									'mainobj': $scope.currentShow
+//					}
+//			});
+//			file.upload.then(function (data) {
+//				$timeout(function () {
+//					if (data.data.success) {
+//						dialogService.alertDlg($scope.translationObj.main.msguploadcompleted);
+//						// Select this document to reset everything
+//						$scope.setCurrentInternal($scope.selectedLeftObj, null);
+//					} else {
+//						dialogService.displayFailure(data.data);
+//					}
+//				});
+//			}, function (data) {
+//					if (!data.success) {
+//						dialogService.displayFailure(data.data);
+//					}
+//			}, function (evt) {
+//					file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+//			});
+//		}
+//	}
 
 	$scope.convertParagraph = function(paragraph) {
 		if (paragraph) {
@@ -1462,13 +1460,18 @@ $scope.editShowPerformanceNumbers = function(performance) {
 	}
 
 	// Opens the show calendar in another window. Pass the showid as a parameter using ?
-	$scope.viewShowCalendar = function () {
-		$window.open('./showscheduleview/showscheduleview.html?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
-	}
+//	$scope.viewShowCalendar = function () {
+//		$window.open('./showscheduleview/showscheduleview.html?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
+//	}
 
 	// Opens the show schedule in another window. Pass the showid as a parameter using ?
-	$scope.viewShowSchedule = function () {
-		$window.open('./showcoursesscheduleview/showcoursesscheduleview.html?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
+//	$scope.viewShowSchedule = function () {
+//		$window.open('./showcoursesscheduleview/showcoursesscheduleview.html?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
+//	}
+
+	// REPORTS
+	$scope.printTickets = function(performance) {
+		$window.open('./reports/showsTickets3X2.php?language='+authenticationService.getCurrentLanguage()+'&showid='+$scope.currentShow.id+'&performanceid='+performance.id);
 	}
 
 	// REPORTS
@@ -1490,13 +1493,121 @@ $scope.editShowPerformanceNumbers = function(performance) {
 		}
 	}
 
+ /**
+	*	Saves the status (open or close) of all collapse panel and the status (selected or not) of all sub-tabs.
+	*
+	*/
+	$scope.saveCollapseStatus = function() {
+		$scope.perfCollapseStatus = [];
+		$scope.numberCollapseStatus = [];
+		$scope.intCollapseStatus = [];
+		for (var i = 0; i < $scope.currentShow.performances.length; i++) {
+			$scope.perfCollapseStatus.push({'collapse':true,'subdetails':true,'subnumbers':true,'subprices':true,'subassigns':true,'subexcepts':true,'subtickets':true});
+			if($('#perf' + i).is('.collapse:not(.in)')) {
+	    	$scope.perfCollapseStatus[i].collapse = false;
+			}
+			if($('#subdetails' + i).is('.maintabpane:not(.in)')) {
+				$scope.perfCollapseStatus[i].subdetails = false;
+			}
+			if($('#subnumbers' + i).is('.maintabpane:not(.in)')) {
+				$scope.perfCollapseStatus[i].subnumbers = false;
+			}
+			if($('#subprices' + i).is('.maintabpane:not(.in)')) {
+				$scope.perfCollapseStatus[i].subprices = false;
+			}
+			if($('#subassigns' + i).is('.maintabpane:not(.in)')) {
+				$scope.perfCollapseStatus[i].subassigns = false;
+			}
+			if($('#subexcepts' + i).is('.maintabpane:not(.in)')) {
+				$scope.perfCollapseStatus[i].subexcepts = false;
+			}
+			if($('#subtickets' + i).is('.maintabpane:not(.in)')) {
+				$scope.perfCollapseStatus[i].subtickets = false;
+			}
+		}
+		for (var i = 0; i < $scope.currentShow.interventions.length; i++) {
+			$scope.intCollapseStatus.push({'collapse':true});
+			if($('#interventions' + i).is('.collapse:not(.in)')) {
+	    	$scope.intCollapseStatus[i].collapse = false;
+			}
+		}
+		for (var i = 0; i < $scope.currentShow.numbers.length; i++) {
+			$scope.numberCollapseStatus.push({'collapse':true,'subnumberstaffs':true,'subnumberschedules':true,'subnumberinvites':true});
+			if($('#numbers' + i).is('.collapse:not(.in)')) {
+	    	$scope.numberCollapseStatus[i].collapse = false;
+			}
+			if($('#subnumberstaffs' + i).is('.maintabpane:not(.in)')) {
+				$scope.numberCollapseStatus[i].subnumberstaffs = false;
+			}
+			if($('#subnumberschedules' + i).is('.maintabpane:not(.in)')) {
+				$scope.numberCollapseStatus[i].subnumberschedules = false;
+			}
+			if($('#subnumberinvites' + i).is('.maintabpane:not(.in)')) {
+				$scope.numberCollapseStatus[i].subnumberinvites = false;
+			}
+		}
+	}
+
+ /**
+	*	Restores the status (open or close) of all collapse panel and the status (selected or not) of all sub-tabs.
+	*	
+	*/
+	$scope.restoreCollapseStatus = function() {
+		for (var i = 0; i < $scope.perfCollapseStatus.length; i++) {
+			if ($scope.perfCollapseStatus[i].collapse == true) {
+				$('#perf' + i).collapse('show');
+			}
+//			if($('#subdetails' + i).is('.maintabpane:not(.in)')) {
+//				$scope.perfCollapseStatus[i].subdetails = false;
+//			}
+//			if($('#subnumbers' + i).is('.maintabpane:not(.in)')) {
+//				$scope.perfCollapseStatus[i].subnumbers = false;
+//			}
+//			if($('#subprices' + i).is('.maintabpane:not(.in)')) {
+//				$scope.perfCollapseStatus[i].subprices = false;
+//			}
+//			if($('#subassigns' + i).is('.maintabpane:not(.in)')) {
+//				$scope.perfCollapseStatus[i].subassigns = false;
+//			}
+//			if($('#subexcepts' + i).is('.maintabpane:not(.in)')) {
+//				$scope.perfCollapseStatus[i].subexcepts = false;
+//			}
+//			if($scope.perfCollapseStatus[i].subtickets == true) {
+//				$('#subtickets' + i).tab('show');
+//			}
+		}
+		for (var i = 0; i < $scope.currentShow.interventions.length; i++) {
+			if ($scope.intCollapseStatus[i].collapse == true) {
+				$('#interventions' + i).collapse('show');
+			}
+		}
+		for (var i = 0; i < $scope.currentShow.numbers.length; i++) {
+			if ($scope.numberCollapseStatus[i].collapse == true) {
+				$('#numbers' + i).collapse('show');
+			}
+//			$scope.numberCollapseStatus.push({'collapse':true,'subnumberstaffs':true,'subnumberschedules':true,'subnumberinvites':true});
+//			if($('#numbers' + i).is('.collapse:not(.in)')) {
+//	    	$scope.numberCollapseStatus[i].collapse = false;
+//			}
+//			if($('#subnumberstaffs' + i).is('.maintabpane:not(.in)')) {
+//				$scope.numberCollapseStatus[i].subnumberstaffs = false;
+//			}
+//			if($('#subnumberschedules' + i).is('.maintabpane:not(.in)')) {
+//				$scope.numberCollapseStatus[i].subnumberschedules = false;
+//			}
+//			if($('#subnumberinvites' + i).is('.maintabpane:not(.in)')) {
+//				$scope.numberCollapseStatus[i].subnumberinvites = false;
+//			}
+		}
+	}
+
 	$rootScope.$on("authentication.language.changed", function (event, current, previous, eventObj) {
 		$scope.refreshAll();
 	});
 
 	$scope.refreshAll = function() {
 		$scope.getAllShows();
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'sequence', 'yesnos');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'days', 'sequence', 'days');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'numberstaffcodes', 'sequence', 'numberstaffcodes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'performancetypes', 'sequence', 'performancetypes');
@@ -1504,6 +1615,7 @@ $scope.editShowPerformanceNumbers = function(performance) {
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'numberinvitetypes', 'sequence', 'numberinvitetypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'showpricetypes', 'sequence', 'showpricetypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'seatingexceptionreasons', 'sequence', 'seatingexceptionreasons');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'paragraphlanguages', 'sequence', 'paragraphlanguages');
 		arenaService.getAllArenas($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllCharges($scope, authenticationService.getCurrentLanguage());
 		listsService.getCoaches($scope, authenticationService.getCurrentLanguage());

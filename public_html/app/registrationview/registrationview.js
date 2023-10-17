@@ -495,18 +495,18 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		}
 	}
 
+	$scope.deleteRevisedRegistration = function() {
+		if ($scope.currentRegistration != null) {
+			dialogService.confirmDlg($scope.translationObj.main.msgdeleterevisedregistration, "YESNO", $scope.deleteFromDB, null, true, null);
+		}		
+	}
+
 	$scope.reviseRegistration = function() {
-		dialogService.confirmYesNo($scope.translationObj.main.msgconfirmrevise,
-			function(e) {
-				if (e) {
+		// dialogService.confirmYesNo($scope.translationObj.main.msgconfirmrevise,
+		// 	function(e) {
+		// 		if (e) {
 					// user clicked "yes"
 					$scope.newRegistration = $scope.currentRegistration;
-//					for (var i = 0; $scope.sessions && i < $scope.sessions.length; i++) {
-//						if ($scope.newRegistration.sessionid == $scope.sessions[i].id) {
-//							$scope.newRegistration.session = $scope.sessions[i];
-//							break;
-//						}
-//					}
 					$scope.newRegistration.callback = $scope.validateNewRegistration;
 					// Send the newRegistration to the modal form
 					$uibModal.open({
@@ -556,11 +556,11 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 						// alert('canceled');
 					});
 
-				} else {
-					// user clicked "no"
-				}
-			}
-		);
+				// } else {
+				// 	// user clicked "no"
+				// }
+			// }
+		// );
 	}
 
 	$scope.addRegistrationToDB = function() {
@@ -918,11 +918,24 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 
 	// When a charge is selected (or de-selected)
 	$scope.onChargeSelected = function(charge) {
-		if (charge != null && (charge.alwaysselected != '1' && ($scope.currentRegistration.status == 'DRAFT' || $scope.currentRegistration.status == 'DRAFT-R'))) {
-			if (charge.selected == "1") {
-				charge.selected = "0";
-			} else {
-				charge.selected = "1";
+		// if (charge != null && (charge.alwaysselected != '1' && ($scope.currentRegistration.status == 'DRAFT' || $scope.currentRegistration.status == 'DRAFT-R'))) {
+		if (charge != null && ($scope.currentRegistration.status == 'DRAFT' || $scope.currentRegistration.status == 'DRAFT-R')) {
+			if (charge.alwaysselected != '1') {
+				if (charge.selected == "1") {
+					charge.selected = "0";
+				} else {
+					charge.selected = "1";
+				}
+			} else { //charge.alwaysselected == '1'
+				// Charge is always selected for a new registration, but what if charge was defined after the start of registration and some registrations don't have it selected.
+				// We need to allow user to add this charge manually to the registration.
+				if (charge.selected == '0' && charge.selected_old == '0') {
+					charge.selected = "1";
+					charge.selectedSpecial = true;
+				} else if (charge.selectedSpecial) {
+					charge.selected = "0";
+					charge.selectedSpecial = false;
+				}
 			}
 			$scope.setDirty();
 			pricingService.applyPricingRules($scope.currentRegistration, $scope.currentRegistration.use_prorata, $scope.currentRegistration.prorataoptions);
@@ -984,6 +997,9 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 	$scope.filterAdditionnalCharges = function(item) {
 
 		if (item.alwaysdisplay == '1' || item.issystem == '1' || (item.rules && item.rules.length != 0)) {
+			return false;
+		}
+		if (item.alwaysselected == '1' && (item.selected == '1' || item.selected_old == '1') && item.selectedSpecial == null) {
 			return false;
 		}
 		if (item.active/1 == 0) {

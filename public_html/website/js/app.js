@@ -11,7 +11,7 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
 //		  highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 	});
 	
-  $scope.pagename 		 =	null;
+  $scope.pagename 		 = null;
   $scope.language 		 = null;
   $scope.costumeid 		 = null;
   $scope.testsessionid = null;

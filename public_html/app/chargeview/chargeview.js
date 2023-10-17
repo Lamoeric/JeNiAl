@@ -52,7 +52,7 @@ angular.module('cpa_admin.chargeview', ['ngRoute'])
 		$scope.promise = $http({
 				method: 'post',
 				url: './chargeview/manageCharges.php',
-				data: $.param({ 'type' : 'getAllCharges' }),
+				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getAllCharges' }),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).
 		success(function(data, status, headers, config) {

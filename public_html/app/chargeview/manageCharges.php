@@ -19,7 +19,7 @@ if(isset($_POST['type']) && !empty(isset($_POST['type']) ) ){
 			delete_charge($mysqli, $_POST['charge']);
 			break;
 		case "getAllCharges":
-			getAllCharges($mysqli);
+			getAllCharges($mysqli, $_POST['language']);
 			break;
 		case "getChargeDetails":
 			getChargeDetails($mysqli, $_POST['id'], $_POST['language']);
@@ -38,15 +38,13 @@ if(isset($_POST['type']) && !empty(isset($_POST['type']) ) ){
 function updateEntireRules($mysqli, $chargecode, $rules) {
 	$data = array();
 	for($x = 0; $rules && $x < count($rules); $x++) {
-		$id = 							$mysqli->real_escape_string(isset($rules[$x]['id']) 							? $rules[$x]['id'] : '');
-		$ruletype = 				$mysqli->real_escape_string(isset($rules[$x]['ruletype']) 				? $rules[$x]['ruletype'] : '');
+		$id = 				$mysqli->real_escape_string(isset($rules[$x]['id']) 				? $rules[$x]['id'] : '');
+		$ruletype = 		$mysqli->real_escape_string(isset($rules[$x]['ruletype']) 			? $rules[$x]['ruletype'] : '');
 		$ruleparameters = 	$mysqli->real_escape_string(isset($rules[$x]['ruleparameters']) 	? $rules[$x]['ruleparameters'] : '');
 
 		if ($mysqli->real_escape_string(isset($rules[$x]['status'])) and $rules[$x]['status'] == 'New') {
-			// $query = "INSERT INTO cpa_charges_rules (chargecode, index, ruletype, ruleparameters)
-			// 					VALUES ('$chargecode', $index, '$ruletype', '$ruleparameters')";
-		$query = "INSERT INTO cpa_charges_rules (chargecode, ruletype, ruleparameters)
-							VALUES ('$chargecode', '$ruletype', '$ruleparameters')";
+			$query = "INSERT INTO cpa_charges_rules (chargecode, ruletype, ruleparameters)
+					  VALUES ('$chargecode', '$ruletype', '$ruleparameters')";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -54,8 +52,8 @@ function updateEntireRules($mysqli, $chargecode, $rules) {
 
 		if ($mysqli->real_escape_string(isset($rules[$x]['status'])) and $rules[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_charges_rules
-								SET ruletype = $ruletype, ruleparameters = '$ruleparameters'
-								WHERE id = $id";
+					  SET ruletype = $ruletype, ruleparameters = '$ruleparameters'
+					  WHERE id = $id";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -73,8 +71,8 @@ function updateEntireRules($mysqli, $chargecode, $rules) {
 function updateEntireCharge($mysqli, $charge){
 	try{
 		$data = array();
-		$id = 				$mysqli->real_escape_string(isset($charge['id'] ) 				? $charge['id'] : '');
-		$chargecode = $mysqli->real_escape_string(isset($charge['code'] ) 			? $charge['code'] : '');
+		$id = 		  $mysqli->real_escape_string(isset($charge['id'] ) 	? $charge['id'] : '');
+		$chargecode = $mysqli->real_escape_string(isset($charge['code'] )	? $charge['code'] : '');
 
 		update_charge($mysqli);
 		updateEntireRules($mysqli, $chargecode, isset($charge['rules']) ? $charge['rules'] : null);
@@ -105,22 +103,24 @@ function insert_charge($mysqli){
 function update_charge($mysqli){
 	try{
 		$data = array();
-		$id = 								$mysqli->real_escape_string(isset($_POST['charge']['id'] ) 									? $_POST['charge']['id'] : '');
-		$code = 							$mysqli->real_escape_string(isset($_POST['charge']['code'] ) 								? $_POST['charge']['code'] : '');
-		$type = 							$mysqli->real_escape_string(isset($_POST['charge']['type'] ) 								? $_POST['charge']['type'] : '');
-		$amount = 						$mysqli->real_escape_string(isset($_POST['charge']['amount'] ) 							?(float) $_POST['charge']['amount'] : 0);
-		$label = 							$mysqli->real_escape_string(isset($_POST['charge']['label'] ) 								? $_POST['charge']['label'] : '');
-		$label_fr = 					$mysqli->real_escape_string(isset($_POST['charge']['label_fr'] ) 						? $_POST['charge']['label_fr'] : '');
-		$label_en = 					$mysqli->real_escape_string(isset($_POST['charge']['label_en'] ) 						? $_POST['charge']['label_en'] : '');
-		$alwaysdisplay = 			$mysqli->real_escape_string(isset($_POST['charge']['alwaysdisplay'] ) 				? $_POST['charge']['alwaysdisplay'] : 0);
-		$alwaysselected = 		$mysqli->real_escape_string(isset($_POST['charge']['alwaysselected'] ) 			? $_POST['charge']['alwaysselected'] : 0);
-		$nonrefundable = 			$mysqli->real_escape_string(isset($_POST['charge']['nonrefundable'] ) 				? $_POST['charge']['nonrefundable'] : 0);
-		$isonline = 					$mysqli->real_escape_string(isset($_POST['charge']['isonline'] ) 						? $_POST['charge']['isonline'] : 0);
-		$active = 						$mysqli->real_escape_string(isset($_POST['charge']['active'] ) 							? $_POST['charge']['active'] : 0);
+		$id = 					$mysqli->real_escape_string(isset($_POST['charge']['id'] ) 						? $_POST['charge']['id'] : '');
+		$code = 				$mysqli->real_escape_string(isset($_POST['charge']['code'] ) 					? $_POST['charge']['code'] : '');
+		$type = 				$mysqli->real_escape_string(isset($_POST['charge']['type'] ) 					? $_POST['charge']['type'] : '');
+		$amount = 				$mysqli->real_escape_string(isset($_POST['charge']['amount'] ) 					?(float) $_POST['charge']['amount'] : 0);
+		$label = 				$mysqli->real_escape_string(isset($_POST['charge']['label'] ) 					? $_POST['charge']['label'] : '');
+		$label_fr = 			$mysqli->real_escape_string(isset($_POST['charge']['label_fr'] ) 				? $_POST['charge']['label_fr'] : '');
+		$label_en = 			$mysqli->real_escape_string(isset($_POST['charge']['label_en'] ) 				? $_POST['charge']['label_en'] : '');
+		$alwaysdisplay = 		$mysqli->real_escape_string(isset($_POST['charge']['alwaysdisplay'] ) 			? $_POST['charge']['alwaysdisplay'] : 0);
+		$alwaysselected = 		$mysqli->real_escape_string(isset($_POST['charge']['alwaysselected'] )			? $_POST['charge']['alwaysselected'] : 0);
+		$alwaysselectedonline =	$mysqli->real_escape_string(isset($_POST['charge']['alwaysselectedonline'] )	? $_POST['charge']['alwaysselectedonline'] : 0);
+		$nonrefundable = 		$mysqli->real_escape_string(isset($_POST['charge']['nonrefundable'] ) 			? $_POST['charge']['nonrefundable'] : 0);
+		$isonline = 			$mysqli->real_escape_string(isset($_POST['charge']['isonline'] ) 				? $_POST['charge']['isonline'] : 0);
+		$active = 				$mysqli->real_escape_string(isset($_POST['charge']['active'] ) 					? $_POST['charge']['active'] : 0);
 
 		if(empty($id)){
 			$data['insert'] = true;
-			$query = "INSERT INTO cpa_charges (id, code, type, amount, label) VALUES (NULL, '$code', '$type', $amount, create_systemText('$label_en', '$label_fr'))";
+			$query = "INSERT INTO cpa_charges (id, code, type, amount, label) 
+					  VALUES (NULL, '$code', '$type', $amount, create_systemText('$label_en', '$label_fr'))";
 			if($mysqli->query($query ) ){
 				$data['success'] = true;
 				if(!empty($id))$data['message'] = 'Charge updated successfully.';
@@ -131,8 +131,10 @@ function update_charge($mysqli){
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error );
 			}
 		} else {
-			$query = "UPDATE cpa_charges SET code = '$code', type = '$type', amount = '$amount', alwaysdisplay = $alwaysdisplay, alwaysselected = $alwaysselected, nonrefundable = $nonrefundable, isonline = $isonline, active = $active
-								WHERE id = $id";
+			$query = "UPDATE cpa_charges 
+			          SET code = '$code', type = '$type', amount = '$amount', alwaysdisplay = $alwaysdisplay, alwaysselected = $alwaysselected, 
+					  alwaysselectedonline = $alwaysselectedonline, nonrefundable = $nonrefundable, isonline = $isonline, active = $active
+					  WHERE id = $id";
 			if($mysqli->query($query ) ){
 				$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
 				if($mysqli->query($query ) ){
@@ -162,12 +164,13 @@ function update_charge($mysqli){
 /**
  * This function will handle charge deletion
  * @param string $id
+ * @param object $charge
  * @throws Exception
  */
 function delete_charge($mysqli, $charge = ''){
 	try{
-		$label 	= $mysqli->real_escape_string(isset($charge['label'] ) 		? (int)$charge['label'] : '');
-		$id 		= $mysqli->real_escape_string(isset($charge['id'] ) 			? (int)$charge['id'] : '');
+		$label 	= $mysqli->real_escape_string(isset($charge['label'] )	? (int)$charge['label'] : '');
+		$id 	= $mysqli->real_escape_string(isset($charge['id'] ) 	? (int)$charge['id'] : '');
 
 		if(empty($id)) throw new Exception("Invalid Charge." );
 		$query = "DELETE FROM cpa_charges WHERE id = $id";
@@ -196,12 +199,12 @@ function delete_charge($mysqli, $charge = ''){
 /**
  * This function gets list of all charges (except system charges) from database
  */
-function getAllCharges($mysqli){
+function getAllCharges($mysqli, $language){
 	try{
-		$query = "SELECT id, code, type, amount
-							FROM cpa_charges
-							WHERE issystem = 0
-							order by code";
+		$query = "SELECT id, code, getCodeDescription('chargetypes', type, '$language') type, amount, getTextLabel(label, '$language') as label
+				  FROM cpa_charges
+				  WHERE issystem = 0
+				  ORDER BY code";
 		$result = $mysqli->query($query );
 		$data = array();
 		$data['data'] = array();
@@ -225,8 +228,8 @@ function getAllCharges($mysqli){
  */
 function getChargeRules($mysqli, $chargecode, $language){
 	$query = "SELECT ccr.*, getCodeDescription('ruletypes', ruletype, '$language') ruletypelabel
-						FROM cpa_charges_rules ccr
-						WHERE ccr.chargecode = '$chargecode'";
+			  FROM cpa_charges_rules ccr
+			  WHERE ccr.chargecode = '$chargecode'";
 	$result = $mysqli->query($query );
 	$data = array();
 	$data['data'] = array();
@@ -245,11 +248,11 @@ function getChargeDetails($mysqli, $id, $language){
 	try{
 		if(empty($id)) throw new Exception("Invalid User." );
 		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr,
-							(SELECT COUNT(*) FROM cpa_sessions_charges csc WHERE csc.chargecode = cc.code) +
-							(SELECT COUNT(*) FROM cpa_newtests_sessions_charges cnsc WHERE cnsc.chargecode = cc.code) +
-							(SELECT COUNT(*) FROM cpa_tests_sessions_charges ctsc WHERE ctsc.chargecode = cc.code) as isused
-							FROM cpa_charges cc
-							WHERE id = $id AND issystem = 0";
+						 (SELECT COUNT(*) FROM cpa_sessions_charges csc WHERE csc.chargecode = cc.code) +
+						 (SELECT COUNT(*) FROM cpa_newtests_sessions_charges cnsc WHERE cnsc.chargecode = cc.code) +
+						 (SELECT COUNT(*) FROM cpa_tests_sessions_charges ctsc WHERE ctsc.chargecode = cc.code) as isused
+				  FROM cpa_charges cc
+				  WHERE id = $id AND issystem = 0";
 		$result = $mysqli->query($query );
 		$data = array();
 		while ($row = $result->fetch_assoc()) {

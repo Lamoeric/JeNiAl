@@ -14,6 +14,10 @@
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
 	{"formname":"main", "fieldname":"msgerrdetailsallmandatory", "text":"Tous les champs de l'onglet Détails sont obligatoires."},
 	{"formname":"main", "fieldname":"msgerrwebsiteallmandatory", "text":"Tous les champs de l'onglet Site Web sont obligatoires si vous désirez publier l'aréna sur le site web."},
+	{"formname":"main", "fieldname":"msgerrseatssectiontype", "text":"Le type de la première section ne correspond pas au type de section demandé."},
+	{"formname":"main", "fieldname":"msgerrseatsrowtype", "text":"Le type de la première rangée ne correspond pas au type de rangée demandé."},
+	{"formname":"main", "fieldname":"msgerrseatsseattype", "text":"Le type du premier siège ne correspond pas au type de siège demandé."},
+	{"formname":"main", "fieldname":"msgerrseatsallmandatory", "text":"Tous les champs de l'onglet Sièges sont obligatoires."},
 
 	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Information"},
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
