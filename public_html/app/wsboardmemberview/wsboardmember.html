@@ -128,7 +128,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>&nbsp;
-				<deletewebsiteimagebutton subdir="'boardmembers'" context="'boardmembers'" obj="currentWsboardmember" callback="setCurrentInternal(currentWsboardmember)" is-disabled="!currentWsboardmember.imagefilename"></deletewebsiteimagebutton>
+				<deletewebsiteimagebutton subdir="'boardmembers'" context="'ws_boardmembers'" obj="currentWsboardmember" callback="setCurrentInternal(currentWsboardmember)" is-disabled="!currentWsboardmember.imagefilename"></deletewebsiteimagebutton>
 				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
   		</div>
   	</div>

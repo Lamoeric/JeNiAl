@@ -266,7 +266,7 @@
 				<label ng-if="selectedSectionObj.imageind==0">{{translationObj.detailssection.msgImageNotSupported}}</label>
 				<div class="input-group">
 					<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty || selectedSectionObj.imageind==0">{{translationObj.detailssection.buttontitleloadmainimage}}</button>&nbsp;
-					<deletewebsiteimagebutton subdir="'sections'" context="'sections'" obj="selectedSectionObj" callback="setCurrentInternal(selectedSectionObj)" is-disabled="!selectedSectionObj.imagefilename"></deletewebsiteimagebutton>
+					<deletewebsiteimagebutton subdir="'sections'" context="'ws_sections'" obj="selectedSectionObj" callback="setCurrentInternal(selectedSectionObj)" is-disabled="!selectedSectionObj.imagefilename"></deletewebsiteimagebutton>
 					<span class="help-block">{{translationObj.detailssection.helptextimagespecifications}}</span>
   			</div>
   		</div>
