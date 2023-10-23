@@ -5,8 +5,10 @@
 // 					calls back the caller
 //	inputs :
 // 		subdir : sub directory to concatenate to the [private website images]/ directory
-//		obj : object containing at least an imagefilename and (id or name) property
+//		obj : object containing at least an imagefilename and (id or name) property. If obj is not declared, you must set id and imagefilename.
 //		context : this is in fact the last part of the table name to update. cpa_ws_+context. This table must have an IMAGEFILENAME column
+//		id : This is the id of the object. 
+//		imagefilename : name of the file to delete.
 //		isDisabled : expression to determine if button is disabled or not.
 //		callback : callback function to call ONLY IN CASE OF SUCCESS
 angular.module('core').directive( "deletewebsiteimagebutton", ['$http', 'dialogService', 'authenticationService', 'translationService', function($http, dialogService, authenticationService, translationService) {
@@ -17,6 +19,8 @@ angular.module('core').directive( "deletewebsiteimagebutton", ['$http', 'dialogS
 			dirsuffix: '=',
 			obj: '=',
 			context: '=',
+			id: '=',
+			imagefilename: '=',
 			isDisabled: '=',
 			callback: '&'
 		},
@@ -34,7 +38,7 @@ angular.module('core').directive( "deletewebsiteimagebutton", ['$http', 'dialogS
 					scope.promise = $http({
 						method: 'post',
 						url: './core/directives/deletewebsiteimage/deletewebsiteimage.php',
-						data: $.param({'subdir' : scope.subdir, 'context' : scope.context, 'dirsuffix' : scope.dirsuffix, 'obj' : scope.obj}),
+						data: $.param({'subdir' : scope.subdir, 'context' : scope.context, 'dirsuffix' : scope.dirsuffix, 'obj' : scope.obj, 'id' : scope.id, 'imagefilename' : scope.imagefilename}),
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 					}).
 					success(function(data, status, headers, config) {

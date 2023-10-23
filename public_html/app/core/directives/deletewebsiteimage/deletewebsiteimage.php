@@ -11,8 +11,10 @@
   $dirsuffix = $_POST['dirsuffix'];
   $context = $_POST['context'];
   $obj = $_POST['obj'];
-  $imagefilename = $obj['imagefilename'];
-  $id = isset($obj['id']) ? $obj['id'] : null;
+  $id = $_POST['id'];
+  $imagefilename = $_POST['imagefilename'];
+  $imagefilename = !empty($imagefilename) ? $imagefilename : $obj['imagefilename'];
+  $id = !empty($id) ? $id : (isset($obj['id']) ? $obj['id'] : null);
   $name = isset($obj['name']) ? $obj['name'] : null;
   $data['success'] = false;
   try {
@@ -21,9 +23,9 @@
       if (file_exists($completefilename)) {
           unlink($completefilename);
           if ($id && !empty($id)) {
-            $query = "UPDATE cpa_ws_" . $context . " SET imagefilename = '' WHERE id = $id";
+            $query = "UPDATE cpa_" . $context . " SET imagefilename = '' WHERE id = $id";
           } else if ($name && !empty($name)) {
-            $query = "UPDATE cpa_ws_" . $context . " SET imagefilename = '' WHERE name = '$name'";
+            $query = "UPDATE cpa_" . $context . " SET imagefilename = '' WHERE name = '$name'";
           }
         	if ($mysqli->query($query)) {
             $data['success'] = true;
