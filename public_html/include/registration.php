@@ -281,6 +281,24 @@ function countFamilyMembersRegistrations($mysqli, $eventtype, $eventid, $memberi
 }
 
 /**
+ * Checks if registration is still up to date
+ */
+function isRegistrationUpToDate($mysqli, $registration) {
+	if (isset($registration['id'])) {
+		$id = isset($registration['id']) ? $mysqli->real_escape_string((int) $registration['id']) : 0;
+		$lastupdateddate = isset($registration['lastupdateddate']) ? $mysqli->real_escape_string($registration['lastupdateddate']) : null;
+		if ($id != 0) {
+			$query = "SELECT count(*) nb FROM cpa_registrations WHERE id = $id AND lastupdateddate = '$lastupdateddate'";
+			$result = $mysqli->query($query);
+			while ($row = $result->fetch_assoc()) {
+				if ($row['nb'] != 0) return true;
+			}
+		}
+	}
+	return false;
+}
+
+/**
  * Checks if the member already has a registration (apart from the one we are working on)
  */
 function memberAlreadyHasARegistration($mysqli, $registration) {
@@ -421,34 +439,35 @@ function updateEntireMember($mysqli, $member) {
  */
 function update_registration($mysqli, $registration, $newstatus) {
 	$data = array();
-	$id 											= $mysqli->real_escape_string(isset($registration['id']) 												? $registration['id'] : '');
-	$sessionid 								= $mysqli->real_escape_string(isset($registration['sessionid']) 								? (int)$registration['sessionid'] : 0);
-	$showid 									= $mysqli->real_escape_string(isset($registration['showid']) 										? (int)$registration['showid'] : 0);
-	$registrationdate 				= $mysqli->real_escape_string(isset($registration['registrationdatestr']) 			? $registration['registrationdatestr'] : '');
-	$relatednewregistrationid =	$mysqli->real_escape_string(isset($registration['relatednewregistrationid'])	? (int) $registration['relatednewregistrationid'] : 0);
-	$relatedoldregistrationid =	$mysqli->real_escape_string(isset($registration['relatedoldregistrationid'])	? (int) $registration['relatedoldregistrationid'] : 0);
-	$regulationsread 					= $mysqli->real_escape_string(isset($registration['regulationsread'])						? (int) $registration['regulationsread'] : 0);
-	$comments 								=	$mysqli->real_escape_string(isset($registration['comments'])									? $registration['comments'] : '');
-	$memberid 								=	$mysqli->real_escape_string(isset($registration['memberid'])									? (int) $registration['memberid'] : 0);
-	$familycount 							=	$mysqli->real_escape_string(isset($registration['familyMemberCount'])					? (int) $registration['familyMemberCount'] : 0);
+	$id 						= $mysqli->real_escape_string(isset($registration['id']) 						? $registration['id'] : '');
+	$sessionid 					= $mysqli->real_escape_string(isset($registration['sessionid']) 				? (int)$registration['sessionid'] : 0);
+	$showid 					= $mysqli->real_escape_string(isset($registration['showid']) 					? (int)$registration['showid'] : 0);
+	$registrationdate 			= $mysqli->real_escape_string(isset($registration['registrationdatestr']) 		? $registration['registrationdatestr'] : '');
+	$relatednewregistrationid 	= $mysqli->real_escape_string(isset($registration['relatednewregistrationid'])	? (int) $registration['relatednewregistrationid'] : 0);
+	$relatedoldregistrationid 	= $mysqli->real_escape_string(isset($registration['relatedoldregistrationid'])	? (int) $registration['relatedoldregistrationid'] : 0);
+	$regulationsread 			= $mysqli->real_escape_string(isset($registration['regulationsread'])			? (int) $registration['regulationsread'] : 0);
+	$comments 					= $mysqli->real_escape_string(isset($registration['comments'])					? $registration['comments'] : '');
+	$memberid 					= $mysqli->real_escape_string(isset($registration['memberid'])					? (int) $registration['memberid'] : 0);
+	$familycount 				= $mysqli->real_escape_string(isset($registration['familyMemberCount'])			? (int) $registration['familyMemberCount'] : 0);
 	if ($newstatus != null) {
 		$status	= $newstatus;
 	} else {
 		$status	= $mysqli->real_escape_string(isset($registration['status']) ? $registration['status'] : 'DRAFT');
 	}
 
+	// Registration does not exists, insert a new one
 	if (empty($id)) {
 		$data['insert'] = true;
-		if ($showid == 0) {
+		if ($showid == 0) {	// Session
 			$eventtype = 1;
 			$eventid = $sessionid;
 			$query = "INSERT INTO cpa_registrations (id, memberid, sessionid, showid, registrationdate, relatednewregistrationid, relatedoldregistrationid, status, regulationsread, comments, familycount)
-					VALUES (NULL, $memberid, $sessionid, null, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
-		} else {
+					  VALUES (NULL, $memberid, $sessionid, null, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
+		} else {	// Show
 			$eventtype = 2;
 			$eventid = $showid;
 			$query = "INSERT INTO cpa_registrations (id, memberid, sessionid, showid, registrationdate, relatednewregistrationid, relatedoldregistrationid, status, regulationsread, comments, familycount)
-					VALUES (NULL, $memberid, null, $showid, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
+					  VALUES (NULL, $memberid, null, $showid, '$registrationdate', $relatednewregistrationid, $relatedoldregistrationid, '$status', $regulationsread, '$comments', $familycount)";
 		}
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
@@ -459,19 +478,21 @@ function update_registration($mysqli, $registration, $newstatus) {
 		} else {
 			throw new Exception($GLOBALS['thisfilename'].'\update_registration ' .$mysqli->sqlstate.' - '. $mysqli->error);
 		}
-	} else {
-		if ($showid == 0) {
-			$query = "UPDATE cpa_registrations
-					SET memberid = '$memberid', sessionid = $sessionid, showid = null, registrationdate = '$registrationdate',
-					relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
-					status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount
-					WHERE id = $id";
-		} else {
-			$query = "UPDATE cpa_registrations
-					SET memberid = '$memberid', sessionid = null, showid = $showid, registrationdate = '$registrationdate',
-					relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
-					status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount
-					WHERE id = $id";
+	} else {	// Registration already exists, update it.
+		if ($showid == 0) {	// Session
+			$query = "	UPDATE cpa_registrations
+						SET memberid = '$memberid', sessionid = $sessionid, showid = null, registrationdate = '$registrationdate',
+							relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
+							status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount,
+							lastupdateddate = CURRENT_TIMESTAMP
+						WHERE id = $id";
+		} else {	// Show
+			$query = "	UPDATE cpa_registrations
+						SET memberid = '$memberid', sessionid = null, showid = $showid, registrationdate = '$registrationdate',
+							relatednewregistrationid = '$relatednewregistrationid', relatedoldregistrationid = '$relatedoldregistrationid',
+							status = '$status', regulationsread = '$regulationsread' , comments = '$comments', familycount = $familycount, 
+							lastupdateddate = CURRENT_TIMESTAMP
+						WHERE id = $id";
 		}
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
@@ -579,31 +600,37 @@ function updateEntireRegistrationInt($mysqli, $registration, $newstatus) {
 	$data = array();
 	$id = $registration['id'];
 
-	// Check if registration is connected to a member, and if so, if that member already has a registration for the session.
-	if ($id == null || memberAlreadyHasARegistration($mysqli, $registration) == false) {
-		if ($mysqli->real_escape_string(isset($_POST['registration']['member']))) {
-			$data['member'] = updateEntireMember($mysqli,  $registration['member']);
-			$registration['memberid'] = $data['member']['member2']['id'];
-		}
-		$data['registration'] = update_registration($mysqli, $registration, $newstatus);
-		// In case the registration is being inserted here, take the registration id from the update_registration function
-		if ($id == null) {
-			$id = $data['registration']['id'];
-		}
-		if ($mysqli->real_escape_string(isset($registration['courses']))) {
-			$data['courses'] 	= updateEntireRegistrationCourses($mysqli,  $id, $registration['courses']);
-		}
-		if ($mysqli->real_escape_string(isset($registration['shownumbers']))) {
-			$data['shownumbers'] 	= updateEntireRegistrationNumbers($mysqli,  $id, $registration['shownumbers']);
-		}
-		$data['charges'] 	= updateEntireRegistrationCharges($mysqli,  $id, $registration['charges']);
+	if (isRegistrationUpToDate($mysqli, $registration) == true) {
+		// Check if registration is connected to a member, and if so, if that member already has a registration for the session.
+		if ($id == null || memberAlreadyHasARegistration($mysqli, $registration) == false) {
+			if ($mysqli->real_escape_string(isset($_POST['registration']['member']))) {
+				$data['member'] = updateEntireMember($mysqli,  $registration['member']);
+				$registration['memberid'] = $data['member']['member2']['id'];
+			}
+			$data['registration'] = update_registration($mysqli, $registration, $newstatus);
+			// In case the registration is being inserted here, take the registration id from the update_registration function
+			if ($id == null) {
+				$id = $data['registration']['id'];
+			}
+			if ($mysqli->real_escape_string(isset($registration['courses']))) {
+				$data['courses'] 	= updateEntireRegistrationCourses($mysqli,  $id, $registration['courses']);
+			}
+			if ($mysqli->real_escape_string(isset($registration['shownumbers']))) {
+				$data['shownumbers'] 	= updateEntireRegistrationNumbers($mysqli,  $id, $registration['shownumbers']);
+			}
+			$data['charges'] 	= updateEntireRegistrationCharges($mysqli,  $id, $registration['charges']);
 
-		$data['success'] = true;
-		$data['message'] = 'Registration updated successfully.';
+			$data['success'] = true;
+			$data['message'] = 'Registration updated successfully.';
+		} else {
+			$data['success'] = false;
+			$data['errno']   = 9999;
+			$data['message'] = 'Member already has a registration.';
+		}
 	} else {
 		$data['success'] = false;
-		$data['errno']   = 9999;
-		$data['message'] = 'Member already has a registration.';
+		$data['errno']   = 8888;
+		$data['message'] = 'Registration is not up to date.';
 	}
 	return $data;
 };
@@ -963,15 +990,23 @@ function updateBillTotal($mysqli, $newbillid, $subtotal) {
 //				  -1 		- Connect to existing bill of old registration version. Need to find the billid first.
 function acceptRegistration($mysqli, $registration, $billid, $language, $validcount) {
 	try{
-		$data 						= array();
-		$data['success']	= true;
-		$memberid 				= $registration['memberid'];
-		$contactid 				= $mysqli->real_escape_string(isset($registration['contactid']) ? $registration['contactid'] : 0);
-		$sessionid 				= $mysqli->real_escape_string(isset($registration['sessionid']) ? $registration['sessionid'] : 0);
-		$showid 					= $mysqli->real_escape_string(isset($registration['showid']) ? $registration['showid'] : 0);
+		$data 			 = array();
+		$data['success'] = true;
+		$memberid 		 = $registration['memberid'];
+		$contactid 		 = $mysqli->real_escape_string(isset($registration['contactid']) ? $registration['contactid'] : 0);
+		$sessionid 		 = $mysqli->real_escape_string(isset($registration['sessionid']) ? $registration['sessionid'] : 0);
+		$showid 		 = $mysqli->real_escape_string(isset($registration['showid']) ? $registration['showid'] : 0);
+		$id 			 = $registration['id'];
 		$relatedoldregistrationid = isset($registration['relatedoldregistrationid']) ? $registration['relatedoldregistrationid'] : null;
-		$id 							= $registration['id'];
-		
+
+		// Check if registration is still up to date, if not, exit with error
+		if (isRegistrationUpToDate($mysqli, $registration) == false) {
+			$data['success'] = false;
+			$data['errno']   = 8888;
+			$data['message'] = 'Registration is not up to date.';
+			echo json_encode($data);
+			exit;
+		}
 		$data['validcount'] =  $validcount;
 		// We need to validate one last time if the courses have enough room left for a new registration
 		if ($validcount == 'true') {
@@ -995,7 +1030,7 @@ function acceptRegistration($mysqli, $registration, $billid, $language, $validco
 		// When coming from the MY SKATING SPACE, revised registration were not copy from the original one, but simply inserted, 
 		// so old registration is not connected to the new one. We need to correct that here.
 		if ($relatedoldregistrationid != null) {
-			$query = "UPDATE cpa_registrations SET relatednewregistrationid = $id where id = $relatedoldregistrationid";
+			$query = "UPDATE cpa_registrations SET relatednewregistrationid = $id, lastupdateddate = CURRENT_TIMESTAMP where id = $relatedoldregistrationid";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}

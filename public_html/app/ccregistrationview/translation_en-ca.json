@@ -29,6 +29,7 @@
 	{"formname":"main", "fieldname":"msgregistrationcompleted", "text":"Registration completed."},
 	{"formname":"main", "fieldname":"msgregistrationerror", "text":"Error. A course you selected is full. Please try again."},
 	{"formname":"main", "fieldname":"msgerrskateralreadyhasaregistration", "text":"Skater is already registered for this session."},
+	{"formname":"main", "fieldname":"msgregistrationnotuptodate", "text":"This registration has been modified by another user. You must reload the inscription and redo your modifications."},
 	{"formname":"main", "fieldname":"buttontitleclearcoursecodesfilter", "text":"Clear Filter"},
 
 	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}

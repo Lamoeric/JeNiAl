@@ -84,7 +84,7 @@ function copyRegistration($mysqli, $registrationid, $newregistrationdatestr, $ne
 							FROM cpa_registrations where id = '$registrationid' ";
 		if ($mysqli->query($query)) {
 			$newregistrationid = (int) $mysqli->insert_id;
-			$query = "UPDATE cpa_registrations SET relatednewregistrationid = '$newregistrationid' where id = '$registrationid'";
+			$query = "UPDATE cpa_registrations SET relatednewregistrationid = '$newregistrationid', lastupdateddate = CURRENT_TIMESTAMP where id = '$registrationid'";
 			if ($mysqli->query($query)) {
 				$query = "INSERT INTO cpa_registrations_charges(id, registrationid, chargeid, amount, comments, oldchargeid)
 									SELECT null, '$newregistrationid', chargeid, amount, comments, id
@@ -137,7 +137,7 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 	try{
 		$data = array();
 		// Check if user already has a registration for this session
-		$query = "SELECT cr.id
+		$query = "SELECT cr.id, cr.lastupdateddate
 				  FROM cpa_registrations cr
 				  WHERE cr.memberid = $skaterid
 				  AND cr.sessionid = $sessionid

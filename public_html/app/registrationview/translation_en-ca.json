@@ -29,6 +29,7 @@
 	{"formname":"main", "fieldname":"msgcreatebill", "text":"Do you want to create a new bill?"},
 	{"formname":"main", "fieldname":"msgconfirmrevise", "text":"Are you sure you want to revide this registration?"},
 	{"formname":"main", "fieldname":"msgregistrationalreadyexists", "text":"An active registration already exist for this meber. You cannot create a second one. Modify the active registration."},
+	{"formname":"main", "fieldname":"msgregistrationnotuptodate", "text":"This registration has been modified by another user. You must reload the inscription and redo your modifications."},
 	{"formname":"main", "fieldname":"msgovertheskaterlimit", "text":"is over the limit of skater"},
 	{"formname":"main", "fieldname":"msgatleastonecontact", "text":"At least one contact is required. Please add a contact and retry."},
 	{"formname":"main", "fieldname":"msgmembermissinginfo", "text":"Missing member information. Please enter missing information and retry."},
