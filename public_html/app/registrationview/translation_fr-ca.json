@@ -29,6 +29,7 @@
 	{"formname":"main", "fieldname":"msgcreatebill", "text":"Voulez-vous créer une nouvelle facture?"},
 	{"formname":"main", "fieldname":"msgconfirmrevise", "text":"Êtes-vous certain de vouloir réviser l'inscription?"},
 	{"formname":"main", "fieldname":"msgregistrationalreadyexists", "text":"Une inscription active existe déjà pour ce membre. Vous ne pouvez pas en ajouter une autre. Modifier l'inscription active."},
+	{"formname":"main", "fieldname":"msgregistrationnotuptodate", "text":"Cette inscription a été modifiée par un autre usager et n'est donc plus à jour. Vous devez recharger l'inscription et recommencer vos modifications."},
 	{"formname":"main", "fieldname":"msgovertheskaterlimit", "text":"dépasse la limite de patineurs"},
 	{"formname":"main", "fieldname":"msgatleastonecontact", "text":"Au moins un contact est requis. Ajoutez un contact et réessayez."},
 	{"formname":"main", "fieldname":"msgmembermissinginfo", "text":"Il manque des informations au membre. Veuillez les fournir et réessayez."},

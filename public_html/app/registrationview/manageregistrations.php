@@ -48,7 +48,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			getRegistrationBill($mysqli, $_POST['registrationid'], $_POST['language']);
 			break;
 		case "copyRegistration":
-			copyRegistration($mysqli, $_POST['registrationid'], $_POST['registrationdatestr'], $_POST['newstatus']);
+			copyRegistration($mysqli, json_decode($_POST['registration'], true), $_POST['registrationid'], $_POST['registrationdatestr'], $_POST['newstatus']);
 			break;
 		case "countFamilyMembersRegistrations":
 			countFamilyMembersRegistrationsInt($mysqli, $_POST['eventtype'], $_POST['eventid'], $_POST['memberid'], $_POST['language']);
@@ -150,13 +150,12 @@ function getMemberDetailsInt($mysqli, $id, $language) {
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['id'] = (int) $row['id'];
-		$row['contacts']					= getMemberContacts($mysqli, $id, $language)['data'];
-		$row['summary'] 					= getAllTestSummary($mysqli, $id, $language);
+		$row['contacts']			= getMemberContacts($mysqli, $id, $language)['data'];
+		$row['summary'] 			= getAllTestSummary($mysqli, $id, $language);
 		$row['csbalanceribbons'] 	= getMemberCanskateStageRibbons($mysqli, $id, 'BALANCE')['data'];
 		$row['cscontrolribbons'] 	= getMemberCanskateStageRibbons($mysqli, $id, 'CONTROL')['data'];
 		$row['csagilityribbons'] 	= getMemberCanskateStageRibbons($mysqli, $id, 'AGILITY')['data'];
-
-		$row['csstagebadges'] 	= getMemberCanskateStageBadges($mysqli, $id, 'BALANCE')['data'];
+		$row['csstagebadges'] 		= getMemberCanskateStageBadges($mysqli, $id, 'BALANCE')['data'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -207,7 +206,7 @@ function delete_registration($mysqli, $registration) {
 	try{
 		$id = $mysqli->real_escape_string(isset($registration['id']) ? $registration['id'] : '');
 		if (empty($id)) throw new Exception("Invalid registration.");
-		$query = "UPDATE cpa_registrations SET relatednewregistrationid = null WHERE relatednewregistrationid	 = $id";
+		$query = "UPDATE cpa_registrations SET relatednewregistrationid = null, lastupdateddate = CURRENT_TIMESTAMP WHERE relatednewregistrationid	 = $id";
 		if ($mysqli->query($query)) {
 			$query = "DELETE FROM cpa_registrations WHERE id = $id";
 			if ($mysqli->query($query)) {
@@ -236,21 +235,21 @@ function delete_registration($mysqli, $registration) {
 function getAllRegistrations($mysqli, $eventtype, $eventid, $filter) {
 	try{
 		if ($eventtype == 1) { // Session
-			$query = "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 1 as eventtype
-							 	FROM cpa_registrations cr
-							 	LEFT JOIN cpa_members cm ON cm.id = cr.memberid
-							 	JOIN cpa_sessions cs ON cs.id = cr.sessionid 
-							 	WHERE cs.id = $eventid
-							 	AND (relatednewregistrationid is null || relatednewregistrationid = 0)
-							 	ORDER BY cr.sessionid DESC, cr.id DESC, cr.registrationdate DESC";
+			$query =   "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 1 as eventtype
+						FROM cpa_registrations cr
+						LEFT JOIN cpa_members cm ON cm.id = cr.memberid
+						JOIN cpa_sessions cs ON cs.id = cr.sessionid 
+						WHERE cs.id = $eventid
+						AND (relatednewregistrationid is null || relatednewregistrationid = 0)
+						ORDER BY cr.sessionid DESC, cr.id DESC, cr.registrationdate DESC";
 		} else if ($eventtype == 2) { // Show
-			$query = "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 2 as eventtype
-							 	FROM cpa_registrations cr
-							 	LEFT JOIN cpa_members cm ON cm.id = cr.memberid
-							 	JOIN cpa_shows cs ON cs.id = cr.showid 
-							 	WHERE cs.id = $eventid
-							 	AND (relatednewregistrationid is null || relatednewregistrationid = 0)
-							 	ORDER BY cr.sessionid DESC, cr.id DESC, cr.registrationdate DESC";
+			$query =   "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 2 as eventtype
+						FROM cpa_registrations cr
+						LEFT JOIN cpa_members cm ON cm.id = cr.memberid
+						JOIN cpa_shows cs ON cs.id = cr.showid 
+						WHERE cs.id = $eventid
+						AND (relatednewregistrationid is null || relatednewregistrationid = 0)
+						ORDER BY cr.sessionid DESC, cr.id DESC, cr.registrationdate DESC";
 		}
 		$result = $mysqli->query($query);
 		$data = array();
@@ -277,47 +276,47 @@ function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language) {
 	try{
 		if (empty($id)) throw new Exception("Invalid registration.");
 		if ($eventtype == 1) { // Session
-			$query = "SELECT cr.id, cr.memberid, cr.sessionid, cr.showid, cr.registrationdate, cr.familycount familyMemberCount, cr.relatednewregistrationid,
-											 cr.relatedoldregistrationid, cr.status, cr.regulationsread, cr.comments, cr.creationdate,
-												getTextLabel(cs.label, '$language') sessionlabel, cs.name sessionname, cs.proratastartdate, if(cs.proratastartdate is null OR cs.proratastartdate <= cr.registrationdate, 1, 0) use_prorata,
-												cs.prorataoptions, cs.id as eventid, 1 as eventtype
-								FROM cpa_registrations cr
-								JOIN cpa_sessions cs ON cs.id = cr.sessionid
-								WHERE cr.id = $id";
+			$query =   "SELECT  cr.id, cr.memberid, cr.sessionid, cr.showid, cr.registrationdate, cr.familycount familyMemberCount, cr.relatednewregistrationid,
+								cr.relatedoldregistrationid, cr.status, cr.regulationsread, cr.comments, cr.creationdate, cr.lastupdateddate,
+								getTextLabel(cs.label, '$language') sessionlabel, cs.name sessionname, cs.proratastartdate, 
+								if(cs.proratastartdate is null OR cs.proratastartdate <= cr.registrationdate, 1, 0) use_prorata,
+								cs.prorataoptions, cs.id as eventid, 1 as eventtype
+						FROM cpa_registrations cr
+						JOIN cpa_sessions cs ON cs.id = cr.sessionid
+						WHERE cr.id = $id";
 		} else if ($eventtype == 2) { // Show
-			$query = "SELECT cr.id, cr.memberid, cr.sessionid, cr.showid, cr.registrationdate, cr.familycount familyMemberCount, cr.relatednewregistrationid,
-											 cr.relatedoldregistrationid, cr.status, cr.regulationsread, cr.comments, cr.creationdate,
-												getTextLabel(cs.label, '$language') sessionlabel, cs.name sessionname, null as proratastartdate, 0 as use_prorata,
-												null as prorataoptions, cs.id as eventid, 2 as eventtype
-								FROM cpa_registrations cr
-								JOIN cpa_shows cs ON cs.id = cr.showid
-								WHERE cr.id = $id";
+			$query =   "SELECT  cr.id, cr.memberid, cr.sessionid, cr.showid, cr.registrationdate, cr.familycount familyMemberCount, cr.relatednewregistrationid,
+								cr.relatedoldregistrationid, cr.status, cr.regulationsread, cr.comments, cr.creationdate, cr.lastupdateddate,
+								getTextLabel(cs.label, '$language') sessionlabel, cs.name sessionname, null as proratastartdate, 0 as use_prorata,
+								null as prorataoptions, cs.id as eventid, 2 as eventtype
+						FROM cpa_registrations cr
+						JOIN cpa_shows cs ON cs.id = cr.showid
+						WHERE cr.id = $id";
 		}
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
-			$row['id'] 				= (int) $row['id'];
-			$sessionid 				= (int) $row['sessionid'];
+			$row['id'] = (int) $row['id'];
+			$sessionid = (int) $row['sessionid'];
 			$registrationdate = $row['registrationdate'];
 			$memberid					= '';
 			if (!empty($row['memberid'])) {
-				$memberid	= (int) $row['memberid'];
-				$temp 		= getMemberDetailsInt($mysqli, $memberid, $language)['data'];
+				$memberid = (int) $row['memberid'];
+				$temp = getMemberDetailsInt($mysqli, $memberid, $language)['data'];
 				if (count($temp) > 0) {
 					$row['member'] = $temp[0];
 				}
 			}
-			if ($eventtype == 1) {
-				$row['courses'] 					= getSessionCoursesDetails($mysqli, $id, $registrationdate, $sessionid, $language)['data'];
-				$row['coursecodes'] 			= getSessionCourseCodes($mysqli, $sessionid, $language)['data'];
-				$row['charges'] 					= getChargesDetails($mysqli, $id, $sessionid, $language)['data'];
-			} else if ($eventtype == 2) {
-				$row['shownumbers'] 			= getShowNumbersDetails($mysqli, $id, $registrationdate, $eventid, $memberid, $language)['data'];
-//				$row['coursecodes'] 			= getSessionCourseCodes($mysqli, $sessionid, $language)['data'];
-				$row['charges'] 					= getShowChargesDetails($mysqli, $id, $eventid, $language)['data'];
+			if ($eventtype == 1) { // Session
+				$row['courses'] 	= getSessionCoursesDetails($mysqli, $id, $registrationdate, $sessionid, $language)['data'];
+				$row['coursecodes'] = getSessionCourseCodes($mysqli, $sessionid, $language)['data'];
+				$row['charges'] 	= getChargesDetails($mysqli, $id, $sessionid, $language)['data'];
+			} else if ($eventtype == 2) { // Show
+				$row['shownumbers'] = getShowNumbersDetails($mysqli, $id, $registrationdate, $eventid, $memberid, $language)['data'];
+				$row['charges'] 	= getShowChargesDetails($mysqli, $id, $eventid, $language)['data'];
 			}
 			// Bills
-			$tmpBillData    					= getRegistrationBillInt($mysqli, $id, $language)['data'];
+			$tmpBillData = getRegistrationBillInt($mysqli, $id, $language)['data'];
 			if (count($tmpBillData) > 0) {
 				$row['bill'] = $tmpBillData[0];
 			}
@@ -342,15 +341,23 @@ function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language) {
 /*
 	This function copies an existing registration and returns the new registration id
 */
-function copyRegistration($mysqli, $registrationid, $newregistrationdatestr, $newregistrationstatus) {
+function copyRegistration($mysqli, $registration, $registrationid, $newregistrationdatestr, $newregistrationstatus) {
 	try{
 		$data = array();
+		// Check if registration is still up to date, if not, exit with error
+		if (isRegistrationUpToDate($mysqli, $registration) == false) {
+			$data['success'] = false;
+		 	$data['errno']   = 8888;
+		 	$data['message'] = 'Registration is not up to date.';
+		 	echo json_encode($data);
+		 	exit;
+		}
 		$query = "INSERT INTO cpa_registrations(id, memberid, sessionid, showid, registrationdate, relatednewregistrationid, relatedoldregistrationid, status, regulationsread, familycount)
 							SELECT null, memberid, sessionid, showid, '$newregistrationdatestr', null, id, '$newregistrationstatus', regulationsread, familycount
 							FROM cpa_registrations where id = '$registrationid' ";
 		if ($mysqli->query($query)) {
 			$newregistrationid = (int) $mysqli->insert_id;
-			$query = "UPDATE cpa_registrations SET relatednewregistrationid = '$newregistrationid' where id = '$registrationid'";
+			$query = "UPDATE cpa_registrations SET relatednewregistrationid = '$newregistrationid', lastupdateddate = CURRENT_TIMESTAMP where id = '$registrationid'";
 			if ($mysqli->query($query)) {
 				$query = "INSERT INTO cpa_registrations_charges(id, registrationid, chargeid, amount, comments, oldchargeid)
 									SELECT null, '$newregistrationid', chargeid, amount, comments, id
