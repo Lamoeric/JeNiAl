@@ -34,6 +34,7 @@
 											<li class="pointerlist"><a data-toggle="tab" data-target="#newtest">{{translationObj.main.panetitlenewteststar}}</a></li>
 											<li class="pointerlist"><a data-toggle="tab" data-target="#canskate">{{translationObj.main.panetitlecanskate}}</a></li>
 											<li class="pointerlist"><a data-toggle="tab" data-target="#courses">{{translationObj.main.panetitlecourses}}</a></li>
+											<li class="pointerlist"><a data-toggle="tab" data-target="#numbers">{{translationObj.main.panetitlenumbers}}</a></li>
 										</ul>
 
 										<div class="tab-content">
@@ -81,6 +82,11 @@
 											<div id="courses" class="tab-pane fade">
 												<form class="form-horizontal well" role="form" name="coursesForm">
 													<div ng-include="'./ccskaterview/courses.form.html'"></div>
+												</form>
+											</div>
+											<div id="numbers" class="tab-pane fade">
+												<form class="form-horizontal well" role="form" name="numbersForm">
+													<div ng-include="'./ccskaterview/numbers.form.html'"></div>
 												</form>
 											</div>
 										</div>
