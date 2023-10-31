@@ -20,12 +20,17 @@
 	{"formname":"main", "fieldname":"panetitlenewteststar", "text":"STAR Tests"},
 	{"formname":"main", "fieldname":"panetitlecanskate", "text":"CanSkate"},
 	{"formname":"main", "fieldname":"panetitlecourses", "text":"Courses"},
+	{"formname":"main", "fieldname":"panetitlenumbers", "text":"Numbers"},
 
 	{"formname":"canskate", "fieldname":"buttontitleshowcsreport", "text":"Show ReportCard"},
 
 	{"formname":"courses", "fieldname":"fieldtitlesession", "text":"Session"},
 	{"formname":"courses", "fieldname":"fieldtitlecourse", "text":"Course"},
 	{"formname":"courses", "fieldname":"fieldtitleenddate", "text":"End Date"},
+
+	{"formname":"numbers", "fieldname":"fieldtitleshow", "text":"Show"},
+	{"formname":"numbers", "fieldname":"fieldtitlenumber", "text":"Number"},
+	{"formname":"numbers", "fieldname":"fieldtitleenddate", "text":"End Date"},
 
 	{"formname":"test", "fieldname":"formtitledances", "text":"Dances"},
 	{"formname":"test", "fieldname":"formtitleskill", "text":"Skills"},

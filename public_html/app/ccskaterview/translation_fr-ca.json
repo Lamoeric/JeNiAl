@@ -20,12 +20,17 @@
 	{"formname":"main", "fieldname":"panetitlenewteststar", "text":"Tests STAR"},
 	{"formname":"main", "fieldname":"panetitlecanskate", "text":"Patinage Plus"},
 	{"formname":"main", "fieldname":"panetitlecourses", "text":"Cours"},
+	{"formname":"main", "fieldname":"panetitlenumbers", "text":"Numéros"},
 
 	{"formname":"canskate", "fieldname":"buttontitleshowcsreport", "text":"Afficher bulletin"},
 
 	{"formname":"courses", "fieldname":"fieldtitlesession", "text":"Session"},
 	{"formname":"courses", "fieldname":"fieldtitlecourse", "text":"Cours"},
 	{"formname":"courses", "fieldname":"fieldtitleenddate", "text":"Date de fin"},
+
+	{"formname":"numbers", "fieldname":"fieldtitleshow", "text":"Spectacle"},
+	{"formname":"numbers", "fieldname":"fieldtitlenumber", "text":"Numéro"},
+	{"formname":"numbers", "fieldname":"fieldtitleenddate", "text":"Date de fin"},
 
 	{"formname":"test", "fieldname":"formtitledances", "text":"Danses"},
 	{"formname":"test", "fieldname":"formtitleskill", "text":"Habiletés"},
