@@ -4,6 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../include/nocache.php');
+require_once('../../include/invalidrequest.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -34,6 +35,11 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	invalidRequest();
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
+ */
 function updateEntireShowNumberSchedule($mysqli, $showid, $numberid, $schedules) {
 	try {
 		$data = array();
@@ -89,6 +95,11 @@ function updateEntireShowNumberSchedule($mysqli, $showid, $numberid, $schedules)
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
+ */
 function updateEntireShowNumberDates($mysqli, $showid, $numberid, $dates) {
 	$data = array();
 	$data['inserted'] = 0;
@@ -137,6 +148,11 @@ function updateEntireShowNumberDates($mysqli, $showid, $numberid, $dates) {
 	return $data;
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
+ */
 function updateEntireShowNumberStaff($mysqli, $showid, $numberid, $staffs) {
 	try {
 		$data = array();
@@ -188,6 +204,10 @@ function updateEntireShowNumberStaff($mysqli, $showid, $numberid, $staffs) {
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowNumberInvite($mysqli, $showid, $number, $members) {
 	try {
 		$data = array();
@@ -224,6 +244,10 @@ function updateEntireShowNumberInvite($mysqli, $showid, $number, $members) {
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowCharges($mysqli, $showid, $showCharges) {
 	try {
 		$data = array();
@@ -298,6 +322,10 @@ function updateEntireShowCharges($mysqli, $showid, $showCharges) {
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowParagraphs($mysqli, $showid, $paragraphs) {
 	$data = array();
 	for ($x = 0; $paragraphs && $x < count($paragraphs); $x++) {
@@ -405,6 +433,10 @@ function updateEntireShowParagraphs($mysqli, $showid, $paragraphs) {
 	return $data;
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowRules($mysqli, $showid, $paragraphs) {
 	$data = array();
 	for ($x = 0; $paragraphs && $x < count($paragraphs); $x++) {
@@ -512,6 +544,10 @@ function updateEntireShowRules($mysqli, $showid, $paragraphs) {
 	return $data;
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowInterventions($mysqli, $showid, $interventions) {
 	try {
 		$data = array();
@@ -576,6 +612,10 @@ function updateEntireShowInterventions($mysqli, $showid, $interventions) {
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowNumbers($mysqli, $showid, $numbers) {
 	try {
 		$data = array();
@@ -672,6 +712,10 @@ function updateEntireShowNumbers($mysqli, $showid, $numbers) {
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowPerformanceNumbers($mysqli, $showid, $performanceid, $numbers) {
 	$data = array();
 
@@ -694,6 +738,10 @@ function updateEntireShowPerformanceNumbers($mysqli, $showid, $performanceid, $n
 	return $data;
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowPerformancePrices($mysqli, $showid, $performanceid, $prices) {
 	try {
 		$data = array();
@@ -768,6 +816,10 @@ function updateEntireShowPerformancePrices($mysqli, $showid, $performanceid, $pr
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowPerformanceTicket($mysqli, $showid, $performanceid, $ticket) {
 	$data = array();
 	$id = 							$mysqli->real_escape_string(isset($ticket['id']) 								? (int)$ticket['id'] : 0);
@@ -807,6 +859,10 @@ function updateEntireShowPerformanceTicket($mysqli, $showid, $performanceid, $ti
 	return $data;
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowPerformanceAssigns($mysqli, $showid, $performanceid, $assigns) {
 	try {
 		$data = array();
@@ -849,6 +905,10 @@ function updateEntireShowPerformanceAssigns($mysqli, $showid, $performanceid, $a
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowPerformanceExceptions($mysqli, $showid, $performanceid, $exceptions) {
 	try {
 		$data = array();
@@ -891,6 +951,10 @@ function updateEntireShowPerformanceExceptions($mysqli, $showid, $performanceid,
 	}
 };
 
+/**
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
+ */
 function updateEntireShowPerformances($mysqli, $showid, $performances) {
 	$data = array();
 	$data['inserted'] = 0;
@@ -1002,7 +1066,7 @@ function updateEntireShowPerformances($mysqli, $showid, $performances) {
 
 /**
  * This function will handle show add, update functionality
- * @throws Exception
+ * 
  */
 function updateEntireShow($mysqli, $show) {
 	try {
@@ -1052,7 +1116,7 @@ function updateEntireShow($mysqli, $show) {
 
 /**
  * This function will handle show add, update functionality
- * @throws Exception
+ * 
  */
 function insert_show($mysqli, $show) {
 	try {
@@ -1109,7 +1173,7 @@ function insert_show($mysqli, $show) {
 
 /**
  * This function will handle show add, update functionality
- * @throws Exception
+ * 
  */
 function update_show($mysqli, $details) {
 	try {
@@ -1156,9 +1220,9 @@ function update_show($mysqli, $details) {
 };
 
 /**
- * This function will handle user deletion
- * @param string $id
- * @throws Exception
+ * This function will handle show deletion
+ * 
+ * @param object $show
  */
 function delete_show($mysqli, $show) {
 	try {
@@ -1200,7 +1264,7 @@ function delete_show($mysqli, $show) {
 };
 
 /**
- * This function gets list of all shows from database
+ * This function gets the list of all shows from database
  */
 function getAllShows($mysqli) {
 	try {
@@ -1222,7 +1286,9 @@ function getAllShows($mysqli) {
 };
 
 /**
- * This function gets the details of all interventions for a show from database
+ * This function gets the details of all interventions for a show from the database
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowInterventions($mysqli, $showid, $language) {
 	if (empty($showid)) throw new Exception("Invalid show.");
@@ -1246,7 +1312,9 @@ function getShowInterventions($mysqli, $showid, $language) {
 };
 
 /**
- * This function gets the details of all numbers for a show from database
+ * This function gets the details of all numbers for a show from the database
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowNumbers($mysqli, $showid, $language) {
 	if (empty($showid)) throw new Exception("Invalid show.");
@@ -1281,6 +1349,8 @@ function getShowNumbers($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of all schedules for a show number
+ * 
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
  */
 function getShowNumberSchedules($mysqli, $numberid, $language) {
 	if (empty($numberid)) throw new Exception("Invalid show number.");
@@ -1300,6 +1370,8 @@ function getShowNumberSchedules($mysqli, $numberid, $language) {
 
 /**
  * This function gets the details of all practice dates for a show number
+ * 
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
  */
 function getShowNumberDates($mysqli, $numberid, $language) {
 	if (empty($numberid)) throw new Exception("Invalid show number.");
@@ -1324,6 +1396,8 @@ function getShowNumberDates($mysqli, $numberid, $language) {
 
 /**
  * This function gets the details of all staffs for a show number
+ * 
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
  */
 function getShowNumberStaffs($mysqli, $numberid, $language) {
 	try {
@@ -1351,6 +1425,8 @@ function getShowNumberStaffs($mysqli, $numberid, $language) {
 
 /**
  * This function gets the details of all invites for a show course
+ * 
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
  */
 function getShowNumberInvites($mysqli, $numberid, $language) {
 	try {
@@ -1420,6 +1496,8 @@ function getShowPerformancePrices($mysqli, $performanceid, $language) {
 
 /**
  * This function gets the ticket definition for a performance
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowPerformanceTicket($mysqli, $showid, $performanceid, $language) {
 	if (empty($performanceid)) throw new Exception("Invalid performance.");
@@ -1502,6 +1580,8 @@ function getShowPerformanceAssigns($mysqli, $performanceid, $language) {
 
 /**
  * This function gets the details of all performances for a show
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowPerformances($mysqli, $showid, $language) {
 	if (empty($showid)) throw new Exception("Invalid show.");
@@ -1530,6 +1610,8 @@ function getShowPerformances($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of all show courses for a show
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowParagraphs($mysqli, $showid, $language) {
 	if (empty($showid)) throw new Exception("Invalid show.");
@@ -1556,6 +1638,8 @@ function getShowParagraphs($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of ONE show number
+ * 
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
  */
 function getOneShowNumber($mysqli, $numberid, $language) {
 	if (empty($numberid)) throw new Exception("Invalid show number id.");
@@ -1582,6 +1666,8 @@ function getOneShowNumber($mysqli, $numberid, $language) {
 
 /**
  * This function gets the details of all registrations for a show
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowRegistrations($mysqli, $showid, $language) {
 	try {
@@ -1608,6 +1694,8 @@ function getShowRegistrations($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of all events for a show
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowEvents($mysqli, $showid, $language) {
 	if (empty($showid)) throw new Exception("Invalid show.");
@@ -1627,6 +1715,8 @@ function getShowEvents($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of all show charges for a show
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowCharges($mysqli, $showid, $language) {
 	try{
@@ -1655,6 +1745,8 @@ function getShowCharges($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of all rules for a show
+ * 
+ * @param integer $showid	The id of the show from cpa_shows
  */
 function getShowRules($mysqli, $showid, $language) {
 	if (empty($showid)) throw new Exception("Invalid show.");
@@ -1679,6 +1771,8 @@ function getShowRules($mysqli, $showid, $language) {
 
 /**
  * This function gets the details of one show from database
+ * 
+ * @param integer $id	The id of the show from cpa_shows
  */
 function getShowDetails($mysqli, $id, $language) {
 	try {
@@ -1714,10 +1808,18 @@ function getShowDetails($mysqli, $id, $language) {
 	}
 };
 
+/**
+ * 
+ * 
+ * @param integer $numberid	The id of the show from cpa_shows_numbers
+ */
 function deletePracticeDates($mysqli, $numberid) {
 	$data = array();
-	$query = "DELETE FROM cpa_shows_numbers_dates WHERE numberid = $numberid";
+	$query = "	DELETE FROM cpa_shows_numbers_dates 
+				WHERE numberid = $numberid
+				AND NOT EXISTS (SELECT * FROM cpa_shows_numbers_presences csnp WHERE csnp.showsnumbersdatesid = cpa_shows_numbers_dates.id AND ispresent = 1)";
 	$result = $mysqli->query($query);
+	$data['deleted'] = $mysqli -> affected_rows;
 	$data['success'] = true;
 	return $data;
 	exit;
@@ -1725,37 +1827,47 @@ function deletePracticeDates($mysqli, $numberid) {
 
 /**
  * This function will handle course date insert functionality
- * @throws Exception
+ * 
  */
 function insertPracticeDate($mysqli, $numberPracticeDates, $language) {
 	try {
 		$data = array();
-		$data['insert'] = 0;
+		$data['count'] = count($numberPracticeDates);
+		$data['inserted'] = 0;
 		if (count($numberPracticeDates) > 0) {
-			$numberid = $mysqli->real_escape_string(isset($numberPracticeDates[0]['numberid']) 	?(int) $numberPracticeDates[0]['numberid'] : 0);
-			$showid = 	$mysqli->real_escape_string(isset($numberPracticeDates[0]['showid']) 		?(int) $numberPracticeDates[0]['showid'] : 0);
+			$numberid = $mysqli->real_escape_string(isset($numberPracticeDates[0]['numberid'])	? (int) $numberPracticeDates[0]['numberid'] : 0);
+			$showid = 	$mysqli->real_escape_string(isset($numberPracticeDates[0]['showid']) 	? (int) $numberPracticeDates[0]['showid'] : 0);
 			$data['deletedates'] = deletePracticeDates($mysqli, $numberid);
 			for ($x = 0; $x < count($numberPracticeDates); $x++) {
-				$practicedate =				$mysqli->real_escape_string(isset($numberPracticeDates[$x]['practicedatestr']) 			? $numberPracticeDates[$x]['practicedatestr'] : '');
-				$arenaid =						$mysqli->real_escape_string(isset($numberPracticeDates[$x]['arenaid']) 							? $numberPracticeDates[$x]['arenaid'] : '');
-				$iceid =							$mysqli->real_escape_string(isset($numberPracticeDates[$x]['iceid']) 								? $numberPracticeDates[$x]['iceid'] : '0');
-				$starttime =					$mysqli->real_escape_string(isset($numberPracticeDates[$x]['starttime']) 						? $numberPracticeDates[$x]['starttime'] : '');
-				$endtime =						$mysqli->real_escape_string(isset($numberPracticeDates[$x]['endtime']) 							? $numberPracticeDates[$x]['endtime'] : '');
-				$duration =						$mysqli->real_escape_string(isset($numberPracticeDates[$x]['duration']) 						? $numberPracticeDates[$x]['duration'] : '');
-				$day =								$mysqli->real_escape_string(isset($numberPracticeDates[$x]['day']) 									? $numberPracticeDates[$x]['day'] : '');
+				$practicedate =	$mysqli->real_escape_string(isset($numberPracticeDates[$x]['practicedatestr'])	? $numberPracticeDates[$x]['practicedatestr'] : '');
+				$arenaid =		$mysqli->real_escape_string(isset($numberPracticeDates[$x]['arenaid']) 			? $numberPracticeDates[$x]['arenaid'] : '');
+				$iceid =		$mysqli->real_escape_string(isset($numberPracticeDates[$x]['iceid']) 			? $numberPracticeDates[$x]['iceid'] : '0');
+				$starttime =	$mysqli->real_escape_string(isset($numberPracticeDates[$x]['starttime']) 		? $numberPracticeDates[$x]['starttime'] : '');
+				$endtime =		$mysqli->real_escape_string(isset($numberPracticeDates[$x]['endtime']) 			? $numberPracticeDates[$x]['endtime'] : '');
+				$duration =		$mysqli->real_escape_string(isset($numberPracticeDates[$x]['duration']) 		? $numberPracticeDates[$x]['duration'] : '');
+				$day =			$mysqli->real_escape_string(isset($numberPracticeDates[$x]['day']) 				? $numberPracticeDates[$x]['day'] : '');
 
-				$query = "INSERT INTO cpa_shows_numbers_dates (numberid, showid, practicedate, arenaid, iceid, starttime, endtime, duration, day)
-									VALUES ($numberid, $showid, '$practicedate', '$arenaid', '$iceid', '$starttime', '$endtime', '$duration', $day)";
+				// We need to check if there is already a practice's date with the same info
+				// Remember, there is already a practice at that date because there were attendances for this practice in the DB
+				$query = "	SELECT * 
+							FROM cpa_shows_numbers_dates 
+							WHERE numberid = $numberid AND practicedate = '$practicedate'";
+				$result = $mysqli->query($query);
+				$row = $result->fetch_assoc();
+				if (!isset($row['numberid'])) {
+					// Insert only if there is not already a course on this date
+					$query = "	INSERT INTO cpa_shows_numbers_dates (numberid, showid, practicedate, arenaid, iceid, starttime, endtime, duration, day)
+								VALUES ($numberid, $showid, '$practicedate', '$arenaid', '$iceid', '$starttime', '$endtime', '$duration', $day)";
 
-				if ($mysqli->query($query)) {
-					$data['insert']++;
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					if ($mysqli->query($query)) {
+						$data['inserted']++;
+					} else {
+						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					}
 				}
 			}
 			$data['updateflag'] = updateShowNumberGeneratedFlag($mysqli, $numberid);
-			$data['dates'] 			= getShowNumberDates($mysqli, $numberid, $language)['data'];
-//			$data['showNumber'] = getOneShowNumber($mysqli, $numberid, $language)['data'];
+			$data['dates'] 		= getShowNumberDates($mysqli, $numberid, $language)['data'];
 			$data['success'] = true;
 		}
 		$mysqli->close();
@@ -1772,7 +1884,7 @@ function insertPracticeDate($mysqli, $numberPracticeDates, $language) {
 
 /**
  * This function set the datesgenerated flag to true for a show course
- * @throws Exception
+ * 
  */
 function updateShowNumberGeneratedFlag($mysqli, $showsnumbersid) {
 	try {
@@ -1791,18 +1903,6 @@ function updateShowNumberGeneratedFlag($mysqli, $showsnumbersid) {
 		$data['message'] = $e->getMessage();
 		return $data;
 	}
-};
-
-/**
- * This function gets the levels for a course
- */
-
-function invalidRequest() {
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
 };
 
 ?>
