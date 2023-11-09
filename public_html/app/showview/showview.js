@@ -39,7 +39,7 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 			breaks:       false         // Convert '\n' in paragraphs into <br>
 //      langPrefix:   'language-',  // CSS language prefix for fenced blocks
 //      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-//      quotes: '“”‘’',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//      quotes: 'ï¿½ï¿½ï¿½ï¿½',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to 'ï¿½ï¿½' for Russian, 'ï¿½ï¿½' for German.
 //      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
 
@@ -1261,26 +1261,31 @@ $scope.editShowPerformanceNumbers = function(performance) {
 
 	$scope.insertPracticeDates = function(showNumber, practicesdatearr) {
 		$scope.showNumberForDateInsert = showNumber;
-		$scope.promise = $http({
-			method: 'post',
-			url: './showview/shows.php',
-			data: $.param({'practicedates' : practicesdatearr, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'insertPracticeDate' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
-			if (data.success) {
-				angular.copy(data.dates, $scope.showNumberForDateInsert.dates);
-				$scope.showNumberForDateInsert.datesgenerated = true;
-				$scope.fixNumbers();
-				$scope.manageAllPraticeDates();
-			} else {
-				dialogService.displayFailure(data);
-			}
-		}).
-		error(function(data, status, headers, config) {
-				dialogService.displayFailure(data);
-				return false;
-		});
+		if (practicesdatearr != null && practicesdatearr.length != 0) {
+			$scope.promise = $http({
+				method: 'post',
+				url: './showview/shows.php',
+				data: $.param({'practicedates' : practicesdatearr, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'insertPracticeDate' }),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).
+			success(function(data, status, headers, config) {
+				if (data.success) {
+					angular.copy(data.dates, $scope.showNumberForDateInsert.dates);
+					$scope.showNumberForDateInsert.datesgenerated = true;
+					$scope.fixNumbers();
+					$scope.manageAllPraticeDates();
+					dialogService.alertDlg($scope.translationObj.main.msgdatesregenerated + '<br>' + $scope.translationObj.main.msgdatesdeleted + data.deletedates.deleted + '<br>' + $scope.translationObj.main.msgdatesinserted + data.inserted + '/' + data.count);
+				} else {
+					dialogService.displayFailure(data);
+				}
+			}).
+			error(function(data, status, headers, config) {
+					dialogService.displayFailure(data);
+					return false;
+			});
+		} else {
+			dialogService.alertDlg($scope.translationObj.main.msgdatesnotgenerated);
+		}
 	};
 
 	$scope.generatePracticeDateArray = function(showNumber) {

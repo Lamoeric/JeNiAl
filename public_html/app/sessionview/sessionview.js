@@ -32,8 +32,6 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 	$scope.coursecodefilter = null;
 	$scope.filtercoursesdate = null;	
 	$scope.filterarena = null;	
-	// $scope.labels = ["Number of skaters", "Spaces left"];
-	// $scope.data = [3, 57];
 
 	$scope.isDirty = function() {
 		if ($scope.detailsForm.$dirty) {
@@ -910,41 +908,42 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		} else {
 			var dateArr = $scope.generateCourseDateArray(course);
 			$scope.insertCourseDates(course, dateArr)
-//			.then(
-//			function(retVal) {
-//				if (retVal.data.success) {
-//					$scope.setCurrentInternal($scope.selectedLeftObj, null);
-//				}
-//			});
 		}
 	}
 
 	$scope.insertCourseDates = function(course, coursedatearr) {
 		$scope.courseForDateInsert = course;
-		$scope.promise = $http({
-			method: 'post',
-			url: './sessionview/sessions.php',
-			data: $.param({'coursedate' : coursedatearr, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'insertCourseDate' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
-			if (data.success) {
-				if (data.course[0].startdate) {
-					data.course[0].startdate 	= parseISOdateService.parseDate(data.course[0].startdate + "T00:00:00");
+		if (coursedatearr != null && coursedatearr.length != 0) {
+			$scope.promise = $http({
+				method: 'post',
+				url: './sessionview/sessions.php',
+				data: $.param({'coursedate' : coursedatearr, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'insertCourseDate' }),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).
+			success(function(data, status, headers, config) {
+				if (data.success) {
+					// Because this function also re-read the entire course from the DB (instead of re-reading the entire session)
+					// we need to reformat certain information just like in the getSessionDetails function
+					if (data.course[0].startdate) {
+						data.course[0].startdate 	= parseISOdateService.parseDate(data.course[0].startdate + "T00:00:00");
+					}
+					if (data.course[0].enddate) {
+						data.course[0].enddate 	 	= parseISOdateService.parseDate(data.course[0].enddate + "T00:00:00");
+					}
+					angular.copy(data.course[0], $scope.courseForDateInsert);
+					$scope.manageAllCoursesDates();
+					dialogService.alertDlg($scope.translationObj.main.msgdatesregenerated + '<br>' + $scope.translationObj.main.msgdatesdeleted + data.deletedates.deleted + '<br>' + $scope.translationObj.main.msgdatesinserted + data.inserted + '/' + data.count);
+				} else {
+					dialogService.displayFailure(data);
 				}
-				if (data.course[0].enddate) {
-					data.course[0].enddate 	 	= parseISOdateService.parseDate(data.course[0].enddate + "T00:00:00");
-				}
-				angular.copy(data.course[0], $scope.courseForDateInsert);
-				$scope.manageAllCoursesDates();
-			} else {
-				dialogService.displayFailure(data);
-			}
-		}).
-		error(function(data, status, headers, config) {
-				dialogService.displayFailure(data);
-				return false;
-		});
+			}).
+			error(function(data, status, headers, config) {
+					dialogService.displayFailure(data);
+					return false;
+			});
+		} else {
+			dialogService.alertDlg($scope.translationObj.main.msgdatesnotgenerated);
+		}
 	};
 
 	$scope.generateCourseDateArray = function(course) {
@@ -965,6 +964,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		} else {
 			tmpCourseEndDate = $scope.currentSession.coursesenddate;
 		}
+		// Make sure the end date is included in the time period
 		tmpCourseEndDate.setHours("23","59","00");
 		for (var i = 0; i < course.schedules.length; i++) {
 			var schedule = course.schedules[i];
@@ -997,8 +997,6 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 
 	// This is the function that uploads the rules file for the session
 	$scope.uploadRulesFile = function(file, errFiles, language) {
-		// $scope.f = file;
-		// $scope.language = language;
 		if (errFiles && errFiles[0]) {
 			$scope.displayUploadError(errFiles[0]);
 		}
@@ -1007,9 +1005,8 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 					url: './sessionview/uploadrulesfile.php',
 					method: 'POST',
 					file: file,
-					data: {
-									'language': language,
-									'mainobj': $scope.currentSession
+					data: {	'language': language,
+							'mainobj': $scope.currentSession
 					}
 			});
 			file.upload.then(function (data) {
