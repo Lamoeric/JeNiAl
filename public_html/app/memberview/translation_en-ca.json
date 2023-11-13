@@ -135,6 +135,7 @@
 	{"formname":"filter", "fieldname":"fieldcourse", "text":"Courses"},
 	{"formname":"filter", "fieldname":"fieldmembers", "text":"Members"},
 	{"formname":"filter", "fieldname":"fieldqualifications", "text":"Qualification"},
+	{"formname":"filter", "fieldname":"fieldonlyactivemembers", "text":" Active members only"},
 	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Dismiss Filter"},
 	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Clear Form"},
