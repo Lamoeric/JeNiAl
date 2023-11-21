@@ -26,9 +26,7 @@
 			<div class="col-xs-5">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" id="contact1" name="contact1" ng-model="currentPreRegistration.contact1" ng-disabled="currentPreRegistration.tobecopied==1" ng-options="contact as contact.text for contact in currentPreRegistration.possiblecontact1">
-						<!-- <option ng-repeat="contact in currentPreRegistration.possiblecontact1" value="{{contact.id}}">{{contact.firstname}}&nbsp;{{contact.lastname}}&nbsp;({{contact.email}})</option> -->
-					</select>
+					<select class="form-control" id="contact1" name="contact1" ng-model="currentPreRegistration.contact1" ng-disabled="currentPreRegistration.tobecopied==1" ng-options="contact as contact.text for contact in currentPreRegistration.possiblecontact1"></select>
 				</div>
 			</div>
 		</div>
@@ -123,9 +121,7 @@
 				<div class="col-xs-5">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<select class="form-control" id="contact2" name="contact2" ng-model="currentPreRegistration.contact2" ng-disabled="currentPreRegistration.tobecopied2==1" ng-options="contact as contact.text for contact in currentPreRegistration.possiblecontact2">
-							<!-- <option ng-repeat="contact in currentPreRegistration.possiblecontact2" value="{{contact.id}}">{{contact.firstname}}&nbsp;{{contact.lastname}}&nbsp;({{contact.email}})</option> -->
-						</select>
+						<select class="form-control" id="contact2" name="contact2" ng-model="currentPreRegistration.contact2" ng-disabled="currentPreRegistration.tobecopied2==1" ng-options="contact as contact.text for contact in currentPreRegistration.possiblecontact2"></select>
 					</div>
 				</div>
 			</div>
@@ -223,10 +219,6 @@
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 								<select class="form-control" name="member" id="member{{$index}}" ng-model="skater.member" ng-disabled="skater.tobecopied==1" ng-options="member as member.text for member in skater.possiblemembers"></select>
-								
-								<!-- <select class="form-control" name="memberid" id="memberid{{$index}}" ng-model="skater.memberid" ng-disabled="skater.tobecopied==1">
-									<option ng-repeat="member in skater.possiblemembers" value="{{member.id}}">{{member.firstname}}&nbsp;{{member.lastname}}&nbsp;({{member.birthday}};&nbsp;{{member.skatecanadano}})</option>
-								</select> -->
 							</div>
 						</div>
 					</div>

@@ -259,6 +259,11 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 		}
 	};
 
+	/**
+	 * Mark preregistration as being copied
+	 * @param {bool} confirmed	Confirms that user is ok with marking the preregistration as copied
+	 * 
+	 */
 	$scope.markPreRegistration = function(confirmed) {
 		if ($scope.currentPreRegistration.treated == 0 && !confirmed) {
 			dialogService.confirmDlg($scope.translationObj.main.msgmarktreated, "YESNO", $scope.markPreRegistration, null, true, null);
@@ -289,7 +294,7 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 
 	/**
 	 * Validates if there is a change of email in the contacts
-	 * @returns {bool}	True i fthe system needs the user vakidation before updating a contact's email
+	 * @returns {bool}	True i fthe system needs the user validation before updating a contact's email
 	 * 
 	 */
 	$scope.validateEmailChange = function() {
@@ -308,19 +313,22 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 	}
 
 	/**
+	 * Copy/updates all contacts and skaters in the database and reloads everything
+	 * @param {bool} confirmed 	Confirms if already copied, we want to copy again
+	 * @param {bool} confirmUpd Confirms the update of an modified contact's email that may lead to fraud
 	 * 
-	 * @param {bool} confirmed 
-	 * @param {bool} confirmUpd 
 	 */
 	$scope.copyPreRegistration = function(confirmed, confirmUpd) {
 		var somethingToBeCopied = true;
 		var member;
 		if ($scope.currentPreRegistration.treated == 1 && !confirmed) {
+			// Preregistration already copied, ok to copy again?
 			dialogService.confirmDlg($scope.translationObj.main.msgalreadytreated, "YESNO", $scope.copyPreRegistration, null, true, null);
 		} else {
 			if (!confirmUpd) {
 				var needConfirmation = $scope.validateEmailChange();
 				if (needConfirmation == true) {
+					// Email address of existing contact has been changed, ok to procede with copy?
 					dialogService.confirmDlg($scope.translationObj.main.msgconfirmemailchange, "YESNO", $scope.copyPreRegistration, null, true, true);
 				} else {
 					confirmUpd = true;
@@ -359,10 +367,10 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 
 	$scope.refreshAll = function() {
 		$scope.getAllPreRegistrations();
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 					'text', 		'yesnos');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 	'text', 		'contacttypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'languages', 		'sequence', 'languages');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'genders', 			'text', 		'genders');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 			'text', 	'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 	'text', 	'contacttypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'languages', 	'sequence', 'languages');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'genders', 		'text', 	'genders');
 		translationService.getTranslation($scope, 'preregistrationview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}

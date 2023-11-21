@@ -55,16 +55,16 @@ function deletePreRegistration($mysqli, $preregistration) {
 						echo json_encode($data);
 						exit;
 					} else {
-						throw new Exception('deletePreRegistration - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception('deletePreRegistration - 1 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 					}
 				} else {
-					throw new Exception('deletePreRegistration - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception('deletePreRegistration - 2 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else {
-				throw new Exception('deletePreRegistration - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception('deletePreRegistration - 3 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		} else {
-			throw new Exception('deletePreRegistration - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception('deletePreRegistration - 4 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 		}
 	} catch(Exception $e) {
 		$data = array();
@@ -293,6 +293,7 @@ function getPreRegistrationDetails($mysqli, $id, $language) {
 /**
  * This function will handle update of a pre-member in DB
  * @throws Exception
+ * 
  */
 function updateEntireMembers($mysqli, $preregistration) {
 	$data = array();
@@ -325,6 +326,7 @@ function updateEntireMembers($mysqli, $preregistration) {
 /**
  * This function will handle preregistration update functionality
  * @throws Exception
+ * 
  */
 function updatePreRegistration($mysqli, $precontact) {
 	$data = array();
@@ -576,6 +578,7 @@ function updateMember($mysqli, $id, $member, $email, $homephone, $cellphone) {
 		throw new Exception('updateMember - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 	}
 }
+
 /**
  * This function will handle copying the members
  * @throws Exception
