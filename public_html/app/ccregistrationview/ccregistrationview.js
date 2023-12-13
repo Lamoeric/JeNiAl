@@ -182,7 +182,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			} else {
 				if (!data.success) {
 					if (data.message && data.message.indexOf('9999') != -1) {
-						dialogService.alertDlg($scope.translationObj.main.msgregistrationerror);
+						dialogService.displayFailure($scope.translationObj.main.msgregistrationerror);
+						$location.path("ccwelcomeview");
+					} else if (data.errno == 8888) {
+						dialogService.displayFailure($scope.translationObj.main.msgregistrationnotuptodate);
 						$location.path("ccwelcomeview");
 					} else {
 						dialogService.displayFailure(data);

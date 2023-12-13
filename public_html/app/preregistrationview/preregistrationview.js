@@ -87,8 +87,20 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 		success(function(data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentPreRegistration = data.data[0];
+				// Select first contact to reconnect if it exists
+				if ($scope.currentPreRegistration.possiblecontact1.length > 0) {
+					$scope.currentPreRegistration.tobecopied = 2;
+					$scope.currentPreRegistration.contact1 = $scope.currentPreRegistration.possiblecontact1[0];
+				}
+
+				// Select second contact to reconnect if it exists
+				if ($scope.currentPreRegistration.possiblecontact2.length > 0) {
+					$scope.currentPreRegistration.tobecopied2 = 2;
+					$scope.currentPreRegistration.contact2 = $scope.currentPreRegistration.possiblecontact2[0];
+				}
+
+				// Manage error messages for contact1
 				$scope.globalErrorMessage = [];
-				$scope.globalErrorMessageC2 = [];
 				if ($scope.currentPreRegistration.countuser > 0) {
 					$scope.globalErrorMessage.push($scope.translationObj.main.formerrormessageuser);
 				}
@@ -98,12 +110,17 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 				if ($scope.currentPreRegistration.countcontactname > 0) {
 					$scope.globalErrorMessage.push($scope.translationObj.main.formerrormessagecontact2);
 				}
+				if ($scope.currentPreRegistration.countemail > 0) {
+					$scope.globalErrorMessage.push($scope.translationObj.main.formerrormessagecontact3);
+				}
 				if ($scope.globalErrorMessage.length > 0) {
 					$("#globalErrorMessage").fadeTo(2000, 500);
 				} else {
 					$("#globalErrorMessage").hide();
 				}
 
+				// Manage error messages for contact2
+				$scope.globalErrorMessageC2 = [];
 				if ($scope.currentPreRegistration.countuser2 > 0) {
 					$scope.globalErrorMessageC2.push($scope.translationObj.main.formerrormessageuser);
 				}
@@ -113,17 +130,26 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 				if ($scope.currentPreRegistration.countcontactname2 > 0) {
 					$scope.globalErrorMessageC2.push($scope.translationObj.main.formerrormessagecontact2);
 				}
+				if ($scope.currentPreRegistration.countemail2 > 0) {
+					$scope.globalErrorMessageC2.push($scope.translationObj.main.formerrormessagecontact3);
+				}
 				if ($scope.globalErrorMessageC2.length > 0) {
 					$("#globalErrorMessageC2").fadeTo(2000, 500);
 				} else {
 					$("#globalErrorMessageC2").hide();
 				}
 				
+				// Manage error messages for members
 				for (var x = 0; x < $scope.currentPreRegistration.members.length; x++) {
 					var member = $scope.currentPreRegistration.members[x];
 					$scope.memberErrorMessages[x] = [];
 					if (member.countmembername > 0) {
 						$scope.memberErrorMessages[x].push($scope.translationObj.main.formerrormessagemember1);
+					}
+					// Select first member to reconnect if it exists
+					if (member.possiblemembers.length > 0) {
+						member.tobecopied = 2;
+						member.member = member.possiblemembers[0];
 					}
 				}
 				
@@ -233,6 +259,11 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 		}
 	};
 
+	/**
+	 * Mark preregistration as being copied
+	 * @param {bool} confirmed	Confirms that user is ok with marking the preregistration as copied
+	 * 
+	 */
 	$scope.markPreRegistration = function(confirmed) {
 		if ($scope.currentPreRegistration.treated == 0 && !confirmed) {
 			dialogService.confirmDlg($scope.translationObj.main.msgmarktreated, "YESNO", $scope.markPreRegistration, null, true, null);
@@ -240,7 +271,7 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 			$scope.promise = $http({
 				method: 'post',
 				url: './preregistrationview/preregistration.php',
-				data: $.param({'preregistration' : $scope.currentPreRegistration, 'type' : 'markPreRegistration' }),
+				data: $.param({'id' : $scope.currentPreRegistration.id, 'type' : 'markPreRegistration' }),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).
 			success(function(data, status, headers, config) {
@@ -260,57 +291,86 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 			});
 		}
 	}
-	$scope.copyPreRegistration = function(confirmed) {
-		var somethingToBeCopied = false;
+
+	/**
+	 * Validates if there is a change of email in the contacts
+	 * @returns {bool}	True i fthe system needs the user validation before updating a contact's email
+	 * 
+	 */
+	$scope.validateEmailChange = function() {
+		var needConfirmation = false;
+		if ($scope.currentPreRegistration.tobecopied == 2) {
+			if ($scope.currentPreRegistration.email != $scope.currentPreRegistration.contact1.email) {
+				needConfirmation = true;
+			}
+		}
+		if ($scope.currentPreRegistration.tobecopied2 == 2) {
+			if ($scope.currentPreRegistration.email2 != $scope.currentPreRegistration.contact2.email) {
+				needConfirmation = true;
+			}
+		}
+		return needConfirmation;
+	}
+
+	/**
+	 * Copy/updates all contacts and skaters in the database and reloads everything
+	 * @param {bool} confirmed 	Confirms if already copied, we want to copy again
+	 * @param {bool} confirmUpd Confirms the update of an modified contact's email that may lead to fraud
+	 * 
+	 */
+	$scope.copyPreRegistration = function(confirmed, confirmUpd) {
+		var somethingToBeCopied = true;
 		var member;
 		if ($scope.currentPreRegistration.treated == 1 && !confirmed) {
+			// Preregistration already copied, ok to copy again?
 			dialogService.confirmDlg($scope.translationObj.main.msgalreadytreated, "YESNO", $scope.copyPreRegistration, null, true, null);
 		} else {
-			if ($scope.currentPreRegistration.tobecopied == 1 || $scope.currentPreRegistration.tobecopied2 == 1) {
-				somethingToBeCopied = true;
-			} else {
-				for (var x = 0; x < $scope.currentPreRegistration.members.length; x++) {
-					member = $scope.currentPreRegistration.members[x];
-					if (member.tobecopied == 1) {
-						somethingToBeCopied = true;
-						break;
-					}
+			if (!confirmUpd) {
+				var needConfirmation = $scope.validateEmailChange();
+				if (needConfirmation == true) {
+					// Email address of existing contact has been changed, ok to procede with copy?
+					dialogService.confirmDlg($scope.translationObj.main.msgconfirmemailchange, "YESNO", $scope.copyPreRegistration, null, true, true);
+				} else {
+					confirmUpd = true;
 				}
 			}
-			if (somethingToBeCopied) {
-				$scope.promise = $http({
-					method: 'post',
-					url: './preregistrationview/preregistration.php',
-					data: $.param({'preregistration' : $scope.currentPreRegistration, 'type' : 'copyPreRegistration' }),
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).
-				success(function(data, status, headers, config) {
-					if (data.success) {
-						// Select this preregistration to reset everything
-						$scope.setCurrentInternal($scope.selectedPreRegistration, null);
-						return true;
-					} else {
+
+			if (confirmUpd) {
+				if (somethingToBeCopied) {
+					$scope.promise = $http({
+						method: 'post',
+						url: './preregistrationview/preregistration.php',
+						data: $.param({'preregistration' : $scope.currentPreRegistration, 'type' : 'copyPreRegistration' }),
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+					}).
+					success(function(data, status, headers, config) {
+						if (data.success) {
+							// Select this preregistration to reset everything
+							$scope.setCurrentInternal($scope.selectedPreRegistration, null);
+							return true;
+						} else {
+							dialogService.displayFailure(data);
+							return false;
+						}
+					}).
+					error(function(data, status, headers, config) {
 						dialogService.displayFailure(data);
 						return false;
-					}
-				}).
-				error(function(data, status, headers, config) {
-					dialogService.displayFailure(data);
-					return false;
-				});
+					});
 				
-			} else {
-				dialogService.alertDlg($scope.translationObj.main.msgnothingtocopy);
+				} else {
+					dialogService.alertDlg($scope.translationObj.main.msgnothingtocopy);
+				}
 			}
 		}
 	}
 
 	$scope.refreshAll = function() {
 		$scope.getAllPreRegistrations();
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 					'text', 		'yesnos');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 	'text', 		'contacttypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'languages', 		'sequence', 'languages');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'genders', 			'text', 		'genders');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 			'text', 	'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 	'text', 	'contacttypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'languages', 	'sequence', 'languages');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'genders', 		'text', 	'genders');
 		translationService.getTranslation($scope, 'preregistrationview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}

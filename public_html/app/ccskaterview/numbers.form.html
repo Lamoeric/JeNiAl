@@ -1,0 +1,25 @@
+<div class="row">
+  <div ng-repeat="number in currentSkater.numbers">
+    <div class="row">
+      <div class="col-xs-12" ng-show="$index!=0 && currentSkater.numbers[$index].sessionlabel != currentSkater.numbers[$index-1].sessionlabel"><hr>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <label class="hidden-xs" ng-show="$index==0">{{translationObj.numbers.fieldtitleshow}}</label>
+        <label class="hidden-md hidden-lg" ng-show="currentSkater.numbers[$index].sessionlabel != currentSkater.numbers[$index-1].sessionlabel">{{translationObj.numbers.fieldtitleshow}}</label>
+        <div class="input-group" ng-show="currentSkater.numbers[$index].sessionlabel != currentSkater.numbers[$index-1].sessionlabel">
+          {{number.sessionlabel}}
+          <span class="help-block"><small>{{number.practicesstartdate}} - {{number.practicesenddate}}</small></span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-5">
+        <label class="hidden-xs" ng-show="$index==0">{{translationObj.numbers.fieldtitlenumber}}</label>
+        <label class="hidden-md hidden-lg" ng-show="currentSkater.numbers[$index].sessionlabel != currentSkater.numbers[$index-1].sessionlabel">{{translationObj.numbers.fieldtitlenumber}}</label>
+        <div class="input-group">
+          {{number.numberlabel}}&nbsp;({{number.name}})
+        </div>
+        <span ng-show="number.registrationenddate!=null&&number.registrationenddate!=''"><small>{{translationObj.numbers.fieldtitleenddate}}: {{number.registrationenddate}}</small></span>
+        <span class="help-block"><small>{{number.schedule}}</small></span>
+      </div>
+    </div>
+  </div>
+</div>

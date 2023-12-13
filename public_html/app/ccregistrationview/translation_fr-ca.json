@@ -29,6 +29,7 @@
 	{"formname":"main", "fieldname":"msgregistrationcompleted", "text":"Inscription complétée."},
 	{"formname":"main", "fieldname":"msgregistrationerror", "text":"Erreur. Un cours que vous avez sélectionné n'a plus de place libre. Essayez de nouveau."},
 	{"formname":"main", "fieldname":"msgerrskateralreadyhasaregistration", "text":"Le patineur est déjà inscrit pour cette session."},
+	{"formname":"main", "fieldname":"msgregistrationnotuptodate", "text":"Cette inscription a été modifiée par un autre usager et n'est donc plus à jour. Vous devez recharger l'inscription et recommencer vos modifications."},
 	{"formname":"main", "fieldname":"buttontitleclearcoursecodesfilter", "text":"Vider filtre"},
 
 	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}

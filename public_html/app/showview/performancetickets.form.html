@@ -106,7 +106,7 @@
 				<label>{{translationObj.performancetickets.msgImageNotSupported}}</label>
 				<div class="input-group">
 					<button class="btn btn-primary" type="file" ngf-select="uploadTicketImage($file, $invalidFiles, performance)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="1000" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.performancetickets.buttontitleloadmainimage}}</button>&nbsp;
-					<deletewebsiteimagebutton subdir="'shows'" context="'shows'" obj="performance" callback="setCurrentInternal(currentShow)" is-disabled="!performance.imagefilename"></deletewebsiteimagebutton>
+					<deletewebsiteimagebutton subdir="'shows'" context="'shows_performances_tickets'" obj="performance.ticket" callback="setCurrentInternal(currentShow)" is-disabled="!performance.ticket.imagefilename"></deletewebsiteimagebutton>
 					<span class="help-block">{{translationObj.performancetickets.helptextimagespecifications}}</span>
   			</div>
   		</div>

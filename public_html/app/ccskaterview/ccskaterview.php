@@ -107,6 +107,38 @@ function getMemberCourses($mysqli, $memberid, $language) {
 };
 
 /**
+ * This function gets the numbers of one member FROM database
+ */
+function getMemberNumbers($mysqli, $memberid, $language) {
+	if (empty($memberid)) throw new Exception( "Invalid Member ID.");
+	$query = "	SELECT	csn.name, csnm.registrationenddate,	getTextLabel(csn.label, '$language') numberlabel, getTextLabel(cs.label, '$language') sessionlabel,
+						cs.practicesstartdate, cs.practicesenddate,
+						(SELECT group_concat(concat(getTextLabel((SELECT 	label FROM cpa_arenas WHERE id = arenaid), '$language'),
+																			IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((SELECT label FROM cpa_arenas_ices WHERE id = iceid), '$language'), '), ')),
+																				getTextLabel((SELECT description FROM cpa_codetable WHERE ctname = 'days' and code = day), '$language'),
+																				' - ',
+																				substr(starttime FROM 1 FOR 5),
+																				' - ',
+																				substr(endtime FROM 1 FOR 5))
+																				SEPARATOR ', ') schedule
+						FROM cpa_shows_numbers_schedule
+						WHERE numberid = csn.id) schedule
+				FROM cpa_shows_numbers_members csnm
+				JOIN cpa_shows_numbers csn ON csn.id = csnm.numberid
+				JOIN cpa_shows cs ON cs.id = csn.showid
+				WHERE csnm.memberid = $memberid
+				ORDER BY cs.id DESC, name";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$data['data'][] = $row;
+	}
+	$data['success'] = true;
+	return $data;
+};
+
+/**
  * This function gets the details of the profile.
  * Info can come FROM cpa_contacts or cpa_members, in this order.
  * @throws Exception
@@ -115,23 +147,24 @@ function getSkaterDetails($mysqli, $userid, $skaterid, $language){
 	try{
 		$data = array();
 
-		$query = "SELECT cm.*
-							FROM cpa_members cm
-							JOIN cpa_members_contacts cmc ON cmc.memberid = cm.id
-							JOIN cpa_users cu ON cu.contactid = cmc.contactid
-							WHERE cu.userid = '$userid' and cm.id = $skaterid";
+		$query = "	SELECT cm.*
+					FROM cpa_members cm
+					JOIN cpa_members_contacts cmc ON cmc.memberid = cm.id
+					JOIN cpa_users cu ON cu.contactid = cmc.contactid
+					WHERE cu.userid = '$userid' and cm.id = $skaterid";
 		$result = $mysqli->query( $query );
 		$row = $result->fetch_assoc();
 		$id = $row['id'];
-		$row['dances'] 					= getMemberTests($mysqli, $id, 'DANCE', $language)['data'];
-		$row['abilities'] 			= getMemberTests($mysqli, $id, 'SKILLS', $language)['data'];
-		$row['freestyles'] 			= getMemberTests($mysqli, $id, 'FREE', $language)['data'];
+		$row['dances'] 			= getMemberTests($mysqli, $id, 'DANCE', $language)['data'];
+		$row['abilities'] 		= getMemberTests($mysqli, $id, 'SKILLS', $language)['data'];
+		$row['freestyles'] 		= getMemberTests($mysqli, $id, 'FREE', $language)['data'];
 		$row['interpretives'] 	= getMemberTests($mysqli, $id, 'INTER', $language)['data'];
-		$row['competitives'] 		= getMemberTests($mysqli, $id, 'COMP', $language)['data'];
-		$row['stardances'] 			= getMemberStarTests($mysqli, $id, 'DANCE', $language)['data'];
+		$row['competitives'] 	= getMemberTests($mysqli, $id, 'COMP', $language)['data'];
+		$row['stardances'] 		= getMemberStarTests($mysqli, $id, 'DANCE', $language)['data'];
 		$row['starabilities'] 	= getMemberStarTests($mysqli, $id, 'SKILLS', $language)['data'];
 		$row['starfreestyles'] 	= getMemberStarTests($mysqli, $id, 'FREE', $language)['data'];
-		$row['courses'] 				= getMemberCourses($mysqli, $id, $language)['data'];
+		$row['courses'] 		= getMemberCourses($mysqli, $id, $language)['data'];
+		$row['numbers'] 		= getMemberNumbers($mysqli, $id, $language)['data'];
 		$data['data'][] = $row;
 
 		$data['success'] = true;

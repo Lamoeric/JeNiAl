@@ -232,12 +232,27 @@ function getAllMembers($mysqli, $filter) {
 		$data = array();
 		$data['success'] = null;
 		$whereclause = " where 1=1 ";
-		if (!empty($filter['firstname']))	$whereclause .= " and cm.firstname like '" . $filter['firstname'] . "'";
-		if (!empty($filter['lastname']))	$whereclause .= " and cm.lastname like '" .  $filter['lastname']  . "'";
-		if (!empty($filter['qualification']))	$whereclause .= " and cm.qualifications like BINARY '%" .  $filter['qualification']  . "%'";
-		if (!empty($filter['course']))	  $whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid = '" . $filter['course']  . "')" ;
-		if (!empty($filter['registration']) && $filter['registration'] == 'REGISTERED')	  $whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid in (select id from cpa_sessions_courses where sessionid = (select id from cpa_sessions where active = '1')))" ;
-		if (!empty($filter['registration']) && $filter['registration'] == 'NOTREGISTERED')	  $whereclause .= " and cm.id not in (select memberid from cpa_sessions_courses_members where sessionscoursesid in (select id from cpa_sessions_courses where sessionid = (select id from cpa_sessions where active = '1')))" ;
+		if (!empty($filter['firstname'])) {	
+			$whereclause .= " and cm.firstname like '" . $filter['firstname'] . "'";
+		}
+		if (!empty($filter['lastname'])) {
+			$whereclause .= " and cm.lastname like '" .  $filter['lastname']  . "'";
+		}
+		if (!empty($filter['qualification'])) {
+			$whereclause .= " and cm.qualifications like BINARY '%" .  $filter['qualification']  . "%'";
+		}
+		if (!empty($filter['course']) && (empty($filter['onlyactivemembers']) || $filter['onlyactivemembers'] == 0)) {
+			$whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid = '" . $filter['course']  . "')" ;
+		}
+		if (!empty($filter['course']) && (isset($filter['onlyactivemembers']) && $filter['onlyactivemembers'] == 1)) {
+			$whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid = '" . $filter['course']  . "' and (registrationenddate is null or registrationenddate > now()))" ;
+		}
+		if (!empty($filter['registration']) && $filter['registration'] == 'REGISTERED') {
+			$whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid in (select id from cpa_sessions_courses where sessionid = (select id from cpa_sessions where active = '1')))" ;
+		}
+		if (!empty($filter['registration']) && $filter['registration'] == 'NOTREGISTERED') {
+			$whereclause .= " and cm.id not in (select memberid from cpa_sessions_courses_members where sessionscoursesid in (select id from cpa_sessions_courses where sessionid = (select id from cpa_sessions where active = '1')))" ;
+		}
 //		$query = "SELECT id, lastname, firstname, skatecanadano FROM cpa_members order by lastname, firstname LIMIT $nbrows OFFSET $offset";
 		$query = "SELECT cm.id, cm.lastname, cm.firstname, cm.skatecanadano
 							FROM cpa_members cm ". $whereclause ."

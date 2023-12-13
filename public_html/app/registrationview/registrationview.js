@@ -293,11 +293,11 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 				} else {
 					if (data.errno == 9999) {
 						dialogService.displayFailure($scope.translationObj.main.msgregistrationalreadyexists);
+					} else if (data.errno == 8888) {
+						dialogService.displayFailure($scope.translationObj.main.msgregistrationnotuptodate);
 					} else {
 						dialogService.displayFailure(data);
 					}
-//					dialogService.displayFailure(data);
-//					return false;
 				}
 			}).
 			error(function(data, status, headers, config) {
@@ -425,7 +425,15 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 				$scope.setCurrentInternal($scope.selectedLeftObj, null);
 				$('.nav-tabs a[data-target="#bill"]').tab('show');
 			} else {
-					dialogService.displayFailure(data);
+				if (!data.success) {
+					if (data.errno == 9999) {
+						dialogService.displayFailure($scope.translationObj.main.msgregistrationalreadyexists);
+					} else if (data.errno == 8888) {
+						dialogService.displayFailure($scope.translationObj.main.msgregistrationnotuptodate);
+					} else {
+						dialogService.displayFailure(data);
+					}
+				}
 			}
 		}).
 		error(function(data, status, headers, config) {
@@ -528,7 +536,7 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 						$scope.promise = $http({
 							method: 'post',
 							url: './registrationview/manageregistrations.php',
-							data: $.param({'registrationid' : $scope.currentRegistration.id, 'registrationdatestr' : $scope.currentRegistration.registrationdatestr, 'newstatus' : 'DRAFT-R', 'type' : 'copyRegistration' }),
+							data: $.param({'registration' : JSON.stringify($scope.currentRegistration), 'registrationid' : $scope.currentRegistration.id, 'registrationdatestr' : $scope.currentRegistration.registrationdatestr, 'newstatus' : 'DRAFT-R',  'type' : 'copyRegistration' }),
 							headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 						}).
 						success(function(data, status, headers, config) {
@@ -543,7 +551,13 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 								}
 							} else {
 								if (!data.success) {
-									dialogService.displayFailure(data);
+									if (data.errno == 9999) {
+										dialogService.displayFailure($scope.translationObj.main.msgregistrationalreadyexists);
+									} else if (data.errno == 8888) {
+										dialogService.displayFailure($scope.translationObj.main.msgregistrationnotuptodate);
+									} else {
+										dialogService.displayFailure(data);
+									}
 								}
 							}
 						}).

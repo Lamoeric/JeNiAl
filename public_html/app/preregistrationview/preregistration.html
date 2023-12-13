@@ -1,8 +1,8 @@
 <div class="form-group row">
 	<div class="grid">
 		<label>{{translationObj.details.fieldcreationdate}}</label>&nbsp;{{currentPreRegistration.creationdate}}
-	
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 
 		<div class="row">
 			<div class="col-xs-12">
@@ -16,73 +16,87 @@
 		</div>
 
 		<div class="row">
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentPreRegistration.tobecopied" ng-true-value="'1'" ignore-dirty>{{translationObj.details.fieldtebecopied}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-2">
+				<div class="input-group">
+					<label><input type="radio" name="copycontact1" id="copycontact1a" ng-model="currentPreRegistration.tobecopied" value="1" ignore-dirty>&nbsp;{{translationObj.details.fieldtobecopied}}</label>
+					&nbsp;&nbsp;&nbsp;
+					<label><input type="radio" name="copycontact1" id="copycontact1b" ng-model="currentPreRegistration.tobecopied" value="2" ignore-dirty ng-disabled="currentPreRegistration.possiblecontact1.length==0">&nbsp;{{translationObj.details.fieldtobereconnected}}</label>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="contact1" name="contact1" ng-model="currentPreRegistration.contact1" ng-disabled="currentPreRegistration.tobecopied==1" ng-options="contact as contact.text for contact in currentPreRegistration.possiblecontact1"></select>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-				<label for="firstname">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
+				<label for="firstnamec1">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="firstname" class="form-control input-sm" id="firstname" ng-model="currentPreRegistration.firstname" maxlength="40" required>
+					<input type="text" name="firstname" id="firstnamec1" class="form-control input-sm"
+						ng-model="currentPreRegistration.firstname" maxlength="40" required>
 				</div>
 			</div>
 
 			<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-				<label for="lastname">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
+				<label for="lastnamec1">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="lastname" class="form-control input-sm" id="lastname" ng-model="currentPreRegistration.lastname" maxlength="40" required>
+					<input type="text" name="lastname" id="lastnamec1" class="form-control input-sm"
+						ng-model="currentPreRegistration.lastname" maxlength="40" required>
 				</div>
 			</div>
 
 			<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-	      <label for="homephone">{{translationObj.details.fieldhomephone}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-	      	<input type="text" class="form-control input-sm" id="homephone" ng-model="currentPreRegistration.homephone" maxlength="14" format-phone>
-	    	</div>
-	    </div>
+				<label for="homephonec1">{{translationObj.details.fieldhomephone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					<input type="text" name="homephone" id="homephonec1" class="form-control input-sm"
+						ng-model="currentPreRegistration.homephone" maxlength="14" format-phone>
+				</div>
+			</div>
 
-	    <div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-	      <label for="cellphone">{{translationObj.details.fieldcellphone}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-	        <input type="text" class="form-control input-sm" id="cellphone" ng-model="currentPreRegistration.cellphone" maxlength="14" format-phone>
-	    	</div>
-	    </div>
-    </div>
+			<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
+				<label for="cellphonec1">{{translationObj.details.fieldcellphone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					<input type="text" name="cellphone" id="cellphonec1" class="form-control input-sm"
+						ng-model="currentPreRegistration.cellphone" maxlength="14" format-phone>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
-	      <label for="email">{{translationObj.details.fieldemail}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-	      	<input type="text" class="form-control input-sm" id="email" ng-model="currentPreRegistration.email" maxlength="100" required>
-	    	</div>
-	    </div>
+				<label for="emailc1">{{translationObj.details.fieldemail}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input type="text" name="email" id="emailc1" class="form-control input-sm" ng-model="currentPreRegistration.email"
+						maxlength="100" required>
+				</div>
+			</div>
 			<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-	      <label for="relation">{{translationObj.details.fieldrelation}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-      		<select class="form-control" id="relation" ng-model="currentPreRegistration.contacttype" maxlength="20">
+				<label for="relationc1">{{translationObj.details.fieldrelation}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					<select name="relation" id="relationc1" class="form-control" ng-model="currentPreRegistration.contacttype" maxlength="20">
 						<option ng-repeat="contacttype in contacttypes" value="{{contacttype.code}}">{{contacttype.text}}</option>
-      		</select>
-      	</div>
-    	</div>
-    </div>
+					</select>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
-      <div class="col-xs-11">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentPreRegistration.usesecondcontact" ng-true-value="1" disabled>{{translationObj.details.usesecondcontact}}</label>
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-11">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="usesecondcontact" ng-model="currentPreRegistration.usesecondcontact"
+							ng-true-value="1" disabled>{{translationObj.details.usesecondcontact}}</label>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-xs-12">
@@ -94,22 +108,31 @@
 				</div>
 			</div>
 		</div>
-  	
+
 		<div ng-if="currentPreRegistration.usesecondcontact==1">
 			<div class="row">
-	      <div class="col-xs-2">
-	      	<div class="input-group">
-						<br><label><input type="checkbox" ng-model="currentPreRegistration.tobecopied2" ng-true-value="'1'" ignore-dirty>{{translationObj.details.fieldtebecopied}}</label>
-		      </div>
-		    </div>
-	  	</div>
-
+				<div class="col-xs-2">
+					<div class="input-group">
+						<label><input type="radio" name="copycontact2" id="copycontact2a" ng-model="currentPreRegistration.tobecopied2" value="1" ignore-dirty>&nbsp;{{translationObj.details.fieldtobecopied}}</label>
+						&nbsp;&nbsp;&nbsp;
+						<label><input type="radio" name="copycontact2" id="copycontact2b" ng-model="currentPreRegistration.tobecopied2" value="2" ignore-dirty ng-disabled="currentPreRegistration.possiblecontact2.length==0">&nbsp;{{translationObj.details.fieldtobereconnected}}</label>
+					</div>
+				</div>
+				<div class="col-xs-5">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<select class="form-control" id="contact2" name="contact2" ng-model="currentPreRegistration.contact2" ng-disabled="currentPreRegistration.tobecopied2==1" ng-options="contact as contact.text for contact in currentPreRegistration.possiblecontact2"></select>
+					</div>
+				</div>
+			</div>
+	
 			<div class="row">
 				<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
 					<label for="firstname">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" name="firstname" class="form-control input-sm" id="firstname" ng-model="currentPreRegistration.firstname2" maxlength="40" required>
+						<input type="text" name="firstname" id="firstname" class="form-control input-sm"
+							ng-model="currentPreRegistration.firstname2" maxlength="40" required>
 					</div>
 				</div>
 
@@ -117,151 +140,180 @@
 					<label for="lastname">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" name="lastname" class="form-control input-sm" id="lastname" ng-model="currentPreRegistration.lastname2" maxlength="40" required>
+						<input type="text" name="lastname" id="lastname" class="form-control input-sm"
+							ng-model="currentPreRegistration.lastname2" maxlength="40" required>
 					</div>
 				</div>
 
 				<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-		      <label for="homephone">{{translationObj.details.fieldhomephone}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-		      	<input type="text" class="form-control input-sm" id="homephone" ng-model="currentPreRegistration.homephone2" maxlength="14" format-phone>
-		    	</div>
-		    </div>
+					<label for="homephone">{{translationObj.details.fieldhomephone}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+						<input type="text" name="homephone" id="homephone" class="form-control input-sm"
+							ng-model="currentPreRegistration.homephone2" maxlength="14" format-phone>
+					</div>
+				</div>
 
-		    <div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-		      <label for="cellphone">{{translationObj.details.fieldcellphone}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-		        <input type="text" class="form-control input-sm" id="cellphone" ng-model="currentPreRegistration.cellphone2" maxlength="14" format-phone>
-		    	</div>
-		    </div>
-	    </div>
+				<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
+					<label for="cellphone">{{translationObj.details.fieldcellphone}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+						<input type="text" name="cellphone" id="cellphone" class="form-control input-sm"
+							ng-model="currentPreRegistration.cellphone2" maxlength="14" format-phone>
+					</div>
+				</div>
+			</div>
 
 			<div class="row">
 				<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
-		      <label for="email">{{translationObj.details.fieldemail}}<i style="color:red"> *</i></label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-		      	<input type="text" class="form-control input-sm" id="email" ng-model="currentPreRegistration.email2" maxlength="100" required>
-		    	</div>
-		    </div>
+					<label for="email">{{translationObj.details.fieldemail}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+						<input type="text" name="email" id="email" class="form-control input-sm"
+							ng-model="currentPreRegistration.email2" maxlength="100" required>
+					</div>
+				</div>
 				<div class="col-xs-11 col-sm-3 col-md-3 col-lg-3">
-		      <label for="relation">{{translationObj.details.fieldrelation}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-	      		<select class="form-control" id="relation" ng-model="currentPreRegistration.contacttype2" maxlength="20">
+					<label for="relation">{{translationObj.details.fieldrelation}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+						<select class="form-control" name="relation" id="relation" ng-model="currentPreRegistration.contacttype2"
+							maxlength="20">
 							<option ng-repeat="contacttype in contacttypes" value="{{contacttype.code}}">{{contacttype.text}}</option>
-	      		</select>
-	      	</div>
-	    	</div>
-	    </div>
-    </div>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 
 		<div class="row">
 			<div class="col-md-12">
+				<div class="row">
+					<div class="col-xs-12">
+						<h3>{{translationObj.details.formtitleskaters}}</h3>
+					</div>
+				</div>
+
+				<div ng-repeat="skater in currentPreRegistration.members">
+					<hr>
+
 					<div class="row">
-						<div class="col-xs-12">
-							<h3>{{translationObj.details.formtitleskaters}}</h3>
-				    </div>
-			    </div>
-
-					<div class="row" ng-repeat="skater in currentPreRegistration.members">
-<hr>
-
 						<div class="col-xs-12" ng-show="memberErrorMessages[$index].length > 0">
-							<div class="alert alert-danger" id="memberErrorMessage" >
+							<div class="alert alert-danger" id="memberErrorMessage">
 								<li ng-repeat="error in memberErrorMessages[$index]">{{error}}</li>
 							</div>
 						</div>
+					</div>
 
-			      <div class="col-xs-12">
-			      	<div class="input-group">
-								<br><label><input type="checkbox" ng-model="skater.tobecopied" ng-true-value="'1'" ignore-dirty>{{translationObj.details.fieldtebecopied}}</label>
-				      </div>
-				    </div>
-
-						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-							<label for="firstname">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
+					<div class="row">
+						<div class="col-xs-2">
+							<div class="input-group">
+								<label><input type="radio" name="copymember{{$index}}" id="copymembera{{$index}}" ng-model="skater.tobecopied" value="1" ignore-dirty>&nbsp;{{translationObj.details.fieldtobecopied}}</label>
+								&nbsp;&nbsp;&nbsp;
+								<label><input type="radio" name="copymember{{$index}}" id="copymemberb{{$index}}" ng-model="skater.tobecopied" value="2" ignore-dirty ng-disabled="skater.possiblemembers == null || skater.possiblemembers.length==0">&nbsp;{{translationObj.details.fieldtobereconnected}}</label>
+							</div>
+						</div>
+						<div class="col-xs-5">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								<input type="text" name="firstname" class="form-control input-sm" id="firstname" ng-model="skater.firstname" maxlength="40" required>
+								<select class="form-control" name="member" id="member{{$index}}" ng-model="skater.member" ng-disabled="skater.tobecopied==1" ng-options="member as member.text for member in skater.possiblemembers"></select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+							<label for="firstname{{$index}}">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input type="text" name="firstname" id="firstname{{$index}}" class="form-control input-sm"
+									ng-model="skater.firstname" maxlength="40" required>
 							</div>
 						</div>
 
 						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-							<label for="lastname">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
+							<label for="lastname{{$index}}">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								<input type="text" name="lastname" class="form-control input-sm" id="lastname" ng-model="skater.lastname" maxlength="40" required>
+								<input type="text" name="lastname" id="lastname{{$index}}" class="form-control input-sm"
+									ng-model="skater.lastname" maxlength="40" required>
 							</div>
 						</div>
-						
-						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-				      <label for="language">{{translationObj.details.fieldlanguage}}<i style="color:red"> *</i></label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-			          <select class="form-control" id="language" ng-model="skater.language" required>
-									<option ng-repeat="language in languages" value="{{language.code}}">{{language.text}}</option>
-					      </select>
-				      </div>
-			      </div>
 
-			      <div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-				      <label for="gender">{{translationObj.details.fieldgender}}<i style="color:red"> *</i></label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
-			          <select class="form-control" id="gender" ng-model="skater.gender" required>
+						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+							<label for="language{{$index}}">{{translationObj.details.fieldlanguage}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+								<select name="language" id="language{{$index}}" class="form-control" ng-model="skater.language" required>
+									<option ng-repeat="language in languages" value="{{language.code}}">{{language.text}}
+									</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+							<label for="gender{{$index}}">{{translationObj.details.fieldgender}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
+								<select name="gender" id="gender{{$index}}" class="form-control" ng-model="skater.gender" required>
 									<option ng-repeat="gender in genders" value="{{gender.code}}">{{gender.text}}</option>
-					      </select>
-				      </div>
-			      </div>
+								</select>
+							</div>
+						</div>
 
-			      <div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-				      <label for="birthday">{{translationObj.details.fielddateofbirth}}<i style="color:red"> *</i></label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-				        <input type="text" class="form-control" id="birthday" ng-model="skater.birthday" maxlength="10" format-birthdate required>
-			      	</div>
-			        <span class="help-block">YYYY-MM-DD</span>
-			      </div>
+						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+							<label for="birthday{{$index}}">{{translationObj.details.fielddateofbirth}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								<input type="text" name="birthday" id="birthday{{$index}}" class="form-control" ng-model="skater.birthday"
+									maxlength="10" format-birthdate required>
+							</div>
+							<span class="help-block">YYYY-MM-DD</span>
+						</div>
 
-			      <div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-				      <label for="skatecanadano">{{translationObj.details.fieldskatecanadano}}</label>
-				    	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-				      	<input type="text" class="form-control" id="skatecanadano" ng-model="skater.skatecanadano" maxlength="20" capitalize>
-				    	</div>
-			      </div>
+						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+							<label for="skatecanadano{{$index}}">{{translationObj.details.fieldskatecanadano}}</label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<input type="text" name="skatecanadano" id="skatecanadano{{$index}}" class="form-control" ng-model="skater.skatecanadano" maxlength="20" capitalize>
+							</div>
+						</div>
+					</div>
 
+					<div class="row">
 						<div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
-					  	<label for="address1">{{translationObj.details.fieldaddress1}}<i style="color:red"> *</i></label>
-					  	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-					      <input type="text" name="address1" class="form-control input-sm" id="address1" ng-model="skater.address1" maxlength="100" ng-disabled="skater.usepreviousaddress==1" ng-required="skater.usepreviousaddress==0">
-					    </div>
-				    </div>
+							<label for="address1{{$index}}">{{translationObj.details.fieldaddress1}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+								<input type="text" name="address1" id="address1{{$index}}" class="form-control input-sm" 
+									ng-model="skater.address1" maxlength="100" ng-disabled="skater.usepreviousaddress==1" ng-required="skater.usepreviousaddress==0">
+							</div>
+						</div>
 						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-					    <label for="town">{{translationObj.details.fieldtown}}<i style="color:red"> *</i></label>
-					  	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-								<input type="text" class="form-control input-sm" id="town" ng-model="skater.town" maxlength="100" ng-disabled="skater.usepreviousaddress==1" ng-required="skater.usepreviousaddress==0">
-					  	</div>
-				    </div>
+							<label for="town{{$index}}">{{translationObj.details.fieldtown}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+								<input type="text" name="town" id="town{{$index}}" class="form-control input-sm" ng-model="skater.town"
+									maxlength="100" ng-disabled="skater.usepreviousaddress==1"
+									ng-required="skater.usepreviousaddress==0">
+							</div>
+						</div>
 						<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-					    <label for="postalcode">{{translationObj.details.fieldpostalcode}}<i style="color:red"> *</i></label>
-					  	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-					    	<input type="text" class="form-control input-sm" id="postalcode" ng-model="skater.postalcode" maxlength="7" capitalize ng-disabled="skater.usepreviousaddress==1" ng-required="skater.usepreviousaddress==0">
-					  	</div>
-				    </div>
-		
-			    </div>
+							<label for="postalcode{{$index}}">{{translationObj.details.fieldpostalcode}}<i style="color:red"> *</i></label>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+								<input type="text" name="postalcode" id="postalcode{{$index}}" class="form-control input-sm"
+									ng-model="skater.postalcode" maxlength="7" capitalize
+									ng-disabled="skater.usepreviousaddress==1" ng-required="skater.usepreviousaddress==0">
+							</div>
+						</div>
+					</div>
+
+				</div>
 
 			</div>
 		</div>
-  	
-  </div>
+
+	</div>
 </div>
