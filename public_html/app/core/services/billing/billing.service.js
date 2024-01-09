@@ -103,13 +103,14 @@ angular.module('core').service('billingService', ['dialogService', '$uibModal', 
 		});
 	};
 
-	this.selectExistingBill = function($scope, sessionid) {
+	this.selectExistingBill = function($scope, sessionid, showid) {
 		translationService.getTranslation($scope, 'core/services/billing', authenticationService.getCurrentLanguage());
 		$scope.searchBills = null;
 		// Send the searchBills to the modal form
-		$scope.searchParams = {'phpfilename':'./core/services/billing/bills.php',
-													'language':authenticationService.getCurrentLanguage(),
-													'sessionid':sessionid};
+		$scope.searchParams = {	'phpfilename':'./core/services/billing/bills.php',
+								'language':authenticationService.getCurrentLanguage(),
+								'sessionid':sessionid,
+								'showid':showid};
 		return $uibModal.open({
 				animation: false,
 				templateUrl: './core/services/billing/searchbills.template.html',
