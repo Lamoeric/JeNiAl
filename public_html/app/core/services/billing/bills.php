@@ -32,7 +32,7 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
 			getBillingEmails($mysqli, $_POST['billid'], $_POST['language']);
 			break;
 		case "getAllObjects":
-			getAllBills($mysqli, $_POST['sessionid']);
+			getAllBills($mysqli, $_POST['sessionid'], $_POST['showid']);
 			break;
 		case "getObjectDetails":
 			getBillDetails($mysqli, $_POST['id']);

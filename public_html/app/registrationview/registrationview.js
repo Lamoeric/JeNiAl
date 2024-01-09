@@ -484,7 +484,7 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 						// Validate one last time if family members count is ok or not
 						$scope.countFamilyMembersRegistrations().then(function(data) {
 							if ($scope.currentRegistration.familyMemberCount == data.data.count/1) {
-								billingService.selectExistingBill($scope, $scope.currentRegistration.sessionid).then(function(selectedBill) {
+								billingService.selectExistingBill($scope, $scope.currentRegistration.sessionid, $scope.currentRegistration.showid).then(function(selectedBill) {
 									if (selectedBill && selectedBill.id) {
 										$scope.saveAcceptedRegistration(selectedBill.id);
 									}
