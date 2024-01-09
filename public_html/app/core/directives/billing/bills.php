@@ -581,15 +581,25 @@ function updateBillPaidAmount($mysqli, $billid, $amount) {
  * This function gets list of all bills for a session from database
  * This list does not include bills created for test sessions.
  */
-function getAllBills($mysqli, $sessionid) {
+function getAllBills($mysqli, $sessionid, $showid) {
 	try {
-		$query = "SELECT distinct cb.id, cb.billingname, cb.billingdate, cb.totalamount, cb.paidamount
-							FROM cpa_bills cb
-							JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
-							JOIN cpa_registrations cr ON cr.id = cbr.registrationid
-							WHERE relatednewbillid is null
-							AND cr.sessionid = $sessionid
-							ORDER BY billingname";
+		if (!empty($sessionid) && $sessionid != null && $sessionid != 0) {
+			$query = "SELECT distinct cb.id, cb.billingname, cb.billingdate, cb.totalamount, cb.paidamount
+								FROM cpa_bills cb
+								JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
+								JOIN cpa_registrations cr ON cr.id = cbr.registrationid
+								WHERE relatednewbillid is null
+								AND cr.sessionid = $sessionid
+								ORDER BY billingname";
+		} else {
+			$query = "SELECT distinct cb.id, cb.billingname, cb.billingdate, cb.totalamount, cb.paidamount
+								FROM cpa_bills cb
+								JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
+								JOIN cpa_registrations cr ON cr.id = cbr.registrationid
+								WHERE relatednewbillid is null
+								AND cr.showid = $showid
+								ORDER BY billingname";
+		}
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['data'] = array();
