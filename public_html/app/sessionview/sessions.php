@@ -1029,7 +1029,7 @@ function update_session($mysqli, $details) {
 
 /**
  * This function will handle session deletion 
- * TODO: need to fix this and make it a real delete and not count only on FK to do the job
+ * 
  * @param string $id
  * @throws Exception
  */
@@ -1039,7 +1039,21 @@ function delete_session($mysqli, $session) {
 		$label =	$mysqli->real_escape_string(isset($session['label'])	? $session['label'] : '');
 
 		if (empty($id)) throw new Exception("Invalid Session.");
+		// Delete all bills (and child) related to registrations from this session
+		$query = "DELETE FROM `cpa_bills` cb WHERE cb.id IN (SELECT billid FROM cpa_bills_registrations WHERE registrationid IN (SELECT id FROM cpa_registrations WHERE sessionid = '$id'))";
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete bills - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		// Delete all registrations (and child) from this session
+		$query = "DELETE FROM cpa_registrations WHERE sessionid = '$id'";
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete registrations - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		// Delete all dates for the session's courses (and child) from this session
+		$query = "DELETE FROM `cpa_sessions_courses_dates` WHERE sessionscoursesid IN (SELECT id FROM cpa_sessions_courses WHERE sessionid = '$id')";
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses dates - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		// Delete all courses (and child) from this session
+		$query = "DELETE FROM cpa_sessions_courses WHERE sessionid ='$id'";
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		// Delete the session
 		$query = "DELETE FROM cpa_sessions WHERE id = '$id'";
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete sessions - '.$mysqli->sqlstate.' - '. $mysqli->error);
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			$data['message'] = 'Session deleted successfully.';
