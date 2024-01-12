@@ -76,19 +76,20 @@ function updateCourseAttendance($mysqli, $members) {
 			$date = $member['dates'][$y];
 			$sessionscoursesdatesid = $date['sessionscoursesdatesid'];
 			$memberid = $member['memberid'];
-			$ispresent = $date['ispresent'];
 			$presenceid = $date['presenceid'];
-			if ($presenceid == null && $ispresent != 0 && $ispresent != '---' && $ispresent != 'XXX') {		// Need to insert the new attendance
-				$query = "INSERT INTO cpa_sessions_courses_presences (sessionscoursesdatesid, memberid, ispresent)
-									VALUES ($sessionscoursesdatesid, $memberid, '$ispresent')";
+			$ispresent = $date['ispresent'];
+			// Transform ispresent to ignore non numerical character
+			if ($ispresent == 'XXX' || $ispresent == '---' ||  $ispresent == '$') {
+				$ispresent = 0;
+			}
+			if ($presenceid == null && $ispresent != 0) {	// Need to insert the new attendance
+				$query = "	INSERT INTO cpa_sessions_courses_presences (sessionscoursesdatesid, memberid, ispresent)
+							VALUES ($sessionscoursesdatesid, $memberid, '$ispresent')";
 				$data['insert']++;
 				if (!$mysqli->query($query)) {
 					throw new Exception('updateCourseAttendance - insert presences - '.$mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else if ($presenceid != null) {		// Need to update the attendance
-				if ($ispresent == 'XXX' || $ispresent == '---') {
-					$ispresent = 0;
-				}
 				$query = "UPDATE cpa_sessions_courses_presences SET ispresent = '$ispresent' where id = $presenceid";
 				$data['update']++;
 				if (!$mysqli->query($query)) {
@@ -113,32 +114,25 @@ function updateNumberAttendance($mysqli, $members) {
 
 	for ($x = 0; $x < count($members); $x++) {
 		$member = $members[$x];
-//		if (isset($member['sublevelcode'])) {
-//			$sublevelcode = $member['sublevelcode'];
-//			$sessionscoursesmembersid = $member['sessionscoursesmembersid'];
-//			$query = "UPDATE cpa_sessions_courses_members SET sublevelcode = '$sublevelcode' where id = $sessionscoursesmembersid";
-//			if (!$mysqli->query($query)) {
-//				throw new Exception('updateCourseAttendance - update members - '.$mysqli->sqlstate.' - '. $mysqli->error);
-//			}
-//		}
 		for ($y = 0; $y < count($member['dates']); $y++) {
 			$date = $member['dates'][$y];
 			$showsnumbersdatesid = $date['sessionscoursesdatesid'];
 			$memberid = $member['memberid'];
-			$ispresent = $date['ispresent'];
 			$presenceid = $date['presenceid'];
-			if ($presenceid == null && $ispresent != 0 && $ispresent != '---' && $ispresent != 'XXX') {		// Need to insert the new attendance
-				$query = "insert into cpa_shows_numbers_presences (showsnumbersdatesid, showid, numberid, memberid, ispresent) 
-									values ($showsnumbersdatesid, (select showid from cpa_shows_numbers_dates where id = $showsnumbersdatesid), 
-													(select numberid from cpa_shows_numbers_dates where id = $showsnumbersdatesid), $memberid, $ispresent)";
+			$ispresent = $date['ispresent'];
+			// Transform ispresent to ignore non numerical character
+			if ($ispresent == 'XXX' || $ispresent == '---' ||  $ispresent == '$') {
+				$ispresent = 0;
+			}
+			if ($presenceid == null && $ispresent != 0) {		// Need to insert the new attendance
+				$query = "	INSERT into cpa_shows_numbers_presences (showsnumbersdatesid, showid, numberid, memberid, ispresent) 
+							VALUES ($showsnumbersdatesid, (select showid from cpa_shows_numbers_dates where id = $showsnumbersdatesid), 
+									(select numberid from cpa_shows_numbers_dates where id = $showsnumbersdatesid), $memberid, $ispresent)";
 				$data['insert']++;
 				if (!$mysqli->query($query)) {
 					throw new Exception('updateCourseAttendance - insert presences - '.$mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else if ($presenceid != null) {		// Need to update the attendance
-				if ($ispresent == 'XXX' || $ispresent == '---') {
-					$ispresent = 0;
-				}
 				$query = "UPDATE cpa_shows_numbers_presences SET ispresent = '$ispresent' where id = $presenceid";
 				$data['update']++;
 				if (!$mysqli->query($query)) {
