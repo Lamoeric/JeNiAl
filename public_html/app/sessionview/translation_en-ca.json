@@ -6,6 +6,8 @@
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdeletesession", "text":"Do you really want to delete this session?"},
+	{"formname":"main", "fieldname":"msgdeletesession2", "text":"To confirm the session deletion, write : "},
+	{"formname":"main", "fieldname":"msgdeletesessioncanceled", "text":"Deletion canceled"},
 	{"formname":"main", "fieldname":"msgdatesgenerated", "text":"The dates have already been generated for this course. Are you sure you want to delete and regenerate the dates for this course? (dates with attendance won't be deleted nor regenerated)"},
 	{"formname":"main", "fieldname":"msggeneratedates", "text":"Are you sure you want to generate the dates for this course?"},
 	{"formname":"main", "fieldname":"msgdatesregenerated", "text":"Dates generated"},

@@ -1,180 +1,226 @@
 <!-- <form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentSession" class="ng-hide"> -->
-  <div class="form-group row">
-  	<div class="grid">
-      <h3>{{translationObj.details.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-calendar" ng-click="viewSessionCalendar()"></button></h3>
-  		<div class="row">
-	      <div class="col-xs-10">
-		      <label for="name">{{translationObj.details.fieldname}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input type="text" name="name" class="form-control" id="name" ng-model="currentSession.name" maxlength="40" required>
-            <span style="color:red" ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
-  		<div class="row">
-	      <div class="col-xs-10">
-		      <label for="name">{{translationObj.details.fieldenglishlabel}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentSession.label_en" maxlength="200" required>
-            <span style="color:red" ng-show="detailsForm.label_en.$touched && detailsForm.label_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	  	</div>
-  		<div class="row">
-	      <div class="col-xs-10">
-		      <label for="name">{{translationObj.details.fieldfrenchlabel}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentSession.label_fr" maxlength="200" required>
-            <span style="color:red" ng-show="detailsForm.label_fr.$touched && detailsForm.label_fr.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
-  		<div class="row">
-	      <div class="col-xs-5">
-		      <label for="startdate">{{translationObj.details.fieldsessionstartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="startdate" class="form-control" id="startdate" ng-model="currentSession.startdate" required>
-            <span style="color:red" ng-show="detailsForm.startdate.$touched && detailsForm.startdate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	      <div class="col-xs-5">
-		      <label for="enddate">{{translationObj.details.fieldsessionenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="enddate" class="form-control" id="enddate" ng-model="currentSession.enddate" required>
-            <span style="color:red" ng-show="detailsForm.enddate.$touched && detailsForm.enddate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
-  		<div class="row">
-	      <div class="col-xs-5">
-		      <label for="coursesstartdate">{{translationObj.details.fieldcoursesstartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="coursesstartdate" class="form-control" id="coursesstartdate" ng-model="currentSession.coursesstartdate" required>
-            <span style="color:red" ng-show="detailsForm.coursesstartdate.$touched && detailsForm.coursesstartdate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	      <div class="col-xs-5">
-		      <label for="coursesenddate">{{translationObj.details.fieldcoursesenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="coursesenddate" class="form-control" id="coursesenddate" ng-model="currentSession.coursesenddate" required>
-            <span style="color:red" ng-show="detailsForm.coursesenddate.$touched && detailsForm.coursesenddate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
-      <div class="row">
-	      <div class="col-xs-5">
-		      <label for="onlineregiststartdate">{{translationObj.details.fieldonlineregiststartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="onlineregiststartdate" class="form-control" id="onlineregiststartdate" ng-model="currentSession.onlineregiststartdate" required>
-            <span style="color:red" ng-show="detailsForm.onlineregiststartdate.$touched && detailsForm.onlineregiststartdate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	      <div class="col-xs-5">
-		      <label for="onlineregistenddate">{{translationObj.details.fieldonlineregistenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="onlineregistenddate" class="form-control" id="onlineregistenddate" ng-model="currentSession.onlineregistenddate" required>
-            <span style="color:red" ng-show="detailsForm.onlineregistenddate.$touched && detailsForm.onlineregistenddate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
-      <div class="row">
-	      <div class="col-xs-5">
-		      <label for="onlineregiststartdate">{{translationObj.details.fieldonlinepreregiststartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="onlinepreregiststartdate" class="form-control" id="onlinepreregiststartdate" ng-model="currentSession.onlinepreregiststartdate" required>
-            <span style="color:red" ng-show="detailsForm.onlinepreregiststartdate.$touched && detailsForm.onlinepreregiststartdate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	      <div class="col-xs-5">
-		      <label for="onlineregistenddate">{{translationObj.details.fieldonlinereregistenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="onlinepreregistenddate" class="form-control" id="onlinepreregistenddate" ng-model="currentSession.onlinepreregistenddate" required>
-            <span style="color:red" ng-show="detailsForm.onlinepreregistenddate.$touched && detailsForm.onlinepreregistenddate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
-      <div class="row">
-	      <div class="col-xs-5">
-		      <label for="reimbursementdate">{{translationObj.details.fieldreimbursementenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="reimbursementdate" class="form-control" id="reimbursementdate" ng-model="currentSession.reimbursementdate" required>
-            <span style="color:red" ng-show="detailsForm.reimbursementdate.$touched && detailsForm.reimbursementdate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-        <div class="col-xs-5">
-  		    <label for="attendancepaidinfull">{{translationObj.details.fieldattendancepaidinfull}}</label>
-  				<div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-  					<select class="form-control" ng-model="currentSession.attendancepaidinfull" >
-  						<option ng-repeat="option in yesnos" value="{{option.code}}">{{option.text}}</option>
-  					</select>
-  		  	</div>
-  		  </div>
-	    </div>
-      <div class="row">
-	      <div class="col-xs-5">
-		      <label for="proratastartdate">{{translationObj.details.fieldproratastartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="proratastartdate" class="form-control" id="proratastartdate" ng-model="currentSession.proratastartdate" required>
-            <span style="color:red" ng-show="detailsForm.proratastartdate.$touched && detailsForm.proratastartdate.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-        <div class="col-xs-5">
-  		    <label for="prorataoptions">{{translationObj.details.fieldprorataoptions}}</label>
-  				<div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-  					<select class="form-control" ng-model="currentSession.prorataoptions" >
-  						<option ng-repeat="option in prorataoptions" value="{{option.code}}">{{option.text}}</option>
-  					</select>
-  		  	</div>
-  		  </div>
-	    </div>
-      <div class="row">
-        <div class="col-xs-5">
-  		    <label for="previoussessionid">{{translationObj.details.fieldprevioussessionid}}</label>
-  				<div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-  					<select class="form-control" ng-model="currentSession.previoussessionid" >
-  						<option ng-repeat="session in sessions" value="{{session.id}}">{{session.label}}</option>
-  					</select>
-  		  	</div>
-  		  </div>
-	      <div class="col-xs-5">
-		      <label for="lastupdateddate">{{translationObj.details.fieldlastupdateddate}}</label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="datetime-local" name="lastupdateddate" class="form-control" id="lastupdateddate" ng-model="currentSession.lastupdateddate" disabled>
-		      </div>
-		    </div>
-	    </div>
-  		<div class="row">
-	      <div class="col-xs-2">
-	      	<div class="input-group">
-						<br><label><input type="checkbox" ng-model="currentSession.active" ng-true-value="'1'" disabled>{{translationObj.details.fieldactive}}</label>
-		      </div>
-		    </div>
-	  	</div>
-      <!-- Test -->
-      <!-- <div class="row">
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.details.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-calendar"
+				ng-click="viewSessionCalendar()"></button></h3>
+		<div class="row">
+			<div class="col-xs-10">
+				<label for="name">{{translationObj.details.fieldname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentSession.name"
+						maxlength="40" required>
+					<span style="color:red" ng-show="detailsForm.name.$touched && detailsForm.name.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10">
+				<label for="name">{{translationObj.details.fieldenglishlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en"
+						ng-model="currentSession.label_en" maxlength="200" required>
+					<span style="color:red" ng-show="detailsForm.label_en.$touched && detailsForm.label_en.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10">
+				<label for="name">{{translationObj.details.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr"
+						ng-model="currentSession.label_fr" maxlength="200" required>
+					<span style="color:red" ng-show="detailsForm.label_fr.$touched && detailsForm.label_fr.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="startdate">{{translationObj.details.fieldsessionstartdate}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="startdate" class="form-control" id="startdate"
+						ng-model="currentSession.startdate" required>
+					<span style="color:red" ng-show="detailsForm.startdate.$touched && detailsForm.startdate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="enddate">{{translationObj.details.fieldsessionenddate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="enddate" class="form-control" id="enddate"
+						ng-model="currentSession.enddate" required>
+					<span style="color:red" ng-show="detailsForm.enddate.$touched && detailsForm.enddate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="coursesstartdate">{{translationObj.details.fieldcoursesstartdate}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="coursesstartdate" class="form-control" id="coursesstartdate"
+						ng-model="currentSession.coursesstartdate" required>
+					<span style="color:red"
+						ng-show="detailsForm.coursesstartdate.$touched && detailsForm.coursesstartdate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="coursesenddate">{{translationObj.details.fieldcoursesenddate}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="coursesenddate" class="form-control" id="coursesenddate"
+						ng-model="currentSession.coursesenddate" required>
+					<span style="color:red"
+						ng-show="detailsForm.coursesenddate.$touched && detailsForm.coursesenddate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="onlineregiststartdate">{{translationObj.details.fieldonlineregiststartdate}}<i
+						style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlineregiststartdate" class="form-control" id="onlineregiststartdate"
+						ng-model="currentSession.onlineregiststartdate" required>
+					<span style="color:red"
+						ng-show="detailsForm.onlineregiststartdate.$touched && detailsForm.onlineregiststartdate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="onlineregistenddate">{{translationObj.details.fieldonlineregistenddate}}<i
+						style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlineregistenddate" class="form-control" id="onlineregistenddate"
+						ng-model="currentSession.onlineregistenddate" required>
+					<span style="color:red"
+						ng-show="detailsForm.onlineregistenddate.$touched && detailsForm.onlineregistenddate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="onlineregiststartdate">{{translationObj.details.fieldonlinepreregiststartdate}}<i
+						style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlinepreregiststartdate" class="form-control"
+						id="onlinepreregiststartdate" ng-model="currentSession.onlinepreregiststartdate" required>
+					<span style="color:red"
+						ng-show="detailsForm.onlinepreregiststartdate.$touched && detailsForm.onlinepreregiststartdate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="onlineregistenddate">{{translationObj.details.fieldonlinereregistenddate}}<i
+						style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlinepreregistenddate" class="form-control" id="onlinepreregistenddate"
+						ng-model="currentSession.onlinepreregistenddate" required>
+					<span style="color:red"
+						ng-show="detailsForm.onlinepreregistenddate.$touched && detailsForm.onlinepreregistenddate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="reimbursementdate">{{translationObj.details.fieldreimbursementenddate}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="reimbursementdate" class="form-control" id="reimbursementdate"
+						ng-model="currentSession.reimbursementdate" required>
+					<span style="color:red"
+						ng-show="detailsForm.reimbursementdate.$touched && detailsForm.reimbursementdate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="attendancepaidinfull">{{translationObj.details.fieldattendancepaidinfull}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id='attendancepaidinfull' ng-model="currentSession.attendancepaidinfull">
+						<option ng-repeat="option in yesnos" value="{{option.code}}">{{option.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="proratastartdate">{{translationObj.details.fieldproratastartdate}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="proratastartdate" class="form-control" id="proratastartdate"
+						ng-model="currentSession.proratastartdate" required>
+					<span style="color:red"
+						ng-show="detailsForm.proratastartdate.$touched && detailsForm.proratastartdate.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="prorataoptions">{{translationObj.details.fieldprorataoptions}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id='prorataoptions' ng-model="currentSession.prorataoptions">
+						<option ng-repeat="option in prorataoptions" value="{{option.code}}">{{option.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<label for="previoussessionid">{{translationObj.details.fieldprevioussessionid}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="previoussessionid" ng-model="currentSession.previoussessionid">
+						<option ng-repeat="session in sessions" value="{{session.id}}">{{session.label}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="lastupdateddate">{{translationObj.details.fieldlastupdateddate}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="datetime-local" name="lastupdateddate" class="form-control" id="lastupdateddate"
+						ng-model="currentSession.lastupdateddate" disabled>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="active" ng-model="currentSession.active" ng-true-value="'1'"
+							disabled>{{translationObj.details.fieldactive}}</label>
+				</div>
+			</div>
+		</div>
+		<!-- Test -->
+		<!-- <div class="row">
         <div class="col-xs-2">
           <label>Patinage Plus Groupe Jaune (3/60)</label>
           <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="data" chart-labels="labels"> </canvas>
         </div>
       </div> -->
-      <!-- end test -->
-	  </div>
-  </div>
+		<!-- end test -->
+	</div>
+</div>
 <!-- </form> -->

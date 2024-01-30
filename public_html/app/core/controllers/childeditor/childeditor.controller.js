@@ -4,14 +4,30 @@
 // Created on: 2016-04-28
 
 // newObj - represents the object we are editing in the editor.
-//  newObj.callback - if this method exists, it is used to validate the form instead of the standard validation.
-//                    Method receives 2 parameters, the form object and the object being edited
-//                    Return value must be null or the id of the DIV containing the error message to display.
-//                    Use this method when validations are more complicated than just "required" or not.
-//                    Example : 	$scope.validateNewRegistration = function(editObjForm, newRegistration){}
+// newObj.callback - if this method exists, it is used to validate the form instead of the standard validation.
+//                   Method receives 2 parameters, the form object and the object being edited
+//                   Return value must be null or the id of the DIV containing the error message to display.
+//                   Use this method when validations are more complicated than just "required" or not.
+//                   Example : 	$scope.validateNewRegistration = function(editObjForm, newRegistration){}
 
 angular.module('core').controller('childeditor.controller', function ($scope, $uibModalInstance, newObj) {
   $scope.newObj = newObj;
+
+  $uibModalInstance.rendered.then(function() {
+    // alert('modal has rendered');
+  });
+
+  $uibModalInstance.opened.then(function() {
+    // alert('modal has opened');
+  });
+
+  $uibModalInstance.closed.then(function() {
+    // alert('modal has closed');
+  });
+
+  $uibModalInstance.result.then(function() {
+    // alert('modal has closed and rejected');
+  });
 
   // Validate and close
   $scope.ok = function () {

@@ -1,103 +1,107 @@
 <div class="form-group row">
-  <div class="grid">
+	<div class="grid">
 		<!-- <h3>Ice Times ({{currentSession.icetimes.length}})</h3> -->
-		<h3>{{translationObj.icetimes.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionIcetime({})"></button></h3>
-    <!-- <div class="row">
+		<h3>{{translationObj.icetimes.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus"
+				ng-click="editSessionIcetime({})"></button></h3>
+		<!-- <div class="row">
       <div class="col-xs-5">
 				<button class="btn btn-primary" ng-click="editSessionIcetime({})"><span>{{translationObj.icetimes.buttontitlenewicetime}}</span></button>
       </div>
     </div> -->
-    <div class="row">
-      <div class="col-xs-12">
+		<div class="row">
+			<div class="col-xs-12">
 
 				<div ng-repeat="icetime in currentSession.icetimes">
 					<hr>
 
 					<form>
-					  <div class="row">
-				      <div class="col-xs-3">
-					      <label for="arena">{{translationObj.icetimes.fieldarena}}</label>
-				      	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-				      		<select class="form-control" ng-model="icetime.arenaid" ng-change="onArenaChange()" disabled>
-										<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
-				      		</select>
-				      	</div>
-				      </div>
+						<div class="row">
+							<div class="col-xs-3">
+								<label for="arena{{$index}}">{{translationObj.icetimes.fieldarena}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<select class="form-control" id="arena{{$index}}" ng-model="icetime.arenaid" ng-change="onArenaChange()" disabled>
+										<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}
+										</option>
+									</select>
+								</div>
+							</div>
 
-				      <div class="col-xs-2">
-					      <label for="iceid">{{translationObj.icetimes.fieldice}}</label>
-				      	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-<!--					        <input type="text" class="form-control" id="iceid" name="iceid" value="{{convertArenaIceToCurrentDesc(icetime.arenaid, icetime.iceid, $scope.context.preferedlanguage)}}" disabled>-->
-					        <input type="text" class="form-control" name="iceid" ng-model="icetime.icelabel" disabled>
-					      </div>
-				      </div>
+							<div class="col-xs-2">
+								<label for="iceid{{$index}}">{{translationObj.icetimes.fieldice}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<input type="text" class="form-control" id="iceid{{$index}}" name="iceid"
+										ng-model="icetime.icelabel" disabled>
+								</div>
+							</div>
 
-				      <div class="col-xs-2">
-				      </div>
-				      <div class="col-xs-2">
-					      <label>&nbsp;</label>
-				      	<div class="input-group">
-			    				<span>
-										<child-edit-button 			obj="icetime" objlist="currentSession.icetimes" callback="editSessionIcetime(icetime)"></child-edit-button>
-										<child-delete-button 		obj="icetime" objlist="currentSession.icetimes" callback="setDirty()"></child-delete-button>
-										<child-undelete-button 	obj="icetime" objlist="currentSession.icetimes" callback="setDirty()"></child-undelete-button>
+							<div class="col-xs-2">
+							</div>
+							<div class="col-xs-2">
+								<label>&nbsp;</label>
+								<div class="input-group">
+									<span>
+										<child-edit-button obj="icetime" objlist="currentSession.icetimes"
+											callback="editSessionIcetime(icetime)"></child-edit-button>
+										<child-delete-button obj="icetime" objlist="currentSession.icetimes"
+											callback="setDirty()"></child-delete-button>
+										<child-undelete-button obj="icetime" objlist="currentSession.icetimes"
+											callback="setDirty()"></child-undelete-button>
 										<child-status-indicator obj="icetime"></child-status-indicator>
 									</span>
-							  </div>
-				      </div>
+								</div>
+							</div>
 
-				    </div>
-					  <div class="row">
-
-				      <div class="col-xs-2">
-					      <label for="day">{{translationObj.icetimes.fieldday}}</label>
-				      	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-				      		<select class="form-control" ng-model="icetime.day" disabled>
+						</div>
+						<div class="row">
+							<div class="col-xs-2">
+								<label for="day{{$index}}">{{translationObj.icetimes.fieldday}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<select class="form-control" id="day{{$index}}" ng-model="icetime.day" disabled>
 										<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
-				      		</select>
-				      	</div>
-				      </div>
+									</select>
+								</div>
+							</div>
 
-				      <div class="col-xs-2">
-					      <label for="starttime">{{translationObj.icetimes.fieldstarttime}}</label>
-				      	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					        <input type="text" class="form-control" name="starttime" ng-model="icetime.starttime" disabled>
-					      </div>
-				      </div>
+							<div class="col-xs-2">
+								<label for="starttime{{$index}}">{{translationObj.icetimes.fieldstarttime}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<input type="text" class="form-control" id="starttime{{$index}}" name="starttime" ng-model="icetime.starttime" disabled>
+								</div>
+							</div>
 
-				      <div class="col-xs-2">
-					      <label for="endtime">{{translationObj.icetimes.fieldendtime}}</label>
-				      	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					        <input type="text" class="form-control" name="endtime" ng-model="icetime.endtime" disabled>
-					      </div>
-				      </div>
+							<div class="col-xs-2">
+								<label for="endtime{{$index}}">{{translationObj.icetimes.fieldendtime}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<input type="text" class="form-control" id="endtime{{$index}}" name="endtime" ng-model="icetime.endtime" disabled>
+								</div>
+							</div>
 
-				      <div class="col-xs-2">
-					      <label for="duration">{{translationObj.icetimes.fieldduration}}</label>
-				      	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					        <input type="text" class="form-control" name="duration" ng-model="icetime.duration" disabled>
-					      </div>
-				      </div>
+							<div class="col-xs-2">
+								<label for="duration{{$index}}">{{translationObj.icetimes.fieldduration}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<input type="text" class="form-control" id="duration{{$index}}" name="duration" ng-model="icetime.duration"	disabled>
+								</div>
+							</div>
 
-					    <div class="col-xs-8">
-					      <label for="comment">{{translationObj.icetimes.fieldcomments}}</label>
-					    	<div class="input-group">
-								  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					      	<input type="text" class="form-control" ng-model="icetime.comment" maxlength="200" disabled>
-					    	</div>
-					    </div>
+							<div class="col-xs-8">
+								<label for="comment{{$index}}">{{translationObj.icetimes.fieldcomments}}</label>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+									<input type="text" class="form-control" id="comment{{$index}}" ng-model="icetime.comment" maxlength="200" disabled>
+								</div>
+							</div>
 
 						</div>
 					</form>
 				</div>
 
-      </div>
-    </div>
-  </div>
+			</div>
+		</div>
+	</div>
 </div>

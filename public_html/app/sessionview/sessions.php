@@ -1040,7 +1040,7 @@ function delete_session($mysqli, $session) {
 
 		if (empty($id)) throw new Exception("Invalid Session.");
 		// Delete all bills (and child) related to registrations from this session
-		$query = "DELETE FROM `cpa_bills` cb WHERE cb.id IN (SELECT billid FROM cpa_bills_registrations WHERE registrationid IN (SELECT id FROM cpa_registrations WHERE sessionid = '$id'))";
+		$query = "DELETE FROM `cpa_bills` WHERE id IN (SELECT billid FROM cpa_bills_registrations WHERE registrationid IN (SELECT id FROM cpa_registrations WHERE sessionid = '$id'))";
 		if (!$mysqli->query($query)) throw new Exception('delete_session - delete bills - '.$mysqli->sqlstate.' - '. $mysqli->error);
 		// Delete all registrations (and child) from this session
 		$query = "DELETE FROM cpa_registrations WHERE sessionid = '$id'";
