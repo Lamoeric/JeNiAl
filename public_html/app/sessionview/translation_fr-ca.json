@@ -6,6 +6,8 @@
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdeletesession", "text":"Voulez-vous vraiment effacer cette session?"},
+	{"formname":"main", "fieldname":"msgdeletesession2", "text":"Pour confirmer la destruction de la session, inscrivez : "},
+	{"formname":"main", "fieldname":"msgdeletesessioncanceled", "text":"Destruction annulée"},
 	{"formname":"main", "fieldname":"msgdatesgenerated", "text":"Les dates ont déjà été générées pour ce cours. Voulez-vous vraiment les détruire et les regénérer? (les dates avec des présences ne seront pas détruites ni regénérées)"},
 	{"formname":"main", "fieldname":"msggeneratedates", "text":"Voulez-vous vraiment générer les dates de ce cours?"},
 	{"formname":"main", "fieldname":"msgdatesregenerated", "text":"Dates de cours générées"},

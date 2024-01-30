@@ -4,18 +4,34 @@
 // Created on: 2016-04-28
 
 // newObj - represents the object we are editing in the editor.
-//  newObj.callback - if this method exists, it is used to validate the form instead of the standard validation.
-//                    Method receives 2 parameters, the form object and the object being edited
-//                    Return value must be null or the id of the DIV containing the error message to display.
-//                    Use this method when validations are more complicated than just "required" or not.
-//                    Example : 	$scope.validateNewRegistration = function(editObjForm, newRegistration){}
 // control - represents an object containing methods that are needed by the dialog box, like onChange methods, and such.
-//            Caller must use control.onChange() to call function from HTML
+//           Caller must use, for example, control.onChange() to call function from HTML
+// callback - if this method exists, it is used to validate the form instead of the standard validation.
+//            Method receives 2 parameters, the form object and the object being edited
+//            Return value must be null or the id of the DIV containing the error message to display.
+//            Use this method when validations are more complicated than just "required" or not.
+//            Example : 	$scope.validateNewRegistration = function(editObjForm, newRegistration){}
 
 angular.module('core').controller('childeditorex.controller', function ($scope, $uibModalInstance, newObj, control, callback) {
   $scope.newObj = newObj;
   $scope.control = control;
   $scope.callback = callback;
+
+  $uibModalInstance.rendered.then(function() {
+    // alert('modal has rendered');
+  });
+
+  $uibModalInstance.opened.then(function() {
+    // alert('modal has opened');
+  });
+
+  $uibModalInstance.closed.then(function() {
+    // alert('modal has closed');
+  });
+
+  $uibModalInstance.result.then(function() {
+    // alert('modal has closed and rejected');
+  });
 
   // Validate and close
   $scope.ok = function () {
