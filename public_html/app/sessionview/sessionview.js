@@ -32,6 +32,15 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		$scope.coursecodefilter = null;
 		$scope.filtercoursesdate = null;
 		$scope.filterarena = null;
+		$scope.remarkable = new Remarkable({
+				html:         false,        // Enable HTML tags in source
+				xhtmlOut:     false,        // Use '/' to close single tags (<br />)
+				breaks:       false         // Convert '\n' in paragraphs into <br>
+	//      langPrefix:   'language-',  // CSS language prefix for fenced blocks
+	//      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
+	//      quotes: '����',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '��' for Russian, '��' for German.
+	//      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
+		});
 
 		$scope.isDirty = function () {
 			if ($scope.detailsForm.$dirty) {
@@ -131,6 +140,19 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				});
 		};
 
+		$scope.convertParagraph = function(paragraph) {
+			if (paragraph) {
+				paragraph.msgfr =  "<H3>" + (paragraph.title_fr!=null && paragraph.title_fr!='' ? paragraph.title_fr : '') + "</H3>" +
+								"<H4>" + (paragraph.subtitle_fr!=null && paragraph.subtitle_fr!='' ? paragraph.subtitle_fr : '') + "</H4>" +
+								"<p>" + (paragraph.paragraphtext_fr!=null && paragraph.paragraphtext_fr!='' ? $scope.remarkable.render(paragraph.paragraphtext_fr) : '') + "</p>";
+				paragraph.msgfr =  $sce.trustAsHtml(paragraph.msgfr);
+				paragraph.msgen =  "<H3>" + (paragraph.title_en!=null && paragraph.title_en!='' ? paragraph.title_en : '') + "</H3>" +
+								"<H4>" + (paragraph.subtitle_en!=null && paragraph.subtitle_en!='' ? paragraph.subtitle_en : '') + "</H4>" +
+								"<p>" + (paragraph.paragraphtext_en!=null && paragraph.paragraphtext_en!='' ? $scope.remarkable.render(paragraph.paragraphtext_en) : '') + "</p>";
+				paragraph.msgen =  $sce.trustAsHtml(paragraph.msgen);
+			}
+		}
+	
 		$scope.getSessionDetails = function (session) {
 			$scope.promise = $http({
 				method: 'post',
@@ -196,6 +218,9 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 								$scope.currentSession.sessionCourses[i].enddate = parseISOdateService.parseDate($scope.currentSession.sessionCourses[i].enddate + "T00:00:00");
 							}
 							$scope.currentSession.sessionCourses[i].namenospace = $scope.currentSession.sessionCourses[i].id;
+						}
+						for (var i = 0; i < $scope.currentSession.rules2.length; i++) {
+							$scope.convertParagraph($scope.currentSession.rules2[i]);
 						}
 						listsService.getAllSessionsEx($scope, authenticationService.getCurrentLanguage(), null, $scope.currentSession.id);
 						$scope.manageAllCoursesDates();
