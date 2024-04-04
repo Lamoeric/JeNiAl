@@ -69,7 +69,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 					$scope.promise = $http({
 						method: 'post',
 						url: './sessionview/sessions.php',
-						data: $.param({ 'sessionid': $scope.currentSession.id, 'copyicetimes': true, 'copycourses': true, 'copycharges': true, 'copyrules': true, 'type': 'copySession' }),
+						data: $.param({ 'sessionid': $scope.currentSession.id, 'copyicetimes': true, 'copycourses': true, 'copycharges': true, 'copyrules': false, 'type': 'copySession' }),
 						headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 					}).
 						success(function (data, status, headers, config) {

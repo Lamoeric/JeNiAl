@@ -35,11 +35,28 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 
 }])
 
-.controller('ccregistrationviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route', 'pricingService', 'dateFilter', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', 'agreementdialog', 'billingService', function($scope, $rootScope, $q, $http, $window, $location, $route, pricingService, dateFilter, authenticationService, translationService, auth, dialogService, anycodesService, agreementdialog, billingService) {
-	$rootScope.applicationName = "EC";
+.controller('ccregistrationviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route', '$sce', 'pricingService', 'dateFilter', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', 'agreementdialog', 'billingService', function($scope, $rootScope, $q, $http, $window, $location, $route, $sce, pricingService, dateFilter, authenticationService, translationService, auth, dialogService, anycodesService, agreementdialog, billingService) {
+	$scope.remarkable = new Remarkable({
+		html:         false,        // Enable HTML tags in source
+		xhtmlOut:     false,        // Use '/' to close single tags (<br />)
+		breaks:       false         // Convert '\n' in paragraphs into <br>
+//		  langPrefix:   'language-',  // CSS language prefix for fenced blocks
+//		  typographer:  false,				// Enable some language-neutral replacement + quotes beautification
+//		  quotes: '“”‘’',							// Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//		  highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
+  	});
+  	$rootScope.applicationName = "EC";
 	$scope.skaterid = $route.current.params.skaterid;
 	$scope.sessionid = $route.current.params.sessionid;
 
+	// Converts the paragraph using remarkable to convert markdown text and sanitizes it
+	$scope.convertParagraph = function(paragraph) {
+		paragraph.markdownmsg =  "<H3>" + (paragraph.title!=null && paragraph.title!='' ? paragraph.title : '') + "</H3>" +
+				"<H4>" + (paragraph.subtitle!=null && paragraph.subtitle!='' ? paragraph.subtitle : '') + "</H4>" +
+				"<p>" + (paragraph.paragraphtext!=null && paragraph.paragraphtext!='' ? $scope.remarkable.render(paragraph.paragraphtext) : '') + "</p>";
+		paragraph.markdownmsg =  $sce.trustAsHtml(paragraph.markdownmsg);
+	}
+	
 	$scope.getSessionRules = function () {
 		return $http({
 			method: 'post',
@@ -48,13 +65,18 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).
 		success(function(data, status, headers, config) {
+			if (data.newrule == true) {
+				var len = data.paragraphs.length;
+				for (var x = 0; x < len; x++) {
+					$scope.convertParagraph(data.paragraphs[x]);
+				}
+			}
 		}).
 		error(function(data, status, headers, config) {
 			dialogService.displayFailure(data);
 			return false;
 		});
 	};
-
 
 	$scope.getSkaterRegistrationDetails = function () {
 		if (!$rootScope.userInfo) return;

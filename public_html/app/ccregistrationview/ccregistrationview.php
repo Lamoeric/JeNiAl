@@ -6,6 +6,7 @@ require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../include/nocache.php');
 require_once('../../include/registration.php');
 require_once('../core/directives/billing/bills.php');
+require_once('../../include/invalidrequest.php');
 
 if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
 	$type = $_POST['type'];
@@ -182,20 +183,42 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 };
 
 /**
- * This function gets the session rules for the session
+ * This function gets the session rules for the session. Either the new rules paragraphs or the old rule file
  * @throws Exception
  */
 function getSessionRules($mysqli, $sessionid, $language){
 	try{
 		$data = array();
-		$query = "SELECT rules
-							FROM cpa_sessions_rules csr
-							WHERE csr.sessionid = $sessionid
-							AND language = '$language'";
-		$result = $mysqli->query( $query );
-		$row = $result->fetch_assoc();
-		header("Content-type: text/text;charset=iso-8859-1");
-    echo $row['rules'];
+		$data['newrule'] = false;
+		$query = "	SELECT 	csr.id, csr.paragraphindex, csr.title, csr.subtitle, csr.paragraphtext, csr.visiblepreview publish,
+							getWSTextLabel(csr.title, '$language') title, getWSTextLabel(csr.subtitle, '$language') subtitle, getWSTextLabel(csr.paragraphtext, '$language') paragraphtext
+					FROM cpa_sessions_rules2 csr
+					WHERE csr.sessionid = $sessionid
+					AND csr.publish = 1
+					ORDER BY paragraphindex";
+		$result = $mysqli->query($query);
+		$data['data'] = array();
+		while ($row = $result->fetch_assoc()) {
+			$row['id'] = (int)$row['id'];
+			$row['paragraphindex'] = (int)$row['paragraphindex'];
+			$data['paragraphs'][] = $row;
+			$data['newrule'] = true;
+		}
+		// New rule format has been found
+		if ($data['newrule'] == true) {
+			$data['success'] = true;
+			echo json_encode($data);
+		} else {
+			// New rule format not found, load the old format.
+			$query = "	SELECT rules
+						FROM cpa_sessions_rules csr
+						WHERE csr.sessionid = $sessionid
+						AND language = '$language'";
+			$result = $mysqli->query( $query );
+			$row = $result->fetch_assoc();
+			header("Content-type: text/text;charset=iso-8859-1");
+			echo $row['rules'];
+		}
 		exit;
 	}catch (Exception $e){
 		$data = array();
@@ -204,15 +227,6 @@ function getSessionRules($mysqli, $sessionid, $language){
 		echo json_encode($data);
 		exit;
 	}
-};
-
-
-function invalidRequest(){
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
 };
 
 ?>

@@ -78,8 +78,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 		$data = array();
 		$id = "";
 		$query = "INSERT INTO cpa_sessions(id, name, label, startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, active)
-							 SELECT null, 'name/nom', create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, 0
-							 	FROM cpa_sessions WHERE id = $sessionid";
+					SELECT null, 'name/nom', create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, 0
+					FROM cpa_sessions WHERE id = $sessionid";
 		if ($mysqli->query($query)) {
 			$id = (int) $mysqli->insert_id;
 			$query = "UPDATE cpa_sessions SET name = concat(name, ' ',  $id) WHERE id = $id";
@@ -89,8 +89,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 				} else {
 					if ($copyicetimes == true) {
 						$query = "INSERT INTO cpa_sessions_icetimes(id, sessionid, arenaid, day, starttime, endtime, duration, iceid, comment)
-												SELECT null, $id, arenaid, day, starttime, endtime, duration, iceid, comment
-													FROM cpa_sessions_icetimes WHERE sessionid = $sessionid";
+									SELECT null, $id, arenaid, day, starttime, endtime, duration, iceid, comment
+									FROM cpa_sessions_icetimes WHERE sessionid = $sessionid";
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
@@ -99,8 +99,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 					}
 					if ($copycharges == true) {
 						$query = "INSERT INTO cpa_sessions_charges(id, sessionid, chargecode, amount)
-												SELECT null, $id, chargecode, amount
-													FROM cpa_sessions_charges WHERE sessionid = $sessionid";
+									SELECT null, $id, chargecode, amount
+									FROM cpa_sessions_charges WHERE sessionid = $sessionid";
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
@@ -109,8 +109,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 	 			 	}
 					if ($copyrules == true) {
 						$query = "INSERT INTO cpa_sessions_rules(id, sessionid, language, rules)
-												SELECT null, $id, language, rules
-													FROM cpa_sessions_rules WHERE sessionid = $sessionid";
+									SELECT null, $id, language, rules
+									FROM cpa_sessions_rules WHERE sessionid = $sessionid";
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
@@ -118,7 +118,9 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 		 			 	}
 	 			 	}
 					if ($copycourses == true) {
-						$query = "SELECT id, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, availableonline FROM cpa_sessions_courses WHERE sessionid = $sessionid";
+						$query = "SELECT id, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, availableonline 
+									FROM cpa_sessions_courses 
+									WHERE sessionid = $sessionid";
 						$result = $mysqli->query($query);
 						while ($row = $result->fetch_assoc()) {
 							$sessionscoursesid = $row['id'];
@@ -131,48 +133,21 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 							$maxnumberskater = $row['maxnumberskater'];
 							$availableonline = $row['availableonline'];
 							$query = "INSERT INTO cpa_sessions_courses(id, sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, datesgenerated, label)
-												VALUES (null, $id, '$coursecode', '$courselevel', '$name', $fees, $minnumberskater, $maxnumberskater, $availableonline, 0, create_systemtext(getEnglishTextLabel($label), getFrenchTextLabel($label)))";
+										VALUES (null, $id, '$coursecode', '$courselevel', '$name', $fees, $minnumberskater, $maxnumberskater, $availableonline, 0, create_systemtext(getEnglishTextLabel($label), getFrenchTextLabel($label)))";
 							if ($mysqli->query($query)) {
 								$newsessionscoursesid = (int) $mysqli->insert_id;
 
 								$query = "INSERT INTO cpa_sessions_courses_schedule(id, sessionscoursesid, arenaid, iceid, day, starttime, endtime, duration)
-													SELECT null, $newsessionscoursesid, arenaid, iceid, day, starttime, endtime, duration
-														FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
+											SELECT null, $newsessionscoursesid, arenaid, iceid, day, starttime, endtime, duration
+											FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
 								if ($mysqli->query($query)) {
 								} else {
 									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 								}
-
-
-								// $query = "SELECT /*id, sessionscoursesid,*/ arenaid, iceid, day, starttime, endtime, duration FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
-								// $result2 = $mysqli->query($query);
-								// while ($row2 = $result2->fetch_assoc()) {
-									// $arenaid = $row2['arenaid'];
-									// $iceid = $row2['iceid'];
-									// $day = $row2['day'];
-									// $starttime = $row2['starttime'];
-									// $endtime = $row2['endtime'];
-									// $duration = $row2['duration'];
-									// $query = "INSERT INTO cpa_sessions_courses_schedule(id, sessionscoursesid, arenaid, iceid, day, starttime, endtime, duration
-									// 					VALUES (null, $newsessionscoursesid, $arenaid, $iceid, $day, '$starttime', '$endtime', $duration)";
-								// 	if ($mysqli->query($query)) {
-								// 	} else {
-								// 	 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								// 	 	}
-								// }
 							} else {
 			 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			 			 	}
 						}
-
-						// $query = "INSERT INTO cpa_sessions_courses(id, sessionid, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, datesgenerated)
-						// 						SELECT null, $id, coursecode, courselevel, name, create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), fees, minnumberskater, maxnumberskater, 0
-						// 							FROM cpa_sessions_courses WHERE sessionid = $sessionid";
-						// if ($mysqli->query($query)) {
-						// 	$data['success'] = true;
-						// } else {
-						//  		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						//  	}
 					}
 				}
 			} else {
