@@ -146,6 +146,7 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 		$row = $result->fetch_assoc();
 		if (!empty($row['id'])) {
 			$registrationid = (int)$row['id'];
+			$lastupdateddate = $row['lastupdateddate'];
 		} else {
 			$registrationid = 0;
 		}
@@ -169,6 +170,8 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 			$data['data'][] = $row;
 		}
 		$data['data'][0]['id'] = (int)$registrationid;
+		$data['data'][0]['originalId'] = (int)$registrationid;
+		$data['data'][0]['lastupdateddate'] = $lastupdateddate;
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;

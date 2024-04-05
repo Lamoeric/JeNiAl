@@ -284,9 +284,16 @@ function countFamilyMembersRegistrations($mysqli, $eventtype, $eventid, $memberi
  * Checks if registration is still up to date
  */
 function isRegistrationUpToDate($mysqli, $registration) {
+	// $originalId = 0;
 	if (isset($registration['id'])) {
+		// Use id or if not set, use originalId
 		$id = isset($registration['id']) ? $mysqli->real_escape_string((int) $registration['id']) : 0;
+		if ($id == 0) {
+			$id = isset($registration['originalId']) ? $mysqli->real_escape_string((int) $registration['originalId']) :0;
+			// $originalId = isset($registration['originalId']) ? $mysqli->real_escape_string((int) $registration['originalId']) :0;
+		}
 		$lastupdateddate = isset($registration['lastupdateddate']) ? $mysqli->real_escape_string($registration['lastupdateddate']) : null;
+		// throw new Exception("id = ".$id.", id = ".$registration['id']. ", originalId = ".$originalId.", Lastupdateddate = ".$lastupdateddate); // for debug purposes only
 		if ($id != 0) {
 			$query = "SELECT count(*) nb FROM cpa_registrations WHERE id = $id AND lastupdateddate = '$lastupdateddate'";
 			$result = $mysqli->query($query);
