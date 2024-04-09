@@ -136,6 +136,7 @@ function copyRegistration($mysqli, $registrationid, $newregistrationdatestr, $ne
 function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $registrationdate, $language){
 	try{
 		$data = array();
+		$lastupdateddate=null;
 		// Check if user already has a registration for this session
 		$query = "SELECT cr.id, cr.lastupdateddate
 				  FROM cpa_registrations cr

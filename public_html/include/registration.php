@@ -294,12 +294,16 @@ function isRegistrationUpToDate($mysqli, $registration) {
 		}
 		$lastupdateddate = isset($registration['lastupdateddate']) ? $mysqli->real_escape_string($registration['lastupdateddate']) : null;
 		// throw new Exception("id = ".$id.", id = ".$registration['id']. ", originalId = ".$originalId.", Lastupdateddate = ".$lastupdateddate); // for debug purposes only
-		if ($id != 0) {
-			$query = "SELECT count(*) nb FROM cpa_registrations WHERE id = $id AND lastupdateddate = '$lastupdateddate'";
-			$result = $mysqli->query($query);
-			while ($row = $result->fetch_assoc()) {
-				if ($row['nb'] != 0) return true;
+		if ($lastupdateddate != null) {
+			if ($id != 0) {
+				$query = "SELECT count(*) nb FROM cpa_registrations WHERE id = $id AND lastupdateddate = '$lastupdateddate'";
+				$result = $mysqli->query($query);
+				while ($row = $result->fetch_assoc()) {
+					if ($row['nb'] != 0) return true;
+				}
 			}
+		} else {
+			return true;	// This is a new registration
 		}
 	}
 	return false;

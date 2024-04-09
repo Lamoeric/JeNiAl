@@ -278,7 +278,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	// When a charge is selected (or de-selected)
 	$scope.onChargeSelected = function(charge) {
 		// TODO: add automatic charge to the list of non clickable charges
-		if (charge != null && charge.alwaysselectedonline != '1') {
+		if (charge != null && charge.alwaysselectedonline != '1' && charge.issystem != '1') {
 			if (charge.selected == "1") {
 				charge.selected = "0";
 			} else {
@@ -342,6 +342,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 				// Hide rebate that are not selectable
 				// alwaysselectedonline are selected by default only for new registrations
 				if (item.alwaysselectedonline == '1' && item.selected == '0' && item.selected_old == '0') {
+					return false;
+				}
+				// Hide system rebates that are not already selected
+				if (item.issystem == '1' && item.selected == '0' && item.selected_old == '0') {
 					return false;
 				}
 			}

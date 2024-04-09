@@ -91,11 +91,11 @@
 									</div>
 								</div>
 
-								<div ng-repeat="charge in currentRegistration.charges | filter : filterCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer"  ng-class="{selected: charge.selected=='1' && charge.selected_old=='0'}">
+								<div ng-repeat="charge in currentRegistration.charges | filter : filterCharges" ng-click="onChargeSelected(charge)" style="cursor: pointer"  ng-class="{selected: charge.selected=='1' && charge.selected_old=='0' && charge.issystem!='1'}">
 									<div class="row">
 										<div class="col-xs-12 col-md-5">
 											<div class="input-group">
-												<strong>{{charge.label}}</strong><i ng-if="charge.nonrefundable=='1'"><br>{{charge.nonrefundablelabel}}</i>
+												<strong>{{charge.label}}</strong><i ng-if="charge.nonrefundable=='1'"><br>{{charge.nonrefundablelabel}}</i><i ng-if="charge.comments&&charge.comments!=''"><br>{{charge.comments}}</i>
 											</div>
 										</div>
 										<div class="col-xs-12 col-md-4">
