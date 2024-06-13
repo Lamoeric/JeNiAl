@@ -1,3 +1,4 @@
+<!-- <script src="https://www.paypal.com/sdk/js?client-id=test&components=buttons&enable-funding=venmo,paylater" data-sdk-integration-source="integrationbuilder_sc"></script> -->
 <!-- Left Pane -->
 <!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
 <leftpane></leftpane>
@@ -8,7 +9,7 @@
 
 	<!-- Buttons -->
 	<!-- <main-new-button new-callback="createNew()"></main-new-button> -->
-	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !boardForm.$dirty && !emailForm.$dirty" ng-if="userInfo.privileges.admin_update==true"></main-save-button>
+	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !boardForm.$dirty && !emailForm.$dirty && !paypalForm.$dirty" ng-if="userInfo.privileges.admin_update==true"></main-save-button>
 	<!-- <main-delete-button delete-callback="deleteFromDB()"></main-delete-button> -->
 
 	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
@@ -24,6 +25,7 @@
 		<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>
 		<li class="pointerlist"><a data-toggle="tab" data-target="#board">{{translationObj.main.panetitleboardmembers}}</a></li>
 		<li class="pointerlist"><a data-toggle="tab" data-target="#email">{{translationObj.main.panetitleemail}}</a></li>
+		<li class="pointerlist"><a data-toggle="tab" data-target="#paypal">{{translationObj.main.panetitlepaypal}}</a></li>
 		<li class="pointerlist"><a data-toggle="tab" data-target="#import">{{translationObj.main.panetitleimport}}</a></li>
 	</ul>
 
@@ -50,6 +52,13 @@
 		</div>
 
 		<!-- Email configuration -->
+		<div id="paypal" class="tab-pane fade">
+			<form class="form-horizontal well" role="form" name="paypalForm" class="ng-hide">
+				<div ng-include="'configurationview/paypal.form.html'"></div>
+			</form>
+		</div>
+
+		<!-- Import SC -->
 		<div id="import" class="tab-pane fade">
 			<form class="form-horizontal well" role="form" name="importForm" class="ng-hide">
 				<div ng-include="'configurationview/import.form.html'"></div>
