@@ -8,6 +8,7 @@
 	{"formname":"main", "fieldname":"formtitlebilldetails", "text":"Détails facture"},
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
 	{"formname":"main", "fieldname":"formtitlebillclosed", "text":"fermée"},
+	{"formname":"main", "fieldname":"msgnofilter", "text":"Aucun filtre défini"},
 
 	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Information"},
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
@@ -17,6 +18,16 @@
 	{"formname":"details", "fieldname":"fieldtitleactive", "text":"Actif"},
 	{"formname":"details", "fieldname":"buttontitleice", "text":"Glaces"},
 	{"formname":"details", "fieldname":"fieldtitlecode", "text":"Code"},
+
+	{"formname":"filter", "fieldname":"fieldfirstname", "text":"Prénom"},
+	{"formname":"filter", "fieldname":"fieldLastname", "text":"Nom de famille"},
+	{"formname":"filter", "fieldname":"fieldregistrations", "text":"Membres"},
+	{"formname":"filter", "fieldname":"fieldbillpaid", "text":"Solde"},
+	{"formname":"filter", "fieldname":"fieldonlyopenedbills", "text":"Ouvertes seulement"},
+	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Retirer filtre"},
+	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Vider formulaire"},
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Appliquer filtre"},
 
 	{"formname":"newbill", "fieldname":"formtitleeditbill", "text":"Nouvelle facture"},
 	{"formname":"newbill", "fieldname":"fieldtitlename", "text":"Nom"},
