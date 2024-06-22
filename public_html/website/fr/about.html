@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('about', 'fr-ca')">
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('about', 'fr-ca')" ng-cloak>
 <head>
   <script>
     var shiftWindow = function() { scrollBy(0, -110) };
@@ -49,7 +49,7 @@
   <!-- template main css file -->
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body onload="load()" ng-cloak>
+<body onload="load()">
 
 <!--
 ==================================================
@@ -67,7 +67,7 @@ Main header Section Start
 ==================================================
     Club Description Section Start
 ================================================== -->
-<section id="company-description" ng-if="currentpage.globalsections.club" ng-cloak>
+<section id="company-description" ng-if="currentpage.globalsections.club">
   {{currentsection=currentpage.globalsections.club;""}}
   <div class="container">
     <div class="row">
@@ -90,7 +90,7 @@ Main header Section Start
 ==================================================
 Board Members Section Start
 ================================================== -->
-<section id="team" ng-if="currentpage.globalsections.boardmembers" ng-cloak>
+<section id="team" ng-if="currentpage.globalsections.boardmembers">
   {{currentsection=currentpage.globalsections.boardmembers;""}}
   <div class="container">
     <div class="row">
@@ -118,7 +118,7 @@ Board Members Section Start
 ==================================================
 Coaches Section Start
 ================================================== -->
-<section id="team" ng-if="currentpage.globalsections.coaches" ng-cloak>
+<section id="team" ng-if="currentpage.globalsections.coaches">
   {{currentsection=currentpage.globalsections.coaches;""}}
   <div class="container">
     <div class="row">
@@ -147,7 +147,7 @@ Coaches Section Start
 ==================================================
 Assistants Section Start
 ================================================== -->
-<section id="team" ng-if="currentpage.globalsections.programassistants" ng-cloak>
+<section id="team" ng-if="currentpage.globalsections.programassistants">
   {{currentsection=currentpage.globalsections.programassistants;""}}
   <div class="container">
     <div class="row">
@@ -187,7 +187,7 @@ Call To Action Section Start
 Footer Section Start
 ================================================== -->
 <!-- <footer ng-include="'../templates/footer.template.html'"></footer> -->
-<footer id="footer" ng-cloak>
+<footer id="footer">
   <div class="container">
     <div class="col-md-8">
       <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://www.jenial.ca" target="_blank">JeNiAl</a>.</p>

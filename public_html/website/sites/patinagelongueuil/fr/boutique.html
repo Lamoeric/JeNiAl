@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('boutique', 'fr-ca')">
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('boutique', 'fr-ca')" ng-cloak>
 <head>
   <script>
     var shiftWindow = function() { scrollBy(0, -110) };
@@ -121,7 +121,7 @@ Costumes List Section Start
             <a ng-href="costumedetails.html?costumeid={{onecostume.id}}"><img ng-src="/websiteimages/costumes/costumeid{{onecostume.id}}/{{onecostume.imagefilename}}" class="team-pic" alt="" style="max-height:245px;max-width:245px;width:90%;"></a>
           </div>
           <h3 class="team_name"><a ng-href="costumedetails.html?costumeid={{onecostume.id}}">{{onecostume.label}}</a></h3>
-          <p class="team_designation">{{onecostume.totalamount != -1 ? 'Quantité totale : ' + onecostume.totalamount : 'Quantité inconnue'}}<br>{{onecostume.priceperunit != -1 ? onecostume.priceperunit + ' $/ch' : 'Prix à déterminer'}}</p>
+          <p class="team_designation">{{onecostume.priceperunit != -1 ? onecostume.priceperunit + ' $/ch' : 'Prix à déterminer'}}</p>
           <p><a ng-href="costumedetails.html?costumeid={{onecostume.id}}">[Détails]</a></p>
         </div>
       </div>
@@ -162,7 +162,7 @@ Classified Adds List Section Start
           </div>
         </figure>
 
-        <h3 class="team_name"><a ng-href="classifiedaddsdetails.html?classifiedaddid={{oneadd.id}}">{{oneadd.label}}</a></h3>
+        <h3 class="team_name">{{oneadd.label}}</h3>
         <p class="team_designation">{{oneadd.price != -1 ? oneadd.price + ' $' : 'Prix à déterminer'}}</p>
         <p ng-bind-html="oneadd.description"></p>
       </div>

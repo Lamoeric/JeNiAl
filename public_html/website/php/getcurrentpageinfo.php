@@ -547,7 +547,7 @@ function getgoodslistsection($mysqli, $language, $previewmode) {
 	$data = array();
 	$data['data'] = array();
   while ($row = $result->fetch_assoc()) {
-    $row['pictures'] = getGoodsPictures($mysqli, $row['id'], $language)['data'];
+    $row['pictures'] = getGoodsPictures($mysqli, $row['id'], $language, $previewmode)['data'];
     $data['data'][] = $row;
   }
 	$data['success'] = true;
