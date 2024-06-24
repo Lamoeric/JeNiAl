@@ -553,6 +553,15 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		}) ;
 	};
 
+	$scope.checkAll = function(list) {
+		for (var i = 0; list && i < list.length; i++) {
+			if (list[i] != undefined) {
+				list[i].success = '1';
+			}
+		}
+		$scope.setDirty();
+	}
+
 	// This is the function that creates the modal to export the members
 	$scope.exportMembers = function() {
 		$window.open('./reports/exportmemberstocsv.php' + '?language='+authenticationService.getCurrentLanguage());

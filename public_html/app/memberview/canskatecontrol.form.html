@@ -1,109 +1,105 @@
 <div class="form-group row">
 	<div class="grid">
-		<!-- <div class="row">
-    	<div class="col-xs-2">
-    		<h4>{{translationObj.canskate.labelstep}}1</h4>
-  		</div>
-    	<div class="col-xs-2">
-    		<h4>{{translationObj.canskate.labelstep}}2</h4>
-  		</div>
-    	<div class="col-xs-2">
-    		<h4>{{translationObj.canskate.labelstep}}3</h4>
-  		</div>
-    	<div class="col-xs-2">
-    		<h4>{{translationObj.canskate.labelstep}}4</h4>
-  		</div>
-    	<div class="col-xs-2">
-    		<h4>{{translationObj.canskate.labelstep}}5</h4>
-  		</div>
-    	<div class="col-xs-2">
-    		<h4>{{translationObj.canskate.labelstep}}6</h4>
-  		</div>
-		</div> -->
-
 		<div class="row">
-    	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-				<h4>{{translationObj.canskate.labelstep}}1</h4>
-  			<div ng-repeat="test in currentMember.cscontroltests['1']">
-      		<i ng-show="currentMember.cscontroltests['1'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.cscontroltests['1'][$index].success" ng-show="currentMember.cscontroltests['1'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['1'][$index].text}}
-  			</div>
-  		</div>
-    	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-				<h4>{{translationObj.canskate.labelstep}}2</h4>
-  			<div ng-repeat="test in currentMember.cscontroltests['2']">
-      		<i ng-show="currentMember.cscontroltests['2'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.cscontroltests['2'][$index].success" ng-show="currentMember.cscontroltests['2'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['2'][$index].text}}
-  			</div>
-  		</div>
-    	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-				<h4>{{translationObj.canskate.labelstep}}3</h4>
-  			<div ng-repeat="test in currentMember.cscontroltests['3']">
-      		<i ng-show="currentMember.cscontroltests['3'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.cscontroltests['3'][$index].success" ng-show="currentMember.cscontroltests['3'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['3'][$index].text}}
-  			</div>
-  		</div>
-    	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-				<h4>{{translationObj.canskate.labelstep}}4</h4>
-  			<div ng-repeat="test in currentMember.cscontroltests['4']">
-      		<i ng-show="currentMember.cscontroltests['4'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.cscontroltests['4'][$index].success" ng-show="currentMember.cscontroltests['4'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['4'][$index].text}}
-  			</div>
-  		</div>
-    	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-				<h4>{{translationObj.canskate.labelstep}}5</h4>
-  			<div ng-repeat="test in currentMember.cscontroltests['5']">
-      		<i ng-show="currentMember.cscontroltests['5'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.cscontroltests['5'][$index].success" ng-show="currentMember.cscontroltests['5'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['5'][$index].text}}
-  			</div>
-  		</div>
-    	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-				<h4>{{translationObj.canskate.labelstep}}6</h4>
-  			<div ng-repeat="test in currentMember.cscontroltests['6']">
-      		<i ng-show="currentMember.cscontroltests['6'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.cscontroltests['6'][$index].success" ng-show="currentMember.cscontroltests['6'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['6'][$index].text}}
-  			</div>
-  		</div>
-  	</div>
-  	<hr>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<h4>{{translationObj.canskate.labelstep}}1&nbsp;<small><a href="" ng-click="checkAll(currentMember.cscontroltests['1'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.cscontroltests['1']">
+					<i ng-show="currentMember.cscontroltests['1'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.cscontroltests['1'][$index].success"
+						ng-show="currentMember.cscontroltests['1'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['1'][$index].text}}</label>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<h4>{{translationObj.canskate.labelstep}}2&nbsp;<small><a href="" ng-click="checkAll(currentMember.cscontroltests['2'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.cscontroltests['2']">
+					<i ng-show="currentMember.cscontroltests['2'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.cscontroltests['2'][$index].success"
+						ng-show="currentMember.cscontroltests['2'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['2'][$index].text}}</label>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<h4>{{translationObj.canskate.labelstep}}3&nbsp;<small><a href="" ng-click="checkAll(currentMember.cscontroltests['3'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.cscontroltests['3']">
+					<i ng-show="currentMember.cscontroltests['3'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.cscontroltests['3'][$index].success"
+						ng-show="currentMember.cscontroltests['3'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['3'][$index].text}}</label>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<h4>{{translationObj.canskate.labelstep}}4&nbsp;<small><a href="" ng-click="checkAll(currentMember.cscontroltests['4'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.cscontroltests['4']">
+					<i ng-show="currentMember.cscontroltests['4'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.cscontroltests['4'][$index].success"
+						ng-show="currentMember.cscontroltests['4'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['4'][$index].text}}</label>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<h4>{{translationObj.canskate.labelstep}}5&nbsp;<small><a href="" ng-click="checkAll(currentMember.cscontroltests['5'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.cscontroltests['5']">
+					<i ng-show="currentMember.cscontroltests['5'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.cscontroltests['5'][$index].success"
+						ng-show="currentMember.cscontroltests['5'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['5'][$index].text}}</label>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<h4>{{translationObj.canskate.labelstep}}6&nbsp;<small><a href="" ng-click="checkAll(currentMember.cscontroltests['6'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.cscontroltests['6']">
+					<i ng-show="currentMember.cscontroltests['6'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.cscontroltests['6'][$index].success"
+						ng-show="currentMember.cscontroltests['6'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.cscontroltests['6'][$index].text}}</label>
+				</div>
+			</div>
+		</div>
+		<hr>
 		<div class="row">
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon1">{{translationObj.canskate.fieldribbon}} 1</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon1" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['0'].ribbondate">
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon2">{{translationObj.canskate.fieldribbon}} 2</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon2" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['1'].ribbondate">
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon3">{{translationObj.canskate.fieldribbon}} 3</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon3" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['2'].ribbondate">
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon4">{{translationObj.canskate.fieldribbon}} 4</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon4" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['3'].ribbondate">
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon5">{{translationObj.canskate.fieldribbon}} 5</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon5" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['4'].ribbondate">
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon6">{{translationObj.canskate.fieldribbon}} 6</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon6" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['5'].ribbondate">
-	      </div>
-      </div>
-
-  	</div>
-  </div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon1">{{translationObj.canskate.fieldribbon}} 1</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon1" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['0'].ribbondate">
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon2">{{translationObj.canskate.fieldribbon}} 2</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon2" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['1'].ribbondate">
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon3">{{translationObj.canskate.fieldribbon}} 3</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon3" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['2'].ribbondate">
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon4">{{translationObj.canskate.fieldribbon}} 4</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon4" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['3'].ribbondate">
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon5">{{translationObj.canskate.fieldribbon}} 5</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon5" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['4'].ribbondate">
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon6">{{translationObj.canskate.fieldribbon}} 6</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon6" ng-change="setDirty();" ng-model="currentMember.cscontrolribbons['5'].ribbondate">
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
