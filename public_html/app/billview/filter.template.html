@@ -1,0 +1,57 @@
+<div class="modal-header">
+	<h4 class="modal-title">{{translationObj.filter.formtitlefilter}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-5">
+				<label for="firstname">{{translationObj.filter.fieldfirstname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" id="firstname" name="firstname" class="form-control" ng-model="newObj.firstname"	maxlength="40">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="lastname">{{translationObj.filter.fieldLastname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" id="lastname" name="lastname" class="form-control" ng-model="newObj.lastname" maxlength="40">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="registration">{{translationObj.filter.fieldregistrations}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+					<select class="form-control" id="registration" name="registration" ng-model="newObj.registration">
+						<option value=""></option>
+						<option ng-repeat="registrationfilter in registrationfilters" value="{{registrationfilter.code}}">{{registrationfilter.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="registration">{{translationObj.filter.fieldbillpaid}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+					<select class="form-control" id="billpaid" name="billpaid" ng-model="newObj.billpaid">
+						<option value=""></option>
+						<option ng-repeat="billpaidfilter in billpaidfilters" value="{{billpaidfilter.code}}">{{billpaidfilter.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<div class="input-group">
+					<br><label for="onlyopenedbills" ><input type="checkbox" id="onlyopenedbills" name="onlyopenedbills" ng-model="newObj.onlyopenedbills" ng-true-value="'1'" ng-false-value="'0'">{{translationObj.filter.fieldonlyopenedbills}}</label>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		All fields are mandatory.
+	</div> -->
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.filter.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel(true)">{{translationObj.filter.buttontitledismiss}}</button>
+	<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.filter.buttontitleclearform}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.filter.buttontitleapplyfilter}}</button>
+</div>
