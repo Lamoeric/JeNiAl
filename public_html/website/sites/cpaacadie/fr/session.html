@@ -183,7 +183,7 @@ Main header Section Start
 
 <!--
 ==================================================
-    Rules Description Section Start
+    Rules (old and new) Description Section Start
 ================================================== -->
 <section id="company-description" ng-if="currentpage.globalsections.rules">
   {{currentsection=currentpage.globalsections.rules;""}}
@@ -193,9 +193,12 @@ Main header Section Start
         <div class="block">
           <ng-include src="'/public_html/website/templates/sectiontitle.template.html'"></ng-include>
           <ng-include src="'/public_html/website/templates/toplinks.template.html'"></ng-include>
-
-          <div class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" ng-bind-html="currentpage.globalsections.activesessioninfo.rules"></div>
-
+          <!-- Old rule format-->
+          <div class="wow fadeInUp" data-wow-delay=".3s" data-wow-duration="500ms" ng-bind-html="currentpage.globalsections.activesessioninfo.rules" ng-if="currentpage.globalsections.activesessioninfo.rulesparagraphs==null||currentpage.globalsections.activesessioninfo.rulesparagraphs.length==0"></div>
+          <!-- New rule format -->
+          <div  class="wow fadeInUp" data-wow-delay=".5s" data-wow-duration="500ms" ng-repeat="oneparagraph in currentpage.globalsections.activesessioninfo.rulesparagraphs">
+            <div ng-if="oneparagraph.markdownmsg!=null" ng-bind-html="oneparagraph.markdownmsg"></div>
+          </div>
           <ng-include src="'/public_html/website/templates/bottomlinks.template.html'"></ng-include>
         </div>
       </div>
