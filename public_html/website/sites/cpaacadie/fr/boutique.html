@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('boutique', 'fr-ca')">
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('boutique', 'fr-ca')" ng-cloak>
 <head>
   <script>
     var shiftWindow = function() { scrollBy(0, -110) };
@@ -94,7 +94,8 @@ Goods List Section Start
           </div>
         </figure>
 
-        <p class="team_designation">{{onegood.quantity != -1 ? 'Quantité totale : ' + onegood.quantity : 'Quantité inconnue'}}<br>{{onegood.priceperunit != -1 ? onegood.priceperunit + ' $/ch' : 'Prix à déterminer'}}</p>
+        <h3 class="team_name">{{onegood.label}}</h3>
+        <p class="team_designation">{{onegood.priceperunit != -1 ? onegood.priceperunit + ' $/ch' : 'Prix à déterminer'}}</p>
         <p ng-bind-html="onegood.description"></p>
       </div>
 
@@ -162,7 +163,7 @@ Classified Adds List Section Start
           </div>
         </figure>
 
-        <h3 class="team_name"><a ng-href="classifiedaddsdetails.html?classifiedaddid={{oneadd.id}}">{{oneadd.label}}</a></h3>
+        <h3 class="team_name">{{oneadd.label}}</h3>
         <p class="team_designation">{{oneadd.price != -1 ? oneadd.price + ' $' : 'Prix à déterminer'}}</p>
         <p ng-bind-html="oneadd.description"></p>
       </div>
