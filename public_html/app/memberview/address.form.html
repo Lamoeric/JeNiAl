@@ -45,7 +45,7 @@
 	      <label for="country">{{translationObj.address.fieldcountry}}</label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-      		<select class="form-control" id="country" ng-model="currentMember.country" maxlength="20">
+      		<select class="form-control" id="country" ng-model="currentMember.country" maxlength="20" autocomplete="off">
 						<option ng-repeat="country in countries" value="{{country.code}}">{{country.text}}</option>
       		</select>
       	</div>
@@ -81,7 +81,7 @@
 	      <label for="email">{{translationObj.address.fieldemail}}</label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        	<input type="text" class="form-control" id="email" ng-model="currentMember.email" maxlength="100">
+        	<input type="text" class="form-control" id="email" ng-model="currentMember.email" maxlength="100" autocomplete="off">
       	</div>
       </div>
       <div class="col-xs-11 col-md-5">

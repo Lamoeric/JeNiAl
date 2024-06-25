@@ -1,7 +1,7 @@
 		<div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
 	  	<div class="checkbox">
 				<label>
-					<input type="checkbox" ng-model="currentMember.qualifications[$index]" ng-true-value="'{{qualif.code}}'" ng-false-value="null">{{qualif.text}}
+					<input type="checkbox" id="qualif{{$index}}" ng-model="currentMember.qualifications[$index]" ng-true-value="'{{qualif.code}}'" ng-false-value="null">{{qualif.text}}
 				</label>
 			</div>
 		</div>
