@@ -17,6 +17,7 @@
 	{"formname":"details", "fieldname":"fieldtitlewarmupduration", "text":"Durée réchauffement"},
 	{"formname":"details", "fieldname":"fieldtitletestduration", "text":"Durée du test"},
 	{"formname":"details", "fieldname":"fieldtitleversion", "text":"Version"},
+	{"formname":"details", "fieldname":"fieldtitleevaluation", "text":"Évaluation"},
 
 	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"Nouvelle définition de test"},
 	{"formname":"newtest", "fieldname":"fieldtitletype", "text":"Type"},

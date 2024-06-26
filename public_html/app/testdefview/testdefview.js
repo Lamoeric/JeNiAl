@@ -215,45 +215,49 @@ angular.module('cpa_admin.testdefview', ['ngRoute'])
 	};
 
 	// This is the function that creates the modal to create new test
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newTest = {};
-			// Send the newTest to the modal form
-			$uibModal.open({
-					animation: false,
-					templateUrl: 'testdefview/newtestdef.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'lg',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newTest;
-						}
-					}
-			})
-			.result.then(function(newTest) {
-					// User clicked OK and everything was valid.
-					$scope.newTest = newTest;
-					if ($scope.addTestToDB() == true) {
-					}
-			}, function() {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
-	};
+	// $scope.createNew = function (confirmed) {
+	// 	if ($scope.isDirty() && !confirmed) {
+	// 		dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
+	// 	} else {
+	// 		$scope.newTest = {};
+	// 		// Send the newTest to the modal form
+	// 		$uibModal.open({
+	// 				animation: false,
+	// 				templateUrl: 'testdefview/newtestdef.template.html',
+	// 				controller: 'childeditor.controller',
+	// 				scope: $scope,
+	// 				size: 'lg',
+	// 				backdrop: 'static',
+	// 				resolve: {
+	// 					newObj: function () {
+	// 						return $scope.newTest;
+	// 					}
+	// 				}
+	// 		})
+	// 		.result.then(function(newTest) {
+	// 				// User clicked OK and everything was valid.
+	// 				$scope.newTest = newTest;
+	// 				if ($scope.addTestToDB() == true) {
+	// 				}
+	// 		}, function() {
+	// 			// User clicked CANCEL.
+	// 			// alert('canceled');
+	// 		});
+	// 	}
+	// };
 
 	$scope.refreshAll = function() {
 		$scope.getAllTests();
 		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testtypes', 'text', 'testtypes');
 
-		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testlevels', 			'sequence', 'testlevels');
-		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testtypes', 				'text', 		'testtypes');
-		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testsubtypes', 	 	'text', 		'testsubtypes');
-		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testsubsubtypes', 	'text', 		'testsubsubtypes');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testlevels', 		'sequence',	'testlevels');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testtypes', 			'text', 	'testtypes');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testsubtypes', 	 	'text', 	'testsubtypes');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testsubsubtypes', 	'text', 	'testsubsubtypes');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testnewlevels',		'sequence', 'testnewlevels');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testnewlevels',		'sequence', 'testnewlevels');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testversions',		'sequence', 'testversions');
+		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testevaluations',	'sequence', 'testevaluations');
 
 		listsService.getAllTestsDefinitions($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/);
 		translationService.getTranslation($scope, 'testdefview', authenticationService.getCurrentLanguage());

@@ -375,7 +375,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		if (version == 1) {
 			$scope.editTestEx(newSkill, 'abilities', $scope.currentMember.abilities, version, $scope.abilities);
 		} else if (version == 2) {
-			$scope.editTestEx(newSkill, 'abilities', $scope.currentMember.starabilities, version, $scope.starabilities);
+			$scope.editTestEx(newSkill, 'starabilities', $scope.currentMember.starabilities, version, $scope.starabilities);
 		}
 	}
 
@@ -384,19 +384,37 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		if (version == 1) {
 			$scope.editTestEx(newDance, 'dances', $scope.currentMember.dances, version, $scope.dances);
 		} else if (version == 2) {
-			$scope.editTestEx(newDance, 'dances', $scope.currentMember.stardances, version, $scope.stardances);
+			$scope.editTestEx(newDance, 'stardances', $scope.currentMember.stardances, version, $scope.stardances);
 		}
 	}
 
-	// This is the function that creates the modal to create/edit interpretive tests
+	// This is the function that creates the modal to create/edit free style tests
 	$scope.editFreestyleTest = function(newFreestyle, version) {
 		if (version == 1) {
 			$scope.editTestEx(newFreestyle, 'freestyles', $scope.currentMember.freestyles, version, $scope.freestyles);
 		} else if (version == 2) {
-			$scope.editTestEx(newFreestyle, 'freestyles', $scope.currentMember.starfreestyles, version, $scope.starfreestyles);
+			$scope.editTestEx(newFreestyle, 'starfreestyles', $scope.currentMember.starfreestyles, version, $scope.starfreestyles);
 		}
 	}
 
+	// This is the function that creates the modal to create/edit artistic tests
+	$scope.editArtisticTest = function(test, version) {
+		if (version == 1) {
+			$scope.editTestEx(test, 'artistics', $scope.currentMember.freestyles, version, $scope.freestyles);
+		} else if (version == 2) {
+			$scope.editTestEx(test, 'starartistics', $scope.currentMember.starartistics, version, $scope.starartistics);
+		}
+	}
+
+	// This is the function that creates the modal to create/edit synchro tests
+	$scope.editSynchroTest = function(test, version) {
+		if (version == 1) {
+			$scope.editTestEx(test, 'synchros', $scope.currentMember.synchros, version, $scope.synchros);
+		} else if (version == 2) {
+			$scope.editTestEx(test, 'starsynchros', $scope.currentMember.starsynchros, version, $scope.starsynchros);
+		}
+	}
+	
 	// This is the function that creates the modal to create/edit interpretive tests
 	$scope.editInterpretiveTest = function(newInterpretive) {
 		$scope.editTestEx(newInterpretive, 'interpretives', $scope.currentMember.interpretives, 1, $scope.interpretives);
@@ -492,9 +510,12 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				$scope.currentTest.status = 'Modified';
 			} else {
 				$scope.currentTest.status = 'New';
-				for (var i = 0; i < $scope.currentTestList.length; i++) {
-					if ($scope.currentTestList[i].testid == $scope.currentTest.testid) {
-						$scope.currentTest.testlabel = $scope.currentTestList[i].testlabel;
+				// Last chance to find a suitable label for the test
+				if (newTest.testlabel == null || newTest.testlabel == '') {
+					for (var i = 0; i < $scope.currentTestList.length; i++) {
+						if ($scope.currentTestList[i].testid == $scope.currentTest.testid) {
+							$scope.currentTest.testlabel = $scope.currentTestList[i].testlabel;
+						}
 					}
 				}
 				if (testList == null) testList = [];
@@ -624,15 +645,17 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllClubs($scope, authenticationService.getCurrentLanguage());
 
-		listsService.getAllTests($scope, 'DANCE', 	'dances', 				authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'SKILLS',	'abilities', 			authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'FREE', 		'freestyles', 		authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'DANCE', 	'dances', 			authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'SKILLS',	'abilities', 		authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'FREE', 	'freestyles', 		authenticationService.getCurrentLanguage());
 		listsService.getAllTests($scope, 'INTER', 	'interpretives', 	authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'COMP', 		'competitives', 	authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'COMP', 	'competitives', 	authenticationService.getCurrentLanguage());
 
-		listsService.getAllStarTests($scope, 'DANCE', 	'stardances', 				authenticationService.getCurrentLanguage());
-		listsService.getAllStarTests($scope, 'SKILLS',	'starabilities', 			authenticationService.getCurrentLanguage());
-		listsService.getAllStarTests($scope, 'FREE', 		'starfreestyles', 		authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'DANCE', 		'stardances', 		authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'SKILLS',		'starabilities', 	authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'FREE', 		'starfreestyles',	authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'ARTISTIC',	'starartistics', 	authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'SYNCHRO', 	'starsynchros', 	authenticationService.getCurrentLanguage());
 
 		translationService.getTranslation($scope, 'memberview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();

@@ -64,17 +64,18 @@ function insert_test($mysqli) {
 function update_test($mysqli) {
 	try{
 		$data = array();
-		$id = 								$mysqli->real_escape_string(isset($_POST['test']['id']) 									? $_POST['test']['id'] : '');
-		$type = 							$mysqli->real_escape_string(isset($_POST['test']['type']) 								? $_POST['test']['type'] : '');
-		$level = 							$mysqli->real_escape_string(isset($_POST['test']['level']) 								? $_POST['test']['level'] : '');
-		$subtype = 						$mysqli->real_escape_string(isset($_POST['test']['subtype']) 							? $_POST['test']['subtype'] : '');
-		$sequence = 					$mysqli->real_escape_string(isset($_POST['test']['sequence']) 						? $_POST['test']['sequence'] : '');
-		$name = 							$mysqli->real_escape_string(isset($_POST['test']['name'])									? $_POST['test']['name'] : '');
-		$score = 							$mysqli->real_escape_string(isset($_POST['test']['score']) 								? $_POST['test']['score'] : 0);
-		$minimumnbtests = 		$mysqli->real_escape_string(isset($_POST['test']['minimumnbtests']) 			? $_POST['test']['minimumnbtests'] : 0);
-		$warmupduration = 		$mysqli->real_escape_string(isset($_POST['test']['warmupduration']) 			? $_POST['test']['warmupduration'] : 0);
-		$testduration = 			$mysqli->real_escape_string(isset($_POST['test']['testduration']) 				? $_POST['test']['testduration'] : 0);
-		$version = 						$mysqli->real_escape_string(isset($_POST['test']['version']) 							? $_POST['test']['version'] : 1);
+		$id = 				$mysqli->real_escape_string(isset($_POST['test']['id']) 			? $_POST['test']['id'] : '');
+		$type = 			$mysqli->real_escape_string(isset($_POST['test']['type']) 			? $_POST['test']['type'] : '');
+		$level = 			$mysqli->real_escape_string(isset($_POST['test']['level']) 			? $_POST['test']['level'] : '');
+		$subtype = 			$mysqli->real_escape_string(isset($_POST['test']['subtype']) 		? $_POST['test']['subtype'] : '');
+		$sequence = 		$mysqli->real_escape_string(isset($_POST['test']['sequence']) 		? $_POST['test']['sequence'] : '');
+		$name = 			$mysqli->real_escape_string(isset($_POST['test']['name'])			? $_POST['test']['name'] : '');
+		$score = 			$mysqli->real_escape_string(isset($_POST['test']['score']) 			? $_POST['test']['score'] : 0);
+		$evaluation =		$mysqli->real_escape_string(isset($_POST['test']['evaluation'])		? $_POST['test']['evaluation'] : 1);
+		$minimumnbtests =	$mysqli->real_escape_string(isset($_POST['test']['minimumnbtests'])	? $_POST['test']['minimumnbtests'] : 0);
+		$warmupduration = 	$mysqli->real_escape_string(isset($_POST['test']['warmupduration']) ? $_POST['test']['warmupduration'] : 0);
+		$testduration = 	$mysqli->real_escape_string(isset($_POST['test']['testduration']) 	? $_POST['test']['testduration'] : 0);
+		$version = 			$mysqli->real_escape_string(isset($_POST['test']['version']) 		? $_POST['test']['version'] : 1);
 
 		if ($level == '' || $type == '') {
 			throw new Exception("Required fields missing, Please enter and submit");
@@ -91,9 +92,10 @@ function update_test($mysqli) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		} else {
-			$query = "UPDATE cpa_tests_definitions
+			$query = "UPDATE	cpa_tests_definitions
 								SET level = '$level', type = '$type', subtype = '$subtype', name = '$name', sequence = $sequence, score = $score, 
-										minimumnbtests = $minimumnbtests, warmupduration = $warmupduration, testduration = $testduration, version = $version
+										minimumnbtests = $minimumnbtests, warmupduration = $warmupduration, testduration = $testduration, version = $version,
+										evaluation = $evaluation
 								WHERE id = $id";
 			if ($mysqli->query($query)) {
 			} else {
@@ -142,7 +144,7 @@ function delete_test($mysqli, $test) {
  */
 function getAllTests($mysqli) {
 	try{
-		$query = "SELECT id, level, type, name, version FROM cpa_tests_definitions order by version, type, level, sequence";
+		$query = "SELECT id, level, type, name, version FROM cpa_tests_definitions order by version, type, cast(level AS DECIMAL), sequence";
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['data'] = array();
@@ -173,6 +175,7 @@ function getTestDetails($mysqli, $id = '') {
 		while ($row = $result->fetch_assoc()) {
 			$row['id'] = (int) $row['id'];
 			$row['sequence'] = (int) $row['sequence'];
+			// $row['evaluation'] = (int) $row['evaluation'];
 			$row['score'] = (int) $row['score'];
 			$row['minimumnbtests'] = (int) $row['minimumnbtests'];
 			$row['warmupduration'] = (int) $row['warmupduration'];

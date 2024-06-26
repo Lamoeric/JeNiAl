@@ -729,7 +729,7 @@ function getAllCoursesForRules($mysqli, $language) {
 		}
 		$toto = array();
 //		$toto['code'] = "toto";
-//		$toto['label'] = ($language == "fr-ca"? "Numéro de spectacle" : "Show number");
+//		$toto['label'] = ($language == "fr-ca"? "Numï¿½ro de spectacle" : "Show number");
 //		$data['data'][] =  $toto;
 		$data['success'] = true;
 		echo json_encode($data);
@@ -809,7 +809,7 @@ function getAllTestsDefinitions($mysqli, $language) {
 							SELECT id, concat(getCodeDescription('testtypes', type, '$language'), '/STAR ', level) description, type, subtype, level, version
 							FROM cpa_tests_definitions
 							WHERE version = 2
-							ORDER BY version, type, subtype, level";
+							ORDER BY version, type, subtype, cast(level as DECIMAL)";
 		$result = $mysqli->query( $query );
 		$data = array();
 		while ($row = $result->fetch_assoc()) {

@@ -13,6 +13,8 @@
 	{"formname":"details", "fieldname":"fieldtitleequivalence", "text":"Équivalence"},
 	{"formname":"details", "fieldname":"fieldtitlesummarycode", "text":"Code sommaire"},
 	{"formname":"details", "fieldname":"fieldtitlepartnerstepscode", "text":"Code sommaire pas partenaire"},
+	{"formname":"details", "fieldname":"fieldtitlescore", "text":"Pointage"},
+	{"formname":"details", "fieldname":"fieldtitlereportfilename", "text":"Nom du fichier"},
 	{"formname":"details", "fieldname":"fieldtitlemusics", "text":"Musiques"},
 
 	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"Nouveau de test"},

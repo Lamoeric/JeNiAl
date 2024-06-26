@@ -78,7 +78,7 @@ angular.module('cpa_admin.testview', ['ngRoute'])
 		$scope.promise = $http({
 			method: 'post',
 			url: './testview/manageTests.php',
-			data: $.param({'id' : test.id, 'type' : 'getTestDetails' }),
+			data: $.param({'id' : test.id, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getTestDetails' }),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).
 		success(function(data, status, headers, config) {
@@ -251,12 +251,10 @@ angular.module('cpa_admin.testview', ['ngRoute'])
 
 	$scope.refreshAll = function() {
 		$scope.getAllTests();
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testtypes', 'text', 'testtypes');
-
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testlevels', 			'sequence', 'testlevels');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testtypes', 				'text', 		'testtypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testsubtypes', 	 	'text', 		'testsubtypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testsubsubtypes', 	'text', 		'testsubsubtypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testtypes', 		 'text', 		'testtypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testlevels', 	 'sequence',	'testlevels');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testsubtypes', 	 'text', 		'testsubtypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testsubsubtypes', 'text', 		'testsubsubtypes');
 
 		listsService.getAllTestsDefinitions($scope, $http, authenticationService.getCurrentLanguage());
 		translationService.getTranslation($scope, 'testview', authenticationService.getCurrentLanguage());

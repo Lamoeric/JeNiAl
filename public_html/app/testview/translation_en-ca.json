@@ -13,6 +13,8 @@
 	{"formname":"details", "fieldname":"fieldtitleequivalence", "text":"Equivalence"},
 	{"formname":"details", "fieldname":"fieldtitlesummarycode", "text":"Summary Code"},
 	{"formname":"details", "fieldname":"fieldtitlepartnerstepscode", "text":"Partner Steps Summary Code"},
+	{"formname":"details", "fieldname":"fieldtitlescore", "text":"Score"},
+	{"formname":"details", "fieldname":"fieldtitlereportfilename", "text":"Report File Name"},
 	{"formname":"details", "fieldname":"fieldtitlemusics", "text":"Musics"},
 
 	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"New Test"},
