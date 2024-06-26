@@ -245,6 +245,11 @@ angular.module('cpa_admin.teststarregistrationview', ['ngRoute'])
     var today = new Date();
     today.setHours(0,0,0,0);
 
+    // -1 is a special case when we allow registrations to be done in the past
+    if (obj.nbofdaysprior == -1) {
+      obj.canedit = true;
+      return true;
+    }
     // if (realDate >= today) {
     if (today <= realDate) {
       obj.canedit = true;

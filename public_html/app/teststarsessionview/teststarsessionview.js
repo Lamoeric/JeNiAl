@@ -151,7 +151,7 @@ angular.module('cpa_admin.teststarsessionview', ['ngRoute'])
 		$scope.globalErrorMessage = [];
 		$scope.globalWarningMessage = [];
 
-		if ($scope.currentTestsession.nbofdaysprior < 0 || $scope.currentTestsession.nbofdaysprior > 30) {
+		if ($scope.currentTestsession.nbofdaysprior < -1 || $scope.currentTestsession.nbofdaysprior > 30) {
 				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrnbofdayspriorinvalid);
 		}
 
