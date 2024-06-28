@@ -32,7 +32,7 @@ function getAllPeriods($mysqli, $language) {
 											(select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai where cai.arenaid = cnsp.arenaid and cai.id = cnsp.iceid) icelabel
 							FROM cpa_newtests_sessions_periods cnsp
 							JOIN cpa_newtests_sessions cns ON cns.id = cnsp.newtestssessionsid
-							WHERE perioddate >= curdate()
+							WHERE (perioddate >= curdate() or cns.nbofdaysprior = -1)
 							AND cnsp.canceled = 0
 							ORDER BY perioddate, arenaid, iceid";
 		$result = $mysqli->query($query);
