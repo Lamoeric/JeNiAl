@@ -70,6 +70,12 @@ function updateEntireMember($mysqli, $member) {
 		if ($mysqli->real_escape_string(isset($member['starfreestyles']))) {
 			$data['successstarfreestyles'] = updateEntireTests($mysqli, $id, $member['starfreestyles']);
 		}
+		if ($mysqli->real_escape_string(isset($member['starartistics']))) {
+			$data['successstarartistics'] = updateEntireTests($mysqli, $id, $member['starartistics']);
+		}
+		if ($mysqli->real_escape_string(isset($member['starsynchros']))) {
+			$data['successstarsynchros'] = updateEntireTests($mysqli, $id, $member['starsynchros']);
+		}
 		if ($mysqli->real_escape_string(isset($member['csbalancetests']))) {
 			$data['successbalancetests'] = updateEntireCanskateTests($mysqli, $id, $member['csbalancetests']);
 		}
@@ -138,36 +144,36 @@ function insert_member($mysqli, $member) {
  */
 function update_member($mysqli, $member) {
 	$data = array();
-	$id = 						$mysqli->real_escape_string(isset($member['id']) 						? $member['id'] : '');
-	$firstname = 			$mysqli->real_escape_string(isset($member['firstname']) 			? $member['firstname'] : '');
-	$lastname = 			$mysqli->real_escape_string(isset($member['lastname']) 			? $member['lastname'] : '');
-	$skatecanadano = 	$mysqli->real_escape_string(isset($member['skatecanadano'])	? $member['skatecanadano'] : '');
-	$initial = 				$mysqli->real_escape_string(isset($member['initial']) 				? $member['initial'] : '');
-	$language = 			$mysqli->real_escape_string(isset($member['language']) 			? $member['language'] : '');
-	$gender = 				$mysqli->real_escape_string(isset($member['gender']) 				? $member['gender'] : '');
+	$id = 				$mysqli->real_escape_string(isset($member['id']) 				? $member['id'] : '');
+	$firstname = 		$mysqli->real_escape_string(isset($member['firstname']) 		? $member['firstname'] : '');
+	$lastname = 		$mysqli->real_escape_string(isset($member['lastname']) 			? $member['lastname'] : '');
+	$skatecanadano = 	$mysqli->real_escape_string(isset($member['skatecanadano'])		? $member['skatecanadano'] : '');
+	$initial = 			$mysqli->real_escape_string(isset($member['initial']) 			? $member['initial'] : '');
+	$language = 		$mysqli->real_escape_string(isset($member['language']) 			? $member['language'] : '');
+	$gender = 			$mysqli->real_escape_string(isset($member['gender']) 			? $member['gender'] : '');
 	$familyrank = 		$mysqli->real_escape_string(isset($member['familyrank']) 		? $member['familyrank'] : 0);
-	$birthday = 			$mysqli->real_escape_string(isset($member['birthday']) && $member['birthday'] !=''			? $member['birthday'] : '0000-01-01');
-	$healthcareno = 	$mysqli->real_escape_string(isset($member['healthcareno']) 	? $member['healthcareno'] : '');
+	$healthcareno = 	$mysqli->real_escape_string(isset($member['healthcareno']) 		? $member['healthcareno'] : '');
 	$healthcareexp = 	$mysqli->real_escape_string(isset($member['healthcareexp']) 	? $member['healthcareexp'] : '');
-	$healthcomments = $mysqli->real_escape_string(isset($member['healthcomments']) ? $member['healthcomments'] : '');
-	$qualifications = $mysqli->real_escape_string(isset($member['qualifications']) ? $member['qualifications'] : '');
-	$address2 = 			$mysqli->real_escape_string(isset($member['address2']) 			? $member['address2'] : '');
-	$address1 = 			$mysqli->real_escape_string(isset($member['address1']) 			? $member['address1'] : '');
-	$town = 					$mysqli->real_escape_string(isset($member['town']) 					? $member['town'] : '');
-	$province = 			$mysqli->real_escape_string(isset($member['province']) 			? $member['province'] : '');
+	$healthcomments =	$mysqli->real_escape_string(isset($member['healthcomments']) 	? $member['healthcomments'] : '');
+	$qualifications =	$mysqli->real_escape_string(isset($member['qualifications']) 	? $member['qualifications'] : '');
+	$address2 = 		$mysqli->real_escape_string(isset($member['address2']) 			? $member['address2'] : '');
+	$address1 = 		$mysqli->real_escape_string(isset($member['address1']) 			? $member['address1'] : '');
+	$town = 			$mysqli->real_escape_string(isset($member['town']) 				? $member['town'] : '');
+	$province = 		$mysqli->real_escape_string(isset($member['province']) 			? $member['province'] : '');
 	$postalcode = 		$mysqli->real_escape_string(isset($member['postalcode']) 		? $member['postalcode'] : '');
-	$country = 				$mysqli->real_escape_string(isset($member['country']) 				? $member['country'] : '');
-	$homephone = 			$mysqli->real_escape_string(isset($member['homephone']) 			? $member['homephone'] : '');
-	$cellphone = 			$mysqli->real_escape_string(isset($member['cellphone']) 			? $member['cellphone'] : '');
+	$country = 			$mysqli->real_escape_string(isset($member['country']) 			? $member['country'] : '');
+	$homephone = 		$mysqli->real_escape_string(isset($member['homephone']) 		? $member['homephone'] : '');
+	$cellphone = 		$mysqli->real_escape_string(isset($member['cellphone']) 		? $member['cellphone'] : '');
 	$otherphone = 		$mysqli->real_escape_string(isset($member['otherphone']) 		? $member['otherphone'] : '');
-	$email = 					$mysqli->real_escape_string(isset($member['email']) 					? $member['email'] : '');
-	$email2 = 				$mysqli->real_escape_string(isset($member['email2']) 				? $member['email2'] : '');
-	$reportsc = 			$mysqli->real_escape_string(isset($member['reportsc']) 			? (int)$member['reportsc'] : 0);
-	$homeclub = 			$mysqli->real_escape_string(isset($member['homeclub']) 			? $member['homeclub'] : '');
+	$email = 			$mysqli->real_escape_string(isset($member['email']) 			? $member['email'] : '');
+	$email2 = 			$mysqli->real_escape_string(isset($member['email2']) 			? $member['email2'] : '');
+	$reportsc = 		$mysqli->real_escape_string(isset($member['reportsc']) 			? (int)$member['reportsc'] : 0);
+	$homeclub = 		$mysqli->real_escape_string(isset($member['homeclub']) 			? $member['homeclub'] : '');
 	$skaterlevel = 		$mysqli->real_escape_string(isset($member['skaterlevel']) 		? $member['skaterlevel'] : '');
 	$mainprogram = 		$mysqli->real_escape_string(isset($member['mainprogram']) 		? $member['mainprogram'] : '');
-	$secondprogram = 	$mysqli->real_escape_string(isset($member['secondprogram'])	? $member['secondprogram'] : '');
-	$comments = 			$mysqli->real_escape_string(isset($member['comments']) 			? $member['comments'] : '');
+	$secondprogram = 	$mysqli->real_escape_string(isset($member['secondprogram'])		? $member['secondprogram'] : '');
+	$comments = 		$mysqli->real_escape_string(isset($member['comments']) 			? $member['comments'] : '');
+	$birthday = 		$mysqli->real_escape_string(isset($member['birthday']) && $member['birthday'] !='' ? $member['birthday'] : '0000-01-01');
 
 	if ($firstname == '' || $lastname == '') {
 		throw new Exception( "Required fields missing. Please enter and submit");
@@ -322,24 +328,20 @@ function getMemberDetails($mysqli, $id, $language) {
 		while ($row = $result->fetch_assoc()) {
 			$row['id'] = (int) $row['id'];
 			$row['birthday'] = $row['birthday'] == '0000-00-00' ? '0000-01-01' : $row['birthday'];
-			$row['contacts'] 				= getMemberContacts($mysqli, $id, $language)['data'];
-			$row['coaches'] 				= getMemberCoaches($mysqli, $id)['data'];
-			$row['dances'] 					= getMemberTests($mysqli, $id, 'DANCE', $language)['data'];
-			$row['abilities'] 			= getMemberTests($mysqli, $id, 'SKILLS', $language)['data'];
-			$row['freestyles'] 			= getMemberTests($mysqli, $id, 'FREE', $language)['data'];
+			$row['contacts'] 		= getMemberContacts($mysqli, $id, $language)['data'];
+			$row['coaches'] 		= getMemberCoaches($mysqli, $id)['data'];
+			$row['dances'] 			= getMemberTests($mysqli, $id, 'DANCE', $language)['data'];
+			$row['abilities'] 		= getMemberTests($mysqli, $id, 'SKILLS', $language)['data'];
+			$row['freestyles'] 		= getMemberTests($mysqli, $id, 'FREE', $language)['data'];
 			$row['interpretives'] 	= getMemberTests($mysqli, $id, 'INTER', $language)['data'];
-			$row['competitives'] 		= getMemberTests($mysqli, $id, 'COMP', $language)['data'];
-			$row['stardances'] 			= getMemberStarTests($mysqli, $id, 'DANCE', $language)['data'];
+			$row['competitives'] 	= getMemberTests($mysqli, $id, 'COMP', $language)['data'];
+			$row['stardances'] 		= getMemberStarTests($mysqli, $id, 'DANCE', $language)['data'];
 			$row['starabilities'] 	= getMemberStarTests($mysqli, $id, 'SKILLS', $language)['data'];
-			$row['starfreestyles'] 	= getMemberStarTests($mysqli, $id, 'FREE', $language)['data'];
+			$row['starfreestyles']	= getMemberStarTests($mysqli, $id, 'FREE', $language)['data'];
+			$row['starartistics']	= getMemberStarTests($mysqli, $id, 'ARTISTIC', $language)['data'];
+			$row['starsynchros']		= getMemberStarTests($mysqli, $id, 'SYNCHRO', $language)['data'];
 
 			$row['summary'] 				= getAllTestSummary($mysqli, $id, $language);
-
-//			$row['summarydances'] 				= getOneTestSummary($mysqli, $id, 'DANCE', $language)['data'];
-//			$row['summaryabilities'] 			= getOneTestSummary($mysqli, $id, 'SKILLS', $language)['data'];
-//			$row['summaryfreestyles'] 		= getOneTestSummary($mysqli, $id, 'FREE', $language)['data'];
-//			$row['summaryinterpretives'] 	= getOneTestSummary($mysqli, $id, 'INTER', $language)['data'];
-//			$row['summarycompetitives'] 	= getOneTestSummary($mysqli, $id, 'COMP', $language)['data'];
 
 			$row['csbalancetests'] 		= getMemberCanskateTests($mysqli, $id, 'BALANCE')['data'];
 			$row['cscontroltests'] 		= getMemberCanskateTests($mysqli, $id, 'CONTROL')['data'];

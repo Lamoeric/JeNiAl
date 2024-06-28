@@ -5,11 +5,11 @@
       <div id="mainrowright" class="row mainrowright">
         <div class="grid">
           <displayerror></displayerror>
-          <displaymaintitle maintitle="currentTest.level + ' - ' + currentTest.type" defaulttitle="translationObj.main.formtitledetails" object="currentTest"></displaymaintitle>
+          <displaymaintitle maintitle="currentTest.level + ' - ' + currentTest.name + ' (id: ' + currentTest.id + ')'" defaulttitle="translationObj.main.formtitledetails" object="currentTest"></displaymaintitle>
 
-					<main-new-button new-callback="createNew()"></main-new-button>
+					<!-- <main-new-button new-callback="createNew()"></main-new-button> -->
 					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
-					<main-delete-button delete-callback="deleteFromDB()"></main-delete-button>
+					<!-- <main-delete-button delete-callback="deleteFromDB()"></main-delete-button> -->
 
           <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentTest">
             <div ng-include="'testdefview/testdef.html'"></div>
