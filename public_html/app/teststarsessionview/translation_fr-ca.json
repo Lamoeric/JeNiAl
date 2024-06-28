@@ -101,6 +101,7 @@
 	{"formname":"main", "fieldname":"msgsessionlocked", "text":"Session verrouillée."},
 	{"formname":"main", "fieldname":"msgsessionunlocked", "text":"Session déverrouillée."},
 	{"formname":"main", "fieldname":"msgcannotgenerateperiods", "text":"Il y a déjà des inscriptions pour des périodes de test. Impossible de regénérer les périodes."},
+	{"formname":"main", "fieldname":"msgsavetofixmembertests", "text":"Sauvegarder la session de test pour corriger les résultats de tests dans les dossiers des membres."},
 
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails de la session de tests"},
 	{"formname":"main", "fieldname":"tabtitlesession", "text":"Session"},

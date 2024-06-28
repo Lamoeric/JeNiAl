@@ -163,6 +163,8 @@ function getSkaterDetails($mysqli, $userid, $skaterid, $language){
 		$row['stardances'] 		= getMemberStarTests($mysqli, $id, 'DANCE', $language)['data'];
 		$row['starabilities'] 	= getMemberStarTests($mysqli, $id, 'SKILLS', $language)['data'];
 		$row['starfreestyles'] 	= getMemberStarTests($mysqli, $id, 'FREE', $language)['data'];
+		$row['starartistics'] 	= getMemberStarTests($mysqli, $id, 'ARTISTIC', $language)['data'];
+		$row['starsynchros'] 	= getMemberStarTests($mysqli, $id, 'SYNCHRO', $language)['data'];
 		$row['courses'] 		= getMemberCourses($mysqli, $id, $language)['data'];
 		$row['numbers'] 		= getMemberNumbers($mysqli, $id, $language)['data'];
 		$data['data'][] = $row;
