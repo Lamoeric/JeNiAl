@@ -359,6 +359,7 @@ angular.module('cpa_admin.teststarsessionview', ['ngRoute'])
 			}
 		}
 		$scope.setDirty();
+		dialogService.alertDlg($scope.translationObj.main.msgsavetofixmembertests);
 	}
 
 	// This is the function that creates the modal to create/edit periods

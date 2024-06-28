@@ -98,6 +98,7 @@
 	{"formname":"main", "fieldname":"msgsessionlocked", "text":"Session has been locked."},
 	{"formname":"main", "fieldname":"msgsessionunlocked", "text":"Session has been unlocked."},
 	{"formname":"main", "fieldname":"msgcannotgenerateperiods", "text":"There are already registrations for some periods. Impossible to regenerate the periods."},
+	{"formname":"main", "fieldname":"msgsavetofixmembertests", "text":"Save the test session to fix all the test results in the members' file."},
 
 	{"formname":"main", "fieldname":"formtitledetails", "text":"STAR Test Session Details"},
 	{"formname":"main", "fieldname":"tabtitlesession", "text":"Session"},

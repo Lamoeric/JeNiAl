@@ -15,7 +15,7 @@
 	      <label for="name">{{translationObj.testsession.fieldname}}<i style="color:red"> *</i></label>
       	<div class="input-group">
 				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentTestsession.name" maxlength="120" ng-required="true" ng-disabled="currentTestsession.islock">
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentTestsession.name" maxlength="120" ng-required="true" ng-disabled="currentTestsession.islock" autocomplete="off">
 	      </div>
 	    </div>
   	</div>
@@ -59,7 +59,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-3">
-				<label for="cancellationenddate" >{{translationObj.testsession.fielddaysprior}}<i style="color:red"> *</i></label>
+				<label for="nbofdaysprior" >{{translationObj.testsession.fielddaysprior}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
 					<!-- <input type="number" class="form-control" id="nbofdaysprior" ng-model="currentTestsession.nbofdaysprior" min="0" max="99" required> -->

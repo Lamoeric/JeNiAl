@@ -4,31 +4,14 @@
 <div class="modal-body">
 	<form class="form-horizontal" role="form" name="editObjForm">
 		<div class="form-group">
-			<!-- <div class="col-xs-5">
-	      <label for="homeclub">{{translationObj.newtestsession.fieldhomeclub}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="homeclub" ng-model="newObj.homeclub"  ng-required="true">
-			    	<option ng-repeat="homeclub in homeclubs" value="{{homeclub.code}}">{{homeclub.text}}</option>
-			    </select>
-	      </div>
-	    </div>
-			<div class="col-xs-5">
-	      <label for="testdirectorid">{{translationObj.newtestsession.fieldtestdirector}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="testdirectorid" ng-model="newObj.testdirectorid"  ng-required="true">
-			    	<option ng-repeat="testdirector in allTestDirectors" value="{{testdirector.id}}">{{testdirector.text}}</option>
-			    </select>
-	      </div>
-	    </div> -->
 			<div class="col-xs-6">
-	      <label for="name">{{translationObj.newtestsession.fieldname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="120" ng-required="true">
-	      </div>
-	    </div>
+				<label for="sessionname">{{translationObj.newtestsession.fieldname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" id="sessionname" name="sessionname" class="form-control" ng-model="newObj.name"
+						maxlength="120" ng-required="true">
+				</div>
+			</div>
 		</div>
 	</form>
 	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
@@ -36,6 +19,8 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newtestsession.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newtestsession.buttontitlekeepchanges}}</button>
+	<button type="button" class="btn btn-primary"
+		ng-click="cancel()">{{translationObj.newtestsession.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary"
+		ng-click="ok()">{{translationObj.newtestsession.buttontitlekeepchanges}}</button>
 </div>
