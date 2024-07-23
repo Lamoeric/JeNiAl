@@ -799,9 +799,9 @@ function getAllCharges($mysqli, $language) {
  */
 function getAllTestsDefinitions($mysqli, $language) {
 	try {
-		$query = "SELECT id, concat(getCodeDescription('testtypes', type, '$language'), '/',
+		$query = "SELECT id, convert(concat(getCodeDescription('testtypes', type, '$language'), '/',
 															  getCodeDescription('testlevels', level, '$language'),
-       				                  if(subtype != '', concat('/',  getCodeDescription('testsubtypes', subtype, '$language')), '')) description,
+       				                  if(subtype != '', concat('/',  getCodeDescription('testsubtypes', subtype, '$language')), '')) using utf8) description,
                                 type, subtype, level, version
 							FROM cpa_tests_definitions
 							WHERE version = 1

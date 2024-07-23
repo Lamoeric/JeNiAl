@@ -157,14 +157,14 @@ function delete_test($mysqli, $test = ''){
 function getAllTests($mysqli, $language){
 	try{
 		$query = "	SELECT 	ct.id, ct.name, ctd.type, ctd.subtype, ctd.level, ctd.version, ct.subsubtype, ct.sequence, getTextLabel(label, '$language') label, 
-							concat (getCodeDescription('testtypes', ctd.type, '$language'), 
+							convert(concat (getCodeDescription('testtypes', ctd.type, '$language'), 
 									'/', 
 									getCodeDescription('testlevels', ctd.level, '$language'),
        				        		if(ctd.subtype != '', concat('/',  
 																 getCodeDescription('testsubtypes', ctd.subtype, '$language')
 																 ), 
 														  '')
-									) description
+									) using utf8) description
 					FROM cpa_tests ct
 					JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
 					WHERE ctd.version = 1
