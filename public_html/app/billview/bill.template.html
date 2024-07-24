@@ -1,1 +1,1 @@
-<div><p>{{leftobj.id}} - {{leftobj.billingname}} - {{leftobj.billingdate}} - {{leftobj.totalamount | currency}} <span ng-show="leftobj.relatednewbillid!=null"> <font color="red">({{translationObj.main.formtitlebillclosed}})</font></span></p></div>
+<div><p>{{leftobj.id}} - {{leftobj.billingname}} - {{leftobj.billingdate}} - {{leftobj.totalamount | currency}} - ({{leftobj.amountleft| currency}})<span ng-show="leftobj.relatednewbillid!=null"> <font color="red">({{translationObj.main.formtitlebillclosed}})</font></span></p></div>

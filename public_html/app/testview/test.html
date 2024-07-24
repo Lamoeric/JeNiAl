@@ -1,97 +1,115 @@
 <div class="form-group row ">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="testsdefinitionsid">{{translationObj.details.fieldtitletestdefinition}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="testsdefinitionsid" ng-model="currentTest.testsdefinitionsid" required>
-						<option ng-repeat="testdefinition in testdefinitions" value="{{testdefinition.id}}">{{testdefinition.description}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="subsubtype">{{translationObj.details.fieldtitlesubtype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="subsubtype" ng-model="currentTest.subsubtype">
+			<div class="col-xs-4">
+				<label for="testsdefinitionsid">{{translationObj.details.fieldtitletestdefinition}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="testsdefinitionsid" ng-model="currentTest.testsdefinitionsid" required disabled>
+						<option ng-repeat="testdefinition in testdefinitions" value="{{testdefinition.id}}">
+							{{testdefinition.description}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="subsubtype">{{translationObj.details.fieldtitlesubtype}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="subsubtype" ng-model="currentTest.subsubtype" disabled>
 						<option ng-repeat="testsubsubtype in testsubsubtypes" value="{{testsubsubtype.code}}">{{testsubsubtype.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentTest.name" maxlength="60" required>
-					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-	      </div>
-	    </div>
-    </div>
-
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentTest.label_en" maxlength="60" required>
-	      </div>
-	    </div>
-      <div class="col-xs-4">
-	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentTest.label_fr" maxlength="60" required>
-	      </div>
-	    </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-2">
-	      <label for="sequence">{{translationObj.details.fieldtitlesequence}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="sequence" ng-model="currentTest.sequence" minvalue=0 maxvalue=99 maxlength="4" required>
-      	</div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="equivalence">{{translationObj.details.fieldtitleequivalence}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="equivalence" ng-model="currentTest.equivalence">
-						<option ng-repeat="equivalence in equivalences" value="{{equivalence.code}}">{{equivalence.text}}</option>
-		      </select>
-	      </div>
-      </div>
-	  </div>
-
-    <div class="row">
-      <div class="col-xs-2">
-	      <label for="summarycode">{{translationObj.details.fieldtitlesummarycode}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="summarycode" ng-model="currentTest.summarycode" maxlength="6" capitalize required>
-      	</div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="partnerstepscode">{{translationObj.details.fieldtitlepartnerstepscode}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="partnerstepscode" ng-model="currentTest.partnerstepscode" maxlength="6" capitalize>
-	      </div>
-      </div>
-    </div>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentTest.name" maxlength="60" required disabled>
+					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid"
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-xs-4">
-	      <label for="musiclist">{{translationObj.details.fieldtitlemusics}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-music"></i></span>
-        	<textarea class="form-control" id="musiclist" ng-model="currentTest.musiclist" maxlength="2000" rows="10" disabled> </textarea>
-	      </div>
-      </div>
-	  </div>
+				<label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentTest.label_en" maxlength="60" required disabled>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentTest.label_fr" maxlength="60" required disabled>
+				</div>
+			</div>
+		</div>
 
-  </div>
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="sequence">{{translationObj.details.fieldtitlesequence}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="sequence" ng-model="currentTest.sequence" minvalue=0 maxvalue=99 maxlength="4" required disabled>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="equivalence">{{translationObj.details.fieldtitleequivalence}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="equivalence" ng-model="currentTest.equivalence" disabled>
+						<option ng-repeat="equivalence in equivalences" value="{{equivalence.code}}">
+							{{equivalence.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="summarycode">{{translationObj.details.fieldtitlesummarycode}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="summarycode" ng-model="currentTest.summarycode"	maxlength="6" capitalize required disabled>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="partnerstepscode">{{translationObj.details.fieldtitlepartnerstepscode}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="partnerstepscode" ng-model="currentTest.partnerstepscode" maxlength="6" capitalize disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="score">{{translationObj.details.fieldtitlescore}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" class="form-control" id="score" ng-model="currentTest.score" min="0" max="999" required>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<label for="reportfilename">{{translationObj.details.fieldtitlereportfilename}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="reportfilename" ng-model="currentTest.reportfilename" maxlength="128" disabled>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-4">
+				<label for="musiclist">{{translationObj.details.fieldtitlemusics}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-music"></i></span>
+					<textarea class="form-control" id="musiclist" ng-model="currentTest.musiclist" maxlength="2000"	rows="10" disabled> </textarea>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>

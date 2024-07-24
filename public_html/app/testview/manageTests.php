@@ -22,7 +22,7 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
 			getAllTests($mysqli, $_POST['language']);
 			break;
 		case "getTestDetails":
-			getTestDetails($mysqli, $_POST['id']);
+			getTestDetails($mysqli, $_POST['id'], $_POST['language']);
 			break;
 		default:
 			invalidRequest();
@@ -58,22 +58,24 @@ function insert_test($mysqli){
 function update_test($mysqli){
 	try{
 		$data = array();
-		$id = 								$mysqli->real_escape_string(isset( $_POST['test']['id'] ) 									? $_POST['test']['id'] : '');
-		$testsdefinitionsid = $mysqli->real_escape_string(isset( $_POST['test']['testsdefinitionsid'] ) 	? $_POST['test']['testsdefinitionsid'] : '');
-		$subsubtype = 				$mysqli->real_escape_string(isset( $_POST['test']['subsubtype'] ) 					? $_POST['test']['subsubtype'] : '');
-		$name = 							$mysqli->real_escape_string(isset( $_POST['test']['name'] )									? $_POST['test']['name'] : '');
-		$sequence = 					$mysqli->real_escape_string(isset( $_POST['test']['sequence'] ) 						? $_POST['test']['sequence'] : '');
-		$equivalence = 				$mysqli->real_escape_string(isset( $_POST['test']['equivalence'] ) 					? $_POST['test']['equivalence'] : '');
-		$label = 							$mysqli->real_escape_string(isset( $_POST['test']['label'] ) 								? $_POST['test']['label'] : '');
-		$label_fr = 					$mysqli->real_escape_string(isset( $_POST['test']['label_fr'] ) 						? $_POST['test']['label_fr'] : '');
-		$label_en = 					$mysqli->real_escape_string(isset( $_POST['test']['label_en'] ) 						? $_POST['test']['label_en'] : '');
-		$summarycode = 				$mysqli->real_escape_string(isset( $_POST['test']['summarycode'] ) 					? $_POST['test']['summarycode'] : '');
-		$partnerstepscode = 	$mysqli->real_escape_string(isset( $_POST['test']['partnerstepscode'] ) 		? $_POST['test']['partnerstepscode'] : '');
+		$id = 					$mysqli->real_escape_string(isset( $_POST['test']['id'] ) 					? $_POST['test']['id'] : '');
+		$testsdefinitionsid =	$mysqli->real_escape_string(isset( $_POST['test']['testsdefinitionsid'] )	? $_POST['test']['testsdefinitionsid'] : '');
+		$subsubtype = 			$mysqli->real_escape_string(isset( $_POST['test']['subsubtype'] ) 			? $_POST['test']['subsubtype'] : '');
+		$name = 				$mysqli->real_escape_string(isset( $_POST['test']['name'] )					? $_POST['test']['name'] : '');
+		$sequence = 			$mysqli->real_escape_string(isset( $_POST['test']['sequence'] ) 			? $_POST['test']['sequence'] : '');
+		$equivalence = 			$mysqli->real_escape_string(isset( $_POST['test']['equivalence'] ) 			? $_POST['test']['equivalence'] : '');
+		$score = 				$mysqli->real_escape_string(isset( $_POST['test']['score'] ) 				? $_POST['test']['score'] : 0);
+		$label = 				$mysqli->real_escape_string(isset( $_POST['test']['label'] ) 				? $_POST['test']['label'] : '');
+		$label_fr = 			$mysqli->real_escape_string(isset( $_POST['test']['label_fr'] ) 			? $_POST['test']['label_fr'] : '');
+		$label_en = 			$mysqli->real_escape_string(isset( $_POST['test']['label_en'] ) 			? $_POST['test']['label_en'] : '');
+		$summarycode = 			$mysqli->real_escape_string(isset( $_POST['test']['summarycode'] ) 			? $_POST['test']['summarycode'] : '');
+		$partnerstepscode = 	$mysqli->real_escape_string(isset( $_POST['test']['partnerstepscode'] ) 	? $_POST['test']['partnerstepscode'] : '');
+		$reportfilename = 		$mysqli->real_escape_string(isset( $_POST['test']['reportfilename'] ) 		? $_POST['test']['reportfilename'] : '');
 
 		if(empty($id)){
 			$data['insert'] = true;
-			$query = "INSERT INTO cpa_tests (id, testsdefinitionsid, subsubtype, name, label)
-								VALUES (NULL, '$testsdefinitionsid', '$subsubtype', '$name', create_systemText('$label_en', '$label_fr'))";
+			$query = "	INSERT INTO cpa_tests (id, testsdefinitionsid, subsubtype, name, label)
+						VALUES (NULL, '$testsdefinitionsid', '$subsubtype', '$name', create_systemText('$label_en', '$label_fr'))";
 			if( $mysqli->query( $query ) ){
 				$data['success'] = true;
 				if(!empty($id))$data['message'] = 'Test updated successfully.';
@@ -84,9 +86,11 @@ function update_test($mysqli){
 				throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
 			}
 		} else {
-			$query = "UPDATE cpa_tests SET testsdefinitionsid = '$testsdefinitionsid', subsubtype = '$subsubtype', name = '$name',
-								sequence = '$sequence', equivalence = '$equivalence', summarycode = '$summarycode', partnerstepscode = '$partnerstepscode'
-								WHERE id = $id";
+			$query = "	UPDATE cpa_tests 
+						SET testsdefinitionsid = '$testsdefinitionsid', subsubtype = '$subsubtype', name = '$name',	sequence = '$sequence', 
+						    equivalence = '$equivalence', summarycode = '$summarycode', partnerstepscode = '$partnerstepscode', score = $score,
+							reportfilename = '$reportfilename'
+						WHERE id = $id";
 			if( $mysqli->query( $query ) ){
 				$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
 				if( $mysqli->query( $query ) ){
@@ -152,27 +156,27 @@ function delete_test($mysqli, $test = ''){
  */
 function getAllTests($mysqli, $language){
 	try{
-		$query = "SELECT ct.id, ct.name, concat(getCodeDescription('testtypes', ctd.type, '$language'), '/',
-															  getCodeDescription('testlevels', ctd.level, '$language'),
-       				                  if(ctd.subtype != '', concat('/',  getCodeDescription('testsubtypes', ctd.subtype, '$language')), '')) description,
-                     ctd.type, ctd.subtype, ctd.level, ctd.version, ct.subsubtype, ct.sequence
-							FROM cpa_tests ct
-							JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
-							WHERE ctd.version = 1
-							UNION
-							SELECT ct.id, ct.name, concat(getCodeDescription('testtypes', ctd.type, '$language'), '/STAR ', ctd.level) description,
-										 ctd.type, ctd.subtype, ctd.level, ctd.version, ct.subsubtype, ct.sequence
-							FROM cpa_tests ct
-							JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
-							WHERE ctd.version = 2
-							ORDER BY version, type, level, subtype, subsubtype, sequence";
-		// $query = "SELECT ct.id, ct.name, concat(getCodeDescription('testtypes', ctd.type, '$language'), '/',
-		// 													  getCodeDescription('testlevels', ctd.level, '$language'),
-    //    				                  if(ctd.subtype != '', concat('/',  getCodeDescription('testsubtypes', ctd.subtype, '$language')), '')) description
-		// 					FROM cpa_tests ct
-		// 					JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
-		// 					-- WHERE ctd.version = 1
-		// 					order by ctd.version, ctd.type, ctd.level, ctd.subtype, ct.subsubtype, ct.sequence";
+		$query = "	SELECT 	ct.id, ct.name, ctd.type, ctd.subtype, ctd.level, ctd.version, ct.subsubtype, ct.sequence, getTextLabel(label, '$language') label, 
+							convert(concat (getCodeDescription('testtypes', ctd.type, '$language'), 
+									'/', 
+									getCodeDescription('testlevels', ctd.level, '$language'),
+       				        		if(ctd.subtype != '', concat('/',  
+																 getCodeDescription('testsubtypes', ctd.subtype, '$language')
+																 ), 
+														  '')
+									) using utf8) description
+					FROM cpa_tests ct
+					JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
+					WHERE ctd.version = 1
+					UNION
+					SELECT 	ct.id, ct.name, ctd.type, ctd.subtype, ctd.level, ctd.version, ct.subsubtype, ct.sequence, getTextLabel(label, '$language') label,
+							concat (getCodeDescription('testtypes', ctd.type, '$language'), 
+									'/STAR ', 
+									ctd.level) description
+					FROM cpa_tests ct
+					JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
+					WHERE ctd.version = 2
+					ORDER BY version, type, cast(level as DECIMAL), subtype, subsubtype, sequence";
 		$result = $mysqli->query( $query );
 		$data = array();
 		$data['data'] = array();
@@ -223,14 +227,17 @@ function getTestMusics($mysqli, $id = ''){
 /**
  * This function gets the details of one test from database
  */
-function getTestDetails($mysqli, $id = ''){
+function getTestDetails($mysqli, $id, $language){
 	try{
 		if(empty($id)) throw new Exception( "Invalid Test." );
-		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr FROM cpa_tests WHERE id = '$id'";
+		$query = "	SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr, getTextLabel(label, '$language') mainlabel 
+					FROM cpa_tests 
+					WHERE id = '$id'";
 		$result = $mysqli->query( $query );
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$row['id'] = (int) $row['id'];
+			$row['score'] = (int) $row['score'];
 			$row['musics'] = getTestMusics($mysqli, $id)['data'];
 			$data['data'][] = $row;
 		}

@@ -35,6 +35,8 @@
 	{"formname":"test", "fieldname":"formtitledances", "text":"Dances"},
 	{"formname":"test", "fieldname":"formtitleskill", "text":"Skills"},
 	{"formname":"test", "fieldname":"formtitlefreestyle", "text":"Free Style"},
+	{"formname":"test", "fieldname":"formtitleartistic", "text":"Artistic"},
+	{"formname":"test", "fieldname":"formtitlesynchro", "text":"Synchro"},
 
 	{"formname":"details", "fieldname":"fieldfirstname", "text":"First Name"},
 	{"formname":"details", "fieldname":"fieldlastname", "text":"Lastname"},

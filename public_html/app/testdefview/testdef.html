@@ -1,90 +1,111 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininformation}}</h3>
+		<h3>{{translationObj.details.formtitlemaininformation}}</h3>
 		<div class="row">
-      <div class="col-xs-2">
-	      <label for="type">{{translationObj.details.fieldtitletype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="type" ng-model="currentTest.type" disabled>
-						<option ng-repeat="testtype in testtypes" value="{{testtype.code}}">{{testtype.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="level">{{translationObj.details.fieldtitlelevel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="level" ng-model="currentTest.level" disabled>
-						<option ng-repeat="testlevel in testlevels" value="{{testlevel.code}}">{{testlevel.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="subtype">{{translationObj.details.fieldtitlesubtype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="subtype" ng-model="currentTest.subtype">
-						<option ng-repeat="testsubtype in testsubtypes" value="{{testsubtype.code}}">{{testsubtype.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="sequence">{{translationObj.details.fieldtitlesequence}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="sequence" ng-model="currentTest.sequence" minvalue=0 maxvalue=99 maxlength="4" required>
-      	</div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="sequence">{{translationObj.details.fieldtitleversion}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="version" ng-model="currentTest.version" minvalue=1 maxvalue=2 maxlength="1" required>
-      	</div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentTest.name" maxlength="40" required>
-					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-	      </div>
-	    </div>
-	  </div>
-
-    <div class="row">
-      <div class="col-xs-2">
-	      <label for="score">{{translationObj.details.fieldtitlescore}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="number" class="form-control" id="score" ng-model="currentTest.score" min="0" max="999" required>
-      	</div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="minimumnbtests">{{translationObj.details.fieldtitlemintestsucceed}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="number" class="form-control" id="minimumnbtests" ng-model="currentTest.minimumnbtests" min="0" max="99" required>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="warmupduration">{{translationObj.details.fieldtitlewarmupduration}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="number" class="form-control" id="warmupduration" ng-model="currentTest.warmupduration" min="0" max="99" required>
-	      </div>
-      </div>
+			<div class="col-xs-4">
+				<label for="name">{{translationObj.details.fieldtitlename}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentTest.name"
+						maxlength="40" autocomplete="off" required disabled>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-2">
-	      <label for="testduration">{{translationObj.details.fieldtitletestduration}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="number" class="form-control" id="testduration" ng-model="currentTest.testduration" min="0" max="99" required>
-	      </div>
-      </div>
-	  </div>
-  </div>
+				<label for="sequence">{{translationObj.details.fieldtitleversion}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="version" ng-model="currentTest.version" disabled>
+						<option ng-repeat="testversion in testversions" value="{{testversion.code}}">{{testversion.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="type">{{translationObj.details.fieldtitletype}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="type" ng-model="currentTest.type" disabled>
+						<option ng-repeat="testtype in testtypes" value="{{testtype.code}}">{{testtype.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="level">{{translationObj.details.fieldtitlelevel}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="level" ng-model="currentTest.level" disabled>
+						<option ng-repeat="testlevel in testlevels" value="{{testlevel.code}}" ng-if="currentTest.version=='1'">{{testlevel.text}}</option>
+						<option ng-repeat="testnewlevel in testnewlevels" value="{{testnewlevel.code}}" ng-if="currentTest.version=='2'">{{testnewlevel.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="subtype">{{translationObj.details.fieldtitlesubtype}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="subtype" ng-model="currentTest.subtype" disabled>
+						<option ng-repeat="testsubtype in testsubtypes" value="{{testsubtype.code}}">
+							{{testsubtype.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="sequence">{{translationObj.details.fieldtitlesequence}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="sequence" ng-model="currentTest.sequence" minvalue=0
+						maxvalue=99 maxlength="4" disabled>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="minimumnbtests">{{translationObj.details.fieldtitlemintestsucceed}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" class="form-control" id="minimumnbtests" ng-model="currentTest.minimumnbtests"
+						min="0" max="99" required disabled>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="evaluation">{{translationObj.details.fieldtitleevaluation}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="evaluation" ng-model="currentTest.evaluation" disabled>
+						<option ng-repeat="testevaluation in testevaluations" value="{{testevaluation.code}}">{{testevaluation.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<!-- Removed because score is now at the test level instead of at the test category level
+			<div class="col-xs-2">
+				<label for="score">{{translationObj.details.fieldtitlescore}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" class="form-control" id="score" ng-model="currentTest.score" min="0" max="999"
+						required>
+				</div>
+			</div> -->
+			<div class="col-xs-2">
+				<label for="warmupduration">{{translationObj.details.fieldtitlewarmupduration}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" class="form-control" id="warmupduration" ng-model="currentTest.warmupduration"
+						min="0" max="99" required>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="testduration">{{translationObj.details.fieldtitletestduration}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="number" class="form-control" id="testduration" ng-model="currentTest.testduration"
+						min="0" max="99" required>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

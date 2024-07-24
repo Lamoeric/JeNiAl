@@ -504,6 +504,38 @@ function getsessionrules($mysqli, $language, $previewmode) {
 };
 
 /**
+ * This function gets the rules paragraph of a session
+ */
+function getsessionrulesparagraphs($mysqli, $language, $previewmode) {
+  if ($previewmode) {
+    $query = "SELECT csr.id, csr.paragraphindex, csr.title, csr.subtitle, csr.paragraphtext, csr.visiblepreview publish,
+                     getWSTextLabel(csr.title, '$language') title, getWSTextLabel(csr.subtitle, '$language') subtitle, getWSTextLabel(csr.paragraphtext, '$language') paragraphtext
+            FROM cpa_sessions_rules2 csr
+            JOIN cpa_sessions cs ON cs.id = csr.sessionid
+            WHERE cs.active = 1
+            AND csr.visiblepreview = 1
+            ORDER BY paragraphindex";
+  } else {
+    $query = "SELECT csr.id, csr.paragraphindex, csr.title, csr.subtitle, csr.paragraphtext, csr.visiblepreview publish,
+                      getWSTextLabel(csr.title, '$language') title, getWSTextLabel(csr.subtitle, '$language') subtitle, getWSTextLabel(csr.paragraphtext, '$language') paragraphtext
+            FROM cpa_sessions_rules2 csr
+            JOIN cpa_sessions cs ON cs.id = csr.sessionid
+            WHERE cs.active = 1
+            AND csr.publish = 1
+            ORDER BY paragraphindex";
+  }
+  $result = $mysqli->query($query);
+  $data = array();
+  $data['data'] = array();
+  while ($row = $result->fetch_assoc()) {
+    $data['data'][] = $row;
+  }
+  $data['success'] = true;
+  return $data;
+  exit;
+}
+
+/**
  * This function gets the costumes list
  */
 function getcostumeslistsection($mysqli, $language, $previewmode) {
@@ -547,7 +579,7 @@ function getgoodslistsection($mysqli, $language, $previewmode) {
 	$data = array();
 	$data['data'] = array();
   while ($row = $result->fetch_assoc()) {
-    $row['pictures'] = getGoodsPictures($mysqli, $row['id'], $language)['data'];
+    $row['pictures'] = getGoodsPictures($mysqli, $row['id'], $language, $previewmode)['data'];
     $data['data'][] = $row;
   }
 	$data['success'] = true;
@@ -1086,13 +1118,16 @@ function getcurrentpageinfo($mysqli, $pagename, $language, $costumeid, $testsess
         $row['arenas'] = getarenassection($mysqli, $language, $previewmode)['data'];
         $data['currentpage']['globalsections'][$sectionname] = $row;
       } else if ($sectionname == 'session' || $sectionname == 'rules' || $sectionname == 'schedule' || $sectionname == 'registrations') {
-      	if (empty($row['activesessioninfo'])) {
-	        $row['activesessioninfo'] = getsessionsection($mysqli, $language, $previewmode)['data'];
-	        $row['activesessioninfo']['rules'] = getsessionrules($mysqli, $language, $previewmode)['data'];
-        	if (empty($data['currentpage']['globalsections']['session'])) {
-        		$data['currentpage']['globalsections']['activesessioninfo'] = $row['activesessioninfo'];
-        	} 
-      	}
+        if (empty($row['activesessioninfo'])) {
+          $row['activesessioninfo'] = getsessionsection($mysqli, $language, $previewmode)['data'];
+          $row['activesessioninfo']['rulesparagraphs'] = getsessionrulesparagraphs($mysqli, $language, $previewmode)['data'];
+          if (empty($row['activesessioninfo']['rulesparagraphs']) || count($row['activesessioninfo']['rulesparagraphs']) == 0) {
+            $row['activesessioninfo']['rules'] = getsessionrules($mysqli, $language, $previewmode)['data'];
+          }
+          if (empty($data['currentpage']['globalsections']['session'])) {
+            $data['currentpage']['globalsections']['activesessioninfo'] = $row['activesessioninfo'];
+          } 
+        }
         $data['currentpage']['globalsections'][$sectionname] = $row;
       } else if ($sectionname == 'eventlist') {
         $row['events'] = geteventlistsection($mysqli, $language, '1', $previewmode)['data'];

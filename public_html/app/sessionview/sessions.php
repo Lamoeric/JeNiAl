@@ -78,8 +78,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 		$data = array();
 		$id = "";
 		$query = "INSERT INTO cpa_sessions(id, name, label, startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, active)
-							 SELECT null, 'name/nom', create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, 0
-							 	FROM cpa_sessions WHERE id = $sessionid";
+					SELECT null, 'name/nom', create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), startdate, enddate, coursesstartdate, coursesenddate, reimbursementdate, 0
+					FROM cpa_sessions WHERE id = $sessionid";
 		if ($mysqli->query($query)) {
 			$id = (int) $mysqli->insert_id;
 			$query = "UPDATE cpa_sessions SET name = concat(name, ' ',  $id) WHERE id = $id";
@@ -89,8 +89,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 				} else {
 					if ($copyicetimes == true) {
 						$query = "INSERT INTO cpa_sessions_icetimes(id, sessionid, arenaid, day, starttime, endtime, duration, iceid, comment)
-												SELECT null, $id, arenaid, day, starttime, endtime, duration, iceid, comment
-													FROM cpa_sessions_icetimes WHERE sessionid = $sessionid";
+									SELECT null, $id, arenaid, day, starttime, endtime, duration, iceid, comment
+									FROM cpa_sessions_icetimes WHERE sessionid = $sessionid";
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
@@ -99,8 +99,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 					}
 					if ($copycharges == true) {
 						$query = "INSERT INTO cpa_sessions_charges(id, sessionid, chargecode, amount)
-												SELECT null, $id, chargecode, amount
-													FROM cpa_sessions_charges WHERE sessionid = $sessionid";
+									SELECT null, $id, chargecode, amount
+									FROM cpa_sessions_charges WHERE sessionid = $sessionid";
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
@@ -109,8 +109,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 	 			 	}
 					if ($copyrules == true) {
 						$query = "INSERT INTO cpa_sessions_rules(id, sessionid, language, rules)
-												SELECT null, $id, language, rules
-													FROM cpa_sessions_rules WHERE sessionid = $sessionid";
+									SELECT null, $id, language, rules
+									FROM cpa_sessions_rules WHERE sessionid = $sessionid";
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
@@ -118,7 +118,9 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 		 			 	}
 	 			 	}
 					if ($copycourses == true) {
-						$query = "SELECT id, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, availableonline FROM cpa_sessions_courses WHERE sessionid = $sessionid";
+						$query = "SELECT id, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, availableonline 
+									FROM cpa_sessions_courses 
+									WHERE sessionid = $sessionid";
 						$result = $mysqli->query($query);
 						while ($row = $result->fetch_assoc()) {
 							$sessionscoursesid = $row['id'];
@@ -131,48 +133,21 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 							$maxnumberskater = $row['maxnumberskater'];
 							$availableonline = $row['availableonline'];
 							$query = "INSERT INTO cpa_sessions_courses(id, sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, datesgenerated, label)
-												VALUES (null, $id, '$coursecode', '$courselevel', '$name', $fees, $minnumberskater, $maxnumberskater, $availableonline, 0, create_systemtext(getEnglishTextLabel($label), getFrenchTextLabel($label)))";
+										VALUES (null, $id, '$coursecode', '$courselevel', '$name', $fees, $minnumberskater, $maxnumberskater, $availableonline, 0, create_systemtext(getEnglishTextLabel($label), getFrenchTextLabel($label)))";
 							if ($mysqli->query($query)) {
 								$newsessionscoursesid = (int) $mysqli->insert_id;
 
 								$query = "INSERT INTO cpa_sessions_courses_schedule(id, sessionscoursesid, arenaid, iceid, day, starttime, endtime, duration)
-													SELECT null, $newsessionscoursesid, arenaid, iceid, day, starttime, endtime, duration
-														FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
+											SELECT null, $newsessionscoursesid, arenaid, iceid, day, starttime, endtime, duration
+											FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
 								if ($mysqli->query($query)) {
 								} else {
 									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 								}
-
-
-								// $query = "SELECT /*id, sessionscoursesid,*/ arenaid, iceid, day, starttime, endtime, duration FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
-								// $result2 = $mysqli->query($query);
-								// while ($row2 = $result2->fetch_assoc()) {
-									// $arenaid = $row2['arenaid'];
-									// $iceid = $row2['iceid'];
-									// $day = $row2['day'];
-									// $starttime = $row2['starttime'];
-									// $endtime = $row2['endtime'];
-									// $duration = $row2['duration'];
-									// $query = "INSERT INTO cpa_sessions_courses_schedule(id, sessionscoursesid, arenaid, iceid, day, starttime, endtime, duration
-									// 					VALUES (null, $newsessionscoursesid, $arenaid, $iceid, $day, '$starttime', '$endtime', $duration)";
-								// 	if ($mysqli->query($query)) {
-								// 	} else {
-								// 	 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								// 	 	}
-								// }
 							} else {
 			 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			 			 	}
 						}
-
-						// $query = "INSERT INTO cpa_sessions_courses(id, sessionid, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, datesgenerated)
-						// 						SELECT null, $id, coursecode, courselevel, name, create_systemtext(getEnglishTextLabel(label), getFrenchTextLabel(label)), fees, minnumberskater, maxnumberskater, 0
-						// 							FROM cpa_sessions_courses WHERE sessionid = $sessionid";
-						// if ($mysqli->query($query)) {
-						// 	$data['success'] = true;
-						// } else {
-						//  		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						//  	}
 					}
 				}
 			} else {
@@ -868,6 +843,116 @@ function updateEntireSessionEvents($mysqli, $sessionid, $events) {
 };
 
 /**
+ * 
+ * @param integer $sessionid	The id of the session from cpa_sessions
+ */
+function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs) {
+	$data = array();
+	for ($x = 0; $paragraphs && $x < count($paragraphs); $x++) {
+		$id =				$mysqli->real_escape_string(isset($paragraphs[$x]['id'])				? (int)$paragraphs[$x]['id'] : 0);
+		$paragraphindex = 	$mysqli->real_escape_string(isset($paragraphs[$x]['paragraphindex'])	? (int)$paragraphs[$x]['paragraphindex'] : 0);
+		$publish =			$mysqli->real_escape_string(isset($paragraphs[$x]['publish'])			? (int)$paragraphs[$x]['publish'] : 0);
+		$visiblepreview = 	$mysqli->real_escape_string(isset($paragraphs[$x]['visiblepreview'])	? (int)$paragraphs[$x]['visiblepreview'] : 0);
+		$title =			$mysqli->real_escape_string(isset($paragraphs[$x]['title'])				? (int)$paragraphs[$x]['title'] : 0);
+		$subtitle =			$mysqli->real_escape_string(isset($paragraphs[$x]['subtitle'])			? (int)$paragraphs[$x]['subtitle'] : 0);
+		$paragraphtext =	$mysqli->real_escape_string(isset($paragraphs[$x]['paragraphtext'])		? (int)$paragraphs[$x]['paragraphtext'] : 0);
+		$title_en =			$mysqli->real_escape_string(isset($paragraphs[$x]['title_en'])			? $paragraphs[$x]['title_en'] : '');
+		$title_fr =			$mysqli->real_escape_string(isset($paragraphs[$x]['title_fr'])			? $paragraphs[$x]['title_fr'] : '');
+		$subtitle_en =		$mysqli->real_escape_string(isset($paragraphs[$x]['subtitle_en'])		? $paragraphs[$x]['subtitle_en'] : '');
+		$subtitle_fr =		$mysqli->real_escape_string(isset($paragraphs[$x]['subtitle_fr'])		? $paragraphs[$x]['subtitle_fr'] : '');
+		$paragraphtext_en = $mysqli->real_escape_string(isset($paragraphs[$x]['paragraphtext_en'])	? $paragraphs[$x]['paragraphtext_en'] : '');
+		$paragraphtext_fr = $mysqli->real_escape_string(isset($paragraphs[$x]['paragraphtext_fr']) 	? $paragraphs[$x]['paragraphtext_fr'] : '');
+
+		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'New') {
+			$query = "	INSERT INTO cpa_sessions_rules2 (id, sessionid, paragraphindex, publish, visiblepreview, title, subtitle, paragraphtext)
+						VALUES (null, $sessionid, $paragraphindex, $publish, $visiblepreview, create_wsText('$title_en', '$title_fr'), 
+								create_wsText('$subtitle_en', '$subtitle_fr'), create_wsText('$paragraphtext_en', '$paragraphtext_fr'))";
+			if (!$mysqli->query($query)) {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+			$paragraphs[$x]['id'] = (int) $mysqli->insert_id;
+		}
+
+		// If no status or (status != deleted AND status != New)
+		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Modified') {
+			$query = "UPDATE cpa_sessions_rules2 SET publish = $publish, visiblepreview = $visiblepreview	WHERE id = $id";
+			if ($mysqli->query($query)) {
+				$query = "UPDATE cpa_ws_text SET text = '$title_fr' WHERE id = $title AND language = 'fr-ca'";
+				if ($mysqli->query($query)) {
+					$query = "UPDATE cpa_ws_text SET text = '$title_en' WHERE id = $title AND language = 'en-ca'";
+					if ($mysqli->query($query)) {
+						$query = "UPDATE cpa_ws_text SET text = '$subtitle_fr' WHERE id = $subtitle AND language = 'fr-ca'";
+						if ($mysqli->query($query)) {
+							$query = "UPDATE cpa_ws_text SET text = '$subtitle_en' WHERE id = $subtitle AND language = 'en-ca'";
+							if ($mysqli->query($query)) {
+								$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_fr' WHERE id = $paragraphtext AND language = 'fr-ca'";
+								if ($mysqli->query($query)) {
+									$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_en' WHERE id = $paragraphtext AND language = 'en-ca'";
+									if ($mysqli->query($query)) {
+									} else {
+										throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+									}
+								} else {
+									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+								}
+							} else {
+								throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+							}
+						} else {
+							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						}
+					} else {
+						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					}
+				} else {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+			} else {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		}
+
+		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Deleted') {
+			$query = "DELETE FROM cpa_sessions_rules2 WHERE id = $id";
+			if ($mysqli->query($query)) {
+				$query = "DELETE FROM cpa_ws_text WHERE id = $title";
+				if ($mysqli->query($query)) {
+					$query = "DELETE FROM cpa_ws_text WHERE id = $subtitle";
+					if ($mysqli->query($query)) {
+						$query = "DELETE FROM cpa_ws_text WHERE id = $paragraphtext";
+						if ($mysqli->query($query)) {
+						} else {
+							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						}
+					} else {
+						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					}
+				} else {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+			} else {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		}
+	}
+
+	// We need to reorder everything
+	$realIndex = 0;
+	for ($x = 0; $paragraphs && $x < count($paragraphs); $x++) {
+		$id = $mysqli->real_escape_string(isset($paragraphs[$x]['id']) ? (int)$paragraphs[$x]['id'] : 0);
+		if ($mysqli->real_escape_string(!isset($paragraphs[$x]['status'])) or $paragraphs[$x]['status'] != 'Deleted') {
+			$query = "UPDATE cpa_sessions_rules2 SET paragraphindex = $realIndex WHERE id = $id";
+			if (!$mysqli->query($query)) {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+			$realIndex = $realIndex + 1;
+		}
+	}
+	$data['success'] = true;
+	return $data;
+};
+
+/**
  * This function will handle session add, update functionality
  * @throws Exception
  */
@@ -894,6 +979,10 @@ function updateEntireSession($mysqli, $session) {
 
 		if ($mysqli->real_escape_string(isset($session['events']))) {
 			$data['events'] = updateEntireSessionEvents($mysqli, $id, $session['events']);
+		}
+
+		if ($mysqli->real_escape_string(isset($session['rules2']))) {
+			$data['rules2'] = updateEntireRulesParagraphs($mysqli, $id, $session['rules2']);
 		}
 
 		$mysqli->close();
@@ -1051,16 +1140,18 @@ function delete_session($mysqli, $session) {
 		// Delete all courses (and child) from this session
 		$query = "DELETE FROM cpa_sessions_courses WHERE sessionid ='$id'";
 		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		// Delete all texts from rules
+		$query = "DELETE FROM cpa_ws_text WHERE id IN (SELECT title FROM cpa_sessions_rules2 WHERE sessionid = $id) OR id IN (SELECT subtitle FROM cpa_sessions_rules2 WHERE sessionid = $id) OR id IN (SELECT paragraphtext FROM cpa_sessions_rules2 WHERE sessionid = $id)";
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete rules texts - '.$mysqli->sqlstate.' - '. $mysqli->error);
 		// Delete the session
 		$query = "DELETE FROM cpa_sessions WHERE id = '$id'";
-		if (!$mysqli->query($query)) throw new Exception('delete_session - delete sessions - '.$mysqli->sqlstate.' - '. $mysqli->error);
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			$data['message'] = 'Session deleted successfully.';
 			echo json_encode($data);
 			exit;
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception('delete_session - delete sessions - '.$mysqli->sqlstate.' - '. $mysqli->error);
 		}
 	} catch (Exception $e) {
 		$data = array();
@@ -1413,6 +1504,32 @@ function getSessionRules($mysqli, $sessionid, $language) {
 };
 
 /**
+ * This function gets the details of all rules for a session
+ * 
+ * @param integer $sessionid	The id of the show from cpa_shows
+ */
+function getSessionRulesParagraphs($mysqli, $sessionid, $language) {
+	if (empty($sessionid)) throw new Exception("Invalid session.");
+	$query = "	SELECT 	csr.*, getWSTextLabel(csr.paragraphtext, 'fr-ca') paragraphtext_fr, getWSTextLabel(csr.paragraphtext, 'en-ca') paragraphtext_en,
+					 	getWSTextLabel(csr.title, 'fr-ca') title_fr, getWSTextLabel(csr.title, 'en-ca') title_en,
+						getWSTextLabel(csr.subtitle, 'fr-ca') subtitle_fr, getWSTextLabel(csr.subtitle, 'en-ca') subtitle_en
+				FROM cpa_sessions_rules2 csr
+				WHERE csr.sessionid = $sessionid
+				ORDER BY paragraphindex";
+	$result = $mysqli->query($query);
+	$data = array();
+	$data['data'] = array();
+	while ($row = $result->fetch_assoc()) {
+		$row['id'] = (int)$row['id'];
+		$row['sessionid'] = (int)$row['sessionid'];
+		$row['paragraphindex'] = (int)$row['paragraphindex'];
+		$data['data'][] = $row;
+	}
+	$data['success'] = true;
+	return $data;
+};
+
+/**
  * This function gets the details of one session from database
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
@@ -1432,6 +1549,7 @@ function getSessionDetails($mysqli, $id, $language) {
 			$row['rulesfr'] = 			getSessionRules($mysqli, $id, 'fr-ca')['data'];
 			$row['rulesen'] = 			getSessionRules($mysqli, $id, 'en-ca')['data'];
 			$row['coursecodes'] = 		getSessionCourseCodes($mysqli, $id, $language)['data'];
+			$row['rules2'] = 			getSessionRulesParagraphs($mysqli, $id, $language)['data'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;

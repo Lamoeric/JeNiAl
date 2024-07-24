@@ -17,6 +17,7 @@
 	{"formname":"details", "fieldname":"fieldtitlewarmupduration", "text":"Warmup Duration"},
 	{"formname":"details", "fieldname":"fieldtitletestduration", "text":"Test Duration"},
 	{"formname":"details", "fieldname":"fieldtitleversion", "text":"Version"},
+	{"formname":"details", "fieldname":"fieldtitleevaluation", "text":"Evaluation"},
 
 	{"formname":"newtest", "fieldname":"formtitlenewtest", "text":"New Test Definition"},
 	{"formname":"newtest", "fieldname":"fieldtitletype", "text":"Type"},

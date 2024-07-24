@@ -240,6 +240,12 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
           if ($scope.currentpage.globalsections.activesessioninfo && $scope.currentpage.globalsections.activesessioninfo.rules) {
             $scope.currentpage.globalsections.activesessioninfo.rules = $sce.trustAsHtml($scope.currentpage.globalsections.activesessioninfo.rules);
           }
+          if ($scope.currentpage.globalsections.activesessioninfo) {
+            var len = $scope.currentpage.globalsections.activesessioninfo.rulesparagraphs.length;
+            for (var x = 0;  x < len; x++) {
+              $scope.convertParagraph($scope.currentpage.globalsections.activesessioninfo.rulesparagraphs[x]);
+            }
+          }
 
           // links section needs to be sanitized for every section of the page
           for (var i in $scope.currentpage.globalsections) {

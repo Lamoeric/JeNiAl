@@ -15,32 +15,32 @@
 				<div ng-repeat="period in currentTestregistration.periods | filter:filterPeriods" class="blackcurvyborder">
 					<div class="row">
 						<div class="col-xs-2">
-							<label for="perioddate">{{translationObj.period.fieldperioddate}}</label>
-							<input type="text" class="form-control" id="perioddate" ng-model="period.perioddate" disabled>
+							<label for="perioddate{{$index}}">{{translationObj.period.fieldperioddate}}</label>
+							<input type="text" class="form-control" id="perioddate{{$index}}" ng-model="period.perioddate" disabled>
 						</div>
 						<div class="col-xs-2">
-							<label for="day">{{translationObj.period.fieldday}}</label>
-							<select class="form-control" id="day" ng-model="period.day" disabled>
+							<label for="day{{$index}}">{{translationObj.period.fieldday}}</label>
+							<select class="form-control" id="day{{$index}}" ng-model="period.day" disabled>
 								<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
 							</select>
 						</div>
 						<div class="col-xs-2">
-				      <label for="arena">{{translationObj.period.fieldarena}}</label>
-		      		<select class="form-control" id="arena" ng-model="period.arenaid" disabled>
+				      <label for="arena{{$index}}">{{translationObj.period.fieldarena}}</label>
+		      		<select class="form-control" id="arena{{$index}}" ng-model="period.arenaid" disabled>
 								<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
 		      		</select>
 			      </div>
 						<div class="col-xs-2">
-							<label for="ice">{{translationObj.period.fieldice}}</label>
-							<input type="text" class="form-control" id="ice" ng-model="period.icelabel" disabled>
+							<label for="ice{{$index}}">{{translationObj.period.fieldice}}</label>
+							<input type="text" class="form-control" id="ice{{$index}}" ng-model="period.icelabel" disabled>
 						</div>
 						<div class="col-xs-2">
-							<label for="starttime">{{translationObj.period.fieldstarttime}}</label>
-							<input type="text" class="form-control" id="starttime" ng-model="period.starttime" disabled>
+							<label for="starttime{{$index}}">{{translationObj.period.fieldstarttime}}</label>
+							<input type="text" class="form-control" id="starttime{{$index}}" ng-model="period.starttime" disabled>
 						</div>
 						<div class="col-xs-2">
-							<label for="endtime">{{translationObj.period.fieldendtime}}</label>
-							<input type="text" class="form-control" id="endtime" ng-model="period.endtime" disabled>
+							<label for="endtime{{$index}}">{{translationObj.period.fieldendtime}}</label>
+							<input type="text" class="form-control" id="endtime{{$index}}" ng-model="period.endtime" disabled>
 						</div>
 					</div>
 					<div class="row">

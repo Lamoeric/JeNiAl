@@ -1,22 +1,25 @@
 <div class="form-group row">
 	<div class="grid">
 		<div class="row">
-    	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-				<h4>{{translationObj.canskate.labelstep}}1</h4>
-  			<div ng-repeat="test in currentMember.precstests['1']">
-      		<i ng-show="currentMember.precstests['1'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i><input type="checkbox" ng-model="currentMember.precstests['1'][$index].success" ng-show="currentMember.precstests['1'][$index]!=undefined" ng-true-value="'1'" ng-false-value="'0'" ng-change="setDirty();">{{currentMember.precstests['1'][$index].text}}
-  			</div>
-  		</div>
-  	</div>
-  	<hr>
+			<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+				<h4>{{translationObj.canskate.labelstep}}1&nbsp;<small><a href="" ng-click="checkAll(currentMember.precstests['1'])">Cocher tout</a></small></h4>
+				<div ng-repeat="test in currentMember.precstests['1']">
+					<i ng-show="currentMember.precstests['1'][$index].type=='SUBTEST'">&nbsp;&nbsp;&nbsp;</i>
+					<label><input type="checkbox" ng-model="currentMember.precstests['1'][$index].success"
+						ng-show="currentMember.precstests['1'][$index]!=undefined" ng-true-value="'1'"
+						ng-false-value="'0'" ng-change="setDirty();">{{currentMember.precstests['1'][$index].text}}</label>
+				</div>
+			</div>
+		</div>
+		<hr>
 		<div class="row">
-      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-	      <label for="ribbon1">{{translationObj.canskate.fieldribbon}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
-	        <input type="date" class="form-control" id="ribbon1" ng-change="setDirty();" ng-model="currentMember.precsribbons['0'].ribbondate">
-	      </div>
-      </div>
-  	</div>
-  </div>
+			<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+				<label for="ribbon1">{{translationObj.canskate.fieldribbon}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-star-empty"></i></span>
+					<input type="date" class="form-control" id="ribbon1" ng-change="setDirty();" ng-model="currentMember.precsribbons['0'].ribbondate">
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
