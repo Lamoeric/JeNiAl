@@ -9,7 +9,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="name" class="form-control" id="name" ng-model="currentSession.name"
-						maxlength="40" required>
+						maxlength="40" required autocomplete="off">
 					<span style="color:red" ng-show="detailsForm.name.$touched && detailsForm.name.$invalid"
 						class="glyphicon glyphicon-remove form-control-feedback"></span>
 				</div>
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-xs-5">
 				<label for="onlineregiststartdate">{{translationObj.details.fieldonlineregiststartdate}}<i
 						style="color:red"> *</i></label>
@@ -139,7 +139,7 @@
 						class="glyphicon glyphicon-remove form-control-feedback"></span>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div class="col-xs-5">
 				<label for="reimbursementdate">{{translationObj.details.fieldreimbursementenddate}}<i style="color:red">

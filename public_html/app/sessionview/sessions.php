@@ -1026,8 +1026,10 @@ function insert_session($mysqli, $session) {
 			throw new Exception("Required fields missing. Please enter and submit");
 		}
 
-		$query = "	INSERT INTO cpa_sessions (name, label, startdate, enddate, coursesstartdate, coursesenddate, onlineregiststartdate, onlineregistenddate, onlinepreregiststartdate, onlinepreregistenddate, reimbursementdate, active)
-					VALUES ('$name', create_systemText('$label_en', '$label_fr'), '$startdate', '$enddate', '$coursesstartdate', '$coursesenddate', '$onlineregiststartdate', '$onlineregistenddate', '$onlinepreregiststartdate', '$onlinepreregistenddate', '$reimbursementdate', $active)";
+		$query = "	INSERT INTO cpa_sessions (name, label, startdate, enddate, coursesstartdate, coursesenddate, onlineregiststartdate, 
+												onlineregistenddate, onlinepreregiststartdate, onlinepreregistenddate, reimbursementdate, active)
+					VALUES ('$name', create_systemText('$label_en', '$label_fr'), '$startdate', '$enddate', '$coursesstartdate', '$coursesenddate', '$onlineregiststartdate', 
+							'$onlineregistenddate', '$onlinepreregiststartdate', '$onlinepreregistenddate', '$reimbursementdate', $active)";
 		if ($mysqli->query($query)) {
 			if (empty($id)) {
 				$id = $data['id'] = (int) $mysqli->insert_id;
@@ -1084,6 +1086,13 @@ function update_session($mysqli, $details) {
 		$attendancepaidinfull =		$mysqli->real_escape_string(isset($details['attendancepaidinfull']) 		? (int)$details['attendancepaidinfull'] : 0);
 		$previoussessionid =		$mysqli->real_escape_string(isset($details['previoussessionid']) 			? (int)$details['previoussessionid'] : 0);
 		$active =					$mysqli->real_escape_string(isset($details['active']) 						? (int)$details['active'] : 0);
+		$isonlineregistactive =		$mysqli->real_escape_string(isset($details['isonlineregistactive']) 		? (int)$details['isonlineregistactive'] : 0);
+		$isonlinepreregistactive =	$mysqli->real_escape_string(isset($details['isonlinepreregistactive']) 		? (int)$details['isonlinepreregistactive'] : 0);
+		$isonlinepreregistemail =	$mysqli->real_escape_string(isset($details['isonlinepreregistemail']) 		? (int)$details['isonlinepreregistemail'] : 0);
+		$onlinepaymentoption =		$mysqli->real_escape_string(isset($details['onlinepaymentoption']) 			? (int)$details['onlinepaymentoption'] : 0);
+		$isonlineregistemail =		$mysqli->real_escape_string(isset($details['isonlineregistemail']) 			? (int)$details['isonlineregistemail'] : 0);
+		$onlineregistemailtpl =		$mysqli->real_escape_string(isset($details['onlineregistemailtpl']) 		? (int)$details['onlineregistemailtpl'] : 0);
+		$isonlineregistemailinclbill =	$mysqli->real_escape_string(isset($details['isonlineregistemailinclbill']) ? (int)$details['isonlineregistemailinclbill'] : 0);
 
 
 		$query = "	UPDATE cpa_sessions
@@ -1091,7 +1100,10 @@ function update_session($mysqli, $details) {
 						onlineregiststartdate = '$onlineregiststartdate', onlineregistenddate = '$onlineregistenddate',	
 						onlinepreregiststartdate = '$onlinepreregiststartdate', onlinepreregistenddate = '$onlinepreregistenddate',
 						reimbursementdate = '$reimbursementdate', proratastartdate = '$proratastartdate', prorataoptions = '$prorataoptions', 
-						attendancepaidinfull = '$attendancepaidinfull', active = '$active', previoussessionid = $previoussessionid
+						attendancepaidinfull = '$attendancepaidinfull', active = '$active', previoussessionid = $previoussessionid,
+						isonlineregistactive = $isonlineregistactive, isonlinepreregistactive = $isonlinepreregistactive, 
+						isonlinepreregistemail = $isonlinepreregistemail, onlinepaymentoption = $onlinepaymentoption, isonlineregistemail = $isonlineregistemail, 
+						onlineregistemailtpl = $onlineregistemailtpl, isonlineregistemailinclbill = $isonlineregistemailinclbill
 					WHERE id = '$id'";
 		if ($mysqli->query($query)) {
 			$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = '$label' AND language = 'fr-ca'";
@@ -1541,6 +1553,13 @@ function getSessionDetails($mysqli, $id, $language) {
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
+			$row['isonlineregistactive'] 		= (int)$row['isonlineregistactive'];
+			$row['isonlinepreregistactive'] 	= (int)$row['isonlinepreregistactive'];
+			$row['isonlinepreregistemail'] 		= (int)$row['isonlinepreregistemail'];
+			// $row['onlinepaymentoption'] 		= (int)$row['onlinepaymentoption'];
+			$row['isonlineregistemail'] 		= (int)$row['isonlineregistemail'];
+			// $row['onlineregistemailtpl'] 		= (int)$row['onlineregistemailtpl'];
+			$row['isonlineregistemailinclbill'] = (int)$row['isonlineregistemailinclbill'];
 			$row['icetimes'] = 			getSessionIcetimes($mysqli, $id, $language)['data'];
 			$row['sessionCharges'] = 	getSessionCharges($mysqli, $id, $language)['data'];
 			$row['sessionCourses'] = 	getSessionCourses($mysqli, $id, $language)['data'];
