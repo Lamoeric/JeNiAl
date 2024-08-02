@@ -8,7 +8,7 @@
 					<displaymaintitle maintitle="currentSession.name" defaulttitle="translationObj.main.formtitledetails" object="currentSession"></displaymaintitle>
 
 					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.session_create"></main-new-button>
-					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty)" ng-if="userInfo.privileges.session_update==true"></main-save-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty && !onlineregistrationForm.$dirty)" ng-if="userInfo.privileges.session_update==true"></main-save-button>
 					<main-delete-button delete-callback="deleteFromDB()" ng-if="userInfo.privileges.session_delete"></main-delete-button>
 					<button class="btn btn-primary" ng-click="activateSession()" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_update"==true>{{translationObj.sessions.buttontitlesetactive}}</button>
 					<button class="btn btn-primary" ng-click="copySession()" ng-disabled="currentSession==null" ng-if="userInfo.privileges.session_create==true">{{translationObj.sessions.buttontitlecopysession}}</button>
@@ -36,7 +36,8 @@
 
 					<div id="maintab" class="maintab">
 						<ul id="maintabheader" class="nav nav-tabs">
-							<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.sessions.panetitledetails}}</a></li>
+						<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.sessions.panetitledetails}}</a></li>
+					    <li class="pointerlist"><a data-toggle="tab" data-target="#onlineregistration">{{translationObj.sessions.panetitleonlineregistration}}</a></li>
 					    <li class="pointerlist"><a data-toggle="tab" data-target="#registrations">{{translationObj.sessions.panetitleregistrations}}</a></li>
 					    <li class="pointerlist"><a data-toggle="tab" data-target="#events">{{translationObj.sessions.panetitleevents}}</a></li>
 					    <li class="pointerlist"><a data-toggle="tab" data-target="#rules" ng-if="currentSession.rules2.length==0 && (currentSession.rulesen!=null || currentSession.rulesfr!=null)">{{translationObj.sessions.panetitlerules}}</a></li>
@@ -54,9 +55,14 @@
 								</form>
 							</div>
 						
+							<div id="onlineregistration" class="tab-pane fade maintabpane">
+								<form class="form-horizontal well intabsingleformnox" role="form" name="onlineregistrationForm" ng-show="currentSession">
+									<div ng-include="'sessionview/onlineregistration.form.html'"></div>
+								</form>
+							</div>
+
 							<div id="registrations" class="tab-pane fade maintabpane">
-								<form class="form-horizontal well intabsingleformnox" role="form" name="registrationsForm"
-									ng-show="currentSession">
+								<form class="form-horizontal well intabsingleformnox" role="form" name="registrationsForm" ng-show="currentSession">
 									<div ng-include="'sessionview/registrations.form.html'"></div>
 								</form>
 							</div>

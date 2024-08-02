@@ -1,0 +1,89 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.onlineregistration.formtitle}}</h3>
+		<!-- <h4>{{translationObj.onlineregistration.formsubtitlepreregistration}}</h3> -->
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="isonlinepreregistactive" ng-model="currentSession.isonlinepreregistactive" ng-true-value="1">{{translationObj.onlineregistration.fieldisonlinepreregistactive}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 col-xs-offset-1">
+				<label for="onlineregiststartdate">{{translationObj.onlineregistration.fieldonlinepreregiststartdate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlinepreregiststartdate" class="form-control"
+						id="onlinepreregiststartdate" ng-model="currentSession.onlinepreregiststartdate" ng-required="currentSession.isonlinepreregistactive==1" ng-disabled="currentSession.isonlinepreregistactive==0">
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="onlineregistenddate">{{translationObj.onlineregistration.fieldonlinereregistenddate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlinepreregistenddate" class="form-control" id="onlinepreregistenddate"
+						ng-model="currentSession.onlinepreregistenddate"  ng-required="currentSession.isonlinepreregistactive==1" ng-disabled="currentSession.isonlinepreregistactive==0">
+				</div>
+			</div>
+		</div>
+		<!-- </br><h4>{{translationObj.onlineregistration.formsubtitleregistration}}</h3> -->
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="isonlineregistactive" ng-model="currentSession.isonlineregistactive" ng-true-value="1">{{translationObj.onlineregistration.fieldisonlineregistactive}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 col-xs-offset-1">
+				<label for="onlineregiststartdate">{{translationObj.onlineregistration.fieldonlineregiststartdate}}<i style="color:red" ng-if="currentSession.isonlineregistactive==1"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlineregiststartdate" class="form-control" id="onlineregiststartdate"
+						ng-model="currentSession.onlineregiststartdate" ng-required="currentSession.isonlineregistactive==1" ng-disabled="currentSession.isonlineregistactive==0">
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="onlineregistenddate">{{translationObj.onlineregistration.fieldonlineregistenddate}}<i style="color:red" ng-if="currentSession.isonlineregistactive==1"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="onlineregistenddate" class="form-control" id="onlineregistenddate"
+						ng-model="currentSession.onlineregistenddate" ng-required="currentSession.isonlineregistactive==1" ng-disabled="currentSession.isonlineregistactive==0">
+				</div>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-xs-3 col-xs-offset-1">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="isonlineregistemail" ng-model="currentSession.isonlineregistemail" ng-true-value="1" ng-disabled="currentSession.isonlineregistactive==0">{{translationObj.onlineregistration.fieldisonlineregistemail}}</label>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="onlineregistemailtpl">{{translationObj.onlineregistration.fieldonlineregistemailtpl}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<select class="form-control" id="onlineregistemailtpl" ng-model="currentSession.onlineregistemailtpl" ng-required="currentSession.isonlineregistemail==1" ng-disabled="currentSession.isonlineregistactive==0 || !currentSession.isonlineregistemail">
+						<option ng-repeat="option in allEmailTemplates" value="{{option.id}}">{{option.templatename}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="isonlineregistemailinclbill" ng-model="currentSession.isonlineregistemailinclbill" ng-true-value="1" ng-disabled="currentSession.isonlineregistactive==0 || !currentSession.isonlineregistemail">{{translationObj.onlineregistration.fieldisonlineregistemailinclbill}}</label>
+				</div>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-xs-3 col-xs-offset-1">
+				<label for="onlinepaymentoption">{{translationObj.onlineregistration.fieldonlinepaymentoption}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<select class="form-control" id="onlinepaymentoption" ng-model="currentSession.onlinepaymentoption" ng-disabled="currentSession.isonlineregistactive==0">
+						<option ng-repeat="option in onlinepaymentoptions" value="{{option.code}}">{{option.text}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
