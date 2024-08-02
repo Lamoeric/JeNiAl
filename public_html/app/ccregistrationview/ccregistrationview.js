@@ -93,9 +93,14 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 					$scope.currentRegistration.billingname      = $rootScope.userInfo.userfullname;
 					$scope.currentRegistration.contactid        = $rootScope.userInfo.contactid;
 					if ($scope.currentRegistration.id == 0) {
-						$scope.currentRegistration.status           = 'DRAFT';
+						$scope.currentRegistration.status = 'DRAFT';
+						$scope.currentRegistration.step = 1;
+						for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
+							$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+						}
 					} else {
-						$scope.currentRegistration.status           = 'DRAFT-R';
+						$scope.currentRegistration.status = 'DRAFT-R';
+						$scope.currentRegistration.step = 1;
 						// We need to simulate a revised draft (DRAFT-R) for the applyPricingRules to work properly
 						for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
 							if ($scope.currentRegistration.courses[i].selected == '1') {
@@ -231,43 +236,61 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		return list.join("<br>");
 	}
 
-	// When user clicks the confirm registration button
-	// Registration must be valid.
+	// At the end of step 2, user can confirm the registration if the online payment is unavailable or optionnal
+	// if online payment if mandatory, confirm button should be unavailable
 	$scope.confirmRegistration = function() {
+		if ($scope.currentRegistration.onlinepaymentoption != 2) { // online payment is not mandatory
+			$scope.insertRegistrationInDB();
+		} else {
+			// We shouldn't be here...
+		}
+	}
+
+	// When user clicks the continue button from step 1
+	// Registration must be valid and rules must be read and accepted.
+	$scope.goToStep2 = function() {
 		if (!$scope.validateRegistration()) {
 			dialogService.alertDlg($scope.translationObj.main.msginvalidregistration);
 		} else {
 			$scope.getSessionRules().then(function(data) {
 				// TODO : what if there are no regulations to display?
 				// TODO : what if the mandatory regulation acceptance flag is false ?
-				agreementdialog.showAgreement($scope, data.data).
-					then(function(retVal) {
-						if (retVal) {
-							$scope.currentRegistration.regulationsread = "1";
-							// User accepted the club regulations.
-
-							// TODO : we need to show one last time the courses the user selected
-							dialogService.confirmYesNo("<font color=red>" + $scope.translationObj.main.msgconfirmregistration + "</font><br><br>"+ $scope.createCoursesList() + "<br><font color=red>" + $scope.translationObj.main.msgconfirmregistration2 + "<font>",
-								function(e) {
-									if (e) {
-										// user clicked "yes", so we must insert the new registration directly into ACCEPTED status, link the bill to the existing one for the contact and display
-										$scope.insertRegistrationInDB();
-									} else {
-										// user clicked "no", so do nothing
-									}
-								}
-							);
-						} else {
-							// user refused the regulation. What should we do ? return to welcome page ?
-						}
-					}, function() {
-						return false;
-					});
+				if ($scope.currentRegistration.regulationsread != "1") {
+					agreementdialog.showAgreement($scope, data.data).
+						then(function(retVal) {
+							if (retVal) {
+								$scope.currentRegistration.regulationsread = "1";
+								// User accepted the club regulations.
+								$scope.currentRegistration.step = 2;
+								// TODO : we need to show one last time the courses the user selected
+								// dialogService.confirmYesNo("<font color=red>" + $scope.translationObj.main.msgconfirmregistration + "</font><br><br>"+ $scope.createCoursesList() + "<br><font color=red>" + $scope.translationObj.main.msgconfirmregistration2 + "<font>",
+								// 	function(e) {
+								// 		if (e) {
+								// 			// user clicked "yes", so we must insert the new registration directly into ACCEPTED status, link the bill to the existing one for the contact and display
+								// 			$scope.insertRegistrationInDB();
+								// 		} else {
+								// 			// user clicked "no", so do nothing
+								// 		}
+								// 	}
+								// );
+							} else {
+								// user refused the regulation. What should we do ? return to welcome page ?
+							}
+						}, function() {
+							return false;
+						});
+					} else {
+						$scope.currentRegistration.step = 2;
+					}
 				return;
 			}, function() {
 				return;
 			});
 		}
+	}
+	
+	$scope.backToDraft = function() {
+		$scope.currentRegistration.step = 1;
 	}
 
 	// When a coursecode is selected (or de-selected) for the filter
@@ -328,6 +351,20 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			} else {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	$scope.filterSelectedCourses = function(item) {
+		if (item.selected == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	$scope.filterSelectedCharges = function(item) {
+		if (item.selected == 1) {
+			return true;
 		}
 		return false;
 	}
