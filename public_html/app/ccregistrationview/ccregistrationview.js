@@ -35,7 +35,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 
 }])
 
-.controller('ccregistrationviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route', '$sce', 'pricingService', 'dateFilter', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', 'agreementdialog', 'billingService', function($scope, $rootScope, $q, $http, $window, $location, $route, $sce, pricingService, dateFilter, authenticationService, translationService, auth, dialogService, anycodesService, agreementdialog, billingService) {
+.controller('ccregistrationviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route', '$sce', 'pricingService', 'dateFilter', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', 'agreementdialog', 'billingService', 'paypalService', function($scope, $rootScope, $q, $http, $window, $location, $route, $sce, pricingService, dateFilter, authenticationService, translationService, auth, dialogService, anycodesService, agreementdialog, billingService, paypalService) {
 	$scope.remarkable = new Remarkable({
 		html:         false,        // Enable HTML tags in source
 		xhtmlOut:     false,        // Use '/' to close single tags (<br />)
@@ -48,6 +48,9 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
   	$rootScope.applicationName = "EC";
 	$scope.skaterid = $route.current.params.skaterid;
 	$scope.sessionid = $route.current.params.sessionid;
+	$scope.token = $route.current.params.token;
+	$scope.paymentId = $route.current.params.paymentId;
+	$scope.payerId = $route.current.params.PayerID;
 
 	// Converts the paragraph using remarkable to convert markdown text and sanitizes it
 	$scope.convertParagraph = function(paragraph) {
@@ -160,15 +163,22 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
     }
 
 	// Validates the registration.
-	// At least one course must be selected.
+	// if status = DRAFT, at least one course must be selected.
+	// if status = DRAFT-R, at least one course must be selected, unless online payment is on, in which case let pass
 	$scope.validateRegistration = function() {
 		var retVal = false;
+		$scope.currentRegistration.newCourseSelected = false;
 		// Validate at least one NEW course has been selected
 		for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
 			if ($scope.currentRegistration.courses[i].selected == '1' && $scope.currentRegistration.courses[i].selected_old != '1') {
 				retVal = true;
+				$scope.currentRegistration.newCourseSelected = true;
 				break;
 			}
+		}
+		// if status = DRAFT-R, at least one course must be selected, unless online payment is on, and there is a balance to pay, in which case let pass
+		if ($scope.currentRegistration.status == 'DRAFT-R' && $scope.currentRegistration.onlinepaymentoption >= 1 && ($scope.currentRegistration.totalamount - $scope.currentRegistration.bill.paymentsubtotal > 0)) {
+			retVal = true;
 		}
 		return retVal;
 	}
@@ -179,7 +189,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		// Because we didn't insert a DRAFT registration and read it back, we need to fix some data in order for the functions to work
 		// If new registration, id will be == 0, if revised registration, id will be current registration.
 		if ($scope.currentRegistration.id == 0) {
-			billId = 0; // means : start a new bill for the current contact (the one connected for this session)
+			billId = 0; // means : start or continue a bill for the current contact (the one connected for this session)
 		} else {
 			// We need to link the new registration that will be created with the old one
 			$scope.currentRegistration.relatedoldregistrationid = $scope.currentRegistration.id;
@@ -223,6 +233,70 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		error(function(data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
+	}
+
+	$scope.paypalInsertRegistrationInDB = function() {
+		var billId = null;
+		if ($scope.currentRegistration.status == "DRAFT-R" && $scope.currentRegistration.newCourseSelected == false) {
+			// We are in a revised draft registration and user has not selected a new course. We must not create a new registration, 
+			// we also assumed that there is a balance to pay, the validation between the steps should have checked that
+			// just allow user to pay current bill if it exists
+			if ($scope.currentRegistration.bill && $scope.currentRegistration.bill.id) {
+				$scope.paypalInitPurchase($scope.currentRegistration.bill.id);
+			} else {
+				dialogService.displayFailure($scope.translationObj.main.msgerrtransactioncanceled);
+				$location.path("ccwelcomeview");
+			}
+		} else {
+			$scope.currentRegistration.registrationdatestr = dateFilter(new Date(), 'yyyy-MM-dd');
+			// Because we didn't insert a DRAFT registration and read it back, we need to fix some data in order for the functions to work
+			// If new registration, id will be == 0, if revised registration, id will be current registration.
+			if ($scope.currentRegistration.id == 0) {
+				billId = null; // means : start a new bill 
+			} else {
+				// We need to link the new registration that will be created with the old one
+				$scope.currentRegistration.relatedoldregistrationid = $scope.currentRegistration.id;
+				billId = -1; // means : use the same bill has the original registration
+			}
+			// One last time, set the delta code
+			for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
+				$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+			}
+			// Charges are not pointing to their proper ancestor
+			for (var i = 0; i < $scope.currentRegistration.charges.length; i++) {
+				$scope.currentRegistration.charges[i].oldchargeid = $scope.currentRegistration.charges[i].id;
+			}
+
+			// For new registration, id needs to be null, and in this case we want to insert a new registration even if we are revising a old one.
+			$scope.currentRegistration.id = null;
+			$http({
+				method: 'post',
+				url: './registrationview/manageregistrations.php',
+				data: $.param({'registration' : $scope.currentRegistration, 'billid' : billId, 'language' : authenticationService.getCurrentLanguage(), 'validcount' : true, 'type' : 'acceptRegistration' }),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).
+			success(function(data, status, headers, config) {
+				if (data.success) {
+					var billid = data.newbillid ? data.newbillid : data.billid;
+					$scope.paypalInitPurchase(billid);
+				} else {
+					if (!data.success) {
+						if (data.message && data.message.indexOf('9999') != -1) {
+							dialogService.displayFailure($scope.translationObj.main.msgregistrationerror);
+							$location.path("ccwelcomeview");
+						} else if (data.errno == 8888) {
+							dialogService.displayFailure($scope.translationObj.main.msgregistrationnotuptodate);
+							$location.path("ccwelcomeview");
+						} else {
+							dialogService.displayFailure(data);
+						}
+					}
+				}
+			}).
+			error(function(data, status, headers, config) {
+				dialogService.displayFailure(data);
+			});
+		}
 	}
 
 	$scope.createCoursesList = function() {
@@ -426,14 +500,137 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
+	$scope.paypalInitPurchase = function(billid) {
+		var course = null;
+		var charge = null;
+		var item = {};
+		var purchase = {};
+		var otherCharges = 0;
+
+		if (authenticationService.validLoginDateTime() == false) return;
+		purchase.amount = {};
+		purchase.amount.currency = 'CAD';
+		purchase.description = $scope.currentRegistration.member.firstname + " " + $scope.currentRegistration.member.lastname;
+		purchase.custom = 'custom';
+		purchase.billid = billid;
+		purchase.returnUrl = window.location.href;
+		
+		// Create one item for each course
+		purchase.item_list = {};
+		purchase.item_list.items = [];
+		if ($scope.currentRegistration.status == 'DRAFT') {
+			purchase.amount.total = $scope.currentRegistration.totalamount;
+			for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
+				course = $scope.currentRegistration.courses[i];
+				if (course.selected == 1) {
+					item = {'name' : course.name, 'price' : course.fees, 'quantity' : 1, 'currency' : 'CAD', 'description' : course.label};
+					purchase.item_list.items.push(item);
+				}
+			}
+
+			// Combine all other charges into one
+			for (var i = 0; i < $scope.currentRegistration.charges.length; i++) {
+				charge = $scope.currentRegistration.charges[i];
+				if (charge.selected == 1) {
+					if (charge.type == 'CHARGE') {
+						otherCharges += charge.amount/1;
+					} else {
+						otherCharges -= charge.amount/1;
+					}
+				}
+			}
+			item = {'name' : 'Autres charges', 'price' : otherCharges, 'quantity' : 1, 'currency' : 'CAD'};
+			purchase.item_list.items.push(item);
+		} else {
+			// For DRAFT-R registrations, let's not detail the items. Just go with the total amount
+			purchase.amount.total = $scope.currentRegistration.totalamount - $scope.currentRegistration.bill.paymentsubtotal;
+		}
+
+		// Initiate paypal
+        paypal.checkout.initXO();
+        paypal.checkout.closeFlow();
+
+        $http({
+            method: 'post',
+            url: './core/services/paypal/paypal.php',
+            data: $.param({'purchase' : JSON.stringify(purchase), 'type' : 'startPurchase' }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).
+        success(function(data, status, headers, config) {
+            if (data.success) {
+				if (data.purchase.success == false){
+					var message = data.purchase.response;
+					for (var i = 0; i < data.purchase.detail.details.length; i++) {
+						message += '<br>' + data.purchase.detail.details[i].issue;
+					}
+					dialogService.displayFailure(message);
+				} else {
+					paypal.checkout.startFlow(data.purchase.redirecturl+'&useraction=commit');
+				}
+            } else {
+                paypal.checkout.closeFlow();
+                dialogService.displayFailure(data);
+            }
+        }).
+        error(function(data, status, headers, config) {
+            paypal.checkout.closeFlow();
+            dialogService.displayFailure(data);
+        });
+    }
+
+
 	$rootScope.$on("authentication.language.changed", function (event, current, previous, eventObj) {
 		$scope.refreshAll();
 	});
 
 	$scope.refreshAll = function() {
-		$scope.getSkaterRegistrationDetails();
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'coursedeltatypes',	'text', 'coursedeltatypes');
 		translationService.getTranslation($scope, 'ccregistrationview', authenticationService.getCurrentLanguage());
+		if ($scope.token != null) {
+			if ($scope.paymentId == null) {
+				if (!$scope.currentRegistration) $scope.currentRegistration = {};
+				$scope.currentRegistration.step = 4;
+			} else {
+				// paymentId is defined, we need to complete the purchase
+				$scope.promise = $http({
+					method: 'post',
+					url: './core/services/paypal/paypal.php',
+				 	data: $.param({'payerid' : $scope.payerId , 'paymentid' : $scope.paymentId, 'type' : 'completePurchase' }),
+				 	headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				}).
+				success(function(data, status, headers, config) {
+					if (data.success) {
+						$scope.response = data.reponse;
+						if (!$scope.currentRegistration) $scope.currentRegistration = {};
+						$scope.currentRegistration.step = 3;
+				 	} else {
+						if (data && data.detail) {
+							dialogService.displayFailure(data.detail);
+						} else {
+							dialogService.alertDlg($scope.translationObj.main.msgerrtransactioncanceled);
+						}
+						window.location = "#!/ccwelcomeview"
+				 	}
+				}).
+				error(function(data, status, headers, config) {
+				 	dialogService.displayFailure(data.detail);
+				 	window.location = "#!/ccwelcomeview"; // window.location.href.split("?")[0];
+				});
+			}
+		} else {
+			$scope.getSkaterRegistrationDetails();
+		}
+	}
+
+	if (window.paypalCheckoutReady != null) {
+		$scope.showButton = true
+	} else {
+		var s = document.createElement('script')
+		s.src = '//www.paypalobjects.com/api/checkout.js'
+		document.body.appendChild(s)
+		window.paypalCheckoutReady = function () {
+			// return paypalService.loadPaypalButton()
+		}
 	}
 
 	$scope.refreshAll();

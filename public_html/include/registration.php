@@ -957,6 +957,7 @@ function insertBill($mysqli, $registration) {
 						VALUES (NULL, '$billingname', '$registrationdate', null, 0, null, null, null, '$totalamount', $contactid)";
 	if ($mysqli->query($query)) {
 		$billid = (int) $mysqli->insert_id;
+		$data['billid'] = $billid;
 		insertBillRegistration($mysqli, $billid, $registration);
 		insertBillCharges($mysqli, $billid, $registrationid, $charges);
 		if ($courses != null) {
@@ -1047,35 +1048,36 @@ function acceptRegistration($mysqli, $registration, $billid, $language, $validco
 			}
 		}
 		// Take care of the bill
-		$relatedoldregistrationid			= -1;
-		$data['$billid'] 							= $billid;
+		$relatedoldregistrationid	= -1;
+		$data['billid'] 			= $billid;
 		if ($billid == 0 && $contactid != 0) {
 			// Find the current bill id for the contact for the session
 			$billid = getRegistrationContactBill($mysqli, $contactid, $sessionid, $showid);
-			$data['$billid'] = $billid;
+			$data['billid'] = $billid;
 		}
 		if ($billid == null) {
 			// Create a new bill
 			$data['bill'] = insertBill($mysqli, $registration);
+			$data['billid'] = $data['bill']['billid'];
 		} else {
 			$billid = intval($billid);
 			if ($billid == -1) {
 				// Reconnect to the same bill of old registration version. Need to find the billid first.
-				$billid 									= getRegistrationOriginalBill($mysqli, $registration['relatedoldregistrationid']);
-				$data['billid'] 					= $billid;
-				$relatedoldregistrationid = $registration['relatedoldregistrationid'];
+				$billid 					= getRegistrationOriginalBill($mysqli, $registration['relatedoldregistrationid']);
+				$data['billid'] 			= $billid;
+				$relatedoldregistrationid 	= $registration['relatedoldregistrationid'];
 			}
 
 			if ($billid > 0) {
 				// Connect to an existing bill
-				$newbillid 					= copyBill($mysqli, $billid, $relatedoldregistrationid, $registration['registrationdatestr']);
+				$newbillid 			= copyBill($mysqli, $billid, $relatedoldregistrationid, $registration['registrationdatestr']);
 				$data['newbillid'] 	= $newbillid;
-				$charges 						= $registration['charges'];
-				$courses						= isset($registration['courses'])			? $registration['courses'] : null;
-//				$numbers						= $mysqli->real_escape_string(isset($registration['shownumbers'])	? $registration['shownumbers'] : null);
-				$numbers						= isset($registration['shownumbers'])	? $registration['shownumbers'] : null;
-				$registrationid			= $mysqli->real_escape_string(isset($registration['id'])					? $registration['id'] : '');
-				$subtotal 					= $mysqli->real_escape_string(isset($registration['totalamount'])	? $registration['totalamount'] : '0');
+				$charges 			= $registration['charges'];
+				$courses			= isset($registration['courses'])			? $registration['courses'] : null;
+//				$numbers			= $mysqli->real_escape_string(isset($registration['shownumbers'])	? $registration['shownumbers'] : null);
+				$numbers			= isset($registration['shownumbers'])	? $registration['shownumbers'] : null;
+				$registrationid		= $mysqli->real_escape_string(isset($registration['id'])					? $registration['id'] : '');
+				$subtotal 			= $mysqli->real_escape_string(isset($registration['totalamount'])	? $registration['totalamount'] : '0');
 
 				insertBillRegistration($mysqli, $newbillid, $registration);
 				insertBillCharges($mysqli, $newbillid, $registrationid, $charges);

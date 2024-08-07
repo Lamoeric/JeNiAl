@@ -343,6 +343,8 @@ const LOGIN_VERSION = 1;
 	this.getUserInfo = function() {
 		if (!$rootScope.userInfo) {
 			this.init();
+		} else {
+			if (this.validLoginDateTime($rootScope.userInfo) == false) return null;
 		}
 		return $rootScope.userInfo;
 	};
@@ -373,6 +375,30 @@ const LOGIN_VERSION = 1;
 		return $rootScope.selectedLanguage;
 	};
 
+	/** 
+	 * Validates if the version and the date time of the user info is less than 12 hours
+	 * 
+	*/
+	this.validLoginDateTime = function(userInfo) {
+		if (!userInfo) {
+			userInfo = JSON.parse($window.localStorage["userInfo"]);
+		}
+		if (userInfo) {
+			// old userInfo structure, the logindatetime did not exists
+			// old userInfo structure, the version is wrong
+			if (!userInfo.logindatetime || !userInfo.version || (userInfo.version && userInfo.version < LOGIN_VERSION)) {
+				return false;
+			} else {
+				// console.log("Last login datetime : " + tmp.logindatetime);
+				var delayInHours = Math.abs(new Date() - new Date(userInfo.logindatetime)) / 36e5;
+				// console.log("Delay : " + delayInHours);
+				if (delayInHours > 12) return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
 	/*
 	*		Reads the login information from local storage and returns it if it exists and it's not expired and it's version is up to date
 	*		If not ok, the user will need to login again.
@@ -382,9 +408,10 @@ const LOGIN_VERSION = 1;
 			// console.log("localStorage : " + $window.localStorage["userInfo"]);
 			if ($window.localStorage["userInfo"]) {
 				var tmp = JSON.parse($window.localStorage["userInfo"]);
-				// old userInfo structure, the logindatetime did not exists
-				// old userInfo structure, the version is wrong
 				if (tmp) {
+					// if (this.validLoginDateTime(tmp) == false) return;
+					// old userInfo structure, the logindatetime did not exists
+					// old userInfo structure, the version is wrong
 					if (!tmp.logindatetime || !tmp.version || (tmp.version && tmp.version < LOGIN_VERSION)) {
 						return;
 					} else {

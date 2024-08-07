@@ -31,10 +31,12 @@
 	{"formname":"main", "fieldname":"msgconfirmregistration", "text":"Êtes-vous certain de vouloir confirmer cette inscription?"},
 	{"formname":"main", "fieldname":"msgconfirmregistration2", "text":"Par la suite, toutes les modifications à l'inscription devront se faire en personne."},
 	{"formname":"main", "fieldname":"msginvalidregistration", "text":"<b>Inscription invalide</b><br>Vous devez sélectionner au moins un nouveau cours."},
+	{"formname":"main", "fieldname":"msgtransactioncompleted", "text":"Transaction complétée."},
 	{"formname":"main", "fieldname":"msgselectline", "text":"Cliquer sur une ligne pour sélectionner le cours."},
 	{"formname":"main", "fieldname":"msgregistrationcompleted", "text":"Inscription complétée."},
 	{"formname":"main", "fieldname":"msgregistrationerror", "text":"Erreur. Un cours que vous avez sélectionné n'a plus de place libre. Essayez de nouveau."},
 	{"formname":"main", "fieldname":"msgerrskateralreadyhasaregistration", "text":"Le patineur est déjà inscrit pour cette session."},
+	{"formname":"main", "fieldname":"msgerrtransactioncanceled", "text":"Transaction annulée."},
 	{"formname":"main", "fieldname":"msgregistrationnotuptodate", "text":"Cette inscription a été modifiée par un autre usager et n'est donc plus à jour. Vous devez recharger l'inscription et recommencer vos modifications."},
 	{"formname":"main", "fieldname":"buttontitleclearcoursecodesfilter", "text":"Vider filtre"},
 

@@ -32,19 +32,19 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
 function insertTransaction($mysqli, $transaction){
 	try{
 		$data = array();
-		$billid 						= $mysqli->real_escape_string(isset( $transaction['billid'] )								? $transaction['billid'] : '');
-		$transactiontype 		= $mysqli->real_escape_string(isset( $transaction['transactiontype'] )			? $transaction['transactiontype'] : '');
-		$transactionamount 	= $mysqli->real_escape_string(isset( $transaction['transactionamount'] )		? $transaction['transactionamount'] : '');
-		$transactiondate 		= $mysqli->real_escape_string(isset( $transaction['transactiondatestr'] )		? $transaction['transactiondatestr'] : '');
-		$paymentmethod 			= $mysqli->real_escape_string(isset( $transaction['paymentmethod'] )				? $transaction['paymentmethod'] : '');
-		$checkno 						= $mysqli->real_escape_string(isset( $transaction['checkno'] )							? $transaction['checkno'] : 0);
-		$receiptno 					= $mysqli->real_escape_string(isset( $transaction['receiptno'] )						? $transaction['receiptno'] : 0);
-		$paperreceiptno 		= $mysqli->real_escape_string(isset( $transaction['paperreceiptno'] )				? $transaction['paperreceiptno'] : 0);
-		$receivedby 				= $mysqli->real_escape_string(isset( $transaction['receivedby'] )						? $transaction['receivedby'] : '');
-		$comments 					= $mysqli->real_escape_string(isset( $transaction['comments'] )							? $transaction['comments'] : '');
+		$billid 			= $mysqli->real_escape_string(isset( $transaction['billid'] )					? (int)$transaction['billid'] : 0);
+		$transactiontype 	= $mysqli->real_escape_string(isset( $transaction['transactiontype'] )			? $transaction['transactiontype'] : '');
+		$transactionamount	= $mysqli->real_escape_string(isset( $transaction['transactionamount'] )		? $transaction['transactionamount'] : '');
+		$transactiondate 	= $mysqli->real_escape_string(isset( $transaction['transactiondatestr'] )		? $transaction['transactiondatestr'] : '');
+		$paymentmethod 		= $mysqli->real_escape_string(isset( $transaction['paymentmethod'] )			? $transaction['paymentmethod'] : '');
+		$checkno 			= $mysqli->real_escape_string(isset( $transaction['checkno'] )					? $transaction['checkno'] : 0);
+		$receiptno 			= $mysqli->real_escape_string(isset( $transaction['receiptno'] )				? $transaction['receiptno'] : 0);
+		$paperreceiptno 	= $mysqli->real_escape_string(isset( $transaction['paperreceiptno'] )			? $transaction['paperreceiptno'] : 0);
+		$receivedby 		= $mysqli->real_escape_string(isset( $transaction['receivedby'] )				? $transaction['receivedby'] : '');
+		$comments 			= $mysqli->real_escape_string(isset( $transaction['comments'] )					? $transaction['comments'] : '');
 
 		$query = "INSERT INTO cpa_bills_transactions (id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, checkno, receiptno, paperreceiptno, receivedby, comments) 
-							VALUES (NULL, '$billid', '$transactiontype', '$transactionamount', '$transactiondate', '$paymentmethod', $checkno, $receiptno, $paperreceiptno, '$receivedby', '$comments')";
+				  VALUES (NULL, $billid, '$transactiontype', '$transactionamount', '$transactiondate', '$paymentmethod', $checkno, $receiptno, $paperreceiptno, '$receivedby', '$comments')";
 		if( $mysqli->query( $query ) ){
 			$data['id'] = (int) $mysqli->insert_id;
 			if ($transactiontype == 'PAYMENT') {

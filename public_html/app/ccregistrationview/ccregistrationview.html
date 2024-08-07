@@ -8,10 +8,19 @@
 				<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
 				<h3>{{translationObj.main.formtitlewelcome}} {{userInfo.userfullname}}</h3>
 				<hr>
+				<div ng-hide="currentRegistration.step!=3">
+					<h3>{{translationObj.main.msgtransactioncompleted}}</h3>
+					<p>ID : {{response.id}}</p>
+					<p>TOTAL : {{response.transactions[0].amount.total}}</p>
+					<a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+				</div>
+				<div ng-hide="currentRegistration.step!=4">
+					<h3>{{translationObj.main.msgerrtransactioncanceled}}</h3>
+					<a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+				</div>
 			</div>
 		</div>
 		<div ng-include="'ccregistrationview/firststep.form.html'" ng-hide="currentRegistration.step!=1"></div>
 		<div ng-include="'ccregistrationview/secondstep.form.html'" ng-hide="currentRegistration.step!=2"></div>
-
 	</div>
 </div>
