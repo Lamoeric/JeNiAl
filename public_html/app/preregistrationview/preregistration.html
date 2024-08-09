@@ -200,9 +200,9 @@
 					<hr>
 
 					<div class="row">
-						<div class="col-xs-12" ng-show="memberErrorMessages[$index].length > 0">
+						<div class="col-xs-12" ng-show="skater.errorMessages.length > 0">
 							<div class="alert alert-danger" id="memberErrorMessage">
-								<li ng-repeat="error in memberErrorMessages[$index]">{{error}}</li>
+								<li ng-repeat="error in skater.errorMessages">{{error}}</li>
 							</div>
 						</div>
 					</div>
