@@ -16,7 +16,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 
     switch ($type) {
         case "testPaypal":
-            testPaypal($mysqli, $_POST['clientid'], $_POST['clientsecret']);
+            testPaypal($mysqli, $_POST['clientid'], $_POST['clientsecret'], $_POST['returnurl']);
             break;
         default:
             invalidRequest();
@@ -33,16 +33,16 @@ function createGateway($mysqli, $clientid, $clientsecret) {
     return $gateway;
 }
 
-function testPurchase($gateway) {
+function testPurchase($gateway, $returnUrl) {
     // try {
         $data = array();
         $response = null;
         $purchase = $gateway->purchase(array(
             'amount' => '10.00',
             'currency' => 'CAD',
-            'returnUrl' => 'http://localhost.jenial.ca/app/paypal_return.php',
+            'returnUrl' => $returnUrl,
             // 'cancelUrl' => 'http://localhost.jenial.ca/app/paypal_cancel.php',
-            'cancelUrl' => 'http://localhost.jenial.ca/app/#!/configurationview'
+            'cancelUrl' => $returnUrl
         ));
         $response = $purchase->send();
         if ($response->isRedirect()) {
@@ -68,11 +68,11 @@ function testPurchase($gateway) {
 /**
  * This function tests Paypal
  */
-function testPaypal($mysqli, $clientid, $clientsecret) {
+function testPaypal($mysqli, $clientid, $clientsecret, $returnUrl) {
     $data = array();
     try {
         $gateway = createGateway($mysqli, $clientid, $clientsecret);
-        $data['purchase'] = testPurchase($gateway);
+        $data['purchase'] = testPurchase($gateway, $returnUrl);
         $data['success'] = true;
         $data['clientId'] = $gateway->getClientId();
 	}catch (Exception $e) {

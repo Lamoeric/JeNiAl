@@ -159,15 +159,15 @@ function completePurchase($mysqli, $payerid, $paymentid) {
         $paymentstatus  = $mysqli->real_escape_string($arr_body['state']);
         $dbresponse     = json_encode($arr_body);
 
-        $query = "INSERT INTO cpa_paypal_transactions(createddate, paymentid, payerid, payeremail, transactionid, amount, transactionfee, invoicenumber, paymentstatus, response) 
-                  VALUES(convert_tz('$createddate', '+00:00', @@session.time_zone), '$paymentid', '$payerid', '$payeremail', '$transactionid', '$amount', '$transactionfee', '$invoicenumber', '$paymentstatus', '$dbresponse')";
+        $query = "INSERT INTO cpa_paypal_transactions(/*createddate, */paymentid, payerid, payeremail, transactionid, amount, transactionfee, invoicenumber, paymentstatus, response) 
+                  VALUES(/*null*//*convert_tz('$createddate', '+00:00', @@session.time_zone),*/ '$paymentid', '$payerid', '$payeremail', '$transactionid', '$amount', '$transactionfee', '$invoicenumber', '$paymentstatus', '$dbresponse')";
         try {
             // On a refresh of the page, we will send the complete purchase several times and it doesn't matter, 
             // but let's not save this transaction several times. Catch the duplicate exception.
             $mysqli->query($query);
             // We need to add a transaction for this bill
             $query = "INSERT INTO cpa_bills_transactions (id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, checkno, receiptno, paperreceiptno, receivedby, comments) 
-                      VALUES (NULL, $invoicenumber, 'PAYMENT', '$amount', convert_tz('$createddate', '+00:00', @@session.time_zone), 'PAYPAL', 0, 0, 0, 'PAYPAL', '')";
+                      VALUES (NULL, $invoicenumber, 'PAYMENT', '$amount', CURDATE() /*convert_tz('$createddate', '+00:00', @@session.time_zone)*/, 'PAYPAL', 0, 0, 0, 'PAYPAL', '')";
             if ($mysqli->query($query)) {
                 $amount = $amount * -1;
                 updateBillPaidAmountInt($mysqli, $invoicenumber, $amount);

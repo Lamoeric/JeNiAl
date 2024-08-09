@@ -99,8 +99,8 @@ function testPurchase($gateway) {
             'note_to_payer' => 'Testing note',
             'noShipping' => 'true',         // does nothing
             // "brand_name" =>"CPA L'inconnu", // does nothing!
-            'returnUrl' => 'http://localhost.jenial.ca/app/#!/configurationview',
-            'cancelUrl' => 'http://localhost.jenial.ca/app/#!/configurationview',
+            'returnUrl' => '/#!/configurationview',
+            'cancelUrl' => '/#!/configurationview',
             //'application_context' => array('shipping_preference' => 'NO_SHIPPING'),
         ));
         // $purchase->setTransactionId('1234567890'); // same as "trasactionId" in purchase array

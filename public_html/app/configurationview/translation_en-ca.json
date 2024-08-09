@@ -67,6 +67,7 @@
 	{"formname":"paypal", "fieldname":"fieldtitleclientid", "text":"Client ID"},
 	{"formname":"paypal", "fieldname":"fieldtitleclientsecret", "text":"Client Secret"},
 	{"formname":"paypal", "fieldname":"buttontitletestpaypal", "text":"Test Paypal"},
+	{"formname":"paypal", "fieldname":"msgtransactioncompleted", "text":"Transaction completed"},
 
 	{"formname":"import", "fieldname":"buttontitleimportregistrations", "text":"Import SC Registrations"},
 	{"formname":"import", "fieldname":"buttontitleimporttests", "text":"Import SC Tests"},

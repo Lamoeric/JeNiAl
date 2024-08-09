@@ -67,6 +67,7 @@
 	{"formname":"paypal", "fieldname":"fieldtitleclientid", "text":"ID client"},
 	{"formname":"paypal", "fieldname":"fieldtitleclientsecret", "text":"Secret client"},
 	{"formname":"paypal", "fieldname":"buttontitletestpaypal", "text":"Test Paypal"},
+	{"formname":"paypal", "fieldname":"msgtransactioncompleted", "text":"Transaction complétée"},
 
 	{"formname":"import", "fieldname":"buttontitleimportregistrations", "text":"Import inscriptions Patinage Canada"},
 	{"formname":"import", "fieldname":"buttontitleimporttests", "text":"Import des tests Patinage Canada"},

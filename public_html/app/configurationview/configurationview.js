@@ -406,7 +406,7 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		$scope.promise = $http({
 			method: 'post',
 			url: '../../backend/paypal.php',
-			data: $.param({'type' : 'testPaypal' }),
+			data: $.param({'returnurl' :  window.location.href,'type' : 'testPaypal' }),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).
 		success(function(data, status, headers, config) {
@@ -499,7 +499,7 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 				success(function(data, status, headers, config) {
 					if (data.success) {
 						// $window.location=data.purchase.redirecturl;
-						dialogService.alertDlg($scope.translationObj.main.msgerremailsent);
+						dialogService.alertDlg($scope.translationObj.paypal.msgtransactioncompleted);
 						window.location = window.location.href.split("?")[0];
 						return;
 					} else {
