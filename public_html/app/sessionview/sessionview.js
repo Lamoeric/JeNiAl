@@ -1099,7 +1099,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 
 		// Opens the session calendar in another window. Pass the sessionid as a parameter using ?
 		$scope.viewSessionCalendar = function () {
-			$window.open('./sessionscheduleview/sessionscheduleview.html?language=' + authenticationService.getCurrentLanguage() + '&sessionid=' + $scope.currentSession.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
+			$window.open('./#!/sessionscheduleview?language=' + authenticationService.getCurrentLanguage() + '&sessionid=' + $scope.currentSession.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
 		}
 
 		// Opens the session schedule in another window. Pass the sessionid as a parameter using ?

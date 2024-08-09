@@ -1,19 +1,19 @@
 'use strict';
 
-var app = angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource', 'ngRoute', 'cgBusy','core'])
-  .config(function($locationProvider) {
-      $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-      });
-    });
+angular.module('cpa_admin.sessionscheduleview', ['ngRoute'])
 
-app.controller('sessionscheduleviewCtrl', function($rootScope, $scope, $uibModal, $http, $sce, $location, dialogService, parseISOdateService) {
+.config(['$routeProvider', function($routeProvider) {
+	$routeProvider.when('/sessionscheduleview', {
+		templateUrl: 'sessionscheduleview/sessionscheduleview.html',
+		controller: 'sessionscheduleviewCtrl',
+	});
+}])
+
+.controller('sessionscheduleviewCtrl', ['$rootScope', '$scope', '$uibModal', '$http', '$sce', '$location', '$route', 'dialogService', 'parseISOdateService', function($rootScope, $scope, $uibModal, $http, $sce, $location, $route, dialogService, parseISOdateService) {
   $scope.showToolbar = false;
-  // Expect ?language=x&sessionid=x in the url. If not present, active session will be used.
-  var search = $location.search();
-  $scope.sessionid = search.sessionid;
-  $scope.language = search.language;
+  $rootScope.applicationName = "EC";
+  $scope.sessionid = $route.current.params.sessionid;
+  $scope.language = $route.current.params.language;
   if (!$scope.language) $scope.language = 'fr-ca';
   $scope.getDays = function(month, year) {
     var nbDaysFeb = (year % 4 == 0) ? 29 : 28;
@@ -61,23 +61,8 @@ app.controller('sessionscheduleviewCtrl', function($rootScope, $scope, $uibModal
     return months <= 0 ? 0 : months;
   }
 
-  // $scope.getSessionNumberOfMonth = function() {
-  //   var months;
-  //   months = ($scope.currentSession.enddate.getFullYear() - $scope.currentSession.startdate.getFullYear()) * 12;
-  //   if (months == 0) { // same year
-  //     months = $scope.currentSession.enddate.getMonth();
-  //     months -= $scope.currentSession.startdate.getMonth();
-  //     months++;
-  //   } else {
-  //     months -= $scope.currentSession.startdate.getMonth() + 1;
-  //     months += $scope.currentSession.enddate.getMonth();
-  //   }
-  //   return months <= 0 ? 0 : months;
-  // }
-
   $scope.getMonthAndYear = function(startDate, index, language) {
     var newDate = new Date(startDate.getTime());
-    // var newDate = startDate;
     newDate = new Date(newDate.setMonth(startDate.getMonth() + index));
     var newYear = newDate.getYear();
     if (newYear < 1000) {
@@ -90,13 +75,10 @@ app.controller('sessionscheduleviewCtrl', function($rootScope, $scope, $uibModal
 
   $scope.createMonthArray = function(language) {
     var nbOfMonths = Math.ceil($scope.currentSession.nbofmonths / 3);
-    // var rows = new Array();
     var rows = [];
-    // var rows = [ln];
     var monthIndex = 0;
     for (var i = 0; i < nbOfMonths; i++) {
       var cols = new Array(3);
-      // rows[i] = cols;
       rows.push(cols);
       for (var y = 0; y < cols.length; y++) {
         var info = $scope.getMonthAndYear($scope.currentSession.startdate, monthIndex, language); //{month:monthIndex, year:2017};
@@ -110,11 +92,6 @@ app.controller('sessionscheduleviewCtrl', function($rootScope, $scope, $uibModal
   // Use all special dates from session and registrations and events too create an array of dates.
   $scope.createSpecialDateArray = function(language) {
     var dateArr = new Array();
-
-    // var newDate = new Date($scope.currentSession.startdate.getTime());
-    // dateArr.push({date:newDate, type:'EVENT', label:'Début de la session'});
-    // var newDate = new Date($scope.currentSession.enddate.getTime());
-    // dateArr.push({date:newDate, type:'EVENT', label:'Fin de la session'});
     var newDate = new Date($scope.currentSession.coursesstartdate.getTime());
     dateArr.push({date:newDate, type:'EVENT', label: (language == 'fr-ca' ? 'Début des cours' : 'Start of courses')});
     var newDate = new Date($scope.currentSession.coursesenddate.getTime());
@@ -252,7 +229,7 @@ app.controller('sessionscheduleviewCtrl', function($rootScope, $scope, $uibModal
   $scope.getSessionInfo = function() {
     $http({
        method: 'post',
-       url: './sessionschedule.php',
+       url: './sessionscheduleview/sessionschedule.php',
        data: $.param({'sessionid' : $scope.sessionid, 'language' : $scope.language, 'type' : 'getSessionDetails' }),
        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).
@@ -285,4 +262,4 @@ app.controller('sessionscheduleviewCtrl', function($rootScope, $scope, $uibModal
 
    $scope.getSessionInfo();
 
-});
+}]);
