@@ -118,7 +118,7 @@ function getPossibleMemberList($mysqli, $firstname, $lastname, $skatecanadano) {
 					UNION
 					SELECT id, firstname, lastname, birthday, skatecanadano, 3 
 					FROM cpa_members
-					WHERE skatecanadano = '$skatecanadano'
+					WHERE skatecanadano = '$skatecanadano' AND '$skatecanadano' is not null AND '$skatecanadano' != ''
 					ORDER BY 6
 				) a";
 	$result = $mysqli->query($query);
@@ -148,12 +148,6 @@ function getPreRegistrationMembers($mysqli, $preregistrationid, $language) {
 		$lastname = $mysqli->real_escape_string($row['lastname']);
 		$skatecanadano = $mysqli->real_escape_string($row['skatecanadano']);
 		$row['possiblemembers'] = getPossibleMemberList($mysqli, $firstname, $lastname, $skatecanadano)['data'];
-
-		$query = "SELECT count(*) cnt FROM cpa_members WHERE (lastname = '$lastname' AND firstname = '$firstname') OR skatecanadano = '$skatecanadano'";
-		$resultcount = $mysqli->query($query);
-		$rowcount = $resultcount->fetch_assoc();
-		$row['countmembername'] = $rowcount['cnt'];
-		
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;

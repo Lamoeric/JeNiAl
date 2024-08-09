@@ -62,6 +62,13 @@
 	{"formname":"board", "fieldname":"fieldtitletestdirlastname", "text":"Nom de famille"},
 	{"formname":"board", "fieldname":"fieldtitletestdiremail", "text":"Courriel"},
 
+	{"formname":"paypal", "fieldname":"formtitlepaypalconfig", "text":"Configuration du paiement en ligne"},
+	{"formname":"paypal", "fieldname":"fieldtitleusesandbox", "text":"Utiliser Paypal SandBox"},
+	{"formname":"paypal", "fieldname":"fieldtitleclientid", "text":"ID client"},
+	{"formname":"paypal", "fieldname":"fieldtitleclientsecret", "text":"Secret client"},
+	{"formname":"paypal", "fieldname":"buttontitletestpaypal", "text":"Test Paypal"},
+	{"formname":"paypal", "fieldname":"msgtransactioncompleted", "text":"Transaction complétée"},
+
 	{"formname":"import", "fieldname":"buttontitleimportregistrations", "text":"Import inscriptions Patinage Canada"},
 	{"formname":"import", "fieldname":"buttontitleimporttests", "text":"Import des tests Patinage Canada"},
 
@@ -70,6 +77,7 @@
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Détails du Club"},
 	{"formname":"main", "fieldname":"panetitleboardmembers", "text":"Membres du CA"},
 	{"formname":"main", "fieldname":"panetitleemail", "text":"Configuration courriel"},
+	{"formname":"main", "fieldname":"panetitlepaypal", "text":"Configuration Paypal"},
 	{"formname":"main", "fieldname":"panetitleimport", "text":"Import"},
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}

@@ -62,6 +62,13 @@
 	{"formname":"board", "fieldname":"fieldtitletestdirlastname", "text":"Last Name"},
 	{"formname":"board", "fieldname":"fieldtitletestdiremail", "text":"Email"},
 
+	{"formname":"paypal", "fieldname":"formtitlepaypalconfig", "text":"Online payment Configuration"},
+	{"formname":"paypal", "fieldname":"fieldtitleusesandbox", "text":"Use Paypal SandBox"},
+	{"formname":"paypal", "fieldname":"fieldtitleclientid", "text":"Client ID"},
+	{"formname":"paypal", "fieldname":"fieldtitleclientsecret", "text":"Client Secret"},
+	{"formname":"paypal", "fieldname":"buttontitletestpaypal", "text":"Test Paypal"},
+	{"formname":"paypal", "fieldname":"msgtransactioncompleted", "text":"Transaction completed"},
+
 	{"formname":"import", "fieldname":"buttontitleimportregistrations", "text":"Import SC Registrations"},
 	{"formname":"import", "fieldname":"buttontitleimporttests", "text":"Import SC Tests"},
 
@@ -69,6 +76,7 @@
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Club Details"},
 	{"formname":"main", "fieldname":"panetitleboardmembers", "text":"Board Members"},
 	{"formname":"main", "fieldname":"panetitleemail", "text":"Email Configuration"},
+	{"formname":"main", "fieldname":"panetitlepaypal", "text":"Paypal Configuration"},
 	{"formname":"main", "fieldname":"panetitleimport", "text":"Import"},
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}

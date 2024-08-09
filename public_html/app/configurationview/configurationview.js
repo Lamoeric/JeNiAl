@@ -1,5 +1,6 @@
 'use strict';
 
+
 angular.module('cpa_admin.configurationview', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -20,10 +21,39 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 				}
 			}
 		}
+	})
+	.when('/configurationview/:token', {
+		templateUrl: 'configurationview/configurationview.html',
+		controller: 'configurationviewCtrl',
+		resolve: {
+			auth: function ($q, authenticationService, $location) {
+				var userInfo = authenticationService.getUserInfo();
+				if (userInfo && userInfo.privileges.admin_access==true) {
+					return $q.when(userInfo);
+				} else {
+					return $q.reject({ authenticated: false });
+				}
+			}
+		}
+	})
+	.when('/configurationview/:PayerId', {
+		templateUrl: 'configurationview/configurationview.html',
+		controller: 'configurationviewCtrl',
+		resolve: {
+			auth: function ($q, authenticationService, $location) {
+				var userInfo = authenticationService.getUserInfo();
+				if (userInfo && userInfo.privileges.admin_access==true) {
+					return $q.when(userInfo);
+				} else {
+					return $q.reject({ authenticated: false });
+				}
+			}
+		}
 	});
+;
 }])
 
-.controller('configurationviewCtrl', ['$scope', '$http', '$uibModal', '$window', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'authenticationService', 'translationService', 'reportingService', function($scope, $http, $uibModal, $window, $timeout, Upload, anycodesService, dialogService, authenticationService, translationService, reportingService) {
+.controller('configurationviewCtrl', ['$scope', '$http', '$uibModal', '$window', '$timeout', '$route', 'Upload', 'anycodesService', 'dialogService', 'authenticationService', 'translationService', 'reportingService', function($scope, $http, $uibModal, $window, $timeout, $route, Upload, anycodesService, dialogService, authenticationService, translationService, reportingService) {
 
 	$scope.progName = "configurationView";
 	$scope.leftpanetemplatefullpath = "./configurationview/configuration.template.html";
@@ -31,6 +61,9 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 	$scope.selectedLeftObj = null;
 	$scope.newConfiguration = null;
 	$scope.isFormPristine = true;
+	$scope.token = $route.current.params.token;
+	$scope.paymentId = $route.current.params.paymentId;
+	$scope.payerId = $route.current.params.PayerID;
 
 	// For delay display
 	$scope.delay = 0;
@@ -40,7 +73,7 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 	$scope.promise = null;
 
 	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty || $scope.boardForm.$dirty || $scope.emailForm.$dirty) {
+		if ($scope.detailsForm.$dirty || $scope.boardForm.$dirty || $scope.emailForm.$dirty  || $scope.paypalForm.$dirty) {
 			return true;
 		}
 		return false;
@@ -57,6 +90,9 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		}
 		if ($scope.emailForm) {
 			$scope.emailForm.$setPristine();
+		}
+		if ($scope.paypalForm) {
+			$scope.paypalForm.$setPristine();
 		}
 		if ($scope.boardForm) {
 			$scope.boardForm.$setPristine();
@@ -99,6 +135,14 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		success(function(data, status, headers, config) {
 			if(data.success && !angular.isUndefined(data.data) ){
 				$scope.currentConfiguration = data.data[0];
+
+				// var PAYPAL_SCRIPT = 'https://www.paypal.com/sdk/js?client-id=sb';
+				// var script = document.createElement('script');
+				// script.setAttribute('src', PAYPAL_SCRIPT);
+				// document.head.appendChild(script);
+				// paypal.Buttons().render('#paypal-button-container');
+				// paypal = loadScript({ clientId: "test" });
+
 			} else {
 				dialogService.displayFailure(data);
 			}
@@ -358,6 +402,27 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		});
 	}
 
+	$scope.testPaypal = function() {
+		$scope.promise = $http({
+			method: 'post',
+			url: '../../backend/paypal.php',
+			data: $.param({'returnurl' :  window.location.href,'type' : 'testPaypal' }),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).
+		success(function(data, status, headers, config) {
+			if (data.success) {
+				$window.location=data.purchase.redirecturl;
+				dialogService.alertDlg($scope.translationObj.main.msgerremailsent);
+				return;
+			} else {
+				dialogService.displayFailure(data);
+			}
+		}).
+		error(function(data, status, headers, config) {
+			dialogService.displayFailure(data);
+		});
+	}
+
 	$scope.importSCRegistrations = function(file, errFiles) {
 		$scope.f = file;
 		$scope.errFile = errFiles && errFiles[0];
@@ -417,6 +482,39 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 	}
 
 	$scope.refreshAll = function() {
+		if ($scope.token != null) {
+			if ($scope.paymentId == null) {
+				alert("Operation cancelled");
+				// window.location = window.location.pathname;
+				// Reload page without the query parameter
+				window.location = window.location.href.split("?")[0];
+			} else {
+				// paymentId is defined, we need to complete the purchase
+				$scope.promise = $http({
+					method: 'post',
+					url: './core/directives/paypalcheckout/paypal.php',
+					data: $.param({'payerid' : $scope.payerId , 'paymentid' : $scope.paymentId, 'type' : 'completePurchase' }),
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				}).
+				success(function(data, status, headers, config) {
+					if (data.success) {
+						// $window.location=data.purchase.redirecturl;
+						dialogService.alertDlg($scope.translationObj.paypal.msgtransactioncompleted);
+						window.location = window.location.href.split("?")[0];
+						return;
+					} else {
+						dialogService.displayFailure(data.detail);
+						window.location = window.location.href.split("?")[0];
+					}
+				}).
+				error(function(data, status, headers, config) {
+					dialogService.displayFailure(data.detail);
+					window.location = window.location.href.split("?")[0];
+				});
+		
+
+			}
+		}
 		// $scope.getAllConfigurations();
 		$scope.setCurrentInternal({id:1})
 		// anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'configurationtypes', 'text', 'configurationtypes');

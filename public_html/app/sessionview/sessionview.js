@@ -43,7 +43,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		});
 
 		$scope.isDirty = function () {
-			if ($scope.detailsForm.$dirty) {
+			if ($scope.detailsForm.$dirty || $scope.onlineregistrationForm.$dirty) {
 				return true;
 			}
 			return false;
@@ -56,6 +56,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 
 		$scope.setPristine = function () {
 			$scope.detailsForm.$setPristine();
+			$scope.onlineregistrationForm.$setPristine();
 			$scope.isFormPristine = true;
 		};
 
@@ -153,6 +154,15 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			}
 		}
 	
+		// Check if date is a valid value
+		$scope.isDateValid = function(datetovalidate) {
+			var retVal = true;
+			if (datetovalidate == "0000-00-00" || datetovalidate == "0000-01-01") {
+				retVal = false;
+			}
+			return retVal;
+		}
+
 		$scope.getSessionDetails = function (session) {
 			$scope.promise = $http({
 				method: 'post',
@@ -165,6 +175,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 						$scope.coursecodefilter = null;
 						$scope.filtercoursesdate = null;
 						$scope.currentSession = data.data[0];
+						// $scope.currentSession.onlineregistemailtpl.id = $scope.currentSession.onlineregistemailtpl;
 						$scope.currentSession.rulesen = $sce.trustAsHtml($scope.currentSession.rulesen);
 						$scope.currentSession.rulesfr = $sce.trustAsHtml($scope.currentSession.rulesfr);
 						$scope.currentSession.startdate = parseISOdateService.parseDate($scope.currentSession.startdate + "T00:00:00");
@@ -175,16 +186,32 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 						$scope.currentSession.reimbursementdate = parseISOdateService.parseDate($scope.currentSession.reimbursementdate + "T00:00:00");
 						$scope.currentSession.proratastartdate = parseISOdateService.parseDate($scope.currentSession.proratastartdate + "T00:00:00");
 						if ($scope.currentSession.onlineregiststartdate) {
-							$scope.currentSession.onlineregiststartdate = parseISOdateService.parseDate($scope.currentSession.onlineregiststartdate + "T00:00:00");
+							if ($scope.isDateValid($scope.currentSession.onlineregiststartdate)) {
+								$scope.currentSession.onlineregiststartdate = parseISOdateService.parseDate($scope.currentSession.onlineregiststartdate + "T00:00:00");
+							} else {
+								$scope.currentSession.onlineregiststartdate = null;
+							}
 						}
 						if ($scope.currentSession.onlineregistenddate) {
-							$scope.currentSession.onlineregistenddate = parseISOdateService.parseDate($scope.currentSession.onlineregistenddate + "T00:00:00");
+							if ($scope.isDateValid($scope.currentSession.onlineregistenddate)) {
+								$scope.currentSession.onlineregistenddate = parseISOdateService.parseDate($scope.currentSession.onlineregistenddate + "T00:00:00");
+							} else {
+								$scope.currentSession.onlineregistenddate = null;
+							}
 						}
 						if ($scope.currentSession.onlinepreregiststartdate) {
-							$scope.currentSession.onlinepreregiststartdate = parseISOdateService.parseDate($scope.currentSession.onlinepreregiststartdate + "T00:00:00");
+							if ($scope.isDateValid($scope.currentSession.onlinepreregiststartdate)) {
+								$scope.currentSession.onlinepreregiststartdate = parseISOdateService.parseDate($scope.currentSession.onlinepreregiststartdate + "T00:00:00");
+							} else {
+								$scope.currentSession.onlinepreregiststartdate = null;
+							}
 						}
 						if ($scope.currentSession.onlinepreregistenddate) {
-							$scope.currentSession.onlinepreregistenddate = parseISOdateService.parseDate($scope.currentSession.onlinepreregistenddate + "T00:00:00");
+							if ($scope.isDateValid($scope.currentSession.onlinepreregistenddate)) {
+								$scope.currentSession.onlinepreregistenddate = parseISOdateService.parseDate($scope.currentSession.onlinepreregistenddate + "T00:00:00");
+							} else {
+								$scope.currentSession.onlinepreregistenddate = null;
+							}
 						}
 						for (var i = 0; i < $scope.currentSession.registrations.length; i++) {
 							$scope.currentSession.registrations[i].registrationdatestr = $scope.currentSession.registrations[i].registrationdate;
@@ -304,6 +331,9 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
 			}
 
+			if ($scope.onlineregistrationForm.$invalid) {
+				$scope.globalErrorMessage.push($scope.translationObj.main.msgerronlineregistrationallmandatory);
+			}
 			if ($scope.globalErrorMessage.length != 0) {
 				$scope.$apply();
 				$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
@@ -321,6 +351,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				dialogService.alertDlg("Nothing to save!", null);
 			} else {
 				if ($scope.validateAllForms() == false) return;
+				// $scope.currentSession.onlineregistemailtpl = $scope.currentSession.onlineregistemailtpl.id;
 				$scope.currentSession.startdatestr = dateFilter($scope.currentSession.startdate, 'yyyy-MM-dd');
 				$scope.currentSession.enddatestr = dateFilter($scope.currentSession.enddate, 'yyyy-MM-dd');
 				$scope.currentSession.coursesstartdatestr = dateFilter($scope.currentSession.coursesstartdate, 'yyyy-MM-dd');
@@ -1068,7 +1099,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 
 		// Opens the session calendar in another window. Pass the sessionid as a parameter using ?
 		$scope.viewSessionCalendar = function () {
-			$window.open('./sessionscheduleview/sessionscheduleview.html?language=' + authenticationService.getCurrentLanguage() + '&sessionid=' + $scope.currentSession.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
+			$window.open('./#!/sessionscheduleview?language=' + authenticationService.getCurrentLanguage() + '&sessionid=' + $scope.currentSession.id, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=200,left=200,width=1400,height=700");
 		}
 
 		// Opens the session schedule in another window. Pass the sessionid as a parameter using ?
@@ -1134,12 +1165,14 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'eventtypes', 'sequence', 'eventtypes');
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'personnelstatus', 'sequence', 'personnelstatus');
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'prorataoptions', 'sequence', 'prorataoptions');
+			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'onlinepaymentoptions', 'sequence', 'onlinepaymentoptions');
 			arenaService.getAllArenas($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllCharges($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllCourses($scope, authenticationService.getCurrentLanguage());
 			listsService.getCoaches($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllProgramAssistants($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllProgramAssistantHelpers($scope, authenticationService.getCurrentLanguage());
+			listsService.getAllEmailTemplates($scope, authenticationService.getCurrentLanguage());
 			translationService.getTranslation($scope, 'sessionview', authenticationService.getCurrentLanguage());
 			$rootScope.repositionLeftColumn();
 		}

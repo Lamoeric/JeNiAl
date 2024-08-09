@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@paypal/paypal-js": "^8.0.5"
+  }
+}
