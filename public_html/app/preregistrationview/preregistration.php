@@ -148,12 +148,6 @@ function getPreRegistrationMembers($mysqli, $preregistrationid, $language) {
 		$lastname = $mysqli->real_escape_string($row['lastname']);
 		$skatecanadano = $mysqli->real_escape_string($row['skatecanadano']);
 		$row['possiblemembers'] = getPossibleMemberList($mysqli, $firstname, $lastname, $skatecanadano)['data'];
-
-		$query = "SELECT count(*) cnt FROM cpa_members WHERE (lastname = '$lastname' AND firstname = '$firstname') OR skatecanadano = '$skatecanadano'";
-		$resultcount = $mysqli->query($query);
-		$rowcount = $resultcount->fetch_assoc();
-		$row['countmembername'] = $rowcount['cnt'];
-		
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;

@@ -32,7 +32,6 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 	$scope.globalSuccessMessage = [];
 	$scope.globalErrorMessageC2 = [];
 	$scope.globalSuccessMessageC2 = [];
-	$scope.memberErrorMessages = [];
 
 	$scope.isDirty = function() {
 		if ($scope.detailsForm.$dirty) {
@@ -142,17 +141,13 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 				// Manage error messages for members
 				for (var x = 0; x < $scope.currentPreRegistration.members.length; x++) {
 					var member = $scope.currentPreRegistration.members[x];
-					$scope.memberErrorMessages[x] = [];
-					if (member.countmembername > 0) {
-						$scope.memberErrorMessages[x].push($scope.translationObj.main.formerrormessagemember1);
-					}
-					// Select first member to reconnect if it exists
+					member.errorMessages = [];
 					if (member.possiblemembers.length > 0) {
+						member.errorMessages.push($scope.translationObj.main.formerrormessagemember1);
 						member.tobecopied = 2;
 						member.member = member.possiblemembers[0];
 					}
 				}
-				
 			} else {
 				dialogService.displayFailure(data);
 			}
