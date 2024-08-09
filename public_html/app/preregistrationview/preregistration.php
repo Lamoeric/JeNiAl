@@ -118,7 +118,7 @@ function getPossibleMemberList($mysqli, $firstname, $lastname, $skatecanadano) {
 					UNION
 					SELECT id, firstname, lastname, birthday, skatecanadano, 3 
 					FROM cpa_members
-					WHERE skatecanadano = '$skatecanadano'
+					WHERE skatecanadano = '$skatecanadano' AND '$skatecanadano' is not null AND '$skatecanadano' != ''
 					ORDER BY 6
 				) a";
 	$result = $mysqli->query($query);
