@@ -52,7 +52,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	$scope.paymentId = $route.current.params.paymentId;
 	$scope.payerId = $route.current.params.PayerID;
 
-	// Converts the paragraph using remarkable to convert markdown text and sanitizes it
+	/**
+	 * Converts the paragraph using remarkable to convert markdown text and sanitizes it
+	 * @param {*} paragraph 
+	 */
 	$scope.convertParagraph = function(paragraph) {
 		paragraph.markdownmsg =  "<H3>" + (paragraph.title!=null && paragraph.title!='' ? paragraph.title : '') + "</H3>" +
 				"<H4>" + (paragraph.subtitle!=null && paragraph.subtitle!='' ? paragraph.subtitle : '') + "</H4>" +
@@ -132,7 +135,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		});
 	};
 
-	// Transforms the parameters "selected", "selected_old" and "fees_old" into a delta code
+	/**
+	 * Transforms the parameters "selected", "selected_old" and "fees_old" into a delta code
+	 * @param {*} course 
+	 */
 	$scope.setCourseDelta = function(course) {
 		var delta = 0;
 		if (course.selected_old/1 == 0 && course.selected/1 == 0 && course.fees_old/1 > 0) {
@@ -150,8 +156,12 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
-	// Converts the deltacode into a text
-	// Called directly by ccregistrationview.html
+	/**
+	 * Converts the deltacode into a text
+	 * Called directly by ccregistrationview.html
+	 * @param {*} course 
+	 * @returns 
+	 */
 	$scope.getCourseDelta = function(course) {
 		// List may not have finished loading when this method is first called
 		if ($scope.coursedeltatypes) {
@@ -299,19 +309,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
-	$scope.createCoursesList = function() {
-		var list = [];
-		for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
-			if ($scope.currentRegistration.courses[i].selected == '1' && $scope.currentRegistration.courses[i].selected_old != '1') {
-				var course = $scope.currentRegistration.courses[i];
-				list.push("<strong>" + course.label + (course.courselevellabel ? "&nbsp;" + course.courselevellabel : "") + "</strong><br>" + (course.schedule ? "<small>" + course.schedule + "</small>" : ""));
-			}
-		}
-		return list.join("<br>");
-	}
-
-	// At the end of step 2, user can confirm the registration if the online payment is unavailable or optionnal
-	// if online payment if mandatory, confirm button should be unavailable
+	/**
+	 * At the end of step 2, user can confirm the registration if the online payment is unavailable or pay later if online payment is optionnal
+	 * if online payment if mandatory, confirm button should be unavailable (by ui rules)
+	 */
 	$scope.confirmRegistration = function() {
 		if ($scope.currentRegistration.onlinepaymentoption != 2) { // online payment is not mandatory
 			$scope.insertRegistrationInDB();
@@ -320,8 +321,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
-	// When user clicks the continue button from step 1
-	// Registration must be valid and rules must be read and accepted.
+	/**
+	 * When user clicks the continue button from step 1
+	 * Registration must be valid and rules must be read and accepted.
+	 */
 	$scope.goToStep2 = function() {
 		if (!$scope.validateRegistration()) {
 			dialogService.alertDlg($scope.translationObj.main.msginvalidregistration);
@@ -336,19 +339,8 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 								$scope.currentRegistration.regulationsread = "1";
 								// User accepted the club regulations.
 								$scope.currentRegistration.step = 2;
-								// TODO : we need to show one last time the courses the user selected
-								// dialogService.confirmYesNo("<font color=red>" + $scope.translationObj.main.msgconfirmregistration + "</font><br><br>"+ $scope.createCoursesList() + "<br><font color=red>" + $scope.translationObj.main.msgconfirmregistration2 + "<font>",
-								// 	function(e) {
-								// 		if (e) {
-								// 			// user clicked "yes", so we must insert the new registration directly into ACCEPTED status, link the bill to the existing one for the contact and display
-								// 			$scope.insertRegistrationInDB();
-								// 		} else {
-								// 			// user clicked "no", so do nothing
-								// 		}
-								// 	}
-								// );
 							} else {
-								// user refused the regulation. What should we do ? return to welcome page ?
+								// user refused the regulation. The ui stays in step 1. User has to cancel registration himself.
 							}
 						}, function() {
 							return false;
@@ -363,11 +355,18 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 	
+	/**
+	 * This function is called by the back to draft button (<-- Back) in step 2
+	 */
 	$scope.backToDraft = function() {
 		$scope.currentRegistration.step = 1;
 	}
 
-	// When a coursecode is selected (or de-selected) for the filter
+	/**
+	 * This function is called when a coursecode is selected (or de-selected) for the filter in step 1
+	 * @param {*} coursecode 
+	 * @returns 
+	 */
 	$scope.onCourseCodeSelected = function(coursecode) {
 		for (var i = 0; i < $scope.currentRegistration.coursecodes.length; i++) {
 			if ($scope.currentRegistration.coursecodes[i].selected == '1') {
@@ -378,7 +377,11 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		$scope.coursecodefilter = null;
 	}
 
-	// When a course is selected (or de-selected)
+	// 
+	/**
+	 * This function is called when a course is selected (or de-selected) in step 1
+	 * @param {*} course 
+	 */
 	$scope.onCourseSelected = function(course) {
 		// We can add new courses, but we cannot removed old ones
 		if (course != null && course.selected_old == '0' && course.deltacode != 'REMOVED_CLOSED') {
@@ -394,7 +397,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
-	// When a charge is selected (or de-selected)
+	/**
+	 * This function is called when a charge is selected (or de-selected) in step 1
+	 * @param {*} charge 
+	 */
 	$scope.onChargeSelected = function(charge) {
 		// TODO: add automatic charge to the list of non clickable charges
 		if (charge != null && charge.alwaysselectedonline != '1' && charge.issystem != '1') {
@@ -410,48 +416,85 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
-	// Filter the courses diplayed in ccregistration.html
-	// A course that is not available online must be shown anyways if customer already paid for it (item.fees_old/1 != 0)
-	$scope.filterCourses = function(item) {
-		if (item.availableonline == 0 && item.fees_old/1 == 0) {
+	/**
+	 * This function tests the prerequisite of the course with the data of the members to see if it's a match
+	 * @param {*} course 
+	 * @param {*} member 
+	 * @returns true if the course can be displayed, false otherwise
+	 */
+	$scope.filterCoursePrerequisites = function(course, member) {
+		var retVal = true;
+		if (course != null && member != null) {
+			if (course.prereqcanskatebadge > 0) {
+				if (member.maxcanskatebadge < course.prereqcanskatebadge) {
+					return false;
+				}
+			}
+			if (course.prereqagemin && course.prereqagemin > 0) {
+				if (member.ageseptember < course.prereqagemin) {
+					return false;
+				}
+			}
+			if (course.prereqagemax && course.prereqagemax > 0) {
+				if (member.ageseptember > course.prereqagemax) {
+					return false;
+				}
+			}
+		}
+		return retVal;
+	}
+
+	/**
+	 * Filter the courses diplayed in ccregistration.html, step 1
+	 * A course that is not available online must be shown anyways if customer already paid for it (item.fees_old/1 != 0)
+	 * @param {*} course 
+	 * @returns true if the course can be displayed, false otherwise
+	 */
+	$scope.filterCourses = function(course) {
+		if (course.availableonline == 0 && course.fees_old/1 == 0) {
 			return false;
 		} else {
 			if ($scope.coursecodefilter == 1) {
 				for (var i = 0; i < $scope.currentRegistration.coursecodes.length; i++) {
-					if ($scope.currentRegistration.coursecodes[i].selected == '1' && item.coursecode == $scope.currentRegistration.coursecodes[i].code) {
-						return true;
+					if ($scope.currentRegistration.coursecodes[i].selected == '1' && course.coursecode == $scope.currentRegistration.coursecodes[i].code) {
+						return $scope.filterCoursePrerequisites(course, $scope.currentRegistration.member);
 					}
 				}
 			} else {
-				return true;
+				return $scope.filterCoursePrerequisites(course, $scope.currentRegistration.member);
 			}
 		}
 		return false;
 	}
 
-	$scope.filterSelectedCourses = function(item) {
-		if (item.selected == 1) {
+	/**
+	 * Filter the courses diplayed in ccregistration.html, step 2
+	 * @param {*} course 
+	 * @returns true if the course can be displayed, false otherwise
+	 */
+	$scope.filterSelectedCourses = function(course) {
+		if (course.selected == 1) {
 			return true;
 		}
 		return false;
 	}
 
-	$scope.filterSelectedCharges = function(item) {
-		if (item.selected == 1) {
+	/**
+	 * Filter the charges diplayed in ccregistration.html, step 2
+	 * @param {*} charge 
+	 * @returns true if the charge can be displayed, false otherwise
+	 */
+	$scope.filterSelectedCharges = function(charge) {
+		if (charge.selected == 1) {
 			return true;
 		}
 		return false;
 	}
 
-	// NOT USED ANYMORE
-	$scope.filterOldCourses = function(item) {
-		if (item.selected_old == 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
+	/**
+	 * Clears the coursecode filter in step 1.
+	 * Called by a button
+	 */
 	$scope.clearCourseCodesFilter = function() {
 		for (var i = 0; i < $scope.currentRegistration.coursecodes.length; i++) {
 			$scope.currentRegistration.coursecodes[i].selected = '0';
@@ -459,14 +502,19 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		$scope.coursecodefilter = null;
 	}
 
-	$scope.filterCharges = function(item) {
-		if (item.isonline == '1') {
-			if (item.type == 'DISCOUNT') {
-				if (item.rules && item.rules.length!=0 && (item.selected == '0' && item.selected_old == '0')) {
+	/**
+	 * Filter the charges diplayed in ccregistration.html, step 1
+	 * @param {*} charge 
+	 * @returns true if the charge can be displayed, false otherwise
+	 */
+	$scope.filterCharges = function(charge) {
+		if (charge.isonline == '1') {
+			if (charge.type == 'DISCOUNT') {
+				if (charge.rules && charge.rules.length!=0 && (charge.selected == '0' && charge.selected_old == '0')) {
 					return false;
 				}
-				if (item.active/1 == 0) {
-					if (item.selected == '1' || item.selected_old == '1') {
+				if (charge.active/1 == 0) {
+					if (charge.selected == '1' || charge.selected_old == '1') {
 						return true;
 					} else {
 						return false;
@@ -474,22 +522,22 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 				}
 				// Hide rebate that are not selectable
 				// alwaysselectedonline are selected by default only for new registrations
-				if (item.alwaysselectedonline == '1' && item.selected == '0' && item.selected_old == '0') {
+				if (charge.alwaysselectedonline == '1' && charge.selected == '0' && charge.selected_old == '0') {
 					return false;
 				}
 				// Hide system rebates that are not already selected
-				if (item.issystem == '1' && item.selected == '0' && item.selected_old == '0') {
+				if (charge.issystem == '1' && charge.selected == '0' && charge.selected_old == '0') {
 					return false;
 				}
 			}
-			if (item.type == 'CHARGE') {
-				if (item.selected == '0' && item.selected_old == '0') {
-					if (item.alwaysdisplay == '0') {
+			if (charge.type == 'CHARGE') {
+				if (charge.selected == '0' && charge.selected_old == '0') {
+					if (charge.alwaysdisplay == '0') {
 						return false;
 					}
 				}
-				if (item.active/1 == 0) {
-					if (item.selected == '1' || item.selected_old == '1') {
+				if (charge.active/1 == 0) {
+					if (charge.selected == '1' || charge.selected_old == '1') {
 						return true;
 					} else {
 						return false;
@@ -500,6 +548,11 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
+	/**
+	 * 
+	 * @param {*} billid 
+	 * @returns 
+	 */
 	$scope.paypalInitPurchase = function(billid) {
 		var course = null;
 		var charge = null;
@@ -578,11 +631,17 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
         });
     }
 
-
+	/**
+	 * Called by the event of changing language on the main toolbar
+	 */
 	$rootScope.$on("authentication.language.changed", function (event, current, previous, eventObj) {
 		$scope.refreshAll();
 	});
 
+	/**
+	 * Refreshes all list, ui, etc.
+	 * Also, during online payment, reads the parameters returned by paypal and determines if payment was a failure (step 4) or a success (step 3)
+	 */
 	$scope.refreshAll = function() {
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'coursedeltatypes',	'text', 'coursedeltatypes');
 		translationService.getTranslation($scope, 'ccregistrationview', authenticationService.getCurrentLanguage());
@@ -622,6 +681,8 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}
 	}
 
+	// This code injects the paypal API into the DOM.
+	// TODO : check if this is really needed because we are using the php module
 	if (window.paypalCheckoutReady != null) {
 		$scope.showButton = true
 	} else {
