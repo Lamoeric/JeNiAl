@@ -200,7 +200,7 @@ function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
  function getSessionCoursesDetails($mysqli, $registrationid, $registrationdate, $sessionid, $language) {
 	$data = array();
 	$data['data'] = array();
-	$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater, csc.availableonline,
+	$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater, csc.availableonline, csc.prereqcanskatebadge, csc.prereqagemin, csc.prereqagemax,
 					(select count(*) from cpa_sessions_courses_members cscm where sessionscoursesid = csc.id and membertype = 3 and (cscm.registrationenddate is null or cscm.registrationenddate > curdate())) nbofskaters,
 					getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
 					getTextLabel(csc.label, '$language') label, crc.amount realpaidamount,
@@ -218,6 +218,9 @@ function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
 			order by coursecode, courselevel, csc.name";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
+		$row['prereqcanskatebadge'] = (int)$row['prereqcanskatebadge'];
+		$row['prereqagemin'] = (int)$row['prereqagemin'];
+		$row['prereqagemax'] = (int)$row['prereqagemax'];
 		$row['schedule'] = getSessionCourseSchedule($mysqli, $row['id'], $language);
 		$data['data'][] = $row;
 	}

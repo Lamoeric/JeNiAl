@@ -1,120 +1,158 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newcourse.formtitleeditcourse}}</h4>
+	<h4 class="modal-title">{{translationObj.newcourse.formtitleeditcourse}}</h4>
 </div>
 <div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
-      <div class="col-xs-5">
-	      <label for="coursecode">{{translationObj.newcourse.fieldcourse}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="coursecode" ng-model="newObj.coursecode" ng-change="onCourseChange(newObj)" required>
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group row">
+			<div class="col-xs-5">
+				<label for="coursecode">{{translationObj.newcourse.fieldcourse}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="coursecode" ng-model="newObj.coursecode"
+						ng-change="onCourseChange(newObj)" required>
 						<option ng-repeat="course in courses" value="{{course.code}}">{{course.label}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-5">
-	      <label for="courselevel">{{translationObj.newcourse.fieldlevel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="courselevel" ng-model="newObj.courselevel" >
-						<option ng-repeat="courselevel in courselevels" value="{{courselevel.code}}">{{courselevel.label}}</option>
-      		</select>
-      	</div>
-      </div>
+			<div class="col-xs-5">
+				<label for="courselevel">{{translationObj.newcourse.fieldlevel}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="courselevel" ng-model="newObj.courselevel">
+						<option ng-repeat="courselevel in courselevels" value="{{courselevel.code}}">
+							{{courselevel.label}}</option>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="name">{{translationObj.newcourse.fieldname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="name" name="name" ng-model="newObj.name" maxlength="120" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="name">{{translationObj.newcourse.fieldname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="name" name="name" ng-model="newObj.name" maxlength="120"
+						required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="label_en">{{translationObj.newcourse.fieldenglishlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="label_en" name="label_en" ng-model="newObj.label_en" maxlength="200" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="label_en">{{translationObj.newcourse.fieldenglishlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_en" name="label_en" ng-model="newObj.label_en"
+						maxlength="200" required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="label_fr">{{translationObj.newcourse.fieldfrenchlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="label_fr" name="label_fr" ng-model="newObj.label_fr" maxlength="200" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="label_fr">{{translationObj.newcourse.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_fr" name="label_fr" ng-model="newObj.label_fr"
+						maxlength="200" required>
+				</div>
+			</div>
 
-	    <div class="col-xs-3">
-	      <label for="fees">{{translationObj.newcourse.fieldfees}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="fees" ng-model="newObj.fees"  ng-currency required>
-	    	</div>
-	    </div>
+			<div class="col-xs-3">
+				<label for="fees">{{translationObj.newcourse.fieldfees}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="fees" ng-model="newObj.fees" ng-currency required>
+				</div>
+			</div>
 
-	    <div class="col-xs-3">
-	      <label for="minnumberskater">{{translationObj.newcourse.fieldminnbofskaters}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="minnumberskater" ng-model="newObj.minnumberskater" required>
-	    	</div>
-	    </div>
+			<div class="col-xs-3">
+				<label for="minnumberskater">{{translationObj.newcourse.fieldminnbofskaters}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="minnumberskater" ng-model="newObj.minnumberskater"
+						required>
+				</div>
+			</div>
 
-	    <div class="col-xs-3">
-	      <label for="maxnumberskater">{{translationObj.newcourse.fieldmaxnbofskaters}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="maxnumberskater" ng-model="newObj.maxnumberskater" required>
-	    	</div>
-	    </div>
+			<div class="col-xs-3">
+				<label for="maxnumberskater">{{translationObj.newcourse.fieldmaxnbofskaters}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="maxnumberskater" ng-model="newObj.maxnumberskater"
+						required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="availableonline">{{translationObj.newcourse.fieldavailableonline}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="availableonline" ng-model="newObj.availableonline" >
+			<div class="col-xs-3">
+				<label for="availableonline">{{translationObj.newcourse.fieldavailableonline}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="availableonline" ng-model="newObj.availableonline">
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="availableonline">{{translationObj.newcourse.fieldisschedule}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="isschedule" ng-model="newObj.isschedule" >
+			<div class="col-xs-3">
+				<label for="availableonline">{{translationObj.newcourse.fieldisschedule}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="isschedule" ng-model="newObj.isschedule">
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="startdate">{{translationObj.newcourse.fieldstartdate}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="startdate" class="form-control" id="startdate" ng-model="newObj.startdate" ng-disabled="newObj.isschedule==0">
-	      </div>
-	    </div>
+			<div class="col-xs-3">
+				<label for="startdate">{{translationObj.newcourse.fieldstartdate}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="startdate" class="form-control" id="startdate" ng-model="newObj.startdate"
+						ng-disabled="newObj.isschedule==0">
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="enddate">{{translationObj.newcourse.fieldenddate}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="enddate" class="form-control" id="enddate" ng-model="newObj.enddate" ng-disabled="newObj.isschedule==0">
-	      </div>
-	    </div>
+			<div class="col-xs-3">
+				<label for="enddate">{{translationObj.newcourse.fieldenddate}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="enddate" class="form-control" id="enddate" ng-model="newObj.enddate"
+						ng-disabled="newObj.isschedule==0">
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-3">
+				<label for="prereqcanskatebadge">{{translationObj.newcourse.fieldprereqcanskatebadge}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="prereqcanskatebadge" ng-model="newObj.prereqcanskatebadge">
+						<option ng-repeat="badge in canskatebadges" value="{{badge.code}}">{{badge.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="prereqagemin">{{translationObj.newcourse.fieldprereqagemin}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" class="form-control" id="prereqagemin" ng-model="newObj.prereqagemin" min="1" max="99">
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="prereqagemax">{{translationObj.newcourse.fieldprereqagemax}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" class="form-control" id="prereqagemax" ng-model="newObj.prereqagemax" min="1" max="99">
+				</div>
+			</div>
 
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newcourse.formerrormessage}}
-  </div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldAgeMustBePositive" style="display:none;">
+		{{translationObj.newcourse.formerrormessageagenegative}}
+	</div>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.newcourse.formerrormessage}}
+	</div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newcourse.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newcourse.buttontitlekeepchanges}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newcourse.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newcourse.buttontitlekeepchanges}}</button>
 </div>
