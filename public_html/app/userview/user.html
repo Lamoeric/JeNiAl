@@ -1,46 +1,53 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-2">
-	      <label for="userid">{{translationObj.details.fieldtitleuserid}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-        	<input type="text" class="form-control" id="userid" ng-model="currentUser.userid" maxlength="128" required>
-	      </div>
-      </div>
-      <div class="col-xs-5">
-	      <label for="fullname">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-        	<input type="text" class="form-control" id="fullname" ng-model="currentUser.fullname" maxlength="120" required>
-	      </div>
-      </div>
 			<div class="col-xs-2">
-	      <label for="preferedlanguage">{{translationObj.details.fieldtitlepreferedlanguage}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-          <select class="form-control" name="preferedlanguage" id="language" ng-model="currentUser.preferedlanguage" required>
-						<option ng-repeat="language in preferedlanguages" value="{{language.code}}">{{language.text}}</option>
-		      </select>
-	      </div>
-      </div>
-    </div>
+				<label for="userid">{{translationObj.details.fieldtitleuserid}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<input type="text" class="form-control" id="userid" ng-model="currentUser.userid" maxlength="128"
+						required autocomplete="off">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="fullname">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<input type="text" class="form-control" id="fullname" ng-model="currentUser.fullname"
+						maxlength="120" required>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="preferedlanguage">{{translationObj.details.fieldtitlepreferedlanguage}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+					<select class="form-control" name="preferedlanguage" id="language"
+						ng-model="currentUser.preferedlanguage" required>
+						<option ng-repeat="language in preferedlanguages" value="{{language.code}}">{{language.text}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
 		<div class="row" ng-if="userInfo.privileges.user_changepassword==true">
 			<div class="col-xs-3">
-	      <label for="password">{{translationObj.details.fieldtitlepassword}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-			<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-        	<input type="password" class="form-control" id="password" ng-model="currentUser.password" maxlength="30" required>
-	      </div>
-      </div>
-    </div>
+				<label for="password">{{translationObj.details.fieldtitlepassword}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<input type="text" class="form-control" id="password" ng-model="currentUser.passwordstr"
+						maxlength="30" autocomplete="off">
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-8">
 				<label for="email">{{translationObj.details.fieldtitleemail}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<input type="text" class="form-control" id="email" ng-model="currentUser.email" maxlength="200" required>
+					<input type="text" class="form-control" id="email" ng-model="currentUser.email" maxlength="200"
+						required>
 				</div>
 			</div>
 		</div>
@@ -49,64 +56,73 @@
 				<label for="contactfullname">{{translationObj.details.fieldtitlecontactfullname}}</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<input type="text" class="form-control" id="contactfullname" ng-model="currentUser.contactfullname" maxlength="200" disabled>
+					<input type="text" class="form-control" id="contactfullname" ng-model="currentUser.contactfullname"
+						maxlength="200" disabled>
 				</div>
 			</div>
 			<div class="col-xs-4">
 				<label>&nbsp;</label>
 				<div class="input-group">
-					<select-contact-button contactid="currentUser.contactid" contactfullname="currentUser.contactfullname"></select-contact-button>&nbsp;
-					<button type="button" class="btn btn-primary" ng-click="emptycontact()">{{translationObj.details.buttontitleemptycontact}}</button>
+					<select-contact-button contactid="currentUser.contactid"
+						contactfullname="currentUser.contactfullname"></select-contact-button>&nbsp;
+					<button type="button" class="btn btn-primary"
+						ng-click="emptycontact()">{{translationObj.details.buttontitleemptycontact}}</button>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
 				<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentUser.passwordexpired" ng-true-value="'1'">{{translationObj.details.fieldtitlepasswordexpired}}</label>
+					<br><label><input type="checkbox" ng-model="currentUser.passwordexpired"
+							ng-true-value="'1'">{{translationObj.details.fieldtitlepasswordexpired}}</label>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
 				<div class="input-group">
-					<br><label><input type="checkbox" ng-model="currentUser.active" ng-true-value="'1'">{{translationObj.details.fieldtitleactive}}</label>
+					<br><label><input type="checkbox" ng-model="currentUser.active"
+							ng-true-value="'1'">{{translationObj.details.fieldtitleactive}}</label>
 				</div>
 			</div>
 		</div>
 	</div>
 
-    <hr>
-		<h3>{{translationObj.details.formtitleroles}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editRole({})"></button></h3>
-		<hr>
-		<div ng-repeat="role in currentUser.roles">
-    	<div class="row">
+	<hr>
+	<h3>{{translationObj.details.formtitleroles}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus"
+			ng-click="editRole({})"></button></h3>
+	<hr>
+	<div ng-repeat="role in currentUser.roles">
+		<div class="row">
 
-		    <div class="col-xs-5">
-		      <label for="roleid" ng-if="$index==0">{{translationObj.details.fieldtitlerole}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	          <select class="form-control" id="roleid" ng-model="role.roleid" ng-disabled="true">
-							<option ng-repeat="roleitem in roles" value="{{roleitem.id}}">{{roleitem.text}}</option>
-			      </select>
-		      </div>
-		    </div>
+			<div class="col-xs-5">
+				<label for="roleid" ng-if="$index==0">{{translationObj.details.fieldtitlerole}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="roleid" ng-model="role.roleid" ng-disabled="true">
+						<option ng-repeat="roleitem in roles" value="{{roleitem.id}}">{{roleitem.text}}</option>
+					</select>
+				</div>
+			</div>
 
-      	<div class="col-xs-2">
-			    <label ng-if="$index==0">&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<child-edit-button 			obj="role" objlist="currentUser.roles" callback="editRole(role)"	is-form-pristine="currentUser.userid=='fulladmin' && role.roleid=='1'"></child-edit-button>
-							<child-delete-button 		obj="role" objlist="currentUser.roles" callback="setDirty()" 			is-form-pristine="currentUser.userid=='fulladmin' && role.roleid=='1'"></child-delete-button>
-							<child-undelete-button 	obj="role" objlist="currentUser.roles" callback="setDirty()" 			is-form-pristine="currentUser.userid=='fulladmin' && role.roleid=='1'"></child-undelete-button>
-							<child-status-indicator obj="role"></child-status-indicator>
-						</span>
-				  </div>
-			  </div>
-		  </div>
-	 	</div>
+			<div class="col-xs-2">
+				<label ng-if="$index==0">&nbsp;</label>
+				<div class="input-group">
+					<span>
+						<child-edit-button obj="role" objlist="currentUser.roles" callback="editRole(role)"
+							is-form-pristine="currentUser.userid=='fulladmin' && role.roleid=='1'"></child-edit-button>
+						<child-delete-button obj="role" objlist="currentUser.roles" callback="setDirty()"
+							is-form-pristine="currentUser.userid=='fulladmin' && role.roleid=='1'"></child-delete-button>
+						<child-undelete-button obj="role" objlist="currentUser.roles" callback="setDirty()"
+							is-form-pristine="currentUser.userid=='fulladmin' && role.roleid=='1'"></child-undelete-button>
+						<child-status-indicator obj="role"></child-status-indicator>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
-  </div>
+</div>
 </div>
