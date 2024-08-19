@@ -87,13 +87,13 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentPreRegistration = data.data[0];
 				// Select first contact to reconnect if it exists
-				if ($scope.currentPreRegistration.possiblecontact1.length > 0) {
+				if ($scope.currentPreRegistration.possiblecontact1 && $scope.currentPreRegistration.possiblecontact1.length > 0) {
 					$scope.currentPreRegistration.tobecopied = 2;
 					$scope.currentPreRegistration.contact1 = $scope.currentPreRegistration.possiblecontact1[0];
 				}
 
 				// Select second contact to reconnect if it exists
-				if ($scope.currentPreRegistration.possiblecontact2.length > 0) {
+				if ($scope.currentPreRegistration.possiblecontact2 && $scope.currentPreRegistration.possiblecontact2.length > 0) {
 					$scope.currentPreRegistration.tobecopied2 = 2;
 					$scope.currentPreRegistration.contact2 = $scope.currentPreRegistration.possiblecontact2[0];
 				}
