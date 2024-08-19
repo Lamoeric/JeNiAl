@@ -95,33 +95,48 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		}).
 		success(function(data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
-					$scope.currentRegistration                  = data.data[0];
-					$scope.currentRegistration.billingname      = $rootScope.userInfo.userfullname;
-					$scope.currentRegistration.contactid        = $rootScope.userInfo.contactid;
-					if ($scope.currentRegistration.id == 0) {
-						$scope.currentRegistration.status = 'DRAFT';
-						$scope.currentRegistration.step = 1;
-						for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
-							$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+				$scope.currentRegistration                  = data.data[0];
+				$scope.currentRegistration.billingname      = $rootScope.userInfo.userfullname;
+				$scope.currentRegistration.contactid        = $rootScope.userInfo.contactid;
+				if ($scope.currentRegistration.id == 0) {
+					$scope.currentRegistration.status = 'DRAFT';
+					$scope.currentRegistration.step = 1;
+					for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
+						$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+					}
+				} else {
+					$scope.currentRegistration.status = 'DRAFT-R';
+					$scope.currentRegistration.step = 1;
+					// We need to simulate a revised draft (DRAFT-R) for the applyPricingRules to work properly
+					for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
+						if ($scope.currentRegistration.courses[i].selected == '1') {
+							$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].realpaidamount ? $scope.currentRegistration.courses[i].realpaidamount : $scope.currentRegistration.courses[i].fees;
+							$scope.currentRegistration.courses[i].selected_old = $scope.currentRegistration.courses[i].selected;
+							// $scope.currentRegistration.courses[i].selected = '0';
+						} else if ($scope.currentRegistration.courses[i].selected_old == '1') {
+							$scope.currentRegistration.courses[i].selected_old = '0';
+							$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].realpaidamount;
 						}
-					} else {
-						$scope.currentRegistration.status = 'DRAFT-R';
-						$scope.currentRegistration.step = 1;
-						// We need to simulate a revised draft (DRAFT-R) for the applyPricingRules to work properly
-						for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
-							if ($scope.currentRegistration.courses[i].selected == '1') {
-								$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].realpaidamount ? $scope.currentRegistration.courses[i].realpaidamount : $scope.currentRegistration.courses[i].fees;
-								$scope.currentRegistration.courses[i].selected_old = $scope.currentRegistration.courses[i].selected;
-								// $scope.currentRegistration.courses[i].selected = '0';
-							} else if ($scope.currentRegistration.courses[i].selected_old == '1') {
-								$scope.currentRegistration.courses[i].selected_old = '0';
-								$scope.currentRegistration.courses[i].fees_old = $scope.currentRegistration.courses[i].realpaidamount;
-							}
-							$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+						$scope.setCourseDelta($scope.currentRegistration.courses[i]);
+					}
+					// For charges, simply copy selected into selected_old
+					for (var i = 0; i < $scope.currentRegistration.charges.length; i++) {
+						if ($scope.currentRegistration.charges[i].selected == '1') {
+							$scope.currentRegistration.charges[i].selected_old = $scope.currentRegistration.charges[i].selected;
 						}
 					}
-					pricingService.applyPricingRules($scope.currentRegistration, false);
-					billingService.calculateBillAmounts($scope.currentRegistration.bill);
+				}
+				pricingService.applyPricingRules($scope.currentRegistration, false);
+				billingService.calculateBillAmounts($scope.currentRegistration.bill);
+				// Calculate the total amount of the other skaters on the same bill as the current skater
+				$scope.currentRegistration.subtotalotherskaters = 0;
+				if ($scope.currentRegistration.bill.registrations.length > 1) {
+					for (var i = 0; i < $scope.currentRegistration.bill.registrations.length; i++) {
+						if ($scope.currentRegistration.bill.registrations[i].registrationid != $scope.currentRegistration.id) {
+							$scope.currentRegistration.subtotalotherskaters += $scope.currentRegistration.bill.registrations[i].subtotal;
+						}
+					}
+				}
 			} else if (!data.success && data.errno == 997){
 				// THIS MUST NOT HAPPEN - WE NOW HAVE THE POSSIBILITY TO MODIFY THE CURRENT REGISTRATION FOR A SKATER
 				dialogService.alertDlg($scope.translationObj.main.msgerrskateralreadyhasaregistration);
@@ -174,7 +189,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 
 	// Validates the registration.
 	// if status = DRAFT, at least one course must be selected.
-	// if status = DRAFT-R, at least one course must be selected, unless online payment is on, in which case let pass
+	// if status = DRAFT-R, at least one course must be selected, unless online payment is on, in which case let pass (but only if one skater on bill)
 	$scope.validateRegistration = function() {
 		var retVal = false;
 		$scope.currentRegistration.newCourseSelected = false;
@@ -186,9 +201,12 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 				break;
 			}
 		}
-		// if status = DRAFT-R, at least one course must be selected, unless online payment is on, and there is a balance to pay, in which case let pass
-		if ($scope.currentRegistration.status == 'DRAFT-R' && $scope.currentRegistration.onlinepaymentoption >= 1 && ($scope.currentRegistration.totalamount - $scope.currentRegistration.bill.paymentsubtotal > 0)) {
-			retVal = true;
+		// if status = DRAFT-R, at least one course must be selected, unless online payment is on, and there is a balance to pay, and only one skater is on the bill, in which case let pass
+		if ($scope.currentRegistration.status == 'DRAFT-R' && $scope.currentRegistration.onlinepaymentoption >= 1 && (($scope.currentRegistration.totalamount/1) + ($scope.currentRegistration.subtotalotherskaters/1) - ($scope.currentRegistration.bill.paymentsubtotal/1) > 0)) {
+			// Make sure only one skater is on the bill, if not, do not let pass (because amount shown on registration is for one skater, but bill is for n skater)
+			// if ($scope.currentRegistration.bill.registrations.length == 1) {
+				retVal = true;
+			// }
 		}
 		return retVal;
 	}
@@ -403,7 +421,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	 */
 	$scope.onChargeSelected = function(charge) {
 		// TODO: add automatic charge to the list of non clickable charges
-		if (charge != null && charge.alwaysselectedonline != '1' && charge.issystem != '1') {
+		if (charge != null && charge.alwaysselectedonline != '1' && charge.issystem != '1' && charge.selected_old != '1') {
 			if (charge.selected == "1") {
 				charge.selected = "0";
 			} else {
@@ -425,8 +443,13 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	$scope.filterCoursePrerequisites = function(course, member) {
 		var retVal = true;
 		if (course != null && member != null) {
-			if (course.prereqcanskatebadge > 0) {
-				if (member.maxcanskatebadge < course.prereqcanskatebadge) {
+			if (course.prereqcanskatebadgemin > 0) {
+				if (member.maxcanskatebadge < course.prereqcanskatebadgemin) {
+					return false;
+				}
+			}
+			if (course.prereqcanskatebadgemax > 0) {
+				if (member.maxcanskatebadge > course.prereqcanskatebadgemax) {
 					return false;
 				}
 			}
@@ -545,6 +568,13 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 				}
 			}
 			return true;
+		} else {
+			// If charge is not available online, display the charge only if it's been selected (usualy by a non-online registration)
+			if (charge.selected == '1' || charge.selected_old == '1') {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -596,7 +626,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			purchase.item_list.items.push(item);
 		} else {
 			// For DRAFT-R registrations, let's not detail the items. Just go with the total amount
-			purchase.amount.total = $scope.currentRegistration.totalamount - $scope.currentRegistration.bill.paymentsubtotal;
+			purchase.amount.total = ($scope.currentRegistration.totalamount/1) + ($scope.currentRegistration.subtotalotherskaters/1) - ($scope.currentRegistration.bill.paymentsubtotal/1);
 		}
 
 		// Initiate paypal
