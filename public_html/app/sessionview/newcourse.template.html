@@ -120,10 +120,19 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="col-xs-3">
-				<label for="prereqcanskatebadge">{{translationObj.newcourse.fieldprereqcanskatebadge}}</label>
+				<label for="prereqcanskatebadgemin">{{translationObj.newcourse.fieldprereqcanskatebadgemin}}</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<select class="form-control" id="prereqcanskatebadge" ng-model="newObj.prereqcanskatebadge">
+					<select class="form-control" id="prereqcanskatebadgemin" ng-model="newObj.prereqcanskatebadgemin">
+						<option ng-repeat="badge in canskatebadges" value="{{badge.code}}">{{badge.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="prereqcanskatebadgemax">{{translationObj.newcourse.fieldprereqcanskatebadgemax}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="prereqcanskatebadgemax" ng-model="newObj.prereqcanskatebadgemax">
 						<option ng-repeat="badge in canskatebadges" value="{{badge.code}}">{{badge.text}}</option>
 					</select>
 				</div>

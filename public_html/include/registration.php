@@ -93,7 +93,7 @@ function getChargesDetails($mysqli, $registrationid, $sessionid, $language, $onl
 					LEFT OUTER JOIN cpa_registrations_charges crcold ON crcold.registrationid = cr.relatedoldregistrationid AND crcold.id = crc.oldchargeid
 					WHERE csc.sessionid = $sessionid
 					AND cc.active = 1
-					AND cc.isonline = 1
+--					AND cc.isonline = 1
 					ORDER BY cc.type, cc.alwaysselectedonline DESC, cc.code";
 	} else {
 		$query = "	SELECT csc.id, cc.code, cc.alwaysdisplay, cc.alwaysselected, cc.nonrefundable, cc.isonline, cc.issystem, csc.startdate, csc.enddate,
@@ -200,7 +200,7 @@ function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
  function getSessionCoursesDetails($mysqli, $registrationid, $registrationdate, $sessionid, $language) {
 	$data = array();
 	$data['data'] = array();
-	$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater, csc.availableonline, csc.prereqcanskatebadge, csc.prereqagemin, csc.prereqagemax,
+	$query = "select csc.id, csc.coursecode, csc.courselevel, csc.name, csc.maxnumberskater, csc.availableonline, csc.prereqcanskatebadgemin, csc.prereqcanskatebadgemax, csc.prereqagemin, csc.prereqagemax,
 					(select count(*) from cpa_sessions_courses_members cscm where sessionscoursesid = csc.id and membertype = 3 and (cscm.registrationenddate is null or cscm.registrationenddate > curdate())) nbofskaters,
 					getTextLabel((select label from cpa_courses_levels where coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
 					getTextLabel(csc.label, '$language') label, crc.amount realpaidamount,
@@ -218,7 +218,8 @@ function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
 			order by coursecode, courselevel, csc.name";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
-		$row['prereqcanskatebadge'] = (int)$row['prereqcanskatebadge'];
+		$row['prereqcanskatebadgemin'] = (int)$row['prereqcanskatebadgemin'];
+		$row['prereqcanskatebadgemax'] = (int)$row['prereqcanskatebadgemax'];
 		$row['prereqagemin'] = (int)$row['prereqagemin'];
 		$row['prereqagemax'] = (int)$row['prereqagemax'];
 		$row['schedule'] = getSessionCourseSchedule($mysqli, $row['id'], $language);

@@ -627,13 +627,14 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 			$datesgenerated = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['datesgenerated']) 		? (int)$sessionCourses[$x]['datesgenerated'] : 0);
 			$startdate = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['startdate']) 			? $sessionCourses[$x]['startdate'] : '');
 			$enddate = 				$mysqli->real_escape_string(isset($sessionCourses[$x]['enddate']) 				? $sessionCourses[$x]['enddate'] : '');
-			$prereqcanskatebadge = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqcanskatebadge']) 	? (int)$sessionCourses[$x]['prereqcanskatebadge'] : 0);
+			$prereqcanskatebadgemin = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqcanskatebadgemin']) 	? (int)$sessionCourses[$x]['prereqcanskatebadgemin'] : 0);
+			$prereqcanskatebadgemax = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqcanskatebadgemax']) 	? (int)$sessionCourses[$x]['prereqcanskatebadgemax'] : 0);
 			$prereqagemin = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqagemin']) 			? (int)$sessionCourses[$x]['prereqagemin'] : 0);
 			$prereqagemax = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqagemax']) 			? (int)$sessionCourses[$x]['prereqagemax'] : 0);
 
 			if ($mysqli->real_escape_string(isset($sessionCourses[$x]['status'])) && $sessionCourses[$x]['status'] == 'New') {
-				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, prereqcanskatebadge, startdate, enddate, prereqagemin, prereqagemax)
-							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadge"
+				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, prereqcanskatebadgemin, prereqcanskatebadgemax, startdate, enddate, prereqagemin, prereqagemax)
+							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax"
 									.($startdate == '' ? "null, " : "'$startdate', ")
 									.($enddate == '' ? "null" : "'$enddate'")
 									.($prereqagemin == 0 ? "null" : "'$prereqagemin'")
@@ -651,7 +652,8 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 							SET coursecode = '$coursecode', courselevel =  '$courselevel', name = '$name', fees = $fees, 
 								minnumberskater = '$minnumberskater', maxnumberskater = '$maxnumberskater', 
 								availableonline = $availableonline, isschedule = $isschedule, datesgenerated = $datesgenerated, 
-								prereqcanskatebadge = $prereqcanskatebadge, 
+								prereqcanskatebadgemin = $prereqcanskatebadgemin, 
+								prereqcanskatebadgemax = $prereqcanskatebadgemax, 
 								startdate = ".($startdate == '' ? "null" : "'$startdate'")
 								.", enddate = ".($enddate == '' ? "null" : "'$enddate'")
 								.", prereqagemin = ".($prereqagemin == 0 ? "null" : "'$prereqagemin'")
