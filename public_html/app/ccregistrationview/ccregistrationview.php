@@ -47,14 +47,23 @@ function acceptRegistrationWeb($mysqli, $registration, $billid, $language, $vali
 
 /**
  * This function gets the details of one member from database
+ * Also, this function returns the age of the skater as of September 30 of the current year
+ * Also, returns the last canskate badge received
  */
-function getMemberDetailsInt($mysqli, $id, $language) {
+function getMemberDetailsInt($mysqli, $id, $agereferencedate, $language) {
 	$data = array();
 	$data['data'] = array();
-	$query = "SELECT * FROM cpa_members WHERE id = '$id'";
+	$query = "SELECT *, 
+	                 /*DATE_FORMAT(FROM_DAYS(DATEDIFF(date_add(date_add(makedate(year(now()), 1), INTERVAL 8 MONTH), INTERVAL 29 DAY),birthday)), '%Y') as ageseptember,*/
+	                 DATE_FORMAT(FROM_DAYS(DATEDIFF('$agereferencedate',birthday)), '%Y') as ageseptember,
+					 (select max(canskatestage) from cpa_members_canskate_badges where memberid = cm.id) maxcanskatebadge
+			  FROM cpa_members cm 
+			  WHERE id = $id";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['id'] = (int) $row['id'];
+		$row['ageseptember'] = (int) $row['ageseptember'];
+		$row['maxcanskatebadge'] = (int) $row['maxcanskatebadge'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -158,13 +167,14 @@ function getSkaterRegistrationDetails($mysqli, $userid, $skaterid, $sessionid, $
 		} else {
 			$registrationid = 0;
 		}
-		$query = "SELECT cs.id sessionid, getTextLabel(cs.label, '$language') sessionname, cs.coursesstartdate, cs.coursesenddate, cs.onlinepaymentoption, $skaterid memberid
+		$query = "SELECT cs.id sessionid, getTextLabel(cs.label, '$language') sessionname, cs.coursesstartdate, cs.coursesenddate, cs.onlinepaymentoption, cs.agereferencedate, $skaterid memberid
 				  FROM cpa_sessions cs
 				  WHERE cs.id = $sessionid";
 		$result = $mysqli->query( $query );
 		while ($row = $result->fetch_assoc()) {
 			$row['onlinepaymentoption'] = (int)$row['onlinepaymentoption'];
-			$temp = getMemberDetailsInt($mysqli, $skaterid, $language)['data'];
+			$agereferencedate = $row['agereferencedate'];
+			$temp = getMemberDetailsInt($mysqli, $skaterid, $agereferencedate, $language)['data'];
 			if (count($temp) > 0) {
 				$row['member'] = $temp[0];
 			}

@@ -184,6 +184,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 						$scope.currentSession.coursesenddate = parseISOdateService.parseDate($scope.currentSession.coursesenddate + "T00:00:00");
 						$scope.currentSession.lastupdateddate = parseISOdateService.parseDate($scope.currentSession.lastupdateddate);
 						$scope.currentSession.reimbursementdate = parseISOdateService.parseDate($scope.currentSession.reimbursementdate + "T00:00:00");
+						$scope.currentSession.agereferencedate = parseISOdateService.parseDate($scope.currentSession.agereferencedate + "T00:00:00");
 						$scope.currentSession.proratastartdate = parseISOdateService.parseDate($scope.currentSession.proratastartdate + "T00:00:00");
 						if ($scope.currentSession.onlineregiststartdate) {
 							if ($scope.isDateValid($scope.currentSession.onlineregiststartdate)) {
@@ -361,6 +362,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				$scope.currentSession.onlinepreregiststartdatestr = dateFilter($scope.currentSession.onlinepreregiststartdate, 'yyyy-MM-dd');
 				$scope.currentSession.onlinepreregistenddatestr = dateFilter($scope.currentSession.onlinepreregistenddate, 'yyyy-MM-dd');
 				$scope.currentSession.reimbursementdatestr = dateFilter($scope.currentSession.reimbursementdate, 'yyyy-MM-dd');
+				$scope.currentSession.agereferencedatestr = dateFilter($scope.currentSession.agereferencedate, 'yyyy-MM-dd');
 				$scope.currentSession.proratastartdatestr = dateFilter($scope.currentSession.proratastartdate, 'yyyy-MM-dd');
 				for (var i = 0; i < $scope.currentSession.registrations.length; i++) {
 					$scope.currentSession.registrations[i].registrationdate = dateFilter($scope.currentSession.registrations[i].registrationdate, 'yyyy-MM-dd');
@@ -560,7 +562,24 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			newObj.memberid = null;
 			$scope.setStaffList(newObj);
 		}
-
+		/**
+		 * This function is used in the validation of the new course dialog
+		 * @param {*} editObjForm 
+		 * @param {*} newObj 
+		 * @returns 
+		 */
+		$scope.validateNewCourseForm = function(editObjForm, newObj) {
+			if (editObjForm.$invalid) {
+				if (newObj.prereqagemin < 1 || newObj.prereqagemax < 1) {
+					return "#editObjFieldAgeMustBePositive";
+				}
+				return "#editObjFieldMandatory";
+			} else {
+				return null;
+			}
+			return "#editObjFieldMandatory";
+		}
+  
 		// This is the function that creates the modal to create/edit courses
 		$scope.editSessionCourse = function (newCourse) {
 			$scope.newCourse = {};
@@ -571,15 +590,15 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			$uibModal.open({
 				animation: false,
 				templateUrl: 'sessionview/newcourse.template.html',
-				controller: 'childeditor.controller',
+				controller: 'childeditorex.controller',
 				scope: $scope,
 				size: 'lg',
 				backdrop: 'static',
 				resolve: {
-					newObj: function () {
-						return $scope.newCourse;
-					}
-				}
+					newObj: function () {return $scope.newCourse;},
+					control: function() {return null;},		// The control object containing all validation functions
+					callback: function() {return $scope.validateNewCourseForm;}										// Callback function to overwrite the normal validation
+		}
 			})
 				.result.then(function (newCourse) {
 					// User clicked OK and everything was valid.
@@ -1166,6 +1185,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'personnelstatus', 'sequence', 'personnelstatus');
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'prorataoptions', 'sequence', 'prorataoptions');
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'onlinepaymentoptions', 'sequence', 'onlinepaymentoptions');
+			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'canskatebadges', 'sequence', 'canskatebadges');
 			arenaService.getAllArenas($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllCharges($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllCourses($scope, authenticationService.getCurrentLanguage());

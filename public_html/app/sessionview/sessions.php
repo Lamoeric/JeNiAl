@@ -612,27 +612,33 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 	try {
 		$data = array();
 		for ($x = 0; $x < count($sessionCourses); $x++) {
-			$id = 				$mysqli->real_escape_string(isset($sessionCourses[$x]['id']) 				? (int)$sessionCourses[$x]['id'] : 0);
-			$coursecode = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['coursecode']) 		? $sessionCourses[$x]['coursecode'] : '');
-			$courselevel = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['courselevel']) 		? $sessionCourses[$x]['courselevel'] : '');
-			$name = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['name']) 				? $sessionCourses[$x]['name'] : '');
-			$label = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['label']) 			? $sessionCourses[$x]['label'] : '');
-			$label_fr = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['label_fr']) 			? $sessionCourses[$x]['label_fr'] : '');
-			$label_en = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['label_en']) 			? $sessionCourses[$x]['label_en'] : '');
-			$fees = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['fees']) 				? $sessionCourses[$x]['fees'] : '0.00');
-			$minnumberskater =	$mysqli->real_escape_string(isset($sessionCourses[$x]['minnumberskater'])	? $sessionCourses[$x]['minnumberskater'] : '');
-			$maxnumberskater = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['maxnumberskater']) 	? $sessionCourses[$x]['maxnumberskater'] : '');
-			$availableonline = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['availableonline']) 	? (int)$sessionCourses[$x]['availableonline'] : 1);
-			$isschedule = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['isschedule']) 		? (int)$sessionCourses[$x]['isschedule'] : 0);
-			$datesgenerated = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['datesgenerated']) 	? (int)$sessionCourses[$x]['datesgenerated'] : 0);
-			$startdate = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['startdate']) 		? $sessionCourses[$x]['startdate'] : '');
-			$enddate = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['enddate']) 			? $sessionCourses[$x]['enddate'] : '');
+			$id = 					$mysqli->real_escape_string(isset($sessionCourses[$x]['id']) 					? (int)$sessionCourses[$x]['id'] : 0);
+			$coursecode = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['coursecode']) 			? $sessionCourses[$x]['coursecode'] : '');
+			$courselevel = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['courselevel']) 			? $sessionCourses[$x]['courselevel'] : '');
+			$name = 				$mysqli->real_escape_string(isset($sessionCourses[$x]['name']) 					? $sessionCourses[$x]['name'] : '');
+			$label = 				$mysqli->real_escape_string(isset($sessionCourses[$x]['label']) 				? $sessionCourses[$x]['label'] : '');
+			$label_fr = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['label_fr']) 				? $sessionCourses[$x]['label_fr'] : '');
+			$label_en = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['label_en']) 				? $sessionCourses[$x]['label_en'] : '');
+			$fees = 				$mysqli->real_escape_string(isset($sessionCourses[$x]['fees']) 					? $sessionCourses[$x]['fees'] : '0.00');
+			$minnumberskater =		$mysqli->real_escape_string(isset($sessionCourses[$x]['minnumberskater'])		? $sessionCourses[$x]['minnumberskater'] : '');
+			$maxnumberskater = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['maxnumberskater']) 		? $sessionCourses[$x]['maxnumberskater'] : '');
+			$availableonline = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['availableonline']) 		? (int)$sessionCourses[$x]['availableonline'] : 1);
+			$isschedule = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['isschedule']) 			? (int)$sessionCourses[$x]['isschedule'] : 0);
+			$datesgenerated = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['datesgenerated']) 		? (int)$sessionCourses[$x]['datesgenerated'] : 0);
+			$startdate = 			$mysqli->real_escape_string(isset($sessionCourses[$x]['startdate']) 			? $sessionCourses[$x]['startdate'] : '');
+			$enddate = 				$mysqli->real_escape_string(isset($sessionCourses[$x]['enddate']) 				? $sessionCourses[$x]['enddate'] : '');
+			$prereqcanskatebadgemin = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqcanskatebadgemin']) 	? (int)$sessionCourses[$x]['prereqcanskatebadgemin'] : 0);
+			$prereqcanskatebadgemax = 	$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqcanskatebadgemax']) 	? (int)$sessionCourses[$x]['prereqcanskatebadgemax'] : 0);
+			$prereqagemin = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqagemin']) 			? (int)$sessionCourses[$x]['prereqagemin'] : 0);
+			$prereqagemax = 		$mysqli->real_escape_string(isset($sessionCourses[$x]['prereqagemax']) 			? (int)$sessionCourses[$x]['prereqagemax'] : 0);
 
 			if ($mysqli->real_escape_string(isset($sessionCourses[$x]['status'])) && $sessionCourses[$x]['status'] == 'New') {
-				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, startdate, enddate)
-							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated,"
+				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, prereqcanskatebadgemin, prereqcanskatebadgemax, startdate, enddate, prereqagemin, prereqagemax)
+							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax"
 									.($startdate == '' ? "null, " : "'$startdate', ")
 									.($enddate == '' ? "null" : "'$enddate'")
+									.($prereqagemin == 0 ? "null" : "'$prereqagemin'")
+									.($prereqagemax == 0 ? "null" : "'$prereqagemax'")
 									.")";
 				if ($mysqli->query($query)) {
 					$sessionCourses[$x]['id'] = $mysqli->insert_id;
@@ -645,11 +651,14 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 				$query = "	UPDATE cpa_sessions_courses 
 							SET coursecode = '$coursecode', courselevel =  '$courselevel', name = '$name', fees = $fees, 
 								minnumberskater = '$minnumberskater', maxnumberskater = '$maxnumberskater', 
-								availableonline = $availableonline, isschedule = $isschedule, datesgenerated = $datesgenerated, startdate = "
-								.($startdate == '' ? "null" : "'$startdate'")
-								.", enddate = "
-								.($enddate == '' ? "null" : "'$enddate'")
-								." WHERE id = $id";
+								availableonline = $availableonline, isschedule = $isschedule, datesgenerated = $datesgenerated, 
+								prereqcanskatebadgemin = $prereqcanskatebadgemin, 
+								prereqcanskatebadgemax = $prereqcanskatebadgemax, 
+								startdate = ".($startdate == '' ? "null" : "'$startdate'")
+								.", enddate = ".($enddate == '' ? "null" : "'$enddate'")
+								.", prereqagemin = ".($prereqagemin == 0 ? "null" : "'$prereqagemin'")
+								.", prereqagemax = ".($prereqagemax == 0 ? "null" : "'$prereqagemax'")
+							." WHERE id = $id";
 				if ($mysqli->query($query)) {
 					$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
 					if ($mysqli->query($query)) {
@@ -1081,6 +1090,7 @@ function update_session($mysqli, $details) {
 		$onlinepreregiststartdate =	$mysqli->real_escape_string(isset($details['onlinepreregiststartdatestr']) 	? $details['onlinepreregiststartdatestr'] : '');
 		$onlinepreregistenddate =	$mysqli->real_escape_string(isset($details['onlinepreregistenddatestr']) 	? $details['onlinepreregistenddatestr'] : '');
 		$reimbursementdate =		$mysqli->real_escape_string(isset($details['reimbursementdatestr']) 		? $details['reimbursementdatestr'] : '');
+		$agereferencedate =			$mysqli->real_escape_string(isset($details['agereferencedatestr']) 			? $details['agereferencedatestr'] : '');
 		$proratastartdate =			$mysqli->real_escape_string(isset($details['proratastartdatestr']) 			? $details['proratastartdatestr'] : '');
 		$prorataoptions =			$mysqli->real_escape_string(isset($details['prorataoptions']) 				? (int)$details['prorataoptions'] : -1);
 		$attendancepaidinfull =		$mysqli->real_escape_string(isset($details['attendancepaidinfull']) 		? (int)$details['attendancepaidinfull'] : 0);
@@ -1103,7 +1113,7 @@ function update_session($mysqli, $details) {
 						attendancepaidinfull = '$attendancepaidinfull', active = '$active', previoussessionid = $previoussessionid,
 						isonlineregistactive = $isonlineregistactive, isonlinepreregistactive = $isonlinepreregistactive, 
 						isonlinepreregistemail = $isonlinepreregistemail, onlinepaymentoption = $onlinepaymentoption, isonlineregistemail = $isonlineregistemail, 
-						onlineregistemailtpl = $onlineregistemailtpl, isonlineregistemailinclbill = $isonlineregistemailinclbill
+						onlineregistemailtpl = $onlineregistemailtpl, isonlineregistemailinclbill = $isonlineregistemailinclbill, agereferencedate = '$agereferencedate'
 					WHERE id = '$id'";
 		if ($mysqli->query($query)) {
 			$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = '$label' AND language = 'fr-ca'";
@@ -1395,6 +1405,8 @@ function getSessionCourses($mysqli, $sessionid, $language) {
 		$data = array();
 		$data['data'] = array();
 		while ($row = $result->fetch_assoc()) {
+			$row['prereqagemin'] = isset($row['prereqagemin']) ? (int)$row['prereqagemin'] : null;
+			$row['prereqagemax'] = isset($row['prereqagemax']) ? (int)$row['prereqagemax'] : null;
 			$row['schedules'] = getSessionCourseSchedule($mysqli, $row['id'], $language)['data'];
 			$row['dates'] = 	getSessionCourseDates($mysqli, $row['id'], $row['name'], $language)['data'];
 			$row['staffs'] = 	getSessionCourseStaffs($mysqli, $row['id'], $language)['data'];
