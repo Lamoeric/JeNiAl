@@ -28,7 +28,7 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
             completePurchase($mysqli, $_POST['payerid'], $_POST['paymentid']);
             break;
 		default:
-			invalidRequest();
+			invalidRequest($type);
 	}
 } else {
 	invalidRequest();
@@ -42,7 +42,7 @@ function acceptRegistrationWeb($mysqli, $registration, $billid, $language, $vali
 		$data['errno']   = 9999;
 		$data['message'] = 'Member already has a registration.';
 	}
-	echo $data;
+	echo json_encode($data);
 }
 
 /**
