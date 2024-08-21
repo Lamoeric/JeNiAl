@@ -130,10 +130,10 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 				billingService.calculateBillAmounts($scope.currentRegistration.bill);
 				// Calculate the total amount of the other skaters on the same bill as the current skater
 				$scope.currentRegistration.subtotalotherskaters = 0;
-				if ($scope.currentRegistration.bill.registrations.length > 1) {
+				if ($scope.currentRegistration.bill && $scope.currentRegistration.bill.registrations && $scope.currentRegistration.bill.registrations.length > 1) {
 					for (var i = 0; i < $scope.currentRegistration.bill.registrations.length; i++) {
 						if ($scope.currentRegistration.bill.registrations[i].registrationid != $scope.currentRegistration.id) {
-							$scope.currentRegistration.subtotalotherskaters += $scope.currentRegistration.bill.registrations[i].subtotal;
+							$scope.currentRegistration.subtotalotherskaters += $scope.currentRegistration.bill.registrations[i].subtotal/1;
 						}
 					}
 				}
@@ -236,7 +236,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 		$scope.currentRegistration.id = null;
 		$http({
 			method: 'post',
-			url: './registrationview/manageregistrations.php',
+			url: './ccregistrationview/ccregistrationview.php',
 			data: $.param({'registration' : $scope.currentRegistration, 'billid' : billId, 'language' : authenticationService.getCurrentLanguage(), 'validcount' : true, 'type' : 'acceptRegistration' }),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).
@@ -299,7 +299,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 			$scope.currentRegistration.id = null;
 			$http({
 				method: 'post',
-				url: './registrationview/manageregistrations.php',
+				url: './ccregistrationview/ccregistrationview.php',
 				data: $.param({'registration' : $scope.currentRegistration, 'billid' : billId, 'language' : authenticationService.getCurrentLanguage(), 'validcount' : true, 'type' : 'acceptRegistration' }),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).
