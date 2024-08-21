@@ -319,13 +319,14 @@ function isRegistrationUpToDate($mysqli, $registration) {
 function memberAlreadyHasARegistration($mysqli, $registration) {
 	if ($mysqli->real_escape_string(isset($registration['member']['id']))) {
 		$memberid = $mysqli->real_escape_string(isset($registration['member']['id']) ? (int) $registration['member']['id'] : 0);
-		$id = $registration['id'];
+		$id = isset($registration['id']) ? (int)$registration['id'] : 0;
+		$originalid = isset($registration['originalId']) ? (int)$registration['originalId'] : 0;
 		$sessionid = isset($registration['sessionid']) ? (int)$registration['sessionid'] : null;
 		$showid = isset($registration['showid']) ? (int)$registration['showid'] : null;
 		$query = "SELECT count(*) nb
 				FROM cpa_registrations
 				WHERE (memberid = $memberid AND memberid != 0)
-				AND id != $id "
+				AND (id != $id AND id != $originalid) "
 				. ($sessionid == null? "AND showid = $showid " : "AND sessionid = $sessionid ") .
 //							AND (($sessionid is not null AND sessionid = $sessionid) OR ($showid is not null AND showid = $showid))
 				"AND (relatednewregistrationid is null or relatednewregistrationid = 0)";
