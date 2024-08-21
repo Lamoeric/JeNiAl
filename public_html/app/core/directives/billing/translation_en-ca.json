@@ -29,6 +29,7 @@
 	{"formname":"bill", "fieldname":"labeltitlesubtotal", "text":"Sub total"},
 	{"formname":"bill", "fieldname":"labeltitletotal", "text":"Total"},
 	{"formname":"bill", "fieldname":"labeltitletransactions", "text":"Transactions"},
+	{"formname":"bill", "fieldname":"labeltransactioncanceled", "text":"Transaction canceled. Reason :"},
 
 	{"formname":"splitbill", "fieldname":"msgbillsplittingreload", "text":"The bill has been split, please refresh."},
 	{"formname":"splitbill", "fieldname":"msgvalidatebillsplitting", "text":"Are you sure you want to split this registration into a new bill?"}

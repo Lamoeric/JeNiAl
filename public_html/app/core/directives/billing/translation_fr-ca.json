@@ -29,6 +29,7 @@
 	{"formname":"bill", "fieldname":"labeltitlesubtotal", "text":"Sous-total"},
 	{"formname":"bill", "fieldname":"labeltitletotal", "text":"Total"},
 	{"formname":"bill", "fieldname":"labeltitletransactions", "text":"Transactions"},
+	{"formname":"bill", "fieldname":"labeltransactioncanceled", "text":"Transaction annulée. Raison :"},
 
 	{"formname":"splitbill", "fieldname":"msgbillsplittingreload", "text":"La facture a été séparée, veuillez rafraîchir la sélection."},
 	{"formname":"splitbill", "fieldname":"msgvalidatebillsplitting", "text":"Êtes-vous certain de vouloir séparer cette inscription dans une autre facture?"}

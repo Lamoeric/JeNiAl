@@ -75,10 +75,11 @@
 			<td colspan="2">
 				<table width="100%" class="table table-striped">
 			  	<tr ng-repeat="transaction in currentBill.transactions">
-			  		<td width="70%" class="coursetablefeestd">{{transaction.transactiontypelabel}} {{transaction.transactiondate}} ({{transaction.paymentmethodlabel}})
-			  			<br>
-			  			<small>{{transaction.comments}}</small>
-			  			<span ng-if="transaction.iscanceled==1"><small>{{transaction.cancelreasonlabel}}</small></span>
+			  		<td width="70%" class="coursetablefeestd">
+						<span ng-if="transaction.iscanceled==0">{{transaction.transactiontypelabel}} {{transaction.transactiondate}} ({{transaction.paymentmethodlabel}})</span>
+						<del ng-if="transaction.iscanceled==1">{{transaction.transactiontypelabel}} {{transaction.transactiondate}} ({{transaction.paymentmethodlabel}})</del>
+			  			<span ng-if="transaction.comments!=''"><br><small>{{transaction.comments}}</small></span>
+			  			<span ng-if="transaction.iscanceled==1"><br><small>{{translationObj.bill.labeltransactioncanceled}}&nbsp;{{transaction.cancelreasonlabel}}</small></span>
 			  		</td>
   					<td width="20%">
 						<view-transaction-button current-transaction="transaction" is-form-pristine="false"></view-transaction-button>
