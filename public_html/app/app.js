@@ -8,16 +8,6 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 	$routeProvider.otherwise({redirectTo: '/loginview'});
 }])
 
-.factory('$exceptionHandler', ['$injector', 'errorHandlingService', function($injector, errorHandlingService) {
-	// This factory intercept all non handled exceptions
-    return function myExceptionHandler(exception, cause) {
-		var scope = $injector.get('$rootScope');	// use $injector to avoid loop exception between modules
-		// We need to call a service that manages all error handling (save to DB, log to console, display message to user)
-		// Used the title of the program found in $rootScope to pass as a program name to increase amount of info logged
-		errorHandlingService.logException(exception, cause, scope.title);
-    };
- }])
-
 .run(["$rootScope", "$location", '$window', '$route', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, translationService, dialogService, authenticationService) {
 
 	$rootScope.$on("$routeChangeSuccess", function (userInfo) {
