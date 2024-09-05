@@ -29,6 +29,9 @@
 
 	{"formname":"financial", "fieldname":"formtitle", "text":"Détails financiers"},
 	{"formname":"financial", "fieldname":"graphtitlerevenuepercode", "text":"Revenus par code de cours"},
+	{"formname":"financial", "fieldname":"graphtitlerevenueperpaymenttype", "text":"Revenus par type de paiement"},
+	{"formname":"financial", "fieldname":"graphtitlerevenuepercharge", "text":"Revenus par type de charge"},
+	{"formname":"financial", "fieldname":"graphtitlerevenueperdiscount", "text":"Dépenses par type de rabais"},
 	{"formname":"financial", "fieldname":"labeltotalrevenus", "text":"Revenus"},
 	{"formname":"financial", "fieldname":"labeltotalpaid", "text":"Montant payé"},
 

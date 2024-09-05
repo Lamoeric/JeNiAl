@@ -2,8 +2,9 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
+require_once('../../include/invalidrequest.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -13,7 +14,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			getAllDashboardInfo($mysqli, $_POST['sessionid'], $_POST['language']);
 			break;
 		default:
-			invalidRequest();
+			invalidRequest($type);
 	}
 } else {
 	invalidRequest();
@@ -25,7 +26,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  */
 function getAllDashboardInfo($mysqli, $sessionid, $language) {
 	$data = array();
-	try{
+	try {
 		// Summary for all courses
 		$query = "SELECT count(*) numberofskaterscourses,
 							       (SELECT sum(maxnumberskater) FROM cpa_sessions_courses csc2 WHERE csc2.sessionid = $sessionid) totalnbofplaces
@@ -166,7 +167,7 @@ function getAllDashboardInfo($mysqli, $sessionid, $language) {
 		$result = $mysqli->query($query);
 		while ($row = $result->fetch_assoc()) {
 			$data['data']['skaterspernbofcourses']['data'][] = $row['numberofskaters'];
-			$data['data']['skaterspernbofcourses']['labels'][] = $row['numberofcourses'];
+			$data['data']['skaterspernbofcourses']['labels'][] = $row['numberofcourses'].' '. ($language=='fr-ca'?'cours':'courses');
 		}
 		// financial revenue per course code
 		$query = "SELECT cc.code, sum(amount) amount, getTextLabel(cc.label, '$language') codelabel
@@ -186,41 +187,100 @@ function getAllDashboardInfo($mysqli, $sessionid, $language) {
 			$data['data']['financialrevenuespertype']['labels'][] = $row['codelabel'];
 			$data['data']['financialrevenuespertype']['totalrevenues'] += $row['amount'];
 		}
+		// financial revenue per charge code
+		$query = "SELECT cc.code, sum(cbd.amount) amount, getTextLabel(cc.label, '$language') codelabel
+				  FROM cpa_bills_details cbd
+				  JOIN cpa_bills cb ON cb.id = cbd.billid AND (cb.relatednewbillid is null or cb.relatednewbillid = 0)
+				  JOIN cpa_registrations cr ON cr.id = cbd.registrationid AND (cr.relatednewregistrationid is null or cr.relatednewregistrationid = 0)
+				  JOIN cpa_sessions_charges csc ON csc.id = cbd.itemid
+				  JOIN cpa_charges cc ON cc.code = csc.chargecode
+				  WHERE cbd.itemtype = 'CHARGE'
+				  AND cr.sessionid = $sessionid
+				  GROUP BY cc.code
+				  ORDER BY 2 DESC";
+		$result = $mysqli->query($query);
+		$data['data']['financialrevenuespercharge']['totalrevenues'] = 0;
+		while ($row = $result->fetch_assoc()) {
+			$data['data']['financialrevenuespercharge']['data'][] = $row['amount'];
+			$data['data']['financialrevenuespercharge']['labels'][] = $row['codelabel'];
+			$data['data']['financialrevenuespercharge']['totalrevenues'] += $row['amount'];
+		}
+		// financial revenue per discount code
+		$query = "SELECT cc.code, sum(cbd.amount) amount, getTextLabel(cc.label, '$language') codelabel
+				  FROM cpa_bills_details cbd
+				  JOIN cpa_bills cb ON cb.id = cbd.billid AND (cb.relatednewbillid is null or cb.relatednewbillid = 0)
+				  JOIN cpa_registrations cr ON cr.id = cbd.registrationid AND (cr.relatednewregistrationid is null or cr.relatednewregistrationid = 0)
+				  JOIN cpa_sessions_charges csc ON csc.id = cbd.itemid
+				  JOIN cpa_charges cc ON cc.code = csc.chargecode
+				  WHERE cbd.itemtype = 'DISCOUNT'
+				  AND cr.sessionid = $sessionid
+				  GROUP BY cc.code
+				  ORDER BY 2 DESC";
+		$result = $mysqli->query($query);
+		$data['data']['financialrevenuesperdiscount']['totalrevenues'] = 0;
+		while ($row = $result->fetch_assoc()) {
+			$data['data']['financialrevenuesperdiscount']['data'][] = $row['amount'];
+			$data['data']['financialrevenuesperdiscount']['labels'][] = $row['codelabel'];
+			$data['data']['financialrevenuesperdiscount']['totalrevenues'] += $row['amount'];
+		}
+		// financial revenue per payment type
+		$query = "SELECT cbt.paymentmethod, sum(transactionamount) amount, getCodeDescription('paymentmethods', cbt.paymentmethod, '$language') codelabel
+				  FROM cpa_bills_transactions cbt
+                  WHERE cbt.billid in (SELECT billid from cpa_bills cb 
+                  JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id 
+                  JOIN cpa_registrations cr ON cr.id = cbr.registrationid
+                  WHERE cr.sessionid = $sessionid)
+				  AND (cbt.iscanceled = 0 OR cbt.iscanceled is null)
+				  AND cbt.transactiontype = 'PAYMENT'
+				  GROUP BY cbt.paymentmethod
+				  ORDER BY 2 DESC";
+		$result = $mysqli->query($query);
+		$data['data']['financialrevenuesperpaymenttype']['totalrevenues'] = 0;
+		while ($row = $result->fetch_assoc()) {
+			$data['data']['financialrevenuesperpaymenttype']['data'][] = $row['amount'];
+			$data['data']['financialrevenuesperpaymenttype']['labels'][] = $row['codelabel'];
+			$data['data']['financialrevenuesperpaymenttype']['totalrevenues'] += $row['amount'];
+		}
 		// financial revenue per session
 		$query = "SELECT cs.id, (SELECT sum(a.paidamount)
-                FROM (
-                        SELECT cb.paidamount, cb.id, (SELECT cs.id FROM cpa_sessions cs
-                                                JOIN cpa_registrations cr ON cr.sessionid = cs.id
-                                                JOIN cpa_bills_registrations cbr ON  cbr.registrationid = cr.id
-                                                where cbr.billid = cb.id limit 1) sessionid
-                        FROM cpa_bills cb
-                        WHERE cb.relatednewbillid is null
-                        ORDER BY sessionid) a
-                WHERE a.sessionid = cs.id
-                GROUP BY a.sessionid) paidamount,
-              (SELECT sum(a.totalamount)
-                FROM (
-                        SELECT cb.totalamount, cb.id, (SELECT cs.id FROM cpa_sessions cs
-                                                JOIN cpa_registrations cr ON cr.sessionid = cs.id
-                                                JOIN cpa_bills_registrations cbr ON  cbr.registrationid = cr.id
-                                                where cbr.billid = cb.id limit 1) sessionid
-                        FROM cpa_bills cb
-                        WHERE cb.relatednewbillid is null
-                        ORDER BY sessionid) a
-                WHERE a.sessionid = cs.id
-                GROUP BY a.sessionid) totalamount,
-                getTextLabel(cs.label, 'fr-ca') sessionlabel
-						      FROM cpa_sessions cs";
+								FROM (
+										SELECT cb.paidamount, cb.id, 
+											(SELECT cs.id 
+												FROM cpa_sessions cs
+												JOIN cpa_registrations cr ON cr.sessionid = cs.id
+												JOIN cpa_bills_registrations cbr ON  cbr.registrationid = cr.id
+												where cbr.billid = cb.id limit 1) sessionid
+										FROM cpa_bills cb
+										WHERE cb.relatednewbillid is null
+										ORDER BY sessionid) a
+								WHERE a.sessionid = cs.id
+								GROUP BY a.sessionid) paidamount,
+						(SELECT sum(a.totalamount)
+							FROM (
+								SELECT cb.totalamount, cb.id, 
+									(SELECT cs.id 
+										FROM cpa_sessions cs
+										JOIN cpa_registrations cr ON cr.sessionid = cs.id
+										JOIN cpa_bills_registrations cbr ON  cbr.registrationid = cr.id
+										where cbr.billid = cb.id limit 1) sessionid
+								FROM cpa_bills cb
+								WHERE cb.relatednewbillid is null
+								ORDER BY sessionid) a
+						WHERE a.sessionid = cs.id
+						GROUP BY a.sessionid) totalamount, 
+				  getTextLabel(cs.label, 'fr-ca') sessionlabel
+				  FROM cpa_sessions cs";
 		$result = $mysqli->query($query);
 		$data['data']['financialrevenuespersession']['totalrevenues'] = 0;
 		while ($row = $result->fetch_assoc()) {
 			$data['data']['financialrevenuespersession']['data'][] = $row['totalamount'];
-			$data['data']['financialrevenuespersession']['data2'][] = $row['paidamount']*-1;
+			$data['data']['financialrevenuespersession']['data2'][] = $row['paidamount'] * -1;
 			$data['data']['financialrevenuespersession']['labels'][] = $row['sessionlabel'];
 		}
 		$data['success'] = true;
-		echo json_encode($data);exit;
-	}catch (Exception $e) {
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -228,14 +288,3 @@ function getAllDashboardInfo($mysqli, $sessionid, $language) {
 		exit;
 	}
 };
-
-
-function invalidRequest() {
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
-};
-
-?>

@@ -1,32 +1,21 @@
 <div class="form-group row">
-	<div class="grid">
+  <div class="grid">
     <h3>{{translationObj.courses.formtitle}}</h3>
-		<!-- <div class="row">
-      <div class="col-xs-2">
-        <label>{{currentDashboard.courses[0].courselabel}}&nbsp;({{currentDashboard.courses[0].numberofskaters}}/{{currentDashboard.courses[0].maxnumberskater}})</label>
-        <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="[currentDashboard.courses[0].numberofskaters,currentDashboard.courses[0].maxnumberskater]" chart-labels="[translationObj.dashboard.labelnumberofskaters, translationObj.dashboard.labelspacesleft]"> </canvas>
+    <div ng-repeat="coursecode in currentDashboard.coursecodes">
+      <h3>{{coursecode.codelabel}}</h3>
+      <div class="row">
+        <div class="col-xs-2" ng-repeat="course in currentDashboard.courses | filter:{code:coursecode.code}">
+          <label>
+            <center>
+              {{course.courselabel}}&nbsp;{{course.courselevellabel}}<br>({{course.name}})<br>({{course.numberofskaters}}/{{course.maxnumberskater}})&nbsp;{{((course.numberofskaters/course.maxnumberskater)*100).toFixed(2)}}%
+            </center>
+          </label>
+          <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope"
+            chart-data="[course.numberofskaters, course.maxnumberskater-course.numberofskaters >= 0 ? course.maxnumberskater-course.numberofskaters : 0]"
+            chart-labels="[translationObj.dashboard.labelnumberofskaters, translationObj.dashboard.labelspacesleft]"
+            chart-options="options2"> </canvas>
+        </div>
       </div>
-    </div> -->
-    <!-- <div class="row">
-        <div class="col-xs-2" ng-repeat="course in currentDashboard.courses">
-          <label><center>{{course.courselabel}}&nbsp;{{course.courselevellabel}}<br>({{course.name}})<br>({{course.numberofskaters}}/{{course.maxnumberskater}})</center></label>
-          <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="[course.numberofskaters,course.maxnumberskater]" chart-labels="[translationObj.dashboard.labelnumberofskaters, translationObj.dashboard.labelspacesleft]"> </canvas>
-        </div>
-    </div> -->
-
-    <!-- <div id="childform1"> -->
-
-      <div ng-repeat="coursecode in currentDashboard.coursecodes">
-        <h3>{{coursecode.codelabel}}</h3>
-        <div class="row">
-          <div class="col-xs-2" ng-repeat="course in currentDashboard.courses | filter:{code:coursecode.code}">
-            <label><center>{{course.courselabel}}&nbsp;{{course.courselevellabel}}<br>({{course.name}})<br>({{course.numberofskaters}}/{{course.maxnumberskater}})&nbsp;{{((course.numberofskaters/course.maxnumberskater)*100).toFixed(2)}}%</center></label>
-            <canvas id="doughnut" class="chart chart-doughnut chart-md ng-isolate-scope" chart-data="[course.numberofskaters,course.maxnumberskater-course.numberofskaters >= 0 ? course.maxnumberskater-course.numberofskaters : 0]" chart-labels="[translationObj.dashboard.labelnumberofskaters, translationObj.dashboard.labelspacesleft]" chart-options="options"> </canvas>
-          </div>
-        </div>
-	    </div>
-
-    <!-- </div> -->
-
+    </div>
   </div>
 </div>

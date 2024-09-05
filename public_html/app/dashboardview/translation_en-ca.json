@@ -29,6 +29,9 @@
 
 	{"formname":"financial", "fieldname":"formtitle", "text":"Financial Details"},
 	{"formname":"financial", "fieldname":"graphtitlerevenuepercode", "text":"Revenue per course code"},
+	{"formname":"financial", "fieldname":"graphtitlerevenueperpaymenttype", "text":"Revenue per payment type"},
+	{"formname":"financial", "fieldname":"graphtitlerevenuepercharge", "text":"Revenue per charge type"},
+	{"formname":"financial", "fieldname":"graphtitlerevenueperdiscount", "text":"Spendings per discount type"},
 	{"formname":"financial", "fieldname":"labeltotalrevenus", "text":"Revenus"},
 	{"formname":"financial", "fieldname":"labeltotalpaid", "text":"Amount Paid"},
 
