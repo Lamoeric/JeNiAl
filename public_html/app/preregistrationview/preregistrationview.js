@@ -23,7 +23,7 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 	});
 }])
 
-.controller('preregistrationviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', 'errorHandlingService', function($rootScope, $scope, $http, $uibModal, anycodesService, dialogService, listsService, authenticationService, translationService, errorHandlingService) {
+.controller('preregistrationviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($rootScope, $scope, $http, $uibModal, anycodesService, dialogService, listsService, authenticationService, translationService) {
 	$scope.progName = "preregistrationview";
 	$scope.currentPreRegistration = null;
 	$scope.selectedLeftObj = null;
@@ -67,12 +67,12 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 				$rootScope.repositionLeftColumn();
 			} else {
 				if (!data.success) {
-					errorHandlingService.logDataError(data, $scope.progName);
+					dialogService.displayFailure(data);
 				}
 			}
 		}).
 		error(function(data, status, headers, config) {
-			errorHandlingService.logDataError(data, $scope.progName);
+			dialogService.displayFailure(data);
 		});
 	};
 
@@ -149,11 +149,11 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 					}
 				}
 			} else {
-				errorHandlingService.logDataError(data, $scope.progName);
+				dialogService.displayFailure(data);
 			}
 		}).
 		error(function(data, status, headers, config) {
-			errorHandlingService.logDataError(data, $scope.progName);
+			dialogService.displayFailure(data);
 		});
 	};
 
@@ -194,12 +194,12 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 					$scope.setCurrentInternal(null);
 					return true;
 				} else {
-					errorHandlingService.logDataError(data, $scope.progName);
+					dialogService.displayFailure(data);
 					return false;
 				}
 			}).
 			error(function(data, status, headers, config) {
-				errorHandlingService.logDataError(data, $scope.progName);
+				dialogService.displayFailure(data);
 				return false;
 			});
 		}
@@ -243,12 +243,12 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 					$scope.setCurrentInternal($scope.selectedPreRegistration, null);
 					return true;
 				} else {
-					errorHandlingService.logDataError(data, $scope.progName);
+					dialogService.displayFailure(data);
 					return false;
 				}
 			}).
 			error(function(data, status, headers, config) {
-				errorHandlingService.logDataError(data, $scope.progName);
+				dialogService.displayFailure(data);
 				return false;
 			});
 		}
@@ -276,12 +276,12 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 					$scope.setCurrentInternal($scope.selectedPreRegistration, null);
 					return true;
 				} else {
-					errorHandlingService.logDataError(data, $scope.progName);
+					dialogService.displayFailure(data);
 					return false;
 				}
 			}).
 			error(function(data, status, headers, config) {
-				errorHandlingService.logDataError(data, $scope.progName);
+				dialogService.displayFailure(data);
 				return false;
 			});
 		}
@@ -344,12 +344,12 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 							$scope.setCurrentInternal($scope.selectedPreRegistration, null);
 							return true;
 						} else {
-							errorHandlingService.logDataError(data, $scope.progName);
+							dialogService.displayFailure(data);
 							return false;
 						}
 					}).
 					error(function(data, status, headers, config) {
-						errorHandlingService.logDataError(data, $scope.progName);
+						dialogService.displayFailure(data);
 						return false;
 					});
 				

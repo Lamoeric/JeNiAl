@@ -275,7 +275,7 @@ function getBillTransactions($mysqli, $id, $language) {
 		}
 	}
 	$billlist = $data['billlist'];
-	$query = "SELECT id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, getCodeDescription('transactiontypes', transactiontype, '$language') transactiontypelabel, getCodeDescription('paymentmethods', paymentmethod, '$language') paymentmethodlabel, paypaltransactionid, comments, iscanceled, cancelreason, canceledby, canceleddate, getCodeDescription('transactioncancels', cancelreason, '$language') cancelreasonlabel
+	$query = "SELECT id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, getCodeDescription('transactiontypes', transactiontype, '$language') transactiontypelabel, getCodeDescription('paymentmethods', paymentmethod, '$language') paymentmethodlabel, comments, iscanceled, cancelreason, canceledby, canceleddate, getCodeDescription('transactioncancels', cancelreason, '$language') cancelreasonlabel
 						FROM cpa_bills_transactions
 						WHERE billid in ($billlist)";
 	$result = $mysqli->query($query);
