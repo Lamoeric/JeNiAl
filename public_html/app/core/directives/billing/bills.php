@@ -2,7 +2,7 @@
 /*
 Author : Eric Lamoureux
 */
-
+require_once(__DIR__.'/../../../../backend/getactivesession.php');
 /**
  * This function gets the tests for one test session of one bill from database
  * This function is NOT USED for a registration bill.
@@ -275,12 +275,19 @@ function getBillTransactions($mysqli, $id, $language) {
 		}
 	}
 	$billlist = $data['billlist'];
-	$query = "SELECT id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, getCodeDescription('transactiontypes', transactiontype, '$language') transactiontypelabel, getCodeDescription('paymentmethods', paymentmethod, '$language') paymentmethodlabel, paypaltransactionid, comments, iscanceled, cancelreason, canceledby, canceleddate, getCodeDescription('transactioncancels', cancelreason, '$language') cancelreasonlabel
-						FROM cpa_bills_transactions
-						WHERE billid in ($billlist)";
+	$query = "SELECT id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, comments, iscanceled, cancelreason, 
+					 canceledby, canceleddate, checkno, receiptno, paperreceiptno, paypaltransactionid, receivedby, 
+					 getCodeDescription('transactiontypes', transactiontype, '$language') transactiontypelabel, 
+					 getCodeDescription('paymentmethods', paymentmethod, '$language') paymentmethodlabel, 
+					 getCodeDescription('transactioncancels', cancelreason, '$language') cancelreasonlabel
+			  FROM cpa_bills_transactions
+			  WHERE billid in ($billlist)";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['iscanceled'] = (int)$row['iscanceled'];
+		$row['checkno'] = (int)$row['checkno'];
+		$row['receiptno'] = (int)$row['receiptno'];
+		$row['paperreceiptno'] = (int)$row['paperreceiptno'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -529,6 +536,9 @@ function getBillInt($mysqli, $billid, $language) {
 			}
 			// Transactions are the same for both bill types
 			$row['transactions']  = getBillTransactions($mysqli, $id, $language)['data'];
+			// Get session info
+			$row['session'] = getActiveSession($mysqli)['data'][0];
+	
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -544,7 +554,7 @@ function getBillInt($mysqli, $billid, $language) {
 /**
  * This function updates a bill paidamount by adding the $amount.
  * If totalamount + paidamount <= 0, set paidinfull to true (1)
-  lamouree 9/05/2023 changed the condition for the paidinfull from == 0 to <=0
+ * lamouree 9/05/2023 changed the condition for the paidinfull from == 0 to <=0
  */
 function updateBillPaidAmountInt($mysqli, $billid, $amount) {
 	$query = "UPDATE cpa_bills

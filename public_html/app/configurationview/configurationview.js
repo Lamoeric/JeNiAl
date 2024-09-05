@@ -53,7 +53,7 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 ;
 }])
 
-.controller('configurationviewCtrl', ['$scope', '$http', '$uibModal', '$window', '$timeout', '$route', 'Upload', 'anycodesService', 'dialogService', 'authenticationService', 'translationService', 'reportingService', function($scope, $http, $uibModal, $window, $timeout, $route, Upload, anycodesService, dialogService, authenticationService, translationService, reportingService) {
+.controller('configurationviewCtrl', ['$scope', '$http', '$uibModal', '$window', '$timeout', '$route', 'Upload', 'anycodesService', 'dialogService', 'authenticationService', 'translationService', 'reportingService', 'paypalService', function($scope, $http, $uibModal, $window, $timeout, $route, Upload, anycodesService, dialogService, authenticationService, translationService, reportingService, paypalService) {
 
 	$scope.progName = "configurationView";
 	$scope.leftpanetemplatefullpath = "./configurationview/configuration.template.html";
@@ -64,6 +64,9 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 	$scope.token = $route.current.params.token;
 	$scope.paymentId = $route.current.params.paymentId;
 	$scope.payerId = $route.current.params.PayerID;
+	var courses = [{name:'test course', fees:10, label:'This is a test course', selected:1}];
+    $scope.purchase = paypalService.createPurchaseData(null, 10, window.location.href, 'firstName', 'lastName', courses, null, true); 
+
 
 	// For delay display
 	$scope.delay = 0;
@@ -98,31 +101,6 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 			$scope.boardForm.$setPristine();
 		}
 		$scope.isFormPristine = true;
-	};
-
-	$scope.getAllConfigurations = function() {
-		$http({
-				method: 'post',
-				url: './configurationview/configuration.php',
-				data: $.param({ 'type' : 'getAllConfigurations' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
-			if (data.success) {
-				if (!angular.isUndefined(data.data)) {
-					$scope.leftobjs = data.data;
-				} else {
-					$scope.leftobjs = [];
-				}
-			} else {
-				if(!data.success){
-					dialogService.displayFailure(data);
-				}
-			}
-		}).
-		error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-		});
 	};
 
 	$scope.getConfigurationDetails = function(configuration) {
@@ -163,41 +141,6 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		}
 	}
 
-	$scope.setCurrent = function(configuration, index) {
-		if ($scope.isDirty()) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.setCurrentInternal, null, configuration, index);
-		} else {
-			$scope.setCurrentInternal(configuration, index);
-		}
-	};
-
-	$scope.deleteFromDB = function(confirmed){
-		if ($scope.currentConfiguration != null && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgdelete, "YESNO", $scope.deleteFromDB, null, true, null);
-		} else {
-			$http({
-				method: 'post',
-				url: './configurationview/configuration.php',
-				data: $.param({'configuration' : $scope.currentConfiguration, 'type' : 'delete_configuration' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
-				if(data.success){
-					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedLeftObj),1);
-					$scope.setCurrentInternal(null);
-					return true;
-				} else {
-					dialogService.displayFailure(data);
-					return false;
-				}
-			}).
-			error(function(data, status, headers, config) {
-				dialogService.displayFailure(data);
-				return false;
-			});
-		}
-	}
-
 	$scope.validateAllForms = function() {
 		var retVal = true;
 		$scope.globalErrorMessage = [];
@@ -206,10 +149,6 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		if ($scope.detailsForm.$invalid) {
 				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
 		}
-		// if ($scope.currentMember.healthcareno == "") {
-		// 	$scope.globalWarningMessage.push($scope.translationObj.main.msgerrallmandatory);
-		// }
-
 		if ($scope.globalErrorMessage.length != 0) {
 			$scope.$apply();
 			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
@@ -246,63 +185,6 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 			error(function(data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			});
-		}
-	};
-
-	$scope.addConfigurationToDB = function(){
-		$http({
-			method: 'post',
-			url: './configurationview/configuration.php',
-			data: $.param({'configuration' : $scope.newConfiguration, 'type' : 'insert_configuration' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
-			if(data.success){
-				var newConfiguration = {id:data.id, code:$scope.newConfiguration.code, type:$scope.newConfiguration.type};
-				$scope.leftobjs.push(newConfiguration);
-				// We could sort the list....
-				$scope.setCurrentInternal(newConfiguration);
-				return true;
-			} else {
-				dialogService.displayFailure(data);
-				return false;
-			}
-		}).
-		error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
-	};
-
-	// This is the function that creates the modal to create new configuration
-	$scope.createNew = function(confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNewConfiguration, null, true, null);
-		} else {
-			$scope.newConfiguration = {};
-			// Send the newConfiguration to the modal form
-			$uibModal.open({
-					animation: false,
-					templateUrl: 'configurationview/newconfiguration.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: null,
-					backdrop: 'static',
-					resolve: {
-						newObj: function() {
-							return $scope.newConfiguration;
-						}
-					}
-			})
-			.result.then(function(newConfiguration) {
-					// User clicked OK and everything was valid.
-					$scope.newConfiguration = newConfiguration;
-					if ($scope.addConfigurationToDB() == true) {
-					}
-			}, function() {
-					// User clicked CANCEL.
-//	        alert('canceled');
 			});
 		}
 	};
@@ -402,27 +284,6 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		});
 	}
 
-	$scope.testPaypal = function() {
-		$scope.promise = $http({
-			method: 'post',
-			url: '../../backend/paypal.php',
-			data: $.param({'returnurl' :  window.location.href,'type' : 'testPaypal' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
-			if (data.success) {
-				$window.location=data.purchase.redirecturl;
-				dialogService.alertDlg($scope.translationObj.main.msgerremailsent);
-				return;
-			} else {
-				dialogService.displayFailure(data);
-			}
-		}).
-		error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-		});
-	}
-
 	$scope.importSCRegistrations = function(file, errFiles) {
 		$scope.f = file;
 		$scope.errFile = errFiles && errFiles[0];
@@ -481,43 +342,24 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		}
 	}
 
-	$scope.refreshAll = function() {
-		if ($scope.token != null) {
-			if ($scope.paymentId == null) {
-				alert("Operation cancelled");
-				// window.location = window.location.pathname;
-				// Reload page without the query parameter
-				window.location = window.location.href.split("?")[0];
-			} else {
-				// paymentId is defined, we need to complete the purchase
-				$scope.promise = $http({
-					method: 'post',
-					url: './core/directives/paypalcheckout/paypal.php',
-					data: $.param({'payerid' : $scope.payerId , 'paymentid' : $scope.paymentId, 'type' : 'completePurchase' }),
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).
-				success(function(data, status, headers, config) {
-					if (data.success) {
-						// $window.location=data.purchase.redirecturl;
-						dialogService.alertDlg($scope.translationObj.paypal.msgtransactioncompleted);
-						window.location = window.location.href.split("?")[0];
-						return;
-					} else {
-						dialogService.displayFailure(data.detail);
-						window.location = window.location.href.split("?")[0];
-					}
-				}).
-				error(function(data, status, headers, config) {
-					dialogService.displayFailure(data.detail);
-					window.location = window.location.href.split("?")[0];
-				});
-		
-
+	$scope.purchaseCompleted = function(data) {
+		if (data.success) {
+			dialogService.alertDlg($scope.translationObj.paypal.msgtransactioncompleted);
+			window.location = window.location.href.split("?")[0];
+		} else {
+			if (data && data.detail) {
+				dialogService.displayFailure(data.detail?data.detail : data);
 			}
 		}
-		// $scope.getAllConfigurations();
+	}
+
+	$scope.purchaseFailed = function(data) {
+		dialogService.displayFailure(data.detail?data.detail : data);
+		window.location = window.location.href.split("?")[0];
+	}
+
+	$scope.refreshAll = function() {
 		$scope.setCurrentInternal({id:1})
-		// anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'configurationtypes', 'text', 'configurationtypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'smtpdebuglevels', 'sequence', 'smtpdebuglevels');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'smtpdebugformats', 'sequence', 'smtpdebugformats');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'smtpsecureformats', 'sequence', 'smtpsecureformats');
@@ -525,6 +367,16 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'authorizationtypes', 'sequence', 'authorizationtypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'authorizationproviders', 'sequence', 'authorizationproviders');
 		translationService.getTranslation($scope, 'configurationview', authenticationService.getCurrentLanguage());
+		if ($scope.token != null) {
+			if ($scope.paymentId == null) {
+				alert("Operation cancelled");
+				// Reload page without the query parameter
+				window.location = window.location.href.split("?")[0];
+			} else {
+				// paymentId is defined, we need to complete the purchase
+				paypalService.completePurchase($scope.payerId, $scope.paymentId, $scope.purchaseCompleted, $scope.purchaseFailed);
+			}
+		}
 	}
 
 	$scope.refreshAll();

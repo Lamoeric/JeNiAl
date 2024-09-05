@@ -3,7 +3,7 @@
     <div id="t1">
       <!-- style this however you want -->
       <a href ng-click="initPaypal()"
-        ng-style="{ opacity: showButton ? '1' : '0.5' }">
+        ng-style="{ opacity: isFormPristine ? '1' : '0.5' }" ng-disabled="!isFormPristine">
         <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal">
       </a>
     </div>
