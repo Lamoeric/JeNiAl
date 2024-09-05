@@ -275,12 +275,19 @@ function getBillTransactions($mysqli, $id, $language) {
 		}
 	}
 	$billlist = $data['billlist'];
-	$query = "SELECT id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, getCodeDescription('transactiontypes', transactiontype, '$language') transactiontypelabel, getCodeDescription('paymentmethods', paymentmethod, '$language') paymentmethodlabel, comments, iscanceled, cancelreason, canceledby, canceleddate, getCodeDescription('transactioncancels', cancelreason, '$language') cancelreasonlabel
-						FROM cpa_bills_transactions
-						WHERE billid in ($billlist)";
+	$query = "SELECT id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, comments, iscanceled, cancelreason, 
+					 canceledby, canceleddate, checkno, receiptno, paperreceiptno, paypaltransactionid, receivedby, 
+					 getCodeDescription('transactiontypes', transactiontype, '$language') transactiontypelabel, 
+					 getCodeDescription('paymentmethods', paymentmethod, '$language') paymentmethodlabel, 
+					 getCodeDescription('transactioncancels', cancelreason, '$language') cancelreasonlabel
+			  FROM cpa_bills_transactions
+			  WHERE billid in ($billlist)";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$row['iscanceled'] = (int)$row['iscanceled'];
+		$row['checkno'] = (int)$row['checkno'];
+		$row['receiptno'] = (int)$row['receiptno'];
+		$row['paperreceiptno'] = (int)$row['paperreceiptno'];
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;

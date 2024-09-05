@@ -1,93 +1,98 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{translationObj.edittransaction.formtitlenewtransaction}}</h4>
+	<h4 class="modal-title">{{translationObj.edittransaction.formtitlenewtransaction}}</h4>
 </div>
 <div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group">
-      <div class="col-xs-5">
-	      <label for="transactiontype">{{translationObj.edittransaction.fieldtransactiontype}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="transactiontype" ng-model="newObj.transactiontype" disabled required>
+	<form class="form-horizontal" role="form" name="editObjForm">
+		<div class="form-group">
+			<div class="col-xs-5">
+				<label for="transactiontype">{{translationObj.edittransaction.fieldtransactiontype}}<istyle="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="transactiontype" ng-model="newObj.transactiontype" disabled required>
 						<option ng-repeat="transactiontype in transactiontypes" value="{{transactiontype.code}}">{{transactiontype.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-4">
-	      <label for="transactiondate">{{translationObj.edittransaction.fieldtransactiondate}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="transactiondate" class="form-control" id="transactiondate" ng-model="newObj.transactiondate" required ng-disabled="transactionStep!=1">
-	      </div>
-	    </div>
-      <div class="col-xs-5">
-	      <label for="transactionamount">{{translationObj.edittransaction.fieldtransactionamount}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-					<input type="text" name="transactionamount" class="form-control" id="transactionamount" ng-model="newObj.transactionamount" ng-currency required ng-disabled="transactionStep!=1">
-	      </div>
-	    </div>
-      <div class="col-xs-5"  ng-hide="newObj.transactiontype!='PAYMENT'">
-	      <label for="paymentmethod">{{translationObj.edittransaction.fieldpaymentmethod}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="paymentmethod" ng-model="newObj.paymentmethod" required ng-disabled="transactionStep!=1">
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<label for="transactiondate">{{translationObj.edittransaction.fieldtransactiondate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="transactiondate" class="form-control" id="transactiondate"
+						ng-model="newObj.transactiondate" required ng-disabled="transactionStep!=1">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="transactionamount">{{translationObj.edittransaction.fieldtransactionamount}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="transactionamount" class="form-control" id="transactionamount"
+						ng-model="newObj.transactionamount" ng-currency required ng-disabled="transactionStep!=1">
+				</div>
+			</div>
+			<div class="col-xs-5" ng-hide="newObj.transactiontype!='PAYMENT'">
+				<label for="paymentmethod">{{translationObj.edittransaction.fieldpaymentmethod}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="paymentmethod" ng-model="newObj.paymentmethod" required
+						ng-disabled="transactionStep!=1">
 						<option ng-repeat="paymentmethod in paymentmethods" value="{{paymentmethod.code}}">{{paymentmethod.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-5" ng-hide="newObj.transactiontype!='REPAYMENT'" >
-	      <label for="paymentmethod">{{translationObj.edittransaction.fieldrepaymentmethod}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="paymentmethod" ng-model="newObj.paymentmethod" required ng-disabled="transactionStep!=1">
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5" ng-hide="newObj.transactiontype!='REPAYMENT'">
+				<label for="paymentmethod">{{translationObj.edittransaction.fieldrepaymentmethod}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="paymentmethod2" ng-model="newObj.paymentmethod" required
+						ng-disabled="transactionStep!=1">
 						<option ng-repeat="repaymentmethod in repaymentmethods" value="{{repaymentmethod.code}}">{{repaymentmethod.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-5" ng-hide="newObj.transactiontype!='REPAYMENT'" >
-	      <label for="checkno">{{translationObj.edittransaction.fieldcheckno}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<input type="number" name="checkno" class="form-control" id="checkno" ng-model="newObj.checkno" ng-required="newObj.transactiontype=='REPAYMENT'" min="0" ng-disabled="transactionStep!=1">
-	      </div>
-      </div>
-      <div class="col-xs-10">
-	      <label for="receivedby" ng-hide="newObj.transactiontype!='PAYMENT'" >{{translationObj.edittransaction.fieldreceivedby}}<i style="color:red"> *</i></label>
-	      <label for="receivedby" ng-hide="newObj.transactiontype!='REPAYMENT'" >{{translationObj.edittransaction.fieldemitedby}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="receivedby" class="form-control" id="receivedby" ng-model="newObj.receivedby" maxlength="128" required ng-disabled="transactionStep!=1">
-	      </div>
-	    </div>
-      <div class="col-xs-10">
-	      <label for="comments">{{translationObj.edittransaction.fieldcomments}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<textarea name="comments" class="form-control" id="comments" ng-model="newObj.comments" maxlength="1024"></textarea>
-	      </div>
-	    </div>
-      <!-- <div class="col-xs-5"  ng-hide="newObj.transactiontype!='PAYMENT'">
-	      <label for="receiptno">{{translationObj.edittransaction.fieldreceiptno}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<input type="number" name="receiptno" class="form-control" id="receiptno" ng-model="newObj.receiptno" ngMaxLength="11" min="0" disabled>
-	      </div>
-      </div> -->
-      <div class="col-xs-10"  ng-hide="newObj.transactiontype!='PAYMENT'">
-	      <label for="paperreceiptno">{{translationObj.edittransaction.fieldpaperreceiptno}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-					<input type="number" name="paperreceiptno" class="form-control" id="paperreceiptno" ng-model="newObj.paperreceiptno" ngMaxLength="11" min="0">
-	      </div>
-      </div>
-    </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.edittransaction.formerrormessage}}
-  </div>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5" ng-hide="newObj.transactiontype!='REPAYMENT'">
+				<label for="checkno">{{translationObj.edittransaction.fieldcheckno}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<input type="number" name="checkno" class="form-control" id="checkno" ng-model="newObj.checkno"
+						ng-required="newObj.transactiontype=='REPAYMENT'" min="0" ng-disabled="transactionStep!=1">
+				</div>
+			</div>
+			<div class="col-xs-10">
+				<label for="receivedby"
+					ng-hide="newObj.transactiontype!='PAYMENT'">{{translationObj.edittransaction.fieldreceivedby}}<i style="color:red"> *</i></label>
+				<label for="receivedby"
+					ng-hide="newObj.transactiontype!='REPAYMENT'">{{translationObj.edittransaction.fieldemitedby}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="receivedby" class="form-control" id="receivedby"
+						ng-model="newObj.receivedby" maxlength="128" required ng-disabled="transactionStep!=1">
+				</div>
+			</div>
+			<div class="col-xs-10">
+				<label for="comments">{{translationObj.edittransaction.fieldcomments}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<textarea name="comments" class="form-control" id="comments" ng-model="newObj.comments"
+						maxlength="1024"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-10" ng-hide="newObj.transactiontype!='PAYMENT'">
+				<label for="paperreceiptno">{{translationObj.edittransaction.fieldpaperreceiptno}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+					<input type="number" name="paperreceiptno" class="form-control" id="paperreceiptno"
+						ng-model="newObj.paperreceiptno" ngMaxLength="11" min="0">
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+		{{translationObj.edittransaction.formerrormessage}}
+	</div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.edittransaction.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.edittransaction.buttontitlekeepchanges}}</button>
+	<button type="button" class="btn btn-primary"
+		ng-click="cancel()">{{translationObj.edittransaction.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary"
+		ng-click="ok()">{{translationObj.edittransaction.buttontitlekeepchanges}}</button>
 </div>
