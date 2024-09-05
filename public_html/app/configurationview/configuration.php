@@ -4,6 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../include/nocache.php');
+require_once('../../include/invalidrequest.php');
 require_once('../reports/sendemail.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
@@ -29,7 +30,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			sendTestEmail($mysqli, $_POST['emailaddress']);
 			break;
 		default:
-			invalidRequest();
+			invalidRequest($type);
 	}
 } else {
 	invalidRequest();
@@ -313,13 +314,5 @@ function sendTestEmail($mysqli, $emailaddress) {
 		exit;
 	}
 }
-
-function invalidRequest() {
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
-};
 
 ?>

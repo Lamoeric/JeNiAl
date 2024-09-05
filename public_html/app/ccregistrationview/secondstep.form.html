@@ -147,10 +147,10 @@
                                 <button class="btn btn-primary" ng-click="backToDraft()" >{{translationObj.main.buttontitlebacktodraft}}</button>
                                 <a href="#!/ccwelcomeview"><button class="btn btn-primary">{{translationObj.main.buttontitlecancel}}</button></a>
                                 <button class="btn btn-primary" ng-click="confirmRegistration()" ng-if="currentRegistration.onlinepaymentoption==0">{{translationObj.main.buttontitleaccept}}</button>
-                                <button class="btn btn-primary" ng-click="confirmRegistration()" ng-if="currentRegistration.onlinepaymentoption==1"ng-if="currentRegistration.onlinepaymentoption==1" ng-disabled="currentRegistration.newCourseSelected==false">{{translationObj.main.buttontitlepaylater}}</button>
+                                <button class="btn btn-primary" ng-click="confirmRegistration()" ng-if="currentRegistration.onlinepaymentoption==1" ng-disabled="currentRegistration.newCourseSelected==false">{{translationObj.main.buttontitlepaylater}}</button>
                                 <a href ng-click="paypalInsertRegistrationInDB()"
-                                ng-style="{ opacity: '1'}" ng-if="currentRegistration.onlinepaymentoption>=1">
-                                <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal">
+                                    ng-style="{ opacity: '1'}" ng-if="currentRegistration.onlinepaymentoption>=1">
+                                    <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal">
                                 </a>
                             </center>
                             <br>
