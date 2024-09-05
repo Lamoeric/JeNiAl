@@ -2,7 +2,7 @@
 /*
 Author : Eric Lamoureux
 */
-
+require_once(__DIR__.'/../../../../backend/getactivesession.php');
 /**
  * This function gets the tests for one test session of one bill from database
  * This function is NOT USED for a registration bill.
@@ -529,6 +529,9 @@ function getBillInt($mysqli, $billid, $language) {
 			}
 			// Transactions are the same for both bill types
 			$row['transactions']  = getBillTransactions($mysqli, $id, $language)['data'];
+			// Get session info
+			$row['session'] = getActiveSession($mysqli)['data'][0];
+	
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
@@ -544,7 +547,7 @@ function getBillInt($mysqli, $billid, $language) {
 /**
  * This function updates a bill paidamount by adding the $amount.
  * If totalamount + paidamount <= 0, set paidinfull to true (1)
-  lamouree 9/05/2023 changed the condition for the paidinfull from == 0 to <=0
+ * lamouree 9/05/2023 changed the condition for the paidinfull from == 0 to <=0
  */
 function updateBillPaidAmountInt($mysqli, $billid, $amount) {
 	$query = "UPDATE cpa_bills

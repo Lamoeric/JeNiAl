@@ -579,94 +579,57 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	}
 
 	/**
-	 * 
+	 * This function handles the initialization of the paypal purchase.
 	 * @param {*} billid 
 	 * @returns 
 	 */
 	$scope.paypalInitPurchase = function(billid) {
-		var course = null;
-		var charge = null;
-		var item = {};
 		var purchase = {};
-		var otherCharges = 0;
 
 		if (authenticationService.validLoginDateTime() == false) return;
-		purchase.amount = {};
-		purchase.amount.currency = 'CAD';
-		purchase.description = $scope.currentRegistration.member.firstname + " " + $scope.currentRegistration.member.lastname;
-		purchase.custom = 'custom';
-		purchase.billid = billid;
-		purchase.returnUrl = window.location.href;
-		
-		// Create one item for each course
-		purchase.item_list = {};
-		purchase.item_list.items = [];
+		// First, create the purchase object
 		if ($scope.currentRegistration.status == 'DRAFT') {
-			purchase.amount.total = $scope.currentRegistration.totalamount;
-			for (var i = 0; i < $scope.currentRegistration.courses.length; i++) {
-				course = $scope.currentRegistration.courses[i];
-				if (course.selected == 1) {
-					item = {'name' : course.name, 'price' : course.fees, 'quantity' : 1, 'currency' : 'CAD', 'description' : course.label};
-					purchase.item_list.items.push(item);
-				}
-			}
-
-			// Combine all other charges into one
-			for (var i = 0; i < $scope.currentRegistration.charges.length; i++) {
-				charge = $scope.currentRegistration.charges[i];
-				if (charge.selected == 1) {
-					if (charge.type == 'CHARGE') {
-						otherCharges += charge.amount/1;
-					} else {
-						otherCharges -= charge.amount/1;
-					}
-				}
-			}
-			item = {'name' : 'Autres charges', 'price' : otherCharges, 'quantity' : 1, 'currency' : 'CAD'};
-			purchase.item_list.items.push(item);
+			// For DRAFT registration, try to detail the items.
+			purchase = paypalService.createPurchaseData(billid, $scope.currentRegistration.totalamount, window.location.href, $scope.currentRegistration.member.firstname, $scope.currentRegistration.member.lastname, $scope.currentRegistration.courses, $scope.currentRegistration.charges, true);
 		} else {
 			// For DRAFT-R registrations, let's not detail the items. Just go with the total amount
-			purchase.amount.total = ($scope.currentRegistration.totalamount/1) + ($scope.currentRegistration.subtotalotherskaters/1) - ($scope.currentRegistration.bill.paymentsubtotal/1);
+			purchase = paypalService.createPurchaseData(billid, ($scope.currentRegistration.totalamount/1) + ($scope.currentRegistration.subtotalotherskaters/1) - ($scope.currentRegistration.bill.paymentsubtotal/1), window.location.href, $scope.currentRegistration.member.firstname, $scope.currentRegistration.member.lastname, $scope.currentRegistration.courses, $scope.currentRegistration.charges, false);
 		}
-
-		// Initiate paypal
-        paypal.checkout.initXO();
-        paypal.checkout.closeFlow();
-
-        $http({
-            method: 'post',
-            url: './core/services/paypal/paypal.php',
-            data: $.param({'purchase' : JSON.stringify(purchase), 'type' : 'startPurchase' }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).
-        success(function(data, status, headers, config) {
-            if (data.success) {
-				if (data.purchase.success == false){
-					var message = data.purchase.response;
-					for (var i = 0; i < data.purchase.detail.details.length; i++) {
-						message += '<br>' + data.purchase.detail.details[i].issue;
-					}
-					dialogService.displayFailure(message);
-				} else {
-					paypal.checkout.startFlow(data.purchase.redirecturl+'&useraction=commit');
-				}
-            } else {
-                paypal.checkout.closeFlow();
-                dialogService.displayFailure(data);
-            }
-        }).
-        error(function(data, status, headers, config) {
-            paypal.checkout.closeFlow();
-            dialogService.displayFailure(data);
-        });
+		// Second, Init paypal purchase
+		paypalService.initPurchase(purchase);
     }
 
 	/**
-	 * Called by the event of changing language on the main toolbar
+	 * 	 * Called by the event of changing language on the main toolbar
 	 */
 	$rootScope.$on("authentication.language.changed", function (event, current, previous, eventObj) {
 		$scope.refreshAll();
 	});
+
+	/**
+	 * This function handles the return of the purchase if completed without errors
+	 * @param {*} data 
+	 */
+	$scope.purchaseCompleted = function(data) {
+		if (data.success) {
+			$scope.response = data.reponse;
+			if (!$scope.currentRegistration) $scope.currentRegistration = {};
+			$scope.currentRegistration.step = 3;
+		} else {
+			if (data && data.detail) {
+				dialogService.displayFailure(data.detail?data.detail : data);
+			}
+		}
+	}
+
+	/**
+	 * This function handles the return of the purchase if purchase failed
+	 * @param {*} data 
+	 */
+	$scope.purchaseFailed = function(data) {
+		dialogService.displayFailure(data.detail?data.detail : data);
+		window.location = "#!/ccwelcomeview";
+	}
 
 	/**
 	 * Refreshes all list, ui, etc.
@@ -681,30 +644,7 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 				$scope.currentRegistration.step = 4;
 			} else {
 				// paymentId is defined, we need to complete the purchase
-				$scope.promise = $http({
-					method: 'post',
-					url: './core/services/paypal/paypal.php',
-				 	data: $.param({'payerid' : $scope.payerId , 'paymentid' : $scope.paymentId, 'type' : 'completePurchase' }),
-				 	headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).
-				success(function(data, status, headers, config) {
-					if (data.success) {
-						$scope.response = data.reponse;
-						if (!$scope.currentRegistration) $scope.currentRegistration = {};
-						$scope.currentRegistration.step = 3;
-				 	} else {
-						if (data && data.detail) {
-							dialogService.displayFailure(data.detail);
-						} else {
-							dialogService.alertDlg($scope.translationObj.main.msgerrtransactioncanceled);
-						}
-						window.location = "#!/ccwelcomeview"
-				 	}
-				}).
-				error(function(data, status, headers, config) {
-				 	dialogService.displayFailure(data.detail);
-				 	window.location = "#!/ccwelcomeview"; // window.location.href.split("?")[0];
-				});
+				paypalService.completePurchase($scope.payerId, $scope.paymentId, $scope.purchaseCompleted, $scope.purchaseFailed);
 			}
 		} else {
 			$scope.getSkaterRegistrationDetails();
@@ -712,7 +652,6 @@ angular.module('cpa_admin.ccregistrationview', ['ngRoute'])
 	}
 
 	// This code injects the paypal API into the DOM.
-	// TODO : check if this is really needed because we are using the php module
 	if (window.paypalCheckoutReady != null) {
 		$scope.showButton = true
 	} else {
