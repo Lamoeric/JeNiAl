@@ -2,7 +2,7 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
+require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../include/nocache.php');
 require_once('../../include/invalidrequest.php');
 
@@ -29,7 +29,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			getPreRegistrationDetails($mysqli, $_POST['id'], $_POST['language']);
 			break;
 		default:
-			invalidRequest($type);
+			invalidRequest();
 	}
 } else {
 	invalidRequest();
@@ -55,18 +55,18 @@ function deletePreRegistration($mysqli, $preregistration) {
 						echo json_encode($data);
 						exit;
 					} else {
-						throw new Exception('deletePreRegistration - 1 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+						throw new Exception('deletePreRegistration - 1 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 					}
 				} else {
-					throw new Exception('deletePreRegistration - 2 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+					throw new Exception('deletePreRegistration - 2 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			} else {
-				throw new Exception('deletePreRegistration - 3 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+				throw new Exception('deletePreRegistration - 3 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		} else {
-			throw new Exception('deletePreRegistration - 4 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+			throw new Exception('deletePreRegistration - 4 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 		}
-	} catch (Exception $e) {
+	} catch(Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -89,9 +89,8 @@ function getAllPreRegistrations($mysqli) {
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
-		echo json_encode($data);
-		exit;
-	} catch (Exception $e) {
+		echo json_encode($data);exit;
+	} catch(Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -217,11 +216,11 @@ function getPreRegistrationDetails($mysqli, $id, $language) {
 				$email = $row['email2'];
 				$row['possiblecontact2'] = getPossibleContactList($mysqli, $firstname, $lastname, $email)['data'];
 			}
-
+			
 			$email = $row['email'];
 			$firstname = $mysqli->real_escape_string($row['firstname']);
 			$lastname = $mysqli->real_escape_string($row['lastname']);
-
+			
 			$query = "SELECT count(*) cnt FROM cpa_users WHERE email = '$email'";
 			$resultcount = $mysqli->query($query);
 			$rowcount = $resultcount->fetch_assoc();
@@ -231,7 +230,7 @@ function getPreRegistrationDetails($mysqli, $id, $language) {
 			$resultcount = $mysqli->query($query);
 			$rowcount = $resultcount->fetch_assoc();
 			$row['countcontact'] = $rowcount['cnt'];
-
+			
 			$query = "SELECT count(*) cnt FROM cpa_contacts WHERE lastname = '$lastname' AND firstname = '$firstname' AND email != '$email'";
 			$resultcount = $mysqli->query($query);
 			$rowcount = $resultcount->fetch_assoc();
@@ -260,7 +259,7 @@ function getPreRegistrationDetails($mysqli, $id, $language) {
 				$resultcount = $mysqli->query($query);
 				$rowcount = $resultcount->fetch_assoc();
 				$row['countcontact2'] = $rowcount['cnt'];
-
+				
 				$query = "SELECT count(*) cnt FROM cpa_contacts WHERE lastname = '$lastname' AND firstname = '$firstname' AND email != '$email'";
 				$resultcount = $mysqli->query($query);
 				$rowcount = $resultcount->fetch_assoc();
@@ -276,7 +275,7 @@ function getPreRegistrationDetails($mysqli, $id, $language) {
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	} catch (Exception $e) {
+	} catch(Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -311,7 +310,7 @@ function updateEntireMembers($mysqli, $preregistration) {
 						birthday = '$birthday', address1 = '$address1', town = '$town', postalcode = '$postalcode' 
 					WHERE id = $id";
 		if (!$mysqli->query($query)) {
-			throw new Exception('updateEntireMembers - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+			throw new Exception('updateEntireMembers - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 		}
 	}
 	$data['success'] = true;
@@ -345,7 +344,7 @@ function updatePreRegistration($mysqli, $precontact) {
 					firstname2 = '$firstname2', lastname2 = '$lastname2', homephone2 = '$homephone2', cellphone2 = '$cellphone2', email2 = '$email2', contacttype2 = '$contacttype2'
 				WHERE id = $id";
 	if (!$mysqli->query($query)) {
-		throw new Exception('updatePreRegistration - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+		throw new Exception('updatePreRegistration - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 	}
 	return $data;
 	exit;
@@ -370,7 +369,7 @@ function updateEntirePreRegistration($mysqli, $preregistration) {
 		$data['message'] = 'Pre-registration updated successfully.';
 		echo json_encode($data);
 		exit;
-	} catch (Exception $e) {
+	} catch(Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -402,7 +401,7 @@ function copyContact($mysqli, $precontact) {
 		if ($mysqli->query($query)) {
 			$data['contactid1'] = (int) $mysqli->insert_id;
 		} else {
-			throw new Exception('copyContact - insert contact1 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+			throw new Exception('copyContact - insert contact1 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 		}
 	} else {
 		$contactid1 = 	isset($precontact['contact1']['id'])	? $mysqli->real_escape_string((int)$precontact['contact1']['id']) : 0;
@@ -414,14 +413,14 @@ function copyContact($mysqli, $precontact) {
 		if ($contactid1 != 0) {
 			$query = "	UPDATE cpa_contacts SET ";
 			$setclause = "officephone = officephone";
-			$setclause .= $firstname ? ",firstname = '$firstname'" : "";
-			$setclause .= $lastname ? ",lastname = '$lastname'" : "";
-			$setclause .= $homephone ? ",homephone = '$homephone'" : "";
-			$setclause .= $cellphone ? ",cellphone = '$cellphone'" : "";
-			$setclause .= $email ? ",email = '$email'" : "";
+			$setclause .= $firstname ? ",firstname = '$firstname'" : ""; 
+			$setclause .= $lastname ? ",lastname = '$lastname'" : ""; 
+			$setclause .= $homephone ? ",homephone = '$homephone'" : ""; 
+			$setclause .= $cellphone ? ",cellphone = '$cellphone'" : ""; 
+			$setclause .= $email ? ",email = '$email'" : ""; 
 			$query .= $setclause . " WHERE id = $contactid1";
 			if (!$mysqli->query($query)) {
-				throw new Exception('copyContact - update contact 1 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+				throw new Exception('copyContact - update contact 1 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 			// Check if contact has a connected user, if so, update the user
 			$query = "SELECT userid FROM cpa_users WHERE contactid = $contactid1";
@@ -432,14 +431,14 @@ function copyContact($mysqli, $precontact) {
 				$query = "	UPDATE cpa_users SET ";
 				$setclause = "contactid = contactid";
 				//  check if userid has a @ in it, if so, update it with the new email address
-				if (strpos($row['userid'], '@')) {
-					$setclause .= $email ? ",userid = '$email'" : "";
+				if (strpos($row['userid'],'@')) {
+					$setclause .= $email ? ",userid = '$email'" : ""; 
 				}
-				$setclause .= $firstname != null && $lastname != null ? ",fullname = concat('$firstname', ' ', '$lastname')" : "";
-				$setclause .= $email ? ",email = '$email'" : "";
+				$setclause .= $firstname != null && $lastname != null ? ",fullname = concat('$firstname', ' ', '$lastname')" : ""; 
+				$setclause .= $email ? ",email = '$email'" : ""; 
 				$query .= $setclause . " WHERE contactid = $contactid1";
 				if (!$mysqli->query($query)) {
-					throw new Exception('copyContact - update user 1 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+					throw new Exception('copyContact - update user 1 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 			}
 		}
@@ -458,7 +457,7 @@ function copyContact($mysqli, $precontact) {
 			if ($mysqli->query($query)) {
 				$data['contactid2'] = (int) $mysqli->insert_id;
 			} else {
-				throw new Exception('copyContact - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+				throw new Exception('copyContact - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		} else {
 			$contactid2 = 	isset($precontact['contact2']['id'])	? $mysqli->real_escape_string((int)$precontact['contact2']['id']) : 0;
@@ -470,14 +469,14 @@ function copyContact($mysqli, $precontact) {
 			if ($contactid2 != 0) {
 				$query = "	UPDATE cpa_contacts SET ";
 				$setclause = "officephone = officephone";
-				$setclause .= $firstname ? ",firstname = '$firstname'" : "";
-				$setclause .= $lastname ? ",lastname = '$lastname'" : "";
-				$setclause .= $homephone ? ",homephone = '$homephone'" : "";
-				$setclause .= $cellphone ? ",cellphone = '$cellphone'" : "";
-				$setclause .= $email ? ",email = '$email'" : "";
+				$setclause .= $firstname ? ",firstname = '$firstname'" : ""; 
+				$setclause .= $lastname ? ",lastname = '$lastname'" : ""; 
+				$setclause .= $homephone ? ",homephone = '$homephone'" : ""; 
+				$setclause .= $cellphone ? ",cellphone = '$cellphone'" : ""; 
+				$setclause .= $email ? ",email = '$email'" : ""; 
 				$query .= $setclause . " WHERE id = $contactid2";
 				if (!$mysqli->query($query)) {
-					throw new Exception('copyContact - update contact 2 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+					throw new Exception('copyContact - update contact 2 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 				}
 				// Check if contact has a connected user, if so, update the user
 				$query = "SELECT userid FROM cpa_users WHERE contactid = $contactid2";
@@ -488,14 +487,14 @@ function copyContact($mysqli, $precontact) {
 					$query = "	UPDATE cpa_users SET ";
 					$setclause = "contactid = contactid";
 					//  check if userid has a @ in it, if so, update it with the new email address
-					if (strpos($row['userid'], '@')) {
-						$setclause .= $email ? ",userid = '$email'" : "";
+					if (strpos($row['userid'],'@')) {
+						$setclause .= $email ? ",userid = '$email'" : ""; 
 					}
-					$setclause .= $firstname != null && $lastname != null ? ",fullname = concat('$firstname', ' ', '$lastname')" : "";
-					$setclause .= $email ? ",email = '$email'" : "";
+					$setclause .= $firstname != null && $lastname != null ? ",fullname = concat('$firstname', ' ', '$lastname')" : ""; 
+					$setclause .= $email ? ",email = '$email'" : ""; 
 					$query .= $setclause . " WHERE contactid = $contactid2";
 					if (!$mysqli->query($query)) {
-						throw new Exception('copyContact - update user 2 - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+						throw new Exception('copyContact - update user 2 - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 					}
 				}
 			}
@@ -526,7 +525,7 @@ function connectMemberToContact($mysqli, $memberid, $contactid, $contacttype) {
 			$query = "	INSERT INTO cpa_members_contacts (memberid, contactid, contacttype)
 						VALUES ($memberid, $contactid, '$contacttype')";
 			if (!$mysqli->query($query)) {
-				throw new Exception('connectMemberToContact - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+				throw new Exception('connectMemberToContact - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 	}
@@ -554,23 +553,23 @@ function updateMember($mysqli, $id, $member, $email, $homephone, $cellphone) {
 
 	$query = "	UPDATE cpa_members SET ";
 	$setclause = "initial = initial";
-	$setclause .= $firstname ? ",firstname = '$firstname'" : "";
-	$setclause .= $lastname ? ",lastname = '$lastname'" : "";
-	$setclause .= $gender ? ",gender = '$gender'" : "";
-	$setclause .= $language ? ",language = '$language'" : "";
-	$setclause .= $skatecanadano ? ",skatecanadano = '$skatecanadano'" : "";
-	$setclause .= $birthday ? ",birthday = '$birthday'" : "";
-	$setclause .= $address1 ? ",address1 = '$address1'" : "";
-	$setclause .= $town ? ",town = '$town'" : "";
-	$setclause .= $province ? ",province = '$province'" : "";
-	$setclause .= $country ? ",country = '$country'" : "";
-	$setclause .= $postalcode ? ",postalcode = '$postalcode'" : "";
-	$setclause .= $homephone ? ",homephone = '$homephone'" : "";
-	$setclause .= $cellphone ? ",cellphone = '$cellphone'" : "";
-	$setclause .= $email ? ",email = '$email'" : "";
+	$setclause .= $firstname ? ",firstname = '$firstname'" : ""; 
+	$setclause .= $lastname ? ",lastname = '$lastname'" : ""; 
+	$setclause .= $gender ? ",gender = '$gender'" : ""; 
+	$setclause .= $language ? ",language = '$language'" : ""; 
+	$setclause .= $skatecanadano ? ",skatecanadano = '$skatecanadano'" : ""; 
+	$setclause .= $birthday ? ",birthday = '$birthday'" : ""; 
+	$setclause .= $address1 ? ",address1 = '$address1'" : ""; 
+	$setclause .= $town ? ",town = '$town'" : ""; 
+	$setclause .= $province ? ",province = '$province'" : ""; 
+	$setclause .= $country ? ",country = '$country'" : ""; 
+	$setclause .= $postalcode ? ",postalcode = '$postalcode'" : ""; 
+	$setclause .= $homephone ? ",homephone = '$homephone'" : ""; 
+	$setclause .= $cellphone ? ",cellphone = '$cellphone'" : ""; 
+	$setclause .= $email ? ",email = '$email'" : ""; 
 	$query .= $setclause . " WHERE id = $id";
 	if (!$mysqli->query($query)) {
-		throw new Exception('updateMember - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+		throw new Exception('updateMember - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 	}
 }
 
@@ -611,7 +610,7 @@ function copyMembers($mysqli, $preregistration, $contactid, $contactid2) {
 				connectMemberToContact($mysqli, $memberid, $contactid, $contacttype);
 				connectMemberToContact($mysqli, $memberid, $contactid2, $contacttype2);
 			} else {
-				throw new Exception('copyMembers - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+				throw new Exception('copyMembers - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		} else if ($tobecopied == 2) {
 			// Need to update member in db
@@ -636,7 +635,7 @@ function markPreRegistrationInt($mysqli, $id) {
 	if ($id != 0) {
 		$query = "UPDATE cpa_pre_contacts SET treated = 1 WHERE id = $id";
 		if (!$mysqli->query($query)) {
-			throw new Exception('markPreRegistrationInt - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
+			throw new Exception('markPreRegistrationInt - ' . $mysqli->sqlstate.' - '. $mysqli->error);
 		}
 		$mysqli->close();
 
@@ -688,7 +687,7 @@ function copyPreRegistration($mysqli, $preregistration) {
 		$data['message'] = 'Pre-registration updated successfully.';
 		echo json_encode($data);
 		exit;
-	} catch (Exception $e) {
+	} catch(Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -708,7 +707,7 @@ function markPreRegistration($mysqli, $id) {
 		$data = markPreRegistrationInt($mysqli, $id);
 		echo json_encode($data);
 		exit;
-	} catch (Exception $e) {
+	} catch(Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -716,3 +715,5 @@ function markPreRegistration($mysqli, $id) {
 		exit;
 	}
 };
+
+?>

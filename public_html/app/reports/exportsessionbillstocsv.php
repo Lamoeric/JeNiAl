@@ -34,7 +34,7 @@ try {
     fputcsv($fp, ['sep=,']);
     fputcsv($fp, array_map("utf8_decode", $data['headers']));
     for ($i = 0; $i < sizeof($data['data']); $i++) {
-      $row = array_map("utf8_decode", $data['data'][$i] ?? '');
+      $row = array_map("utf8_decode", $data['data'][$i]);
       fputcsv($fp, array_values($row));
     }
     die;
@@ -100,7 +100,7 @@ try {
 function getSessionBillingList($mysqli, $sessionid, $language) {
 	try{
 		if(empty($sessionid)) throw new Exception("Invalid session id.");
-		$query = "SELECT DISTINCT cb.id, 'Total' as type, cb.billingname, '' as skatername, '' as paypaltransactionid, cb.billingdate, '' as paymentmethod, '' as registrationsubtotal, '' as transactionamount, cb.totalamount, cb.paidamount, (cb.totalamount + cb.paidamount) delta
+		$query = "SELECT DISTINCT cb.id, 'Total' as type, cb.billingname, '' as skatername, '' as chargecode, cb.billingdate, '' as paymentmethod, '' as registrationsubtotal, '' as transactionamount, cb.totalamount, cb.paidamount, (cb.totalamount + cb.paidamount) delta
 							FROM cpa_bills cb
 							JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
 							JOIN cpa_registrations csr ON csr.id = cbr.registrationid
@@ -116,7 +116,7 @@ function getSessionBillingList($mysqli, $sessionid, $language) {
 		$data['headers'][1] = 'type';
 		$data['headers'][2] = 'billingname';
 		$data['headers'][3] = 'skatername';
-		$data['headers'][4] = 'paypaltransactionid';
+		$data['headers'][4] = 'chargecode';
 		$data['headers'][5] = 'billingdate';
 		$data['headers'][6] = 'paymentmethod';
 		$data['headers'][7] = 'registrationsubtotal';
@@ -136,7 +136,7 @@ function getSessionBillingList($mysqli, $sessionid, $language) {
     		$newRow['type'] = 'S-total';
     		$newRow['billingname'] =  $row['billingname'];
     		$newRow['skatername'] =  $registration['member']['firstname'].' '. $registration['member']['lastname'];
-    		$newRow['charpaypaltransactionidgecode'] =  '';
+    		$newRow['chargecode'] =  '';
     		$newRow['billingdate'] = '';
     		$newRow['paymentmethod'] = '';
     		$newRow['registrationsubtotal'] = $registration['subtotal'];
@@ -152,10 +152,10 @@ function getSessionBillingList($mysqli, $sessionid, $language) {
     		$newRow['type'] = 'Transaction';
     		$newRow['billingname'] =  $row['billingname'];
     		$newRow['skatername'] =  '';
-    		$newRow['paypaltransactionid'] =  $row['paypaltransactionid'];;
+    		$newRow['chargecode'] =  '';
     		$newRow['billingdate'] = $transactions['transactiondate'];
     		$newRow['paymentmethod'] = $transactions['paymentmethod']. ' ' . $transactions['cancelreasonlabel'];
-    		$newRow['registrationsubtotal'] = '';
+    		$newRow['registrationsubtotal'] = null;
     		$newRow['transactionamount'] = $transactions['transactionamount'];
     		$newRow['totalamount'] = '';
     		$newRow['paidamount'] = '';
