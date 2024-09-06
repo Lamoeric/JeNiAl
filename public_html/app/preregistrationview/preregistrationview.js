@@ -295,12 +295,12 @@ angular.module('cpa_admin.preregistrationview', ['ngRoute'])
 	$scope.validateEmailChange = function() {
 		var needConfirmation = false;
 		if ($scope.currentPreRegistration.tobecopied == 2) {
-			if ($scope.currentPreRegistration.email != $scope.currentPreRegistration.contact1.email) {
+			if ($scope.currentPreRegistration.email.toUpperCase() != $scope.currentPreRegistration.contact1.email.toUpperCase()) {
 				needConfirmation = true;
 			}
 		}
 		if ($scope.currentPreRegistration.tobecopied2 == 2) {
-			if ($scope.currentPreRegistration.email2 != $scope.currentPreRegistration.contact2.email) {
+			if ($scope.currentPreRegistration.email2.toUpperCase() != $scope.currentPreRegistration.contact2.email.toUpperCase()) {
 				needConfirmation = true;
 			}
 		}
