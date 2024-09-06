@@ -137,8 +137,8 @@ function completePurchase($mysqli, $payerid, $paymentid) {
                 // but let's not save this transaction several times. Catch the duplicate exception.
                 $mysqli->query($query);
                 // We need to add a transaction for this bill
-                $query = "INSERT INTO cpa_bills_transactions (id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, checkno, receiptno, paperreceiptno, receivedby, comments) 
-                        VALUES (NULL, $invoicenumber, 'PAYMENT', '$amount', CURDATE() /*convert_tz('$createddate', '+00:00', @@session.time_zone)*/, 'PAYPAL', 0, 0, 0, 'PAYPAL', '')";
+                $query = "INSERT INTO cpa_bills_transactions (id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, checkno, receiptno, paperreceiptno, paypaltransactionid, receivedby, comments) 
+                        VALUES (NULL, $invoicenumber, 'PAYMENT', '$amount', CURDATE() /*convert_tz('$createddate', '+00:00', @@session.time_zone)*/, 'PAYPAL', 0, 0, 0, '$transactionid', 'PAYPAL', '')";
                 if ($mysqli->query($query)) {
                     $amount = $amount * -1;
                     updateBillPaidAmountInt($mysqli, $invoicenumber, $amount);
