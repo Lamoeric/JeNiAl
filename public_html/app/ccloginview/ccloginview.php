@@ -26,7 +26,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 function readSessionConfig($mysqli) {
 	try{
 		
-		$query = "SELECT onlinepreregiststartdate, onlinepreregistenddate, if (curdate() >= onlinepreregiststartdate AND curdate() <= onlinepreregistenddate, 1 , 0) preregistrationok FROM cpa_sessions WHERE active = 1";
+		$query = "SELECT onlinepreregiststartdate, onlinepreregistenddate, if (isonlinepreregistactive = 1 AND curdate() between onlinepreregiststartdate AND onlinepreregistenddate, 1 , 0) preregistrationok FROM cpa_sessions WHERE active = 1";
 		$result = $mysqli->query($query);
 		while ($row = $result->fetch_assoc()) {
 			$row['preregistrationok'] = (int)$row['preregistrationok'];

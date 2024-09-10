@@ -31,8 +31,8 @@ function getSkaterRegistrations($mysqli, $memberid, $language){
 	$data['data'] = array();
 	$query = "SELECT cs.id sessionid, getTextLabel(cs.label, '$language') sessionlabel, cr.id registrationid
 						FROM cpa_sessions cs
-						left join cpa_registrations cr ON cr.sessionid = cs.id and cr.memberid = $memberid and (cr.relatednewregistrationid is null or cr.relatednewregistrationid = 0)
-						WHERE now() between cs.onlineregiststartdate and cs.onlineregistenddate
+						left join cpa_registrations cr ON cr.sessionid = cs.id AND cr.memberid = $memberid AND (cr.relatednewregistrationid is null OR cr.relatednewregistrationid = 0)
+						WHERE (isonlineregistactive = 1 AND curdate() between cs.onlineregiststartdate AND cs.onlineregistenddate)
 						ORDER BY cs.startdate";
 	$result = $mysqli->query( $query );
 	while ($row = $result->fetch_assoc()) {
