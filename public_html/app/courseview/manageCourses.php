@@ -19,7 +19,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			delete_course($mysqli);
 			break;
 		case "getAllCourses":
-			getAllCourses($mysqli);
+			getAllCourses($mysqli, $_POST['language']);
 			break;
 		case "getCourseDetails":
 			getCourseDetails($mysqli, $_POST['code']);
@@ -179,9 +179,9 @@ function delete_course($mysqli) {
 /**
  * This function gets list of all courses from database
  */
-function getAllCourses($mysqli) {
+function getAllCourses($mysqli, $language) {
 	try{
-		$query = "SELECT code, name FROM cpa_courses order by name";
+		$query = "SELECT code, name, getTextLabel(label, '$language') label FROM cpa_courses order by code";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
