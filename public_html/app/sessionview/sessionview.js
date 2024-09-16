@@ -175,6 +175,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 						$scope.coursecodefilter = null;
 						$scope.filtercoursesdate = null;
 						$scope.currentSession = data.data[0];
+						$scope.currentSession.onlinepreregistemailtpl = $scope.currentSession.onlinepreregistemailtpl != 0 ? $scope.currentSession.onlinepreregistemailtpl : null;
 						// $scope.currentSession.onlineregistemailtpl.id = $scope.currentSession.onlineregistemailtpl;
 						$scope.currentSession.rulesen = $sce.trustAsHtml($scope.currentSession.rulesen);
 						$scope.currentSession.rulesfr = $sce.trustAsHtml($scope.currentSession.rulesfr);

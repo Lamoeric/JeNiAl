@@ -17,7 +17,7 @@
 	{"formname":"main", "fieldname":"sessionviewCtrl", "text":"Sessions"},
 	{"formname":"main", "fieldname":"showviewCtrl", "text":"Shows"},
 	{"formname":"main", "fieldname":"showtaskviewCtrl", "text":"Show Tasks"},
-	{"formname":"main", "fieldname":"emailtemplateviewCtrl", "text":"Show Tasks"},
+	{"formname":"main", "fieldname":"emailtemplateviewCtrl", "text":"Email Templates"},
 	{"formname":"main", "fieldname":"testcsviewCtrl", "text":"CanSkate Tests"},
 	{"formname":"main", "fieldname":"testdefviewCtrl", "text":"STAR Tests Def"},
 	{"formname":"main", "fieldname":"testregistrationviewCtrl", "text":"Test Registrations"},
