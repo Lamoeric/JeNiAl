@@ -2,12 +2,13 @@
 //	inputs :
 //		contacts : aray of contact objects to display. {'firstname':null, 'lastname':null,'email':null}
 //		isFormPristine : expression to determine if button is disabled or not
-angular.module('core').directive("sendemailtemplate", ['$uibModal', '$http', 'anycodesService', 'authenticationService', 'translationService', 'dialogService', 'listsService', function ($uibModal, $http, anycodesService, authenticationService, translationService, dialogService, listsService) {
+angular.module('core').directive("sendemailtemplate", ['$uibModal', '$http', 'anycodesService', 'authenticationService', 'translationService', 'dialogService', 'listsService', 'sendEmailTemplateService', function ($uibModal, $http, anycodesService, authenticationService, translationService, dialogService, listsService, sendEmailTemplateService) {
 	return {
 		template: '<button class="btn btn-primary glyphicon glyphicon-envelope" ng-disabled="isFormPristine" id="sendemailtemplate"></button>',
 		scope: {
 			contacts: '=contacts',
 			isFormPristine: '=isFormPristine',
+			callback: '=callback',
 		},
 
 		link: function (scope, element, attrs, formCtrl) {
@@ -25,7 +26,13 @@ angular.module('core').directive("sendemailtemplate", ['$uibModal', '$http', 'an
 				showContactsEmails();
 			});
 
-			/* Must select a template and an email address */
+			/**
+			 * This function validates that the form is valid. Must select a template and an email address.
+			 * This is a callback function called by the modal
+			 * @param {*} editObjForm 
+			 * @param {*} newObj 
+			 * @returns null or a component to turn on to indicate the error
+			 */
 			scope.validateForm = function (editObjForm, newObj) {
 				if (editObjForm.$invalid) {
 					return "#editObjFieldMandatory";
@@ -39,49 +46,9 @@ angular.module('core').directive("sendemailtemplate", ['$uibModal', '$http', 'an
 				return "#editObjFieldMandatory";
 			}
 
-			function sendEmailTemplate(selectedObject) {
-				scope.selectedObject = selectedObject;
-				/* Retrieve the email template details */
-				scope.promise = $http({
-					method: 'post',
-					url: './core/directives/sendemailtemplate/sendemailtemplate.php',
-					data: $.param({ 'id': selectedObject.templateselected.id, 'language': selectedObject.language, 'type': 'getEmailtemplateDetails' }),
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-				}).success(function (data, status, headers, config) {
-					if (data.success && !angular.isUndefined(data.data)) {
-						scope.currentEmailtemplate = data.data[0];
-						scope.newEmail = { 'emailaddress': null, 'title': scope.currentEmailtemplate.title, 'mainmessage': scope.remarkable.render(scope.currentEmailtemplate.paragraphtext), 'language': scope.selectedObject.language };
-						for (var i = 0; i < scope.selectedObject.contacts.length; i++) {
-							if (scope.selectedObject.contacts[i].selected && scope.selectedObject.contacts[i].selected == '1') {
-								scope.newEmail.emailaddress = scope.selectedObject.contacts[i].email;
-								/* This is where we need to send the email */
-								scope.promise = $http({
-									method: 'post',
-									url: './core/directives/sendemailtemplate/sendemailtemplate.php',
-									data: $.param({ 'newEmail': scope.newEmail, 'type': 'sendTestEmail' }),
-									headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-								}).success(function (data, status, headers, config) {
-									if (data.success) {
-										dialogService.alertDlg(scope.translationObj.main.msgemailsent);
-										return;
-									} else {
-										dialogService.displayFailure(data);
-									}
-								}).error(function (data, status, headers, config) {
-									dialogService.displayFailure(data);
-								});
-							}
-						}
-
-					} else {
-						dialogService.displayFailure(data);
-					}
-				}).error(function (data, status, headers, config) {
-					dialogService.displayFailure(data);
-				});
-			}
-
-			// This is the function that creates the modal to display the list of contacts and their emails
+			/**
+			 * This function creates the modal to display the list of contacts and their emails
+			 */
 			function showContactsEmails() {
 				translationService.getTranslation(scope, 'core/directives/sendemailtemplate', authenticationService.getCurrentLanguage());
 				listsService.getAllEmailTemplates(scope, authenticationService.getCurrentLanguage());
@@ -95,15 +62,20 @@ angular.module('core').directive("sendemailtemplate", ['$uibModal', '$http', 'an
 					size: 'md',
 					backdrop: 'static',
 					resolve: {
-						newObj: function () { return scope.newObj; },		    		// The object to edit
+						newObj: function () { return scope.newObj; },		    	// The object to edit
 						control: function () { return scope.internalControl; },		// The control object containing all validation functions
-						callback: function () { return scope.validateForm; }				// Callback function to overwrite the normal validation
+						callback: function () { return scope.validateForm; }		// Callback function to overwrite the normal validation
 					}
 				}).result.then(function (selectedObject) {
 					// User clicked OK and everything was valid.
 					/* Now, send email to all the selected contacts */
-					sendEmailTemplate(selectedObject);
-					return;
+					for (var i = 0; i < selectedObject.contacts.length; i++) {
+						// For each emeil selected, send the template email
+						if (selectedObject.contacts[i].selected && selectedObject.contacts[i].selected == '1') {
+							sendEmailTemplateService.sendEmailTemplate(selectedObject.templateselected.id, selectedObject.language, selectedObject.contacts[i].email, null);
+						}
+					}
+					if (scope.callback) scope.callback();
 				}, function () {
 					// User clicked CANCEL.
 				});

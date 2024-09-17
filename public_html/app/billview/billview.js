@@ -281,8 +281,7 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 						return $scope.newFilter;
 					}
 				}
-		})
-		.result.then(function(newFilter) {
+		}).result.then(function(newFilter) {
 				// User clicked OK
 				if (newFilter.firstname || newFilter.lastname || newFilter.registration || newFilter.billpaid || newFilter.onlyopenedbills == '1') {
 					$scope.newFilter = newFilter;
@@ -322,16 +321,23 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 					}
 			})
 			.result.then(function(newBill) {
-					// User clicked OK and everything was valid.
-					$scope.newBill = newBill;
-					if ($scope.addBillToDB() == true) {
-					}
+				// User clicked OK and everything was valid.
+				$scope.newBill = newBill;
+				if ($scope.addBillToDB() == true) {
+				}
 			}, function() {
-					// User clicked CANCEL.
-//	        alert('canceled');
+			// User clicked CANCEL.
+	        // alert('canceled');
 			});
 		}
 	};
+
+	/**
+	 * This function is called by the sendTemplateEmail directive when all emails are sent
+	 */
+	$scope.emailTemplateSent = function () {
+		dialogService.alertDlg($scope.translationObj.main.msgemailsent);
+	}
 
 	$rootScope.$on("billing.reload", function (event, current, previous, eventObj) {
 		$scope.setCurrentInternal($scope.selectedBill, null);
