@@ -175,7 +175,7 @@
 									<hr>
 									<!-- Transactions -->
 									<h3>{{translationObj.main.labeltitletransactions}}</h3>
-									<div class="row" ng-repeat="transaction in currentBill.transactions">
+									<div class="row" ng-repeat="transaction in currentBill.transactions | filter : filterTransactions">
 										<div class="col-xs-12 col-md-9">
 											<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitletransactions}}</label>
 											<label class="hidden-md hidden-lg">{{translationObj.main.labeltitletransactions}}</label>

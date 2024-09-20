@@ -74,6 +74,13 @@ angular.module('cpa_admin.ccsinglebillview', ['ngRoute'])
 		});
 	};
 
+	$scope.filterTransactions = function(transaction) {
+		if (transaction && transaction.iscanceled == 1) {
+			return false;
+		}
+		return true;
+	}
+
 	$scope.paypalInitPurchase = function () {
 		var purchase = {};
 
