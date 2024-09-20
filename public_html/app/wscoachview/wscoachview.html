@@ -8,12 +8,30 @@
           <displaymaintitle maintitle="currentWscoach.firstname + ' ' + currentWscoach.lastname" defaulttitle="translationObj.main.formtitledetails" object="currentWscoach"></displaymaintitle>
 
 					<main-new-button new-callback="createNew()"></main-new-button>
-					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !startestsForm.$dirty"></main-save-button>
 					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentWscoach==null"></main-delete-button>
 
-          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentWscoach">
-						<div ng-include="'wscoachview/wscoach.html'"></div>
-          </form>
+					<div id="maintab" class="maintab">
+						<ul id="maintabheader" class="nav nav-tabs">
+							<li class="active pointerlist"><a data-toggle="tab" data-target="#details">{{translationObj.main.panetitledetails}}</a></li>
+							<li class="pointerlist"><a data-toggle="tab" data-target="#startests">{{translationObj.main.panetitlestartest}}</a></li>
+						</ul>
+
+						<div id="maintabcontent" class="tab-content maintabcontent">
+
+							<div id="details" class="tab-pane fade in active maintabpane">
+								<form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm" ng-show="currentWscoach">
+									<div ng-include="'./wscoachview/wscoach.html'"></div>
+								</form>
+							</div>
+
+							<div id="startests" class="tab-pane fade maintabpane">
+								<form class="form-horizontal well intabsingleformnox" role="form" name="startestsForm" ng-show="currentWscoach">
+									<div ng-include="'./wscoachview/startests.html'"></div>
+								</form>
+							</div>
+            </div>
+          </div>
 
         </div>
       </div>

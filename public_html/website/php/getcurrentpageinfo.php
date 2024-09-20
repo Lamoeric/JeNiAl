@@ -95,23 +95,37 @@ function getboardmembersection($mysqli, $language, $previewmode) {
 }
 
 function getcoachsection($mysqli, $language, $previewmode) {
-  $query = "SELECT cwc.*, getWSTextLabel(cwc.availabilitytext, '$language') availabilitytext, getWSTextLabel(cwc.competitivetext, '$language') competitivetext,
-                  getCodeDescription('testlevels', cwc.dancelevel, '$language') dancelevellabel, getCodeDescription('testlevels', cwc.skillslevel, '$language') skillslevellabel,
-                  getCodeDescription('testlevels', cwc.freestylelevel, '$language') freestylelevellabel,
+  $query = "SELECT cwc.*, getWSTextLabel(cwc.availabilitytext, '$language') availabilitytext, 
+                  getWSTextLabel(cwc.competitivetext, '$language') competitivetext,
+                  if (cwc.starversion=1, getCodeDescription('testlevels', cwc.dancelevel, '$language'), getCodeDescription('testnewlevels', cwc.dancelevel, '$language')) dancelevellabel, 
+                  if (cwc.starversion=1, getCodeDescription('testlevels', cwc.skillslevel, '$language'), getCodeDescription('testnewlevels', cwc.skillslevel, '$language')) skillslevellabel,
+                  if (cwc.starversion=1, getCodeDescription('testlevels', cwc.freestylelevel, '$language'), getCodeDescription('testnewlevels', cwc.freestylelevel, '$language')) freestylelevellabel,
                   getCodeDescription('testlevels', cwc.interpretativesinglelevel, '$language') interpretativesinglelevellabel,
                   getCodeDescription('testlevels', cwc.interpretativecouplelevel, '$language') interpretativecouplelevellabel,
                   getCodeDescription('testlevels', cwc.competitivesinglelevel, '$language') competitivesinglelevellabel,
                   getCodeDescription('testlevels', cwc.competitivecouplelevel, '$language') competitivecouplelevellabel,
                   getCodeDescription('testlevels', cwc.competitivedancelevel, '$language') competitivedancelevellabel,
-                  getCodeDescription('testlevels', cwc.competitivesynchrolevel, '$language') competitivesynchrolevellabel
+                  getCodeDescription('testlevels', cwc.competitivesynchrolevel, '$language') competitivesynchrolevellabel,
+                  getCodeDescription('testnewlevels', cwc.artisticlevel, '$language') artisticlevellabel,
+                  getCodeDescription('testnewlevels', cwc.synchrolevel, '$language') synchrolevellabel
             FROM cpa_ws_coaches cwc
             WHERE publish = 1
             ORDER BY coachindex";
   $result = $mysqli->query($query);
   $data = array();
   $data['data'] = array();
+  $data['maxinfo'] = 0;
+  $data['starversion'] = 0;
   while ($row = $result->fetch_assoc()) {
-    // $row['imagefilename'] = $row['imagefilename'] . '?' . com_create_guid();
+    $row['starversion'] = (int)$row['starversion'];
+    if ($row['starversion'] == 1) $data['starversion'] = ($data['starversion'] == 0 ? 1 : ($data['starversion'] == 1 ? 1 : 3));
+    if ($row['starversion'] == 2) $data['starversion'] = ($data['starversion'] == 0 ? 2 : ($data['starversion'] == 2 ? 2 : 3));
+    if (isset($row['interpretativesinglelevellabel']) && $row['interpretativesinglelevellabel'] != "")  $data['maxinfo'] = ($data['maxinfo'] >= 1 ? $data['maxinfo'] : 1);
+    if (isset($row['interpretativecouplelevellabel']) && $row['interpretativecouplelevellabel'] != "")  $data['maxinfo'] = ($data['maxinfo'] >= 2 ? $data['maxinfo'] : 2);
+    if (isset($row['competitivesinglelevellabel']) && $row['competitivesinglelevellabel'] != "")        $data['maxinfo'] = ($data['maxinfo'] >= 3 ? $data['maxinfo'] : 3);
+    if (isset($row['competitivecouplelevellabel']) && $row['competitivecouplelevellabel'] != "")        $data['maxinfo'] = ($data['maxinfo'] >= 4 ? $data['maxinfo'] : 4);
+    if (isset($row['competitivedancelevellabel']) && $row['competitivedancelevellabel'] != "")          $data['maxinfo'] = ($data['maxinfo'] >= 5 ? $data['maxinfo'] : 5);
+    if (isset($row['competitivesynchrolevellabel']) && $row['competitivesynchrolevellabel'] != "")      $data['maxinfo'] = ($data['maxinfo'] >= 6 ? $data['maxinfo'] : 6);
     $data['data'][] = $row;
   }
   $data['success'] = true;
@@ -1089,7 +1103,11 @@ function getcurrentpageinfo($mysqli, $pagename, $language, $costumeid, $testsess
         $row['programassistants'] = getprogramassistantsection($mysqli, $language, $previewmode)['data'];
         $data['currentpage']['globalsections'][$sectionname] = $row;
       } else if ($sectionname == 'coaches') {
-        $row['coaches'] = getcoachsection($mysqli, $language, $previewmode)['data'];
+        $temp = getcoachsection($mysqli, $language, $previewmode);
+        $row['coaches'] = $temp['data'];
+        $row['coachmaxinfo'] = $temp['maxinfo'];
+        $row['coachstarversion'] = $temp['starversion'];
+        // $row['coaches'] = getcoachsection($mysqli, $language, $previewmode)['data'];
         $data['currentpage']['globalsections'][$sectionname] = $row;
       } else if ($sectionname == 'newssummarycarousel') {
         $row['news'] = getnewssummarysection($mysqli, $language, $previewmode)['data'];
