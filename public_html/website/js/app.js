@@ -174,40 +174,112 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
           // Coaches section needs to be sanitized
           // TODO : we need a better solution for languages
           if ($scope.currentpage.globalsections.coaches && $scope.currentpage.globalsections.coaches.coaches) {
+            var coachmaxinfo = $scope.currentpage.globalsections.coaches.coachmaxinfo; // 1 to 6
+            var coachstarversion = $scope.currentpage.globalsections.coaches.coachstarversion; // 1, 2 or 3
+            var maxNbOfLines = 7 + (coachstarversion == 1 ? coachmaxinfo : (coachstarversion == 3 ? (Math.max(coachmaxinfo, 2)) : 2));
+            var minnblinesv1 = 7;
+            var minnblinesv2 = 9;
             for (var i = 0; i < $scope.currentpage.globalsections.coaches.coaches.length; i++) {
               var coach = $scope.currentpage.globalsections.coaches.coaches[i];
               var desc = null;
+              var nbLine = 0;
               if ($scope.language == 'fr-ca') {
                 desc = "<b>Courriel&nbsp;:&nbsp;</b>" + (coach.email && coach.email != '' ? coach.email : '&nbsp;')  + '<br>';
                 desc += "<b>Téléphone&nbsp;:&nbsp;</b>" + (coach.phone && coach.phone != '' ? coach.phone : '&nbsp;')  + '<br>';
                 desc += "<b>Enseigne depuis&nbsp;:&nbsp;</b>" + (coach.coachsince && coach.coachsince != '' ? coach.coachsince : '&nbsp;')  + '<br>';
                 desc += "<b>Niveau&nbsp;:&nbsp;</b>" + (coach.coachlevel && coach.coachlevel != '' ? coach.coachlevel : '&nbsp;')  + '<br>';
-                desc += "<b>Danse&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
-                desc += "<b>Habiletés&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
-                desc += "<b>Style libre&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
-                // Optional section
-                desc += (coach.interpretativesinglelevellabel && coach.interpretativesinglelevellabel != '' ? "<b>Interprétation simple&nbsp;:&nbsp;</b>" + coach.interpretativesinglelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.interpretativecouplelevellabel && coach.interpretativecouplelevellabel != '' ? "<b>Interprétation couple&nbsp;:&nbsp;</b>" + coach.interpretativecouplelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivesinglelevellabel && coach.competitivesinglelevellabel != '' ? "<b>Compétition simple&nbsp;:&nbsp;</b>" + coach.competitivesinglelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivecouplelevellabel && coach.competitivecouplelevellabel != '' ? "<b>Compétition couple&nbsp;:&nbsp;</b>" + coach.competitivecouplelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivedancelevellabel && coach.competitivedancelevellabel != '' ? "<b>Compétition danse&nbsp;:&nbsp;</b>" + coach.competitivedancelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivesynchrolevellabel && coach.competitivesynchrolevellabel != '' ? "<b>Compétition synchro&nbsp;:&nbsp;</b>" + coach.competitivesynchrolevellabel : '&nbsp;')  + '<br><br>';
-                desc += (coach.competitivetext && coach.competitivetext != '' ? "<b>Expérience niveau compétition&nbsp;:&nbsp;</b><br>" + coach.competitivetext : '<br><br><br><br><br>') ;
+
+                if (coach.starversion == 1) {
+                  desc += "<b>Danse&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Habiletés&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Style libre&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                  // Optional section
+                  if (coach.interpretativesinglelevellabel && coach.interpretativesinglelevellabel != '') {
+                    desc += "<b>Interprétation simple&nbsp;:&nbsp;</b>" + coach.interpretativesinglelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.interpretativecouplelevellabel && coach.interpretativecouplelevellabel != '') {
+                    desc += "<b>Interprétation couple&nbsp;:&nbsp;</b>" + coach.interpretativecouplelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivesinglelevellabel && coach.competitivesinglelevellabel != '') {
+                    desc +=  "<b>Compétition simple&nbsp;:&nbsp;</b>" + coach.competitivesinglelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivecouplelevellabel && coach.competitivecouplelevellabel != '') {
+                    desc +=  "<b>Compétition couple&nbsp;:&nbsp;</b>" + coach.competitivecouplelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivedancelevellabel && coach.competitivedancelevellabel != '') {
+                    desc += "<b>Compétition danse&nbsp;:&nbsp;</b>" + coach.competitivedancelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivesynchrolevellabel && coach.competitivesynchrolevellabel != '') {
+                    desc += "<b>Compétition synchro&nbsp;:&nbsp;</b>" + coach.competitivesynchrolevellabel + '<br>';
+                    nbLine++;
+                  }
+                  var currentNbLine = minnblinesv1 + nbLine;
+                } else if (coach.starversion == 2) {
+                  desc += "<b>Danse&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Habiletés&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Style libre&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Artistique&nbsp;:&nbsp;</b>" + (coach.artisticlevellabel && coach.artisticlevellabel != '' ? coach.artisticlevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Synchro&nbsp;:&nbsp;</b>" + (coach.synchrolevellabel && coach.synchrolevellabel != '' ? coach.synchrolevellabel : '&nbsp;')  + '<br>';
+                  var currentNbLine = minnblinesv2;
+                }
+                // Pad with <br> so all column look the same
+                for (var x = currentNbLine; x < maxNbOfLines; x++) {
+                  desc += '<br>';
+                }
+                desc += (coach.competitivetext && coach.competitivetext != '' ? "<br><b>Expérience niveau compétition&nbsp;:&nbsp;</b><br>" + coach.competitivetext : '<br><br><br><br><br>') ;
               } else if ($scope.language == 'en-ca') {
                 desc = "<b>Email&nbsp;:&nbsp;</b>" + (coach.email && coach.email != '' ? coach.email : '&nbsp;')  + '<br>';
                 desc += "<b>Phone&nbsp;:&nbsp;</b>" + (coach.phone && coach.phone != '' ? coach.phone : '&nbsp;')  + '<br>';
                 desc += "<b>Coaches since&nbsp;:&nbsp;</b>" + (coach.coachsince && coach.coachsince != '' ? coach.coachsince : '&nbsp;')  + '<br>';
                 desc += "<b>Level&nbsp;:&nbsp;</b>" + (coach.coachlevel && coach.coachlevel != '' ? coach.coachlevel : '&nbsp;')  + '<br>';
-                desc += "<b>Dance&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
-                desc += "<b>Skills&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
-                desc += "<b>Free Style&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
-                // Optional section
-                desc += (coach.interpretativesinglelevellabel && coach.interpretativesinglelevellabel != '' ? "<b>Interpretative Single&nbsp;:&nbsp;</b>" + coach.interpretativesinglelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.interpretativecouplelevellabel && coach.interpretativecouplelevellabel != '' ? "<b>Interpretative Couple&nbsp;:&nbsp;</b>" + coach.interpretativecouplelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivesinglelevellabel && coach.competitivesinglelevellabel != '' ? "<b>Competitive Single&nbsp;:&nbsp;</b>" + coach.competitivesinglelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivecouplelevellabel && coach.competitivecouplelevellabel != '' ? "<b>Competitive Couple&nbsp;:&nbsp;</b>" + coach.competitivecouplelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivedancelevellabel && coach.competitivedancelevellabel != '' ? "<b>Competitive Dance&nbsp;:&nbsp;</b>" + coach.competitivedancelevellabel : '&nbsp;')  + '<br>';
-                desc += (coach.competitivesynchrolevellabel && coach.competitivesynchrolevellabel != '' ? "<b>Competitive Synchro&nbsp;:&nbsp;</b>" + coach.competitivesynchrolevellabel : '&nbsp;')  + '<br><br>';
+
+                if (coach.starversion == 1) {
+                  desc += "<b>Dance&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Skills&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Free Style&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                  // Optional section
+                  if (coach.interpretativesinglelevellabel && coach.interpretativesinglelevellabel != '') {
+                    desc += "<b>Interpretative Single&nbsp;:&nbsp;</b>" + coach.interpretativesinglelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.interpretativecouplelevellabel && coach.interpretativecouplelevellabel != '') {
+                    desc += "<b>Interpretative Couple&nbsp;:&nbsp;</b>" + coach.interpretativecouplelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivesinglelevellabel && coach.competitivesinglelevellabel != '') {
+                    desc +=  "<b>Competitive Single&nbsp;:&nbsp;</b>" + coach.competitivesinglelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivecouplelevellabel && coach.competitivecouplelevellabel != '') {
+                    desc +=  "<b>Competitive Couple&nbsp;:&nbsp;</b>" + coach.competitivecouplelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivedancelevellabel && coach.competitivedancelevellabel != '') {
+                    desc += "<b>Competitive Dance&nbsp;:&nbsp;</b>" + coach.competitivedancelevellabel + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.competitivesynchrolevellabel && coach.competitivesynchrolevellabel != '') {
+                    desc += "<b>Competitive Synchro&nbsp;:&nbsp;</b>" + coach.competitivesynchrolevellabel + '<br>';
+                    nbLine++;
+                  }
+                  var currentNbLine = minnblinesv1 + nbLine;
+                } else if (coach.starversion == 2) {
+                  desc += "<b>Dance&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Skills&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Free Style&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Artistic&nbsp;:&nbsp;</b>" + (coach.artisticlevellabel && coach.artisticlevellabel != '' ? coach.artisticlevellabel : '&nbsp;')  + '<br>';
+                  desc += "<b>Synchro&nbsp;:&nbsp;</b>" + (coach.synchrolevellabel && coach.synchrolevellabel != '' ? coach.synchrolevellabel : '&nbsp;')  + '<br>';
+                  var currentNbLine = minnblinesv2;
+                }
+                // Pad with <br> so all column look the same
+                for (var x = currentNbLine; x < maxNbOfLines; x++) {
+                  desc += '<br>';
+                }
                 desc += (coach.competitivetext && coach.competitivetext != '' ? "<b>Experience Competitive Level&nbsp;:&nbsp;</b><br>" + coach.competitivetext : '<br><br><br><br><br>') ;
               }
               coach.desc = $sce.trustAsHtml(desc);

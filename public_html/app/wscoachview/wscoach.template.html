@@ -1,1 +1,14 @@
-<div><p>{{leftobj.firstname}} {{leftobj.lastname}}</p></div>
+<div>
+    <p>
+        <span ng-if="leftobj.publish==1">
+            {{leftobj.coachindex}} - {{leftobj.firstname}}&nbsp;{{leftobj.lastname}}<br>
+        </span>
+        <span style="color:red" ng-if="leftobj.publish==0">
+            {{leftobj.coachindex}} - {{leftobj.firstname}}&nbsp;{{leftobj.lastname}}<br>
+        </span>
+        <small>
+            <b>{{translationObj.leftPane.publish}}</b>&nbsp;{{leftobj.ispublish}}&nbsp;
+            <b>{{translationObj.leftPane.image}}</b>&nbsp;{{leftobj.isimage}}
+        </small>
+    </p>
+</div>
