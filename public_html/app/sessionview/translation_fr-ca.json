@@ -82,6 +82,8 @@
 	{"formname":"onlineregistration", "fieldname":"formsubtitlepreregistration", "text":"Pré-inscription en ligne"},
 	{"formname":"onlineregistration", "fieldname":"formsubtitleregistration", "text":"Inscription en ligne"},
 	{"formname":"onlineregistration", "fieldname":"fieldisonlinepreregistactive", "text":"Pré-inscription en ligne disponible"},
+	{"formname":"onlineregistration", "fieldname":"fieldisonlinepreregistemail", "text":"Courriel automatique à la pré-inscription"},
+	{"formname":"onlineregistration", "fieldname":"fieldonlinepreregistemailtpl", "text":"Template pour courriel automatique"},
 	{"formname":"onlineregistration", "fieldname":"fieldisonlineregistactive", "text":"Inscription en ligne disponible"},
 	{"formname":"onlineregistration", "fieldname":"fieldisonlineregistemail", "text":"Courriel automatique à l'inscription"},
 	{"formname":"onlineregistration", "fieldname":"fieldisonlineregistemailinclbill", "text":"Courriel automatique inclut la facture"},

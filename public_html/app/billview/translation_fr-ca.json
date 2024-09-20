@@ -9,6 +9,7 @@
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
 	{"formname":"main", "fieldname":"formtitlebillclosed", "text":"fermée"},
 	{"formname":"main", "fieldname":"msgnofilter", "text":"Aucun filtre défini"},
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Courriel envoyé"},
 
 	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Information"},
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
