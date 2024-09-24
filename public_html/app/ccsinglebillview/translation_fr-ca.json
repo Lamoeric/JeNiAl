@@ -24,5 +24,8 @@
 	{"formname":"main", "fieldname":"labeltitletotal", "text":"Total"},
 	{"formname":"main", "fieldname":"labeltitletransactions", "text":"Transactions"},
 
+	{"formname":"main", "fieldname":"msgtransactioncompleted", "text":"Transaction complétée."},
+	{"formname":"main", "fieldname":"msgerrtransactioncanceled", "text":"Transaction annulée."},
+
 	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"}
 ]

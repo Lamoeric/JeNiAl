@@ -1,138 +1,135 @@
-<div class="content">
-	<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<br>
-				<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
-				<hr>
-				<!-- <p>{{translationObj.main.formttextsignin}}</p> -->
-				<br>
+<form>
+	<div class="content">
+		<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<br>
+					<h1>{{translationObj.main.formtitlecustomercentre}}</h1>
+					<hr>
+					<br>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<div class="content">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="content well">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="content">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="content well">
 
-								<div class="row">
-									<div class="col-md-12">
-										<h1>{{translationObj.main.formttitlesignin}}</h1>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-12 well">
-					        	<div class="input-group">
-					  				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					  	        <input type="text" name="userid" class="form-control" id="userid" ng-model="login.userid" maxlength="200" ng-required=true>
-					  	      </div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-12 well">
-										<div class="input-group">
-					  				  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					  	        <input type="password" name="password" class="form-control" id="password" ng-model="login.password" maxlength="40" ng-required=true>
-					  	      </div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-12">
-										<div class="input-group">
-											<button class="btn btn-primary" ng-click="login()">{{translationObj.main.buttontitlelogin}}</button>
-											<br>
-											<a class="pointerlist" ng-click="manageForgottenPassword()">{{translationObj.main.formttitleforgotmypassword}}</a>
-					  	      </div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-8">
-							<div class="content well">
-								<div class="row" height="100%">
-									<div class="col-md-8">
-
-										<div class="content">
-											<div class="row">
-												<div class="col-md-12">
-													<h1>{{translationObj.main.formttitlenotregisteredyet}}</h1>
-													{{translationObj.main.formttitleskatingspacedef}}
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<h3>{{translationObj.main.formttitlecentreyoucan}}</h3>
-													<li>{{translationObj.main.formttitlemodifydata}}</li>
-													<li>{{translationObj.main.formttitleconsultdata}}</li>
-													<!-- <li>{{translationObj.main.formttitlemodifyskaterdata}}</li> -->
-													<li>{{translationObj.main.formttitlepreregister}}</li>
-													<li>{{translationObj.main.formttitleconsultbilling}}</li>
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-md-12">
-													<div class="input-group">
-														<br>
-														<button class="btn btn-primary" ng-click="register()">{{translationObj.main.buttontitleregister}}</button>
-													</div>
-												</div>
-											</div>
-
-
-											<div class="row" ng-if="preregistrationok==1">
-												<div class="col-md-12">
-													<h1>{{translationObj.main.formttitlepreregistration}}</h1>
-													<p>{{translationObj.main.formttitlepreregistrationdef}}</p>
-													<p>{{translationObj.main.formttitlepreregistrationdef2}}</p>
-													<p>{{translationObj.main.formttitlepreregistrationdef3}}</p>
-												</div>
-											</div>
-											<div class="row" ng-if="preregistrationok==1">
-												<div class="col-md-12">
-													<div class="input-group">
-														<br>
-														<button class="btn btn-primary" ng-click="preregister()">{{translationObj.main.buttontitlepreregister}}</button>
-													</div>
-												</div>
-											</div>
-
-
+									<div class="row">
+										<div class="col-md-12">
+											<h1>{{translationObj.main.formttitlesignin}}</h1>
 										</div>
 									</div>
 
-									<div class="col-md-4" height="100%">
-										<br>
-										<br>
-										<br>
-										<img style="display:block;margin:auto;" src="/privateimages/cpa_logo.jpg" alt="logo">
+									<div class="row">
+										<div class="col-md-12 well">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												<input type="text" name="userid" class="form-control" id="userid" ng-model="login.userid" maxlength="200" ng-required=true>
+											</div>
+										</div>
 									</div>
 
+									<div class="row">
+										<div class="col-md-12 well">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+												<input type="password" name="password" class="form-control" id="password" ng-model="login.password" maxlength="40" ng-required=true>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<button type="submit" class="btn btn-primary" ng-click="login()">{{translationObj.main.buttontitlelogin}}</button>
+												<br>
+												<a class="pointerlist" ng-click="manageForgottenPassword()">{{translationObj.main.formttitleforgotmypassword}}</a>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="content well">
+									<div class="row" height="100%">
+										<div class="col-md-8">
+
+											<div class="content">
+												<div class="row">
+													<div class="col-md-12">
+														<h1>{{translationObj.main.formttitlenotregisteredyet}}</h1>
+														{{translationObj.main.formttitleskatingspacedef}}
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<h3>{{translationObj.main.formttitlecentreyoucan}}</h3>
+														<li>{{translationObj.main.formttitlemodifydata}}</li>
+														<li>{{translationObj.main.formttitleconsultdata}}</li>
+														<!-- <li>{{translationObj.main.formttitlemodifyskaterdata}}</li> -->
+														<li>{{translationObj.main.formttitlepreregister}}</li>
+														<li>{{translationObj.main.formttitleconsultbilling}}</li>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="input-group">
+															<br>
+															<button class="btn btn-primary"	ng-click="register()">{{translationObj.main.buttontitleregister}}</button>
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row" ng-if="preregistrationok==1">
+													<div class="col-md-12">
+														<h1>{{translationObj.main.formttitlepreregistration}}</h1>
+														<p>{{translationObj.main.formttitlepreregistrationdef}}</p>
+														<p>{{translationObj.main.formttitlepreregistrationdef2}}</p>
+														<p>{{translationObj.main.formttitlepreregistrationdef3}}</p>
+													</div>
+												</div>
+									
+												<div class="row" ng-if="preregistrationok==1">
+													<div class="col-md-12">
+														<div class="input-group">
+															<br>
+															<button class="btn btn-primary" ng-click="preregister()">{{translationObj.main.buttontitlepreregister}}</button>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+										<div class="col-md-4" height="100%">
+											<br>
+											<br>
+											<br>
+											<img style="display:block;margin:auto;" src="/privateimages/cpa_logo.jpg" alt="logo">
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<!-- <div class="margin-base-vertical">
-					<small class="text-muted">By Eric Lamoureux, 2016</small>
-				</div> -->
-
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</form>

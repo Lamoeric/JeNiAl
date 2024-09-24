@@ -1,6 +1,7 @@
 <form class="form-horizontal" role="form" name="detailsForm">
 	<div class="content">
-		<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+		<div class="col-xs-12 col-sm-12"
+			cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<br>
@@ -9,7 +10,22 @@
 					<hr>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" ng-hide="currentBill.step!=2">
+				<div class="col-md-8 col-md-offset-2">
+					<h3>{{translationObj.main.msgtransactioncompleted}}</h3>
+					<p>ID : {{response.id}}</p>
+					<p>TOTAL : {{response.transactions[0].amount.total}}</p>
+					<a href="#!/ccbillview">{{translationObj.main.formtitlebacktobills}}</a>
+				</div>
+			</div>
+			<div class="row" ng-hide="currentBill.step!=3">
+				<div class="col-md-8 col-md-offset-2">
+					<h3>{{translationObj.main.msgerrtransactioncanceled}}</h3>
+					<a href="#!/ccbillview">{{translationObj.main.formtitlebacktobills}}</a>
+				</div>
+			</div>
+
+			<div class="row" ng-hide="currentBill.step!=1">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="content well">
 						<div class="row">
@@ -18,145 +34,139 @@
 									<div class="row">
 										<a href="#!/ccbillview">{{translationObj.main.formtitlebacktobills}}</a>
 										<h3>{{translationObj.main.formtitlesubtitle}}{{currentBill.id}}
-										<span style="float:right"><print-bill-button current-bill-id="currentBill.id"></print-bill-button>
-										<send-bill-by-email-button current-bill-id="currentBill.id" promise="promise"></send-bill-by-email-button></span></h3>
+											<span style="float:right"><print-bill-button
+													current-bill-id="currentBill.id"></print-bill-button>
+												<send-bill-by-email-button current-bill-id="currentBill.id"
+													promise="promise"></send-bill-by-email-button></span>
+										</h3>
 										<div class="col-xs-12 col-md-3">
 											<label>{{translationObj.main.labeltitlebillto}}</label>
-												{{currentBill.billingname}}
-						        </div>
-					        </div>
+											{{currentBill.billingname}}
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-xs-12 col-md-3">
 											<label>{{translationObj.main.labeltitledate}}</label>
-												{{currentBill.billingdate}}
-						        </div>
+											{{currentBill.billingdate}}
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-xs-12 col-md-3">
 											<label>{{translationObj.main.labeltitlehaspaymentagreement}}</label>
-												{{currentBill.haspaymentagreementstr}}
-						        </div>
-					        </div>
+											{{currentBill.haspaymentagreementstr}}
+										</div>
+									</div>
 									<div class="row">
 										<div class="col-xs-12 col-md-12">
 											<label>{{translationObj.main.labeltitlepaymentagreementnote}}</label>
-												{{currentBill.paymentagreementnote}}
-						        </div>
+											{{currentBill.paymentagreementnote}}
+										</div>
 									</div>
 									<!-- Registrations -->
 									<div ng-repeat="registration in currentBill.registrations">
-										<h3>{{registration.member.firstname}} {{registration.member.lastname}} ({{registration.member.skatecanadano}})</h3>
+										<h3>{{registration.member.firstname}} {{registration.member.lastname}}
+											({{registration.member.skatecanadano}})</h3>
 										<!-- Courses -->
 										<div class="row" ng-repeat="course in registration.courses">
 											<div class="col-xs-12 col-md-9">
 												<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label>
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitledetails}}</label>
 												<div class="input-group">
 													{{course.courselabel}} {{course.courselevellabel}} ({{course.name}})
-								        </div>
-							        </div>
+												</div>
+											</div>
 											<div class="col-xs-12 col-md-3">
 												<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitleamount}}</label>
 												<div class="input-group">
 													{{course.amount | currency}}
-								        </div>
-							        </div>
+												</div>
+											</div>
 										</div>
 										<!-- Show numbers -->
 										<div class="row" ng-repeat="shownumber in registration.shownumbers">
 											<div class="col-xs-12 col-md-9">
 												<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label>
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitledetails}}</label>
 												<div class="input-group">
 													{{shownumber.numberlabel}} ({{shownumber.name}})
-								        </div>
-							        </div>
+												</div>
+											</div>
 											<div class="col-xs-12 col-md-3">
 												<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitleamount}}</label>
 												<div class="input-group">
 													{{shownumber.amount | currency}}
-								        </div>
-							        </div>
+												</div>
+											</div>
 										</div>
 										<!-- Tests -->
 										<div class="row" ng-repeat="test in registration.tests">
 											<div class="col-xs-12 col-md-9">
 												<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label>
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitledetails}}</label>
 												<div class="input-group">
 													{{test.testlabel}}<br><small>{{test.comments}}</small>
-								        </div>
-							        </div>
+												</div>
+											</div>
 											<div class="col-xs-12 col-md-3">
 												<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitleamount}}</label>
 												<div class="input-group">
 													{{test.amount | currency}}
-								        </div>
-							        </div>
+												</div>
+											</div>
 										</div>
 										<!-- Charges -->
 										<div class="row" ng-repeat="charge in registration.charges">
 											<div class="col-xs-12 col-md-9">
-												<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label> -->
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitledetails}}</label>
 												<div class="input-group">
-													{{charge.chargelabel}} ({{charge.code}}) <i ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i><br><small>{{charge.comments}}</small>
-								        </div>
-							        </div>
+													{{charge.chargelabel}} ({{charge.code}}) <i
+														ng-if="charge.nonrefundable=='1'">{{charge.nonrefundablelabel}}</i><br><small>{{charge.comments}}</small>
+												</div>
+											</div>
 											<div class="col-xs-12 col-md-3">
-												<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label> -->
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitleamount}}</label>
 												<div class="input-group">
 													{{charge.amount | currency}}
-								        </div>
-							        </div>
+												</div>
+											</div>
 										</div>
 										<!-- Discounts -->
 										<div class="row" ng-repeat="discount in registration.discounts">
 											<div class="col-xs-12 col-md-9">
-												<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label> -->
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitledetails}}</label>
 												<div class="input-group">
-													{{discount.chargelabel}} ({{discount.code}})<br><small>{{discount.comments}}</small>
-								        </div>
-							        </div>
+													{{discount.chargelabel}}
+													({{discount.code}})<br><small>{{discount.comments}}</small>
+												</div>
+											</div>
 											<div class="col-xs-12 col-md-3">
-												<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label> -->
-								        <label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label>
+												<label class="hidden-md hidden-lg">{{translationObj.main.labeltitleamount}}</label>
 												<div class="input-group">
 													-{{discount.amount | currency}}
-								        </div>
-							        </div>
+												</div>
+											</div>
 										</div>
 										<div class="row">
 											<div class="col-xs-12 col-md-9">
-												<!-- <div class="input-group text-right"> -->
-													<b>{{translationObj.main.labeltitlesubtotal}}</b>
-								        <!-- </div> -->
-							        </div>
+												<b>{{translationObj.main.labeltitlesubtotal}}</b>
+											</div>
 											<div class="col-xs-12 col-md-3">
 												<div class="input-group">
 													<b>{{registration.subtotal | currency}}</b>
-								        </div>
-							        </div>
+												</div>
+											</div>
 										</div>
 										<hr>
 									</div>
 									<!-- Total before transactions -->
 									<div class="row">
 										<div class="col-xs-12 col-md-9">
-											<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label> -->
-											<!-- <div class="input-group text-right"> -->
-												<h3>{{translationObj.main.labeltitletotal}}</h3>
-											<!-- </div> -->
+											<h3>{{translationObj.main.labeltitletotal}}</h3>
 										</div>
 										<div class="col-xs-12 col-md-3">
-											<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label> -->
 											<div class="input-group">
 												<h3>{{currentBill.totalamount | currency}}</h3>
 											</div>
@@ -165,17 +175,18 @@
 									<hr>
 									<!-- Transactions -->
 									<h3>{{translationObj.main.labeltitletransactions}}</h3>
-									<div class="row" ng-repeat="transaction in currentBill.transactions">
+									<div class="row" ng-repeat="transaction in currentBill.transactions | filter : filterTransactions">
 										<div class="col-xs-12 col-md-9">
 											<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitletransactions}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitletransactions}}</label>
+											<label class="hidden-md hidden-lg">{{translationObj.main.labeltitletransactions}}</label>
 											<div class="input-group">
-												{{transaction.transactiontypelabel}} {{transaction.transactiondate}} ({{transaction.paymentmethodlabel}})<br><small>{{transaction.comments}}</small>
+												{{transaction.transactiontypelabel}} {{transaction.transactiondate}}
+												({{transaction.paymentmethodlabel}})<br><small>{{transaction.comments}}</small>
 											</div>
 										</div>
 										<div class="col-xs-12 col-md-3">
 											<label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label>
+											<label class="hidden-md hidden-lg">{{translationObj.main.labeltitleamount}}</label>
 											<div class="input-group">
 												{{transaction.transactionamount | currency}}
 											</div>
@@ -185,15 +196,9 @@
 									<!-- Total of transactions -->
 									<div class="row">
 										<div class="col-xs-12 col-md-9">
-											<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label> -->
-											<!-- <div class="input-group text-right"> -->
-												<b>{{translationObj.main.labeltitlesubtotal}}</b>
-											<!-- </div> -->
+											<b>{{translationObj.main.labeltitlesubtotal}}</b>
 										</div>
 										<div class="col-xs-12 col-md-3">
-											<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label> -->
 											<div class="input-group">
 												<b>{{currentBill.paymentsubtotal | currency}}</b>
 											</div>
@@ -202,17 +207,15 @@
 									<hr>
 									<div class="row">
 										<div class="col-xs-12 col-md-9">
-											<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitledetails}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitledetails}}</label> -->
-											<!-- <div class="input-group text-right"> -->
-												<h3>{{translationObj.main.labeltitletotal}}</h3>
-											<!-- </div> -->
+											<h3>{{translationObj.main.labeltitletotal}}</h3>
 										</div>
 										<div class="col-xs-12 col-md-3">
-											<!-- <label class="hidden-xs" ng-show="$index==0">{{translationObj.main.labeltitleamount}}</label>
-											<label class="hidden-md hidden-lg" >{{translationObj.main.labeltitleamount}}</label> -->
 											<div class="input-group">
 												<h3>{{currentBill.realtotalamount | currency}}</h3>
+												<a href ng-click="paypalInitPurchase()"
+													ng-style="{ opacity: '1'}" ng-if="currentBill.session.onlinepaymentoption>=1&&currentBill.realtotalamount>0">
+													<img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal">
+												</a>
 											</div>
 										</div>
 									</div>

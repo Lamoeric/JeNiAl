@@ -1,0 +1,174 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.startests.formtitlestartests}}</h3>
+		<div class="row">
+			<div class="col-xs-6">
+				<label ng-repeat="testversion in testversions">
+					<input type="radio" ng-model="currentWscoach.starversion" name="starversion" ng-value="{{testversion.code}}" ng-change="onVersionChanged()">&nbsp;&nbsp;{{testversion.text}}&nbsp;&nbsp;
+				</label>
+			</div>
+		</div>
+
+		<div ng-if="currentWscoach.starversion=='1'">
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="dancelevel">{{translationObj.startests.fieldtitledancelevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="dancelevel" ng-model="currentWscoach.dancelevel" required>
+							<option ng-repeat="dancelevel in dancelevels" value="{{dancelevel.code}}">{{dancelevel.text}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<label for="skillslevel">{{translationObj.startests.fieldtitleskillslevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="skillslevel" ng-model="currentWscoach.skillslevel" required>
+							<option ng-repeat="skillslevel in skillslevels" value="{{skillslevel.code}}">
+								{{skillslevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="freestylelevel">{{translationObj.startests.fieldtitledfreestylelevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="freestylelevel" ng-model="currentWscoach.freestylelevel" required>
+							<option ng-repeat="freestylelevel in freestylelevels" value="{{freestylelevel.code}}">{{freestylelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="interpretativesinglelevel">{{translationObj.startests.fieldtitleinterpretativesinglelevel}}<i	style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="interpretativesinglelevel"
+							ng-model="currentWscoach.interpretativesinglelevel" required>
+							<option ng-repeat="interpretativelevel in interpretativelevels"	value="{{interpretativelevel.code}}">{{interpretativelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<label for="interpretativecouplelevel">{{translationObj.startests.fieldtitleinterpretativecouplelevel}}<i	style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="interpretativecouplelevel"
+							ng-model="currentWscoach.interpretativecouplelevel" required>
+							<option ng-repeat="interpretativelevel in interpretativelevels"	value="{{interpretativelevel.code}}">{{interpretativelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="competitivesinglelevel">{{translationObj.startests.fieldtitlecompetitivesinglelevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="competitivesinglelevel"
+							ng-model="currentWscoach.competitivesinglelevel" required>
+							<option ng-repeat="competitivelevel in competitivelevels" value="{{competitivelevel.code}}">{{competitivelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<label for="competitivecouplelevel">{{translationObj.startests.fieldtitlecompetitivecouplelevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="competitivecouplelevel"
+							ng-model="currentWscoach.competitivecouplelevel" required>
+							<option ng-repeat="competitivelevel in competitivelevels" value="{{competitivelevel.code}}">{{competitivelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="competitivesynchrolevel">{{translationObj.startests.fieldtitlecompetitivesynchrolevel}}<i	style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="competitivesynchrolevel"
+							ng-model="currentWscoach.competitivesynchrolevel" required>
+							<option ng-repeat="competitivelevel in competitivelevels" value="{{competitivelevel.code}}">{{competitivelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<label for="competitivedancelevel">{{translationObj.startests.fieldtitlecompetitivedancelevel}}<i	style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="competitivedancelevel"
+							ng-model="currentWscoach.competitivedancelevel" required>
+							<option ng-repeat="competitivelevel in competitivelevels" value="{{competitivelevel.code}}">{{competitivelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="currentWscoach.starversion=='2'">
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="stardance">{{translationObj.startests.fieldtitledancelevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="stardance" ng-model="currentWscoach.dancelevel" required>
+							<option ng-repeat="dancelevel in testnewlevels" value="{{dancelevel.code}}">{{dancelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="starabilitie">{{translationObj.startests.fieldtitleskillslevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="starabilitie" ng-model="currentWscoach.skillslevel" required>
+							<option ng-repeat="skillslevel in testnewlevels" value="{{skillslevel.code}}">{{skillslevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="starfreestyle">{{translationObj.startests.fieldtitledfreestylelevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="starfreestyle" ng-model="currentWscoach.freestylelevel" required>
+							<option ng-repeat="freestylelevel in testnewlevels" value="{{freestylelevel.code}}">{{freestylelevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="artisticlevel">{{translationObj.startests.fieldtitledartisticlevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="starfreestyle" ng-model="currentWscoach.artisticlevel" required>
+							<option ng-repeat="artisticlevel in testnewlevels" value="{{artisticlevel.code}}">{{artisticlevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label for="synchrolevel">{{translationObj.startests.fieldtitledsynchrolevel}}<i style="color:red"> *</i></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="synchrolevel" ng-model="currentWscoach.synchrolevel" required>
+							<option ng-repeat="synchrolevel in testnewlevels" value="{{synchrolevel.code}}">{{synchrolevel.text}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	
+	</div>
+</div>

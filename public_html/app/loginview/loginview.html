@@ -1,5 +1,4 @@
 <style>
-
 	html {
 		background: url({{displayimagefilename}}) no-repeat center center fixed;
 		-webkit-background-size: cover;
@@ -12,72 +11,75 @@
 		padding-top: 20px;
 		background: transparent;
 	}
-
 </style>
 <form>
-<div class="content">
-	<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<br>
-				<!-- <h1>{{translationObj.main.formtitlejenial}}</h1>
-				<hr>
-				<p>{{translationObj.main.formttextsignin}}</p>
-				<br> -->
+	<div class="content">
+		<div class="col-xs-12 col-sm-12" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<br>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="content">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="content well">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<div class="content">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="content well">
 
-								<div class="row">
-									<div class="col-md-12">
-										<h1>{{translationObj.main.formttitlesignin}}</h1>
-										<hr style="font:black">
+									<div class="row">
+										<div class="col-md-12">
+											<h1>{{translationObj.main.formttitlesignin}}</h1>
+											<hr style="font:black">
+										</div>
 									</div>
-								</div>
 
-								<div class="row">
-									<div class="col-md-6 col-md-offset-3">
-					        	<div class="input-group">
-					  				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					  	        <input type="text" name="userid" class="form-control" id="userid" ng-model="login.userid" maxlength="40" ng-required=true>
-					  	      </div>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-3">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+												<input type="text" name="userid" class="form-control" id="userid" ng-model="login.userid" maxlength="40" ng-required=true>
+											</div>
+										</div>
 									</div>
-								</div>
 
-								<div class="row">
-									<div class="col-md-6 col-md-offset-3">
-										<label>&nbsp;</label>
-										<div class="input-group">
-					  				  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					  	        <input type="password" name="password" class="form-control" id="password" ng-model="login.password" maxlength="40" ng-required=true>
-					  	      </div>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-3">
+											<label>&nbsp;</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+												<input type="password" name="password" class="form-control" id="password" ng-model="login.password" maxlength="40" ng-required=true>
+											</div>
+										</div>
 									</div>
-								</div>
 
-								<div class="row">
-									<div class="col-md-12">
-										<center>
-										<br>
-										<div class="input-group">
-											<button type="submit" class="btn btn-primary" ng-click="login()">{{translationObj.main.buttontitlelogin}}</button>
+									<div class="row">
+										<div class="col-md-12" align="center">
 											<br>
+											<button type="submit" class="btn btn-primary" ng-click="loginEx()">{{translationObj.main.buttontitlelogin}}</button>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-12" align="center">
 											<br>
 											<a class="pointerlist" ng-click="manageForgottenPassword()">{{translationObj.main.formttitleforgotmypassword}}</a>
-					  	      </div>
-									</center>
+										</div>
 									</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<br>
+											<p align="center"><small>JeNiAl {{login.version}} ({{login.dbnow}})</small></p>
+										</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
-				</div>
 
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
 </form>

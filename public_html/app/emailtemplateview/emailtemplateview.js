@@ -2,29 +2,28 @@
 
 angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/emailtemplateview', {
 		templateUrl: 'emailtemplateview/emailtemplateview.html',
 		controller: 'emailtemplateviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.admin_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/emailtemplateview"});
-        }
-      }
+				var userInfo = authenticationService.getUserInfo();
+				if (userInfo) {
+					if (userInfo.privileges.admin_access == true) {
+						return $q.when(userInfo);
+					} else {
+						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
+					}
+				} else {
+					return $q.reject({ authenticated: false, newLocation: "/emailtemplateview" });
+				}
+			}
 		}
 	});
 }])
 
-.controller('emailtemplateviewCtrl', ['$rootScope', '$sce', '$scope', '$http', '$uibModal', '$timeout', 'parseISOdateService', 'dateFilter', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($rootScope, $sce, $scope, $http, $uibModal, $timeout, parseISOdateService, dateFilter, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
+.controller('emailtemplateviewCtrl', ['$rootScope', '$sce', '$scope', '$http', '$uibModal', '$timeout', 'parseISOdateService', 'dateFilter', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', 'sendEmailTemplateService', function ($rootScope, $sce, $scope, $http, $uibModal, $timeout, parseISOdateService, dateFilter, Upload, anycodesService, dialogService, listsService, authenticationService, translationService, sendEmailTemplateService) {
 	$scope.progName = "emailtemplateview";
 	$scope.currentEmailtemplate = null;
 	$scope.selectedEmailtemplate = null;
@@ -32,52 +31,47 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
 	$scope.remarkable = new Remarkable({
-			html:         false,        // Enable HTML tags in source
-			xhtmlOut:     false,        // Use '/' to close single tags (<br />)
-			breaks:       false         // Convert '\n' in paragraphs into <br>
-//      langPrefix:   'language-',  // CSS language prefix for fenced blocks
-//      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-//      quotes: '“”‘’',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
-//      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
-		});
+		html: false,        // Enable HTML tags in source
+		xhtmlOut: false,        // Use '/' to close single tags (<br />)
+		breaks: false         // Convert '\n' in paragraphs into <br>
+	});
 
-	$scope.isDirty = function() {
+	$scope.isDirty = function () {
 		if ($scope.detailsForm.$dirty) {
 			return true;
 		}
 		return false;
 	};
 
-	$scope.setDirty = function() {
+	$scope.setDirty = function () {
 		$scope.detailsForm.$dirty = true;
 		$scope.isFormPristine = false;
 	};
 
-	$scope.setPristine = function() {
+	$scope.setPristine = function () {
 		$scope.detailsForm.$setPristine();
 		$scope.isFormPristine = true;
 	};
 
-	$scope.convertParagraph = function(paragraph) {
+	$scope.convertParagraph = function (paragraph) {
 		if (paragraph) {
-			paragraph.msgfr =  "<H3>Titre: " + (paragraph.title_fr!=null && paragraph.title_fr!='' ? paragraph.title_fr : '') + "</H3>" +
-							"<p>" + (paragraph.paragraphtext_fr!=null && paragraph.paragraphtext_fr!='' ? $scope.remarkable.render(paragraph.paragraphtext_fr) : '') + "</p>";
-			paragraph.msgfr =  $sce.trustAsHtml(paragraph.msgfr);
-			paragraph.msgen =  "<H3>Title: " + (paragraph.title_en!=null && paragraph.title_en!='' ? paragraph.title_en : '') + "</H3>" +
-							"<p>" + (paragraph.paragraphtext_en!=null && paragraph.paragraphtext_en!='' ? $scope.remarkable.render(paragraph.paragraphtext_en) : '') + "</p>";
-			paragraph.msgen =  $sce.trustAsHtml(paragraph.msgen);
+			paragraph.msgfr = "<H3>Titre: " + (paragraph.title_fr != null && paragraph.title_fr != '' ? paragraph.title_fr : '') + "</H3>" +
+								"<p>" + (paragraph.paragraphtext_fr != null && paragraph.paragraphtext_fr != '' ? $scope.remarkable.render(paragraph.paragraphtext_fr) : '') + "</p>";
+			paragraph.msgfr = $sce.trustAsHtml(paragraph.msgfr);
+			paragraph.msgen = "<H3>Title: " + (paragraph.title_en != null && paragraph.title_en != '' ? paragraph.title_en : '') + "</H3>" +
+								"<p>" + (paragraph.paragraphtext_en != null && paragraph.paragraphtext_en != '' ? $scope.remarkable.render(paragraph.paragraphtext_en) : '') + "</p>";
+			paragraph.msgen = $sce.trustAsHtml(paragraph.msgen);
 		}
 	}
 
 	// This is the function that gets all email template from database
 	$scope.getAllEmailtemplate = function () {
 		$scope.promise = $http({
-				method: 'post',
-				url: './emailtemplateview/manageemailtemplate.php',
-				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getAllEmailtemplates' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			method: 'post',
+			url: './emailtemplateview/manageemailtemplate.php',
+			data: $.param({ 'language': authenticationService.getCurrentLanguage(), 'type': 'getAllEmailtemplates' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
@@ -90,8 +84,7 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 					dialogService.displayFailure(data);
 				}
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -101,24 +94,24 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 		$scope.promise = $http({
 			method: 'post',
 			url: './emailtemplateview/manageemailtemplate.php',
-			data: $.param({'id' : emailtemplate.id, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getEmailtemplateDetails' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			data: $.param({ 'id': emailtemplate.id, 'language': authenticationService.getCurrentLanguage(), 'type': 'getEmailtemplateDetails' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentEmailtemplate = data.data[0];
 				if ($scope.currentEmailtemplate.paragraphs == null || $scope.currentEmailtemplate.paragraphs.length == 0) {
 					$scope.currentEmailtemplate.paragraphs = [];
-					$scope.currentEmailtemplate.paragraphs.push({'title_fr':$scope.currentEmailtemplate.title_fr,'title_en':$scope.currentEmailtemplate.title_en,
-																											 'paragraphtext_fr':$scope.currentEmailtemplate.paragraphtext_fr,'paragraphtext_en':$scope.currentEmailtemplate.paragraphtext_en});
+					$scope.currentEmailtemplate.paragraphs.push({
+						'title_fr': $scope.currentEmailtemplate.title_fr, 'title_en': $scope.currentEmailtemplate.title_en,
+						'paragraphtext_fr': $scope.currentEmailtemplate.paragraphtext_fr, 'paragraphtext_en': $scope.currentEmailtemplate.paragraphtext_en
+					});
 					$scope.convertParagraph($scope.currentEmailtemplate.paragraphs[0]);
 				}
 				$rootScope.repositionLeftColumn();
 			} else {
 				dialogService.displayFailure(data);
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -147,27 +140,25 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 	};
 
 	// This is the function that deletes the current email template from database
-	$scope.deleteFromDB = function(confirmed) {
+	$scope.deleteFromDB = function (confirmed) {
 		if ($scope.currentEmailtemplate != null && !confirmed) {
 			dialogService.confirmDlg($scope.translationObj.main.msgdelete, "YESNO", $scope.deleteFromDB, null, true, null);
 		} else {
 			$scope.promise = $http({
 				method: 'post',
 				url: './emailtemplateview/manageemailtemplate.php',
-				data: $.param({'emailtemplate' : JSON.stringify($scope.currentEmailtemplate), 'type' : 'delete_emailtemplate' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'emailtemplate': JSON.stringify($scope.currentEmailtemplate), 'type': 'delete_emailtemplate' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
-					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedEmailtemplate),1);
+					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedEmailtemplate), 1);
 					$scope.setCurrentInternal(null);
 					return true;
 				} else {
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function(data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
@@ -175,7 +166,7 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 	}
 
 	// This is the function that validates all forms and display error and warning messages
-	$scope.validateAllForms = function() {
+	$scope.validateAllForms = function () {
 		var retVal = true;
 		$scope.globalErrorMessage = [];
 		$scope.globalWarningMessage = [];
@@ -186,18 +177,18 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 
 		if ($scope.globalErrorMessage.length != 0) {
 			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
+			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
 			retVal = false;
 		}
 		if ($scope.globalWarningMessage.length != 0) {
 			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
+			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalwarningmessage").hide(); });
 		}
 		return retVal;
 	}
 
 	// This is the function that saves the current email template in the database
-	$scope.saveToDB = function() {
+	$scope.saveToDB = function () {
 		if ($scope.currentEmailtemplate == null || !$scope.isDirty()) {
 			dialogService.alertDlg("Nothing to save!", null);
 		} else {
@@ -205,10 +196,9 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 			$scope.promise = $http({
 				method: 'post',
 				url: './emailtemplateview/manageemailtemplate.php',
-				data: $.param({'emailtemplate' : JSON.stringify($scope.currentEmailtemplate), 'type' : 'updateEntireEmailtemplate' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'emailtemplate': JSON.stringify($scope.currentEmailtemplate), 'type': 'updateEntireEmailtemplate' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
 					// Select this emailtemplate to reset everything
 					$scope.setCurrentInternal($scope.selectedEmailtemplate, null);
@@ -217,8 +207,7 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function(data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
@@ -226,16 +215,15 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 	};
 
 	// This is the function that saves the new email template in the database
-	$scope.addEmailtemplateToDB = function() {
+	$scope.addEmailtemplateToDB = function () {
 		$scope.promise = $http({
 			method: 'post',
 			url: './emailtemplateview/manageemailtemplate.php',
-			data: $.param({'emailtemplate' : $scope.newEmailtemplate, 'type' : 'insert_emailtemplate' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			data: $.param({ 'emailtemplate': $scope.newEmailtemplate, 'type': 'insert_emailtemplate' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
-				var newEmailtemplate = {id:data.id, templatename:$scope.newEmailtemplate.templatename};
+				var newEmailtemplate = { id: data.id, templatename: $scope.newEmailtemplate.templatename };
 				$scope.leftobjs.push(newEmailtemplate);
 				// We could sort the list....
 				$scope.setCurrentInternal(newEmailtemplate);
@@ -244,8 +232,7 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 				dialogService.displayFailure(data);
 				return false;
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 			return false;
 		});
@@ -259,29 +246,32 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 			$scope.newEmailtemplate = {};
 			// Send the newEmailtemplate to the modal form
 			$uibModal.open({
-					animation: false,
-					templateUrl: 'emailtemplateview/newemailtemplate.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'md',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newEmailtemplate;
-						}
+				animation: false,
+				templateUrl: 'emailtemplateview/newemailtemplate.template.html',
+				controller: 'childeditor.controller',
+				scope: $scope,
+				size: 'md',
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newEmailtemplate;
 					}
-			})
-			.result.then(function(newEmailtemplate) {
+				}
+			}).result.then(function (newEmailtemplate) {
 				// User clicked OK and everything was valid.
 				$scope.newEmailtemplate = newEmailtemplate;
 				if ($scope.addEmailtemplateToDB() == true) {
 				}
-			}, function() {
+			}, function () {
 				// User clicked CANCEL.
 				// alert('canceled');
 			});
 		}
 	};
+
+	$scope.emailSendSuccess = function () {
+		dialogService.alertDlg($scope.translationObj.main.msgemailsent);
+	}
 
 	// This is the function that creates the modal to send test email
 	$scope.sendTestEmail = function (confirmed) {
@@ -289,59 +279,33 @@ angular.module('cpa_admin.emailtemplateview', ['ngRoute'])
 			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.sendTestEmail, null, true, null);
 		} else {
 			if ($scope.newEmail == null) {
-				$scope.newEmail = {'emailaddress':null, 'title':null,'mainmessage':null,'language':'fr-ca'};
+				$scope.newEmail = { 'emailaddress': null, 'title': null, 'mainmessage': null, 'language': 'fr-ca' };
 			}
 			// Send the newEmailAddress to the modal form
 			$uibModal.open({
-					animation: false,
-					templateUrl: 'emailtemplateview/sendemailaddress.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'md',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newEmail;
-						}
+				animation: false,
+				templateUrl: 'emailtemplateview/sendemailaddress.template.html',
+				controller: 'childeditor.controller',
+				scope: $scope,
+				size: 'md',
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newEmail;
 					}
-			})
-			.result.then(function(newEmail) {
+				}
+			}).result.then(function (newEmail) {
 				// User clicked OK and everything was valid.
-				$scope.newEmail = newEmail;
-				if ($scope.newEmail.language == 'fr-ca') {
-					$scope.newEmail.title = $scope.currentEmailtemplate.paragraphs[0].title_fr;
-					$scope.newEmail.mainmessage = $scope.remarkable.render($scope.currentEmailtemplate.paragraphs[0].paragraphtext_fr);
-				}
-				if ($scope.newEmail.language == 'en-ca') {
-					$scope.newEmail.title = $scope.currentEmailtemplate.paragraphs[0].title_en;
-					$scope.newEmail.mainmessage = $scope.remarkable.render($scope.currentEmailtemplate.paragraphs[0].paragraphtext_en);
-				}
-				/* This is where we need to send the email */
-				$scope.promise = $http({
-					method: 'post',
-					url: './emailtemplateview/manageemailtemplate.php',
-					data: $.param({'newEmail' : $scope.newEmail, 'type' : 'sendTestEmail' }),
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).
-				success(function(data, status, headers, config) {
-					if (data.success) {
-						dialogService.alertDlg($scope.translationObj.main.msgemailsent);
-						return;
-					} else {
-						dialogService.displayFailure(data);
-					}
-				}).
-				error(function(data, status, headers, config) {
-					dialogService.displayFailure(data);
-				});
-			}, function() {
+				// Use new service
+				sendEmailTemplateService.sendEmailTemplate($scope.currentEmailtemplate.id, newEmail.language, newEmail.emailaddress, $scope.emailSendSuccess);
+			}, function () {
 				// User clicked CANCEL.
 				// alert('canceled');
 			});
 		}
 	};
 
-	$scope.refreshAll = function() {
+	$scope.refreshAll = function () {
 		$scope.getAllEmailtemplate();
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'preferedlanguages', 'sequence', 'preferedlanguages');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');

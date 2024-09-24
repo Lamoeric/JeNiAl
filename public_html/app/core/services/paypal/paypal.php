@@ -65,22 +65,9 @@ function createGateway($mysqli) {
     return null;
 }
 
-
-// $response = $this->gateway->purchase(array(
-//     'amount' => $request->input('amount'),
-//     'items' => array(
-//         array(
-//             'name' => 'Course Subscription',
-//             'price' => $request->input('amount'),
-//             'description' => 'Get access to premium courses.',
-//             'quantity' => 1
-//         ),
-//     ),
-//     'currency' => env('PAYPAL_CURRENCY'),
-//     'returnUrl' => url('success'),
-//     'cancelUrl' => url('error'),
-// ))->send();
-
+/**
+ * Creates the purchase and returns the redirect url
+ */
 function createPurchase($gateway, $purchase) {
     $data = array();
     $response = null;
@@ -88,41 +75,20 @@ function createPurchase($gateway, $purchase) {
         'amount' => $purchase['amount']['total'],
         'currency' => 'CAD',
         'items' => $purchase['item_list']['items'],
-        // 'items' => array(
-        //     array(
-        //         'name' => 'PP1_SAM',
-        //         'price' => '10.00',
-        //         'description' => 'Cours de PP du samedi',
-        //         'quantity' => 1
-        //     ),
-        // ),
-        // 'transactionId' =>'1234567880',      // Put the billId here!
-        'transactionId' =>$purchase['billid'],      // Put the billId here!
+        'transactionId' =>(isset($purchase['billid']) ? $purchase['billid'] : null),      // Put the billId here!
         'description' =>$purchase['description'],
         'note_to_payer' => 'Testing note',
-        //'noShipping' => 'true',         // does nothing
-        // "brand_name" =>"CPA L'inconnu", // does nothing!
         'returnUrl' => $purchase['returnUrl'],
         'cancelUrl' => $purchase['returnUrl'],
-        // 'returnUrl' => 'http://localhost.jenial.ca/app/#!/configurationview',
-        // 'cancelUrl' => 'http://localhost.jenial.ca/app/#!/configurationview',
-        //'application_context' => array('shipping_preference' => 'NO_SHIPPING'),
     ));
-    // $purchase->setTransactionId('1234567890'); // same as "trasactionId" in purchase array
     
     // Set no shipping - Does not seem to work! Info is passed in request but he dialog still shows shipping info!
     // Had to change the getData() method in C:\wamp\www\JeNiAl\public_html\vendor\omnipay\paypal\src\Message\RestAuthorizeRequest.php
-    // $transData = $purchase->getData();
-    // $data['transDataBefore'] = $transData;
-    // $transData['application_context']['shipping_preference'] = 'NO_SHIPPING';
-    // $data['transDataSending'] = $transData;
 
     $response = $purchase->send();
-//        $purchase->sendData($transData);
     $data['transDataAfter'] = $purchase->getPayerId();
     if ($response->isRedirect()) {
         $data['redirect'] = true;
-        // $response->redirect(); // this will automatically forward the customer
         $data['redirecturl'] = $response->getRedirectUrl(); // this gets the redirect URL
     } else {
         // not successful
@@ -136,6 +102,9 @@ function createPurchase($gateway, $purchase) {
     return $data;
 }
 
+/**
+ * Complete the purchase. Called by the return url when the paypal returns.
+ */
 function completePurchase($mysqli, $payerid, $paymentid) {
     $data = Array();
     $gateway = createGateway($mysqli);
@@ -155,22 +124,25 @@ function completePurchase($mysqli, $payerid, $paymentid) {
         $transactionid  = $mysqli->real_escape_string($arr_body['transactions'][0]['related_resources'][0]['sale']['id']);
         $amount         = $mysqli->real_escape_string($arr_body['transactions'][0]['amount']['total']);
         $transactionfee = $mysqli->real_escape_string($arr_body['transactions'][0]['related_resources'][0]['sale']['transaction_fee']['value']);
-        $invoicenumber  = $mysqli->real_escape_string($arr_body['transactions'][0]['invoice_number']);
+        $invoicenumber  = $mysqli->real_escape_string(isset($arr_body['transactions'][0]['invoice_number'])?$arr_body['transactions'][0]['invoice_number']:0);
         $paymentstatus  = $mysqli->real_escape_string($arr_body['state']);
         $dbresponse     = json_encode($arr_body);
 
         $query = "INSERT INTO cpa_paypal_transactions(/*createddate, */paymentid, payerid, payeremail, transactionid, amount, transactionfee, invoicenumber, paymentstatus, response) 
                   VALUES(/*null*//*convert_tz('$createddate', '+00:00', @@session.time_zone),*/ '$paymentid', '$payerid', '$payeremail', '$transactionid', '$amount', '$transactionfee', '$invoicenumber', '$paymentstatus', '$dbresponse')";
         try {
-            // On a refresh of the page, we will send the complete purchase several times and it doesn't matter, 
-            // but let's not save this transaction several times. Catch the duplicate exception.
-            $mysqli->query($query);
-            // We need to add a transaction for this bill
-            $query = "INSERT INTO cpa_bills_transactions (id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, checkno, receiptno, paperreceiptno, receivedby, comments) 
-                      VALUES (NULL, $invoicenumber, 'PAYMENT', '$amount', CURDATE() /*convert_tz('$createddate', '+00:00', @@session.time_zone)*/, 'PAYPAL', 0, 0, 0, 'PAYPAL', '')";
-            if ($mysqli->query($query)) {
-                $amount = $amount * -1;
-                updateBillPaidAmountInt($mysqli, $invoicenumber, $amount);
+            // $invoicenumber could be 0 for example when testing the configuration. We charge 10$ but we don't have a billid.
+            if ($invoicenumber != 0) {
+                // On a refresh of the page, we will send the complete purchase several times and it doesn't matter, 
+                // but let's not save this transaction several times. Catch the duplicate exception.
+                $mysqli->query($query);
+                // We need to add a transaction for this bill
+                $query = "INSERT INTO cpa_bills_transactions (id, billid, transactiontype, transactionamount, transactiondate, paymentmethod, checkno, receiptno, paperreceiptno, paypaltransactionid, receivedby, comments) 
+                        VALUES (NULL, $invoicenumber, 'PAYMENT', '$amount', CURDATE() /*convert_tz('$createddate', '+00:00', @@session.time_zone)*/, 'PAYPAL', 0, 0, 0, '$transactionid', 'PAYPAL', '')";
+                if ($mysqli->query($query)) {
+                    $amount = $amount * -1;
+                    updateBillPaidAmountInt($mysqli, $invoicenumber, $amount);
+                }
             }
             $data['success'] = true;
         } catch(Exception $e) {

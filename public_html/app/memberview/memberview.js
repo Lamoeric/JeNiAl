@@ -583,6 +583,10 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		$scope.setDirty();
 	}
 
+	$scope.emailTemplateSent = function () {
+		dialogService.alertDlg($scope.translationObj.main.msgemailsent);
+	}
+
 	// This is the function that creates the modal to export the members
 	$scope.exportMembers = function() {
 		$window.open('./reports/exportmemberstocsv.php' + '?language='+authenticationService.getCurrentLanguage());

@@ -634,10 +634,10 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 
 			if ($mysqli->real_escape_string(isset($sessionCourses[$x]['status'])) && $sessionCourses[$x]['status'] == 'New') {
 				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, prereqcanskatebadgemin, prereqcanskatebadgemax, startdate, enddate, prereqagemin, prereqagemax)
-							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax"
+							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax,"
 									.($startdate == '' ? "null, " : "'$startdate', ")
-									.($enddate == '' ? "null" : "'$enddate'")
-									.($prereqagemin == 0 ? "null" : "'$prereqagemin'")
+									.($enddate == '' ? "null," : "'$enddate',")
+									.($prereqagemin == 0 ? "null," : "'$prereqagemin',")
 									.($prereqagemax == 0 ? "null" : "'$prereqagemax'")
 									.")";
 				if ($mysqli->query($query)) {
@@ -1099,6 +1099,7 @@ function update_session($mysqli, $details) {
 		$isonlineregistactive =		$mysqli->real_escape_string(isset($details['isonlineregistactive']) 		? (int)$details['isonlineregistactive'] : 0);
 		$isonlinepreregistactive =	$mysqli->real_escape_string(isset($details['isonlinepreregistactive']) 		? (int)$details['isonlinepreregistactive'] : 0);
 		$isonlinepreregistemail =	$mysqli->real_escape_string(isset($details['isonlinepreregistemail']) 		? (int)$details['isonlinepreregistemail'] : 0);
+		$onlinepreregistemailtpl =	$mysqli->real_escape_string(isset($details['onlinepreregistemailtpl']) 		? (int)$details['onlinepreregistemailtpl'] : 0);
 		$onlinepaymentoption =		$mysqli->real_escape_string(isset($details['onlinepaymentoption']) 			? (int)$details['onlinepaymentoption'] : 0);
 		$isonlineregistemail =		$mysqli->real_escape_string(isset($details['isonlineregistemail']) 			? (int)$details['isonlineregistemail'] : 0);
 		$onlineregistemailtpl =		$mysqli->real_escape_string(isset($details['onlineregistemailtpl']) 		? (int)$details['onlineregistemailtpl'] : 0);
@@ -1106,14 +1107,17 @@ function update_session($mysqli, $details) {
 
 
 		$query = "	UPDATE cpa_sessions
-					SET name = '$name', startdate = '$startdate', enddate = '$enddate',	coursesstartdate = '$coursesstartdate', coursesenddate = '$coursesenddate',
+					SET name = '$name', startdate = '$startdate', enddate = '$enddate',	coursesstartdate = '$coursesstartdate', 
+						coursesenddate = '$coursesenddate',	
 						onlineregiststartdate = '$onlineregiststartdate', onlineregistenddate = '$onlineregistenddate',	
 						onlinepreregiststartdate = '$onlinepreregiststartdate', onlinepreregistenddate = '$onlinepreregistenddate',
 						reimbursementdate = '$reimbursementdate', proratastartdate = '$proratastartdate', prorataoptions = '$prorataoptions', 
 						attendancepaidinfull = '$attendancepaidinfull', active = '$active', previoussessionid = $previoussessionid,
 						isonlineregistactive = $isonlineregistactive, isonlinepreregistactive = $isonlinepreregistactive, 
-						isonlinepreregistemail = $isonlinepreregistemail, onlinepaymentoption = $onlinepaymentoption, isonlineregistemail = $isonlineregistemail, 
-						onlineregistemailtpl = $onlineregistemailtpl, isonlineregistemailinclbill = $isonlineregistemailinclbill, agereferencedate = '$agereferencedate'
+						isonlinepreregistemail = $isonlinepreregistemail, onlinepreregistemailtpl = $onlinepreregistemailtpl, 
+						onlinepaymentoption = $onlinepaymentoption, isonlineregistemail = $isonlineregistemail, 
+						onlineregistemailtpl = $onlineregistemailtpl, isonlineregistemailinclbill = $isonlineregistemailinclbill, 
+						agereferencedate = '$agereferencedate'
 					WHERE id = '$id'";
 		if ($mysqli->query($query)) {
 			$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = '$label' AND language = 'fr-ca'";
@@ -1568,6 +1572,7 @@ function getSessionDetails($mysqli, $id, $language) {
 			$row['isonlineregistactive'] 		= (int)$row['isonlineregistactive'];
 			$row['isonlinepreregistactive'] 	= (int)$row['isonlinepreregistactive'];
 			$row['isonlinepreregistemail'] 		= (int)$row['isonlinepreregistemail'];
+			// $row['onlinepreregistemailtpl'] 	= (int)$row['onlinepreregistemailtpl'];
 			// $row['onlinepaymentoption'] 		= (int)$row['onlinepaymentoption'];
 			$row['isonlineregistemail'] 		= (int)$row['isonlineregistemail'];
 			// $row['onlineregistemailtpl'] 		= (int)$row['onlineregistemailtpl'];

@@ -14,8 +14,8 @@
 				<label for="onlineregiststartdate">{{translationObj.onlineregistration.fieldonlinepreregiststartdate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="onlinepreregiststartdate" class="form-control"
-						id="onlinepreregiststartdate" ng-model="currentSession.onlinepreregiststartdate" ng-required="currentSession.isonlinepreregistactive==1" ng-disabled="currentSession.isonlinepreregistactive==0">
+					<input type="date" name="onlinepreregiststartdate" class="form-control" id="onlinepreregiststartdate" 
+						ng-model="currentSession.onlinepreregiststartdate" ng-required="currentSession.isonlinepreregistactive==1" ng-disabled="currentSession.isonlinepreregistactive==0">
 				</div>
 			</div>
 			<div class="col-xs-3">
@@ -24,6 +24,22 @@
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					<input type="date" name="onlinepreregistenddate" class="form-control" id="onlinepreregistenddate"
 						ng-model="currentSession.onlinepreregistenddate"  ng-required="currentSession.isonlinepreregistactive==1" ng-disabled="currentSession.isonlinepreregistactive==0">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3 col-xs-offset-1">
+				<div class="input-group">
+					<br><label><input type="checkbox" id="isonlinepreregistemail" ng-model="currentSession.isonlinepreregistemail" ng-true-value="1" ng-disabled="currentSession.isonlinepreregistactive==0">{{translationObj.onlineregistration.fieldisonlinepreregistemail}}</label>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="eventname">{{translationObj.onlineregistration.fieldonlinepreregistemailtpl}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<select class="form-control" id="onlinepreregistemailtpl" ng-model="currentSession.onlinepreregistemailtpl" ng-required="currentSession.isonlinepreregistemail=='1'" ng-disabled="currentSession.isonlinepreregistactive==0||currentSession.isonlinepreregistemail==0">
+						<option ng-repeat="option in allEmailTemplates" value="{{option.id}}">{{option.templatename}}</option>
+					</select>
 				</div>
 			</div>
 		</div>
@@ -78,7 +94,7 @@
 			<div class="col-xs-3 col-xs-offset-1">
 				<label for="onlinepaymentoption">{{translationObj.onlineregistration.fieldonlinepaymentoption}}<i style="color:red">*</i></label>
 				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 					<select class="form-control" id="onlinepaymentoption" ng-model="currentSession.onlinepaymentoption" ng-disabled="currentSession.isonlineregistactive==0">
 						<option ng-repeat="option in onlinepaymentoptions" value="{{option.code}}">{{option.text}}</option>
 					</select>

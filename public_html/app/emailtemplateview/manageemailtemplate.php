@@ -2,8 +2,9 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
+require_once('../../include/invalidrequest.php');
 require_once('../reports/sendemail.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
@@ -25,11 +26,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 		case "getEmailtemplateDetails":
 			getEmailtemplateDetails($mysqli, $_POST['id'], $_POST['language']);
 			break;
-		case "sendTestEmail":
-			sendTestEmail($mysqli, $_POST['newEmail']);
-			break;
 		default:
-			invalidRequest();
+			invalidRequest($type);
 	}
 } else {
 	invalidRequest();
@@ -46,19 +44,19 @@ function insert_emailtemplate($mysqli, $emailtemplate) {
 
 		$query = "INSERT INTO cpa_emails_templates (id, templatename, title, mainmessage)	VALUES (null, '$templatename', 0, 0)";
 		if ($mysqli->query($query)) {
-			if (empty($id))$id = $data['id'] = (int) $mysqli->insert_id;
+			if (empty($id)) $id = $data['id'] = (int) $mysqli->insert_id;
 			$query = "UPDATE cpa_emails_templates SET title = create_emailtemplatetext($id, '', ''), mainmessage = create_emailtemplatetext($id, '', '') where id = $id";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 			$data['success'] = true;
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		$mysqli->close();
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -101,19 +99,19 @@ function update_emailtemplate($mysqli, $emailtemplate) {
 						$data['mainmessage'] = $mainmessage;
 						$data['mainmessage_fr'] = $mainmessage_fr;
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 	} else {
-		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 	return $data;
 	exit;
@@ -131,14 +129,14 @@ function delete_emailtemplate($mysqli, $emailtemplate) {
 		/* All other tables have a FK whit drop cascade */
 		$query = "DELETE FROM cpa_emails_templates WHERE id = $id";
 		if (!$mysqli->query($query)) {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		$mysqli->close();
 		$data['success'] = true;
 		$data['message'] = 'Emailtemplate deleted successfully.';
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -160,8 +158,9 @@ function getAllEmailtemplates($mysqli) {
 		}
 		$mysqli->close();
 		$data['success'] = true;
-		echo json_encode($data);exit;
-	} catch(Exception $e) {
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -175,11 +174,11 @@ function getAllEmailtemplates($mysqli) {
  */
 function getEmailtemplateDetails($mysqli, $id, $language) {
 	try {
-		$query = "SELECT cet.*, 
-										 getEmailTemplateText(title, 'fr-ca') title_fr, getEmailTemplateText(title, 'en-ca') title_en, 
-										 getEmailTemplateText(mainmessage, 'fr-ca') paragraphtext_fr, getEmailTemplateText(mainmessage, 'en-ca') paragraphtext_en
-							FROM cpa_emails_templates cet
-							WHERE cet.id = $id";
+		$query = "	SELECT cet.*, 
+							getEmailTemplateText(title, 'fr-ca') title_fr, getEmailTemplateText(title, 'en-ca') title_en, 
+							getEmailTemplateText(mainmessage, 'fr-ca') paragraphtext_fr, getEmailTemplateText(mainmessage, 'en-ca') paragraphtext_en
+					FROM cpa_emails_templates cet
+					WHERE cet.id = $id";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
@@ -189,7 +188,7 @@ function getEmailtemplateDetails($mysqli, $id, $language) {
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -212,7 +211,7 @@ function updateEntireEmailtemplate($mysqli, $emailtemplate) {
 		$data['message'] = 'Emailtemplate updated successfully.';
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -220,30 +219,3 @@ function updateEntireEmailtemplate($mysqli, $emailtemplate) {
 		exit;
 	}
 };
-
-/**
- * This function will handle sending a test email
- */
-function sendTestEmail($mysqli, $email) {
-	try {
-		// We need to send a test email
-		$data = sendoneemail($mysqli, $email['emailaddress'], null, $email['title'], $email['mainmessage'], '../../images', null, $email['language'], null, null);
-		echo json_encode($data);
-		exit;
-	}catch (Exception $e) {
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
-}
-
-function invalidRequest() {
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
-};
-
-?>

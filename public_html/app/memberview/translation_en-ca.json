@@ -25,6 +25,7 @@
 	{"formname":"main", "fieldname":"msgerrfirstnamemandatory", "text":"First name is mandatory."},
 	{"formname":"main", "fieldname":"msgerrlastnamemandatory", "text":"Last name is mandatory."},
 	{"formname":"main", "fieldname":"msgwarnhealthcarenonice", "text":"Health card no is not mandatory, but should be provided for skater."},
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Email sent"},
 
 	{"formname":"details", "fieldname":"formtitledetails", "text":"Details"},
 	{"formname":"details", "fieldname":"fieldfirstname", "text":"First Name"},

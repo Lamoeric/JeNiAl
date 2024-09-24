@@ -9,7 +9,7 @@
 					<div ng-if="currentBill!=null"><h2>{{currentBill.id}} - {{currentBill.billingname}} - {{currentBill.billingdate}} - {{currentBill.totalamount | currency}}<span ng-show="currentBill.relatednewbillid!=null"> <font color="red"> ({{translationObj.main.formtitlebillclosed}}) </font></span></h2></div>
 					<div ng-if="currentBill==null"><h2>{{translationObj.main.formtitlebilldetails}}</h2></div>
 
-					<sendemailtemplate is-form-pristine="currentBill==null" contacts="currentBill.contactsforemail"></sendemailtemplate>
+					<sendemailtemplate is-form-pristine="currentBill==null" contacts="currentBill.contactsforemail" callback="emailTemplateSent"></sendemailtemplate>
 
 					<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="detailsForm" ng-show="currentBill" class="ng-hide">
 						<!--$scope.context.preferedlanguage-->

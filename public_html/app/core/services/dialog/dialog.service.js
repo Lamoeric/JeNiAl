@@ -17,11 +17,9 @@ angular.module('core').service('dialogService', function () {
 	};
 
 	this.displayFailure = function (data) {
-		this.setDlgOk();
-		if (data.message) {
-			alertify.alert(data.message);
-		} else {
-			alertify.alert(data);
+		if (data) {
+			this.setDlgOk();
+			alertify.alert(data.message ? data.message : data);
 		}
 	}
 

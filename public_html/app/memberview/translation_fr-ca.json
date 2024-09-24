@@ -25,6 +25,7 @@
 	{"formname":"main", "fieldname":"msgerrfirstnamemandatory", "text":"Le prénom est obligatoire."},
 	{"formname":"main", "fieldname":"msgerrlastnamemandatory", "text":"Le nom est obligatoire."},
 	{"formname":"main", "fieldname":"msgwarnhealthcarenonice", "text":"Le no de carte d'assurance maladie n'est pas obligatoire, mais devrait être renseigné pour les patineurs."},
+	{"formname":"main", "fieldname":"msgemailsent", "text":"Courriel envoyé"},
 
 	{"formname":"details", "fieldname":"formtitledetails", "text":"Information principale"},
 	{"formname":"details", "fieldname":"fieldfirstname", "text":"Prénom"},
