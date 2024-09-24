@@ -634,10 +634,10 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 
 			if ($mysqli->real_escape_string(isset($sessionCourses[$x]['status'])) && $sessionCourses[$x]['status'] == 'New') {
 				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, prereqcanskatebadgemin, prereqcanskatebadgemax, startdate, enddate, prereqagemin, prereqagemax)
-							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax"
+							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax,"
 									.($startdate == '' ? "null, " : "'$startdate', ")
-									.($enddate == '' ? "null" : "'$enddate'")
-									.($prereqagemin == 0 ? "null" : "'$prereqagemin'")
+									.($enddate == '' ? "null," : "'$enddate',")
+									.($prereqagemin == 0 ? "null," : "'$prereqagemin',")
 									.($prereqagemax == 0 ? "null" : "'$prereqagemax'")
 									.")";
 				if ($mysqli->query($query)) {
