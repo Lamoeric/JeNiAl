@@ -34,7 +34,7 @@ function uploadImageAndUpdateById($mysqli, $files, $directorySuffix, $filenamepr
             $data['update'] = updateimagetablebyid($mysqli, $tableName, $filenames['partialfilename'], $id);
             if ($data['update']['success'] == true) {
                 // Remove old file if copy and update are done
-                removeFile($uploads_dir, $oldfilename);
+                $data['removedfilename'] = removeFile($uploads_dir, $oldfilename, true);
                 $data['uploads_dir'] = $uploads_dir;
                 $data['oldfilename'] = $oldfilename;
                 $data['newfilename'] = $filenames['partialfilename'];
