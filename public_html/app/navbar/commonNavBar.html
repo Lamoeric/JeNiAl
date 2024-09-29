@@ -92,20 +92,22 @@
 				<!-- Web Admin menu -->
 				<li class="dropdown pointerlist" ng-if="userInfo.privileges.admin_access==true"><a class="dropdown-toggle" data-toggle="dropdown" >{{translationObj.navbar.webadministrationmenu}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#!/wscontactview">{{translationObj.navbar.wscontactmanager}}</a></li>
-						<!-- <li><a href="#!/wsarenaview">{{translationObj.navbar.wsarenasmanager}}</a></li> -->
 						<li><a href="#!/wsnewpageview">{{translationObj.navbar.wspagemanager}}</a></li>
-<!--						<li><a href="#!/wssectionview">{{translationObj.navbar.wssectionmanager}}</a></li> -->
-						<li><a href="#!/wsboardmemberview">{{translationObj.navbar.wsboardmembermanager}}</a></li>
-						<li><a href="#!/wscoachview">{{translationObj.navbar.wscoachmanager}}</a></li>
-						<li><a href="#!/wsprogramassistantview">{{translationObj.navbar.wsprogramassistantmanager}}</a></li>
 						<li><a href="#!/wsnewsview">{{translationObj.navbar.wsnewsmanager}}</a></li>
-						<li><a href="#!/wseventview">{{translationObj.navbar.wseventmanager}}</a></li>
-						<li><a href="#!/wspartnerview">{{translationObj.navbar.wspartnermanager}}</a></li>
-						<li><a href="#!/wsdocumentview">{{translationObj.navbar.wsdocumentmanager}}</a></li>
+						<li role="separator" class="divider"></li>
 						<li><a href="#!/wsboutiqueview">{{translationObj.navbar.wsboutiquemanager}}</a></li>
 						<li><a href="#!/wscostumeview">{{translationObj.navbar.wscostumemanager}}</a></li>
 						<li><a href="#!/wsclassifiedaddview">{{translationObj.navbar.wsclassifieddaddmanager}}</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#!/wsboardmemberview">{{translationObj.navbar.wsboardmembermanager}}</a></li>
+						<li><a href="#!/wscoachview">{{translationObj.navbar.wscoachmanager}}</a></li>
+						<li><a href="#!/wsprogramassistantview">{{translationObj.navbar.wsprogramassistantmanager}}</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#!/wseventview">{{translationObj.navbar.wseventmanager}}</a></li>
+						<li><a href="#!/wsdocumentview">{{translationObj.navbar.wsdocumentmanager}}</a></li>
+						<li><a href="#!/wspartnerview">{{translationObj.navbar.wspartnermanager}}</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#!/wscontactview">{{translationObj.navbar.wscontactmanager}}</a></li>
 					</ul>
 				</li>
 

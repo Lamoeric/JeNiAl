@@ -44,7 +44,7 @@
 	{"formname":"main", "fieldname":"ccregistrationviewCtrl", "text":"MY SKATING SPACE"},
 	{"formname":"main", "fieldname":"ccbillviewCtrl", "text":"MY SKATING SPACE"},
 
-	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"WS Contact"},
+	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"WS Configuration"},
 	{"formname":"main", "fieldname":"wsarenaviewCtrl", "text":"WS Arenas"},
 	{"formname":"main", "fieldname":"wspageviewCtrl", "text":"WS Pages"},
 	{"formname":"main", "fieldname":"wsnewpageviewCtrl", "text":"WS Pages"},
@@ -106,7 +106,7 @@
 	{"formname":"navbar", "fieldname":"evaluationpp", "text":"Canskate Evaluation"},
 
 	{"formname":"navbar", "fieldname":"webadministrationmenu", "text":"Web Site"},
-	{"formname":"navbar", "fieldname":"wscontactmanager", "text":"Contact Manager"},
+	{"formname":"navbar", "fieldname":"wscontactmanager", "text":"Configuration Manager"},
 	{"formname":"navbar", "fieldname":"wsarenasmanager", "text":"Arenas Manager"},
 	{"formname":"navbar", "fieldname":"wspagemanager", "text":"Pages Manager"},
 	{"formname":"navbar", "fieldname":"wssectionmanager", "text":"Sections Manager"},
