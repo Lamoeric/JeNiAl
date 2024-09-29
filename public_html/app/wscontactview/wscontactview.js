@@ -2,28 +2,28 @@
 
 angular.module('cpa_admin.wscontactview', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/wscontactview', {
 		templateUrl: 'wscontactview/wscontactview.html',
 		controller: 'wscontactviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.admin_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/wscontactview"});
-        }
-      }
+				var userInfo = authenticationService.getUserInfo();
+				if (userInfo) {
+					if (userInfo.privileges.admin_access == true) {
+						return $q.when(userInfo);
+					} else {
+						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
+					}
+				} else {
+					return $q.reject({ authenticated: false, newLocation: "/wscontactview" });
+				}
+			}
 		}
 	});
 }])
 
-.controller('wscontactviewCtrl', ['$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
+.controller('wscontactviewCtrl', ['$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
 
 	$scope.progName = "wscontactview";
 	$scope.leftpanetemplatefullpath = "./wscontactview/wscontact.template.html";
@@ -42,19 +42,19 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	$scope.backdrop = true;
 	$scope.promise = null;
 
-	$scope.isDirty = function() {
+	$scope.isDirty = function () {
 		if ($scope.detailsForm.$dirty) {
 			return true;
 		}
 		return false;
 	};
 
-	$scope.setDirty = function() {
+	$scope.setDirty = function () {
 		$scope.detailsForm.$dirty = true;
 		$scope.isFormPristine = false;
 	};
 
-	$scope.setPristine = function() {
+	$scope.setPristine = function () {
 		$scope.detailsForm.$setPristine();
 		$scope.isFormPristine = true;
 	};
@@ -62,12 +62,11 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	// This is the function that gets all contacts from database
 	$scope.getAllWscontact = function () {
 		$scope.promise = $http({
-				method: 'post',
-				url: './wscontactview/managewscontact.php',
-				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getAllContacts' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			method: 'post',
+			url: './wscontactview/managewscontact.php',
+			data: $.param({ 'language': authenticationService.getCurrentLanguage(), 'type': 'getAllContacts' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
@@ -80,7 +79,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 				}
 			}
 		}).
-		error(function(data, status, headers, config) {
+		error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -90,10 +89,9 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 		$scope.promise = $http({
 			method: 'post',
 			url: './wscontactview/managewscontact.php',
-			data: $.param({'fscname' : contact.fscname, 'type' : 'getContactDetails' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			data: $.param({ 'fscname': 'FSC1', 'type': 'getContactDetails' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentWscontact = data.data[0];
 				$scope.currentWscontact.displaylogofilename = $scope.currentWscontact.logofilename + '?decache=' + Math.random();
@@ -102,7 +100,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 				dialogService.displayFailure(data);
 			}
 		}).
-		error(function(data, status, headers, config) {
+		error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -131,7 +129,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	};
 
 	// This is the function that validates all forms and display error and warning messages
-	$scope.validateAllForms = function() {
+	$scope.validateAllForms = function () {
 		var retVal = true;
 		$scope.globalErrorMessage = [];
 		$scope.globalWarningMessage = [];
@@ -145,18 +143,18 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 
 		if ($scope.globalErrorMessage.length != 0) {
 			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
+			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
 			retVal = false;
 		}
 		if ($scope.globalWarningMessage.length != 0) {
 			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
+			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalwarningmessage").hide(); });
 		}
 		return retVal;
 	}
 
 	// This is the function that saves the current contact in the database
-	$scope.saveToDB = function() {
+	$scope.saveToDB = function () {
 		if ($scope.currentWscontact == null || !$scope.isDirty()) {
 			dialogService.alertDlg("Nothing to save!", null);
 		} else {
@@ -164,10 +162,9 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 			$scope.promise = $http({
 				method: 'post',
 				url: './wscontactview/managewscontact.php',
-				data: $.param({'contact' : $scope.currentWscontact, 'type' : 'updateEntireContact' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'contact': $scope.currentWscontact, 'type': 'updateEntireContact' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
 					// Select this contact to reset everything
 					$scope.setCurrentInternal($scope.selectedWscontact, null);
@@ -177,7 +174,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 					return false;
 				}
 			}).
-			error(function(data, status, headers, config) {
+			error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
@@ -185,7 +182,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	};
 
 	// This is the function that displays the upload error messages
-	$scope.displayUploadError = function(errFile) {
+	$scope.displayUploadError = function (errFile) {
 		// dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfile);
 		if (errFile.$error == 'maxSize') {
 			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfilesize + errFile.$errorParam);
@@ -197,7 +194,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	}
 
 	// This is the function that uploads the logo for the website
-	$scope.uploadMainLogo = function(file, errFiles) {
+	$scope.uploadMainLogo = function (file, errFiles) {
 		$scope.f = file;
 		if (errFiles && errFiles[0]) {
 			$scope.displayUploadError(errFiles[0]);
@@ -208,13 +205,13 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 				return;
 			}
 			file.upload = Upload.upload({
-					url: './wscontactview/uploadmainlogo.php',
-					method: 'POST',
-					file: file,
-					data: {
-							'mainobj': $scope.currentWscontact,
-							'filename' : file.name
-					}
+				url: './wscontactview/uploadmainlogo.php',
+				method: 'POST',
+				file: file,
+				data: {
+					'mainobj': $scope.currentWscontact,
+					'filename': file.name
+				}
 			});
 			file.upload.then(function (data) {
 				$timeout(function () {
@@ -227,17 +224,17 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 					}
 				});
 			}, function (data) {
-					if (!data.success) {
-						dialogService.displayFailure(data.data);
-					}
+				if (!data.success) {
+					dialogService.displayFailure(data.data);
+				}
 			}, function (evt) {
-					file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 			});
 		}
 	}
 
 	// This is the function that uploads the slider for the website
-	$scope.uploadMainSlider = function(file, errFiles) {
+	$scope.uploadMainSlider = function (file, errFiles) {
 		$scope.f = file;
 		if (errFiles && errFiles[0]) {
 			$scope.displayUploadError(errFiles[0]);
@@ -248,13 +245,13 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 				return;
 			}
 			file.upload = Upload.upload({
-					url: './wscontactview/uploadmainslider.php',
-					method: 'POST',
-					file: file,
-					data: {
-							'mainobj': $scope.currentWscontact,
-							'filename' : file.name
-					}
+				url: './wscontactview/uploadmainslider.php',
+				method: 'POST',
+				file: file,
+				data: {
+					'mainobj': $scope.currentWscontact,
+					'filename': file.name
+				}
 			});
 			file.upload.then(function (data) {
 				$timeout(function () {
@@ -267,17 +264,17 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 					}
 				});
 			}, function (data) {
-					if (!data.success) {
-						dialogService.displayFailure(data.data);
-					}
+				if (!data.success) {
+					dialogService.displayFailure(data.data);
+				}
 			}, function (evt) {
-					file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 			});
 		}
 	}
 
-	$scope.refreshAll = function() {
-		$scope.getAllWscontact();
+	$scope.refreshAll = function () {
+		$scope.getWscontactDetails();
 		translationService.getTranslation($scope, 'wscontactview', authenticationService.getCurrentLanguage());
 	}
 
