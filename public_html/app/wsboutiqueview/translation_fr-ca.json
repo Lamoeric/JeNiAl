@@ -2,6 +2,8 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer biens..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Biens"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun bien trouvé"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Publié :"},
+	{"formname":"leftPane", "fieldname":"image", "text":"Image :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},

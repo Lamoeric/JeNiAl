@@ -2,6 +2,9 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer événement..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Événements"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun événement trouvé"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Publié :"},
+	{"formname":"leftPane", "fieldname":"imagecount", "text":"Nbr Images :"},
+	{"formname":"leftPane", "fieldname":"listlabel", "text":"liste :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},

@@ -1,1 +1,15 @@
-<div><p>{{leftobj.id}} - {{leftobj.name}}<br>{{leftobj.eventdate}}</p></div>
+<div>
+    <p>
+        <span ng-if="leftobj.publish==1">
+            {{leftobj.id}} - {{leftobj.label}}&nbsp;({{leftobj.eventdate}})<br>
+        </span>
+        <span style="color:red" ng-if="leftobj.publish==0">
+            {{leftobj.id}} - {{leftobj.label}}&nbsp;({{leftobj.eventdate}})<br>
+        </span>
+        <small>
+            <b>{{translationObj.leftPane.publish}}</b>&nbsp;{{leftobj.ispublish}}&nbsp;
+            <b>{{translationObj.leftPane.imagecount}}</b>&nbsp;{{leftobj.imagecount}}
+            <b>{{translationObj.leftPane.listlabel}}</b>&nbsp;{{leftobj.listlabel}}
+        </small>
+    </p>
+</div>

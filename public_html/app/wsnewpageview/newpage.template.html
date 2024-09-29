@@ -1,89 +1,97 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newpage.formtitleeditpage}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newpage.formtitleeditpage}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
 
-      <div class="col-xs-4">
-        <label for="title_fr">{{translationObj.newpage.fieldtitlename}}</label>
-        <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input type="text" class="form-control" id="pagename" ng-model="newObj.name" disabled>
-        </div>
-      </div>
-
-      <div class="col-xs-6">
-        <label for="title_fr">{{translationObj.newpage.fieldtitlelabel}}</label>
-        <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input type="text" class="form-control" id="pagename" ng-model="newObj.labeltext" disabled>
-        </div>
-      </div>
-
-      <div class="col-xs-6">
-	      <label for="name">{{translationObj.newpage.fieldtitleenglishnavbarlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_en" class="form-control" id="navbarlabel_en" ng-model="newObj.navbarlabel_en" maxlength="200" required ng-disabled="!newObj.canbeinmenubar">
-	      </div>
-	    </div>
-
-      <div class="col-xs-6">
-	      <label for="name">{{translationObj.newpage.fieldtitlefrenchnavbarlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="navbarlabel_fr" ng-model="newObj.navbarlabel_fr" maxlength="200" required ng-disabled="!newObj.canbeinmenubar">
-	      </div>
-      </div>
+			<div class="col-xs-4">
+				<label for="name">{{translationObj.newpage.fieldtitlename}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="name" ng-model="newObj.name" disabled autocomplete="off">
+				</div>
+			</div>
 
 			<div class="col-xs-6">
-				<label for="active">{{translationObj.newpage.fieldtitlenavbarvisible}}<i style="color:red"> *</i></label>
+				<label for="labeltext">{{translationObj.newpage.fieldtitlelabel}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="labeltext" ng-model="newObj.labeltext" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-6" ng-if="config.supportenglish==1">
+				<label for="navbarlabel_en">{{translationObj.newpage.fieldtitleenglishnavbarlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="navbarlabel_en"
+						ng-model="newObj.navbarlabel_en" maxlength="200" ng-required="config.supportenglish==1" 
+						ng-disabled="!newObj.canbeinmenubar">
+				</div>
+			</div>
+
+			<div class="col-xs-6" ng-if="config.supportfrench==1">
+				<label for="navbarlabel_fr">{{translationObj.newpage.fieldtitlefrenchnavbarlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="navbarlabel_fr"
+						ng-model="newObj.navbarlabel_fr" maxlength="200" ng-required="config.supportfrench==1" 
+						ng-disabled="!newObj.canbeinmenubar">
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<label for="navbarvisible">{{translationObj.newpage.fieldtitlenavbarvisible}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="navbarvisible" ng-model="newObj.navbarvisible" required ng-disabled="!newObj.canbeinmenubar">
+					<select class="form-control" id="navbarvisible" ng-model="newObj.navbarvisible" required
+						ng-disabled="!newObj.canbeinmenubar">
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6">
-				<label for="active">{{translationObj.newpage.fieldtitlenavbarusesection}}<i style="color:red"> *</i></label>
+				<label for="navbarusesection">{{translationObj.newpage.fieldtitlenavbarusesection}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="navbarusesection" ng-model="newObj.navbarusesection" required ng-disabled="!newObj.canbeinmenubar">
+					<select class="form-control" id="navbarusesection" ng-model="newObj.navbarusesection" required
+						ng-disabled="!newObj.canbeinmenubar">
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6">
-				<label for="active">{{translationObj.newpage.fieldtitlenavbarvisiblepreview}}<i style="color:red"> *</i></label>
+				<label for="navbarvisiblepreview">{{translationObj.newpage.fieldtitlenavbarvisiblepreview}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="navbarvisiblepreview" ng-model="newObj.navbarvisiblepreview" required ng-disabled="!newObj.canbeinmenubar">
+					<select class="form-control" id="navbarvisiblepreview" ng-model="newObj.navbarvisiblepreview"
+						required ng-disabled="!newObj.canbeinmenubar">
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6">
-				<label for="active">{{translationObj.newpage.fieldtitlenavbarusesectionpreview}}<i style="color:red"> *</i></label>
+				<label for="navbarusesectionpreview">{{translationObj.newpage.fieldtitlenavbarusesectionpreview}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="navbarusesectionpreview" ng-model="newObj.navbarusesectionpreview" required ng-disabled="!newObj.canbeinmenubar">
+					<select class="form-control" id="navbarusesectionpreview" ng-model="newObj.navbarusesectionpreview"
+						required ng-disabled="!newObj.canbeinmenubar">
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
 					</select>
 				</div>
 			</div>
-    </div>
+		</div>
 
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newnewObj.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newpage.buttontitlediscard}}</button>
-  <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newpage.buttontitlekeepchanges}}</button>
-</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newnewObj.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newpage.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newpage.buttontitlekeepchanges}}</button>
+	</div>
+</form>

@@ -5,11 +5,12 @@
   <form class="form-horizontal" role="form" name="editObjForm">
     <div class="form-group">
       <div class="col-xs-10">
-      	<label for="name">{{translationObj.newcostume.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="40" required replacespaces>
-	      </div>
+        <label for="name">{{translationObj.newcostume.fieldtitlename}}<i style="color:red"> *</i></label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="40" required
+            replacespaces autocomplete="off">
+        </div>
       </div>
     </div>
   </form>
@@ -18,6 +19,8 @@
   </div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newcostume.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newcostume.buttontitlekeepchanges}}</button>
+  <button type="button" class="btn btn-primary"
+    ng-click="cancel()">{{translationObj.newcostume.buttontitlediscard}}</button>
+  <button type="button" class="btn btn-primary"
+    ng-click="ok()">{{translationObj.newcostume.buttontitlekeepchanges}}</button>
 </div>

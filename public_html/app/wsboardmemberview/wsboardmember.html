@@ -1,77 +1,87 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlefirstname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="firstname" class="form-control" id="firstname" ng-model="currentWsboardmember.firstname" maxlength="40" required>
-	      </div>
-	    </div>
 			<div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlelastname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="lastname" class="form-control" id="lastname" ng-model="currentWsboardmember.lastname" maxlength="40" required>
-	      </div>
-	    </div>
-		</div>
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="memberrole_en">{{translationObj.details.fieldtitleenglishrole}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="memberrole_en" class="form-control" id="memberrole_en" ng-model="currentWsboardmember.memberrole_en" maxlength="200" required>
-	      </div>
-	    </div>
+				<label for="firstname">{{translationObj.details.fieldtitlefirstname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="firstname" class="form-control" id="firstname"
+						ng-model="currentWsboardmember.firstname" maxlength="40" required>
+				</div>
+			</div>
 			<div class="col-xs-4">
-	      <label for="memberrole_fr">{{translationObj.details.fieldtitlefrenchrole}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="memberrole_fr" class="form-control" id="memberrole_fr" ng-model="currentWsboardmember.memberrole_fr" maxlength="200" required>
-	      </div>
-	    </div>
+				<label for="lastname">{{translationObj.details.fieldtitlelastname}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="lastname" class="form-control" id="lastname"
+						ng-model="currentWsboardmember.lastname" maxlength="40" required>
+				</div>
 			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="email">{{translationObj.details.fieldtitleemail}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="email" class="form-control" id="email" ng-model="currentWsboardmember.email" maxlength="100">
-	      </div>
-	    </div>
-			<div class="col-xs-4">
-	      <label for="phone">{{translationObj.details.fieldtitlephone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="phone" class="form-control" id="phone" ng-model="currentWsboardmember.phone" maxlength="14" format-phone>
-	      </div>
-	    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="memberrole_en">{{translationObj.details.fieldtitleenglishrole}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="memberrole_en" class="form-control" id="memberrole_en"
+						ng-model="currentWsboardmember.memberrole_en" maxlength="200"
+						ng-required="config.supportenglish==1">
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="description_en">{{translationObj.details.fieldtitleenglishdescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="description_en" class="form-control" id="description_en"
+						ng-model="currentWsboardmember.description_en" maxlength="200">
+				</div>
+			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="description_en">{{translationObj.details.fieldtitleenglishdescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="description_en" class="form-control" id="description_en" ng-model="currentWsboardmember.description_en" maxlength="200">
-	      </div>
-	    </div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="memberrole_fr">{{translationObj.details.fieldtitlefrenchrole}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="memberrole_fr" class="form-control" id="memberrole_fr"
+						ng-model="currentWsboardmember.memberrole_fr" maxlength="200"
+						ng-required="config.supportfrench==1">
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="description_fr">{{translationObj.details.fieldtitlefrenchdescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="description_fr" class="form-control" id="description_fr"
+						ng-model="currentWsboardmember.description_fr" maxlength="200">
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-4">
-	      <label for="description_fr">{{translationObj.details.fieldtitlefrenchdescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="description_fr" class="form-control" id="description_fr" ng-model="currentWsboardmember.description_fr" maxlength="200">
-	      </div>
-	    </div>
+				<label for="email">{{translationObj.details.fieldtitleemail}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="email" class="form-control" id="email" ng-model="currentWsboardmember.email"
+						maxlength="100">
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<label for="phone">{{translationObj.details.fieldtitlephone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="phone" class="form-control" id="phone" ng-model="currentWsboardmember.phone"
+						maxlength="14" format-phone>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
 				<label for="memberindex">{{translationObj.details.fieldtitlememberindex}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pen"></i></span>
-					<input type="numeric" name="memberindex" class="form-control" id="memberindex" ng-model="currentWsboardmember.memberindex" min="1" max="99" required>
+					<input type="number" name="memberindex" class="form-control" id="memberindex"
+						ng-model="currentWsboardmember.memberindex" min="1" max="99" required>
 				</div>
 			</div>
 			<div class="col-xs-2">
@@ -83,55 +93,29 @@
 					</select>
 				</div>
 			</div>
-
-		</div>
-		<div class="row" ng-if="currentWsboardmember.imagefilename && currentWsboardmember.imageinfo">
-
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/boardmembers/{{currentWsboardmember.displayimagefilename}}" class="team-pic" alt="">
-					</div>
-					<h3 class="team_name">{{currentWsboardmember.fullname}}</h3>
-				</div>
-			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="currentWsboardmember.imageinfo[0]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWsboardmember.imageinfo[1]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWsboardmember.imageinfo['mime']" disabled>
-	      </div>
-			</div>
-
 		</div>
 
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
-			</div>
-		</div>
-
+		<displaywebsiteimage 
+			displayimagefilename="'boardmembers/'+currentWsboardmember.displayimagefilename"
+			imageinfo="currentWsboardmember.imageinfo">
+		</displaywebsiteimage>
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>&nbsp;
-				<deletewebsiteimagebutton subdir="'boardmembers'" context="'ws_boardmembers'" obj="currentWsboardmember" callback="setCurrentInternal(currentWsboardmember)" is-disabled="!currentWsboardmember.imagefilename"></deletewebsiteimagebutton>
-				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
-  		</div>
-  	</div>
+				<uploadwebsiteimagebutton 
+					subdirectory="'/website/images/boardmembers/'"
+					fileprefix="currentWsboardmember.firstname + '_' + currentWsboardmember.lastname"
+					tablename="'cpa_ws_boardmembers'" 
+					id="currentWsboardmember.id"
+					oldfilename="currentWsboardmember.imagefilename" 
+					callback="setCurrentInternal(currentWsboardmember)"
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadwebsiteimagebutton>&nbsp;
+				<deletewebsiteimagebutton 
+					subdir="'boardmembers'" context="'ws_boardmembers'" obj="currentWsboardmember"
+					callback="setCurrentInternal(currentWsboardmember)" is-disabled="!currentWsboardmember.imagefilename">
+				</deletewebsiteimagebutton>
+			</div>
+		</div>
+	</div>
 
-  </div>
 </div>

@@ -1,256 +1,249 @@
 <div class="form-group row simpleDemo">
-  <div class="col-md-3">
-	  <div class="panel panel-success">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{translationObj.main.listtitlepage}}</h3>						
-		  	<helptext><small>{{translationObj.main.titledraganddrop}}</small></helptext>
-      </div>
-      <div class="panel-body" >
-				<ul dnd-list="pagelist"
-		        dnd-drop="dropCallback(index, item, external, type)"
-						>
-			    <!-- The dnd-draggable directive makes an element draggable and will
+	<div class="col-md-3">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{translationObj.main.listtitlepage}}</h3>
+				<helptext><small>{{translationObj.main.titledraganddrop}}</small></helptext>
+			</div>
+			<div class="panel-body">
+				<ul dnd-list="pagelist" dnd-drop="dropCallback(index, item, external, type)">
+					<!-- The dnd-draggable directive makes an element draggable and will
 			         transfer the object that was assigned to it. If an element was
 			         dragged away, you have to remove it from the original list
 			         yourself using the dnd-moved attribute -->
-			    <li ng-repeat="page in pagelist"																																																																																																																																																																																																																																																																																																																																																																																																																																																			
-			        dnd-draggable="page"
-			        dnd-moved="pagelist.splice($index, 1)"
-			        dnd-effect-allowed="move"
-							dnd-selected="models.selectedPageObj = page"
-        			ng-class="{'selected': models.selectedPageObj === page}"
-        			ng-click="setCurrentPage(page, $index)"			        
-        			>
+					<li ng-repeat="page in pagelist" dnd-draggable="page" dnd-moved="pagelist.splice($index, 1)"
+						dnd-effect-allowed="move" dnd-selected="models.selectedPageObj = page"
+						ng-class="{'selected': models.selectedPageObj === page}"
+						ng-click="setCurrentPage(page, $index)">
 						<div class="form-group row" style="margin:0px">
-						  <div class="col-md-10">
-						  	<h3>{{page.navbarlabeltext}}</h3>
-<!--								
-								<row>
-						      <div class="col-md-5">
-						        <label for="active">{{translationObj.details.fieldtitlenavbarvisible}}<i style="color:red"> *</i></label>
-						        <div class="input-group input-group-sm">
-						          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						          <select class="form-control" id="visible" ng-model="page.navbarvisible" ng-disabled="!page.canbeinmenubar">
-						            <option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-						          </select>
-						        </div>
-						      </div>
+							<div class="col-md-10">
+								<h3>{{page.navbarlabeltext}}</h3>
+							</div>
 
-						      <div class="col-md-5">
-						        <label for="active">{{translationObj.details.fieldtitlenavbarusesection}}<i style="color:red"> *</i></label>
-						        <div class="input-group input-group-sm">
-						          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						          <select class="form-control" id="visibleinnavbar" ng-model="page.navbarusesection" ng-disabled="!page.canbeinmenubar">
-						            <option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-						          </select>
-						        </div>
-						      </div>
-								</row>
--->
-				    	</div>
-				    	
-						  <div class="col-md-2">
-  							<span style="float:right">
-									<child-edit-button 			obj="paragraph" objlist="paragraphlist" callback="editPage(page)"></child-edit-button>
+							<div class="col-md-2">
+								<span style="float:right">
+									<child-edit-button obj="paragraph" objlist="paragraphlist"
+										callback="editPage(page)"></child-edit-button>
 									<child-status-indicator obj="paragraph"></child-status-indicator>
 								</span>
-				    	</div>
-			    	</div>
-				        
-			    </li>
+							</div>
+						</div>
+
+					</li>
 				</ul>
 
 			</div>
 		</div>
 	</div>
-  <div class="col-md-3">
-	  <div class="panel panel-success">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{translationObj.main.listtitlesection}}</h3>						
-      </div>
-      <div class="panel-body" >
-				<ul dnd-list="selectedPageSections"
-		        dnd-drop="dropCallback(index, item, external, type)"
-						>
-			    <!-- The dnd-draggable directive makes an element draggable and will
+	<div class="col-md-3">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{translationObj.main.listtitlesection}}</h3>
+			</div>
+			<div class="panel-body">
+				<ul dnd-list="selectedPageSections" dnd-drop="dropCallback(index, item, external, type)">
+					<!-- The dnd-draggable directive makes an element draggable and will
 			         transfer the object that was assigned to it. If an element was
 			         dragged away, you have to remove it from the original list
 			         yourself using the dnd-moved attribute -->
-			    <li ng-repeat="pagesection in selectedPageSections"																																																																																																																																																																																																																																																																																																																																																																																																																																																			
-			        dnd-moved="selectedPageSections.splice($index, 1)"
-							dnd-selected="models.selectedPageSectionObj = pagesection"
-        			ng-class="{'selected': models.selectedPageSectionObj === pagesection}"
-        			ng-click="setCurrentSection(pagesection, $index)"			        
-        			>
+					<li ng-repeat="pagesection in selectedPageSections"
+						dnd-moved="selectedPageSections.splice($index, 1)"
+						dnd-selected="models.selectedPageSectionObj = pagesection"
+						ng-class="{'selected': models.selectedPageSectionObj === pagesection}"
+						ng-click="setCurrentSection(pagesection, $index)">
 						<div class="form-group row">
-						  <div class="col-md-12">
-						  	<h3>{{pagesection.sectionname}}&nbsp;-&nbsp;{{pagesection.navbarlabeltext}}</h3>
+							<div class="col-md-12">
+								<h3>{{pagesection.sectionname}}&nbsp;-&nbsp;{{pagesection.navbarlabeltext}}</h3>
 								<row>
-						      <div class="col-md-6">
-						        <label for="active">{{translationObj.newsection.fieldtitlevisible}}<i style="color:red"> *</i></label>
-						        <div class="input-group input-group-sm">
-						          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						          <select class="form-control" id="visible" ng-model="pagesection.visible" ng-change="pagesection.status='Modified'">
-						            <option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-						          </select>
-						        </div>
-						      </div>
+									<div class="col-md-6">
+										<label for="visible{{$index}}">{{translationObj.newsection.fieldtitlevisible}}<i
+												style="color:red"> *</i></label>
+										<div class="input-group input-group-sm">
+											<span class="input-group-addon"><i
+													class="glyphicon glyphicon-list"></i></span>
+											<select class="form-control" id="visible{{$index}}" ng-model="pagesection.visible"
+												ng-change="pagesection.status='Modified'">
+												<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">
+													{{yesno.text}}</option>
+											</select>
+										</div>
+									</div>
 
-						      <div class="col-md-6">
-						        <label for="active">{{translationObj.newsection.fieldtitlevisibleinnavbar}}<i style="color:red"> *</i></label>
-						        <div class="input-group input-group-sm">
-						          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						          <select class="form-control" id="visibleinnavbar" ng-model="pagesection.visibleinnavbar" ng-change="pagesection.status='Modified'">
-						            <option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-						          </select>
-						        </div>
-						      </div>
+									<div class="col-md-6">
+										<label for="visibleinnavbar{{$index}}">{{translationObj.newsection.fieldtitlevisibleinnavbar}}<i
+												style="color:red"> *</i></label>
+										<div class="input-group input-group-sm">
+											<span class="input-group-addon"><i
+													class="glyphicon glyphicon-list"></i></span>
+											<select class="form-control" id="visibleinnavbar{{$index}}"
+												ng-model="pagesection.visibleinnavbar"
+												ng-change="pagesection.status='Modified'">
+												<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">
+													{{yesno.text}}</option>
+											</select>
+										</div>
+									</div>
 								</row>
 								<row>
-						      <div class="col-md-6">
-						        <label for="active">{{translationObj.newsection.fieldtitlevisiblepreview}}<i style="color:red"> *</i></label>
-						        <div class="input-group input-group-sm">
-						          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						          <select class="form-control" id="visiblepreview" ng-model="pagesection.visiblepreview" ng-change="pagesection.status='Modified'">
-						            <option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-						          </select>
-						        </div>
-						      </div>
+									<div class="col-md-6">
+										<label for="visiblepreview{{$index}}">{{translationObj.newsection.fieldtitlevisiblepreview}}<i
+												style="color:red"> *</i></label>
+										<div class="input-group input-group-sm">
+											<span class="input-group-addon"><i
+													class="glyphicon glyphicon-list"></i></span>
+											<select class="form-control" id="visiblepreview{{$index}}"
+												ng-model="pagesection.visiblepreview"
+												ng-change="pagesection.status='Modified'">
+												<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">
+													{{yesno.text}}</option>
+											</select>
+										</div>
+									</div>
 
-						      <div class="col-md-6">
-						        <label for="active">{{translationObj.newsection.fieldtitlevisiblenavbarpreview}}<i style="color:red"> *</i></label>
-						        <div class="input-group input-group-sm">
-						          <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						          <select class="form-control" id="visiblenavbarpreview" ng-model="pagesection.visiblenavbarpreview" ng-change="pagesection.status='Modified'">
-						            <option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-						          </select>
-						        </div>
-						      </div>
+									<div class="col-md-6">
+										<label
+											for="visiblenavbarpreview{{$index}}">{{translationObj.newsection.fieldtitlevisiblenavbarpreview}}<i
+												style="color:red">*</i></label>
+										<div class="input-group input-group-sm">
+											<span class="input-group-addon"><i
+													class="glyphicon glyphicon-list"></i></span>
+											<select class="form-control" id="visiblenavbarpreview{{$index}}"
+												ng-model="pagesection.visiblenavbarpreview"
+												ng-change="pagesection.status='Modified'">
+												<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">
+													{{yesno.text}}</option>
+											</select>
+										</div>
+									</div>
 								</row>
-				    	</div>
-<!--				    	
-						  <div class="col-md-2">
-  							<span style="float:right">
-									<child-edit-button 			obj="paragraph" objlist="paragraphlist" callback="editSection(pagesection)"></child-edit-button>
-									<child-status-indicator obj="paragraph"></child-status-indicator>
-								</span>
-				    	</div>
--->
-
-			    	</div>
-				        
-			    </li>
+							</div>
+						</div>
+					</li>
 				</ul>
-
 			</div>
 		</div>
 	</div>
-  <div class="col-md-6" ng-show="selectedSectionObj">
+	<div class="col-md-6" ng-show="selectedSectionObj">
 
 
-    <h3>{{translationObj.detailssection.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.detailssection.formtitlemaininfo}}</h3>
 		<!-- Details -->
 		<div class="row">
-      <div class="col-xs-3">
-	      <label for="name">{{translationObj.detailssection.fieldtitlename}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="selectedSectionObj.name" maxlength="40" ng-required="selectedSectionObj!=null" disabled>
-					<span ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-	      </div>
-	    </div>
+			<div class="col-xs-3">
+				<label for="name">{{translationObj.detailssection.fieldtitlename}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="selectedSectionObj.name"
+						maxlength="40" ng-required="selectedSectionObj!=null" disabled autocomplete="off">
+				</div>
+			</div>
 			<div class="col-xs-9">
-	      <label for="labeltext">{{translationObj.detailssection.fieldtitlelabel}}</label>
-				<input type="text" name="labeltext" class="form-control" id="labeltext" ng-model="selectedSectionObj.labeltext"disabled>
-	    </div>
-    </div>
+				<label for="labeltext">{{translationObj.detailssection.fieldtitlelabel}}</label>
+				<input type="text" name="labeltext" class="form-control" id="labeltext"
+					ng-model="selectedSectionObj.labeltext" disabled>
+			</div>
+		</div>
 
 		<!-- Nav bar -->
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.detailssection.fieldtitleenglishnavbarlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_en" class="form-control" id="navbarlabel_en" ng-model="selectedSectionObj.navbarlabel_en" maxlength="200" ng-required="selectedSectionObj!=null">
-					<span ng-show="detailsForm.navbarlabel_en.$touched && detailsForm.navbarlabel_en.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-	      </div>
-	    </div>
-      <div class="col-xs-4 col-xs-offset-2">
-	      <label for="name">{{translationObj.detailssection.fieldtitlefrenchnavbarlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="navbarlabel_fr" ng-model="selectedSectionObj.navbarlabel_fr" maxlength="200" ng-required="selectedSectionObj!=null">
-	      </div>
-      </div>
-    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="navbarlabel_en">{{translationObj.detailssection.fieldtitleenglishnavbarlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="navbarlabel_en"
+						ng-model="selectedSectionObj.navbarlabel_en" maxlength="200"
+						ng-required="selectedSectionObj!=null&&config.supportenglish==1">
+				</div>
+			</div>
+			<div class="col-xs-2" ng-if="config.supportenglish==1&&config.supportfrench==1">
+				&nbsp;
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="navbarlabel_fr">{{translationObj.detailssection.fieldtitlefrenchnavbarlabel}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="navbarlabel_fr"
+						ng-model="selectedSectionObj.navbarlabel_fr" maxlength="200"
+						ng-required="selectedSectionObj!=null&&config.supportfrench==1">
+				</div>
+			</div>
+		</div>
 
 		<!-- Titles -->
 		<div class="row">
-      <div class="col-xs-6">
-	      <label for="name">{{translationObj.detailssection.fieldtitleenglishtitle}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="title_en" class="form-control" id="title_en" ng-model="selectedSectionObj.title_en" maxlength="2000" ng-required="selectedSectionObj!=null">
-	      </div>
-	    </div>
-      <div class="col-xs-6">
-	      <label for="name">{{translationObj.detailssection.fieldtitlefrenchtitle}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="title_fr" class="form-control" id="title_fr" ng-model="selectedSectionObj.title_fr" maxlength="2000" ng-required="selectedSectionObj!=null">
-	      </div>
-      </div>
-    </div>
+			<div class="col-xs-6" ng-if="config.supportenglish==1">
+				<label for="title_en">{{translationObj.detailssection.fieldtitleenglishtitle}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="title_en" class="form-control" id="title_en"
+						ng-model="selectedSectionObj.title_en" maxlength="2000" ng-required="selectedSectionObj!=null&&config.supportenglish==1">
+				</div>
+			</div>
+			<div class="col-xs-6" ng-if="config.supportfrench==1">
+				<label for="title_fr">{{translationObj.detailssection.fieldtitlefrenchtitle}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="title_fr" class="form-control" id="title_fr"
+						ng-model="selectedSectionObj.title_fr" maxlength="2000" ng-required="selectedSectionObj!=null&&config.supportfrench==1">
+				</div>
+			</div>
+		</div>
 
 		<!-- Subtitles -->
 		<div class="row">
 			<div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==0">
 				<label ng-if="selectedSectionObj.subtitleind==0">{{translationObj.detailssection.msgSubtitleNotSupported}}</label>
 			</div>
-      <div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==1">
-	      <label for="name">{{translationObj.detailssection.fieldtitleenglishsubtitle}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="subtitle_en" class="form-control" id="subtitle_en" ng-model="selectedSectionObj.subtitle_en" maxlength="2000">
-	      </div>
-	    </div>
-      <div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==1">
-	      <label for="name">{{translationObj.detailssection.fieldtitlefrenchsubtitle}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="subtitle_fr" class="form-control" id="subtitle_fr" ng-model="selectedSectionObj.subtitle_fr" maxlength="2000">
-	      </div>
-      </div>
-    </div>
-    
+			<div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==1&&config.supportenglish==1">
+				<label for="subtitle_en">{{translationObj.detailssection.fieldtitleenglishsubtitle}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="subtitle_en" class="form-control" id="subtitle_en"
+						ng-model="selectedSectionObj.subtitle_en" maxlength="2000">
+				</div>
+			</div>
+			<div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==1&&config.supportfrench==1">
+				<label for="subtitle_fr">{{translationObj.detailssection.fieldtitlefrenchsubtitle}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="subtitle_fr" class="form-control" id="subtitle_fr"
+						ng-model="selectedSectionObj.subtitle_fr" maxlength="2000">
+				</div>
+			</div>
+		</div>
+
 		<!-- Image info -->
 		<div class="row" ng-if="selectedSectionObj.imagefilename && selectedSectionObj.imageinfo">
 			<div class="col-xs-3">
 				<div class="team-member">
 					<div class="team-img">
-						<img ng-src="../websiteimages/sections/{{selectedSectionObj.displayimagefilename}}" class="team-pic" alt="">
+						<img ng-src="../websiteimages/sections/{{selectedSectionObj.displayimagefilename}}"
+							class="team-pic" alt="">
 					</div>
 				</div>
 			</div>
 
 			<div class="col-xs-2">
-				<label for="name">{{translationObj.detailssection.fieldtitleimagewidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="selectedSectionObj.imageinfo[0]" disabled>
-	      </div>
+				<label for="width">{{translationObj.detailssection.fieldtitleimagewidth}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="width" class="form-control" id="width"
+						ng-model="selectedSectionObj.imageinfo[0]" disabled>
+				</div>
 
-				<label for="name">{{translationObj.detailssection.fieldtitleimageheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="selectedSectionObj.imageinfo[1]" disabled>
-	      </div>
+				<label for="height">{{translationObj.detailssection.fieldtitleimageheight}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="height" class="form-control" id="height"
+						ng-model="selectedSectionObj.imageinfo[1]" disabled>
+				</div>
 
-				<label for="name">{{translationObj.detailssection.fieldtitleimagetype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="selectedSectionObj.imageinfo['mime']" disabled>
-	      </div>
+				<label for="type">{{translationObj.detailssection.fieldtitleimagetype}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+					<input type="text" name="type" class="form-control" id="type"
+						ng-model="selectedSectionObj.imageinfo['mime']" disabled>
+				</div>
 			</div>
 		</div>
 
@@ -265,23 +258,32 @@
 			<div class="col-xs-12">
 				<label ng-if="selectedSectionObj.imageind==0">{{translationObj.detailssection.msgImageNotSupported}}</label>
 				<div class="input-group">
-					<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty || selectedSectionObj.imageind==0">{{translationObj.detailssection.buttontitleloadmainimage}}</button>&nbsp;
-					<deletewebsiteimagebutton subdir="'sections'" context="'ws_sections'" obj="selectedSectionObj" callback="setCurrentInternal(selectedSectionObj)" is-disabled="!selectedSectionObj.imagefilename"></deletewebsiteimagebutton>
+					<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)"
+						accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB"
+						ng-disabled="!isFormPristine || detailsForm.$dirty || selectedSectionObj.imageind==0">{{translationObj.detailssection.buttontitleloadmainimage}}</button>&nbsp;
+					<deletewebsiteimagebutton subdir="'sections'" context="'ws_sections'" obj="selectedSectionObj"
+						callback="setCurrentInternal(selectedSectionObj)"
+						is-disabled="!selectedSectionObj.imagefilename"></deletewebsiteimagebutton>
 					<span class="help-block">{{translationObj.detailssection.helptextimagespecifications}}</span>
-  			</div>
-  		</div>
-  	</div>
+				</div>
+			</div>
+		</div>
 
-    <hr>
+		<hr>
 
 		<!-- Paragraphs -->
-		<label ng-if="selectedSectionObj.paragraphind==0">{{translationObj.detailssection.msgParagraphsNotSupported}}</label><br ng-if="selectedSectionObj.paragraphind==0">
+		<label
+			ng-if="selectedSectionObj.paragraphind==0">{{translationObj.detailssection.msgParagraphsNotSupported}}</label><br
+			ng-if="selectedSectionObj.paragraphind==0">
 		<div ng-if="selectedSectionObj.paragraphind!=0">
-			<paragraphviewer paragraphlist="selectedSectionObj.paragraphs" set-dirty="setDirty()" convert="convertParagraph(paragraph)"></paragraphviewer>
+			<paragraphviewer paragraphlist="selectedSectionObj.paragraphs" set-dirty="setDirty()"
+				convert="convertParagraph(paragraph)"></paragraphviewer>
 		</div>
 
 		<!-- Links -->
-		<h3 ng-if="selectedSectionObj.linkind!=0">{{translationObj.detailssection.buttontitlelink}}&nbsp;<editlink type="2" link="{}" parent=selectedSectionObj ng-if="selectedSectionObj.linkind!=0"></editlink></h3>
+		<h3 ng-if="selectedSectionObj.linkind!=0">{{translationObj.detailssection.buttontitlelink}}&nbsp;<editlink
+				type="2" link="{}" parent=selectedSectionObj ng-if="selectedSectionObj.linkind!=0"></editlink>
+		</h3>
 		<label ng-if="selectedSectionObj.linkind==0">{{translationObj.detailssection.msgLinksNotSupported}}</label>
 		<div class="row" ng-repeat="link in selectedSectionObj.links">
 
@@ -297,7 +299,8 @@
 
 			<div class="col-xs-2">
 				<label for="linkpositionlabel">{{translationObj.detailssection.fieldtitlelinkposition}}</label>
-				<input type="text" class="form-control" id="linkpositionlabel" ng-model="link.linkpositionlabel" disabled>
+				<input type="text" class="form-control" id="linkpositionlabel" ng-model="link.linkpositionlabel"
+					disabled>
 			</div>
 
 			<div class="col-xs-2">
@@ -310,13 +313,15 @@
 				<div class="input-group">
 					<span>
 						<editlink type="1" link="link" parent=selectedSectionObj></editlink>
-						<child-delete-button 		obj="link" objlist="selectedSectionObj.links" callback="setDirty()"></child-delete-button>
-						<child-undelete-button 	obj="link" objlist="selectedSectionObj.links" callback="setDirty()"></child-undelete-button>
+						<child-delete-button obj="link" objlist="selectedSectionObj.links"
+							callback="setDirty()"></child-delete-button>
+						<child-undelete-button obj="link" objlist="selectedSectionObj.links"
+							callback="setDirty()"></child-undelete-button>
 						<child-status-indicator obj="link"></child-status-indicator>
 					</span>
 				</div>
 			</div>
-  	</div>
+		</div>
 
 
 	</div>

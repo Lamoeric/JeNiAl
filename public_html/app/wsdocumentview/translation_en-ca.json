@@ -2,11 +2,14 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter documents..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Documents"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"No document found"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Published :"},
+	{"formname":"leftPane", "fieldname":"imagefr", "text":"Fr Document :"},
+	{"formname":"leftPane", "fieldname":"imageen", "text":"En Document :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Document Details"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory."},
 
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
 	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publish"},

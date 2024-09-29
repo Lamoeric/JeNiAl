@@ -39,9 +39,10 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			breaks:       false         // Convert '\n' in paragraphs into <br>
 //      langPrefix:   'language-',  // CSS language prefix for fenced blocks
 //      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-//      quotes: '“”‘’',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//      quotes: 'ï¿½ï¿½ï¿½ï¿½',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to 'ï¿½ï¿½' for Russian, 'ï¿½ï¿½' for German.
 //      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
+	$scope.config = null;
 
 	$scope.isDirty = function() {
 		if ($scope.detailsForm.$dirty) {
@@ -95,6 +96,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 				if (!angular.isUndefined(data.data)) {
 					$scope.websiteurl = data.websiteurl;
 					$scope.pagelist = data.data;
+					$scope.config = data.config;
 					$scope.setPristine();
 					$scope.selectedPageObj = null;
 					$scope.selectedSectionObj = null;
@@ -174,17 +176,11 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
 		}
 
-//    if ($scope.sectionForm.$invalid) {
-//      $scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-//    }
-
 		if ($scope.globalErrorMessage.length != 0) {
-//      $scope.$apply();
 			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
 			retVal = false;
 		}
 		if ($scope.globalWarningMessage.length != 0) {
-//      $scope.$apply();
 			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
 		}
 		return retVal;
@@ -357,7 +353,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			breaks:       false         // Convert '\n' in paragraphs into <br>
 //      langPrefix:   'language-',  // CSS language prefix for fenced blocks
 //      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-//      quotes: '“”‘’',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//      quotes: 'ï¿½ï¿½ï¿½ï¿½',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to 'ï¿½ï¿½' for Russian, 'ï¿½ï¿½' for German.
 //      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
 

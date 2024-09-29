@@ -2,8 +2,13 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
+require_once('../../backend/invalidrequest.php');
+require_once('../../backend/removefile.php');
+require_once('../../backend/getwssupportedlanguages.php');
+require_once('../../backend/getimagefileinfo.php');
+require_once('../../backend/getimagefileName.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -19,13 +24,13 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			delete_programassistant($mysqli, $_POST['programassistant']);
 			break;
 		case "getAllProgramassistants":
-			getAllProgramassistants($mysqli);
+			getAllProgramassistants($mysqli, $_POST['language']);
 			break;
 		case "getProgramassistantDetails":
 			getProgramassistantDetails($mysqli, $_POST['id']);
 			break;
 		default:
-			invalidRequest();
+			invalidRequest($type);
 	}
 } else {
 	invalidRequest();
@@ -35,26 +40,27 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle programassistant add functionality
  * @throws Exception
  */
-function insert_programassistant($mysqli, $programassistant) {
+function insert_programassistant($mysqli, $programassistant)
+{
 	try {
 		$data = array();
-		$firstname =			$mysqli->real_escape_string(isset($programassistant['firstname']) 				? $programassistant['firstname'] : '');
-		$lastname =				$mysqli->real_escape_string(isset($programassistant['lastname']) 					? $programassistant['lastname'] : '');
-		$imagefilename =	$mysqli->real_escape_string(isset($programassistant['imagefilename']) 		? $programassistant['imagefilename'] : '');
-		$publish =				$mysqli->real_escape_string(isset($programassistant['publish']) 					? (int)$programassistant['publish'] : 0);
+		$firstname =		$mysqli->real_escape_string(isset($programassistant['firstname']) 		? $programassistant['firstname'] : '');
+		$lastname =			$mysqli->real_escape_string(isset($programassistant['lastname']) 		? $programassistant['lastname'] : '');
+		$imagefilename =	$mysqli->real_escape_string(isset($programassistant['imagefilename'])	? $programassistant['imagefilename'] : '');
+		$publish =			$mysqli->real_escape_string(isset($programassistant['publish']) 		? (int)$programassistant['publish'] : 0);
 
-		$query = "INSERT INTO cpa_ws_programassistants (firstname, lastname, imagefilename, publish)
-							VALUES ('$firstname', '$lastname', '$imagefilename', $publish)";
+		$query = "	INSERT INTO cpa_ws_programassistants (firstname, lastname, imagefilename, publish)
+					VALUES ('$firstname', '$lastname', '$imagefilename', $publish)";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
-			if (empty($id))$data['id'] = (int) $mysqli->insert_id;
+			if (empty($id)) $data['id'] = (int) $mysqli->insert_id;
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		$mysqli->close();
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -67,20 +73,23 @@ function insert_programassistant($mysqli, $programassistant) {
  * This function will handle programassistant update functionality
  * @throws Exception
  */
-function update_programassistant($mysqli, $programassistant) {
+function update_programassistant($mysqli, $programassistant)
+{
 	$data = array();
-	$id =							$mysqli->real_escape_string(isset($programassistant['id']) 								? (int)$programassistant['id'] : 0);
-	$firstname =			$mysqli->real_escape_string(isset($programassistant['firstname']) 				? $programassistant['firstname'] : '');
-	$lastname =				$mysqli->real_escape_string(isset($programassistant['lastname']) 					? $programassistant['lastname'] : '');
-	$imagefilename =	$mysqli->real_escape_string(isset($programassistant['imagefilename']) 		? $programassistant['imagefilename'] : '');
-	$publish =				$mysqli->real_escape_string(isset($programassistant['publish']) 					? (int)$programassistant['publish'] : 0);
+	$id =				$mysqli->real_escape_string(isset($programassistant['id']) 				? (int)$programassistant['id'] : 0);
+	$firstname =		$mysqli->real_escape_string(isset($programassistant['firstname']) 		? $programassistant['firstname'] : '');
+	$lastname =			$mysqli->real_escape_string(isset($programassistant['lastname']) 		? $programassistant['lastname'] : '');
+	$imagefilename =	$mysqli->real_escape_string(isset($programassistant['imagefilename'])	? $programassistant['imagefilename'] : '');
+	$publish =			$mysqli->real_escape_string(isset($programassistant['publish']) 		? (int)$programassistant['publish'] : 0);
 
-	$query = "UPDATE cpa_ws_programassistants SET firstname = '$firstname', lastname = '$lastname', publish = $publish WHERE id = $id";
+	$query = "	UPDATE cpa_ws_programassistants 
+				SET firstname = '$firstname', lastname = '$lastname', publish = $publish 
+				WHERE id = $id";
 	if ($mysqli->query($query)) {
 		$data['success'] = true;
 		$data['message'] = 'Programassistant updated successfully.';
 	} else {
-		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 	return $data;
 	exit;
@@ -90,30 +99,27 @@ function update_programassistant($mysqli, $programassistant) {
  * This function will handle user deletion
  * @throws Exception
  */
-function delete_programassistant($mysqli, $programassistant) {
+function delete_programassistant($mysqli, $programassistant)
+{
 	try {
-		$id = 						$mysqli->real_escape_string(isset($programassistant['id']) 							? (int)$programassistant['id'] : 0);
+		$id = 				$mysqli->real_escape_string(isset($programassistant['id']) 				? (int)$programassistant['id'] : 0);
 		$imagefilename =	$mysqli->real_escape_string(isset($programassistant['imagefilename']) 	? $programassistant['imagefilename'] : '');
 
 		if (empty($id)) throw new Exception("Invalid programassistant id.");
-		// Delete the filename related to the programassistant
-		$filename = '../../../private/'. $_SERVER['HTTP_HOST'].'/website/images/programassistants/'.$imagefilename;
-		if (isset($imagefilename) && !empty($imagefilename) && file_exists($filename)) {
-			unlink($filename);
-			$data['unlink'] = true;
-		}
 		$query = "DELETE FROM cpa_ws_programassistants WHERE id = $id";
 		if ($mysqli->query($query)) {
 			$mysqli->close();
+			// Delete the filename related to the object
+			$filename = removeFile('/website/images/programassistants/', $imagefilename, false);
 			$data['filename'] = $filename;
 			$data['success'] = true;
 			$data['message'] = 'Programassistant deleted successfully.';
 			echo json_encode($data);
 			exit;
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -125,9 +131,13 @@ function delete_programassistant($mysqli, $programassistant) {
 /**
  * This function gets list of all programassistants from database
  */
-function getAllProgramassistants($mysqli) {
+function getAllProgramassistants($mysqli, $language)
+{
 	try {
-		$query = "SELECT id, firstname, lastname, publish FROM cpa_ws_programassistants ORDER BY lastname, firstname";
+		$query = "	SELECT id, firstname, lastname, publish, getCodeDescription('YESNO',publish, '$language') ispublish, 
+							getCodeDescription('YESNO', if (imagefilename is not null and imagefilename!='', 1, 0), '$language') isimage  
+					FROM cpa_ws_programassistants 
+					ORDER BY lastname, firstname";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
@@ -135,8 +145,9 @@ function getAllProgramassistants($mysqli) {
 		}
 		$mysqli->close();
 		$data['success'] = true;
-		echo json_encode($data);exit;
-	} catch(Exception $e) {
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -148,26 +159,23 @@ function getAllProgramassistants($mysqli) {
 /**
  * This function gets the details of one programassistant from database
  */
-function getProgramassistantDetails($mysqli, $id = '') {
+function getProgramassistantDetails($mysqli, $id = '')
+{
 	try {
-		$query = "SELECT cwp.*
-							FROM cpa_ws_programassistants cwp
-							WHERE cwp.id = $id";
+		$query = "SELECT cwp.* FROM cpa_ws_programassistants cwp WHERE cwp.id = $id";
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['imageinfo'] = null;
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
-			$filename = '../../../private/'. $_SERVER['HTTP_HOST'].'/website/images/programassistants/'.$row['imagefilename'];
-			if (isset($row['imagefilename']) && !empty($row['imagefilename']) && file_exists($filename)) {
-				$data['imageinfo'] = getimagesize('../../../private/'. $_SERVER['HTTP_HOST'].'/website/images/programassistants/'.$row['imagefilename']);
-			}
+			$filename = getImageFileName('/website/images/programassistants/', $row['imagefilename']);
+			$data['imageinfo'] = getImageFileInfo($filename);
 		}
 		$mysqli->close();
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -176,7 +184,8 @@ function getProgramassistantDetails($mysqli, $id = '') {
 	}
 };
 
-function updateEntireProgramassistant($mysqli, $programassistant) {
+function updateEntireProgramassistant($mysqli, $programassistant)
+{
 	try {
 		$data = array();
 
@@ -187,7 +196,7 @@ function updateEntireProgramassistant($mysqli, $programassistant) {
 		$data['message'] = 'Programassistant updated successfully.';
 		echo json_encode($data);
 		exit;
-	} catch(Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -195,13 +204,3 @@ function updateEntireProgramassistant($mysqli, $programassistant) {
 		exit;
 	}
 };
-
-function invalidRequest() {
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
-};
-
-?>

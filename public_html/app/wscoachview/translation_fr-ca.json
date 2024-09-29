@@ -7,7 +7,7 @@
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires et l'index doit être > 0."},
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Détails"},
 	{"formname":"main", "fieldname":"panetitlestartest", "text":"Tests STAR"},
 
@@ -24,18 +24,7 @@
 	{"formname":"details", "fieldname":"fieldtitleenglishcompetitivetext", "text":"Texte compétition anglais"},
 	{"formname":"details", "fieldname":"fieldtitlefrenchcompetitivetext", "text":"Texte compétition français"},
 	{"formname":"details", "fieldname":"fieldtitlecoachindex", "text":"Index"},
-	{"formname":"details", "fieldname":"fieldtitleimagewidth", "text":"Largeur"},
-	{"formname":"details", "fieldname":"fieldtitleimageheight", "text":"Hauteur"},
-	{"formname":"details", "fieldname":"fieldtitleimagetype", "text":"Type"},
-	{"formname":"details", "fieldname":"buttontitleloadmainimage", "text":"Import de l'image"},
-	{"formname":"details", "fieldname":"msgerrinvalidfile", "text":"Image non valide"},
-	{"formname":"details", "fieldname":"msgerrinvalidfilesize", "text":"Image non valide - taille du fichier plus grand que "},
-	{"formname":"details", "fieldname":"msgerrinvalidmaxwidth", "text":"Image non valide - largeur de l'image plus grande que "},
-	{"formname":"details", "fieldname":"msgerrinvalidmaxheight", "text":"Image non valide - hauteur de l'image plus grande que "},
-	{"formname":"details", "fieldname":"helptextimagespecifications", "text":"L'image doit être de type jpg, être de moins de 300Kb et de dimensions moins de 500px X 500px"},
-	{"formname":"details", "fieldname":"msguploadcompleted", "text":"L'image a été importée."},
 	{"formname":"details", "fieldname":"msgnolevels", "text":"Aucun"},
-
 
 	{"formname":"startests", "fieldname":"formtitlestartests", "text":"Tests de l'entraîneur"},
 	{"formname":"startests", "fieldname":"fieldtitledancelevel", "text":"Niveau danse"},

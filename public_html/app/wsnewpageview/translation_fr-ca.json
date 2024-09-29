@@ -6,7 +6,7 @@
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails page"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires."},
 	{"formname":"main", "fieldname":"listtitlepage", "text":"Liste des pages"},
 	{"formname":"main", "fieldname":"listtitlesection", "text":"Liste des sections de la page"},
 	{"formname":"main", "fieldname":"titledraganddrop", "text":"Glisser-déposer pour réordonner"},

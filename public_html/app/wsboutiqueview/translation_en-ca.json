@@ -2,6 +2,8 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter goods..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Goods"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"No good found"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Published :"},
+	{"formname":"leftPane", "fieldname":"image", "text":"Image :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},

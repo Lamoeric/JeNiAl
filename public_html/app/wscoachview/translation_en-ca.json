@@ -7,7 +7,7 @@
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory and index must be > 0."},
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Details"},
 	{"formname":"main", "fieldname":"panetitlestartest", "text":"STAR Tests"},
 
@@ -24,16 +24,6 @@
 	{"formname":"details", "fieldname":"fieldtitleenglishcompetitivetext", "text":"English Competitive Text"},
 	{"formname":"details", "fieldname":"fieldtitlefrenchcompetitivetext", "text":"French Competitive Text"},
 	{"formname":"details", "fieldname":"fieldtitlecoachindex", "text":"Index"},
-	{"formname":"details", "fieldname":"fieldtitleimagewidth", "text":"Width"},
-	{"formname":"details", "fieldname":"fieldtitleimageheight", "text":"Height"},
-	{"formname":"details", "fieldname":"fieldtitleimagetype", "text":"Type"},
-	{"formname":"details", "fieldname":"buttontitleloadmainimage", "text":"Import Image"},
-	{"formname":"details", "fieldname":"msgerrinvalidfile", "text":"Invalid image"},
-	{"formname":"details", "fieldname":"msgerrinvalidfilesize", "text":"Invalid image - file size larger than "},
-	{"formname":"details", "fieldname":"msgerrinvalidmaxwidth", "text":"Invalid image - image width larger than "},
-	{"formname":"details", "fieldname":"msgerrinvalidmaxheight", "text":"Invalid image - image height larger than "},
-	{"formname":"details", "fieldname":"helptextimagespecifications", "text":"Image must be of type jpg, be smaller than 300Kb and of size smaller than 500px X 500px."},
-	{"formname":"details", "fieldname":"msguploadcompleted", "text":"Image Imported."},
 	{"formname":"details", "fieldname":"msgnolevels", "text":"None"},
 
 	{"formname":"startests", "fieldname":"formtitlestartests", "text":"Coach's Tests"},

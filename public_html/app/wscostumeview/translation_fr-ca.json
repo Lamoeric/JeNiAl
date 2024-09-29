@@ -2,11 +2,13 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer costumes..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Costumes"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun costume trouvé"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Publié :"},
+	{"formname":"leftPane", "fieldname":"image", "text":"Image :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails costume"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires et les quantités doivent être 0 ou plus."},
 
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
 	{"formname":"details", "fieldname":"fieldtitletotalamount", "text":"Nbr total unité"},

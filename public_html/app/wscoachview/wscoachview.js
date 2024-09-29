@@ -31,6 +31,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	$scope.newWscoach = null;
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
+	$scope.config = null;
 
 	/**
 	 * This function checks if anything is dirty
@@ -74,6 +75,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
+					$scope.config = data.config;
 				} else {
 					$scope.leftobjs = [];
 				}
@@ -289,69 +291,6 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 			});
 		}
 	};
-
-	/**
-	 * This function displays the upload error messages
-	 * @param {*} errFile the file in error
-	 */
-	$scope.displayUploadError = function(errFile) {
-		// dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfile);
-		if (errFile.$error == 'maxSize') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfilesize + errFile.$errorParam);
-		} else if (errFile.$error == 'maxWidth') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxwidth + errFile.$errorParam);
-		} else if (errFile.$error == 'maxHeight') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxheight + errFile.$errorParam);
-		}
-	}
-
-	/**
-	 * This function that uploads the image for the current coach
-	 * @param {*} file 
-	 * @param {*} errFiles 
-	 * @returns 
-	 */
-	$scope.uploadMainImage = function(file, errFiles) {
-		$scope.f = file;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-		}
-		if (file) {
-			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-				dialogService.alertDlg('only jpg files are allowed.');
-				return;
-			}
-			file.upload = Upload.upload({
-					url: '../../include/uploadmainimage.php',
-					method: 'POST',
-					file: file,
-					data: {
-						'subDirectory': '/website/images/coaches/',
-						'filePrefix': $scope.currentWscoach.firstname + '_' + $scope.currentWscoach.lastname,
-						'tableName': 'cpa_ws_coaches',
-						'id': $scope.currentWscoach.id,
-						'oldFileName': $scope.currentWscoach.imagefilename
-					}
-			});
-			file.upload.then(function (data) {
-				$timeout(function () {
-					if (data.data.success) {
-						dialogService.alertDlg($scope.translationObj.details.msguploadcompleted);
-						// Select this coach to reset everything
-						$scope.setCurrentInternal($scope.selectedWscoach, null);
-					} else {
-						dialogService.displayFailure(data.data);
-					}
-				});
-			}, function (data) {
-				if (!data.success) {
-					dialogService.displayFailure(data.data);
-				}
-			}, function (evt) {
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-	}
 
 	/**
 	 * This function is called by the ui when user switch the STAR version

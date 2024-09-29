@@ -2,11 +2,13 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter costumes..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Costumes"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"No costume found"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Published :"},
+	{"formname":"leftPane", "fieldname":"image", "text":"Image :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Costume Details"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory and all quantities must be positive numbers."},
 
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
 	{"formname":"details", "fieldname":"fieldtitletotalamount", "text":"Total nb of unit"},

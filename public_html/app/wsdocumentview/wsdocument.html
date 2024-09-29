@@ -1,21 +1,23 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="documentname">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="documentname" class="form-control" id="documentname" ng-model="currentWsdocument.documentname" maxlength="40" required>
-	      </div>
-	    </div>
+			<div class="col-xs-4">
+				<label for="documentname">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="documentname" class="form-control" id="documentname"
+						ng-model="currentWsdocument.documentname" maxlength="40" required>
+				</div>
+			</div>
 			<div class="col-xs-2">
-	      <label for="publishon">{{translationObj.details.fieldtitlepublishon}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="date" name="publishon" class="form-control" id="publishon" ng-model="currentWsdocument.publishon" required>
-	      </div>
-	    </div>
+				<label for="publishon">{{translationObj.details.fieldtitlepublishon}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="date" name="publishon" class="form-control" id="publishon"
+						ng-model="currentWsdocument.publishon" required>
+				</div>
+			</div>
 			<div class="col-xs-2">
 				<label for="active">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
 				<div class="input-group">
@@ -27,77 +29,69 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
-	      <label for="description_en">{{translationObj.details.fieldtitledescription_en}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="description_en" class="form-control" id="description_en" ng-model="currentWsdocument.description_en" maxlength="2000" required>
-	      </div>
-    	</div>
-      <div class="col-xs-4">
-	      <label for="description_fr">{{translationObj.details.fieldtitledescription_fr}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="description_fr" class="form-control" id="description_fr" ng-model="currentWsdocument.description_fr" maxlength="2000" required>
-	      </div>
-	     </div>
-    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="description_en">{{translationObj.details.fieldtitledescription_en}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="description_en" class="form-control" id="description_en"
+						ng-model="currentWsdocument.description_en" maxlength="2000" ng-required="config.supportenglish==1">
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="description_fr">{{translationObj.details.fieldtitledescription_fr}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="description_fr" class="form-control" id="description_fr"
+						ng-model="currentWsdocument.description_fr" maxlength="2000" ng-required="config.supportfrench==1">
+				</div>
+			</div>
+		</div>
 		<hr>
-		<div class="row" ng-if="currentWsdocument.filename_en && currentWsdocument.fileinfo_en">
-
+		<div class="row" ng-if="currentWsdocument.filename_en && currentWsdocument.fileinfo_en && config.supportenglish==1">
 			<div class="col-xs-3">
 				<label for="filename_en">{{translationObj.details.fieldtitlefileenname}}</label>
-				<input type="text" name="filename_en" class="form-control" id="filename_en" ng-model="currentWsdocument.filename_en" disabled>
+				<input type="text" name="filename_en" class="form-control" id="filename_en"
+					ng-model="currentWsdocument.filename_en" disabled>
 			</div>
-
 			<div class="col-xs-3">
 				<label for="fileinfo_en">{{translationObj.details.fieldtitlefileensize}}</label>
-				<input type="text" name="fileinfo_en" class="form-control" id="fileinfo_en" ng-model="currentWsdocument.fileinfo_en" disabled>
-			</div>
-
-		</div>
-
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
+				<input type="text" name="fileinfo_en" class="form-control" id="fileinfo_en"
+					ng-model="currentWsdocument.fileinfo_en" disabled>
 			</div>
 		</div>
-
-		<div class="row">
+		<div class="col-xs-12 clearfix">&nbsp;</div>
+		<div class="row" ng-if="config.supportenglish==1">
 			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainFileEn($file, $invalidFiles)" ngf-max-size="8MB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainfileen}}</button>
+				<button class="btn btn-primary" type="file" ngf-select="uploadMainFileEn($file, $invalidFiles)"
+					ngf-max-size="8MB"
+					ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainfileen}}</button>
 				<span class="help-block">{{translationObj.details.helptextfilespecifications}}</span>
-  		</div>
-  	</div>
+			</div>
+		</div>
 
-		<div class="row" ng-if="currentWsdocument.filename_fr && currentWsdocument.fileinfo_fr">
-
+		<div class="row" ng-if="currentWsdocument.filename_fr && currentWsdocument.fileinfo_fr && config.supportfrench==1">
 			<div class="col-xs-3">
 				<label for="filename_fr">{{translationObj.details.fieldtitlefilefrname}}</label>
-				<input type="text" name="filename_fr" class="form-control" id="filename_fr" ng-model="currentWsdocument.filename_fr" disabled>
+				<input type="text" name="filename_fr" class="form-control" id="filename_fr"
+					ng-model="currentWsdocument.filename_fr" disabled>
 			</div>
-
 			<div class="col-xs-3">
 				<label for="fileinfo_fr">{{translationObj.details.fieldtitlefilefrsize}}</label>
-				<input type="text" name="fileinfo_fr" class="form-control" id="fileinfo_fr" ng-model="currentWsdocument.fileinfo_fr" disabled>
-			</div>
-
-		</div>
-
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
+				<input type="text" name="fileinfo_fr" class="form-control" id="fileinfo_fr"
+					ng-model="currentWsdocument.fileinfo_fr" disabled>
 			</div>
 		</div>
-
-		<div class="row">
+		<div class="col-xs-12 clearfix">&nbsp;</div>
+		<div class="row" ng-if="config.supportfrench==1">
 			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainFileFr($file, $invalidFiles)" ngf-max-size="8MB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainfilefr}}</button>
+				<button class="btn btn-primary" type="file" ngf-select="uploadMainFileFr($file, $invalidFiles)"
+					ngf-max-size="8MB"
+					ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainfilefr}}</button>
 				<!-- <button class="btn btn-primary" type="file" ngf-select="uploadMainImageFr($file, $invalidFiles)" accept="image/jpeg;image/png" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainfilefr}}</button> -->
 				<span class="help-block">{{translationObj.details.helptextfilespecifications}}</span>
-  		</div>
-  	</div>
-  </div>
+			</div>
+		</div>
+	</div>
 </div>

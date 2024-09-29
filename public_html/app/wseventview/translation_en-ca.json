@@ -2,6 +2,9 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter events..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Events"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"No event found"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Published :"},
+	{"formname":"leftPane", "fieldname":"imagecount", "text":"Image count :"},
+	{"formname":"leftPane", "fieldname":"listlabel", "text":"Event list :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},

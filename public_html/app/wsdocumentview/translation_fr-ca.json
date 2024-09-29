@@ -2,11 +2,14 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer documents..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Documents"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucun doument trouvé"},
+	{"formname":"leftPane", "fieldname":"publish", "text":"Publié :"},
+	{"formname":"leftPane", "fieldname":"imagefr", "text":"Document fr :"},
+	{"formname":"leftPane", "fieldname":"imageen", "text":"Document an :"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails document"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires."},
 
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
 	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publier"},
@@ -32,7 +35,7 @@
 	{"formname":"details", "fieldname":"helptextfilespecifications", "text":"Le fichier doit être de moins de 8MB."},
 	{"formname":"details", "fieldname":"msguploadcompleted", "text":"Le fichier a été importé."},
 
-	{"formname":"newdocument", "fieldname":"formtitleeditpreogramassistant", "text":"Nouveau document"},
+	{"formname":"newdocument", "fieldname":"formtitleeditdocument", "text":"Nouveau document"},
 	{"formname":"newdocument", "fieldname":"fieldtitlename", "text":"Nom"},
 	{"formname":"newdocument", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
 	{"formname":"newdocument", "fieldname":"buttontitlediscard", "text":"Annuler"},

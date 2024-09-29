@@ -4,7 +4,10 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../include/invalidrequest.php');
+require_once('../../backend/invalidrequest.php');
+require_once('../../backend/getwssupportedlanguages.php');
+require_once('../../backend/getimagefileinfo.php');
+require_once('../../backend/getimagefilename.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -169,17 +172,13 @@ function delete_coach($mysqli, $coach)
 		$competitivetext =	$mysqli->real_escape_string(isset($coach['competitivetext']) 	? (int)$coach['competitivetext'] : 0);
 
 		if (empty($id)) throw new Exception("Invalid coach id.");
-		// Delete the filename related to the coach
-		$filename = '../../../private/' . $_SERVER['HTTP_HOST'] . '/website/images/coaches/' . $imagefilename;
-		if (isset($imagefilename) && !empty($imagefilename) && file_exists($filename)) {
-			unlink($filename);
-			$data['unlink'] = true;
-		}
 		$query = "DELETE FROM cpa_ws_text WHERE id IN ($availabilitytext, $competitivetext)";
 		if ($mysqli->query($query)) {
 			$query = "DELETE FROM cpa_ws_coaches WHERE id = $id";
 			if ($mysqli->query($query)) {
 				$mysqli->close();
+				// Delete the filename related to the object
+				$filename = removeFile('/website/images/coaches/', $imagefilename, false);
 				$data['filename'] = $filename;
 				$data['success'] = true;
 				$data['message'] = 'Coach deleted successfully.';
@@ -216,6 +215,7 @@ function getAllCoachs($mysqli, $language)
 			$row['publish'] = (int)$row['publish'];
 			$data['data'][] = $row;
 		}
+		$data['config'] = getWSSupportedLanguages($mysqli)['data'];
 		$mysqli->close();
 		$data['success'] = true;
 		echo json_encode($data);
@@ -242,11 +242,10 @@ function getCoachDetails($mysqli, $id = '')
 		$data = array();
 		$data['imageinfo'] = null;
 		while ($row = $result->fetch_assoc()) {
+			$row['coachindex'] = (int)$row['coachindex'];
 			$data['data'][] = $row;
-			$filename = '../../../private/' . $_SERVER['HTTP_HOST'] . '/website/images/coaches/' . $row['imagefilename'];
-			if (isset($row['imagefilename']) && !empty($row['imagefilename']) && file_exists($filename)) {
-				$data['imageinfo'] = getimagesize('../../../private/' . $_SERVER['HTTP_HOST'] . '/website/images/coaches/' . $row['imagefilename']);
-			}
+			$filename = getImageFileName('/website/images/coaches/', $row['imagefilename']);
+			$data['imageinfo'] = getImageFileInfo($filename);
 		}
 		$mysqli->close();
 		$data['success'] = true;

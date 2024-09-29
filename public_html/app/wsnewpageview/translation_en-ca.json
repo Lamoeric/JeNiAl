@@ -6,7 +6,7 @@
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Page Details"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory."},
 	{"formname":"main", "fieldname":"titledraganddrop", "text":"Drag and drop to reorder"},
 	{"formname":"main", "fieldname":"buttontitleshowpreview", "text":"Preview"},
 
