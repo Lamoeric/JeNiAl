@@ -1,0 +1,9 @@
+[
+	{"formname":"main", "fieldname":"fieldtitleimagewidth", "text":"Width"},
+	{"formname":"main", "fieldname":"fieldtitleimageheight", "text":"Height"},
+	{"formname":"main", "fieldname":"fieldtitleimagetype", "text":"Type"},
+	{"formname":"main", "fieldname":"helptextimagespecifications", "text":"Image must be of type jpg, be smaller than 300Kb and of size smaller than 500px X 500px."},
+
+	{"formname":"end", "fieldname":"nothing", "text":"fin de fichier"}
+
+]
