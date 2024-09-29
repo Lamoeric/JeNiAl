@@ -1,0 +1,12 @@
+[
+	{"formname":"main", "fieldname":"buttontitleloadmainimage", "text":"Import Image"},
+	{"formname":"main", "fieldname":"buttontitleloadmainimagefr", "text":"Import French Image"},
+	{"formname":"main", "fieldname":"buttontitleloadmainimageen", "text":"Import English Image"},
+	{"formname":"main", "fieldname":"msgerrinvalidfile", "text":"Invalid image"},
+	{"formname":"main", "fieldname":"msgerrinvalidfilesize", "text":"Invalid image - file size larger than "},
+	{"formname":"main", "fieldname":"msgerrinvalidmaxwidth", "text":"Invalid image - image width larger than "},
+	{"formname":"main", "fieldname":"msgerrinvalidmaxheight", "text":"Invalid image - image height larger than "},
+	{"formname":"main", "fieldname":"helptextimagespecifications", "text":"Image must be of type jpg, be smaller than 300Kb and of size smaller than 500px X 500px."},
+	{"formname":"main", "fieldname":"msguploadcompleted", "text":"Image Imported."},
+	{"formname":"main", "fieldname":"test", "text":""}
+]
