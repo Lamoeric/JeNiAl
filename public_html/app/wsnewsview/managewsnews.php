@@ -249,9 +249,10 @@ function getNewsLinks($mysqli, $newsid, $language)
 function getNewsDetails($mysqli, $id, $language)
 {
 	try {
-		$query = "	SELECT 	cwp.*, getWSTextLabel(cwp.title, 'fr-ca') title_fr, getWSTextLabel(cwp.title, 'en-ca') title_en,
-							getWSTextLabel(cwp.shortversion, 'fr-ca') shortversion_fr, getWSTextLabel(cwp.shortversion, 'en-ca') shortversion_en,
-							getWSTextLabel(cwp.longversion, 'fr-ca') longversion_fr, getWSTextLabel(cwp.longversion, 'en-ca') longversion_en
+		$query = "	SELECT 	cwp.*, getWSTextLabel(title, '$language') title, getWSTextLabel(cwp.title, 'fr-ca') title_fr, 
+							getWSTextLabel(cwp.title, 'en-ca') title_en, getWSTextLabel(cwp.shortversion, 'fr-ca') shortversion_fr, 
+							getWSTextLabel(cwp.shortversion, 'en-ca') shortversion_en, getWSTextLabel(cwp.longversion, 'fr-ca') longversion_fr, 
+							getWSTextLabel(cwp.longversion, 'en-ca') longversion_en
 					FROM cpa_ws_news cwp
 					WHERE cwp.id = $id";
 		$result = $mysqli->query($query);

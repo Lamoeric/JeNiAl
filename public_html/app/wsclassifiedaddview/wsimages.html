@@ -1,0 +1,38 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.details.formtitlepicture}}&nbsp;
+			<uploadwebsitepicturesbutton 
+				subdirectory="'/website/images/classifiedadds/addid'+currentWsclassifiedadd.id+'/'"
+				fileprefix="currentWsclassifiedadd.id"
+				tablename="'cpa_ws_classifiedadds_pictures'" 
+				idcolumnname="'addid'" 
+				id="currentWsclassifiedadd.id"
+				callback="setCurrentInternal(currentWsclassifiedadd)"
+				is-disabled="!isFormPristine || detailsForm.$dirty">
+			</uploadwebsiteimagebutton>&nbsp;
+		</h3>
+		<div ng-repeat="picture in currentWsclassifiedadd.pictures">
+			<div class="col-xs-2">
+				<div class="img-wrapper">
+					<p>{{picture.pictureindex}}&nbsp;-&nbsp;{{picture.imageinfo[0]}}X{{picture.imageinfo[0]}}</p>
+					<a data-fancybox="{{currentWsclassifiedadd.name}}"
+						ng-href="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/{{picture.imagefilename}}">
+						<img ng-src="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/thumbnails/{{picture.imagefilename}}"
+							class="img-responsive" alt="{{oneevent.label}}" style="height:200px;width:200px;">
+					</a>
+					<span style="float:left">
+						<child-delete-button obj="picture" objlist="currentWsclassifiedadd.pictures" callback="setDirty()"></child-delete-button>
+						<child-undelete-button obj="picture" objlist="currentWsclassifiedadd.pictures" callback="setDirty()"></child-undelete-button>
+						<child-status-indicator obj="picture"></child-status-indicator>
+						<moveelement 
+							elementlist="currentWsclassifiedadd.pictures" 
+							originalindex="$index" 
+							indexprop="'pictureindex'" 
+							callback="setDirty()">
+						</moveelement>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

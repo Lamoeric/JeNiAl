@@ -24,7 +24,6 @@ angular.module('cpa_admin.wseventview', ['ngRoute'])
 }])
 
 .controller('wseventviewCtrl', ['$q', '$rootScope', '$scope', '$http', '$uibModal', '$timeout', 'parseISOdateService', 'dateFilter', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($q, $rootScope, $scope, $http, $uibModal, $timeout, parseISOdateService, dateFilter, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
 	$scope.progName = "wseventview";
 	$scope.currentWsevent = null;
 	$scope.selectedWsevent = null;
@@ -76,6 +75,7 @@ angular.module('cpa_admin.wseventview', ['ngRoute'])
 					$scope.config = data.config;
 				} else {
 					$scope.leftobjs = [];
+					$scope.config = data.config;
 				}
 				$rootScope.repositionLeftColumn();
 			} else {
@@ -288,69 +288,6 @@ angular.module('cpa_admin.wseventview', ['ngRoute'])
 			});
 		}
 	};
-
-	// This is the function that displays the upload error messages
-	$scope.displayUploadError = function (errFile) {
-		// dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfile);
-		if (errFile.$error == 'maxSize') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfilesize + errFile.$errorParam);
-		} else if (errFile.$error == 'maxWidth') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxwidth + errFile.$errorParam);
-		} else if (errFile.$error == 'maxHeight') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxheight + errFile.$errorParam);
-		}
-	}
-
-	// TODO : we need to insert the header of the file in the database BEFORE importing the file
-	// This is the function that uploads images for the current event
-	$scope.uploadPictureImage = function (files, errFiles) {
-		$scope.f = files;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-			return;
-		}
-		$scope.nboffilesimported = 0;
-		$scope.nboffiles = files.length;
-		var chain = $q.when();
-		angular.forEach(files, function (file) {
-			if (file) {
-				if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-					dialogService.alertDlg('only jpg files are allowed.');
-					return;
-				}
-				chain = chain.then(function () {
-					return $scope.promise = Upload.upload({
-						url: './wseventview/uploadpictures.php',
-						method: 'POST',
-						file: file,
-						data: {
-							'mainobj': $scope.currentWsevent
-						}
-					}).then(function (data) {
-						$timeout(function () {
-							if (data.data.success) {
-								$scope.nboffilesimported++;
-								// Is this the last file to import?
-								if ($scope.nboffilesimported == $scope.nboffiles) {
-									// dialogService.alertDlg($scope.translationObj.details.msguploadcompleted);
-									// Select this event to reset everything
-									$scope.setCurrentInternal($scope.selectedWsevent, null);
-								}
-							} else {
-								dialogService.displayFailure(data.data);
-							}
-						});
-					}, function (data) {
-						if (!data.success) {
-							dialogService.displayFailure(data.data);
-						}
-					}, function (evt) {
-						file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-					});
-				});
-			}
-		});
-	}
 
 	/**
 	 * This function refreshes everything, called at the start of the program or on a language change

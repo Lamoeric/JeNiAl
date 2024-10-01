@@ -24,7 +24,6 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 }])
 
 .controller('wscostumeviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($rootScope, $scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
 	$scope.progName = "wscostumeview";
 	$scope.currentWscostume = null;
 	$scope.selectedWscostume = null;
@@ -71,8 +70,7 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 					dialogService.displayFailure(data);
 				}
 			}
-		}).
-		error(function (data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -93,8 +91,7 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 			} else {
 				dialogService.displayFailure(data);
 			}
-		}).
-		error(function (data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -141,8 +138,7 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function (data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
@@ -158,10 +154,6 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 		if ($scope.detailsForm.$invalid) {
 			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
 		}
-		// if ($scope.currentMember.healthcareno == "") {
-		// 	$scope.globalWarningMessage.push($scope.translationObj.main.msgerrallmandatory);
-		// }
-
 		if ($scope.globalErrorMessage.length != 0) {
 			$scope.$apply();
 			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
@@ -194,8 +186,7 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function (data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
@@ -220,8 +211,7 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 				dialogService.displayFailure(data);
 				return false;
 			}
-		}).
-		error(function (data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 			return false;
 		});
@@ -257,57 +247,6 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 			});
 		}
 	};
-
-	// This is the function that displays the upload error messages
-	$scope.displayUploadError = function (errFile) {
-		// dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfile);
-		if (errFile.$error == 'maxSize') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfilesize + errFile.$errorParam);
-		} else if (errFile.$error == 'maxWidth') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxwidth + errFile.$errorParam);
-		} else if (errFile.$error == 'maxHeight') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxheight + errFile.$errorParam);
-		}
-	}
-
-	// This is the function that uploads the image for the current costume
-	$scope.uploadPictureImage = function (file, errFiles) {
-		$scope.f = file;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-		}
-		if (file) {
-			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-				dialogService.alertDlg('only jpg files are allowed.');
-				return;
-			}
-			file.upload = Upload.upload({
-				url: './wscostumeview/uploadpictures.php',
-				method: 'POST',
-				file: file,
-				data: {
-					'mainobj': $scope.currentWscostume
-				}
-			});
-			file.upload.then(function (data) {
-				$timeout(function () {
-					if (data.data.success) {
-						dialogService.alertDlg($scope.translationObj.details.msguploadcompleted);
-						// Select this event to reset everything
-						$scope.setCurrentInternal($scope.selectedWscostume, null);
-					} else {
-						dialogService.displayFailure(data.data);
-					}
-				});
-			}, function (data) {
-				if (!data.success) {
-					dialogService.displayFailure(data.data);
-				}
-			}, function (evt) {
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-	}
 
 	$scope.refreshAll = function () {
 		$scope.getAllWscostume();

@@ -1,17 +1,18 @@
 <div class="form-group row">
 	<div class="grid">
 		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
+
 		<div class="row">
 			<div class="col-xs-3">
-				<label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<labelrequired for="name" label="translationObj.details.fieldtitlename"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="name" class="form-control" id="name" ng-model="currentWsevent.name"
-						maxlength="40" required>
+						maxlength="40" required autocomplete="off">
 				</div>
 			</div>
 			<div class="col-xs-2 col-xs-offset-1">
-				<label for="eventlist">{{translationObj.details.fieldtitleeventlist}}<i style="color:red"> *</i></label>
+				<labelrequired for="eventlist" label=translationObj.details.fieldtitleeventlist></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="eventlist" ng-model="currentWsevent.eventlist" required>
@@ -21,9 +22,10 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-xs-4" ng-if="config.supportenglish==1">
-				<label for="label_en">{{translationObj.details.fieldtitlelabelen}}<i style="color:red"> *</i></label>
+				<labelrequired for="label_en" label="translationObj.details.fieldtitlelabelen"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="label_en" class="form-control" id="label_en"
@@ -31,17 +33,18 @@
 				</div>
 			</div>
 			<div class="col-xs-4" ng-if="config.supportfrench==1">
-				<label for="label_fr">{{translationObj.details.fieldtitlelabelfr}}<i style="color:red"> *</i></label>
+				<labelrequired for="label_fr" label="translationObj.details.fieldtitlelabelfr"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="label_fr" class="form-control" id="label_fr"
-						ng-model="currentWsevent.label_fr" maxlength="200"  ng-irequired="config.supportfrench==1">
+						ng-model="currentWsevent.label_fr" maxlength="200"  ng-required="config.supportfrench==1">
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-xs-2">
-				<label for="eventdate">{{translationObj.details.fieldtitleeventdate}}<i style="color:red"> *</i></label>
+				<labelrequired for="eventdate" label="translationObj.details.fieldtitleeventdate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="date" name="eventdate" class="form-control" id="eventdate"
@@ -49,7 +52,7 @@
 				</div>
 			</div>
 			<div class="col-xs-2 col-xs-offset-2">
-				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<labelrequired for="publish" label="translationObj.details.fieldtitlepublish"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="publish" ng-model="currentWsevent.publish" required>
@@ -76,74 +79,5 @@
 				</uploadwebsiteimagebutton>&nbsp;
 			</div>
 		</div>
-
-		<hr>
-		<h3>{{translationObj.details.formtitlepicture}}&nbsp;
-			<button class="btn btn-primary" type="file" ngf-select="uploadPictureImage($files, $invalidFiles)" multiple
-				accept="image/jpeg" ngf-max-size="8MB"
-				ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>
-		</h3>
-		<div ng-repeat="picture in currentWsevent.pictures">
-			<div class="row">
-
-				<div class="col-xs-1">
-					<label for="pictureindex{{$index}}">{{translationObj.details.fieldtitlepictureindex}}</label>
-					<input type="number" name="pictureindex" class="form-control" id="pictureindex{{$index}}"
-						ng-model="picture.pictureindex" disabled>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="width{{$index}}">{{translationObj.details.fieldtitleimagewidth}}</label>
-					<input type="text" name="width" class="form-control" id="width{{$index}}" ng-model="picture.imageinfo[0]"
-						disabled>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="height{{$index}}">{{translationObj.details.fieldtitleimageheight}}</label>
-					<input type="text" name="height" class="form-control" id="height{{$index}}" ng-model="picture.imageinfo[1]"
-						disabled>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="type{{$index}}">{{translationObj.details.fieldtitleimagetype}}</label>
-					<input type="text" name="type" class="form-control" id="type{{$index}}" ng-model="picture.imageinfo['mime']"
-						disabled>
-				</div>
-
-				<div class="col-xs-3">
-					<!-- <div class="team-member">
-						<div class="team-img">
-							<img ng-src="../website/images/gallery/eventid{{currentWsevent.id}}/thumbnails/{{picture.imagefilename}}" class="team-pic" alt="">
-						</div>
-					</div> -->
-					<div class="img-wrapper">
-						<a data-fancybox="{{currentWsevent.name}}"
-							ng-href="../websiteimages/gallery/eventid{{currentWsevent.id}}/{{picture.imagefilename}}">
-							<img ng-src="../websiteimages/gallery/eventid{{currentWsevent.id}}/thumbnails/{{picture.imagefilename}}"
-								class="img-responsive" alt="{{oneevent.label}}">
-						</a>
-						<!-- <div class="overlay"> -->
-						<!-- <div class="buttons"> -->
-						<!-- <a data-fancybox="{{currentWsevent.name}}" ng-href="../website/images/gallery/eventid{{currentWsevent.id}}/{{picture.imagefilename}}">Voir</a> -->
-						<!-- </div> -->
-						<!-- </div> -->
-					</div>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="type">&nbsp;</label>
-					<div class="input-group">
-						<span>
-							<child-delete-button obj="picture" objlist="currentWsevent.pictures"
-								callback="setDirty()"></child-delete-button>
-							<child-undelete-button obj="picture" objlist="currentWsevent.pictures"
-								callback="setDirty()"></child-undelete-button>
-							<child-status-indicator obj="picture"></child-status-indicator>
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</div>
 </div>

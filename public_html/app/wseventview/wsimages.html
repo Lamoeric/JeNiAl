@@ -1,0 +1,38 @@
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.details.formtitlepicture}}&nbsp;
+			<uploadwebsitepicturesbutton 
+				subdirectory="'/website/images/gallery/eventid'+currentWsevent.id+'/'"
+				fileprefix="currentWsevent.id"
+				tablename="'cpa_ws_events_pictures'" 
+				idcolumnname="'eventid'" 
+				id="currentWsevent.id"
+				callback="setCurrentInternal(currentWsevent)"
+				is-disabled="!isFormPristine || detailsForm.$dirty">
+			</uploadwebsiteimagebutton>&nbsp;
+		</h3>
+		<div ng-repeat="picture in currentWsevent.pictures">
+			<div class="col-xs-2">
+				<div class="img-wrapper">
+					<p>{{picture.pictureindex}}&nbsp;-&nbsp;{{picture.imageinfo[0]}}X{{picture.imageinfo[0]}}</p>
+					<a data-fancybox="{{currentWsevent.name}}"
+						ng-href="../websiteimages/gallery/eventid{{currentWsevent.id}}/{{picture.imagefilename}}">
+						<img ng-src="../websiteimages/gallery/eventid{{currentWsevent.id}}/thumbnails/{{picture.imagefilename}}"
+							class="img-responsive" alt="{{oneevent.label}}" style="height:200px;width:200px;">
+					</a>
+					<span style="float:left">
+						<child-delete-button obj="picture" objlist="currentWsevent.pictures" callback="setDirty()"></child-delete-button>
+						<child-undelete-button obj="picture" objlist="currentWsevent.pictures" callback="setDirty()"></child-undelete-button>
+						<child-status-indicator obj="picture"></child-status-indicator>
+						<moveelement 
+							elementlist="currentWsevent.pictures" 
+							originalindex="$index" 
+							indexprop="'pictureindex'" 
+							callback="setDirty()">
+						</moveelement>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

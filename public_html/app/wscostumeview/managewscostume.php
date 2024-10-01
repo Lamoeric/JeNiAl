@@ -9,6 +9,8 @@ require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
 require_once('../../backend/getimagefileName.php');
+require_once('../../backend/createuploadsubdirectory.php');
+require_once('../../backend/deleteuploadsubdirectory.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -63,18 +65,9 @@ function insert_costume($mysqli, $costume)
 							create_wsText('$solodescription_en', '$solodescription_fr'), $girlamount, $boyamount, $soloamount, $totalamount, '$priceperunit', $publish)";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
+			if (empty($id)) $data['id'] = $id = (int) $mysqli->insert_id;
 			$dirname = createUploadSubDirectory('/website/images/costumes/costumeid' . $id);
 			$dirname = createUploadSubDirectory('/website/images/costumes/costumeid' . $id . '/thumbnails');
-
-			// if (empty($id)) $data['id'] = $id = (int) $mysqli->insert_id;
-			// $dirname = '../../../private/' . $_SERVER['HTTP_HOST'] . '/website/images/costumes/costumeid' . $id;
-			// if (!file_exists($dirname)) {
-			// 	mkdir($dirname);
-			// }
-			// $dirname .= '/thumbnails';
-			// if (!file_exists($dirname)) {
-			// 	mkdir($dirname);
-			// }
 		} else {
 			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
@@ -257,11 +250,6 @@ function getCostumesPictures($mysqli, $costumeid = '')
 		$row['pictureindex'] = (int)$row['pictureindex'];
 		$filename = getImageFileName('/website/images/costumes/costumeid' . $costumeid . '/', $row['imagefilename']);
 		$row['imageinfo'] = getImageFileInfo($filename);
-
-		// $filename = '../../../private/' . $_SERVER['HTTP_HOST'] . '/website/images/costumes/costumeid' . $costumeid . "/" . $row['imagefilename'];
-		// if (isset($row['imagefilename']) && !empty($row['imagefilename']) && file_exists($filename)) {
-		// 	$row['imageinfo'] = getimagesize($filename);
-		// }
 		$data['data'][] = $row;
 	}
 	$data['success'] = true;
@@ -320,9 +308,6 @@ function updateEntirePictures($mysqli, $costumeid, $pictures)
 		$id =				$mysqli->real_escape_string(isset($pictures[$x]['id'])				? (int)$pictures[$x]['id'] : 0);
 		$pictureindex =		$mysqli->real_escape_string(isset($pictures[$x]['pictureindex'])	? (int)$pictures[$x]['pictureindex'] : 0);
 		$imagefilename =	$mysqli->real_escape_string(isset($pictures[$x]['imagefilename'])	? $pictures[$x]['imagefilename'] : '');
-
-		// $image_dir = '../../../private/' . $_SERVER['HTTP_HOST'] . '/website/images/costumes/costumeid' . $costumeid . '/';
-		// $thumbnail_dir = $image_dir . 'thumbnails' . '/';
 
 		// This should not happen
 		if ($mysqli->real_escape_string(isset($pictures[$x]['status'])) and $pictures[$x]['status'] == 'New') {

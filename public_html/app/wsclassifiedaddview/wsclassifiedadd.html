@@ -3,7 +3,7 @@
 		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
 			<div class="col-xs-4">
-				<label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<labelrequired for="name" label="translationObj.details.fieldtitlename"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="name" class="form-control" id="name" ng-model="currentWsclassifiedadd.name"
@@ -13,7 +13,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4" ng-if="config.supportenglish==1">
-				<label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}<i style="color:red"> *</i></label>
+				<labelrequired for="label_en" label="translationObj.details.fieldtitleenglishlabel"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="label_en" class="form-control" id="label_en"
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="col-xs-4" ng-if="config.supportfrench==1">
-				<label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}<i style="color:red"> *</i></label>
+				<labelrequired for="label_fr" label="translationObj.details.fieldtitlefrenchlabel"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="label_fr" class="form-control" id="label_fr"
@@ -31,7 +31,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				<label for="price">{{translationObj.details.fieldtitleprice}}<i style="color:red"> *</i></label>
+				<labelrequired for="price" label="translationObj.details.fieldtitleprice"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 					<input type="text" name="price" class="form-control" id="price"
@@ -59,7 +59,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
-				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<labelrequired for="publish" label="translationObj.details.fieldtitlepublish"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="publish" ng-model="currentWsclassifiedadd.publish" required>
@@ -90,64 +90,5 @@
 				</deletewebsiteimagebutton>
 			</div>
 		</div>
-
-		<hr>
-		<h3>{{translationObj.details.formtitlepicture}}&nbsp;
-			<button class="btn btn-primary" type="file" ngf-select="uploadPictureImage($file, $invalidFiles)"
-				accept="image/jpeg" ngf-max-size="8MB"
-				ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>
-		</h3>
-		<div ng-repeat="picture in currentWsclassifiedadd.pictures">
-			<div class="row">
-
-				<div class="col-xs-1">
-					<label for="pictureindex">{{translationObj.details.fieldtitlepictureindex}}</label>
-					<input type="number" name="pictureindex" class="form-control" id="pictureindex"
-						ng-model="picture.pictureindex" disabled>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-					<input type="text" name="width" class="form-control" id="width" ng-model="picture.imageinfo[0]"
-						disabled>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-					<input type="text" name="height" class="form-control" id="height" ng-model="picture.imageinfo[1]"
-						disabled>
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-					<input type="text" name="type" class="form-control" id="type" ng-model="picture.imageinfo['mime']"
-						disabled>
-				</div>
-
-				<div class="col-xs-3">
-					<div class="img-wrapper">
-						<a data-fancybox="{{currentWsevent.name}}"
-							ng-href="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/{{picture.imagefilename}}">
-							<img ng-src="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/thumbnails/{{picture.imagefilename}}"
-								class="img-responsive" alt="{{oneevent.label}}">
-						</a>
-					</div>
-				</div>
-
-				<div class="col-xs-2">
-					<label>&nbsp;</label>
-					<div class="input-group">
-						<span>
-							<child-delete-button obj="picture" objlist="currentWsclassifiedadd.pictures"
-								callback="setDirty()"></child-delete-button>
-							<child-undelete-button obj="picture" objlist="currentWsclassifiedadd.pictures"
-								callback="setDirty()"></child-undelete-button>
-							<child-status-indicator obj="picture"></child-status-indicator>
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</div>
 </div>

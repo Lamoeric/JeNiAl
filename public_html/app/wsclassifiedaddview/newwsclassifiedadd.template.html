@@ -1,11 +1,11 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newclassifiedadd.formtitleeditclassifiedadd}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+  <div class="modal-header">
+    <h4 class="modal-title">{{translationObj.newclassifiedadd.formtitleeditclassifiedadd}}</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <div class="col-xs-10">
-        <label for="name">{{translationObj.newclassifiedadd.fieldtitlename}}<i style="color:red"> *</i></label>
+        <labelrequired for="name" label="translationObj.newclassifiedadd.fieldtitlename"></labelrequired>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
           <input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="40" required
@@ -13,14 +13,12 @@
         </div>
       </div>
     </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newclassifiedadd.formerrormessage}}
+    <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+      {{translationObj.newclassifiedadd.formerrormessage}}
+    </div>
   </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary"
-    ng-click="cancel()">{{translationObj.newclassifiedadd.buttontitlediscard}}</button>
-  <button type="button" class="btn btn-primary"
-    ng-click="ok()">{{translationObj.newclassifiedadd.buttontitlekeepchanges}}</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newclassifiedadd.buttontitlediscard}}</button>
+    <button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newclassifiedadd.buttontitlekeepchanges}}</button>
+  </div>
+</form>

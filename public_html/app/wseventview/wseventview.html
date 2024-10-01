@@ -1,22 +1,43 @@
-<section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection>
-  <row>
-    <newleftpane leftpanetemplatefullpath="./wseventview/wsevent.template.html"></newleftpane>
-    <div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
-      <div id="mainrowright" class="row mainrowright">
-        <div class="grid">
-          <displayerror></displayerror>
-          <displaymaintitle maintitle="currentWsevent.maintitle" defaulttitle="translationObj.main.formtitledetails" object="currentWsevent"></displaymaintitle>
+<section id="intro" class="intro"
+	cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}"
+	initmainsection>
+	<row>
+		<newleftpane leftpanetemplatefullpath="./wseventview/wsevent.template.html"></newleftpane>
+		<div id="maincolumnright" class="col-xs-7 col-sm-10 maincolumnright">
+			<div id="mainrowright" class="row mainrowright">
+				<div class="grid">
+					<displayerror></displayerror>
+					<displaymaintitle maintitle="currentWsevent.maintitle"
+						defaulttitle="translationObj.main.formtitledetails" object="currentWsevent"></displaymaintitle>
 
 					<main-new-button new-callback="createNew()"></main-new-button>
-					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
-					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentWsevent==null"></main-delete-button>
+					<main-save-button save-callback="saveToDB()"
+						is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
+					<main-delete-button delete-callback="deleteFromDB()"
+						is-form-pristine="currentWsevent==null"></main-delete-button>
 
-          <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentWsevent">
-						<div ng-include="'wseventview/wsevent.html'"></div>
-          </form>
+					<div id="maintab" class="maintab">
+						<ul id="maintabheader" class="nav nav-tabs">
+							<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>
+							<li class="pointerlist"><a data-toggle="tab" data-target="#images">{{translationObj.main.panetitleimages}}</a></li>
+						</ul>
 
-        </div>
-      </div>
-    </div>
-  </row>
+						<div id="maintabcontent" class="tab-content maintabcontent">
+							<div id="info" class="tab-pane fade in active maintabpane">
+								<form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm" ng-show="currentWsevent">
+									<div ng-include="'./wseventview/wsevent.html'"></div>
+								</form>
+							</div>
+							<div id="images" class="tab-pane fade maintabpane">
+								<form class="form-horizontal well intabsingleformnox" role="form" name="imagesForm" ng-show="currentWsevent">
+									<div ng-include="'./wseventview/wsimages.html'"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</row>
 </section>
