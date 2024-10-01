@@ -23,7 +23,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	});
 }])
 
-.controller('wscontactviewCtrl', ['$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
+.controller('wscontactviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($rootScope, $scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
 
 	$scope.progName = "wscontactview";
 	$scope.leftpanetemplatefullpath = "./wscontactview/wscontact.template.html";
@@ -34,6 +34,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	$scope.isFormPristine = true;
 	$scope.globalErrorMessage = [];
 	$scope.globalWarningMessage = [];
+	$scope.formList = [{name:'detailsForm'}];
 
 	// For delay display
 	$scope.delay = 0;
@@ -42,47 +43,60 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 	$scope.backdrop = true;
 	$scope.promise = null;
 
+	/**
+	 * This function checks if anything is dirty
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
 	$scope.isDirty = function () {
-		if ($scope.detailsForm.$dirty) {
-			return true;
-		}
-		return false;
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 */
 	$scope.setDirty = function () {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
+	/**
+	 * This function sets all the forms as pristine
+	 */
 	$scope.setPristine = function () {
-		$scope.detailsForm.$setPristine();
-		$scope.isFormPristine = true;
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	// This is the function that gets all contacts from database
-	$scope.getAllWscontact = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wscontactview/managewscontact.php',
-			data: $.param({ 'language': authenticationService.getCurrentLanguage(), 'type': 'getAllContacts' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				if (!angular.isUndefined(data.data)) {
-					$scope.leftobjs = data.data;
-				} else {
-					$scope.leftobjs = [];
-				}
-			} else {
-				if (!data.success) {
-					dialogService.displayFailure(data);
-				}
-			}
-		}).
-		error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-		});
-	};
+	// $scope.getAllWscontact = function () {
+	// 	$scope.promise = $http({
+	// 		method: 'post',
+	// 		url: './wscontactview/managewscontact.php',
+	// 		data: $.param({ 'language': authenticationService.getCurrentLanguage(), 'type': 'getAllContacts' }),
+	// 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+	// 	}).success(function (data, status, headers, config) {
+	// 		if (data.success) {
+	// 			if (!angular.isUndefined(data.data)) {
+	// 				$scope.leftobjs = data.data;
+	// 			} else {
+	// 				$scope.leftobjs = [];
+	// 			}
+	// 		} else {
+	// 			if (!data.success) {
+	// 				dialogService.displayFailure(data);
+	// 			}
+	// 		}
+	// 	}).
+	// 	error(function (data, status, headers, config) {
+	// 		dialogService.displayFailure(data);
+	// 	});
+	// };
 
 	// This is the function that gets the current contact from database
 	$scope.getWscontactDetails = function (contact) {
@@ -128,31 +142,6 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 		}
 	};
 
-	// This is the function that validates all forms and display error and warning messages
-	$scope.validateAllForms = function () {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-		// if ($scope.currentMember.healthcareno == "") {
-		// 	$scope.globalWarningMessage.push($scope.translationObj.main.msgerrallmandatory);
-		// }
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalwarningmessage").hide(); });
-		}
-		return retVal;
-	}
-
 	// This is the function that saves the current contact in the database
 	$scope.saveToDB = function () {
 		if ($scope.currentWscontact == null || !$scope.isDirty()) {
@@ -167,7 +156,7 @@ angular.module('cpa_admin.wscontactview', ['ngRoute'])
 			}).success(function (data, status, headers, config) {
 				if (data.success) {
 					// Select this contact to reset everything
-					$scope.setCurrentInternal($scope.selectedWscontact, null);
+					$scope.setCurrentInternal($scope.currentWscontact, null);
 					return true;
 				} else {
 					dialogService.displayFailure(data);

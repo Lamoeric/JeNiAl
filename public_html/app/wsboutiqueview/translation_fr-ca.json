@@ -9,7 +9,7 @@
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Détails du bien"},
 	{"formname":"main", "fieldname":"panetitleimages", "text":"Images"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires et la quantité doit être > 0."},
 
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Nom"},
 	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"Libellé anglais"},

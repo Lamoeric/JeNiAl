@@ -43,23 +43,37 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 //      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
 	$scope.config = null;
+	$scope.formList = [{name:'detailsForm'}];
 
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty) {
-			return true;
-		}
-		return false;
+	/**
+	 * This function checks if anything is dirty
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 */
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.isFormPristine = true;
+	/**
+	 * This function sets all the forms as pristine
+	 */
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	$scope.convertParagraph = function(paragraph) {
 		if (paragraph) {
@@ -134,13 +148,15 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 	};
 
 	$scope.setCurrentPage = function(page, index) {
-		$scope.selectedPageIndex = index;
-		$scope.selectedPageObj = page ? page : index != null ? $scope.pagelist[index] : null;
-		$scope.models.selectedPageObj = $scope.selectedPageObj;
-		
-		$scope.selectedPageSections = $scope.selectedPageObj ? $scope.selectedPageObj.sections : null;
-		$scope.selectedSectionObj = null;
-		$scope.models.selectedPageSectionObj = null;
+		if ($scope.validateAllForms()) {
+			$scope.selectedPageIndex = index;
+			$scope.selectedPageObj = page ? page : index != null ? $scope.pagelist[index] : null;
+			$scope.models.selectedPageObj = $scope.selectedPageObj;
+			
+			$scope.selectedPageSections = $scope.selectedPageObj ? $scope.selectedPageObj.sections : null;
+			$scope.selectedSectionObj = null;
+			$scope.models.selectedPageSectionObj = null;
+		}
 	}
 
 	$scope.setCurrentSection = function(pagesection, index) {
@@ -166,25 +182,6 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			$scope.setCurrentInternal(page, index);
 		}
 	};
-
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
-		}
-		return retVal;
-	}
 
 	$scope.saveToDB = function() {
 		if ($scope.pagelist == null || !$scope.isDirty()) {

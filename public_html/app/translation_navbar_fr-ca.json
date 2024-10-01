@@ -1,4 +1,6 @@
 [
+	{"formname":"general", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires."},
+
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arénas"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Évaluation"},
 	{"formname":"main", "fieldname":"chargeviewCtrl", "text":"Charges"},

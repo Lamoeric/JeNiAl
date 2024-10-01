@@ -9,7 +9,7 @@
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Good Details"},
 	{"formname":"main", "fieldname":"panetitleimages", "text":"Images"},
-	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields are mandatory."},
+	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory and quantity must be > 0."},
 
 	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
 	{"formname":"details", "fieldname":"fieldtitleenglishlabel", "text":"English Label"},

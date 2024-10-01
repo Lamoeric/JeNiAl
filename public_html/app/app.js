@@ -18,7 +18,105 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
     };
  }])
 
-.run(["$rootScope", "$location", '$window', '$route', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, translationService, dialogService, authenticationService) {
+.run(["$rootScope", "$location", '$window', '$route', '$timeout', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, translationService, dialogService, authenticationService) {
+
+	/**
+	 * This function checks if anything is dirty
+	 * @param {*} scope 
+	 * @param {*} formList 
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
+	$rootScope.isDirty = function(scope, formList) {
+		if (scope && formList && formList.length > 0) {
+			for (var x = 0; x < formList.length; x++) {
+				if (scope[formList[x].name].$dirty) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 * @param {*} scope 
+	 * @param {*} formList 
+	 */
+	$rootScope.setDirty = function(scope, formList) {
+		if (scope && formList && formList.length > 0) {
+			scope[formList[0].name].$dirty = true;
+			scope.isFormPristine = false;
+		}
+	}
+
+	/**
+	 * This function sets all forms as pristine
+	 * @param {*} scope 
+	 * @param {*} formList 
+	 * @returns 
+	 */
+	$rootScope.setPristine = function(scope, formList) {
+		if (scope && formList && formList.length > 0) {
+			for (var x = 0; x < formList.length; x++) {
+				scope[formList[x].name].$setPristine();
+			}
+			scope.isFormPristine = true;
+		}
+	}
+
+	/**
+	 * 
+	 * @param {*} scope 
+	 * @param {*} formList Array of form objects : 
+	 * 								name : name of the form. used like scope[formList[0].name]
+	 * 								errorMsg : message property to use instead of the default. used like scope.translationObj.main[formList[0].errorMsg]
+	 * 								validFct : name of the validation function to call to validate the form. Use like scope[formList[0].validFct]()
+	 * @returns true if everything is valid, false otherwise
+	 */
+	$rootScope.validateAllForms = function(scope, formList) {
+		var retVal = true;
+		scope.globalErrorMessage = [];
+		scope.globalWarningMessage = [];
+
+		for (var x = 0; x < formList.length; x++) {
+			var form = scope[formList[x].name];
+			// If form has a custom validation function, call it
+			if (formList[x].validFct) {
+				var tmpMsg = scope[formList[x].validFct]();
+				if (tmpMsg) {
+					scope.globalErrorMessage.push(tmpMsg);
+				}
+			} else {
+				// if no custom validation function, just chaeck $invalid property
+				if (form.$invalid) {
+					// Check if form has a custom error message
+					if (formList[x].errorMsg) {
+						scope.globalErrorMessage.push(scope.translationObj.main[formList[x].errorMsg]);
+					} else {
+						// If not, use the default error message
+						scope.globalErrorMessage.push($rootScope.translationObj.general.msgerrallmandatory);
+					}
+				}
+			}
+		}
+		if (scope.globalErrorMessage.length != 0) {
+			retVal = false;
+		}
+
+		$timeout(function() {
+			// Display the error messages and the warning messages
+			if (scope.globalErrorMessage.length != 0) {
+				scope.$apply();
+				$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
+			}
+			if (scope.globalWarningMessage.length != 0) {
+				scope.$apply();
+				$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalwarningmessage").hide(); });
+			}
+		}, 0, false);
+
+		return retVal;
+	}
 
 	$rootScope.$on("$routeChangeSuccess", function (userInfo) {
 		if ($rootScope.translationObj && $rootScope.translationObj.main) {

@@ -1,4 +1,6 @@
 [
+	{"formname":"general", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory."},
+	
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arenas"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Evaluation"},
 	{"formname":"main", "fieldname":"chargeviewCtrl", "text":"Charges"},

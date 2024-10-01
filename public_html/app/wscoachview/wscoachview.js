@@ -24,7 +24,6 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 }])
 
 .controller('wscoachviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($rootScope, $scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
 	$scope.progName = "wscoachview";
 	$scope.currentWscoach = 1;
 	$scope.selectedWscoach = null;
@@ -32,34 +31,37 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
 	$scope.config = null;
+	$scope.formList = [{name:'detailsForm', errorMsg:'msgerrallmandatory'}];
 
 	/**
 	 * This function checks if anything is dirty
 	 * @returns true if any of the forms are dirty, false otherwise
 	 */
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty || $scope.startestsForm.$dirty) {
-			return true;
-		}
-		return false;
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
 	/**
 	 * This function sets one form dirty to indicate the whole thing is dirty
 	 */
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
 	/**
 	 * This function sets all the forms as pristine
 	 */
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.startestsForm.$setPristine();
-		$scope.isFormPristine = true;
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	/**
 	 * This function gets all coaches from the database
@@ -70,8 +72,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 				url: './wscoachview/managewscoach.php',
 				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getAllCoachs' }),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+		}).success(function(data, status, headers, config) {
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
@@ -85,8 +86,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 					dialogService.displayFailure(data);
 				}
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -101,8 +101,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 			url: './wscoachview/managewscoach.php',
 			data: $.param({'id' : coach.id, 'type' : 'getCoachDetails' }),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+		}).success(function(data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentWscoach = data.data[0];
 				$scope.currentWscoach.imageinfo = data.imageinfo;
@@ -111,8 +110,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 			} else {
 				dialogService.displayFailure(data);
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -175,31 +173,6 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 				return false;
 			});
 		}
-	}
-
-	/**
-	 * This function validates all forms and display error and warning messages
-	 * @returns false if something is invalid
-	 */
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
-		}
-		return retVal;
 	}
 
 	/**

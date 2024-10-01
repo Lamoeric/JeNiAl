@@ -24,7 +24,6 @@ angular.module('cpa_admin.wspartnerview', ['ngRoute'])
 }])
 
 .controller('wspartnerviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($rootScope, $scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
 	$scope.progName = "wspartnerview";
 	$scope.currentWspartner = null;
 	$scope.selectedWspartner = null;
@@ -32,33 +31,37 @@ angular.module('cpa_admin.wspartnerview', ['ngRoute'])
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
 	$scope.config = null;
+	$scope.formList = [{name:'detailsForm', errorMsg:'msgerrallmandatory'}];
 
 	/**
 	 * This function checks if anything is dirty
 	 * @returns true if any of the forms are dirty, false otherwise
 	 */
 	$scope.isDirty = function () {
-		if ($scope.detailsForm.$dirty) {
-			return true;
-		}
-		return false;
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
 	/**
 	 * This function sets one form dirty to indicate the whole thing is dirty
 	 */
 	$scope.setDirty = function () {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
 	/**
 	 * This function sets all the forms as pristine
 	 */
 	$scope.setPristine = function () {
-		$scope.detailsForm.$setPristine();
-		$scope.isFormPristine = true;
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	/**
 	 * This function gets all partners from the database
@@ -172,31 +175,6 @@ angular.module('cpa_admin.wspartnerview', ['ngRoute'])
 				return false;
 			});
 		}
-	}
-
-	/**
-	 * This function validates all forms and display error and warning messages
-	 * @returns false if something is invalid
-	 */
-	$scope.validateAllForms = function () {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalerrormessage").hide(); });
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalwarningmessage").hide(); });
-		}
-		return retVal;
 	}
 
 	/**
