@@ -25,9 +25,9 @@ function createDestinationFileName($uploads_dir, $firstPortion=null) {
 		'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
 	);
 
-	$data['partialfilename'] = (isset($firstPortion) ? $firstPortion . '_' : '')  . getGUID() . '.jpg';
-	$data['partialfilename'] = strtr($data['partialfilename'], $table);
-	$data['destinationFileName'] = $uploads_dir . $data['partialfilename'];
+	$data['partialFileName'] = (isset($firstPortion) ? $firstPortion . '_' : '')  . getGUID() . '.jpg';
+	$data['partialFileName'] = strtr($data['partialFileName'], $table);
+	$data['destinationFileName'] = $uploads_dir . $data['partialFileName'];
 	return $data;
 };
 ?>

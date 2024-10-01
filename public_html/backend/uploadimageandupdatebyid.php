@@ -41,16 +41,16 @@ function uploadImageAndUpdateById($mysqli, $files, $directorySuffix, $filenamepr
         $retVal = move_uploaded_file($files['file']['tmp_name'], $filenames['destinationFileName']);
         if ($retVal != 0) {
             if ($pattern == 1) {
-                $data['update'] = updateImageTableById($mysqli, $tableName, $filenames['partialfilename'], $id);
+                $data['update'] = updateImageTableById($mysqli, $tableName, $filenames['partialFileName'], $id);
             } else if ($pattern == 2) {
-                $data['update'] = updatetexttablebyidAndLanguage($mysqli, $tableName, $filenames['partialfilename'], $id, $language);
+                $data['update'] = updatetexttablebyidAndLanguage($mysqli, $tableName, $filenames['partialFileName'], $id, $language);
             }
             if ($data['update']['success'] == true) {
                 // Remove old file if copy and update are done
                 $data['removedfilename'] = removeFile($uploads_dir, $oldfilename, true);
                 $data['uploads_dir'] = $uploads_dir;
                 $data['oldfilename'] = $oldfilename;
-                $data['newfilename'] = $filenames['partialfilename'];
+                $data['newfilename'] = $filenames['partialFileName'];
             } else {
                 $data['success'] = false;
                 $data['message'] = "Update not done.";
