@@ -210,61 +210,37 @@ angular.module('cpa_admin.wsboutiqueview', ['ngRoute'])
 	/**
 	 * This function adds a new good in the database
 	 */
-	$scope.addWsgoodToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wsboutiqueview/managewsboutique.php',
-			data: $.param({ 'good': $scope.newWsgood, 'type': 'insert_good' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsgood = { id: data.id, mainlabel: $scope.newWsgood.name, publish: 0 };
-				$scope.leftobjs.push(newWsgood);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsgood);
-				return true;
-			} else {
+	$scope.addWsgoodToDB = function (newElement) {
+		if (newElement) {
+				$scope.newElement = newElement;
+				$scope.promise = $http({
+				method: 'post',
+				url: './wsboutiqueview/managewsboutique.php',
+				data: $.param({'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement'}),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWsgood = { id: data.id, mainlabel: $scope.newElement.name, publish: 0 };
+					$scope.leftobjs.push(newWsgood);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWsgood);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
-	 * This function creates the modal to create new good
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current good
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsgood = {};
-			// Send the newWsgood to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wsboutiqueview/newwsboutique.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsgood;
-					}
-				}
-			}).result.then(function (newWsgood) {
-				// User clicked OK and everything was valid.
-				$scope.newWsgood = newWsgood;
-				if ($scope.addWsgoodToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wsboutiqueview/newwsboutique.template.html', $scope.addWsgoodToDB);
 	};
 
 	/**

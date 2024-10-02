@@ -8,6 +8,7 @@
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory and index must be > 0."},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Coach Details"},
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Details"},
 	{"formname":"main", "fieldname":"panetitlestartest", "text":"STAR Tests"},
 

@@ -187,58 +187,37 @@ angular.module('cpa_admin.wscostumeview', ['ngRoute'])
 	};
 
 	// This is the function that saves the new costume in the database
-	$scope.addWscostumeToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wscostumeview/managewscostume.php',
-			data: $.param({ 'costume': $scope.newWscostume, 'type': 'insert_costume' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWscostume = { id: data.id, name: $scope.newWscostume.name };
-				$scope.leftobjs.push(newWscostume);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWscostume);
-				return true;
-			} else {
+	$scope.addWscostumeToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wscostumeview/managewscostume.php',
+				data: $.param({ 'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWscostume = { id: data.id, name: $scope.newElement.name };
+					$scope.leftobjs.push(newWscostume);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWscostume);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
-	};
-
-	// This is the function that creates the modal to create new costume
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWscostume = {};
-			// Send the newWscostume to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wscostumeview/newwscostume.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWscostume;
-					}
-				}
-			}).result.then(function (newWscostume) {
-				// User clicked OK and everything was valid.
-				$scope.newWscostume = newWscostume;
-				if ($scope.addWscostumeToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
 			});
 		}
+	};
+
+	/**
+	 * This function creates the modal to create new boardmember
+	 */
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wscostumeview/newwscostume.template.html', $scope.addWscostumeToDB);
 	};
 
 	$scope.refreshAll = function () {

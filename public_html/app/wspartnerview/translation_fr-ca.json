@@ -17,7 +17,7 @@
 	{"formname":"details", "fieldname":"fieldtitlelink_fr", "text":"Lien Internet français"},
 	{"formname":"details", "fieldname":"fieldtitlelink_en", "text":"Lien Internet anglais"},
 
-	{"formname":"newpartner", "fieldname":"formtitleeditpreogramassistant", "text":"Nouvel assistant de programme"},
+	{"formname":"newpartner", "fieldname":"formtitleeditpartner", "text":"Nouveau partenaire"},
 	{"formname":"newpartner", "fieldname":"fieldtitlename", "text":"Nom"},
 	{"formname":"newpartner", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
 	{"formname":"newpartner", "fieldname":"buttontitlediscard", "text":"Annuler"},

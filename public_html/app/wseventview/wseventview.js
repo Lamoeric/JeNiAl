@@ -211,61 +211,37 @@ angular.module('cpa_admin.wseventview', ['ngRoute'])
 	/**
 	 * This function adds a new event in the database
 	 */
-	$scope.addWseventToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wseventview/managewsevent.php',
-			data: $.param({ 'event': $scope.newWsevent, 'type': 'insert_event' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsevent = { id: data.id, name: $scope.newWsevent.name, eventdate: null };
-				$scope.leftobjs.push(newWsevent);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsevent);
-				return true;
-			} else {
+	$scope.addWseventToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wseventview/managewsevent.php',
+				data: $.param({ 'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWsevent = { id: data.id, name: $scope.newElement.name, eventdate: null };
+					$scope.leftobjs.push(newWsevent);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWsevent);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
-	 * This function creates the modal to create new event
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current event
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsevent = {};
-			// Send the newWsevent to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wseventview/newwsevent.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsevent;
-					}
-				}
-			}).result.then(function (newWsevent) {
-				// User clicked OK and everything was valid.
-				$scope.newWsevent = newWsevent;
-				if ($scope.addWseventToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wseventview/newwsevent.template.html', $scope.addWseventToDB);
 	};
 
 	/**

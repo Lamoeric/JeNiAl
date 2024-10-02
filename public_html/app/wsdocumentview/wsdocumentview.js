@@ -191,58 +191,37 @@ angular.module('cpa_admin.wsdocumentview', ['ngRoute'])
 	};
 
 	// This is the function that saves the new document in the database
-	$scope.addWsdocumentToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wsdocumentview/managewsdocument.php',
-			data: $.param({ 'document': $scope.newWsdocument, 'type': 'insert_document' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsdocument = { id: data.id, documentname: $scope.newWsdocument.documentname };
-				$scope.leftobjs.push(newWsdocument);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsdocument);
-				return true;
-			} else {
+	$scope.addWsdocumentToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wsdocumentview/managewsdocument.php',
+				data: $.param({ 'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWsdocument = { id: data.id, documentname: $scope.newElement.documentname };
+					$scope.leftobjs.push(newWsdocument);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWsdocument);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
-	};
-
-	// This is the function that creates the modal to create new document
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsdocument = {};
-			// Send the newWsdocument to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wsdocumentview/newwsdocument.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsdocument;
-					}
-				}
-			}).result.then(function (newWsdocument) {
-				// User clicked OK and everything was valid.
-				$scope.newWsdocument = newWsdocument;
-				if ($scope.addWsdocumentToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
 			});
 		}
+	};
+
+	/**
+	 * This function creates the modal to create new boardmember
+	 */
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wsdocumentview/newwsdocument.template.html', $scope.addWsdocumentToDB);
 	};
 
 	// This is the function that displays the upload error messages

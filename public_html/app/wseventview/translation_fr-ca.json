@@ -8,6 +8,7 @@
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"},
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Détails événement"},
 	{"formname":"main", "fieldname":"panetitledetails", "text":"Détails événement"},
 	{"formname":"main", "fieldname":"panetitleimages", "text":"Images"},
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs sont obligatoires."},

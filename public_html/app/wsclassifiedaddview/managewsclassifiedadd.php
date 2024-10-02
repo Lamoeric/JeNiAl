@@ -16,8 +16,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_classifiedadd":
-			insert_classifiedadd($mysqli, $_POST['classifiedadd']);
+		case "insertElement":
+			insert_classifiedadd($mysqli, $_POST['language'], $_POST['classifiedadd']);
 			break;
 		case "updateEntireClassifiedadd":
 			updateEntireClassifiedadd($mysqli, $_POST['classifiedadd']);
@@ -42,7 +42,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle classifiedadd add functionality
  * @throws Exception
  */
-function insert_classifiedadd($mysqli, $classifiedadd)
+function insert_classifiedadd($mysqli, $language, $classifiedadd)
 {
 	try {
 		$data = array();

@@ -210,61 +210,37 @@ angular.module('cpa_admin.wspartnerview', ['ngRoute'])
 	/**
 	 * This function adds a new partner in the database
 	 */
-	$scope.addWspartnerToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wspartnerview/managewspartner.php',
-			data: $.param({ 'partner': $scope.newWspartner, 'type': 'insert_partner' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWspartner = { id: data.id, name: $scope.newWspartner.name };
-				$scope.leftobjs.push(newWspartner);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWspartner);
-				return true;
-			} else {
+	$scope.addWspartnerToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wspartnerview/managewspartner.php',
+				data: $.param({ 'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWspartner = { id: data.id, name: $scope.newElement.name };
+					$scope.leftobjs.push(newWspartner);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWspartner);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
-	 * This function creates the modal to create new partner
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current partner
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWspartner = {};
-			// Send the newWspartner to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wspartnerview/newwspartner.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWspartner;
-					}
-				}
-			}).result.then(function (newWspartner) {
-				// User clicked OK and everything was valid.
-				$scope.newWspartner = newWspartner;
-				if ($scope.addWspartnerToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wspartnerview/newwspartner.template.html', $scope.addWspartnerToDB);
 	};
 
 	/**

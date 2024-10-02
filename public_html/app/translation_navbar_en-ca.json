@@ -1,5 +1,6 @@
 [
 	{"formname":"general", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory."},
+	{"formname":"general", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arenas"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Evaluation"},

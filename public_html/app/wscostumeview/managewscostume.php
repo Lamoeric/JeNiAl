@@ -16,8 +16,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_costume":
-			insert_costume($mysqli, $_POST['costume']);
+		case "insertElement":
+			insert_costume($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireCostume":
 			updateEntireCostume($mysqli, $_POST['costume']);
@@ -42,7 +42,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle costume add functionality
  * @throws Exception
  */
-function insert_costume($mysqli, $costume)
+function insert_costume($mysqli, $language, $costume)
 {
 	try {
 		$data = array();

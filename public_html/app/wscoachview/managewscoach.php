@@ -13,8 +13,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_coach":
-			insert_coach($mysqli, $_POST['coach']);
+		case "insertElement":
+			insert_coach($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireCoach":
 			updateEntireCoach($mysqli, $_POST['coach']);
@@ -39,7 +39,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle coach add functionality
  * @throws Exception
  */
-function insert_coach($mysqli, $coach)
+function insert_coach($mysqli, $language, $coach)
 {
 	try {
 		$data = array();

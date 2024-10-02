@@ -188,58 +188,37 @@ angular.module('cpa_admin.wsclassifiedaddview', ['ngRoute'])
 	};
 
 	// This is the function that saves the new classifiedadd in the database
-	$scope.addWsclassifiedaddToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wsclassifiedaddview/managewsclassifiedadd.php',
-			data: $.param({ 'classifiedadd': $scope.newWsclassifiedadd, 'type': 'insert_classifiedadd' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsclassifiedadd = { id: data.id, name: $scope.newWsclassifiedadd.name };
-				$scope.leftobjs.push(newWsclassifiedadd);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsclassifiedadd);
-				return true;
-			} else {
+	$scope.addWsclassifiedaddToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wsclassifiedaddview/managewsclassifiedadd.php',
+				data: $.param({'classifiedadd': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement'}),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWsclassifiedadd = { id: data.id, name: $scope.newElement.name };
+					$scope.leftobjs.push(newWsclassifiedadd);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWsclassifiedadd);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
-	};
-
-	// This is the function that creates the modal to create new classifiedadd
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsclassifiedadd = {};
-			// Send the newWsclassifiedadd to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wsclassifiedaddview/newwsclassifiedadd.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsclassifiedadd;
-					}
-				}
-			}).result.then(function (newWsclassifiedadd) {
-				// User clicked OK and everything was valid.
-				$scope.newWsclassifiedadd = newWsclassifiedadd;
-				if ($scope.addWsclassifiedaddToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
 			});
 		}
+	};
+
+	/**
+	 * This function creates the modal to create new boardmember
+	 */
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wsclassifiedaddview/newwsclassifiedadd.template.html', $scope.addWsclassifiedaddToDB);
 	};
 
 	$scope.refreshAll = function () {

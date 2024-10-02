@@ -14,8 +14,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_partner":
-			insert_partner($mysqli, $_POST['partner']);
+		case "insertElement":
+			insert_partner($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntirePartner":
 			updateEntirePartner($mysqli, $_POST['partner']);
@@ -40,7 +40,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle partner add functionality
  * @throws Exception
  */
-function insert_partner($mysqli, $partner)
+function insert_partner($mysqli, $language, $partner)
 {
 	try {
 		$data = array();
@@ -49,11 +49,9 @@ function insert_partner($mysqli, $partner)
 		$partnerindex =		$mysqli->real_escape_string(isset($partner['partnerindex']) 	? (int)$partner['partnerindex'] : 0);
 		$imagefilename_fr =	$mysqli->real_escape_string(isset($partner['imagefilename_fr']) ? $partner['imagefilename_fr'] : '');
 		$imagefilename_en =	$mysqli->real_escape_string(isset($partner['imagefilename_en']) ? $partner['imagefilename_en'] : '');
-		$link_fr =			$mysqli->real_escape_string(isset($partner['link_fr']) 			? $partner['link_fr'] : '');
-		$link_en =			$mysqli->real_escape_string(isset($partner['link_en']) 			? $partner['link_en'] : '');
 
 		$query = "	INSERT INTO cpa_ws_partners (name, publish, partnerindex, imagefilename, link)
-					VALUES ('$name', $publish, $partnerindex, create_wsText('$imagefilename_en', '$imagefilename_fr'), create_wsText('$link_en', '$link_fr'))";
+					VALUES ('$name', $publish, $partnerindex, create_wsText('$imagefilename_en', '$imagefilename_fr'), create_wsText('$name', '$name'))";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			if (empty($id)) $data['id'] = (int) $mysqli->insert_id;

@@ -210,61 +210,37 @@ angular.module('cpa_admin.wsnewsview', ['ngRoute'])
 	/**
 	 * This function adds a new news in the database
 	 */
-	$scope.addWsnewsToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wsnewsview/managewsnews.php',
-			data: $.param({ 'news': $scope.newWsnews, 'type': 'insert_news' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsnews = { id: data.id, title: $scope.newWsnews.name, publishdate: $scope.newWsnews.publishdate };
-				$scope.leftobjs.push(newWsnews);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsnews);
-				return true;
-			} else {
+	$scope.addWsnewsToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wsnewsview/managewsnews.php',
+				data: $.param({ 'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWsnews = { id: data.id, title: $scope.newElement.name, publishdate: $scope.newElement.publishdate };
+					$scope.leftobjs.push(newWsnews);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWsnews);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
-	 * This function creates the modal to create new news
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current news
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsnews = {};
-			// Send the newWsnews to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wsnewsview/newwsnews.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsnews;
-					}
-				}
-			}).result.then(function (newWsnews) {
-				// User clicked OK and everything was valid.
-				$scope.newWsnews = newWsnews;
-				if ($scope.addWsnewsToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wsnewsview/newwsnews.template.html', $scope.addWsnewsToDB);
 	};
 
 	/**

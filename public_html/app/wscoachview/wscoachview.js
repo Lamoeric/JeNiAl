@@ -208,61 +208,37 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	/**
 	 * This function adds a new coach in the database
 	 */
-	$scope.addWscoachToDB = function() {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wscoachview/managewscoach.php',
-			data: $.param({'coach' : $scope.newWscoach, 'type' : 'insert_coach' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function(data, status, headers, config) {
-			if (data.success) {
-				var newWscoach = {id:data.id, firstname:$scope.newWscoach.firstname, lastname:$scope.newWscoach.lastname};
-				$scope.leftobjs.push(newWscoach);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWscoach);
-				return true;
-			} else {
+	$scope.addWscoachToDB = function(newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wscoachview/managewscoach.php',
+				data: $.param({'element' : newElement, 'language': authenticationService.getCurrentLanguage(), 'type' : 'insertElement' }),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function(data, status, headers, config) {
+				if (data.success) {
+					var newWscoach = {id:data.id, firstname:$scope.newElement.firstname, lastname:$scope.newElement.lastname};
+					$scope.leftobjs.push(newWscoach);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWscoach);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function(data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
-	 * This function creates the modal to create new coach
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current coach
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWscoach = {};
-			// Send the newWscoach to the modal form
-			$uibModal.open({
-					animation: false,
-					templateUrl: 'wscoachview/newwscoach.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'md',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newWscoach;
-						}
-					}
-			}).result.then(function(newWscoach) {
-				// User clicked OK and everything was valid.
-				$scope.newWscoach = newWscoach;
-				if ($scope.addWscoachToDB() == true) {
-				}
-			}, function() {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wscoachview/newwscoach.template.html', $scope.addWscoachToDB);
 	};
 
 	/**

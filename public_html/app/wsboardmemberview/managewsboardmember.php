@@ -14,11 +14,11 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_boardmember":
-			insert_boardmember($mysqli, $_POST['boardmember']);
+		case "insertElement":
+			insertElement($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireBoardmember":
-			updateEntireBoardmember($mysqli, $_POST['boardmember']);
+			updateEntireBoardmember($mysqli, $_POST['language'], $_POST['boardmember']);
 			break;
 		case "delete_boardmember":
 			delete_boardmember($mysqli, $_POST['boardmember']);
@@ -36,11 +36,22 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	invalidRequest();
 };
 
+function getOneBoardMemberInfo($mysqli, $language, $id) {
+	$data = null;
+	$query = "	SELECT id, firstname, lastname, publish, getCodeDescription('YESNO',publish, '$language') ispublish, memberindex, 
+				getCodeDescription('YESNO', if (imagefilename is not null and imagefilename!='', 1, 0), '$language') isimage 
+				FROM cpa_ws_boardmembers 
+				WHERE id = $id";
+	$result = $mysqli->query($query);
+	$data = $result->fetch_assoc();
+	return $data;
+}
+
 /**
  * This function will handle boardmember add functionality
  * @throws Exception
  */
-function insert_boardmember($mysqli, $boardmember)
+function insertElement($mysqli, $language, $boardmember)
 {
 	try {
 		$data = array();
@@ -49,16 +60,23 @@ function insert_boardmember($mysqli, $boardmember)
 		$imagefilename =	$mysqli->real_escape_string(isset($boardmember['imagefilename']) 	? $boardmember['imagefilename'] : '');
 		$memberindex =		$mysqli->real_escape_string(isset($boardmember['memberindex']) 		? (int)$boardmember['memberindex'] : 0);
 		$publish =			$mysqli->real_escape_string(isset($boardmember['publish']) 			? (int)$boardmember['publish'] : 0);
-		$memberrole_fr =	$mysqli->real_escape_string(isset($boardmember['memberrole_fr']) 	? $boardmember['memberrole_fr'] : '');
-		$memberrole_en =	$mysqli->real_escape_string(isset($boardmember['memberrole_en']) 	? $boardmember['memberrole_en'] : '');
+		$memberrole_fr =	$mysqli->real_escape_string(isset($boardmember['memberrole_fr']) 	? $boardmember['memberrole_fr'] : 'Admin');
+		$memberrole_en =	$mysqli->real_escape_string(isset($boardmember['memberrole_en']) 	? $boardmember['memberrole_en'] : 'Admin');
 		$description_fr =	$mysqli->real_escape_string(isset($boardmember['description_fr']) 	? $boardmember['description_fr'] : '');
 		$description_en =	$mysqli->real_escape_string(isset($boardmember['description_en']) 	? $boardmember['description_en'] : '');
 
 		$query = "	INSERT INTO cpa_ws_boardmembers (firstname, lastname, imagefilename, publish, memberindex, memberrole, description)
-					VALUES ('$firstname', '$lastname', '$imagefilename', $publish, $memberindex, create_wsText('$memberrole_en', '$memberrole_fr'), create_wsText('$description_en', '$description_fr'))";
+					VALUES ('$firstname', '$lastname', '$imagefilename', $publish, $memberindex, 
+							create_wsText('$memberrole_en', '$memberrole_fr'), create_wsText('$description_en', '$description_fr'))";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
-			if (empty($id)) $data['id'] = (int) $mysqli->insert_id;
+			if (empty($id)) $data['id'] = $id = (int) $mysqli->insert_id;
+			$query = "	SELECT id, firstname, lastname, publish, getCodeDescription('YESNO',publish, '$language') ispublish, memberindex, 
+								getCodeDescription('YESNO', if (imagefilename is not null and imagefilename!='', 1, 0), '$language') isimage 
+						FROM cpa_ws_boardmembers 
+						WHERE id = $id";
+			$result = $mysqli->query($query);
+			$data['element'] = getOneBoardMemberInfo($mysqli, $language, $id);
 		} else {
 			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
@@ -78,7 +96,7 @@ function insert_boardmember($mysqli, $boardmember)
  * This function will handle boardmember update functionality
  * @throws Exception
  */
-function update_boardmember($mysqli, $boardmember)
+function update_boardmember($mysqli, $language, $boardmember)
 {
 	$data = array();
 	$id =				$mysqli->real_escape_string(isset($boardmember['id']) 				? (int)$boardmember['id'] : 0);
@@ -213,9 +231,9 @@ function getBoardmemberDetails($mysqli, $id = '')
 		$data['imageinfo'] = null;
 		while ($row = $result->fetch_assoc()) {
 			$row['memberindex'] = (int)$row['memberindex'];
-			$data['data'][] = $row;
 			$filename = getImageFileName('/website/images/boardmembers/', $row['imagefilename']);
-			$data['imageinfo'] = getImageFileInfo($filename);
+			$row['imageinfo'] = getImageFileInfo($filename);
+			$data['data'][] = $row;
 		}
 		$mysqli->close();
 		$data['success'] = true;
@@ -230,12 +248,13 @@ function getBoardmemberDetails($mysqli, $id = '')
 	}
 };
 
-function updateEntireBoardmember($mysqli, $boardmember)
+function updateEntireBoardmember($mysqli, $language, $boardmember)
 {
 	try {
 		$data = array();
-
-		$data['successboardmember'] = update_boardmember($mysqli, $boardmember);
+		$id = $boardmember['id'];
+		$data['successboardmember'] = update_boardmember($mysqli, $language, $boardmember);
+		$data['element'] = getOneBoardMemberInfo($mysqli, $language, $id);
 		$mysqli->close();
 
 		$data['success'] = true;

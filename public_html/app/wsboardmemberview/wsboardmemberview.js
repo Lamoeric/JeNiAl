@@ -104,7 +104,7 @@ angular.module('cpa_admin.wsboardmemberview', ['ngRoute'])
 		}).success(function (data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentWsboardmember = data.data[0];
-				$scope.currentWsboardmember.imageinfo = data.imageinfo;
+				// $scope.currentWsboardmember.imageinfo = data.imageinfo;
 				$scope.currentWsboardmember.displayimagefilename = $scope.currentWsboardmember.imagefilename + '?decache=' + Math.random();
 			} else {
 				dialogService.displayFailure(data);
@@ -186,12 +186,13 @@ angular.module('cpa_admin.wsboardmemberview', ['ngRoute'])
 			$scope.promise = $http({
 				method: 'post',
 				url: './wsboardmemberview/managewsboardmember.php',
-				data: $.param({ 'boardmember': $scope.currentWsboardmember, 'type': 'updateEntireBoardmember' }),
+				data: $.param({ 'boardmember': $scope.currentWsboardmember, 'language': authenticationService.getCurrentLanguage(), 'type': 'updateEntireBoardmember' }),
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 			}).success(function (data, status, headers, config) {
 				if (data.success) {
 					// Select this boardmember to reset everything
 					$scope.setCurrentInternal($scope.selectedWsboardmember, null);
+					angular.copy(data.element, $scope.selectedWsboardmember);
 					return true;
 				} else {
 					dialogService.displayFailure(data);
@@ -207,61 +208,34 @@ angular.module('cpa_admin.wsboardmemberview', ['ngRoute'])
 	/**
 	 * This function adds a new boardmember in the database
 	 */
-	$scope.addWsboardmemberToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wsboardmemberview/managewsboardmember.php',
-			data: $.param({ 'boardmember': $scope.newWsboardmember, 'type': 'insert_boardmember' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsboardmember = { id: data.id, firstname: $scope.newWsboardmember.firstname, lastname: $scope.newWsboardmember.lastname };
-				$scope.leftobjs.push(newWsboardmember);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsboardmember);
-				return true;
-			} else {
+	$scope.addWsboardmemberToDB = function (newElement) {
+		if (newElement) {
+			$scope.promise = $http({
+				method: 'post',
+				url: './wsboardmemberview/managewsboardmember.php',
+				data: $.param({'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement'}),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					$scope.leftobjs.push(data.element);
+					$scope.setCurrentInternal(data.element);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
 	 * This function creates the modal to create new boardmember
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsboardmember = {};
-			// Send the newWsboardmember to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wsboardmemberview/newwsboardmember.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsboardmember;
-					}
-				}
-			}).result.then(function (newWsboardmember) {
-				// User clicked OK and everything was valid.
-				$scope.newWsboardmember = newWsboardmember;
-				if ($scope.addWsboardmemberToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wsboardmemberview/newwsboardmember.template.html', $scope.addWsboardmemberToDB);
 	};
 
 	/**

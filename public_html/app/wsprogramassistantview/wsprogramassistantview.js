@@ -206,61 +206,37 @@ angular.module('cpa_admin.wsprogramassistantview', ['ngRoute'])
 	/**
 	 * This function adds a new programassistant in the database
 	 */
-	$scope.addWsprogramassistantToDB = function () {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wsprogramassistantview/managewsprogramassistant.php',
-			data: $.param({ 'programassistant': $scope.newWsprogramassistant, 'type': 'insert_programassistant' }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function (data, status, headers, config) {
-			if (data.success) {
-				var newWsprogramassistant = { id: data.id, firstname: $scope.newWsprogramassistant.firstname, lastname: $scope.newWsprogramassistant.lastname };
-				$scope.leftobjs.push(newWsprogramassistant);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWsprogramassistant);
-				return true;
-			} else {
+	$scope.addWsprogramassistantToDB = function (newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wsprogramassistantview/managewsprogramassistant.php',
+				data: $.param({ 'element': newElement, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertElement' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
+				if (data.success) {
+					var newWsprogramassistant = { id: data.id, firstname: $scope.newElement.firstname, lastname: $scope.newElement.lastname, publish:0 };
+					$scope.leftobjs.push(newWsprogramassistant);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWsprogramassistant);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function (data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
+			});
+		}
 	};
 
 	/**
-	 * This function creates the modal to create new programassistant
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current programassistant
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWsprogramassistant = {};
-			// Send the newWsprogramassistant to the modal form
-			$uibModal.open({
-				animation: false,
-				templateUrl: 'wsprogramassistantview/newwsprogramassistant.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'md',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newWsprogramassistant;
-					}
-				}
-			}).result.then(function (newWsprogramassistant) {
-				// User clicked OK and everything was valid.
-				$scope.newWsprogramassistant = newWsprogramassistant;
-				if ($scope.addWsprogramassistantToDB() == true) {
-				}
-			}, function () {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wsprogramassistantview/newwsprogramassistant.template.html', $scope.addWsprogramassistantToDB);
 	};
 
 	/**

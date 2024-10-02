@@ -18,7 +18,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
     };
  }])
 
-.run(["$rootScope", "$location", '$window', '$route', '$timeout', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, translationService, dialogService, authenticationService) {
+.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, translationService, dialogService, authenticationService) {
 
 	/**
 	 * This function checks if anything is dirty
@@ -103,6 +103,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 			retVal = false;
 		}
 
+		// $timeout function is to avoid problems with the $apply() that sometimes conflicted with another $apply()
 		$timeout(function() {
 			// Display the error messages and the warning messages
 			if (scope.globalErrorMessage.length != 0) {
@@ -116,6 +117,39 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 		}, 0, false);
 
 		return retVal;
+	}
+
+	$rootScope.createNewObjectDlg = function(newObject) {
+		newObject.newObj = {};
+		$rootScope.newObject = newObject;
+		$uibModal.open({
+			animation: false,
+			templateUrl: newObject.templateUrl,
+			controller: 'childeditor.controller',
+			scope: newObject.scope,
+			size: 'md',
+			backdrop: 'static',
+			resolve: {
+				newObj: function () {
+					return newObject.newObj;
+				}
+			}
+		}).result.then(function (newObject) {
+			// User clicked OK and everything was valid.
+			$rootScope.newObject.callback(newObject);
+		}, function () {
+			// User clicked CANCEL.
+			// alert('canceled');
+		});
+	}
+
+	$rootScope.createNewObject = function(scope, isConfirmed, templateUrl, callback) {
+		var newObject = {'scope':scope, 'templateUrl':templateUrl, 'callback':callback};
+		if (scope.isDirty() && !isConfirmed) {
+			dialogService.confirmDlg($rootScope.translationObj.general.msgformdirty, "YESNO", $rootScope.createNewObjectDlg, null, newObject, null);
+		} else {
+			$rootScope.createNewObjectDlg(newObject);
+		}
 	}
 
 	$rootScope.$on("$routeChangeSuccess", function (userInfo) {

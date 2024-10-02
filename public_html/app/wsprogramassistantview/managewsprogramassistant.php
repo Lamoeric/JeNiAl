@@ -14,8 +14,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_programassistant":
-			insert_programassistant($mysqli, $_POST['programassistant']);
+		case "insertElement":
+			insert_programassistant($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireProgramassistant":
 			updateEntireProgramassistant($mysqli, $_POST['programassistant']);
@@ -40,7 +40,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle programassistant add functionality
  * @throws Exception
  */
-function insert_programassistant($mysqli, $programassistant)
+function insert_programassistant($mysqli, $language, $programassistant)
 {
 	try {
 		$data = array();

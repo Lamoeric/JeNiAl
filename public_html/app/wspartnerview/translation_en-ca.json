@@ -11,7 +11,7 @@
 	{"formname":"main", "fieldname":"formtitledetails", "text":"Partner Details"},
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory and index must be > 0."},
 
-	{"formname":"details", "fieldname":"fieldtitlefirstname", "text":"Name"},
+	{"formname":"details", "fieldname":"fieldtitlename", "text":"Name"},
 	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publish"},
 	{"formname":"details", "fieldname":"fieldtitlepartnerindex", "text":"Index"},
 	{"formname":"details", "fieldname":"fieldtitlelink_fr", "text":"French Internet Link"},

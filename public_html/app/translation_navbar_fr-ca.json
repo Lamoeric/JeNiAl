@@ -1,5 +1,6 @@
 [
 	{"formname":"general", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires."},
+	{"formname":"general", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arénas"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Évaluation"},

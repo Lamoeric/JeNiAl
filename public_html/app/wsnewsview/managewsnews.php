@@ -14,8 +14,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_news":
-			insert_news($mysqli, $_POST['news']);
+		case "insertElement":
+			insert_news($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireNews":
 			updateEntireNews($mysqli, $_POST['news']);
@@ -40,26 +40,16 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle news add functionality
  * @throws Exception
  */
-function insert_news($mysqli, $news)
+function insert_news($mysqli, $language, $news)
 {
 	try {
 		$data = array();
-		$name =				$mysqli->real_escape_string(isset($news['name']) 				? $news['name'] : '');
-		$title =			$mysqli->real_escape_string(isset($news['title']) 				? (int)$news['title'] : 0);
-		$title_fr =			$mysqli->real_escape_string(isset($news['title_fr']) 			? $news['title_fr'] : '');
-		$title_en =			$mysqli->real_escape_string(isset($news['title_en']) 			? $news['title_en'] : '');
-		$shortversion =		$mysqli->real_escape_string(isset($news['shortversion']) 		? (int)$news['shortversion'] : 0);
-		$shortversion_fr =	$mysqli->real_escape_string(isset($news['shortversion_fr']) 	? $news['shortversion_fr'] : '');
-		$shortversion_en =	$mysqli->real_escape_string(isset($news['shortversion_en']) 	? $news['shortversion_en'] : '');
-		$longversion =		$mysqli->real_escape_string(isset($news['longversion']) 		? (int)$news['longversion'] : 0);
-		$longversion_fr =	$mysqli->real_escape_string(isset($news['longversion_frf']) 	? $news['longversion_fr'] : '');
-		$longversion_en =	$mysqli->real_escape_string(isset($news['longversion_en']) 		? $news['longversion_en'] : '');
-		$imagefilename =	$mysqli->real_escape_string(isset($news['imagefilename']) 		? $news['imagefilename'] : '');
-		$publish =			$mysqli->real_escape_string(isset($news['publish']) 			? (int)$news['publish'] : 0);
-		$publishdate =		$mysqli->real_escape_string(isset($news['publishdate']) 		? $news['publishdate'] : '');
+		$name =				$mysqli->real_escape_string(isset($news['name'])			? $news['name'] : '');
+		$imagefilename =	$mysqli->real_escape_string(isset($news['imagefilename'])	? $news['imagefilename'] : '');
+		$publish =			$mysqli->real_escape_string(isset($news['publish'])			? (int)$news['publish'] : 0);
 
 		$query = "	INSERT INTO cpa_ws_news (name, title, shortversion, longversion, imagefilename, publish, publishdate)
-					VALUES ('$name', create_wsText('$name','$name'), create_wsText('',''), create_wsText('',''), '$imagefilename', $publish, curdate())";
+					VALUES ('$name', create_wsText('$name','$name'), create_wsText('$name','$name'), create_wsText('$name','$name'), '$imagefilename', $publish, curdate())";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			if (empty($id)) $data['id'] = (int) $mysqli->insert_id;

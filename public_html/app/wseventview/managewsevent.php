@@ -16,8 +16,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_event":
-			insert_event($mysqli, $_POST['event']);
+		case "insertElement":
+			insert_event($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireEvent":
 			updateEntireEvent($mysqli, json_decode($_POST['event'], true));
@@ -42,11 +42,11 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle event add functionality
  * @throws Exception
  */
-function insert_event($mysqli, $event)
+function insert_event($mysqli, $language, $event)
 {
 	try {
 		$data = array();
-		$name =				$mysqli->real_escape_string(isset($event['name']) 				? $event['name'] : '');
+		$name = $mysqli->real_escape_string(isset($event['name'])	? $event['name'] : '');
 
 		$query = "	INSERT INTO cpa_ws_events (name, eventdate, imagefilename, publish, eventlist, label)
 					VALUES ('$name', curdate(), '', 0, 1, create_wsText('$name', '$name'))";

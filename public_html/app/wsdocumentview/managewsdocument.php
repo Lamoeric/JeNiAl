@@ -12,8 +12,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_document":
-			insert_document($mysqli, $_POST['document']);
+		case "insertElement":
+			insert_document($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireDocument":
 			updateEntireDocument($mysqli, $_POST['document']);
@@ -38,7 +38,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle document add functionality
  * @throws Exception
  */
-function insert_document($mysqli, $document)
+function insert_document($mysqli, $language, $document)
 {
 	try {
 		$data = array();

@@ -16,8 +16,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
-		case "insert_good":
-			insert_good($mysqli, $_POST['good']);
+		case "insertElement":
+			insert_good($mysqli, $_POST['language'], $_POST['element']);
 			break;
 		case "updateEntireGood":
 			updateEntireGood($mysqli, $_POST['good']);
@@ -42,11 +42,11 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * This function will handle good add functionality
  * @throws Exception
  */
-function insert_good($mysqli, $good)
+function insert_good($mysqli, $language, $good)
 {
 	try {
 		$data = array();
-		$name =				$mysqli->real_escape_string(isset($good['name'])			? $good['name'] : '');
+		$name =	$mysqli->real_escape_string(isset($good['name'])			? $good['name'] : '');
 
 		$query = "	INSERT INTO cpa_ws_goods (name, label, description, quantity, priceperunit, publish)
 					VALUES ('$name', create_wsText('$name', '$name'), create_wsText('', ''), 0, '0.00', 0)";
