@@ -79,6 +79,7 @@ angular.module('cpa_admin.wsnewsview', ['ngRoute'])
 					$scope.config = data.config;
 				} else {
 					$scope.leftobjs = [];
+					$scope.config = data.config;
 				}
 				$rootScope.repositionLeftColumn();
 			} else {
