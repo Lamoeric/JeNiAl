@@ -215,7 +215,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 		}
 	};
 
-	// This is the function that creates the modal to create/edit ice
+	// This is the function that creates the modal to create/edit sections
 	$scope.editSection = function(newSection) {
 		$scope.newSection = {};
 		// Keep a pointer to the current section
@@ -242,7 +242,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 				$scope.currentSection.status = 'Modified';
 			} else {
 				// No new sections
-//        $scope.currentSection.status = 'New';
+		    //    $scope.currentSection.status = 'New';
 			}
 			$scope.setDirty();
 		}, function() {
@@ -251,7 +251,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 		});
 	};
 
-	// This is the function that creates the modal to create/edit ice
+	// This is the function that creates the modal to create/edit pages
 	$scope.editPage = function(newPage) {
 		$scope.newPage = {};
 		// Keep a pointer to the current section
@@ -283,7 +283,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 				$scope.currentPage.status = 'Modified';
 			} else {
 				// No page creation
-//        $scope.currentPage.status = 'New';
+		        // $scope.currentPage.status = 'New';
 			}
 			$scope.setDirty();
 		}, function() {
@@ -292,56 +292,6 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 		});
 	};
 
-	// This is the function that displays the upload error messages
-	$scope.displayUploadError = function(errFile) {
-		// dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidfile);
-		if (errFile.$error == 'maxSize') {
-			dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidfilesize + errFile.$errorParam);
-		} else if (errFile.$error == 'maxWidth') {
-			dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidmaxwidth + errFile.$errorParam);
-		} else if (errFile.$error == 'maxHeight') {
-			dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidmaxheight + errFile.$errorParam);
-		}
-	}
-
-	// This is the function that uploads the image for the current event
-	$scope.uploadMainImage = function(file, errFiles) {
-		$scope.f = file;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-		}
-		if (file) {
-			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-				dialogService.alertDlg('only jpg files are allowed.');
-				return;
-			}
-			file.upload = Upload.upload({
-				url: './wsnewpageview/uploadmainimage.php',
-				method: 'POST',
-				file: file,
-				data: {
-					'mainobj': $scope.selectedSectionObj
-				}
-			});
-			file.upload.then(function (data) {
-				$timeout(function () {
-					if (data.data.success) {
-						dialogService.alertDlg($scope.translationObj.detailssection.msguploadcompleted);
-						// Select this event to reset everything
-						$scope.setCurrentInternal(null, null);
-					} else {
-						dialogService.displayFailure(data.data);
-					}
-				});
-			}, function (data) {
-				if (!data.success) {
-					dialogService.displayFailure(data.data);
-				}
-			}, function (evt) {
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-	}
 	
 	$scope.testRemarkable = function() {
 		var md = new Remarkable({

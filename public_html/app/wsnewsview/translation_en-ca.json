@@ -23,6 +23,7 @@
 	{"formname":"details", "fieldname":"fieldtitlelinktype", "text":"Type"},
 	{"formname":"details", "fieldname":"fieldtitlelinkposition", "text":"Position"},
 	{"formname":"details", "fieldname":"fieldtitlelinkindex", "text":"Index"},
+	{"formname":"details", "fieldname":"buttontitlelink", "text":"Links"},
 
 	{"formname":"newnews", "fieldname":"formtitleeditnews", "text":"New News"},
 	{"formname":"newnews", "fieldname":"fieldtitlename", "text":"Name"},

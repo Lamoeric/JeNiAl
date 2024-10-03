@@ -10,7 +10,7 @@
 	{"formname":"newlink", "fieldname":"fieldlinksection", "text":"Section"},
 	{"formname":"newlink", "fieldname":"fieldlinkdocumentid", "text":"Document"},
 	{"formname":"newlink", "fieldname":"fieldlinkexternal", "text":"External"},
-	{"formname":"newregistration", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
-	{"formname":"newregistration", "fieldname":"buttontitlediscard", "text":"Cancel"},
-	{"formname":"newregistration", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"}
+	{"formname":"newlink", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newlink", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newlink", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"}
 ]

@@ -111,7 +111,7 @@
 		</div>
 
 	</div>
-	<h3>{{translationObj.details.buttontitlelink}}&nbsp;<editlink type="2" link="{}" parent=currentWsnews></editlink>
+	<h3>{{translationObj.details.buttontitlelink}}&nbsp;<editlink type="2" link="{}" parent=currentWsnews languages=config></editlink>
 	</h3>
 	<div class="row" ng-repeat="link in currentWsnews.links">
 
@@ -139,7 +139,7 @@
 			<label for="linkindex{{$index}}">&nbsp;</label>
 			<div class="input-group">
 				<span>
-					<editlink type="1" link="link" parent=currentWsnews></editlink>
+					<editlink type="1" link="link" parent=currentWsnews languages=config></editlink>
 					<child-delete-button obj="link" objlist="currentWsnews.links"
 						callback="setDirty()"></child-delete-button>
 					<child-undelete-button obj="link" objlist="currentWsnews.links"

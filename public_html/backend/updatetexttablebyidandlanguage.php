@@ -23,7 +23,7 @@ function updateTextTableByIdAndLanguage($mysqli, $tablename, $partialfilename, $
             $data['success'] = true;
             $data['message'] = 'Table ' . $tablename . ' updated successfully.';
         } else {
-            throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+            throw new Exception('updateTextTableByIdAndLanguage - ' . $mysqli->sqlstate.' - '. $mysqli->error);
         }
     }
     return $data;

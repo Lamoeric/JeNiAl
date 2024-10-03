@@ -6,11 +6,10 @@ Author : Eric Lamoureux
 require_once(__DIR__ . '/createdestinationfilename.php');
 require_once(__DIR__ . '/getuploaddirectory.php');
 require_once(__DIR__ . '/removefile.php');
-require_once(__DIR__ . '/updateimagetablebyid.php');
-require_once(__DIR__ . '/updatetexttablebyidandlanguage.php');
+require_once(__DIR__ . '/updateimagetablebyname.php');
 
 /**
- * This function upload the image and updates the column imagefilename of a table using a column ID as a primary key
+ * This function upload the image and updates the column imagefilename of a table using a column NAME as a primary key
  * 
  * $mysqli          
  * $files           
@@ -18,33 +17,25 @@ require_once(__DIR__ . '/updatetexttablebyidandlanguage.php');
  * $filenameprefix  
  * $oldfilename     
  * $tableName       Table name to update
- * $id              Value of the id column to use for update
- * $language        Language for the file, either 'fr-ca' or 'en-ca' or null
- * $pattern         If 1, update the column imagefilename using id, if 2, update the column text using id and language 
+ * $name              Value of the id column to use for update
  * 
  * Returns a $data structure
  */
-function uploadImageAndUpdateById($mysqli, $files, $directorySuffix, $filenameprefix, $oldfilename, $tableName, $id, $language=null, $pattern=1)
+function uploadImageAndUpdateByName($mysqli, $files, $directorySuffix, $filenameprefix, $oldfilename, $tableName, $name)
 {
     $data = array();
     $data['success'] = false;
     $data['directorySuffix'] = $directorySuffix;
     $data['filenameprefix'] = $filenameprefix;
     $data['tableName'] = $tableName;
-    $data['id'] = $id;
-    $data['language'] = $language;
-    $data['pattern'] = $pattern;
+    $data['name'] = $name;
 
     try {
         $uploads_dir = getUploadDirectory($directorySuffix);
         $filenames = createDestinationFileName($uploads_dir, $filenameprefix);
         $retVal = move_uploaded_file($files['file']['tmp_name'], $filenames['destinationFileName']);
         if ($retVal != 0) {
-            if ($pattern == 1) {
-                $data['update'] = updateImageTableById($mysqli, $tableName, $filenames['partialFileName'], $id);
-            } else if ($pattern == 2) {
-                $data['update'] = updatetexttablebyidAndLanguage($mysqli, $tableName, $filenames['partialFileName'], $id, $language);
-            }
+            $data['update'] = updateImageTableByName($mysqli, $tableName, $filenames['partialFileName'], $name);
             if ($data['update']['success'] == true) {
                 // Remove old file if copy and update are done
                 $data['removedfilename'] = removeFile($uploads_dir, $oldfilename, true);
@@ -68,7 +59,7 @@ function uploadImageAndUpdateById($mysqli, $files, $directorySuffix, $filenamepr
     } catch (Exception $e) {
         $data = array();
         $data['success'] = false;
-        $data['message'] = 'uploadImageAndUpdateById - ' . $e->getMessage();
+        $data['message'] = $e->getMessage();
         return $data;
     }
     return $data;

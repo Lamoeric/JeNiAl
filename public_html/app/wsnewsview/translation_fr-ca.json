@@ -23,7 +23,8 @@
 	{"formname":"details", "fieldname":"fieldtitlelinktype", "text":"Type"},
 	{"formname":"details", "fieldname":"fieldtitlelinkposition", "text":"Position"},
 	{"formname":"details", "fieldname":"fieldtitlelinkindex", "text":"Index"},
-
+	{"formname":"details", "fieldname":"buttontitlelink", "text":"Liens"},
+	
 	{"formname":"newnews", "fieldname":"formtitleeditnews", "text":"Nouvelle nouvelle"},
 	{"formname":"newnews", "fieldname":"fieldtitlename", "text":"Nom"},
 	{"formname":"newnews", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},

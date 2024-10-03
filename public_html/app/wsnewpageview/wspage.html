@@ -192,6 +192,7 @@
 		<!-- Subtitles -->
 		<div class="row">
 			<div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==0">
+				<hr>
 				<label ng-if="selectedSectionObj.subtitleind==0">{{translationObj.detailssection.msgSubtitleNotSupported}}</label>
 			</div>
 			<div class="col-xs-6" ng-if="selectedSectionObj.subtitleind==1&&config.supportenglish==1">
@@ -212,77 +213,45 @@
 			</div>
 		</div>
 
+		<hr>
 		<!-- Image info -->
-		<div class="row" ng-if="selectedSectionObj.imagefilename && selectedSectionObj.imageinfo">
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/sections/{{selectedSectionObj.displayimagefilename}}"
-							class="team-pic" alt="">
-					</div>
-				</div>
-			</div>
-
-			<div class="col-xs-2">
-				<label for="width">{{translationObj.detailssection.fieldtitleimagewidth}}</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width"
-						ng-model="selectedSectionObj.imageinfo[0]" disabled>
-				</div>
-
-				<label for="height">{{translationObj.detailssection.fieldtitleimageheight}}</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height"
-						ng-model="selectedSectionObj.imageinfo[1]" disabled>
-				</div>
-
-				<label for="type">{{translationObj.detailssection.fieldtitleimagetype}}</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type"
-						ng-model="selectedSectionObj.imageinfo['mime']" disabled>
-				</div>
-			</div>
-		</div>
-
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
-			</div>
-		</div>
-
-		<div class="row">
+		<label ng-if="selectedSectionObj.imageind==0">{{translationObj.detailssection.msgImageNotSupported}}</label>
+		<displaywebsiteimage 
+			displayimagefilename="'sections/'+selectedSectionObj.displayimagefilename"
+			imageinfo="selectedSectionObj.imageinfo"
+			ng-if="selectedSectionObj.imageind==1">
+		</displaywebsiteimage>
+		<div class="row" ng-if="selectedSectionObj.imageind==1">
 			<div class="col-xs-12">
-				<label ng-if="selectedSectionObj.imageind==0">{{translationObj.detailssection.msgImageNotSupported}}</label>
-				<div class="input-group">
-					<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)"
-						accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB"
-						ng-disabled="!isFormPristine || detailsForm.$dirty || selectedSectionObj.imageind==0">{{translationObj.detailssection.buttontitleloadmainimage}}</button>&nbsp;
-					<deletewebsiteimagebutton subdir="'sections'" context="'ws_sections'" obj="selectedSectionObj"
-						callback="setCurrentInternal(selectedSectionObj)"
-						is-disabled="!selectedSectionObj.imagefilename"></deletewebsiteimagebutton>
-					<span class="help-block">{{translationObj.detailssection.helptextimagespecifications}}</span>
-				</div>
+				<uploadwebsiteimagebutton 
+					subdirectory="'/website/images/sections/'"
+					fileprefix="selectedSectionObj.name"
+					tablename="'cpa_ws_sections'" 
+					name="selectedSectionObj.name"
+					oldfilename="selectedSectionObj.imagefilename" 
+					callback="setCurrentInternal(selectedSectionObj)"
+					is-disabled="!isFormPristine || detailsForm.$dirty || selectedSectionObj.imageind==0">
+				</uploadwebsiteimagebutton>&nbsp;
+				<deletewebsiteimagebutton 
+					subdir="'sections'" context="'ws_sections'" obj="selectedSectionObj"
+					callback="setCurrentInternal(selectedSectionObj)" is-disabled="!selectedSectionObj.imagefilename">
+				</deletewebsiteimagebutton>
 			</div>
+		</div>
+
+
+		<hr>
+		<!-- Paragraphs -->
+		<label ng-if="selectedSectionObj.paragraphind==0">{{translationObj.detailssection.msgParagraphsNotSupported}}</label>
+		<br	ng-if="selectedSectionObj.paragraphind==0">
+		<div ng-if="selectedSectionObj.paragraphind!=0">
+			<paragraphviewer paragraphlist="selectedSectionObj.paragraphs" set-dirty="setDirty()" convert="convertParagraph(paragraph)"></paragraphviewer>
 		</div>
 
 		<hr>
-
-		<!-- Paragraphs -->
-		<label
-			ng-if="selectedSectionObj.paragraphind==0">{{translationObj.detailssection.msgParagraphsNotSupported}}</label><br
-			ng-if="selectedSectionObj.paragraphind==0">
-		<div ng-if="selectedSectionObj.paragraphind!=0">
-			<paragraphviewer paragraphlist="selectedSectionObj.paragraphs" set-dirty="setDirty()"
-				convert="convertParagraph(paragraph)"></paragraphviewer>
-		</div>
-
 		<!-- Links -->
-		<h3 ng-if="selectedSectionObj.linkind!=0">{{translationObj.detailssection.buttontitlelink}}&nbsp;<editlink
-				type="2" link="{}" parent=selectedSectionObj ng-if="selectedSectionObj.linkind!=0"></editlink>
+		<h3 ng-if="selectedSectionObj.linkind!=0">{{translationObj.detailssection.buttontitlelink}}&nbsp;
+			<editlink type="2" link="{}" parent=selectedSectionObj languages=config ng-if="selectedSectionObj.linkind!=0"></editlink>
 		</h3>
 		<label ng-if="selectedSectionObj.linkind==0">{{translationObj.detailssection.msgLinksNotSupported}}</label>
 		<div class="row" ng-repeat="link in selectedSectionObj.links">
@@ -312,7 +281,7 @@
 				<label>&nbsp;</label>
 				<div class="input-group">
 					<span>
-						<editlink type="1" link="link" parent=selectedSectionObj></editlink>
+						<editlink type="1" link="link" parent=selectedSectionObj languages=config></editlink>
 						<child-delete-button obj="link" objlist="selectedSectionObj.links"
 							callback="setDirty()"></child-delete-button>
 						<child-undelete-button obj="link" objlist="selectedSectionObj.links"
@@ -323,7 +292,5 @@
 			</div>
 		</div>
 
-
 	</div>
-
 </div>
