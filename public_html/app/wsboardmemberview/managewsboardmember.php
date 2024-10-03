@@ -117,28 +117,10 @@ function update_boardmember($mysqli, $language, $boardmember)
 				SET firstname = '$firstname', lastname = '$lastname', publish = $publish, memberindex = $memberindex, email = '$email', phone = '$phone' 
 				WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$memberrole_fr' WHERE id = $memberrole and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$memberrole_en' WHERE id = $memberrole and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$description_fr' WHERE id = $description and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$description_en' WHERE id = $description and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$data['success'] = true;
-						$data['message'] = 'Boardmember updated successfully.';
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($memberrole, '$memberrole_en', '$memberrole_fr')");
+		$mysqli->query("call update_wsText($description, '$description_en', '$description_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Boardmember updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
@@ -223,7 +205,7 @@ function getBoardmemberDetails($mysqli, $id = '')
 	try {
 		$query = "	SELECT cwb.*, 
 							getWSTextLabel(memberrole, 'fr-ca') memberrole_fr, getWSTextLabel(memberrole, 'en-ca') memberrole_en, 
-							getWSTextLabel(description, 'fr-ca') description_fr, getWSTextLabel(description, 'fr-ca') description_fr
+							getWSTextLabel(description, 'fr-ca') description_fr, getWSTextLabel(description, 'en-ca') description_en
 					FROM cpa_ws_boardmembers cwb
 					WHERE cwb.id = $id";
 		$result = $mysqli->query($query);

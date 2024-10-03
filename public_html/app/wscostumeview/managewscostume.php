@@ -113,48 +113,12 @@ function update_costume($mysqli, $costume)
 
 	$query = "UPDATE cpa_ws_costumes SET name = '$name', girlamount = $girlamount, boyamount = $boyamount, soloamount = $soloamount, totalamount = $totalamount, priceperunit = '$priceperunit', publish = $publish WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$girldescription_fr' WHERE id = $girldescription and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$girldescription_en' WHERE id = $girldescription and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text SET text = '$boydescription_fr' WHERE id = $boydescription and language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text SET text = '$boydescription_en' WHERE id = $boydescription and language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$query = "UPDATE cpa_ws_text SET text = '$solodescription_fr' WHERE id = $solodescription and language = 'fr-ca'";
-								if ($mysqli->query($query)) {
-									$query = "UPDATE cpa_ws_text SET text = '$solodescription_en' WHERE id = $solodescription and language = 'en-ca'";
-									if ($mysqli->query($query)) {
-										$data['success'] = true;
-										$data['message'] = 'Costume updated successfully.';
-									} else {
-										throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-									}
-								} else {
-									throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-								}
-							} else {
-								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($label, '$label_en', '$label_fr')");
+		$mysqli->query("call update_wsText($girldescription, '$girldescription_en', '$girldescription_fr')");
+		$mysqli->query("call update_wsText($boydescription, '$boydescription_en', '$boydescription_fr')");
+		$mysqli->query("call update_wsText($solodescription, '$solodescription_en', '$solodescription_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Costume updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}

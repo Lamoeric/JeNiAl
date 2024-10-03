@@ -89,18 +89,9 @@ function update_event($mysqli, $event)
 
 	$query = "UPDATE cpa_ws_events SET name = '$name', eventdate = '$eventdate', eventlist = $eventlist, publish = $publish WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$data['message'] = 'Event updated successfully.';
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($label, '$label_en', '$label_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Event updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}

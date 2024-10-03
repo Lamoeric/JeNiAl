@@ -86,44 +86,16 @@ function update_news($mysqli, $news)
 	$longversion =		$mysqli->real_escape_string(isset($news['longversion']) 		? (int)$news['longversion'] : 0);
 	$longversion_fr =	$mysqli->real_escape_string(isset($news['longversion_fr']) 		? $news['longversion_fr'] : '');
 	$longversion_en =	$mysqli->real_escape_string(isset($news['longversion_en']) 		? $news['longversion_en'] : '');
-	$imagefilename =	$mysqli->real_escape_string(isset($news['imagefilename']) 		? $news['imagefilename'] : '');
 	$publish =			$mysqli->real_escape_string(isset($news['publish']) 			? (int)$news['publish'] : 0);
 	$publishdate =		$mysqli->real_escape_string(isset($news['publishdatestr']) 		? $news['publishdatestr'] : '');
 
 	$query = "UPDATE cpa_ws_news SET name = '$name', publish = $publish, publishdate = '$publishdate' WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$title_fr' WHERE id = $title AND language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$title_en' WHERE id = $title AND language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$shortversion_fr' WHERE id = $shortversion AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$shortversion_en' WHERE id = $shortversion AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text SET text = '$longversion_fr' WHERE id = $longversion AND language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text SET text = '$longversion_en' WHERE id = $longversion AND language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$data['success'] = true;
-								$data['message'] = 'News updated successfully.';
-							} else {
-								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($title, '$title_en', '$title_fr')");
+		$mysqli->query("call update_wsText($shortversion, '$shortversion_en', '$shortversion_fr')");
+		$mysqli->query("call update_wsText($longversion, '$longversion_en', '$longversion_fr')");
+		$data['success'] = true;
+		$data['message'] = 'News updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
@@ -239,7 +211,7 @@ function getNewsLinks($mysqli, $newsid, $language)
 function getNewsDetails($mysqli, $id, $language)
 {
 	try {
-		$query = "	SELECT 	cwp.*, getWSTextLabel(title, '$language') title, getWSTextLabel(cwp.title, 'fr-ca') title_fr, 
+		$query = "	SELECT 	cwp.*, getWSTextLabel(title, '$language') maintitle, getWSTextLabel(cwp.title, 'fr-ca') title_fr, 
 							getWSTextLabel(cwp.title, 'en-ca') title_en, getWSTextLabel(cwp.shortversion, 'fr-ca') shortversion_fr, 
 							getWSTextLabel(cwp.shortversion, 'en-ca') shortversion_en, getWSTextLabel(cwp.longversion, 'fr-ca') longversion_fr, 
 							getWSTextLabel(cwp.longversion, 'en-ca') longversion_en
@@ -303,16 +275,7 @@ function updateEntireLinks($mysqli, $newsid, $links)
 							linkexternal = '$linkexternal', position = $position, linkindex = $linkindex
 						WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_wsText($label, '$label_en', '$label_fr')");
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}

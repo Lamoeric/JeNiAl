@@ -59,18 +59,9 @@ function update_page($mysqli, $page)
 					navbarvisiblepreview = $navbarvisiblepreview, navbarusesectionpreview = $navbarusesectionpreview 
 				WHERE name = '$name'";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text set text = '$navbarlabel_fr' where id = $navbarlabel and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text set text = '$navbarlabel_en' where id = $navbarlabel and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$data['message'] = 'Page updated successfully.';
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($navbarlabel, '$navbarlabel_en', '$navbarlabel_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Page updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
@@ -298,16 +289,7 @@ function updateEntireLinks($mysqli, $sectionname, $links)
 							 linkexternal = '$linkexternal', position = $position, linkindex = $linkindex
 						WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_wsText($label, '$label_en', '$label_fr')");
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -365,37 +347,10 @@ function updateEntireParagraphs($mysqli, $sectionname, $paragraphs)
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_ws_sections_paragraphs SET publish = $publish, visiblepreview = $visiblepreview WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$title_fr' WHERE id = $title AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$title_en' WHERE id = $title AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text SET text = '$subtitle_fr' WHERE id = $subtitle AND language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text SET text = '$subtitle_en' WHERE id = $subtitle AND language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_fr' WHERE id = $paragraphtext AND language = 'fr-ca'";
-								if ($mysqli->query($query)) {
-									$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_en' WHERE id = $paragraphtext AND language = 'en-ca'";
-									if ($mysqli->query($query)) {
-										$data['success'] = true;
-									} else {
-										throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-									}
-								} else {
-									throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-								}
-							} else {
-								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_wsText($title, '$title_en', '$title_fr')");
+				$mysqli->query("call update_wsText($subtitle, '$subtitle_en', '$subtitle_fr')");
+				$mysqli->query("call update_wsText($paragraphtext, '$paragraphtext_en', '$paragraphtext_fr')");
+				$data['success'] = true;
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -404,21 +359,7 @@ function updateEntireParagraphs($mysqli, $sectionname, $paragraphs)
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Deleted') {
 			$query = "DELETE FROM cpa_ws_sections_paragraphs WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "DELETE FROM cpa_ws_text WHERE id = $title";
-				if ($mysqli->query($query)) {
-					$query = "DELETE FROM cpa_ws_text WHERE id = $subtitle";
-					if ($mysqli->query($query)) {
-						$query = "DELETE FROM cpa_ws_text WHERE id = $paragraphtext";
-						if ($mysqli->query($query)) {
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$query = "DELETE FROM cpa_ws_text WHERE id in($title, $subtitle, $paragraphtext)";
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -465,38 +406,11 @@ function update_section($mysqli, $section)
 
 	$query = "UPDATE cpa_ws_sections SET imagefilename = '$imagefilename' WHERE name = '$name'";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text set text = '$navbarlabel_fr' where id = $navbarlabel and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text set text = '$navbarlabel_en' where id = $navbarlabel and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text set text = '$title_fr' where id = $title and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text set text = '$title_en' where id = $title and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text set text = '$subtitle_fr' where id = $subtitle and language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text set text = '$subtitle_en' where id = $subtitle and language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$data['success'] = true;
-								$data['message'] = 'Section updated successfully.';
-							} else {
-								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($navbarlabel, '$navbarlabel_en', '$navbarlabel_fr')");
+		$mysqli->query("call update_wsText($title, '$title_en', '$title_fr')");
+		$mysqli->query("call update_wsText($subtitle, '$subtitle_en', '$subtitle_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Section updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}

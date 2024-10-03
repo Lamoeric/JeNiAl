@@ -94,28 +94,10 @@ function update_classifiedadd($mysqli, $classifiedadd)
 
 	$query = "UPDATE cpa_ws_classifiedadds SET name = '$name', price = '$price', publish = $publish WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$description_fr' WHERE id = $description and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$description_en' WHERE id = $description and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$data['success'] = true;
-						$data['message'] = 'Classifiedadd updated successfully.';
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($label, '$label_en', '$label_fr')");
+		$mysqli->query("call update_wsText($description, '$description_en', '$description_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Classifiedadd updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}

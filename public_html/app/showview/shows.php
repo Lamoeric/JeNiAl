@@ -324,36 +324,9 @@ function updateEntireShowParagraphs($mysqli, $showid, $paragraphs) {
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_shows_paragraphs SET publish = $publish, visiblepreview = $visiblepreview	WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$title_fr' WHERE id = $title AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$title_en' WHERE id = $title AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text SET text = '$subtitle_fr' WHERE id = $subtitle AND language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text SET text = '$subtitle_en' WHERE id = $subtitle AND language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_fr' WHERE id = $paragraphtext AND language = 'fr-ca'";
-								if ($mysqli->query($query)) {
-									$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_en' WHERE id = $paragraphtext AND language = 'en-ca'";
-									if ($mysqli->query($query)) {
-									} else {
-										throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-									}
-								} else {
-									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								}
-							} else {
-								throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$mysqli->query("call update_wsText($title, '$title_en', '$title_fr')");
+				$mysqli->query("call update_wsText($subtitle, '$subtitle_en', '$subtitle_fr')");
+				$mysqli->query("call update_wsText($paragraphtext, '$paragraphtext_en', '$paragraphtext_fr')");
 			} else {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -362,21 +335,7 @@ function updateEntireShowParagraphs($mysqli, $showid, $paragraphs) {
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Deleted') {
 			$query = "DELETE FROM cpa_shows_paragraphs WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "DELETE FROM cpa_ws_text WHERE id = $title";
-				if ($mysqli->query($query)) {
-					$query = "DELETE FROM cpa_ws_text WHERE id = $subtitle";
-					if ($mysqli->query($query)) {
-						$query = "DELETE FROM cpa_ws_text WHERE id = $paragraphtext";
-						if ($mysqli->query($query)) {
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$query = "DELETE FROM cpa_ws_text WHERE id in($title, $subtitle, $paragraphtext)";
 			} else {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -434,36 +393,9 @@ function updateEntireShowRules($mysqli, $showid, $paragraphs) {
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_shows_rules SET publish = $publish, visiblepreview = $visiblepreview WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$title_fr' WHERE id = $title AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$title_en' WHERE id = $title AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text SET text = '$subtitle_fr' WHERE id = $subtitle AND language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text SET text = '$subtitle_en' WHERE id = $subtitle AND language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_fr' WHERE id = $paragraphtext AND language = 'fr-ca'";
-								if ($mysqli->query($query)) {
-									$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_en' WHERE id = $paragraphtext AND language = 'en-ca'";
-									if ($mysqli->query($query)) {
-									} else {
-										throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-									}
-								} else {
-									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								}
-							} else {
-								throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$mysqli->query("call update_wsText($title, '$title_en', '$title_fr')");
+				$mysqli->query("call update_wsText($subtitle, '$subtitle_en', '$subtitle_fr')");
+				$mysqli->query("call update_wsText($paragraphtext, '$paragraphtext_en', '$paragraphtext_fr')");
 			} else {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -472,21 +404,7 @@ function updateEntireShowRules($mysqli, $showid, $paragraphs) {
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Deleted') {
 			$query = "DELETE FROM cpa_shows_rules WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "DELETE FROM cpa_ws_text WHERE id = $title";
-				if ($mysqli->query($query)) {
-					$query = "DELETE FROM cpa_ws_text WHERE id = $subtitle";
-					if ($mysqli->query($query)) {
-						$query = "DELETE FROM cpa_ws_text WHERE id = $paragraphtext";
-						if ($mysqli->query($query)) {
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$query = "DELETE FROM cpa_ws_text WHERE id in($title, $subtitle, $paragraphtext)";
 			} else {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}

@@ -81,19 +81,10 @@ function update_document($mysqli, $document)
 
 	$query = "UPDATE cpa_ws_documents SET documentname = '$documentname', publish = $publish, publishon = '$publishon' WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$description_fr' WHERE id = $description and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$description_en' WHERE id = $description and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$data['publishon'] = $publishon;
-				$data['message'] = 'Document updated successfully.';
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($description, '$description_en', '$description_fr')");
+		$data['success'] = true;
+		$data['publishon'] = $publishon;
+		$data['message'] = 'Document updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}

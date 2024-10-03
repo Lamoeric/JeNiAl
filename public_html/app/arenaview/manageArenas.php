@@ -592,18 +592,9 @@ function updateWebsite($mysqli, $arenaid, $arena) {
 		$query = "UPDATE cpa_ws_arenas SET address1 = '$address1', address2 = '$address2', link = '$link', arenaindex = $arenaindex, publish = $publish 
 							WHERE id = $id";
 		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-				if ($mysqli->query($query)) {
-					$data['success'] = true;
-					$data['message'] = 'Web site updated successfully.';
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			}
+			$mysqli->query("call update_wsText($label, '$label_en', '$label_fr')");
+			$data['success'] = true;
+			$data['message'] = 'Web site updated successfully.';
 		} else {
 			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 		}

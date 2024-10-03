@@ -81,37 +81,15 @@ function update_partner($mysqli, $partner)
 	$name =				$mysqli->real_escape_string(isset($partner['name']) 			? $partner['name'] : '');
 	$publish =			$mysqli->real_escape_string(isset($partner['publish']) 			? (int)$partner['publish'] : 0);
 	$partnerindex =		$mysqli->real_escape_string(isset($partner['partnerindex']) 	? (int)$partner['partnerindex'] : 0);
-	$imagefilename =	$mysqli->real_escape_string(isset($partner['imagefilename']) 	? (int)$partner['imagefilename'] : 0);
-	$imagefilename_fr =	$mysqli->real_escape_string(isset($partner['imagefilename_fr']) ? $partner['imagefilename_fr'] : '');
-	$imagefilename_en =	$mysqli->real_escape_string(isset($partner['imagefilename_en']) ? $partner['imagefilename_en'] : '');
 	$link =				$mysqli->real_escape_string(isset($partner['link']) 			? (int)$partner['link'] : 0);
 	$link_fr =			$mysqli->real_escape_string(isset($partner['link_fr']) 			? $partner['link_fr'] : '');
 	$link_en =			$mysqli->real_escape_string(isset($partner['link_en']) 			? $partner['link_en'] : '');
 
 	$query = "UPDATE cpa_ws_partners SET name = '$name', publish = $publish, partnerindex = $partnerindex WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$imagefilename_fr' WHERE id = $imagefilename and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$imagefilename_en' WHERE id = $imagefilename and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$link_fr' WHERE id = $link and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$link_en' WHERE id = $link and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$data['success'] = true;
-						$data['message'] = 'Partner updated successfully.';
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($link, '$link_en', '$link_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Partner updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}

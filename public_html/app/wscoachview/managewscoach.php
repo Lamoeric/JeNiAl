@@ -8,6 +8,7 @@ require_once('../../backend/invalidrequest.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
 require_once('../../backend/getimagefilename.php');
+require_once('../../backend/removefile.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -130,28 +131,10 @@ function update_coach($mysqli, $coach)
 					publish = $publish, coachindex = $coachindex, artisticlevel = '$artisticlevel', synchrolevel = '$synchrolevel', starversion = $starversion
 				WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_ws_text SET text = '$availabilitytext_fr' WHERE id = $availabilitytext and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_ws_text SET text = '$availabilitytext_en' WHERE id = $availabilitytext and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$competitivetext_fr' WHERE id = $competitivetext and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$competitivetext_en' WHERE id = $competitivetext and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$data['success'] = true;
-						$data['message'] = 'Coach updated successfully.';
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_wsText($availabilitytext, '$availabilitytext_en', '$availabilitytext_fr')");
+		$mysqli->query("call update_wsText($competitivetext, '$competitivetext_en', '$competitivetext_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Coach updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
