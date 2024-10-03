@@ -49,7 +49,6 @@
 
 	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"SW Configuration"},
 	{"formname":"main", "fieldname":"wsarenaviewCtrl", "text":"SW Arénas"},
-	{"formname":"main", "fieldname":"wspageviewCtrl", "text":"SW Pages"},
 	{"formname":"main", "fieldname":"wsnewpageviewCtrl", "text":"SW Pages"},
 	{"formname":"main", "fieldname":"wssectionviewCtrl", "text":"SW Sections"},
 	{"formname":"main", "fieldname":"wsboardmemberviewCtrl", "text":"SW Membres CA"},

@@ -49,7 +49,6 @@
 
 	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"WS Configuration"},
 	{"formname":"main", "fieldname":"wsarenaviewCtrl", "text":"WS Arenas"},
-	{"formname":"main", "fieldname":"wspageviewCtrl", "text":"WS Pages"},
 	{"formname":"main", "fieldname":"wsnewpageviewCtrl", "text":"WS Pages"},
 	{"formname":"main", "fieldname":"wssectionviewCtrl", "text":"WS Sections"},
 	{"formname":"main", "fieldname":"wsboardmemberviewCtrl", "text":"WS Board Members"},
