@@ -174,16 +174,7 @@
 	{"formname":"copyfrom", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"copyfrom", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
-	{"formname":"websitedesc", "fieldname":"fieldtitleimagewidth", "text":"Width"},
-	{"formname":"websitedesc", "fieldname":"fieldtitleimageheight", "text":"Height"},
-	{"formname":"websitedesc", "fieldname":"fieldtitleimagetype", "text":"Type"},
-	{"formname":"websitedesc", "fieldname":"buttontitleloadmainimage", "text":"Import Image"},
-	{"formname":"websitedesc", "fieldname":"msgerrinvalidfile", "text":"Invalid image"},
-	{"formname":"websitedesc", "fieldname":"msgerrinvalidfilesize", "text":"Invalid image - file size larger than "},
-	{"formname":"websitedesc", "fieldname":"msgerrinvalidmaxwidth", "text":"Invalid image - image width larger than "},
-	{"formname":"websitedesc", "fieldname":"msgerrinvalidmaxheight", "text":"Invalid image - image height larger than "},
-	{"formname":"websitedesc", "fieldname":"helptextimagespecifications", "text":"Image must be of type jpg, be smaller than 300Kb and of size smaller than 500px X 500px."},
-	{"formname":"websitedesc", "fieldname":"msguploadcompleted", "text":"Image Imported."},
+	{"formname":"websitedesc", "fieldname":"formtitle", "text":"Web Site"},
 
 	{"formname":"charges", "fieldname":"formtitle", "text":"Charges"},
 	{"formname":"charges", "fieldname":"buttontitlenewcharge", "text":"New charge..."},
