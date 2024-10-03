@@ -59,7 +59,7 @@ function uploadImageAndUpdateByName($mysqli, $files, $directorySuffix, $filename
     } catch (Exception $e) {
         $data = array();
         $data['success'] = false;
-        $data['message'] = $e->getMessage();
+        $data['message'] = 'uploadImageAndUpdateByName - ' . $name . ' - ' . $e->getMessage();
         return $data;
     }
     return $data;

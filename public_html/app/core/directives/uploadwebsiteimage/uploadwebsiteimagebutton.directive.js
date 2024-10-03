@@ -72,8 +72,8 @@ angular.module('core').directive( "uploadwebsiteimagebutton", ['$http', 'dialogS
 							'subDirectory': scope.subdirectory,
 							'filePrefix': scope.fileprefix,
 							'tableName': scope.tablename,
-							'id': scope.id ? scope.id : null,
-							'name': scope.name ? scope.name : null,
+							'id': scope.id ? scope.id : '',
+							'name': scope.name ? scope.name : '',
 							'oldFileName': scope.oldfilename,
 							'language': (scope.language && scope.language != '' ? scope.language : null),
 							'pattern': (scope.language && scope.language != '' ? 2 : 1)
