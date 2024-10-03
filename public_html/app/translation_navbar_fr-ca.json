@@ -50,7 +50,6 @@
 	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"SW Configuration"},
 	{"formname":"main", "fieldname":"wsarenaviewCtrl", "text":"SW Arénas"},
 	{"formname":"main", "fieldname":"wsnewpageviewCtrl", "text":"SW Pages"},
-	{"formname":"main", "fieldname":"wssectionviewCtrl", "text":"SW Sections"},
 	{"formname":"main", "fieldname":"wsboardmemberviewCtrl", "text":"SW Membres CA"},
 	{"formname":"main", "fieldname":"wscoachviewCtrl", "text":"SW Entraîneurs"},
 	{"formname":"main", "fieldname":"wsprogramassistantviewCtrl", "text":"SW Assistants de programme"},
