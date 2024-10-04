@@ -31,7 +31,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
 	$scope.config = null;
-	$scope.formList = [{name:'detailsForm', errorMsg:'msgerrallmandatory'}];
+	$scope.formList = [{name:'detailsForm', errorMsg:'msgerrallmandatory'}, {'name':'startestsForm'}];
 
 	/**
 	 * This function checks if anything is dirty
