@@ -403,11 +403,21 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
 	    });
 	};
 
-	this.getAllCharges = function($scope, preferedlanguage) {
+	/**
+	 * Get all charges. By default, do not get the system charges, like specialcharge and specialdiscount. By default, also include non active charges.
+	 * @param {*} $scope 
+	 * @param {*} preferedlanguage 
+	 * @param {*} includesystem if true, include system charges. Default is false.
+	 * @param {*} includenonactive if true, include non active charges. Default is true.
+	 */
+	this.getAllCharges = function($scope, preferedlanguage, includesystem, includenonactive) {
+		// Transforms boolean to numeric
+		includesystem =  (!includesystem) ? 0 : 1;
+		includenonactive =  (includenonactive==undefined) ? 1 : (includenonactive==true) ? 1 : 0;
 		$http({
 	      method: 'post',
 	      url: './core/services/lists/lists.php',
-	      data: $.param({'language' : preferedlanguage, 'type' : 'getAllCharges'}),
+	      data: $.param({'language' : preferedlanguage, 'includesystem' : includesystem, 'includenonactive' : includenonactive, 'type' : 'getAllCharges'}),
 	      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	    }).
 	    success(function(data, status, headers, config) {

@@ -10,7 +10,7 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
 
 	switch ($type) {
 		case "getAllCharges":
-			getAllCharges($mysqli, $_POST['language']);
+			getAllCharges($mysqli, $_POST['language'], $_POST['includesystem'], $_POST['includenonactive']);
 			break;
 		case "getCoaches":
 			getCoaches($mysqli, $_POST['language']);
@@ -772,17 +772,23 @@ function getAllCourseLevels($mysqli, $coursecode, $language) {
 /**
  * This function gets all charges from database
  */
-function getAllCharges($mysqli, $language) {
+function getAllCharges($mysqli, $language, $includesystem, $includenonactive) {
 	try {
-		$query = "SELECT code, getTextLabel(label, '$language') label
-							FROM cpa_charges
-							order by label";
+		$query = "SELECT code, getTextLabel(label, '$language') label FROM cpa_charges WHERE 1=1 ";
+		if (!$includesystem) {
+			$query .= " AND issystem = 0 ";
+		}
+		if (!$includenonactive) {
+			$query .= " AND active = 1 ";
+		}
+		$query .= " ORDER BY label ";
 		$result = $mysqli->query( $query );
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
+		$data['includesystem'] = $includesystem;
 		echo json_encode($data);
 		exit;
 	} catch (Exception $e) {
