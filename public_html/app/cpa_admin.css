@@ -692,3 +692,11 @@
 .paragraph ul li {
 	display: list-item;
 }
+
+.redfont {
+    color: red;
+}
+
+.italic {
+	font-style: italic;
+}
