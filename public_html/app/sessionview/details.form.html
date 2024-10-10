@@ -4,81 +4,73 @@
 				ng-click="viewSessionCalendar()"></button></h3>
 		<div class="row">
 			<div class="col-xs-10">
-				<label for="name">{{translationObj.details.fieldname}}<i style="color:red"> *</i></label>
+				<labelrequired for="sessionname" label="translationObj.details.fieldname"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentSession.name"
-						maxlength="40" required autocomplete="off">
+					<input type="text" name="name" class="form-control" id="sessionname" ng-model="currentSession.name" maxlength="40" required>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-10">
-				<label for="name">{{translationObj.details.fieldenglishlabel}}<i style="color:red"> *</i></label>
+				<labelrequired for="label_en" label="translationObj.details.fieldenglishlabel"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_en" class="form-control" id="label_en"
-						ng-model="currentSession.label_en" maxlength="200" required>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentSession.label_en" maxlength="200" required>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-10">
-				<label for="name">{{translationObj.details.fieldfrenchlabel}}<i style="color:red"> *</i></label>
+				<labelrequired for="label_fr" label="translationObj.details.fieldfrenchlabel"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="label_fr"
-						ng-model="currentSession.label_fr" maxlength="200" required>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentSession.label_fr" maxlength="200" required>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-5">
-				<label for="startdate">{{translationObj.details.fieldsessionstartdate}}<i style="color:red">*</i></label>
+				<labelrequired for="startdate" label="translationObj.details.fieldsessionstartdate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="startdate" class="form-control" id="startdate"
-						ng-model="currentSession.startdate" required>
+					<input type="date" name="startdate" class="form-control" id="startdate" ng-model="currentSession.startdate" required>
 				</div>
 			</div>
 			<div class="col-xs-5">
-				<label for="enddate">{{translationObj.details.fieldsessionenddate}}<i style="color:red"> *</i></label>
+				<labelrequired for="enddate" label="translationObj.details.fieldsessionenddate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="enddate" class="form-control" id="enddate"
-						ng-model="currentSession.enddate" required>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-5">
-				<label for="coursesstartdate">{{translationObj.details.fieldcoursesstartdate}}<i style="color:red">*</i></label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="coursesstartdate" class="form-control" id="coursesstartdate"
-						ng-model="currentSession.coursesstartdate" required>
-				</div>
-			</div>
-			<div class="col-xs-5">
-				<label for="coursesenddate">{{translationObj.details.fieldcoursesenddate}}<i style="color:red">*</i></label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="coursesenddate" class="form-control" id="coursesenddate"
-						ng-model="currentSession.coursesenddate" required>
+					<input type="date" name="enddate" class="form-control" id="enddate" ng-model="currentSession.enddate" required>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-5">
-				<label for="reimbursementdate">{{translationObj.details.fieldreimbursementenddate}}<i style="color:red">*</i></label>
+				<labelrequired for="coursesstartdate" label="translationObj.details.fieldcoursesstartdate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="reimbursementdate" class="form-control" id="reimbursementdate"
-						ng-model="currentSession.reimbursementdate" required>
+					<input type="date" name="coursesstartdate" class="form-control" id="coursesstartdate" ng-model="currentSession.coursesstartdate" required>
 				</div>
 			</div>
 			<div class="col-xs-5">
-				<label for="agereferencedate">{{translationObj.details.fieldagereferencedate}}<i style="color:red">*</i></label>
+				<labelrequired for="coursesenddate" label="translationObj.details.fieldcoursesenddate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="coursesenddate" class="form-control" id="coursesenddate" ng-model="currentSession.coursesenddate" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<labelrequired for="reimbursementdate" label="translationObj.details.fieldreimbursementenddate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" name="reimbursementdate" class="form-control" id="reimbursementdate" ng-model="currentSession.reimbursementdate" required>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<labelrequired for="agereferencedate" label="translationObj.details.fieldagereferencedate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					<input type="date" name="agereferencedate" class="form-control" id="agereferencedate" ng-model="currentSession.agereferencedate" required>
@@ -87,11 +79,10 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-5">
-				<label for="proratastartdate">{{translationObj.details.fieldproratastartdate}}<i style="color:red">*</i></label>
+				<labelrequired for="proratastartdate" label="translationObj.details.fieldproratastartdate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="date" name="proratastartdate" class="form-control" id="proratastartdate"
-						ng-model="currentSession.proratastartdate" required>
+					<input type="date" name="proratastartdate" class="form-control" id="proratastartdate" ng-model="currentSession.proratastartdate" required>
 				</div>
 			</div>
 			<div class="col-xs-5">
@@ -129,16 +120,17 @@
 				<label for="lastupdateddate">{{translationObj.details.fieldlastupdateddate}}</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					<input type="datetime-local" name="lastupdateddate" class="form-control" id="lastupdateddate"
-						ng-model="currentSession.lastupdateddate" disabled>
+					<input type="datetime-local" name="lastupdateddate" class="form-control" id="lastupdateddate" ng-model="currentSession.lastupdateddate" disabled>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
 				<div class="input-group">
-					<br><label><input type="checkbox" id="active" ng-model="currentSession.active" ng-true-value="'1'"
-							disabled>{{translationObj.details.fieldactive}}</label>
+					<br>
+					<label>
+						<input type="checkbox" id="active" ng-model="currentSession.active" ng-true-value="'1'" disabled>{{translationObj.details.fieldactive}}
+					</label>
 				</div>
 			</div>
 		</div>

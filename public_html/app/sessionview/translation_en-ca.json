@@ -120,6 +120,7 @@
 	{"formname":"icetimes", "fieldname":"fieldendtime", "text":"End Time"},
 	{"formname":"icetimes", "fieldname":"fieldduration", "text":"Duration"},
 	{"formname":"icetimes", "fieldname":"fieldcomments", "text":"Comments"},
+	{"formname":"icetimes", "fieldname":"msgwarningarenainactive", "text":"This arena is not active."},
 
 	{"formname":"charges", "fieldname":"formtitle", "text":"Charges"},
 	{"formname":"charges", "fieldname":"buttontitlenewcharge", "text":"New charge..."},
@@ -128,6 +129,7 @@
 	{"formname":"charges", "fieldname":"fieldamount", "text":"Amount"},
 	{"formname":"charges", "fieldname":"fieldstartdate", "text":"Start Date"},
 	{"formname":"charges", "fieldname":"fieldenddate", "text":"End Date"},
+	{"formname":"charges", "fieldname":"msgerrconflictingcharges", "text":"A charge with the same code already exists for this session. Make sure the dates are not conflicting."},
 
 	{"formname":"courses", "fieldname":"formtitlecourses", "text":"Course"},
 	{"formname":"courses", "fieldname":"buttontitlenewcourse", "text":"New Course..."},
@@ -158,10 +160,17 @@
 	{"formname":"courses", "fieldname":"fieldday", "text":"Day"},
 	{"formname":"courses", "fieldname":"fieldstarttime", "text":"Start Time"},
 	{"formname":"courses", "fieldname":"fieldendtime", "text":"End Time"},
+	{"formname":"courses", "fieldname":"fieldstartdate", "text":"Start Date"},
+	{"formname":"courses", "fieldname":"fieldenddate", "text":"End Date"},
 	{"formname":"courses", "fieldname":"fieldduration", "text":"Duration"},
 	{"formname":"courses", "fieldname":"fieldavailableonline", "text":"Available online"},
 	{"formname":"courses", "fieldname":"fielddatesgenerated", "text":"Dates generated"},
-	{"formname":"courses", "fieldname":"fieldnoschedule", "text":"No schedules allowed, manual dates only."},
+	{"formname":"courses", "fieldname":"msgnoschedule", "text":"No schedules allowed, manual dates only."},
+	{"formname":"courses", "fieldname":"fieldprerequisitedefined", "text":"Prerequisites defined"},
+	{"formname":"courses", "fieldname":"fieldprerequisitenotdefined", "text":"Prerequisites not definied"},
+	{"formname":"courses", "fieldname":"msgerrnodatesdefined", "text":"No manual dates defined for this course."},
+	{"formname":"courses", "fieldname":"msgerrnoscheduledefined", "text":"No schedule defined for this course."},
+	{"formname":"courses", "fieldname":"msgerrhasinactivarena", "text":"At least one schedule uses a non active arena."},
 
 	{"formname":"coursedates", "fieldname":"formtitlecoursedates", "text":"Course Dates"},
 	{"formname":"coursedates", "fieldname":"fieldcourse", "text":"Course"},
@@ -193,6 +202,7 @@
 	{"formname":"newcharge", "fieldname":"fieldstartdate", "text":"Start Date"},
 	{"formname":"newcharge", "fieldname":"fieldenddate", "text":"End Date"},
 	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newcharge", "fieldname":"formwarningmessage", "text":"This charge is not active."},
 	{"formname":"newcharge", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newcharge", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -230,6 +240,7 @@
 	{"formname":"newcoursedates", "fieldname":"fieldfrenchlabel", "text":"French Label"},
 	{"formname":"newcoursedates", "fieldname":"fieldenglishlabel", "text":"English Label"},
 	{"formname":"newcoursedates", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newcoursedates", "fieldname":"formwarningmessage", "text":"This arena is not active."},
 	{"formname":"newcoursedates", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newcoursedates", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -242,6 +253,7 @@
 	{"formname":"newicetimes", "fieldname":"fieldduration", "text":"Duration"},
 	{"formname":"newicetimes", "fieldname":"fieldcomments", "text":"Comments"},
 	{"formname":"newicetimes", "fieldname":"formerrormessage", "text":"All fields, except comments, are mandatory."},
+	{"formname":"newicetimes", "fieldname":"msgwarningarenainactive", "text":"This arena is not active."},
 	{"formname":"newicetimes", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newicetimes", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -273,6 +285,7 @@
 	{"formname":"newschedule", "fieldname":"fieldduration", "text":"Duration"},
 	{"formname":"newschedule", "fieldname":"fieldcomments", "text":"Comments"},
 	{"formname":"newschedule", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newschedule", "fieldname":"formwarningmessage", "text":"This arena is not active."},
 	{"formname":"newschedule", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newschedule", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 

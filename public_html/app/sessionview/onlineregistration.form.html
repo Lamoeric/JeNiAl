@@ -11,7 +11,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-3 col-xs-offset-1">
-				<label for="onlineregiststartdate">{{translationObj.onlineregistration.fieldonlinepreregiststartdate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
+				<label for="onlinepreregiststartdate">{{translationObj.onlineregistration.fieldonlinepreregiststartdate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					<input type="date" name="onlinepreregiststartdate" class="form-control" id="onlinepreregiststartdate" 
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="col-xs-3">
-				<label for="onlineregistenddate">{{translationObj.onlineregistration.fieldonlinereregistenddate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
+				<label for="onlinepreregistenddate">{{translationObj.onlineregistration.fieldonlinereregistenddate}}<i style="color:red" ng-if="currentSession.isonlinepreregistactive==1"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					<input type="date" name="onlinepreregistenddate" class="form-control" id="onlinepreregistenddate"
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="col-xs-3">
-				<label for="eventname">{{translationObj.onlineregistration.fieldonlinepreregistemailtpl}}<i style="color:red"> *</i></label>
+				<label for="onlinepreregistemailtpl">{{translationObj.onlineregistration.fieldonlinepreregistemailtpl}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 					<select class="form-control" id="onlinepreregistemailtpl" ng-model="currentSession.onlinepreregistemailtpl" ng-required="currentSession.isonlinepreregistemail=='1'" ng-disabled="currentSession.isonlinepreregistactive==0||currentSession.isonlinepreregistemail==0">

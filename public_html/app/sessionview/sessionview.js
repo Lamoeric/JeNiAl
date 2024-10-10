@@ -33,13 +33,13 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		$scope.filtercoursesdate = null;
 		$scope.filterarena = null;
 		$scope.remarkable = new Remarkable({
-				html:         false,        // Enable HTML tags in source
-				xhtmlOut:     false,        // Use '/' to close single tags (<br />)
-				breaks:       false         // Convert '\n' in paragraphs into <br>
-	//      langPrefix:   'language-',  // CSS language prefix for fenced blocks
-	//      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-	//      quotes: '����',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '��' for Russian, '��' for German.
-	//      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
+			html: false,        // Enable HTML tags in source
+			xhtmlOut: false,        // Use '/' to close single tags (<br />)
+			breaks: false         // Convert '\n' in paragraphs into <br>
+			//      langPrefix:   'language-',  // CSS language prefix for fenced blocks
+			//      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
+			//      quotes: '����',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '��' for Russian, '��' for German.
+			//      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
 
 		$scope.isDirty = function () {
@@ -141,21 +141,21 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				});
 		};
 
-		$scope.convertParagraph = function(paragraph) {
+		$scope.convertParagraph = function (paragraph) {
 			if (paragraph) {
-				paragraph.msgfr =  "<H3>" + (paragraph.title_fr!=null && paragraph.title_fr!='' ? paragraph.title_fr : '') + "</H3>" +
-								"<H4>" + (paragraph.subtitle_fr!=null && paragraph.subtitle_fr!='' ? paragraph.subtitle_fr : '') + "</H4>" +
-								"<p>" + (paragraph.paragraphtext_fr!=null && paragraph.paragraphtext_fr!='' ? $scope.remarkable.render(paragraph.paragraphtext_fr) : '') + "</p>";
-				paragraph.msgfr =  $sce.trustAsHtml(paragraph.msgfr);
-				paragraph.msgen =  "<H3>" + (paragraph.title_en!=null && paragraph.title_en!='' ? paragraph.title_en : '') + "</H3>" +
-								"<H4>" + (paragraph.subtitle_en!=null && paragraph.subtitle_en!='' ? paragraph.subtitle_en : '') + "</H4>" +
-								"<p>" + (paragraph.paragraphtext_en!=null && paragraph.paragraphtext_en!='' ? $scope.remarkable.render(paragraph.paragraphtext_en) : '') + "</p>";
-				paragraph.msgen =  $sce.trustAsHtml(paragraph.msgen);
+				paragraph.msgfr = "<H3>" + (paragraph.title_fr != null && paragraph.title_fr != '' ? paragraph.title_fr : '') + "</H3>" +
+					"<H4>" + (paragraph.subtitle_fr != null && paragraph.subtitle_fr != '' ? paragraph.subtitle_fr : '') + "</H4>" +
+					"<p>" + (paragraph.paragraphtext_fr != null && paragraph.paragraphtext_fr != '' ? $scope.remarkable.render(paragraph.paragraphtext_fr) : '') + "</p>";
+				paragraph.msgfr = $sce.trustAsHtml(paragraph.msgfr);
+				paragraph.msgen = "<H3>" + (paragraph.title_en != null && paragraph.title_en != '' ? paragraph.title_en : '') + "</H3>" +
+					"<H4>" + (paragraph.subtitle_en != null && paragraph.subtitle_en != '' ? paragraph.subtitle_en : '') + "</H4>" +
+					"<p>" + (paragraph.paragraphtext_en != null && paragraph.paragraphtext_en != '' ? $scope.remarkable.render(paragraph.paragraphtext_en) : '') + "</p>";
+				paragraph.msgen = $sce.trustAsHtml(paragraph.msgen);
 			}
 		}
-	
+
 		// Check if date is a valid value
-		$scope.isDateValid = function(datetovalidate) {
+		$scope.isDateValid = function (datetovalidate) {
 			var retVal = true;
 			if (datetovalidate == "0000-00-00" || datetovalidate == "0000-01-01") {
 				retVal = false;
@@ -238,15 +238,22 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 							}
 						}
 						for (var i = 0; i < $scope.currentSession.sessionCourses.length; i++) {
-							// Still not doing the job, we need to removed all special characters for this to work... use session_courses id instead.
-							//					$scope.currentSession.sessionCourses[i].namenospace = $scope.currentSession.sessionCourses[i].name.replace(/[\s]/g, '_');
-							if ($scope.currentSession.sessionCourses[i].startdate) {
-								$scope.currentSession.sessionCourses[i].startdate = parseISOdateService.parseDate($scope.currentSession.sessionCourses[i].startdate + "T00:00:00");
+							var course = $scope.currentSession.sessionCourses[i];
+							if (course.startdate) {
+								course.startdate = parseISOdateService.parseDate(course.startdate + "T00:00:00");
 							}
-							if ($scope.currentSession.sessionCourses[i].enddate) {
-								$scope.currentSession.sessionCourses[i].enddate = parseISOdateService.parseDate($scope.currentSession.sessionCourses[i].enddate + "T00:00:00");
+							if (course.enddate) {
+								course.enddate = parseISOdateService.parseDate(course.enddate + "T00:00:00");
 							}
-							$scope.currentSession.sessionCourses[i].namenospace = $scope.currentSession.sessionCourses[i].id;
+							course.isprereqdefined = (course.prereqagemax || course.prereqagemin || course.prereqcanskatebadgemax > 0 || course.prereqcanskatebadgemin > 0) ? true : false;
+							course.isprereqdefinedlabel = anycodesService.convertCodeToDesc($scope, 'yesnos', course.isprereqdefined);
+							course.namenospace = course.id;
+							for (var x = 0; course.schedules && x < course.schedules.length; x++) {
+								if (course.schedules[x].arenaactive == 0) {
+									course.hasainactivearena = true;
+									break;
+								}
+							}
 						}
 						for (var i = 0; i < $scope.currentSession.rules2.length; i++) {
 							$scope.convertParagraph($scope.currentSession.rules2[i]);
@@ -346,6 +353,10 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function () { $("#mainglobalwarningmessage").hide(); });
 			}
 			return retVal;
+		}
+
+		$scope.myDateFilter = function(dateToChange) {
+			return dateFilter(dateToChange, 'yyyy-MM-dd');
 		}
 
 		$scope.saveToDB = function () {
@@ -569,7 +580,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		 * @param {*} newObj 
 		 * @returns 
 		 */
-		$scope.validateNewCourseForm = function(editObjForm, newObj) {
+		$scope.validateNewCourseForm = function (editObjForm, newObj) {
 			if (editObjForm.$invalid) {
 				if (newObj.prereqagemin < 1 || newObj.prereqagemax < 1) {
 					return "#editObjFieldAgeMustBePositive";
@@ -580,7 +591,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			}
 			return "#editObjFieldMandatory";
 		}
-  
+
 		// This is the function that creates the modal to create/edit courses
 		$scope.editSessionCourse = function (newCourse) {
 			$scope.newCourse = {};
@@ -596,15 +607,18 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				size: 'lg',
 				backdrop: 'static',
 				resolve: {
-					newObj: function () {return $scope.newCourse;},
-					control: function() {return null;},		// The control object containing all validation functions
-					callback: function() {return $scope.validateNewCourseForm;}										// Callback function to overwrite the normal validation
-		}
+					newObj: function () { return $scope.newCourse; },
+					control: function () { return null; },		// The control object containing all validation functions
+					callback: function () { return $scope.validateNewCourseForm; }										// Callback function to overwrite the normal validation
+				}
 			})
 				.result.then(function (newCourse) {
 					// User clicked OK and everything was valid.
 					newCourse.availableonlinelabel = anycodesService.convertCodeToDesc($scope, 'yesnos', newCourse.availableonline);
 					newCourse.isschedulelabel = anycodesService.convertCodeToDesc($scope, 'yesnos', newCourse.isschedule);
+					newCourse.courselabel = (authenticationService.getCurrentLanguage() == "fr-ca") ? newCourse.label_fr : newCourse.label_en;
+					newCourse.isprereqdefined = (newCourse.prereqagemax || newCourse.prereqagemin || newCourse.prereqcanskatebadgemax > 0 || newCourse.prereqcanskatebadgemin > 0) ? true : false;
+					newCourse.isprereqdefinedlabel = anycodesService.convertCodeToDesc($scope, 'yesnos', newCourse.isprereqdefined);
 					angular.copy(newCourse, $scope.currentCourse);
 					// If course doesn't allow for schedules, removed all existing schedules
 					if ($scope.currentCourse.isschedule == 0) {
@@ -614,6 +628,11 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 							}
 						}
 					}
+					if (!$scope.currentCourse.staffs) $scope.currentCourse.staffs = [];
+					if (!$scope.currentCourse.sublevels) $scope.currentCourse.sublevels = [];
+					if (!$scope.currentCourse.schedules) $scope.currentCourse.schedules = [];
+					if (!$scope.currentCourse.datesgenerated) $scope.currentCourse.datesgenerated = 0;
+					$scope.currentCourse.datesgeneratedlabel = anycodesService.convertCodeToDesc($scope, 'yesnos', $scope.currentCourse.datesgenerated);
 					if ($scope.currentCourse.id != null) {
 						$scope.currentCourse.status = 'Modified';
 					} else {
@@ -777,6 +796,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 		$scope.editSessionCourseDate = function (course, newCoursedate) {
 			$scope.course = course;
 			$scope.newCoursedate = {};
+			if (newCoursedate == null) newCoursedate = { manual: 1 };
 			$scope.currentCoursedate = newCoursedate;
 			angular.copy(newCoursedate, $scope.newCoursedate);
 			if ($scope.newCoursedate.coursedate) $scope.newCoursedate.coursedate = parseISOdateService.parseDate($scope.newCoursedate.coursedate + "T00:00:00");
@@ -794,35 +814,34 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 						return $scope.newCoursedate;
 					}
 				}
-			})
-				.result.then(function (newCoursedate) {
-					// User clicked OK and everything was valid.
-					newCoursedate.icelabel = arenaService.convertArenaIceToCurrentDesc($scope, newCoursedate.arenaid, newCoursedate.iceid);
-					newCoursedate.arenalabel = arenaService.convertArenaToCurrentDesc($scope, newCoursedate.arenaid);
-					angular.copy(newCoursedate, $scope.currentCoursedate);
-					if (!$scope.currentCoursedate.day) {
-						// var coursedate = new Date(newCoursedate.coursedate + "T00:00:00");
-						$scope.currentCoursedate.day = $scope.currentCoursedate.coursedate.getDay() / 1;
+			}).result.then(function (newCoursedate) {
+				// User clicked OK and everything was valid.
+				newCoursedate.icelabel = arenaService.convertArenaIceToCurrentDesc($scope, newCoursedate.arenaid, newCoursedate.iceid);
+				newCoursedate.arenalabel = arenaService.convertArenaToCurrentDesc($scope, newCoursedate.arenaid);
+				angular.copy(newCoursedate, $scope.currentCoursedate);
+				if (!$scope.currentCoursedate.day) {
+					// var coursedate = new Date(newCoursedate.coursedate + "T00:00:00");
+					$scope.currentCoursedate.day = $scope.currentCoursedate.coursedate.getDay() / 1;
+				}
+				$scope.currentCoursedate.daylabel = anycodesService.convertCodeToDesc($scope, 'days', $scope.currentCoursedate.day);
+				$scope.currentCoursedate.canceledlabel = anycodesService.convertCodeToDesc($scope, 'yesnos', $scope.currentCoursedate.canceled);
+				$scope.currentCoursedate.coursedate = dateFilter(newCoursedate.coursedate, 'yyyy-MM-dd');
+				if ($scope.currentCoursedate.id != null) {
+					$scope.currentCoursedate.status = 'Modified';
+				} else {
+					$scope.currentCoursedate.status = 'New';
+					$scope.currentCoursedate.coursename = $scope.course.name;
+					if ($scope.course.dates == null) $scope.course.dates = [];
+					if ($scope.course.dates.indexOf($scope.currentCoursedate) == -1) {
+						$scope.course.dates.push($scope.currentCoursedate);
 					}
-					$scope.currentCoursedate.daylabel = anycodesService.convertCodeToDesc($scope, 'days', $scope.currentCoursedate.day);
-					$scope.currentCoursedate.canceledlabel = anycodesService.convertCodeToDesc($scope, 'yesnos', $scope.currentCoursedate.canceled);
-					$scope.currentCoursedate.coursedate = dateFilter(newCoursedate.coursedate, 'yyyy-MM-dd');
-					if ($scope.currentCoursedate.id != null) {
-						$scope.currentCoursedate.status = 'Modified';
-					} else {
-						$scope.currentCoursedate.status = 'New';
-						$scope.currentCoursedate.coursename = $scope.course.name;
-						if ($scope.course.dates == null) $scope.course.dates = [];
-						if ($scope.course.dates.indexOf($scope.currentCoursedate) == -1) {
-							$scope.course.dates.push($scope.currentCoursedate);
-						}
-					}
-					$scope.manageAllCoursesDates();
-					$scope.setDirty();
-				}, function () {
-					// User clicked CANCEL.
-					// alert('canceled');
-				});
+				}
+				$scope.manageAllCoursesDates();
+				$scope.setDirty();
+			}, function () {
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
 		};
 
 		// This is the function that creates the modal to create/edit charges
@@ -848,11 +867,20 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				newCharge.startdatestr = dateFilter(newCharge.startdate, 'yyyy-MM-dd');
 				newCharge.enddatestr = dateFilter(newCharge.enddate, 'yyyy-MM-dd');
 				angular.copy(newCharge, $scope.currentCharge);
+				$scope.currentCharge.chargelabel = anycodesService.convertCodeToLabel($scope, 'charges', $scope.currentCharge.chargecode);
 				if ($scope.currentCharge.id != null) {
 					$scope.currentCharge.status = 'Modified';
 				} else {
 					$scope.currentCharge.status = 'New';
 					if ($scope.currentSession.sessionCharges == null) $scope.currentSession.sessionCharges = [];
+					// Let's make sure there is not another charge with the same code and conflicting dates
+					for (var x = 0; x < $scope.currentSession.sessionCharges.length; x++) {
+						var charge = $scope.currentSession.sessionCharges[x];
+						if (charge.chargecode == $scope.currentCharge.chargecode) {
+							// Possible conflicting dates
+							dialogService.alertDlg($scope.translationObj.charges.msgerrconflictingcharges);
+						}
+					}
 					if ($scope.currentSession.sessionCharges.indexOf($scope.currentCharge) == -1) {
 						$scope.currentSession.sessionCharges.push($scope.currentCharge);
 					}
@@ -885,7 +913,9 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			})
 				.result.then(function (newIcetime) {
 					// User clicked OK and everything was valid.
-					newIcetime.icelabel = arenaService.convertArenaIceToCurrentDesc($scope, newIcetime.arenaid, newIcetime.iceid);//, 'en-ca'/*$scope.context.preferedlanguage*/);
+					newIcetime.icelabel = arenaService.convertArenaIceToCurrentDesc($scope, newIcetime.arenaid, newIcetime.iceid);
+					newIcetime.arenalabel = arenaService.convertArenaToCurrentDesc($scope, newIcetime.arenaid);
+					newIcetime.daylabel = anycodesService.convertCodeToDesc($scope, 'days', newIcetime.day);
 					angular.copy(newIcetime, $scope.currentIcetime);
 					if ($scope.currentIcetime.id != null) {
 						$scope.currentIcetime.status = 'Modified';
@@ -1006,28 +1036,26 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 					url: './sessionview/sessions.php',
 					data: $.param({ 'coursedate': coursedatearr, 'language': authenticationService.getCurrentLanguage(), 'type': 'insertCourseDate' }),
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-				}).
-					success(function (data, status, headers, config) {
-						if (data.success) {
-							// Because this function also re-read the entire course from the DB (instead of re-reading the entire session)
-							// we need to reformat certain information just like in the getSessionDetails function
-							if (data.course[0].startdate) {
-								data.course[0].startdate = parseISOdateService.parseDate(data.course[0].startdate + "T00:00:00");
-							}
-							if (data.course[0].enddate) {
-								data.course[0].enddate = parseISOdateService.parseDate(data.course[0].enddate + "T00:00:00");
-							}
-							angular.copy(data.course[0], $scope.courseForDateInsert);
-							$scope.manageAllCoursesDates();
-							dialogService.alertDlg($scope.translationObj.main.msgdatesregenerated + '<br>' + $scope.translationObj.main.msgdatesdeleted + data.deletedates.deleted + '<br>' + $scope.translationObj.main.msgdatesinserted + data.inserted + '/' + data.count);
-						} else {
-							dialogService.displayFailure(data);
+				}).success(function (data, status, headers, config) {
+					if (data.success) {
+						// Because this function also re-read the entire course from the DB (instead of re-reading the entire session)
+						// we need to reformat certain information just like in the getSessionDetails function
+						if (data.course[0].startdate) {
+							data.course[0].startdate = parseISOdateService.parseDate(data.course[0].startdate + "T00:00:00");
 						}
-					}).
-					error(function (data, status, headers, config) {
+						if (data.course[0].enddate) {
+							data.course[0].enddate = parseISOdateService.parseDate(data.course[0].enddate + "T00:00:00");
+						}
+						angular.copy(data.course[0], $scope.courseForDateInsert);
+						$scope.manageAllCoursesDates();
+						dialogService.alertDlg($scope.translationObj.main.msgdatesregenerated + '<br>' + $scope.translationObj.main.msgdatesdeleted + data.deletedates.deleted + '<br>' + $scope.translationObj.main.msgdatesinserted + data.inserted + '/' + data.count);
+					} else {
 						dialogService.displayFailure(data);
-						return false;
-					});
+					}
+				}).error(function (data, status, headers, config) {
+					dialogService.displayFailure(data);
+					return false;
+				});
 			} else {
 				dialogService.alertDlg($scope.translationObj.main.msgdatesnotgenerated);
 			}
@@ -1187,8 +1215,8 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'prorataoptions', 'sequence', 'prorataoptions');
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'onlinepaymentoptions', 'sequence', 'onlinepaymentoptions');
 			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'canskatebadges', 'sequence', 'canskatebadges');
-			arenaService.getAllArenas($scope, authenticationService.getCurrentLanguage());
-			listsService.getAllCharges($scope, authenticationService.getCurrentLanguage());
+			arenaService.getAllArenas($scope, authenticationService.getCurrentLanguage(), false);
+			listsService.getAllCharges($scope, authenticationService.getCurrentLanguage(), false, false);
 			listsService.getAllCourses($scope, authenticationService.getCurrentLanguage());
 			listsService.getCoaches($scope, authenticationService.getCurrentLanguage());
 			listsService.getAllProgramAssistants($scope, authenticationService.getCurrentLanguage());

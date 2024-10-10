@@ -1,47 +1,49 @@
 <div class="form-group row">
-  <div class="grid">
-		<h3>{{translationObj.events.formtitleevent}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionEvent({})"></button></h3>
-    <div class="row">
-      <div class="col-xs-12">
-      	<hr>
+	<div class="grid">
+		<h3>{{translationObj.events.formtitleevent}}&nbsp;
+			<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionEvent({})"></button>
+		</h3>
+		<div class="row">
+			<div class="col-xs-12">
+				<hr>
 				<div ng-repeat="event in currentSession.events">
 					<div class="row">
-			      <div class="col-xs-2">
-				      <label for="eventdate" ng-show="$index==0">{{translationObj.events.fielddate}}</label>
-			      	<input type="text" class="form-control" ng-model="event.eventdatestr" disabled>
-			      </div>
+						<div class="col-xs-2">
+							<label for="eventdate{{$index}}" ng-show="$index==0">{{translationObj.events.fielddate}}</label>
+							<input type="text" class="form-control" id="eventdate{{$index}}" ng-model="event.eventdatestr" disabled>
+						</div>
 
-            <div class="col-xs-2">
-				      <label for="type" ng-show="$index==0">{{translationObj.events.fieldtype}}</label>
-              <select class="form-control" ng-model="event.type" disabled>
-    						<option ng-repeat="eventtype in eventtypes" value="{{eventtype.code}}">{{eventtype.text}}</option>
-          		</select>
-			      </div>
+						<div class="col-xs-2">
+							<label for="type{{$index}}" ng-show="$index==0">{{translationObj.events.fieldtype}}</label>
+							<select class="form-control" id="type{{$index}}" ng-model="event.type" disabled>
+								<option ng-repeat="eventtype in eventtypes" value="{{eventtype.code}}">{{eventtype.text}}</option>
+							</select>
+						</div>
 
-			      <div class="col-xs-2">
-				      <label for="label_en" ng-show="$index==0">{{translationObj.events.fieldlabel_en}}</label>
-			      	<input type="text" class="form-control" ng-model="event.label_en" disabled>
-			      </div>
+						<div class="col-xs-2">
+							<label for="label_en{{$index}}" ng-show="$index==0">{{translationObj.events.fieldlabel_en}}</label>
+							<input type="text" class="form-control" id="label_en{{$index}}" ng-model="event.label_en" disabled>
+						</div>
 
-            <div class="col-xs-2">
-				      <label for="label_fr" ng-show="$index==0">{{translationObj.events.fieldlabel_fr}}</label>
-			      	<input type="text" class="form-control" ng-model="event.label_fr" disabled>
-			      </div>
+						<div class="col-xs-2">
+							<label for="label_fr{{$index}}" ng-show="$index==0">{{translationObj.events.fieldlabel_fr}}</label>
+							<input type="text" class="form-control" id="label_fr{{$index}}" ng-model="event.label_fr" disabled>
+						</div>
 
-			    	<div class="col-xs-2">
-					    <label ng-show="$index==0">&nbsp;</label>
-			      	<div class="input-group">
-		    				<span>
-									<child-edit-button 			obj="event" objlist="currentSession.events" callback="editSessionEvent(event)"></child-edit-button>
-									<child-delete-button 		obj="event" objlist="currentSession.events" callback="setDirty()"></child-delete-button>
-									<child-undelete-button 	obj="event" objlist="currentSession.events" callback="setDirty()"></child-undelete-button>
+						<div class="col-xs-2">
+							<label ng-show="$index==0">&nbsp;</label>
+							<div class="input-group">
+								<span>
+									<child-edit-button obj="event" objlist="currentSession.events" callback="editSessionEvent(event)"></child-edit-button>
+									<child-delete-button obj="event" objlist="currentSession.events" callback="setDirty()"></child-delete-button>
+									<child-undelete-button obj="event" objlist="currentSession.events" callback="setDirty()"></child-undelete-button>
 									<child-status-indicator obj="event"></child-status-indicator>
 								</span>
-						  </div>
-					  </div>
-			    </div>
-		    </div>
-	    </div>
-    </div>
-  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
