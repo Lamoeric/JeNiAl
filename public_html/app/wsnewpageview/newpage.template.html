@@ -6,10 +6,10 @@
 		<div class="form-group">
 
 			<div class="col-xs-4">
-				<label for="name">{{translationObj.newpage.fieldtitlename}}</label>
+				<label for="pagename">{{translationObj.newpage.fieldtitlename}}</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" class="form-control" id="name" ng-model="newObj.name" disabled autocomplete="off">
+					<input type="text" class="form-control" id="pagename" ng-model="newObj.name" disabled>
 				</div>
 			</div>
 
@@ -27,7 +27,7 @@
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="label_en" class="form-control" id="navbarlabel_en"
 						ng-model="newObj.navbarlabel_en" maxlength="200" ng-required="config.supportenglish==1" 
-						ng-disabled="!newObj.canbeinmenubar">
+						ng-disabled="!newObj.canbeinmenubar" autofocus>
 				</div>
 			</div>
 
@@ -37,7 +37,7 @@
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="label_fr" class="form-control" id="navbarlabel_fr"
 						ng-model="newObj.navbarlabel_fr" maxlength="200" ng-required="config.supportfrench==1" 
-						ng-disabled="!newObj.canbeinmenubar">
+						ng-disabled="!newObj.canbeinmenubar" autofocus>
 				</div>
 			</div>
 
