@@ -234,13 +234,20 @@ function delete_registration($mysqli, $registration) {
  */
 function getAllRegistrations($mysqli, $eventtype, $eventid, $filter) {
 	try{
+		$firstname = isset($filter['firstname']) && !empty($filter['firstname']) ? $mysqli->real_escape_string($filter['firstname']) : null;
+		$lastname = isset($filter['lastname']) && !empty($filter['lastname']) ? $mysqli->real_escape_string($filter['lastname']) : null;
+		$status = isset($filter['status']) && !empty($filter['status']) ? $mysqli->real_escape_string($filter['status']) : null;
+		$whereclause = "WHERE cs.id = $eventid ";
+		if (!is_null($firstname)) $whereclause .= " AND cm.firstname like '$firstname'";
+		if (!is_null($lastname)) $whereclause .= " AND cm.lastname like '$lastname'";
+		if (!is_null($status)) $whereclause .= " AND cr.status = '$status'";
 		if ($eventtype == 1) { // Session
 			$query =   "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 1 as eventtype
 						FROM cpa_registrations cr
 						LEFT JOIN cpa_members cm ON cm.id = cr.memberid
-						JOIN cpa_sessions cs ON cs.id = cr.sessionid 
-						WHERE cs.id = $eventid
-						AND (relatednewregistrationid is null || relatednewregistrationid = 0)
+						JOIN cpa_sessions cs ON cs.id = cr.sessionid "
+						. $whereclause .
+						" AND (relatednewregistrationid is null || relatednewregistrationid = 0)
 						ORDER BY cr.sessionid DESC, cr.id DESC, cr.registrationdate DESC";
 		} else if ($eventtype == 2) { // Show
 			$query =   "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 2 as eventtype
@@ -259,6 +266,7 @@ function getAllRegistrations($mysqli, $eventtype, $eventid, $filter) {
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
+		$data['query'] = $query;
 		echo json_encode($data);exit;
 	}catch (Exception $e) {
 		$data = array();

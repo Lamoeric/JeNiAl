@@ -173,8 +173,9 @@
 	{"formname":"registrationsummary", "fieldname":"buttontitleaccept", "text":"Accept"},
 
 	{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filter"},
-	{"formname":"filter", "fieldname":"fieldsessionid", "text":"Session"},
-	{"formname":"filter", "fieldname":"fieldactiveonly", "text":"Active Session Only"},
+	{"formname":"filter", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"filter", "fieldname":"fieldSurname", "text":"Last Name"},
+	{"formname":"filter", "fieldname":"fieldstatus", "text":"Status"},
 	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Dismiss Filter"},
 	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Clear Form"},

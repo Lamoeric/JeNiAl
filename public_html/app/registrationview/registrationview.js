@@ -33,8 +33,8 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 	$scope.today = new Date();
 	$scope.startSearchMember = false;
 	$scope.selectedTab = '#member';
-//	$scope.newFilter = {activeOnly:"1"};
-//	$scope.newFilter.filterApplied = true;
+	$scope.newFilter = {};
+	$scope.newFilter.filterApplied = false;
 	$scope.activeSession = null;
 	$scope.coursecodefilter = null;
 	$scope.leftobjs = [];
@@ -63,12 +63,49 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		$scope.isFormPristine = true;
 	};
 
+	$scope.mainFilter = function(removeFilter) {
+		if (removeFilter == true) {
+			$scope.getAllRegistrations(null);
+		} else {
+			// Send the newFilter to the modal form
+			$uibModal.open({
+					animation: false,
+					templateUrl: 'registrationview/filter.template.html',
+					controller: 'childeditor.controller',
+					scope: $scope,
+					size: 'lg',
+					backdrop: 'static',
+					resolve: {
+						newObj: function () {
+							return $scope.newFilter;
+						}
+					}
+			}).result.then(function(newFilter) {
+				// User clicked OK
+				if (newFilter.firstname || newFilter.lastname || newFilter.status) {
+					$scope.newFilter = newFilter;
+					$scope.getAllRegistrations(newFilter);
+				} else {
+					dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
+					$scope.newFilter = {};
+					$scope.getAllRegistrations(null);
+				}
+			}, function(dismiss) {
+				if (dismiss == true) {
+					$scope.getAllRegistrations(null);
+				}
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
+		}
+	}
+
 	$scope.getAllRegistrations = function(newFilter) {
-//		if (newFilter) {
-//			$scope.newFilter.filterApplied = true;
-//		} else {
-//			$scope.newFilter.filterApplied = false;
-//		}
+		if (newFilter) {
+			$scope.newFilter.filterApplied = true;
+		} else {
+			$scope.newFilter.filterApplied = false;
+		}
 		$scope.promise = $http({
 				method: 'post',
 				url: './registrationview/manageregistrations.php',
@@ -720,40 +757,6 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		$scope.currentRegistration.totalamount = total/1;
 	}
 
-//	$scope.mainFilter = function() {
-//		// Send the newFilter to the modal form
-//		$uibModal.open({
-//				animation: false,
-//				templateUrl: 'registrationview/filter.template.html',
-//				controller: 'childeditor.controller',
-//				scope: $scope,
-//				size: 'lg',
-//				backdrop: 'static',
-//				resolve: {
-//					newObj: function() {
-//						return $scope.newFilter;
-//					}
-//				}
-//		})
-//		.result.then(function(newFilter) {
-//				// User clicked OK
-//				if (newFilter.activeOnly || newFilter.sessionid) {
-//					$scope.newFilter = newFilter;
-//					$scope.getAllRegistrations(newFilter);
-//				} else {
-//					dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
-//					$scope.newFilter = {};
-//					$scope.getAllRegistrations(null);
-//				}
-//		}, function(dismiss) {
-//			if (dismiss == true) {
-//				$scope.getAllRegistrations(null);
-//			}
-//			// User clicked CANCEL.
-//			// alert('canceled');
-//		});
-//	}
-
 	// This is the function that creates the modal to add charges or discount
 	$scope.addChargeOrDiscount = function() {
 		$uibModal.open({
@@ -1066,14 +1069,16 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		} else {
 			$scope.getAllRegistrations(null);
 		}
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'countries', 				'text', 'countries');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'contacttypes', 			'text', 'contacttypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'provinces', 				'text', 'provinces');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'genders', 					'text', 'genders');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'languages', 				'sequence', 'languages');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'familyranks', 			'text', 'familyranks');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'coursedeltatypes',	'text', 'coursedeltatypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 							'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'countries', 'text', 'countries');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'contacttypes', 'text', 'contacttypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'provinces', 'text', 'provinces');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'genders', 'text', 'genders');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'languages', 'sequence', 'languages');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'familyranks', 'text', 'familyranks');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'coursedeltatypes', 'text', 'coursedeltatypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'registrationstatus', 'sequence', 'registrationstatus');
 
 		listsService.getAllSessions($scope, $http, authenticationService.getCurrentLanguage(), $scope.getActiveSession);
 		translationService.getTranslation($scope, 'registrationview', authenticationService.getCurrentLanguage());
