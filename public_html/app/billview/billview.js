@@ -267,37 +267,41 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 	// 	});
 	// };
 
-	$scope.mainFilter = function() {
-		// Send the newFilter to the modal form
-		$uibModal.open({
-				animation: false,
-				templateUrl: 'billview/filter.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'lg',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newFilter;
+	$scope.mainFilter = function(removeFilter) {
+		if (removeFilter == true) {
+			$scope.getAllBills(null);
+		} else {
+			// Send the newFilter to the modal form
+			$uibModal.open({
+					animation: false,
+					templateUrl: 'billview/filter.template.html',
+					controller: 'childeditor.controller',
+					scope: $scope,
+					size: 'lg',
+					backdrop: 'static',
+					resolve: {
+						newObj: function () {
+							return $scope.newFilter;
+						}
 					}
-				}
-		}).result.then(function(newFilter) {
-				// User clicked OK
-				if (newFilter.firstname || newFilter.lastname || newFilter.registration || newFilter.billpaid || newFilter.onlyopenedbills == '1') {
-					$scope.newFilter = newFilter;
-					$scope.getAllBills(newFilter);
-				} else {
-					dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
-					$scope.newFilter = {};
+			}).result.then(function(newFilter) {
+					// User clicked OK
+					if (newFilter.firstname || newFilter.lastname || newFilter.registration || newFilter.billpaid || newFilter.onlyopenedbills == '1') {
+						$scope.newFilter = newFilter;
+						$scope.getAllBills(newFilter);
+					} else {
+						dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
+						$scope.newFilter = {};
+						$scope.getAllBills(null);
+					}
+			}, function(dismiss) {
+				if (dismiss == true) {
 					$scope.getAllBills(null);
 				}
-		}, function(dismiss) {
-			if (dismiss == true) {
-				$scope.getAllBills(null);
-			}
-			// User clicked CANCEL.
-			// alert('canceled');
-		});
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
+		}
 	}
 
 	// This is the function that creates the modal to create new bill

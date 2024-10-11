@@ -1,0 +1,6 @@
+[
+	{"formname":"leftpane", "fieldname":"tooltiprefresh", "text":"Refresh Selection"},
+	{"formname":"leftpane", "fieldname":"tooltipapplyfilter", "text":"Open Filter"},
+	{"formname":"leftpane", "fieldname":"tooltipremovefilter", "text":"Remove Filter"}
+
+]

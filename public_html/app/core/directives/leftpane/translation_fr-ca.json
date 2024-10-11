@@ -1,0 +1,6 @@
+[
+	{"formname":"leftpane", "fieldname":"tooltiprefresh", "text":"Rafraîchir la sélection"},
+	{"formname":"leftpane", "fieldname":"tooltipapplyfilter", "text":"Ouvrir le filtre"},
+	{"formname":"leftpane", "fieldname":"tooltipremovefilter", "text":"Retirer le filtre"}
+
+]

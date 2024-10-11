@@ -304,38 +304,42 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 		});
 	};
 
-	$scope.mainFilter = function() {
-		// Send the newFilter to the modal form
-		$uibModal.open({
-				animation: false,
-				templateUrl: 'contactview/filter.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'lg',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newFilter;
+	$scope.mainFilter = function(removeFilter) {
+		if (removeFilter == true) {
+			$scope.getAllContacts(null);
+		} else {
+			// Send the newFilter to the modal form
+			$uibModal.open({
+					animation: false,
+					templateUrl: 'contactview/filter.template.html',
+					controller: 'childeditor.controller',
+					scope: $scope,
+					size: 'lg',
+					backdrop: 'static',
+					resolve: {
+						newObj: function () {
+							return $scope.newFilter;
+						}
 					}
-				}
-		})
-		.result.then(function(newFilter) {
-				// User clicked OK
-				if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration|| newFilter.qualification) {
-					$scope.newFilter = newFilter;
-					$scope.getAllContacts(newFilter);
-				} else {
-					dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
-					$scope.newFilter = {};
+			})
+			.result.then(function(newFilter) {
+					// User clicked OK
+					if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration|| newFilter.qualification) {
+						$scope.newFilter = newFilter;
+						$scope.getAllContacts(newFilter);
+					} else {
+						dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
+						$scope.newFilter = {};
+						$scope.getAllContacts(null);
+					}
+			}, function(dismiss) {
+				if (dismiss == true) {
 					$scope.getAllContacts(null);
 				}
-		}, function(dismiss) {
-			if (dismiss == true) {
-				$scope.getAllContacts(null);
-			}
-			// User clicked CANCEL.
-			// alert('canceled');
-		});
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
+		}
 	}
 
 	$scope.refreshAll = function() {

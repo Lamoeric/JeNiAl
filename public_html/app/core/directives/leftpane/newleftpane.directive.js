@@ -2,7 +2,7 @@
 *  Object list must be "leftobjs" and each object is called "leftobj".
 *  Author : Eric Lamoureux, 2018-10-02
 */
-angular.module('core').directive('newleftpane', ['$rootScope', function($rootScope) {
+angular.module('core').directive('newleftpane', ['$rootScope', 'translationService', 'authenticationService', function($rootScope, translationService, authenticationService) {
   return {
     restrict: 'E',
     templateUrl: './core/directives/leftpane/newleftpane.template.html',
@@ -38,6 +38,7 @@ angular.module('core').directive('newleftpane', ['$rootScope', function($rootSco
 
         return actual.indexOf(expected) !== -1;
       }
+      translationService.getTranslation(scope, 'core/directives/leftpane', authenticationService.getCurrentLanguage());
     }
 
   };

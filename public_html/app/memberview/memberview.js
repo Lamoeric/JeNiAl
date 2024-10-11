@@ -531,38 +531,42 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		});
 	};
 
-	$scope.mainFilter = function() {
-		// Send the newFilter to the modal form
-		$uibModal.open({
-				animation: false,
-				templateUrl: 'memberview/filter.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'lg',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newFilter;
+	$scope.mainFilter = function(removeFilter) {
+		if (removeFilter == true) {
+			$scope.getAllMembers(null);
+		} else {
+			// Send the newFilter to the modal form
+			$uibModal.open({
+					animation: false,
+					templateUrl: 'memberview/filter.template.html',
+					controller: 'childeditor.controller',
+					scope: $scope,
+					size: 'lg',
+					backdrop: 'static',
+					resolve: {
+						newObj: function () {
+							return $scope.newFilter;
+						}
 					}
-				}
-		})
-		.result.then(function(newFilter) {
-				// User clicked OK
-				if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration|| newFilter.qualification) {
-					$scope.newFilter = newFilter;
-					$scope.getAllMembers(newFilter);
-				} else {
-					dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
-					$scope.newFilter = {};
+			})
+			.result.then(function(newFilter) {
+					// User clicked OK
+					if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration|| newFilter.qualification) {
+						$scope.newFilter = newFilter;
+						$scope.getAllMembers(newFilter);
+					} else {
+						dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
+						$scope.newFilter = {};
+						$scope.getAllMembers(null);
+					}
+			}, function(dismiss) {
+				if (dismiss == true) {
 					$scope.getAllMembers(null);
 				}
-		}, function(dismiss) {
-			if (dismiss == true) {
-				$scope.getAllMembers(null);
-			}
-			// User clicked CANCEL.
-			// alert('canceled');
-		});
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
+		}
 	}
 
 	// This is the function that creates the modal to get the members email addresses
