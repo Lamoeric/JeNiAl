@@ -18,7 +18,20 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
     };
  }])
 
-.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, translationService, dialogService, authenticationService) {
+//  .directive('keypressEvents', ['$document', '$rootScope', function($document, $rootScope) {
+// 	return {
+// 	restrict: 'A',
+// 	link: function() {
+// 		$document.bind('keypress', function(e) {
+// 				console.log('Got keypress:', e.which);
+// 				$rootScope.$broadcast('keypress', e);
+// 				$rootScope.$broadcast('keypress:' + e.which, e);
+// 			});
+// 		}
+// 	};
+// }])
+
+.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', '$document', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, $document, translationService, dialogService, authenticationService) {
 
 	/**
 	 * This function checks if anything is dirty
@@ -189,6 +202,18 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 
 	$rootScope.$on("navbartranslation.loaded", function (event, current, previous, eventObj) {
 		$rootScope.title = $rootScope.translationObj.main[$route.current.controller];
+	});
+
+	// $document.bind("keypress", function(event) {
+	// 	// console.debug(event)
+	// 	$rootScope.$broadcast('keypress', event);
+	// });
+
+	$document.bind("keydown", function(event) {
+		// console.log(event.which);
+		if (event.which == 83) {
+			$rootScope.$broadcast('main-save', event);
+		}
 	});
 
 	//when browser closed - psedocode
