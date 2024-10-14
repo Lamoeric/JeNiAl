@@ -1,26 +1,26 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.reviseregistration.formtitle}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+  <div class="modal-header">
+    <h4 class="modal-title">{{translationObj.reviseregistration.formtitle}}</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <div class="col-xs-4">
-	      <label for="registrationdate">{{translationObj.reviseregistration.fielddate}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="date" name="registrationdate" class="form-control" id="registrationdate" ng-model="newObj.registrationdate" maxlength="14" required>
-	      </div>
-	    </div>
+        <labelrequired for="registrationdate" label="translationObj.reviseregistration.fielddate"></labelrequired>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input type="date" name="registrationdate" class="form-control" id="registrationdate" ng-model="newObj.registrationdate" maxlength="14" required autofocus>
+        </div>
+      </div>
     </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.reviseregistration.formerrormessage}}
+    <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+      {{translationObj.reviseregistration.formerrormessage}}
+    </div>
+    <div class="alert alert-danger" id="editObjFieldInvalidDate" style="display:none;">
+      {{translationObj.reviseregistration.formerrormessageinvaliddate}}
+    </div>
   </div>
-  <div class="alert alert-danger" id="editObjFieldInvalidDate" style="display:none;">
-    {{translationObj.reviseregistration.formerrormessageinvaliddate}}
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.reviseregistration.buttontitlediscard}}</button>
+    <button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.reviseregistration.buttontitlekeepchanges}}</button>
   </div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.reviseregistration.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.reviseregistration.buttontitlekeepchanges}}</button>
-</div>
+</form>

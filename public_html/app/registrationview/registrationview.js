@@ -1055,6 +1055,15 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		$scope.selectedLeftObj = null;
 	}
 
+		// $scope.$on('keypress', function(onEvent, keypressEvent) {
+		// 	if (keypressEvent.which === 120) {
+		// 	$scope.keyPressed = 'x';
+		// 	}
+		// 	else {
+		// 	$scope.keyPressed = 'Keycode: ' + keypressEvent.which;
+		// 	}
+		// });
+
 	/**
 	*			Callback from listsService.getAllSessionsAndShows to force the selection of the first element in the list
 	*/	
@@ -1087,3 +1096,4 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 
 	$scope.refreshAll();
 }]);
+

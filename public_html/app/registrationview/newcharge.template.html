@@ -1,8 +1,8 @@
-<div class="modal-header">
-	<h4 class="modal-title">{{translationObj.newcharge.formtitleselectcharge}}</h4>
-</div>
-<div class="modal-body">
-	<form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newcharge.formtitleselectcharge}}</h4>
+	</div>
+	<div class="modal-body">
 		<table width="100%" class="table table-striped">
 			<tr>
 				<th>{{translationObj.courses.fieldcode}}</th>
@@ -19,8 +19,8 @@
 				<td width="5%" class="coursetableselectedtd"><span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span></td>
 			</tr>
 		</table>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newcharge.buttontitlekeepchanges}}</button>
-</div>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newcharge.buttontitlekeepchanges}}</button>
+	</div>
+</form>

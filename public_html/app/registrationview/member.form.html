@@ -1,174 +1,202 @@
 <div class="form-group row">
 	<!-- <div class="grid"> -->
-		<search-member-button is-full-copy="true" callback="saveToDB(member, forced)" is-form-pristine="currentRegistration.status!='DRAFT'" member="currentRegistration.member"></search-member-button>
-		<new-member-button is-form-pristine="currentRegistration.status!='DRAFT'" member="currentRegistration.member"></new-member-button>
-		<search-member-button is-full-copy="false" is-form-pristine="currentRegistration.status!='DRAFT'" member="currentRegistration.member"></search-member-button>
-		<div class="row">
-      <div class="col-xs-4">
-      	<label for="firstname">{{translationObj.member.fieldfirstname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="firstname" class="form-control" id="firstname" ng-model="currentRegistration.member.firstname" maxlength="40" required ng-disabled="currentRegistration.status!='DRAFT'">
-	      </div>
-	    </div>
-      <div class="col-xs-4">
-	      <label for="lastname">{{translationObj.member.fieldlastname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" name="lastname" id="lastname" ng-model="currentRegistration.member.lastname" maxlength="40" required ng-disabled="currentRegistration.status!='DRAFT'">
-	      </div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="skatecanadano">{{translationObj.member.fieldskatecanadano}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" name="skatecanadano" id="skatecanadano" ng-model="currentRegistration.member.skatecanadano" maxlength="20" ng-disabled="currentRegistration.status!='DRAFT'" capitalize>
-	      </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-2">
-	      <label for="language">{{translationObj.member.fieldlanguage}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-          <select class="form-control" name="language" id="language" ng-model="currentRegistration.member.language" required ng-disabled="currentRegistration.status!='DRAFT'">
-						<option ng-repeat="language in languages" value="{{language.code}}">{{language.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="gender">{{translationObj.member.fieldgender}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
-          <select class="form-control" name="gender" id="gender" ng-model="currentRegistration.member.gender" required ng-disabled="currentRegistration.status!='DRAFT'">
-						<option ng-repeat="gender in genders" value="{{gender.code}}">{{gender.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="birthday">{{translationObj.member.fielddateofbirth}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	        <input type="text" class="form-control" name="birthday" id="birthday" ng-model="currentRegistration.member.birthday" maxlength="10" required ng-disabled="currentRegistration.status!='DRAFT'" format-birthdate>
-      	</div>
-        <span class="help-block">YYYY-MM-DD</span>
-      </div>
-      <!-- <div class="col-xs-2">
-	      <label for="familyrank">{{translationObj.member.fieldrank}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
-          <select class="form-control" name="familyrank" id="familyrank" ng-model="currentRegistration.member.familyrank" ng-disabled="currentRegistration.status!='DRAFT'">
-						<option ng-repeat="familyrank in familyranks" value="{{familyrank.code}}">{{familyrank.text}}</option>
-		      </select>
-	      </div>
-      </div> -->
-    </div>
+	<search-member-button is-full-copy="true" callback="saveToDB(member, forced)" is-form-pristine="currentRegistration.status!='DRAFT'" member="currentRegistration.member"></search-member-button>
+	<new-member-button is-form-pristine="currentRegistration.status!='DRAFT'" member="currentRegistration.member"></new-member-button>
+	<search-member-button is-full-copy="false" is-form-pristine="currentRegistration.status!='DRAFT'" member="currentRegistration.member"></search-member-button>
+	<div class="row">
+		<div class="col-xs-4">
+			<labelrequired for="firstname" label="translationObj.member.fieldfirstname"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input type="text" name="firstname" class="form-control" id="firstname"
+					ng-model="currentRegistration.member.firstname" maxlength="40" required
+					ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<labelrequired for="lastname" label="translationObj.member.fieldlastname"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input type="text" class="form-control" name="lastname" id="lastname"
+					ng-model="currentRegistration.member.lastname" maxlength="40" required
+					ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<label for="skatecanadano">{{translationObj.member.fieldskatecanadano}}</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input type="text" class="form-control" name="skatecanadano" id="skatecanadano"
+					ng-model="currentRegistration.member.skatecanadano" maxlength="20"
+					ng-disabled="currentRegistration.status!='DRAFT'" capitalize>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-2">
+			<labelrequired for="language" label="translationObj.member.fieldlanguage"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+				<select class="form-control" name="language" id="language"
+					ng-model="currentRegistration.member.language" required
+					ng-disabled="currentRegistration.status!='DRAFT'">
+					<option ng-repeat="language in languages" value="{{language.code}}">{{language.text}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<labelrequired for="gender" label="translationObj.member.fieldgender"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
+				<select class="form-control" name="gender" id="gender" ng-model="currentRegistration.member.gender"
+					required ng-disabled="currentRegistration.status!='DRAFT'">
+					<option ng-repeat="gender in genders" value="{{gender.code}}">{{gender.text}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<labelrequired for="birthday" label="translationObj.member.fielddateofbirth"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				<input type="text" class="form-control" name="birthday" id="birthday"
+					ng-model="currentRegistration.member.birthday" maxlength="10" required
+					ng-disabled="currentRegistration.status!='DRAFT'" format-birthdate>
+			</div>
+			<span class="help-block">YYYY-MM-DD</span>
+		</div>
+	</div>
 
-  	<div class="row">
-      <div class="col-xs-5">
-      	<label for="address1">{{translationObj.member.fieldaddress1}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-	        <input type="text" name="address1" class="form-control" id="address1" ng-model="currentRegistration.member.address1" maxlength="100" required ng-disabled="currentRegistration.status!='DRAFT'">
-	      </div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="address2">{{translationObj.member.fieldaddress2}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-		        <input type="text" class="form-control" name="address2" id="address2" ng-model="currentRegistration.member.address2" maxlength="100" ng-disabled="currentRegistration.status!='DRAFT'">
-	      </div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="town">{{translationObj.member.fieldtown}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  				<input type="text" class="form-control" name="town" id="town" ng-model="currentRegistration.member.town" maxlength="100" required ng-disabled="currentRegistration.status!='DRAFT'">
-      	</div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="town">{{translationObj.member.fieldprovince}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-		      <select class="form-control" name="province" id="province" ng-model="currentRegistration.member.province" required ng-disabled="currentRegistration.status!='DRAFT'">
-						<option ng-repeat="province in provinces" value="{{province.code}}">{{province.text}}</option>
-					</select>
-      	</div>
-      </div>
-      <div class="col-xs-2">
-	      <label for="postalcode">{{translationObj.member.fieldpostalcode}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-        	<input type="text" class="form-control" name="postalcode" id="postalcode" ng-model="currentRegistration.member.postalcode" maxlength="7" required ng-disabled="currentRegistration.status!='DRAFT'" capitalize>
-      	</div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="country1">{{translationObj.member.fieldcountry}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-      		<select class="form-control" name="country1" id="country1" ng-model="currentRegistration.member.country" maxlength="20" required ng-disabled="currentRegistration.status!='DRAFT'">
-						<option ng-repeat="country in countries" value="{{country.code}}">{{country.text}}</option>
-      		</select>
-      	</div>
-      </div>
-  	</div>
-		<h3>{{translationObj.member.formtitlephones}}</h3>
-  	<div class="row">
-      <div class="col-xs-3">
-	      <label for="homephone">{{translationObj.member.fieldhomephone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon" format-phone-number-button="currentRegistration.member,homephone"><i class="glyphicon glyphicon-phone-alt"></i></span>
-        	<input type="text" class="form-control" name="homephone" id="homephone" ng-model="currentRegistration.member.homephone" maxlength="14" ng-disabled="currentRegistration.status!='DRAFT'" format-phone>
-      	</div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="cellphone">{{translationObj.member.fieldcellphone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-	        <input type="text" class="form-control" name="cellphone" id="cellphone" ng-model="currentRegistration.member.cellphone" maxlength="14" ng-disabled="currentRegistration.status!='DRAFT'" format-phone>
-      	</div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="otherphone">{{translationObj.member.fieldotherphone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-        	<input type="text" class="form-control" name="otherphone" id="otherphone" ng-model="currentRegistration.member.otherphone" maxlength="20" ng-disabled="currentRegistration.status!='DRAFT'" format-phone>
-      	</div>
-      </div>
+	<div class="row">
+		<div class="col-xs-5">
+			<labelrequired for="address1" label="translationObj.member.fieldaddress1"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				<input type="text" name="address1" class="form-control" id="address1"
+					ng-model="currentRegistration.member.address1" maxlength="100" required
+					ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
 		</div>
-		<div class="row">
-      <div class="col-xs-5">
-	      <label for="email1">{{translationObj.member.fieldemail}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        	<input type="text" class="form-control" name="email1" id="email1" ng-model="currentRegistration.member.email" maxlength="100" required ng-disabled="currentRegistration.status!='DRAFT'">
-      	</div>
-      </div>
-      <div class="col-xs-5">
-	      <label for="email2">{{translationObj.member.fieldemail2}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        	<input type="text" class="form-control" name="email2" id="email2" ng-model="currentRegistration.member.email2" maxlength="100" ng-disabled="currentRegistration.status!='DRAFT'">
-      	</div>
-      </div>
+		<div class="col-xs-3">
+			<label for="address2">{{translationObj.member.fieldaddress2}}</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				<input type="text" class="form-control" name="address2" id="address2"
+					ng-model="currentRegistration.member.address2" maxlength="100"
+					ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
 		</div>
-		<h3>{{translationObj.member.formtitlehealth}}</h3>
-    <div class="row">
-      <div class="col-xs-3">
-	      <label for="healthcareno">{{translationObj.member.fieldhealthcareno}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon" gen-health-care-no member="currentRegistration.member"><i class="glyphicon glyphicon-heart"></i></span>
-        	<input type="text" class="form-control" name="healthcareno" id="healthcareno" ng-model="currentRegistration.member.healthcareno" maxlength="12" ng-disabled="currentRegistration.status!='DRAFT'" capitalize>
-      	</div>
-      </div>
-      <div class="col-xs-3">
-	      <label for="healthcareexp">{{translationObj.member.fieldhealthcareexpdate}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="text" class="form-control" name="healthcareexp" id="healthcareexp" ng-model="currentRegistration.member.healthcareexp" maxlength="7" ng-disabled="currentRegistration.status!='DRAFT'" format-yearmonthdate>
-      	</div>
-      	<span class="help-block">YYYY-MM</span>
-      </div>
-    </div>
-  <!-- </div> -->
+		<div class="col-xs-3">
+			<labelrequired for="town" label="translationObj.member.fieldtown"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				<input type="text" class="form-control" name="town" id="town" ng-model="currentRegistration.member.town"
+					maxlength="100" required ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<labelrequired for="province" label="translationObj.member.fieldprovince"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+				<select class="form-control" name="province" id="province"
+					ng-model="currentRegistration.member.province" required
+					ng-disabled="currentRegistration.status!='DRAFT'">
+					<option ng-repeat="province in provinces" value="{{province.code}}">{{province.text}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-xs-2">
+			<labelrequired for="postalcode" label="translationObj.member.fieldpostalcode"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				<input type="text" class="form-control" name="postalcode" id="postalcode"
+					ng-model="currentRegistration.member.postalcode" maxlength="7" required
+					ng-disabled="currentRegistration.status!='DRAFT'" capitalize>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<labelrequired for="country1" label="translationObj.member.fieldcountry"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				<select class="form-control" name="country1" id="country1" ng-model="currentRegistration.member.country"
+					maxlength="20" required ng-disabled="currentRegistration.status!='DRAFT'">
+					<option ng-repeat="country in countries" value="{{country.code}}">{{country.text}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<h3>{{translationObj.member.formtitlephones}}</h3>
+	<div class="row">
+		<div class="col-xs-3">
+			<label for="homephone">{{translationObj.member.fieldhomephone}}</label>
+			<div class="input-group">
+				<span class="input-group-addon" format-phone-number-button="currentRegistration.member,homephone"><i
+						class="glyphicon glyphicon-phone-alt"></i></span>
+				<input type="text" class="form-control" name="homephone" id="homephone"
+					ng-model="currentRegistration.member.homephone" maxlength="14"
+					ng-disabled="currentRegistration.status!='DRAFT'" format-phone>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<label for="cellphone">{{translationObj.member.fieldcellphone}}</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+				<input type="text" class="form-control" name="cellphone" id="cellphone"
+					ng-model="currentRegistration.member.cellphone" maxlength="14"
+					ng-disabled="currentRegistration.status!='DRAFT'" format-phone>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<label for="otherphone">{{translationObj.member.fieldotherphone}}</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+				<input type="text" class="form-control" name="otherphone" id="otherphone"
+					ng-model="currentRegistration.member.otherphone" maxlength="20"
+					ng-disabled="currentRegistration.status!='DRAFT'" format-phone>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-5">
+			<labelrequired for="email1" label="translationObj.member.fieldemail"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				<input type="text" class="form-control" name="email1" id="email1"
+					ng-model="currentRegistration.member.email" maxlength="100" required
+					ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
+		</div>
+		<div class="col-xs-5">
+			<label for="email2">{{translationObj.member.fieldemail2}}</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				<input type="text" class="form-control" name="email2" id="email2"
+					ng-model="currentRegistration.member.email2" maxlength="100"
+					ng-disabled="currentRegistration.status!='DRAFT'">
+			</div>
+		</div>
+	</div>
+	<h3>{{translationObj.member.formtitlehealth}}</h3>
+	<div class="row">
+		<div class="col-xs-3">
+			<labelrequired for="healthcareno" label="translationObj.member.fieldhealthcareno"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon" gen-health-care-no member="currentRegistration.member"><i
+						class="glyphicon glyphicon-heart"></i></span>
+				<input type="text" class="form-control" name="healthcareno" id="healthcareno"
+					ng-model="currentRegistration.member.healthcareno" maxlength="12"
+					ng-disabled="currentRegistration.status!='DRAFT'" capitalize>
+			</div>
+		</div>
+		<div class="col-xs-3">
+			<labelrequired for="healthcareexp" label="translationObj.member.fieldhealthcareexpdate"></labelrequired>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				<input type="text" class="form-control" name="healthcareexp" id="healthcareexp"
+					ng-model="currentRegistration.member.healthcareexp" maxlength="7"
+					ng-disabled="currentRegistration.status!='DRAFT'" format-yearmonthdate>
+			</div>
+			<span class="help-block">YYYY-MM</span>
+		</div>
+	</div>
+	<!-- </div> -->
 </div>
