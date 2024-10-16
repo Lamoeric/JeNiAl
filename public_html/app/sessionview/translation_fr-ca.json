@@ -299,6 +299,7 @@
 	{"formname":"newstaff", "fieldname":"fieldmember", "text":"Membre"},
 	{"formname":"newstaff", "fieldname":"fieldstatus", "text":"Statut"},
 	{"formname":"newstaff", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newstaff", "fieldname":"formerrorstaffalreadyexists", "text":"Ce membre est déjà sur la liste du personnel du cours."},
 	{"formname":"newstaff", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newstaff", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 

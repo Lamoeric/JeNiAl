@@ -1288,7 +1288,13 @@ function getSessionCourseStaffs($mysqli, $sessionscoursesid, $language)
 	try {
 		if (empty($sessionscoursesid)) throw new Exception("Invalid session course.");
 		$query = "	SELECT 	cscs.*, concat(cm.lastname, ', ', cm.firstname) name, getCodeDescription('staffcodes', cscs.staffcode, '$language') staffcodelabel, 
-							getCodeDescription('personnelstatus', cscs.statuscode, '$language') statuscodelabel
+							getCodeDescription('personnelstatus', cscs.statuscode, '$language') statuscodelabel,
+							(SELECT count(cscp.ispresent) 
+							 FROM cpa_sessions_courses_presences cscp 
+							 JOIN cpa_sessions_courses_dates cscd ON cscd.id = cscp.sessionscoursesdatesid
+							 WHERE cscd.sessionscoursesid = $sessionscoursesid
+							 AND cscp.memberid = cscs.memberid
+							 AND cscp.ispresent=1) nbpresence
 					FROM cpa_sessions_courses_staffs cscs
 					JOIN cpa_members cm ON cm.id = cscs.memberid
 					WHERE sessionscoursesid = $sessionscoursesid
@@ -1297,6 +1303,7 @@ function getSessionCourseStaffs($mysqli, $sessionscoursesid, $language)
 		$data = array();
 		$data['data'] = array();
 		while ($row = $result->fetch_assoc()) {
+			$row['nbpresence'] = (int)$row['nbpresence'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;

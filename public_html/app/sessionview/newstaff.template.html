@@ -9,7 +9,7 @@
 				<labelrequired for="staffcode" label="translationObj.newstaff.fieldtype"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<select class="form-control" id="staffcode" ng-model="newObj.staffcode" ng-change="onStaffcodeChange(newObj)" required autofocus>
+					<select class="form-control" id="staffcode" ng-model="newObj.staffcode" ng-change="onStaffcodeChange(newObj)" ng-disabled="newObj.id!=null" required autofocus>
 						<option ng-repeat="staffcode in staffcodes" value="{{staffcode.code}}">{{staffcode.text}}</option>
 					</select>
 				</div>
@@ -19,7 +19,7 @@
 				<labelrequired for="memberid" label="translationObj.newstaff.fieldmember"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<select class="form-control" id="memberid" ng-model="newObj.memberid" required>
+					<select class="form-control" id="memberid" ng-model="newObj.memberid" ng-disabled="newObj.id!=null" required>
 						<option ng-repeat="coach in staffs" value="{{coach.id}}">{{coach.text}}</option>
 					</select>
 				</div>
@@ -38,6 +38,9 @@
 		</div>
 		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
 			{{translationObj.newstaff.formerrormessage}}
+		</div>
+		<div class="alert alert-danger" id="editObjStaffAlreadyExists" style="display:none;">
+			{{translationObj.newstaff.formerrorstaffalreadyexists}}
 		</div>
 	</div>
 	<div class="modal-footer">

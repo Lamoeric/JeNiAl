@@ -145,7 +145,7 @@
 									<div class="input-group">
 										<span>
 											<child-edit-button obj="staff" objlist="course.staffs" callback="editSessionCourseStaff(course, staff)"></child-edit-button>
-											<child-delete-button obj="staff" objlist="course.staffs" callback="setDirty()"></child-delete-button>
+											<child-delete-button obj="staff" objlist="course.staffs" callback="setDirty()" is-form-pristine="staff.nbpresence > 0"></child-delete-button>
 											<child-undelete-button obj="staff" objlist="course.staffs" callback="setDirty()"></child-undelete-button>
 											<child-status-indicator obj="staff"></child-status-indicator>
 										</span>

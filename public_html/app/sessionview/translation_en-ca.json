@@ -294,6 +294,7 @@
 	{"formname":"newstaff", "fieldname":"fieldmember", "text":"Member"},
 	{"formname":"newstaff", "fieldname":"fieldstatus", "text":"Status"},
 	{"formname":"newstaff", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newstaff", "fieldname":"formerrorstaffalreadyexists", "text":"This staff is already in the staff list for this course."},
 	{"formname":"newstaff", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newstaff", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
