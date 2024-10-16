@@ -63,6 +63,9 @@
 	{"formname":"coachform", "fieldname":"labelsublevel", "text":"Sublevel"},
 	{"formname":"coachform", "fieldname":"titlestaff", "text":"Staff (permanent)"},
 	{"formname":"coachform", "fieldname":"titlestaffrepl", "text":"Staff (replacement)"},
+	{"formname":"coachform", "fieldname":"coursetype", "text":"Type"},
+	{"formname":"coachform", "fieldname":"courselevel", "text":"Level"},
+	{"formname":"coachform", "fieldname":"shownumber", "text":"Show Number"},
 
 	{"formname":"newstaff", "fieldname":"formtitleeditstaff", "text":"Edit Staff"},
 	{"formname":"newstaff", "fieldname":"fieldtype", "text":"Type"},

@@ -63,6 +63,9 @@
 	{"formname":"coachform", "fieldname":"labelsublevel", "text":"Sous-niveau"},
 	{"formname":"coachform", "fieldname":"titlestaff", "text":"Personnel (permanent)"},
 	{"formname":"coachform", "fieldname":"titlestaffrepl", "text":"Personnel (remplacement)"},
+	{"formname":"coachform", "fieldname":"coursetype", "text":"Type"},
+	{"formname":"coachform", "fieldname":"courselevel", "text":"Niveau"},
+	{"formname":"coachform", "fieldname":"shownumber", "text":"Numéro de spectacle"},
 
 	{"formname":"newstaff", "fieldname":"formtitleeditstaff", "text":"Éditer personnel"},
 	{"formname":"newstaff", "fieldname":"fieldtype", "text":"Type"},
