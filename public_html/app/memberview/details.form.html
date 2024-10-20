@@ -1,128 +1,96 @@
 <div class="form-group row">
 	<div class="grid">
 		<search-member-button is-full-copy="false" is-form-pristine="false" member="currentMember"></search-member-button>
-    <h3>{{translationObj.details.formtitledetails}}</h3>
+		<h3>{{translationObj.details.formtitledetails}}</h3>
 		<div class="row">
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
-	      <label for="firstname">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
+				<labelrequired for="firstname" label="translationObj.details.fieldfirstname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text" name="firstname" class="form-control" name="firstname" id="firstname" ng-model="currentMember.firstname" maxlength="40" required>
-					<span style="color:red" ng-show="detailsForm.firstname.$touched && detailsForm.firstname.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-					<!-- <span ng-show="detailsForm.firstname.$touched && detailsForm.firstname.$invalid">The firstname is required.</span> -->
-					<!--						        <span class="help-block">This is some help text...</span> -->
-	      </div>
-	    </div>
+				</div>
+			</div>
 			<div class="clearfix visible-xs"></div>
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
-	      <label for="lastname">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" name="lastname" id="lastname" ng-model="currentMember.lastname" maxlength="40" required>
-	        <span style="color:red" ng-show="detailsForm.lastname.$touched && detailsForm.lastname.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
-	      <label for="initial">{{translationObj.details.fieldinitial}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        	<input type="text" class="form-control" id="initial" ng-model="currentMember.initial" maxlength="4">
-      	</div>
-      </div>
-      <div class="col-xs-11 col-sm-1 col-md-1 col-lg-1">
-	      <label for="id">{{translationObj.details.fieldid}}</label>
-      	<div class="input-group">
-<!--				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
-        	<input type="text" class="form-control" id="id" ng-model="currentMember.id" disabled>
-      	</div>
-      </div>
-    </div>
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-4">
+				<labelrequired for="lastname" label="translationObj.details.fieldlastname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" name="lastname" id="lastname" ng-model="currentMember.lastname" maxlength="40" required>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-2 col-md-2 col-lg-2">
+				<label for="initial">{{translationObj.details.fieldinitial}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="initial" ng-model="currentMember.initial" maxlength="4">
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-1 col-md-1 col-lg-1">
+				<label for="id">{{translationObj.details.fieldid}}</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="id" ng-model="currentMember.id" disabled>
+				</div>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
-	      <label for="language">{{translationObj.details.fieldlanguage}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-          <select class="form-control" id="language" ng-model="currentMember.language">
+		<div class="row">
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+				<label for="language">{{translationObj.details.fieldlanguage}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+					<select class="form-control" id="language" ng-model="currentMember.language">
 						<option ng-repeat="language in languages" value="{{language.code}}">{{language.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
-	      <label for="gender">{{translationObj.details.fieldgender}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
-          <select class="form-control" id="gender" ng-model="currentMember.gender">
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+				<label for="gender">{{translationObj.details.fieldgender}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
+					<select class="form-control" id="gender" ng-model="currentMember.gender">
 						<option ng-repeat="gender in genders" value="{{gender.code}}">{{gender.text}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
-	      <label for="birthday">{{translationObj.details.fielddateofbirth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	        <input type="text" class="form-control" id="birthday" ng-model="currentMember.birthday" maxlength="10" format-birthdate>
-      	</div>
-        <span class="help-block">YYYY-MM-DD</span>
-      </div>
-      <!-- <div class="col-xs-11 col-sm-4 col-md-4">
-	      <label for="familyrank">{{translationObj.details.fieldrank}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-yen"></i></span>
-          <select class="form-control" id="familyrank" ng-model="currentMember.familyrank">
-						<option ng-repeat="familyrank in familyranks" value="{{familyrank.code}}">{{familyrank.text}}</option>
-		      </select>
-	      </div>
-      </div> -->
-    </div>
-
-
-		<hr><h3>{{translationObj.details.formtitlehealth}}</h3>
-    <div class="row">
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-3">
-	      <label for="healthcareno">{{translationObj.details.fieldhealthcareno}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
-        	<input type="text" class="form-control" id="healthcareno" name="healthcareno" ng-model="currentMember.healthcareno" maxlength="12" capitalize>
-      	</div>
-      </div>
-      <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
-	      <label for="healthcareexp">{{translationObj.details.fieldhealthcareexpdate}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="text" class="form-control" id="healthcareexp" ng-model="currentMember.healthcareexp" maxlength="7" format-yearmonthdate>
-      	</div>
-      	<span class="help-block">YYYY-MM</span>
-      </div>
-	    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-6">
-	      <label for="healthcomments">{{translationObj.details.fieldhealthcomment}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="healthcomments" ng-model="currentMember.healthcomments" maxlength="1000">
-	    	</div>
-	    </div>
-    </div>
-    <!--
-    <div class="row">
-	    <div class="col-xs-6">
-	      <label for="healthcomments">Health Comments:</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<textarea class="form-control" id="healthcomments" ng-model="currentMember.healthcomments" maxlength="1000">
-	    	</div>
-	    </div>
-    </div>
-    -->
-
-		<hr><h3>{{translationObj.details.formtitlequalifications}}</h3>
-    <div class="row">
-<!--      <div class="col-xs-2"> -->
-				<qualif
-             ng-repeat="qualif in qualifications track by $index"
-             >
-        </qualif>
-<!--			</div> -->
-    </div>
-
-  </div>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+				<label for="birthday">{{translationObj.details.fielddateofbirth}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="text" class="form-control" id="birthday" ng-model="currentMember.birthday" maxlength="10" format-birthdate>
+				</div>
+				<span class="help-block">YYYY-MM-DD</span>
+			</div>
+		</div>
+		<hr>
+		<h3>{{translationObj.details.formtitlehealth}}</h3>
+		<div class="row">
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-3">
+				<label for="healthcareno">{{translationObj.details.fieldhealthcareno}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
+					<input type="text" class="form-control" id="healthcareno" name="healthcareno" ng-model="currentMember.healthcareno" maxlength="12" capitalize>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-4 col-md-4 col-lg-2">
+				<label for="healthcareexp">{{translationObj.details.fieldhealthcareexpdate}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="text" class="form-control" id="healthcareexp" ng-model="currentMember.healthcareexp" maxlength="7" format-yearmonthdate>
+				</div>
+				<span class="help-block">YYYY-MM</span>
+			</div>
+			<div class="col-xs-11 col-sm-11 col-md-11 col-lg-6">
+				<label for="healthcomments">{{translationObj.details.fieldhealthcomment}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="healthcomments" ng-model="currentMember.healthcomments" maxlength="1000">
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h3>{{translationObj.details.formtitlequalifications}}</h3>
+		<div class="row">
+			<qualif ng-repeat="qualif in qualifications track by $index"></qualif>
+		</div>
+	</div>
 </div>

@@ -12,19 +12,19 @@
 					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentMember==null" ng-if="userInfo.privileges.member_delete==true"></main-delete-button>
 
 					<span class="dropdown">
-				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
-				    <ul class="dropdown-menu" ng-if="currentMember!=null">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
+						<ul class="dropdown-menu" ng-if="currentMember!=null">
 							<li class="pointerlist"><a ng-click="this.printReport('sessionCourseCSReportCard')">{{translationObj.main.canskaterportcardtitle}}</a></li>
 							<li class="pointerlist"><a ng-click="this.printReport('sessionCoursePreCSReportCard')">{{translationObj.main.precanskaterportcardtitle}}</a></li>
 							<li class="pointerlist"><a ng-click="this.printReport('memberCSProgress')">{{translationObj.main.reporttitlecanskateprogressreport}}</a></li>
 							<li role="separator" class="divider"></li>
 							<li class="pointerlist"><a ng-click="this.getMembersEmail()">{{translationObj.main.getmemberemailtitle}}</a></li>
 							<li class="pointerlist"><a ng-click="this.exportMembers()">{{translationObj.main.exportmemberstitle}}</a></li>
-				    </ul>
+						</ul>
 						<ul class="dropdown-menu" ng-if="currentMember==null">
 							<li class="pointerlist"><a ng-click="this.getMembersEmail()">{{translationObj.main.getmemberemailtitle}}</a></li>
 							<li class="pointerlist"><a ng-click="this.exportMembers()">{{translationObj.main.exportmemberstitle}}</a></li>
-				    </ul>
+						</ul>
 					</span>
 					
 					<sendemailtemplate is-form-pristine="currentMember==null" contacts="currentMember.contactsforemail" callback="emailTemplateSent"></sendemailtemplate>
@@ -64,7 +64,7 @@
 
 							<div id="contacts" class="tab-pane fade maintabpane">
 								<form class="form-horizontal well intabsingleformnox" role="form" name="contactForm" ng-show="currentMember">
-					      	<contacts set-dirty="setDirty()" contacts="currentMember.contacts" member="currentMember" new-contact-disabled="false"></contacts>
+							      	<contacts set-dirty="setDirty()" contacts="currentMember.contacts" member="currentMember" new-contact-disabled="false"></contacts>
 								</form>
 							</div>
 
@@ -101,19 +101,6 @@
 									<div ng-include="'./memberview/billslist.form.html'"></div>
 								</form>
 							</div>
-
-							<!-- <div id="info" class="tab-pane fade in active maintabpane">
-								<form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm" ng-show="currentClub">
-									<div ng-include="'clubview/club.html'"></div>
-								</form>
-							</div>
-
-							<div id="contacts" class="tab-pane fade maintabpane">
-								<form class="form-horizontal well intabsingleformnox" role="form" name="contactForm" ng-show="currentClub">
-									<club-contacts set-dirty="setDirty()" contacts="currentClub.contacts" member="currentClub" new-contact-disabled="false"></club-contacts>
-								</form>
-							</div> -->
-
 						</div>
 					</div>
 
@@ -123,105 +110,3 @@
 	</row>
 </section>
 
-<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
-<leftpane></leftpane>
-</div>
-<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
-	<div ng-if="currentMember!=null"><h2>{{currentMember.firstname}} {{currentMember.lastname}}</h2></div>
-	<div ng-if="currentMember==null"><h2>{{translationObj.main.memberdetail}}</h2></div>
-
-	<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.member_create==true"></main-new-button>
-	<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty && !addressForm.$dirty && !skateForm.$dirty && !contactForm.$dirty" ng-if="userInfo.privileges.member_update==true"></main-save-button>
-	<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentMember==null" ng-if="userInfo.privileges.member_delete==true"></main-delete-button>
-
-	<span class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
-    <ul class="dropdown-menu" ng-if="currentMember!=null">
-			<li class="pointerlist"><a ng-click="this.printReport('sessionCourseCSReportCard')">{{translationObj.main.canskaterportcardtitle}}</a></li>
-			<li class="pointerlist"><a ng-click="this.printReport('sessionCoursePreCSReportCard')">{{translationObj.main.precanskaterportcardtitle}}</a></li>
-			<li role="separator" class="divider"></li>
-			<li class="pointerlist"><a ng-click="this.getMembersEmail()">{{translationObj.main.getmemberemailtitle}}</a></li>
-    </ul>
-		<ul class="dropdown-menu" ng-if="currentMember==null">
-			<li class="pointerlist"><a ng-click="this.getMembersEmail()">{{translationObj.main.getmemberemailtitle}}</a></li>
-    </ul>
-	</span>
-
-	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
-		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
-	</div>
-
-	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
-		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
-	</div>
-
-	<ul class="nav nav-tabs">
-		<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#address">{{translationObj.main.panetitleaddress}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#skating">{{translationObj.main.panetitleskating}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#contacts">{{translationObj.main.panetitlecontacts}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#tests">{{translationObj.main.panetitletests}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#startests">{{translationObj.main.panetitlestartests}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#canskate">{{translationObj.main.panetitlecanskate}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#activecourses">{{translationObj.main.panetitleactivecourses}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#bills">{{translationObj.main.panetitlebills}}</a></li>
-	</ul>
-
-	<div class="tab-content">
-		<div id="info" class="tab-pane fade in active">
-			<form class="form-horizontal well" role="form" name="detailsForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/details.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="address" class="tab-pane fade">
-			<form class="form-horizontal well" role="form" name="addressForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/address.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="skating" class="tab-pane fade">
-			<form class="form-horizontal well" role="form" name="skateForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/skate.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="contacts" class="tab-pane fade">
-			<form class="form-horizontal well" role="form" name="contactForm" ng-show="currentMember" class="ng-hide">
-      	<contacts set-dirty="setDirty()" contacts="currentMember.contacts" member="currentMember" new-contact-disabled="false"></contacts>
-			</form>
-		</div>
-
-		<div id="tests" class="tab-pane fade">
-			<form class="form-horizontal well" id="map4" role="form" name="testForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/tests.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="startests" class="tab-pane fade">
-			<form class="form-horizontal well" id="map4" role="form" name="startestForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/startests.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="canskate" class="tab-pane fade">
-			<form class="form-horizontal well" role="form" name="canSkateForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/canskate.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="activecourses" class="tab-pane fade">
-			<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="activeCoursesForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/activecourses.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="bills" class="tab-pane fade">
-			<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="billForm" ng-show="currentMember" class="ng-hide">
-				<div ng-include="'./memberview/billslist.form.html'"></div>
-			</form>
-		</div>
-
-	</div>
-
-</div> -->

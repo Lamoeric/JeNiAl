@@ -2,7 +2,7 @@
 
 angular.module('cpa_admin.memberview', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/memberview', {
 		templateUrl: 'memberview/memberview.html',
 		controller: 'memberviewCtrl',
@@ -10,20 +10,20 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 			auth: function ($q, authenticationService) {
 				var userInfo = authenticationService.getUserInfo();
 				if (userInfo) {
-					if (userInfo.privileges.member_access==true) {
+					if (userInfo.privileges.member_access == true) {
 						return $q.when(userInfo);
 					} else {
-						return $q.reject({authenticated: true, validRights: false, newLocation:null});
+						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
 					}
 				} else {
-					return $q.reject({authenticated: false, newLocation: "/memberview"});
+					return $q.reject({ authenticated: false, newLocation: "/memberview" });
 				}
 			}
 		}
 	});
 }])
 
-.controller('memberviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$window', 'dateFilter', 'anycodesService', 'dialogService', 'listsService', 'billingService', 'translationService', 'authenticationService', 'parseISOdateService', 'selectMembersService', 'reportingService',function($rootScope, $scope, $http, $uibModal, $window, dateFilter, anycodesService, dialogService, listsService, billingService, translationService, authenticationService, parseISOdateService, selectMembersService, reportingService) {
+.controller('memberviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$window', 'dateFilter', 'anycodesService', 'dialogService', 'listsService', 'billingService', 'translationService', 'authenticationService', 'parseISOdateService', 'selectMembersService', 'reportingService', function ($rootScope, $scope, $http, $uibModal, $window, dateFilter, anycodesService, dialogService, listsService, billingService, translationService, authenticationService, parseISOdateService, selectMembersService, reportingService) {
 
 	$scope.progName = "memberView";
 	$scope.currentMember = null;
@@ -33,27 +33,65 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	$scope.currentLanguage = authenticationService.getCurrentLanguage();
 	$scope.newFilter = {};
 	$scope.newFilter.filterApplied = false;
+	$scope.formList = [{'name':'detailsForm', 'validFct':'validateDetailsForm'}, {'name':'addressForm'}, {'name':'skateForm'}, {'name':'contactForm'}];
 
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty || $scope.addressForm.$dirty || $scope.skateForm.$dirty || $scope.contactForm.$dirty) {
-			return true;
+	/**
+	 * This function checks if anything is dirty
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
+	};
+
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 */
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
+	};
+
+	/**
+	 * This function sets all the forms as pristine
+	 */
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
+	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
+
+	/**
+	 * This function is to validate the details form
+	 * @returns an object with errorMsg or warningMsg property depending on what we want to display
+	 */
+	$scope.validateDetailsForm = function () {
+		var retVal = {};
+		if ($scope.detailsForm.$invalid) {
+			if ($scope.detailsForm.firstname.$invalid) {
+				retVal.errorMsg = $scope.translationObj.main.msgerrfirstnamemandatory;
+				return retVal;
+			}
+			if ($scope.detailsForm.lastname.$invalid) {
+				retVal.errorMsg = $scope.translationObj.main.msgerrlastnamemandatory;
+				return retVal;
+			}
 		}
-		return false;
-	};
+		if ($scope.currentMember.healthcareno == "") {
+			retVal.warningMsg = $scope.translationObj.main.msgwarnhealthcarenonice;
+			return retVal;
+		}
+		return null;
+	}
 
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
-	};
-
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.addressForm.$setPristine();
-		$scope.skateForm.$setPristine();
-		$scope.contactForm.$setPristine();
-		$scope.isFormPristine = true;
-	};
-
+	/**
+	 * This function gets all members for the lesft list
+	 * @param {*} newFilter 	this object contains all the properties of the filter
+	 */
 	$scope.getAllMembers = function (newFilter) {
 		if (newFilter) {
 			$scope.newFilter.filterApplied = true;
@@ -61,12 +99,11 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 			$scope.newFilter.filterApplied = false;
 		}
 		$scope.promise = $http({
-				method: 'post',
-				url: './memberview/manageMembers.php',
-				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'filter' : newFilter, 'type' : 'getAllMembers' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			method: 'post',
+			url: './memberview/manageMembers.php',
+			data: $.param({ 'language': authenticationService.getCurrentLanguage(), 'filter': newFilter, 'type': 'getAllMembers' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
@@ -79,15 +116,14 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 					dialogService.displayFailure(data);
 				}
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
 
 	// This is done purely in case the number of qualifications changed since the last time the record was saved
-	// Return the converted array of qualifications;
-	$scope.convertQualifications = function($scope, currentQualifs, globalQualifs) {
+	// Returns the converted array of qualifications;
+	$scope.convertQualifications = function ($scope, currentQualifs, globalQualifs) {
 		var qualifications = [];
 		for (var i = 0; globalQualifs && i < globalQualifs.length; i++) {
 			if (currentQualifs.indexOf(globalQualifs[i].code) != -1) {
@@ -99,18 +135,21 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		return qualifications;
 	};
 
-	$scope.getMemberDetails = function(member) {
+	/**
+	 * This function gets the details of the member from the DB
+	 * @param {*} member 	This object is the member to read
+	 */
+	$scope.getMemberDetails = function (member) {
 		$scope.promise = $http({
 			method: 'post',
 			url: './memberview/manageMembers.php',
-			data: $.param({'id' : member.id, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getMemberDetails' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
-			if (data.success && !angular.isUndefined(data.data) ) {
+			data: $.param({ 'id': member.id, 'language': authenticationService.getCurrentLanguage(), 'type': 'getMemberDetails' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
+			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentMember = data.data[0];
 				// This is done to validate that all the options that were saved are in the right index vs the complete list of qualifications (that may have changed since the last save)
-				$scope.currentMember.qualifications	= $scope.convertQualifications($scope, $scope.currentMember.qualifications.split(","), $scope.qualifications);
+				$scope.currentMember.qualifications = $scope.convertQualifications($scope, $scope.currentMember.qualifications.split(","), $scope.qualifications);
 				for (var x = 0; x < $scope.currentMember.csbalanceribbons.length; x++) {
 					$scope.currentMember.csbalanceribbons[x].ribbondate = parseISOdateService.parseDateWithoutTime($scope.currentMember.csbalanceribbons[x].ribbondate);
 				}
@@ -129,20 +168,29 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				/* Let's create the list of email for the "send email template" directive */
 				$scope.currentMember.contactsforemail = [];
 				if ($scope.currentMember.email != null && $scope.currentMember.email != '') {
-					$scope.currentMember.contactsforemail.push({'firstname':$scope.currentMember.firstname, 'lastname':$scope.currentMember.lastname,'email':$scope.currentMember.email});
+					$scope.currentMember.contactsforemail.push({ 'firstname': $scope.currentMember.firstname, 'lastname': $scope.currentMember.lastname, 'email': $scope.currentMember.email });
 				}
 				if ($scope.currentMember.email2 != null && $scope.currentMember.email2 != '') {
-					$scope.currentMember.contactsforemail.push({'firstname':$scope.currentMember.firstname, 'lastname':$scope.currentMember.lastname,'email':$scope.currentMember.email2});
+					$scope.currentMember.contactsforemail.push({ 'firstname': $scope.currentMember.firstname, 'lastname': $scope.currentMember.lastname, 'email': $scope.currentMember.email2 });
 				}
 				for (var x = 0; x < $scope.currentMember.contacts.length; x++) {
-					$scope.currentMember.contactsforemail.push({'firstname':$scope.currentMember.contacts[x].firstname, 'lastname':$scope.currentMember.contacts[x].lastname,'email':$scope.currentMember.contacts[x].email});
+					$scope.currentMember.contactsforemail.push({ 'firstname': $scope.currentMember.contacts[x].firstname, 'lastname': $scope.currentMember.contacts[x].lastname, 'email': $scope.currentMember.contacts[x].email });
 				}
+				// Need to augment course's dates if under 10 dates for display purpose
+				for (var y = 0; $scope.currentMember.activecourses && y < $scope.currentMember.activecourses.length; y++) {
+					var course = $scope.currentMember.activecourses[y];
+					if (course.dates.length < 10) {
+						for (var x = course.dates.length; x <= 25; x++) {
+							course.dates.push({'id':null,'coursedate':'[N/D]'});
+						}
+					}
+				}
+
 			} else {
 				dialogService.displayFailure(data);
 			}
 			$rootScope.repositionLeftColumn();
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -166,67 +214,32 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		}
 	};
 
-	$scope.deleteFromDB = function(confirmed) {
+	$scope.deleteFromDB = function (confirmed) {
 		if ($scope.currentMember != null && !confirmed) {
 			dialogService.confirmDlg($scope.translationObj.main.msgdeletemember, "YESNO", $scope.deleteFromDB, null, true, null);
 		} else {
 			$scope.promise = $http({
 				method: 'post',
 				url: './memberview/manageMembers.php',
-				data: $.param({'id' : $scope.currentMember.id, 'type' : 'delete_member' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'id': $scope.currentMember.id, 'type': 'delete_member' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
-					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedLeftObj),1);
+					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedLeftObj), 1);
 					$scope.setCurrentInternal(null);
 					return true;
 				} else {
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function(data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
 		}
 	}
 
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			if ($scope.detailsForm.firstname.$invalid) {
-				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrfirstnamemandatory);
-			}
-			if ($scope.detailsForm.lastname.$invalid) {
-				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrlastnamemandatory);
-			}
-		}
-		if ($scope.currentMember.healthcareno == "") {
-			$scope.globalWarningMessage.push($scope.translationObj.main.msgwarnhealthcarenonice);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			// $scope.globalErrorMessage = errorMsg.join('</br>');
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function() {$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			// $scope.globalErrorMessage = errorMsg.join('</br>');
-			// $scope.globalErrorMessage = errorMsg;
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function() {$("#mainglobalwarningmessage").hide();});
-			// retVal = false;
-		}
-		return retVal;
-	}
-
-	$scope.saveToDB = function() {
+	$scope.saveToDB = function () {
 		if ($scope.currentMember == null || !$scope.isDirty()) {
 			dialogService.alertDlg("Nothing to save!", null);
 		} else {
@@ -250,10 +263,9 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 			$scope.promise = $http({
 				method: 'post',
 				url: './memberview/manageMembers.php',
-				data: $.param({'member' : JSON.stringify($scope.currentMember), 'type' : 'updateEntireMember' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'member': JSON.stringify($scope.currentMember), 'type': 'updateEntireMember' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
 					// Select this member to reset everything
 					$scope.setCurrentInternal($scope.selectedLeftObj, null);
@@ -262,24 +274,22 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function(data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
 		}
 	};
 
-	$scope.addMemberToDB = function() {
+	$scope.addMemberToDB = function () {
 		$scope.promise = $http({
 			method: 'post',
 			url: './memberview/manageMembers.php',
-			data: $.param({'member' : $scope.newMember, 'type' : 'insert_member' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			data: $.param({ 'member': $scope.newMember, 'type': 'insert_member' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
-				var newMember = {id:data.id, firstname:$scope.newMember.firstname, lastname:$scope.newMember.lastname};
+				var newMember = { id: data.id, firstname: $scope.newMember.firstname, lastname: $scope.newMember.lastname };
 				$scope.leftobjs.push(newMember);
 				// $scope.selectedLeftObj = newMember;
 				// We could sort the list....
@@ -289,8 +299,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				dialogService.displayFailure(data);
 				return false;
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 			return false;
 		});
@@ -304,52 +313,75 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 			$scope.newMember = {};
 			// Send the newMember to the modal form
 			$uibModal.open({
-					animation: false,
-					templateUrl: 'memberview/newmember.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'lg',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newMember;
-						}
-					}
-			})
-			.result.then(function(newMember) {
-					// User clicked OK and everything was valid.
-					$scope.newMember = newMember;
-					if ($scope.addMemberToDB() == true) {
-					}
-			}, function() {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
-	};
-
-	// This is the function that creates the modal to create/edit courses' coachs
-	$scope.editCoach = function(newCoach) {
-		$scope.newCoach = {};
-		// Keep a pointer to the current test
-		$scope.currentCoach = newCoach;
-		// Copy in another object
-		angular.copy(newCoach, $scope.newCoach);
-		// Send the newContact to the modal form
-		$uibModal.open({
 				animation: false,
-				templateUrl: 'memberview/newcoach.template.html',
+				templateUrl: 'memberview/newmember.template.html',
 				controller: 'childeditor.controller',
 				scope: $scope,
 				size: 'lg',
 				backdrop: 'static',
 				resolve: {
 					newObj: function () {
-						return $scope.newCoach;
+						return $scope.newMember;
 					}
 				}
-		})
-		.result.then(function(newCoach) {
+			}).result.then(function (newMember) {
+				// User clicked OK and everything was valid.
+				$scope.newMember = newMember;
+				if ($scope.addMemberToDB() == true) {
+				}
+			}, function () {
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
+		}
+	};
+
+	/**
+	 * This function is used by the new coach dialog box to validate that the new coach is valid
+	 * All fields must be filled and coach must not already be in the coach list with the same type
+	 * @param {*} newCoach Coach object being added
+	 */
+	$scope.validateNewCoach = function (formObj, newCoach) {
+		// Validate the form using the field's rules
+		if (formObj.$invalid) {
+			return "#editObjFieldMandatory";
+		}
+		// Make sure that the new coach is not already in the list
+		if (!newCoach.id) {
+			for (var x = 0; $scope.currentMember.coaches && x < $scope.currentMember.coaches.length; x++) {
+				if ($scope.currentMember.coaches[x].coachid == newCoach.coachid && $scope.currentMember.coaches[x].coachtype == newCoach.coachtype) {
+					return "#editObjStaffAlreadyExists";
+				}
+			}
+		}
+	}
+
+	/**
+	 * This is the function that creates the modal to create/edit coachs
+	 * @param {*} newCoach 
+	 */
+	$scope.editCoach = function (newCoach) {
+		$scope.newCoach = {};
+		// Keep a pointer to the current coach
+		$scope.currentCoach = newCoach;
+		// Copy in another object
+		angular.copy(newCoach, $scope.newCoach);
+		// Set validation callback
+		$scope.newCoach.callback = $scope.validateNewCoach;
+		// Send the newCoach to the modal form
+		$uibModal.open({
+			animation: false,
+			templateUrl: 'memberview/newcoach.template.html',
+			controller: 'childeditor.controller',
+			scope: $scope,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				newObj: function () {
+					return $scope.newCoach;
+				}
+			}
+		}).result.then(function (newCoach) {
 			// User clicked OK and everything was valid.
 			angular.copy(newCoach, $scope.currentCoach);
 			// If already saved in DB
@@ -364,121 +396,28 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				}
 			}
 			$scope.setDirty();
-		}, function() {
+		}, function () {
 			// User clicked CANCEL.
 			// alert('canceled');
 		});
 	};
-
-	// This is the function that creates the modal to create/edit skill tests
-	$scope.editSkillTest = function(newSkill, version) {
-		if (version == 1) {
-			$scope.editTestEx(newSkill, 'abilities', $scope.currentMember.abilities, version, $scope.abilities);
-		} else if (version == 2) {
-			$scope.editTestEx(newSkill, 'starabilities', $scope.currentMember.starabilities, version, $scope.starabilities);
-		}
-	}
-
-	// This is the function that creates the modal to create/edit dance tests
-	$scope.editDanceTest = function(newDance, version) {
-		if (version == 1) {
-			$scope.editTestEx(newDance, 'dances', $scope.currentMember.dances, version, $scope.dances);
-		} else if (version == 2) {
-			$scope.editTestEx(newDance, 'stardances', $scope.currentMember.stardances, version, $scope.stardances);
-		}
-	}
-
-	// This is the function that creates the modal to create/edit free style tests
-	$scope.editFreestyleTest = function(newFreestyle, version) {
-		if (version == 1) {
-			$scope.editTestEx(newFreestyle, 'freestyles', $scope.currentMember.freestyles, version, $scope.freestyles);
-		} else if (version == 2) {
-			$scope.editTestEx(newFreestyle, 'starfreestyles', $scope.currentMember.starfreestyles, version, $scope.starfreestyles);
-		}
-	}
-
-	// This is the function that creates the modal to create/edit artistic tests
-	$scope.editArtisticTest = function(test, version) {
-		if (version == 1) {
-			$scope.editTestEx(test, 'artistics', $scope.currentMember.freestyles, version, $scope.freestyles);
-		} else if (version == 2) {
-			$scope.editTestEx(test, 'starartistics', $scope.currentMember.starartistics, version, $scope.starartistics);
-		}
-	}
-
-	// This is the function that creates the modal to create/edit synchro tests
-	$scope.editSynchroTest = function(test, version) {
-		if (version == 1) {
-			$scope.editTestEx(test, 'synchros', $scope.currentMember.synchros, version, $scope.synchros);
-		} else if (version == 2) {
-			$scope.editTestEx(test, 'starsynchros', $scope.currentMember.starsynchros, version, $scope.starsynchros);
-		}
-	}
 	
-	// This is the function that creates the modal to create/edit interpretive tests
-	$scope.editInterpretiveTest = function(newInterpretive) {
-		$scope.editTestEx(newInterpretive, 'interpretives', $scope.currentMember.interpretives, 1, $scope.interpretives);
-	}
-
-	// This is the function that creates the modal to create/edit interpretive tests
-	$scope.editCompetitiveTest = function(newCompetitive) {
-		$scope.editTestEx(newCompetitive, 'competitives', $scope.currentMember.competitives, 1, $scope.competitives);
-	}
-
-	// This is the function that creates the modal to create/edit test
-	// TODO : this could be done with a single template, because they are all the same, the only thing that changes is the list of test.
-// 	$scope.editTest = function(newTest, testType, testList, version, templateName) {
-// 		$scope.newTest = {};
-// 		// Keep a pointer to the current test
-// 		$scope.currentTest = newTest;
-// 		// Copy in another object
-// 		angular.copy(newTest, $scope.newTest);
-// 		// Convert the date
-// 		$scope.newTest.testdate = parseISOdateService.parseDateWithoutTime($scope.newTest.testdatestr);
-// 		$uibModal.open({
-// 				animation: false,
-// 				templateUrl: templateName,
-// 				controller: 'childeditor.controller',
-// 				scope: $scope,
-// 				size: 'lg',
-// 				backdrop: 'static',
-// 				resolve: {
-// 					newObj: function () {
-// 						return $scope.newTest;
-// 					}
-// 				}
-// 		})
-// 		.result.then(function(newTest) {
-// 			// User clicked OK and everything was valid.
-// 			newTest.testdatestr = dateFilter(newTest.testdate, 'yyyy-MM-dd');
-// 			newTest.testlabel = anycodesService.convertIdToDesc($scope, testType, newTest.testid);
-// 			angular.copy(newTest, $scope.currentTest);
-// 			// If already saved in DB
-// 			if ($scope.currentTest.id != null) {
-// 				$scope.currentTest.status = 'Modified';
-// 			} else {
-// 				$scope.currentTest.status = 'New';
-// 				if (testList == null) testList = [];
-// 				// Don't insert twice in list
-// 				if (testList.indexOf($scope.currentTest) == -1) {
-// 					testList.push($scope.currentTest);
-// 				}
-// 			}
-// 			$scope.setDirty();
-// 		}, function() {
-// 				// User clicked CANCEL.
-// //					alert('canceled');
-// 		});
-// 	};
-
-	// This is the function that creates the modal to create/edit test - new version
-	$scope.editTestEx = function(newTest, testType, testList, version, listoftestfortype) {
+	/**
+	 * This is the function that creates the modal to create/edit test - new version
+	 * @param {*} newTest 				The new test (if empty object {}) or the test to edit
+	 * @param {*} testType 				String - the type of test ('abilities', etc..)
+	 * @param {*} testList 				The skater's list of test being modified
+	 * @param {*} version 				Test version. 1 = old STAR tests. 2 = New STAR test (1 to Gold)
+	 * @param {*} listoftestfortype 	List of test to choose from
+	 */
+	$scope.editTestEx = function (newTest, testType, testList, version, listoftestfortype) {
 		$scope.listoftestfortype = listoftestfortype;
-		if (version == 1) {
-			$scope.testresultcodes = $scope.yesnos
-		} else if (version == 2) {
-			$scope.testresultcodes = $scope.testresults
-		}
+		// Not sure if this is used....
+		// if (version == 1) {
+		// 	$scope.testresultcodes = $scope.yesnos;
+		// } else if (version == 2) {
+		// 	$scope.testresultcodes = $scope.testresults;
+		// }
 		$scope.newTest = {};
 		$scope.currentTestList = testList;
 		// Keep a pointer to the current test
@@ -488,19 +427,18 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		// Convert the date
 		$scope.newTest.testdate = parseISOdateService.parseDateWithoutTime($scope.newTest.testdatestr);
 		$uibModal.open({
-				animation: false,
-				templateUrl: 'memberview/newtest.template.html',
-				controller: 'childeditor.controller',
-				scope: $scope,
-				size: 'lg',
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newTest;
-					}
+			animation: false,
+			templateUrl: 'memberview/newtest.template.html',
+			controller: 'childeditor.controller',
+			scope: $scope,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				newObj: function () {
+					return $scope.newTest;
 				}
-		})
-		.result.then(function(newTest) {
+			}
+		}).result.then(function (newTest) {
 			// User clicked OK and everything was valid.
 			newTest.testdatestr = dateFilter(newTest.testdate, 'yyyy-MM-dd');
 			newTest.testlabel = anycodesService.convertIdToDesc($scope, testType, newTest.testid);
@@ -525,41 +463,40 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				}
 			}
 			$scope.setDirty();
-		}, function() {
+		}, function () {
 			// User clicked CANCEL.
 			// alert('canceled');
 		});
 	};
 
-	$scope.mainFilter = function(removeFilter) {
+	$scope.mainFilter = function (removeFilter) {
 		if (removeFilter == true) {
 			$scope.getAllMembers(null);
 		} else {
 			// Send the newFilter to the modal form
 			$uibModal.open({
-					animation: false,
-					templateUrl: 'memberview/filter.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'lg',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newFilter;
-						}
+				animation: false,
+				templateUrl: 'memberview/filter.template.html',
+				controller: 'childeditor.controller',
+				scope: $scope,
+				size: 'lg',
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newFilter;
 					}
-			})
-			.result.then(function(newFilter) {
-					// User clicked OK
-					if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration|| newFilter.qualification) {
-						$scope.newFilter = newFilter;
-						$scope.getAllMembers(newFilter);
-					} else {
-						dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
-						$scope.newFilter = {};
-						$scope.getAllMembers(null);
-					}
-			}, function(dismiss) {
+				}
+			}).result.then(function (newFilter) {
+				// User clicked OK
+				if (newFilter.firstname || newFilter.lastname || newFilter.agemin || newFilter.canskatebadgemin || newFilter.course || newFilter.registration || newFilter.qualification) {
+					$scope.newFilter = newFilter;
+					$scope.getAllMembers(newFilter);
+				} else {
+					dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
+					$scope.newFilter = {};
+					$scope.getAllMembers(null);
+				}
+			}, function (dismiss) {
 				if (dismiss == true) {
 					$scope.getAllMembers(null);
 				}
@@ -570,15 +507,15 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	}
 
 	// This is the function that creates the modal to get the members email addresses
-	$scope.getMembersEmail = function() {
+	$scope.getMembersEmail = function () {
 		selectMembersService.selectMembers($scope)
-		.then(function(selectedMembers) {
-			reportingService.createAndDisplayReport("sessionMemberEmailList.php", selectedMembers);
+			.then(function (selectedMembers) {
+				reportingService.createAndDisplayReport("sessionMemberEmailList.php", selectedMembers);
 				return;
-		}) ;
+			});
 	};
 
-	$scope.checkAll = function(list) {
+	$scope.checkAll = function (list) {
 		for (var i = 0; list && i < list.length; i++) {
 			if (list[i] != undefined) {
 				list[i].success = '1';
@@ -592,23 +529,23 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	}
 
 	// This is the function that creates the modal to export the members
-	$scope.exportMembers = function() {
-		$window.open('./reports/exportmemberstocsv.php' + '?language='+authenticationService.getCurrentLanguage());
+	$scope.exportMembers = function () {
+		$window.open('./reports/exportmemberstocsv.php' + '?language=' + authenticationService.getCurrentLanguage());
 		// $window.open("http://localhost/cpa_admin/app/reports/exportmemberstocsv.php");
 		// var parameters = null;
 		// $http({
-    //   method: 'post',
-    //   url: './reports/exportmemberstocsv.php',
-    //   data: $.param({'parameters' : parameters}),
-    //   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    // }).
-    // success(function(filename) {
-    //   return filename;
-    // }).
-    // error(function(filename) {
-    //   dialogService.displayFailure(filename);
-    //   return false;
-    // });
+		//   method: 'post',
+		//   url: './reports/exportmemberstocsv.php',
+		//   data: $.param({'parameters' : parameters}),
+		//   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		// }).
+		// success(function(filename) {
+		//   return filename;
+		// }).
+		// error(function(filename) {
+		//   dialogService.displayFailure(filename);
+		//   return false;
+		// });
 
 
 
@@ -621,49 +558,50 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	};
 
 	// This is to view the bill from the bill list
-	$scope.viewBill = function(billid) {
-		$window.open('./reports/memberBill.php?language='+authenticationService.getCurrentLanguage()+'&billid='+billid);
+	$scope.viewBill = function (billid) {
+		$window.open('./reports/memberBill.php?language=' + authenticationService.getCurrentLanguage() + '&billid=' + billid);
 	}
 
 	$rootScope.$on("authentication.language.changed", function (event, current, previous, eventObj) {
 		$scope.refreshAll();
 	});
 
-	$scope.refreshAll = function() {
+	$scope.refreshAll = function () {
 		$scope.getAllMembers(null);
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 							'text', 'yesnos');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'qualifications',			'text', 'qualifications');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'provinces', 					'text', 'provinces');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'countries', 					'text', 'countries');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'languages', 					'sequence', 'languages');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'genders', 						'text', 'genders');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 				'text', 'contacttypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'skaterlevels', 				'text', 'skaterlevels');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'coachtypes', 					'text', 'coachtypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'programs', 						'text', 'programs');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 							'text', 'yesnos');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'testresults', 				 'sequence', 'testresults');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'familyranks', 				'text', 'familyranks');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'testlevels',					'text', 'testlevels');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'testtypes',						'text', 'testtypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'registrationfilters',	'sequence', 'registrationfilters');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'membermailfilters',	  'sequence', 'membermailfilters');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'qualifications', 'text', 'qualifications');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'provinces', 'text', 'provinces');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'countries', 'text', 'countries');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'languages', 'sequence', 'languages');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'genders', 'text', 'genders');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 'text', 'contacttypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'skaterlevels', 'text', 'skaterlevels');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'coachtypes', 'text', 'coachtypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'programs', 'text', 'programs');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'testresults', 'sequence', 'testresults');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'familyranks', 'text', 'familyranks');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'testlevels', 'text', 'testlevels');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'testtypes', 'text', 'testtypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'registrationfilters', 'sequence', 'registrationfilters');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'membermailfilters', 'sequence', 'membermailfilters');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'canskatebadges', 'sequence', 'canskatebadges');
 
 		listsService.getAllCoaches($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllClubs($scope, authenticationService.getCurrentLanguage());
 
-		listsService.getAllTests($scope, 'DANCE', 	'dances', 			authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'SKILLS',	'abilities', 		authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'FREE', 	'freestyles', 		authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'INTER', 	'interpretives', 	authenticationService.getCurrentLanguage());
-		listsService.getAllTests($scope, 'COMP', 	'competitives', 	authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'DANCE', 'dances', authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'SKILLS', 'abilities', authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'FREE', 'freestyles', authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'INTER', 'interpretives', authenticationService.getCurrentLanguage());
+		listsService.getAllTests($scope, 'COMP', 'competitives', authenticationService.getCurrentLanguage());
 
-		listsService.getAllStarTests($scope, 'DANCE', 		'stardances', 		authenticationService.getCurrentLanguage());
-		listsService.getAllStarTests($scope, 'SKILLS',		'starabilities', 	authenticationService.getCurrentLanguage());
-		listsService.getAllStarTests($scope, 'FREE', 		'starfreestyles',	authenticationService.getCurrentLanguage());
-		listsService.getAllStarTests($scope, 'ARTISTIC',	'starartistics', 	authenticationService.getCurrentLanguage());
-		listsService.getAllStarTests($scope, 'SYNCHRO', 	'starsynchros', 	authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'DANCE', 'stardances', authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'SKILLS', 'starabilities', authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'FREE', 'starfreestyles', authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'ARTISTIC', 'starartistics', authenticationService.getCurrentLanguage());
+		listsService.getAllStarTests($scope, 'SYNCHRO', 'starsynchros', authenticationService.getCurrentLanguage());
 
 		translationService.getTranslation($scope, 'memberview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
@@ -671,25 +609,25 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	}
 
 	// REPORTS
-	$scope.printReport = function(reportName) {
+	$scope.printReport = function (reportName) {
 		if (reportName == 'sessionCourseCSReportCard') {
-			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&memberid='+$scope.currentMember.id);
+			$window.open('./reports/' + reportName + '.php?language=' + authenticationService.getCurrentLanguage() + '&memberid=' + $scope.currentMember.id);
 		}
 		if (reportName == 'sessionCoursePreCSReportCard') {
-			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&memberid='+$scope.currentMember.id);
+			$window.open('./reports/' + reportName + '.php?language=' + authenticationService.getCurrentLanguage() + '&memberid=' + $scope.currentMember.id);
 		}
 		if (reportName == 'memberCSProgress') {
-			$window.open('./reports/'+reportName+'.php?language='+authenticationService.getCurrentLanguage()+'&memberid='+$scope.currentMember.id);
+			$window.open('./reports/' + reportName + '.php?language=' + authenticationService.getCurrentLanguage() + '&memberid=' + $scope.currentMember.id);
 		}
 	}
 
 	$scope.refreshAll();
 }]);
 
-angular.module('cpa_admin.memberview').directive('qualif', function() {
-		return {
-				scope: true,
-				replace: true,
-				templateUrl: './memberview/qualifications.template.html'
-		}
+angular.module('cpa_admin.memberview').directive('qualif', function () {
+	return {
+		scope: true,
+		replace: true,
+		templateUrl: './memberview/qualifications.template.html'
+	}
 });

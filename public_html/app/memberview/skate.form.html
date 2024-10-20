@@ -1,62 +1,63 @@
 <div class="form-group">
-  <div class="grid">
+	<div class="grid">
 		<h3>{{translationObj.skating.formtitleskating}}</h3>
-    <div class="row">
-      <div class="col-xs-11 col-sm-6 col-md-6 col-lg-2">
-	      <label for="skatecanadano">{{translationObj.skating.fieldskatecanadano}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="skatecanadano" ng-model="currentMember.skatecanadano" maxlength="20" capitalize>
-	    	</div>
-      </div>
-      <div class="col-xs-11 col-sm-6 col-md-6 col-lg-3">
-	      <label for="homeclub">{{translationObj.skating.fieldhomeclub}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-          <select class="form-control" id="homeclub" ng-model="currentMember.homeclub">
+		<div class="row">
+			<div class="col-xs-11 col-sm-6 col-md-6 col-lg-2">
+				<label for="skatecanadano">{{translationObj.skating.fieldskatecanadano}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="skatecanadano" ng-model="currentMember.skatecanadano" maxlength="20" capitalize>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-6 col-md-6 col-lg-3">
+				<label for="homeclub">{{translationObj.skating.fieldhomeclub}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="homeclub" ng-model="currentMember.homeclub">
 						<option ng-repeat="homeclub in homeclubs" value="{{homeclub.code}}">{{homeclub.text}}</option>
-		      </select>
-	      </div>
-      </div>
-    </div>
-		<hr><h3>{{translationObj.skating.formtitlenewcoach}}</h3>
-    <div class="row">
-    	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-2">
-		    <br><a class="btn btn-primary" ng-click="editCoach({});">{{translationObj.skating.buttontitlenewcoach}}</a>
-		  </div>
-	  </div>
+					</select>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h3>{{translationObj.skating.formtitlenewcoach}}</h3>
+		<div class="row">
+			<div class="col-xs-11 col-sm-11 col-md-11 col-lg-2">
+				<br><a class="btn btn-primary" ng-click="editCoach({});">{{translationObj.skating.buttontitlenewcoach}}</a>
+			</div>
+		</div>
 		<div ng-repeat="coach in currentMember.coaches">
-	    <div class="row">
-      	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-4">
-			    <label ng-show="$index==0">{{translationObj.skating.fieldtype}}</label>
-	      	<div class="input-group">
-				  	<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<select class="form-control" ng-model="coach.coachtype" ng-change="setMemberDirty();coach.status = (coach.status != 'New' ? 'Modified' : 'New');" disabled required>
-				    	<option ng-repeat="coachtype in coachtypes" value="{{coachtype.code}}">{{coachtype.text}}</option>
-				    </select>
-				  </div>
-			  </div>
-      	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-4">
-			    <label ng-show="$index==0">{{translationObj.skating.fieldname}}</label>
-	      	<div class="input-group">
-				  	<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-			    	<select class="form-control" ng-model="coach.coachid" ng-change="setMemberDirty(coach);" disabled required>
-			    		<option ng-repeat="coach1 in allcoaches" value="{{coach1.id}}">{{coach1.text}}</option>
-				    </select>
-				  </div>
-			  </div>
-      	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-2">
-			    <label ng-show="$index==0">&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<child-edit-button 			obj="coach" objlist="currentMember.coaches" callback="editCoach(coach)"></child-edit-button>
-							<child-delete-button 		obj="coach" objlist="currentMember.coaches" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 	obj="coach" objlist="currentMember.coaches" callback="setDirty()"></child-undelete-button>
+			<div class="row">
+				<div class="col-xs-11 col-sm-11 col-md-11 col-lg-4">
+					<label for="coachtype{{$index}}" ng-show="$index==0">{{translationObj.skating.fieldtype}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<select class="form-control" id="coachtype{{$index}}" ng-model="coach.coachtype" disabled required>
+							<option ng-repeat="coachtype in coachtypes" value="{{coachtype.code}}">{{coachtype.text}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-11 col-sm-11 col-md-11 col-lg-4">
+					<label for="coachid{{$index}}" ng-show="$index==0">{{translationObj.skating.fieldname}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<select class="form-control" id="coachid{{$index}}" ng-model="coach.coachid" disabled required>
+							<option ng-repeat="coach1 in allcoaches" value="{{coach1.id}}">{{coach1.text}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-11 col-sm-11 col-md-11 col-lg-2">
+					<label ng-show="$index==0">&nbsp;</label>
+					<div class="input-group">
+						<span>
+							<child-edit-button obj="coach" objlist="currentMember.coaches" callback="editCoach(coach)"></child-edit-button>
+							<child-delete-button obj="coach" objlist="currentMember.coaches" callback="setDirty()"></child-delete-button>
+							<child-undelete-button obj="coach" objlist="currentMember.coaches" callback="setDirty()"></child-undelete-button>
 							<child-status-indicator obj="coach"></child-status-indicator>
 						</span>
-				  </div>
-			  </div>
-		  </div>
-	  </div>
-  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

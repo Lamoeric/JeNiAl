@@ -1,14 +1,14 @@
-<div class="modal-header">
-	<h4 class="modal-title">{{translationObj.filter.formtitlefilter}}</h4>
-</div>
-<div class="modal-body">
-	<form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.filter.formtitlefilter}}</h4>
+	</div>
+	<div class="modal-body">
 		<div class="form-group">
 			<div class="col-xs-5">
 				<label for="firstname">{{translationObj.filter.fieldfirstname}}</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" id="firstname" name="firstname" class="form-control" ng-model="newObj.firstname"	maxlength="40">
+					<input type="text" id="firstname" name="firstname" class="form-control" ng-model="newObj.firstname" maxlength="40" autofocus>
 				</div>
 			</div>
 			<div class="col-xs-5">
@@ -16,6 +16,23 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text" id="lastname" name="lastname" class="form-control" ng-model="newObj.lastname" maxlength="40">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="agemin">{{translationObj.filter.fieldagemin}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" id="agemin" name="agemin" class="form-control" ng-model="newObj.agemin" min="1" max="99">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="canskatebadgemin">{{translationObj.filter.fieldcanskatebadgemin}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="canskatebadgemin" name="canskatebadgemin" ng-model="newObj.canskatebadgemin">
+						<option value=""></option>
+						<option ng-repeat="badge in canskatebadges" value="{{badge.code}}">{{badge.text}}</option>
+					</select>
 				</div>
 			</div>
 			<div class="col-xs-5">
@@ -40,7 +57,11 @@
 			</div>
 			<div class="col-xs-5">
 				<div class="input-group" ng-if="newObj.course!=null && newObj.course!=''">
-					<br><label for="onlyactivemembers" ><input type="checkbox" id="onlyactivemembers" name="onlyactivemembers" ng-model="newObj.onlyactivemembers" ng-true-value="'1'" ng-false-value="'0'">{{translationObj.filter.fieldonlyactivemembers}}</label>
+					<br>
+					<label for="onlyactivemembers">
+						<input type="checkbox" id="onlyactivemembers" ng-model="newObj.onlyactivemembers" ng-true-value="'1'" ng-false-value="'0'">
+						{{translationObj.filter.fieldonlyactivemembers}}
+					</label>
 				</div>
 			</div>
 			<div class="col-xs-5">
@@ -54,14 +75,11 @@
 				</div>
 			</div>
 		</div>
-	</form>
-	<!-- <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-		All fields are mandatory.
-	</div> -->
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.filter.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="cancel(true)">{{translationObj.filter.buttontitledismiss}}</button>
-	<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.filter.buttontitleclearform}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.filter.buttontitleapplyfilter}}</button>
-</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.filter.buttontitlediscard}}</button>
+		<button type="button" class="btn btn-primary" ng-click="cancel(true)">{{translationObj.filter.buttontitledismiss}}</button>
+		<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.filter.buttontitleclearform}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.filter.buttontitleapplyfilter}}</button>
+	</div>
+</form>

@@ -1,28 +1,40 @@
 <div class="form-group">
 	<div>
 		<h3>{{translationObj.activecourse.formtitleactivecourses}}</h3>
-	  <form class="form-horizontal well" role="form" name="activeCoursesForm" ng-show="currentMember">
-	  	<div ng-repeat="course in currentMember.activecourses"
-	  		<br>
+		<form class="form-horizontal well" role="form" name="activeCoursesForm" ng-show="currentMember">
+			<div ng-repeat="course in currentMember.activecourses">
+				<br>
 				<hr>
-			  <p><b>{{translationObj.activecourse.fieldcourse}}</b> {{course.courselabel}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldlevel}}</b> {{course.courselevel}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldname}}</b> {{course.name}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldfees}}</b> {{course.fees}} <br class="visible-xs visible-sm"> <b>{{translationObj.activecourse.fieldschedule}}</b> {{course.schedule}}</p>
-
+				<p>
+					<b>{{translationObj.activecourse.fieldcourse}}</b>&nbsp;{{course.courselabel}}&nbsp;
+						<br	class="visible-xs visible-sm"> 
+					<b>{{translationObj.activecourse.fieldlevel}}</b>&nbsp;{{course.courselevel}}&nbsp;<br class="visible-xs visible-sm">
+					<b>{{translationObj.activecourse.fieldname}}</b>&nbsp;{{course.name}}&nbsp;<br class="visible-xs visible-sm">
+					<b>{{translationObj.activecourse.fieldfees}}</b>&nbsp;{{course.fees}}&nbsp;<br class="visible-xs visible-sm">
+					<b>{{translationObj.activecourse.fieldschedule}}</b>&nbsp;{{course.schedule}}
+				</p>
 				<div style="overflow-x:auto;">
 					<table width="100%" border="1">
 						<tr>
 							<th>{{translationObj.activecourse.columntitledate}}</th>
-				  		<th ng-repeat="date in course.dates" class="verticalTableHeader">{{date.coursedate}}</th>
+							<th nowrap>{{translationObj.activecourse.columnsublevel}}</th>
+							<th ng-repeat="date in course.dates" class="verticalTableHeader">{{date.coursedate}}</th>
 							<th></th>
 						</tr>
 						<tr>
-				  		<td nowrap>{{currentMember.lastname}}, {{currentMember.firstname}}</td>
-				  		<!-- TODO : this should be the attendance of the member -->
-				  		<td ng-repeat="date in course.dates" class='coursetableselectedtd'>{{date.ispresent}}</th>
-				  	</tr>
+							<td nowrap>{{currentMember.lastname}},&nbsp;{{currentMember.firstname}}</td>
+							<td nowrap align="center">{{course.sublevellabel}}</td>
+							<!-- TODO : this should be the attendance of the member -->
+							<td ng-repeat="date in course.dates" class='coursetableselectedtd'>
+								<span ng-if="date.id && (date.ispresent==1 || date.ispresent==0 || date.ispresent==null)">
+									<input type="checkbox" ng-true-value="'1'" ng-false-value="'0'"	ng-model="date.ispresent" disabled>
+								</span>
+								<span ng-if="date.id && (date.ispresent!=1 && date.ispresent!=0)">{{date.ispresent}}</span>
+							</th>
+						</tr>
 					</table>
 				</div>
-
 			</div>
-	  </form>
-  </div>
+		</form>
+	</div>
 </div>

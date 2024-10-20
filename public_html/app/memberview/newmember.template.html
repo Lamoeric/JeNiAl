@@ -1,30 +1,30 @@
-<div class="modal-header">
-	<h4 class="modal-title">{{translationObj.newmember.formtitlenewmember}}</h4>
-</div>
-<div class="modal-body">
-	<form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newmember.formtitlenewmember}}</h4>
+	</div>
+	<div class="modal-body">
 		<div class="form-group">
 			<div class="col-xs-5">
-      	<label for="newMember_first">{{translationObj.newmember.fieldfirstname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" name="newMember_first" class="form-control" id="newMember_first" ng-model="newObj.firstname" maxlength="40" required>
-	      </div>
-      </div>
-      <div class="col-xs-5">
-	      <label for="newMember_lastname">{{translationObj.newmember.fieldlastname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" name="newMember_lastname" class="form-control" id="newMember_lastname" ng-model="newObj.lastname" maxlength="40" required>
-	      </div>
-      </div>
+				<labelrequired for="newMember_first" label="translationObj.newmember.fieldfirstname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="newMember_first" class="form-control" id="newMember_first"	ng-model="newObj.firstname" maxlength="40" required autofocus>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<labelrequired for="newMember_lastname" label="translationObj.newmember.fieldlastname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="newMember_lastname" class="form-control" id="newMember_lastname" ng-model="newObj.lastname" maxlength="40" required>
+				</div>
+			</div>
 		</div>
-	</form>
-	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-		{{translationObj.newmember.formerrormessage}}
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newmember.formerrormessage}}
+		</div>
 	</div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newmember.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newmember.buttontitlekeepchanges}}</button>
-</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newmember.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newmember.buttontitlekeepchanges}}</button>
+	</div>
+</form>

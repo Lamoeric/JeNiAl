@@ -1,58 +1,59 @@
 <div class="form-group">
-  <div class="grid">
+	<div class="grid">
 		<h3>{{translationObj.freestyle.formtitledance}}</h3>
-    <div class="row">
-      <div class="col-xs-5">
-				<a class="btn btn-primary" ng-click="editDanceTest({}, 1)">
-      		<span>{{translationObj.dance.buttontitlenewdance}}</span>
-      	</a>
-      </div>
-    </div>
+		<div class="row">
+			<div class="col-xs-5">
+				<a class="btn btn-primary" ng-click="editTestEx({}, 'dances', currentMember.dances, 1, dances)">
+					<span>{{translationObj.dance.buttontitlenewdance}}</span>
+				</a>
+			</div>
+		</div>
 		<div ng-repeat="dance in currentMember.dances">
-			<div ng-show="$index != 0 && (currentMember.dances[$index].level != currentMember.dances[$index-1].level)"><hr></div>
-
-			<h3 ng-show="$index == 0 || (currentMember.dances[$index].level != currentMember.dances[$index-1].level)">{{currentMember.dances[$index].testlevellabel}}</h3>
+			<div ng-show="$index != 0 && (currentMember.dances[$index].level != currentMember.dances[$index-1].level)">
+				<hr>
+			</div>
+			<h3 ng-show="$index == 0 || (currentMember.dances[$index].level != currentMember.dances[$index-1].level)">
+				{{currentMember.dances[$index].testlevellabel}}</h3>
 			<div class="row">
-	      <div class="col-xs-11 col-sm-11 col-md-4 col-lg-3">
-			    <label for="testid" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtest}}</label>
-			    <label for="testid" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtest}}</label>
-	      	<div class="input-group" ng-show="$index == 0 || currentMember.dances[$index].testid != currentMember.dances[$index-1].testid">
-				  	<span class="input-group-addon"><i class="glyphicon glyphicon-refresh"></i></span>
-	        	<input type="text" class="form-control" id="testlabel" ng-model="dance.testlabel" ng-show="dance.testlabel != null" disabled>
-				  </div>
-	      </div>
-	      <div class="col-xs-11 col-sm-11 col-md-3 col-lg-2">
-		      <label for="testdate" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestdate}}</label>
-		      <label for="testdate" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestdate}}</label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	        	<input type="text" class="form-control" id="testdate" ng-model="dance.testdatestr" disabled>
-	      	</div>
-	      </div>
-	      <div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-		      <label for="success" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestsuccess}}</label>
-		      <label for="success" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestsuccess}}</label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	          <select class="form-control" id="success" ng-model="dance.success" disabled>
+				<div class="col-xs-11 col-sm-11 col-md-4 col-lg-3">
+					<label for="testlabel{{$index}}" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtest}}</label>
+					<label for="testlabel{{$index}}" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtest}}</label>
+					<div class="input-group" ng-show="$index == 0 || currentMember.dances[$index].testid != currentMember.dances[$index-1].testid">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-refresh"></i></span>
+						<input type="text" class="form-control" id="testlabel{{$index}}" ng-model="dance.testlabel" ng-show="dance.testlabel != null" disabled>
+					</div>
+				</div>
+				<div class="col-xs-11 col-sm-11 col-md-3 col-lg-2">
+					<label for="testdate{{$index}}" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestdate}}</label>
+					<label for="testdate{{$index}}" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestdate}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						<input type="text" class="form-control" id="testdate{{$index}}" ng-model="dance.testdatestr" disabled>
+					</div>
+				</div>
+				<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+					<label for="success{{$index}}" class="visible-md visible-lg" ng-show="$index==0">{{translationObj.test.fieldtestsuccess}}</label>
+					<label for="success{{$index}}" class="visible-xs visible-sm hidden-md hidden-lg">{{translationObj.test.fieldtestsuccess}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select class="form-control" id="success{{$index}}" ng-model="dance.success" disabled>
 							<option ng-repeat="answer in testresults" value="{{answer.code}}">{{answer.text}}</option>
-			      </select>
-	      	</div>
-	      </div>
-      	<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
-			    <label class="visible-md visible-lg" ng-show="$index==0">&nbsp;</label>
-			    <label class="visible-xs visible-sm hidden-md hidden-lg">&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<child-edit-button 			obj="dance" objlist="currentMember.dances" callback="editDanceTest(dance, 1)" ng-show="dance.testdatestr!=null"></child-edit-button>
-							<child-delete-button 		obj="dance" objlist="currentMember.dances" callback="setDirty()" ng-show="dance.testdatestr != null"></child-delete-button>
-							<child-undelete-button 	obj="dance" objlist="currentMember.dances" callback="setDirty()" ng-show="dance.testdatestr != null"></child-undelete-button>
+						</select>
+					</div>
+				</div>
+				<div class="col-xs-11 col-sm-11 col-md-2 col-lg-2">
+					<label class="visible-md visible-lg" ng-show="$index==0">&nbsp;</label>
+					<label class="visible-xs visible-sm hidden-md hidden-lg">&nbsp;</label>
+					<div class="input-group">
+						<span>
+							<child-edit-button obj="dance" objlist="currentMember.dances" callback="editTestEx(dance, 'dances', currentMember.dances, 1, dances)" ng-show="dance.testdatestr!=null"></child-edit-button>
+							<child-delete-button obj="dance" objlist="currentMember.dances" callback="setDirty()" ng-show="dance.testdatestr != null"></child-delete-button>
+							<child-undelete-button obj="dance" objlist="currentMember.dances" callback="setDirty()" ng-show="dance.testdatestr != null"></child-undelete-button>
 							<child-status-indicator obj="dance"></child-status-indicator>
 						</span>
-				  </div>
-			  </div>
-		  </div>
-
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
