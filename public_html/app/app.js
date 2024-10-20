@@ -84,6 +84,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 	 * 								name : name of the form. used like scope[formList[0].name]
 	 * 								errorMsg : message property to use instead of the default. used like scope.translationObj.main[formList[0].errorMsg]
 	 * 								validFct : name of the validation function to call to validate the form. Use like scope[formList[0].validFct]()
+	 * 											Must return an object with errorMsg and/or warningMsg
 	 * @returns true if everything is valid, false otherwise
 	 */
 	$rootScope.validateAllForms = function(scope, formList) {
@@ -97,10 +98,15 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 			if (formList[x].validFct) {
 				var tmpMsg = scope[formList[x].validFct]();
 				if (tmpMsg) {
-					scope.globalErrorMessage.push(tmpMsg);
+ 					if (tmpMsg.errorMsg) {
+						scope.globalErrorMessage.push(tmpMsg.errorMsg);
+ 					}
+ 					if (tmpMsg.warningMsg) {
+						scope.globalWarningMessage.push(tmpMsg.warningMsg);
+ 					}
 				}
 			} else {
-				// if no custom validation function, just chaeck $invalid property
+				// if no custom validation function, just check $invalid property
 				if (form.$invalid) {
 					// Check if form has a custom error message
 					if (formList[x].errorMsg) {
