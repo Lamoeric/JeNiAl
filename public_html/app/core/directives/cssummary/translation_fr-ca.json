@@ -6,5 +6,5 @@
 	{"formname":"cssummary", "fieldname":"titlecontrol", "text":"Maîtrise"},
 	{"formname":"cssummary", "fieldname":"formtitleagility", "text":"Agilité"},
 	{"formname":"cssummary", "fieldname":"titleagility", "text":"Agilité"},
-	{"formname":"cssummary", "fieldname":"titlebadge", "text":"Badge"}
+	{"formname":"cssummary", "fieldname":"titlebadge", "text":"Écusson"}
 ]
