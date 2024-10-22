@@ -1,21 +1,21 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newmber.formtitleeditmember}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group">
-      <div class="col-xs-7">
-	      <label for="relation">{{translationObj.newmember.fieldrelation}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
-      		<select class="form-control" id="relation" ng-model="newObj.contacttype" required>
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newmember.formtitleeditmember}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<div class="col-xs-7">
+				<labelrequired for="relation" label="translationObj.newmember.fieldrelation"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
+					<select class="form-control" id="relation" ng-model="newObj.contacttype" required autofocus>
 						<option ng-repeat="contacttype in contacttypes" value="{{contacttype.code}}">{{contacttype.text}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
 			<div class="col-xs-7">
-				<label for="name">{{translationObj.newmember.fieldmember}}<i style="color:red"> *</i></label>
+				<labelrequired for="name" label="translationObj.newmember.fieldmember"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text" name="name" class="form-control" id="name" value="{{newObj.member.firstname}} {{newObj.member.lastname}}" disabled required>
@@ -25,22 +25,25 @@
 				</div>
 			</div>
 
-	    <div class="col-xs-7">
-	      <label for="label_fr">{{translationObj.newmember.fieldincaseofemergency}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
-          <select class="form-control" id="language" ng-model="newObj.incaseofemergency" required>
+			<div class="col-xs-7">
+				<labelrequired for="label_fr" label="translationObj.newmember.fieldincaseofemergency"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
+					<select class="form-control" id="language" ng-model="newObj.incaseofemergency" required>
 						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-		      </select>
-	      </div>
-      </div>
-    </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newmember.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newmember.buttontitlediscard}}</button>
-  <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newmember.buttontitlekeepchanges}}</button>
-</div>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newmember.formerrormessage}}
+		</div>
+		<div class="alert alert-danger" id="editObjMemberAlreadyExists" style="display:none;">
+			{{translationObj.newmember.formerrmemberalreadyexists}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newmember.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newmember.buttontitlekeepchanges}}</button>
+	</div>
+</form>

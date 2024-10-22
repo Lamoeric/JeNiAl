@@ -1,151 +1,141 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
 
-      <div class="col-xs-4">
-      	<label for="firstname">{{translationObj.details.fieldfirstname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" id="firstname" name="firstname" ng-model="currentContact.firstname" maxlength="100" required>
-	      </div>
-      </div>
-
-      <div class="col-xs-4">
-	      <label for="lastname">{{translationObj.details.fieldlastname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" id="lastname" name="lastname" ng-model="currentContact.lastname" maxlength="100" required>
-	      </div>
-      </div>
-    </div>
-
-		<div class="row">
-	    <div class="col-xs-3">
-	      <label for="homephone">{{translationObj.details.fieldhomephone}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-	      	<input type="text" class="form-control" id="homephone" ng-model="currentContact.homephone" maxlength="14" format-phone>
-	    	</div>
-	    </div>
-
-	    <div class="col-xs-3">
-	      <label for="cellphone">{{translationObj.details.fieldcellphone}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-	        <input type="text" class="form-control" id="cellphone" ng-model="currentContact.cellphone" maxlength="14" format-phone>
-	    	</div>
-	    </div>
-    </div>
-
-		<div class="row">
-	    <div class="col-xs-3">
-	      <label for="otherphone">{{translationObj.details.fieldofficephone}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-	      	<input type="text" class="form-control" id="otherphone" ng-model="currentContact.officephone" maxlength="14" format-phone>
-	    	</div>
-	    </div>
-	    <div class="col-xs-3">
-	      <label for="officeext">{{translationObj.details.fieldofficephoneext}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-	      	<input type="text" class="form-control" id="officeext" ng-model="currentContact.officeext" maxlength="6">
-	    	</div>
-	    </div>
-    </div>
-
-		<div class="row">
-	    <div class="col-xs-6">
-	      <label for="email">{{translationObj.details.fieldemail}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-	      	<input type="text" class="form-control" id="email" ng-model="currentContact.email" maxlength="100">
-	    	</div>
-	    </div>
-    </div>
-
-		<div class="row">
-	    <div class="col-xs-6">
-	      <label for="userid">{{translationObj.details.fielduserid}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	      	<input type="text" class="form-control" id="userid" ng-model="currentContact.userid" maxlength="200" disabled>
-	    	</div>
-	    </div>
-    </div>
-
-		<!-- <div class="row">
-	    <div class="col-xs-3">
-				<br><label><input type="checkbox" ng-model="currentContact.incaseofemergency" ng-true-value="'1'">{{translationObj.details.fieldincaseofemergency}}</label>
+			<div class="col-xs-4">
+				<labelrequired for="firstname" label="translationObj.details.fieldfirstname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="firstname" name="firstname" ng-model="currentContact.firstname" maxlength="100" required>
+				</div>
 			</div>
-		</div> -->
-			
-    <hr><h3>{{translationObj.details.buttontitlemember}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editMember({})"></button></h3>
-		<!-- <div class="row">
-      <div class="col-xs-5">
-				<button class="btn btn-primary" ng-click="editIce({})"><span>New Ice</span></button>
-      </div>
-    </div> -->
+
+			<div class="col-xs-4">
+				<labelrequired for="lastname" label="translationObj.details.fieldlastname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="lastname" name="lastname" ng-model="currentContact.lastname" maxlength="100" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<label for="homephone">{{translationObj.details.fieldhomephone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					<input type="text" class="form-control" id="homephone" ng-model="currentContact.homephone" maxlength="14" format-phone>
+				</div>
+			</div>
+
+			<div class="col-xs-3">
+				<label for="cellphone">{{translationObj.details.fieldcellphone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					<input type="text" class="form-control" id="cellphone" ng-model="currentContact.cellphone" maxlength="14" format-phone>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<label for="otherphone">{{translationObj.details.fieldofficephone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					<input type="text" class="form-control" id="otherphone" ng-model="currentContact.officephone" maxlength="14" format-phone>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label for="officeext">{{translationObj.details.fieldofficephoneext}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					<input type="text" class="form-control" id="officeext" ng-model="currentContact.officeext" maxlength="6">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">
+				<label for="email">{{translationObj.details.fieldemail}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input type="text" class="form-control" id="email" ng-model="currentContact.email" maxlength="100" autocomplete="off">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">
+				<label for="userid">{{translationObj.details.fielduserid}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="userid" ng-model="currentContact.userid" maxlength="200" disabled>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<h3>{{translationObj.details.buttontitlemember}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editMember({})"></button></h3>
 		<div ng-repeat="member in currentContact.members">
-    	<div class="row">
+			<div class="row">
 
-	      <div class="col-xs-2">
-		      <label for="relation">{{translationObj.details.fieldrelation}}</label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
-	      		<select class="form-control" id="relation" ng-model="member.contacttype" disabled>
-							<option ng-repeat="contacttype in contacttypes" value="{{contacttype.code}}">{{contacttype.text}}</option>
-	      		</select>
-	      	</div>
-	      </div>
+				<div class="col-xs-2">
+					<label for="relation{{$index}}">{{translationObj.details.fieldrelation}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
+						<select class="form-control" id="relation{{$index}}" ng-model="member.contacttype" disabled>
+							<option ng-repeat="contacttype in contacttypes" value="{{contacttype.code}}"> {{contacttype.text}}</option>
+						</select>
+					</div>
+				</div>
 
-		    <div class="col-xs-2">
-			      <label for="code">{{translationObj.details.fieldmemberid}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" name="code" class="form-control" id="memberid" ng-model="member.memberid" disabled>
-		      </div>
-		    </div>
+				<div class="col-xs-2">
+					<label for="memberid{{$index}}">{{translationObj.details.fieldmemberid}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" name="memberid" class="form-control" id="memberid{{$index}}" ng-model="member.memberid" disabled>
+					</div>
+				</div>
 
-		    <div class="col-xs-2">
-		      <label for="label_en">{{translationObj.details.fieldfirstname}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-		        <input type="text" class="form-control" id="firstname" ng-model="member.firstname" disabled>
-		      </div>
-		    </div>
+				<div class="col-xs-2">
+					<label for="firstname{{$index}}">{{translationObj.details.fieldfirstname}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" class="form-control" id="firstname{{$index}}" ng-model="member.firstname" disabled>
+					</div>
+				</div>
 
-		    <div class="col-xs-2">
-		      <label for="label_fr">{{translationObj.details.fieldlastname}}</label>
-		    	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-		        <input type="text" class="form-control" id="lastname" ng-model="member.lastname" disabled>
-		      </div>
-		    </div>
+				<div class="col-xs-2">
+					<label for="lastname{{$index}}">{{translationObj.details.fieldlastname}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input type="text" class="form-control" id="lastname{{$index}}" ng-model="member.lastname" disabled>
+					</div>
+				</div>
 
-		    <div class="col-xs-2">
-		      <label for="label_fr">{{translationObj.details.fieldincaseofemergency}}</label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
-	          <select class="form-control" id="language" ng-model="member.incaseofemergency" disabled>
+				<div class="col-xs-2">
+					<label for="incaseofemergency{{$index}}">{{translationObj.details.fieldincaseofemergency}}</label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-th-list"></i></span>
+						<select class="form-control" id="incaseofemergency{{$index}}" ng-model="member.incaseofemergency" disabled>
 							<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-			      </select>
-		      </div>
-	      </div>
+						</select>
+					</div>
+				</div>
 
-      	<div class="col-xs-2">
-			    <label>&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<child-edit-button 			obj="member" 	objlist="currentContact.members" callback="editMember(member)"></child-edit-button>
-							<child-delete-button 		obj="member" 	objlist="currentContact.members" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 	obj="ice" 		objlist="currentContact.members" callback="setDirty()"></child-undelete-button>
+				<div class="col-xs-2">
+					<label>&nbsp;</label>
+					<div class="input-group">
+						<span>
+							<child-edit-button obj="member" objlist="currentContact.members" callback="editMember(member)"></child-edit-button>
+							<child-delete-button obj="member" objlist="currentContact.members" callback="setDirty()"></child-delete-button>
+							<child-undelete-button obj="ice" objlist="currentContact.members" callback="setDirty()"></child-undelete-button>
 							<child-status-indicator obj="member"></child-status-indicator>
 						</span>
-				  </div>
-			  </div>
-		  </div>
-	 	</div>
-  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
