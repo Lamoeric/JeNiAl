@@ -1,37 +1,37 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.selectcoursedate.formtitleselectdate}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+  <div class="modal-header">
+    <h4 class="modal-title">{{translationObj.selectcoursedate.formtitleselectdate}}</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <div ng-if="activeCourses.length==0" style="text-align:center">
         <H3>{{translationObj.selectcoursedate.fielderrormessage}}</h3>
       </div>
       <div class="col-xs-10 col-md-10" ng-if="activeCourses.length!=0">
-		    <label for="sessionname">{{translationObj.selectcoursedate.fieldcoursename}}<i style="color:red"> *</i></label>
-				<div class="input-group">
-          <select class="form-control" ng-model="newObj.sessionscourse" required
+        <labelrequired for="sessionname" label="translationObj.selectcoursedate.fieldcoursename"></labelrequired>
+        <div class="input-group">
+          <select class="form-control" ng-model="newObj.sessionscourse" required ng-change="changeSessionCourse(newObj)"
             ng-options="sessionscourse.label + ' (' + sessionscourse.name + ')' for sessionscourse in activeCourses track by sessionscourse.id">
           </select>
-		  	</div>
-		  </div>
+        </div>
+      </div>
       <div class="clearfix visible-xs visible-md visible-lg"></div>
       <div class="col-xs-10 col-md-10" ng-if="activeCourses.length!=0">
-		    <label for="sessionname">{{translationObj.selectcoursedate.fieldcoursedate}}<i style="color:red"> *</i></label>
-				<div class="input-group">
+        <labelrequired for="sessionname" label="translationObj.selectcoursedate.fieldcoursedate"></labelrequired>
+        <div class="input-group">
           <select class="form-control" ng-model="newObj.sessionscoursesdate"
             ng-init="newObj.sessionscoursesdate = newObj.sessionscourse.dates[0]"
             ng-options="sessionscoursedate.text for sessionscoursedate in newObj.sessionscourse.dates track by sessionscoursedate.id">
           </select>
-		  	</div>
-		  </div>
+        </div>
+      </div>
     </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.selectcoursedate.formerrormessage}}
+    <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+      {{translationObj.selectcoursedate.formerrormessage}}
+    </div>
   </div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectcoursedate.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()" ng-if="activeCourses.length!=0">{{translationObj.selectcoursedate.buttontitlekeepchanges}}</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.selectcoursedate.buttontitlediscard}}</button>
+    <button type="submit" class="btn btn-primary" ng-click="ok()" ng-if="activeCourses.length!=0">{{translationObj.selectcoursedate.buttontitlekeepchanges}}</button>
+  </div>
+</form>

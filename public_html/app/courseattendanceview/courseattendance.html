@@ -1,14 +1,8 @@
-<!-- <h4>{{currentCourseDetails.courselabel}} ({{currentCourseDetails.name}}) {{currentCourseDetails.text}}</h4> -->
-<!-- <h4>{{currentCourseDetails.courselabel}} ({{currentCourseDetails.name}})</h4>
-{{currentCourseDetails.coursedatetime}}<br>
-{{currentCourseDetails.courselocation}} -->
-<!-- <span><button class="btn btn-primary glyphicon glyphicon-refresh" main-refresh-button callback="refreshAll()"></button></span> -->
 <div class="form-group row">
 	<div class="grid">
 		<div ng-repeat="member in currentCourseattendance">
 			<div class="row">
 				<div class="col-xs-8 col-md-3" >
-<!--					<input type="text" class="form-control" value="{{member.firstname}} {{member.lastname}}" disabled style="text-align: right"> !-->
 					<input type="text" class="form-control" value="{{member.firstname}}&nbsp;{{member.lastname}}&nbsp;({{member.nbpresence}}&nbsp;-&nbsp;{{member.nbofcourses/1-member.nbpresence/1}})" disabled style="text-align: right">
 				</div>
 				<div class="col-xs-3 col-md-3" ng-if="member.paidinfull == 1">
@@ -20,11 +14,18 @@
 			</div>
 		</div>
 
-		<h4>{{translationObj.attendance.formtitlestaff}}</h4>
-		<div ng-repeat="member in currentCourseattendanceStaff">
+		<h4>{{translationObj.attendance.formtitlestaff}}
+			<span>
+				<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseStaff(currentCourseattendance, {'statuscode':'PERM'})"></button>
+			</span>
+		</h4>
+		<div ng-repeat="member in currentCourseattendanceStaffs | filter:{statuscode:'PERM'}">
 			<div class="row">
-				<div class="col-xs-7 col-md-3" >
+				<div class="col-xs-7 col-md-3" ng-if="member.fullname == null">
 					<input type="text" class="form-control" value="{{member.firstname}} {{member.lastname}}" disabled style="text-align: right">
+				</div>
+				<div class="col-xs-7 col-md-3" ng-if="member.fullname != null">
+					<input type="text" class="form-control" value="{{member.fullname}}" disabled style="text-align: right">
 				</div>
 				<div class="col-xs-4 col-md-3">
 					<presence-multistate-button obj="member" state="member.ispresent" statelist="presencetypes" callback="saveToDB(member, newPresence)"></presence-multistate-button>
@@ -32,11 +33,18 @@
 			</div>
 		</div>
 
-		<h4>{{translationObj.attendance.formtitlestaffrepl}}</h4>
-		<div ng-repeat="member in currentCourseattendanceStaffrepl">
+		<h4>{{translationObj.attendance.formtitlestaffrepl}}
+			<span>
+				<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseStaff(currentCourseattendance, {'statuscode':'REPL'})"></button>
+			</span>
+		</h4>
+		<div ng-repeat="member in currentCourseattendanceStaffs | filter:{statuscode:'REPL'}">
 			<div class="row">
-				<div class="col-xs-7 col-md-3" >
+				<div class="col-xs-7 col-md-3" ng-if="member.fullname == null">
 					<input type="text" class="form-control" value="{{member.firstname}} {{member.lastname}}" disabled style="text-align: right">
+				</div>
+				<div class="col-xs-7 col-md-3" ng-if="member.fullname != null">
+					<input type="text" class="form-control" value="{{member.fullname}}" disabled style="text-align: right">
 				</div>
 				<div class="col-xs-4 col-md-3">
 					<presence-multistate-button obj="member" state="member.ispresent" statelist="presencetypes" callback="saveToDB(member, newPresence)"></presence-multistate-button>

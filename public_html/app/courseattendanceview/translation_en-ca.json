@@ -12,11 +12,22 @@
 	{"formname":"selectcoursedate", "fieldname":"fielderrormessage", "text":"No courses available at this moment"},
 
 	{"formname":"main", "fieldname":"formtitleattendance", "text":"Attendances"},
+	{"formname":"main", "fieldname":"fielddatetime", "text":"Date"},
+	{"formname":"main", "fieldname":"fieldsite", "text":"Site"},
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"},
 
 	{"formname":"attendance", "fieldname":"formtitlestaff", "text":"Staff (Permanent)"},
 	{"formname":"attendance", "fieldname":"formtitlestaffrepl", "text":"Staff (Replacement)"},
+
+	{"formname":"newstaff", "fieldname":"formtitleeditstaff", "text":"Edit Staff"},
+	{"formname":"newstaff", "fieldname":"fieldtype", "text":"Type"},
+	{"formname":"newstaff", "fieldname":"fieldmember", "text":"Member"},
+	{"formname":"newstaff", "fieldname":"fieldstatus", "text":"Status"},
+	{"formname":"newstaff", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newstaff", "fieldname":"formerrorstaffalreadyexists", "text":"This staff is already in the staff list for this course."},
+	{"formname":"newstaff", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"newstaff", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
 	{"formname":"leftPane", "fieldname":"", "text":""}
 ]
