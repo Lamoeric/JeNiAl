@@ -1,12 +1,8 @@
 <div class="form-group row">
 	<div class="grid">
-		<!-- <h3>Charges ({{currentShow.charges.length}})</h3> -->
-		<h3>{{translationObj.charges.formtitle}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowCharge({})"></button></h3>
-		<!-- <div class="row">
-			<div class="col-xs-5">
-				<button class="btn btn-primary" ng-click="editShowCharge({})"><span>{{translationObj.charges.buttontitlenewcharge}}</span></button>
-			</div>
-		</div> -->
+		<h3>{{translationObj.charges.formtitle}}&nbsp;
+			<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowCharge({})"></button>
+		</h3>
 		<div class="row">
 			<div class="col-xs-12">
 
@@ -21,26 +17,26 @@
 							<label for="chargelabel{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldlabel}}</label>
 							<input type="text" class="form-control" id="chargelabel{{$index}}" ng-model="charge.chargelabel" disabled>
 						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-1">
 							<label for="amount{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldamount}}</label>
-							<input type="text" class="form-control" id="amount{{$index}}" ng-model="charge.amount" disabled>
+							<input type="text" class="form-control" id="amount{{$index}}" ng-model="charge.amount" ng-currency disabled>
 						</div>
-			      <div class="col-xs-1">
-				      <label for="startdate{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldstartdate}}</label>
-			      	<input type="text" class="form-control" id="startdate{{$index}}" ng-model="charge.startdatestr" disabled>
-			      </div>
-			      <div class="col-xs-1">
-				      <label for="enddate{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldenddate}}</label>
-			      	<input type="text" class="form-control" id="enddate{{$index}}" ng-model="charge.enddatestr" disabled>
-			      </div>
+						<div class="col-xs-1">
+							<label for="startdate{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldstartdate}}</label>
+							<input type="text" class="form-control" id="startdate{{$index}}" ng-model="charge.startdatestr" disabled>
+						</div>
+						<div class="col-xs-1">
+							<label for="enddate{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldenddate}}</label>
+							<input type="text" class="form-control" id="enddate{{$index}}" ng-model="charge.enddatestr" disabled>
+						</div>
 
 						<div class="col-xs-2">
 							<label ng-show="$index==0">&nbsp;</label>
 							<div class="input-group">
 								<span>
-									<child-edit-button 			obj="charge" objlist="currentShow.showCharges" callback="editShowCharge(charge)"></child-edit-button>
-									<child-delete-button 		obj="charge" objlist="currentShow.showCharges" callback="setDirty()"></child-delete-button>
-									<child-undelete-button 	obj="charge" objlist="currentShow.showCharges" callback="setDirty()"></child-undelete-button>
+									<child-edit-button obj="charge" objlist="currentShow.showCharges" callback="editShowCharge(charge)"></child-edit-button>
+									<child-delete-button obj="charge" objlist="currentShow.showCharges" callback="setDirty()"></child-delete-button>
+									<child-undelete-button obj="charge" objlist="currentShow.showCharges" callback="setDirty()"></child-undelete-button>
 									<child-status-indicator obj="charge"></child-status-indicator>
 								</span>
 							</div>

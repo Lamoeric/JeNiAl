@@ -1,79 +1,120 @@
 <div class="form-group">
-		<h3>{{translationObj.performances.formtitleperformance}}&nbsp;({{filtered.length}}/{{currentShow.performances.length}})&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformance({})"></button></h3>
+	<h3>{{translationObj.performances.formtitleperformance}}&nbsp;({{currentShow.performances.length}})&nbsp;
+		<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformance({})"></button>
+	</h3>
 	<br>
-	<div ng-repeat="performance in filtered = (currentShow.performances | filter : filterPerformances)" class="blackcurvyborder">
+	<div ng-repeat="performance in currentShow.performances"
+		class="blackcurvyborder">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="panel panel-success" style="margin-bottom:0px">
-	        <div class="panel-heading">
+					<div class="panel-heading">
 						<a data-target="#perf{{$index}}" data-toggle="collapse" class="pointerlist">
-							<strong><big>{{performance.typelabel}}&nbsp;-&nbsp;{{performance.perfdatestr}}&nbsp;-&nbsp;{{performance.performancelabel}}</big></strong>
+							<strong><big>{{performance.performancelabel}}&nbsp;({{performance.typelabel}})&nbsp;-&nbsp;{{performance.perfdatestr}}</big></strong>
+							<span class="caret"></span>
 						</a>
 						<span style="float:right">
-							<child-edit-button 			obj="performance" objlist="currentShow.performances" callback="editShowPerformance(performance)"></child-edit-button>
-							<child-delete-button 		obj="performance" objlist="currentShow.performances" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 	obj="performance" objlist="currentShow.performances" callback="setDirty()"></child-undelete-button>
+							<child-edit-button obj="performance" objlist="currentShow.performances" callback="editShowPerformance(performance)"></child-edit-button>
+							<child-delete-button obj="performance" objlist="currentShow.performances" callback="setDirty()"></child-delete-button>
+							<child-undelete-button obj="performance" objlist="currentShow.performances" callback="setDirty()"></child-undelete-button>
 							<child-status-indicator obj="performance"></child-status-indicator>
 						</span>
 						<br>
-						<small><b>{{translationObj.performances.arenalabel}}</b>:&nbsp;{{performance.arenalabel}}<span ng-if="performance.icelabel&&performance.icelabel!=''">&nbsp;<b>{{translationObj.performances.icelabel}}</b>:&nbsp;{{performance.icelabel}}</span>&nbsp;<b>{{translationObj.performances.starttime}}</b>:&nbsp;{{performance.starttimestr}}&nbsp;<b>{{translationObj.performances.endtime}}</b>:&nbsp;{{performance.endtimestr}}&nbsp;<b>{{translationObj.performances.numberofnumbers}}</b>:&nbsp;{{performance.numberlist.length}}</small>
-          </div>
+						<small>
+							<b>{{translationObj.performances.performancedate}}</b>&nbsp;{{performance.perfdatestr}}
+							<b>{{translationObj.performances.starttime}}</b>&nbsp;{{performance.starttimestr}}&nbsp;
+							<b>{{translationObj.performances.endtime}}</b>&nbsp;{{performance.endtimestr}}&nbsp;
+							<b>{{translationObj.performances.arenalabel}}</b>&nbsp;{{performance.arenalabel}}
+								<span ng-if="performance.icelabel&&performance.icelabel!=''">&nbsp;<b>{{translationObj.performances.icelabel}}</b>&nbsp;{{performance.icelabel}}</span><br>
+							<b>{{translationObj.performances.skatersarrivaltime}}</b>&nbsp;{{performance.skatersarrivaltimestr}}&nbsp;
+							<b>{{translationObj.performances.skatersdeparturetime}}</b>&nbsp;{{performance.skatersdeparturetimestr}}&nbsp;
+							<b>{{translationObj.performances.volunteersarrivaltime}}</b>&nbsp;{{performance.volunteersarrivaltimestr}}&nbsp;
+							<b>{{translationObj.performances.volunteersdeparturetime}}</b>&nbsp;{{performance.volunteersdeparturetimestr}}&nbsp;<br>
+							<b>{{translationObj.performances.numberofnumbers}}</b>&nbsp;{{performance.numberlist.length}}&nbsp;
+							<span ng-class="{redfont : !performance.pricelistvalid}"><b>{{translationObj.performances.numberofprices}}</b>&nbsp;{{performance.prices.length}}</span>&nbsp;
+							<b>{{translationObj.performances.numberofassignations}}</b>&nbsp;{{performance.assigns.length}}&nbsp;
+							<b>{{translationObj.performances.numberofexceptions}}</b>&nbsp;{{performance.exceptions.length}}
+						</small>
+					</div>
 					<div id="perf{{$index}}" class="panel-collapse collapse">
-	          <div class="panel-body">
+						<div class="panel-body">
 
 							<div id="performancetab{{$index}}" class="maintab">
 								<ul id="performancetabheader{{$index}}" class="nav nav-tabs">
-									<li class="active pointerlist"><a data-toggle="tab" data-target="#subdetails{{$index}}">{{translationObj.performances.panetitledetails}}</a></li>
-							    <li class="pointerlist"><a data-toggle="tab" data-target="#subnumbers{{$index}}">{{translationObj.performances.panetitlenumbers}}</a></li>
-							    <li class="pointerlist"><a data-toggle="tab" data-target="#subprices{{$index}}">{{translationObj.performances.panetitleprices}}</a></li>
-							    <li class="pointerlist"><a data-toggle="tab" data-target="#subassigns{{$index}}">{{translationObj.performances.panetitleassignations}}</a></li>
-							    <li class="pointerlist"><a data-toggle="tab" data-target="#subexcepts{{$index}}">{{translationObj.performances.panetitleexceptions}}</a></li>
-							    <li class="pointerlist"><a data-toggle="tab" data-target="#subtickets{{$index}}">{{translationObj.performances.panetitletickets}}</a></li>
+									<!-- <li class="active pointerlist">
+										<a data-toggle="tab" data-target="#subdetails{{$index}}">{{translationObj.performances.panetitledetails}}</a>
+									</li> -->
+									<li class="active pointerlist">
+										<a data-toggle="tab" data-target="#subnumbers{{$index}}">{{translationObj.performances.panetitlenumbers}}&nbsp;<span class="badge">{{performance.numberlist.length}}</span></a>
+									</li>
+									<li class="pointerlist">
+										<a data-toggle="tab" data-target="#subprices{{$index}}">{{translationObj.performances.panetitleprices}}&nbsp;<span class="badge">{{performance.prices.length}}</span></a>
+									</li>
+									<li class="pointerlist">
+										<a data-toggle="tab" data-target="#subassigns{{$index}}">{{translationObj.performances.panetitleassignations}}&nbsp;<span class="badge">{{performance.assigns.length}}</span></a>
+									</li>
+									<li class="pointerlist">
+										<a data-toggle="tab" data-target="#subexcepts{{$index}}">{{translationObj.performances.panetitleexceptions}}&nbsp;<span class="badge">{{performance.exceptions.length}}</span></a>
+									</li>
+									<li class="pointerlist">
+										<a data-toggle="tab" data-target="#subtickets{{$index}}">{{translationObj.performances.panetitletickets}}</a>
+									</li>
 								</ul>
 
 								<div id="performancetabcontent{{$index}}" class="tab-content maintabcontent">
-									<div id="subdetails{{$index}}" class="tab-pane fade active in maintabpane">
+									<!-- <div id="subdetails{{$index}}" class="tab-pane fade active in maintabpane">
+										</form> Don't know why, but it fixes a bug...do not remove 
+										<form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm">
+											<p>
+												<b>{{translationObj.performances.fieldlabel_fr}}</b>:&nbsp;{{performance.label_fr}}&nbsp;
+												<b>{{translationObj.performances.fieldlabel_en}}</b>:&nbsp;{{performance.label_en}}
+											</p>
+											<p>
+												<b>{{translationObj.performances.skatersarrivaltime}}</b>:&nbsp;{{performance.skatersarrivaltimestr}}&nbsp;
+												<b>{{translationObj.performances.skatersdeparturetime}}</b>:&nbsp;{{performance.skatersdeparturetimestr}}
+											</p>
+											<p>
+												<b>{{translationObj.performances.volunteersarrivaltime}}</b>:&nbsp;{{performance.volunteersarrivaltimestr}}&nbsp;
+												<b>{{translationObj.performances.volunteersdeparturetime}}</b>:&nbsp;{{performance.volunteersdeparturetimestr}}
+											</p>
+										</form>
+									</div> -->
+
+									<div id="subnumbers{{$index}}" class="tab-pane fade active in maintabpane">
 										</form><!-- Don't know why, but it fixes a bug...do not remove !-->
-							      <form class="form-horizontal well intabsingleformnox" role="form" name="detailsForm">
-									  	<p><b>{{translationObj.performances.fieldlabel_fr}}</b>:&nbsp;{{performance.label_fr}}&nbsp;<b>{{translationObj.performances.fieldlabel_en}}</b>:&nbsp;{{performance.label_en}}</p>
-							  			<p><b>{{translationObj.performances.skatersarrivaltime}}</b>:&nbsp;{{performance.skatersarrivaltimestr}}&nbsp;<b>{{translationObj.performances.skatersdeparturetime}}</b>:&nbsp;{{performance.skatersdeparturetimestr}}</p>
-							  			<p><b>{{translationObj.performances.volunteersarrivaltime}}</b>:&nbsp;{{performance.volunteersarrivaltimestr}}&nbsp;<b>{{translationObj.performances.volunteersdeparturetime}}</b>:&nbsp;{{performance.volunteersdeparturetimestr}}</p>
-									  </form>
-							    </div>
+										<form class="form-horizontal well intabsingleformnox" role="form" name="numbersForm">
+											<button class="btn btn-primary" ng-click="editShowPerformanceNumbers(performance)">{{translationObj.performances.buttontitlemanagenumbers}}</button>
+											&nbsp;
+											<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'NUMBER')">{{translationObj.performances.buttontitlecopyfrom}}</button>
+										</form>
+									</div>
 
-							    <div id="subnumbers{{$index}}" class="tab-pane fade maintabpane">
-							      <form class="form-horizontal well intabsingleformnox" role="form" name="numbersForm">
-								  		<button class="btn btn-primary" ng-click="editShowPerformanceNumbers(performance)">{{translationObj.performances.buttontitlemanagenumbers}}</button>
-					  					&nbsp;<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'NUMBER')">{{translationObj.performances.buttontitlecopyfrom}}</button>
-									  </form>
-							    </div>
+									<div id="subprices{{$index}}" class="tab-pane fade maintabpane">
+										<form class="form-horizontal well intabsingleformnox" role="form" name="pricesForm">
+											<div ng-include="'showview/performanceprices.form.html'"></div>
+										</form>
+									</div>
 
-							    <div id="subprices{{$index}}" class="tab-pane fade maintabpane">
-							      <form class="form-horizontal well intabsingleformnox" role="form" name="pricesForm">
-									 		<div ng-include="'showview/performanceprices.form.html'"></div>
-									  </form>
-							    </div>
-							    
-							    <div id="subassigns{{$index}}" class="tab-pane fade maintabpane">
-							      <form class="form-horizontal well intabsingleformnox" role="form" name="assignsForm">
-									 		<div ng-include="'showview/performanceassigns.form.html'"></div>
-									  </form>
-							    </div>
+									<div id="subassigns{{$index}}" class="tab-pane fade maintabpane">
+										<form class="form-horizontal well intabsingleformnox" role="form" name="assignsForm">
+											<div ng-include="'showview/performanceassigns.form.html'"></div>
+										</form>
+									</div>
 
-							    <div id="subexcepts{{$index}}" class="tab-pane fade maintabpane">
-							      <form class="form-horizontal well intabsingleformnox" role="form" name="exceptionsForm">
-									 		<div ng-include="'showview/performanceexceptions.form.html'"></div>
-									  </form>
-							    </div>
+									<div id="subexcepts{{$index}}" class="tab-pane fade maintabpane">
+										<form class="form-horizontal well intabsingleformnox" role="form" name="exceptionsForm">
+											<div ng-include="'showview/performanceexceptions.form.html'"></div>
+										</form>
+									</div>
 
-							    <div id="subtickets{{$index}}" class="tab-pane fade maintabpane">
-							      <form class="form-horizontal well intabsingleformnox" role="form" name="ticketsForm">
-									 		<div ng-include="'showview/performancetickets.form.html'"></div>
-									  </form>
-							    </div>
+									<div id="subtickets{{$index}}" class="tab-pane fade maintabpane">
+										<form class="form-horizontal well intabsingleformnox" role="form" name="ticketsForm">
+											<div ng-include="'showview/performancetickets.form.html'"></div>
+										</form>
+									</div>
 
-						    </div>
-						  </div>
+								</div>
+							</div>
 
 						</div>
 					</div>

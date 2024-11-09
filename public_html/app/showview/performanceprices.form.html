@@ -6,6 +6,7 @@
 		</h3>
 		<div class="row">
 			<div class="col-xs-12">
+				<p ng-if="!performance.pricelistvalid" class="redfont">{{translationObj.performanceprices.msgerrpricelist}}</p>
 				<hr>
 				<div ng-repeat="price in performance.prices">
 					<div class="row">
@@ -13,33 +14,32 @@
 							<label for="chargecode{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldtype}}</label>
 							<input type="text" class="form-control" id="chargecode{{$index}}" ng-model="price.pricetypelabel" disabled>
 						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-1">
 							<label for="amount{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldamount}}</label>
-							<input type="text" class="form-control" id="amount{{$index}}" ng-model="price.amount" disabled>
+							<input type="text" class="form-control" id="amount{{$index}}" ng-model="price.amount" ng-currency disabled>
 						</div>
-			      <div class="col-xs-1">
-				      <label for="agemin{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldagemin}}</label>
-			      	<input type="text" class="form-control" id="agemin{{$index}}" ng-model="price.agemin" disabled>
-			      </div>
-			      <div class="col-xs-2">
-				      <label for="agemax{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldagemax}}</label>
-			      	<input type="text" class="form-control" id="agemax{{$index}}" ng-model="price.agemax" disabled>
-			      </div>
+						<div class="col-xs-1">
+							<label for="agemin{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldagemin}}</label>
+							<input type="number" class="form-control" id="agemin{{$index}}" ng-model="price.agemin" disabled>
+						</div>
+						<div class="col-xs-1">
+							<label for="agemax{{$index}}" ng-show="$index==0">{{translationObj.performanceprices.fieldagemax}}</label>
+							<input type="number" class="form-control" id="agemax{{$index}}" ng-model="price.agemax" disabled>
+						</div>
 
 						<div class="col-xs-2">
 							<label ng-show="$index==0">&nbsp;</label>
 							<div class="input-group">
 								<span>
-									<child-edit-button 			obj="price" objlist="performance.prices" callback="editShowPerformancePrice(performance, price)"></child-edit-button>
-									<child-delete-button 		obj="price" objlist="performance.prices" callback="setDirty()"></child-delete-button>
-									<child-undelete-button 	obj="price" objlist="performance.prices" callback="setDirty()"></child-undelete-button>
+									<child-edit-button obj="price" objlist="performance.prices" callback="editShowPerformancePrice(performance, price)"></child-edit-button>
+									<child-delete-button obj="price" objlist="performance.prices" callback="setDirty()"></child-delete-button>
+									<child-undelete-button obj="price" objlist="performance.prices" callback="setDirty()"></child-undelete-button>
 									<child-status-indicator obj="price"></child-status-indicator>
 								</span>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

@@ -2,148 +2,142 @@
 	<div>
 		<h3>{{translationObj.numberdates.formtitlenumberdates}}</h3>
 
-	  <ul class="nav nav-tabs">
+		<ul class="nav nav-tabs">
 			<li class="active pointerlist">
-		    <a data-toggle="tab" data-target="#bynumber">{{translationObj.numberdates.formtitlepernumbers}}</a>
-		  </li>
+				<a data-toggle="tab" data-target="#bynumber">{{translationObj.numberdates.formtitlepernumbers}}</a>
+			</li>
 			<li class="pointerlist">
-		    <a data-toggle="tab" data-target="#bydate">{{translationObj.numberdates.formtitleperdates}}</a>
-		  </li>
-	  </ul>
+				<a data-toggle="tab" data-target="#bydate">{{translationObj.numberdates.formtitleperdates}}</a>
+			</li>
+		</ul>
 
-	  <div class="tab-content">
-	    <div id="bynumber" class="tab-pane fade in active">
+		<div class="tab-content">
+			<div id="bynumber" class="tab-pane fade in active">
 
 				<div class="form-group">
-				  <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
-				    <label for="currentNumber">{{translationObj.numberdates.fieldnumber}}</label>
+					<div class="col-xs-11 col-sm-11 col-md-3 col-lg-3">
+						<label for="currentNumber">{{translationObj.numberdates.fieldnumber}}</label>
 						<div class="input-group">
-							<select class="form-control" id="currentNumber" ng-model="currentShow.currentNumber" ng-options="number.name + ' - ' + number.numberlabel for number in currentShow.numbers">
+							<select class="form-control" id="currentNumber" ng-model="currentShow.currentNumber"
+								ng-options="number.name + ' - ' + number.numberlabel for number in currentShow.numbers">
 							</select>
-				  	</div>
-			  	</div>
-				  <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
-				    <label>&nbsp;</label>
+						</div>
+					</div>
+					<div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">
+						<label>&nbsp;</label>
 						<div class="input-group">
-							<button class="btn btn-primary" ng-click="generatePracticeDates(currentShow.currentNumber)" ng-if="userInfo.privileges.session_update==true&&currentShow.currentNumber&&currentShow.currentNumber!=''""><span ng-if="currentShow.currentNumber.datesgenerated=='0'">{{translationObj.numbers.buttontitlegeneratedates}}</span><span ng-if="currentShow.currentNumber.datesgenerated=='1'">{{translationObj.numbers.buttontitleregeneratedates}}</span></button>
+							<button class="btn btn-primary" ng-click="generatePracticeDates(currentShow.currentNumber)"
+								ng-if="userInfo.privileges.session_update==true&&currentShow.currentNumber&&currentShow.currentNumber!=''"><span ng-if="
+								currentShow.currentNumber.datesgenerated=='0'">{{translationObj.numbers.buttontitlegeneratedates}}</span><span ng-if="
+								currentShow.currentNumber.datesgenerated=='1'">{{translationObj.numbers.buttontitleregeneratedates}}</span></button>
 							&nbsp;&nbsp;&nbsp;
-							<button class="btn btn-primary" ng-click="editShowNumberDate(currentShow.currentNumber, {})" ng-if="currentShow.currentNumber&&currentShow.currentNumber!=''"><span>{{translationObj.numberdates.buttontitlenewnumberdate}}</span></button>
-				  	</div>
-			  	</div>
-		  	</div>
+							<button class=" btn btn-primary" ng-click="editShowNumberDate(currentShow.currentNumber, null)"
+								ng-if="currentShow.currentNumber&&currentShow.currentNumber!=''"><span>{{translationObj.numberdates.buttontitlenewnumberdate}}</span></button>
+						</div>
+					</div>
+				</div>
 
 				<div>
 					<hr>
-					
+
 					<table width="100%" class="table table-striped">
 						<tr>
-							<th  NOWRAP>{{translationObj.numberdates.fieldno}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldarena}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldice}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldday}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fielddate}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldstarttime}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldendtime}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldduration}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldcanceled}}</th>
-<!--							<th>{{translationObj.numberdates.fieldfrenchlabel}}</th>
-							<th>{{translationObj.numberdates.fieldenglishlabel}}</th>
-							<th></th>
-!-->
+							<th NOWRAP>{{translationObj.numberdates.fieldno}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldarena}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldice}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldday}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fielddate}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldstarttime}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldendtime}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldduration}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldcanceled}}</th>
 						</tr>
-				  	<tr ng-repeat="date in currentShow.currentNumber.dates">
-				  		<td width="5%"  NOWRAP>{{$index+1}}</td>
-				  		<td width="10%" NOWRAP>{{date.arenalabel}}</td>
-				  		<td width="10%" NOWRAP>{{date.icelabel}}</td>
-				  		<td width="5%"  NOWRAP>{{date.daylabel}}</td>
-				  		<td width="5%"  NOWRAP>{{date.practicedatestr}}</td>
-				  		<td width="5%"  NOWRAP>{{date.starttimestr}}</td>
-				  		<td width="5%"  NOWRAP>{{date.endtimestr}}</td>
-				  		<td width="5%"  NOWRAP>{{date.duration}}</td>
-				  		<td width="5%"  NOWRAP>{{date.canceledlabel}}</td>
-<!--							
-				  		<td width="15%">{{date.label_fr}}</td>
-				  		<td width="15%">{{date.label_en}}</td>
-!-->
-				  		<td width="15%">
-								<child-edit-button 			obj="date" objlist="number.dates" callback="editShowNumberDate(currentShow.currentNumber, date)"></child-edit-button>
-								<child-delete-button 		obj="date" objlist="number.dates" callback="setDirty()"></child-delete-button>
-								<child-undelete-button 	obj="date" objlist="number.dates" callback="setDirty()"></child-undelete-button>
+						<tr ng-repeat="date in currentShow.currentNumber.dates"
+							ng-class="{redfont : date.canceled==1, italic : date.manual==1}">
+							<td width="5%" NOWRAP>{{$index+1}}</td>
+							<td width="10%" NOWRAP>{{date.arenalabel}}</td>
+							<td width="10%" NOWRAP>{{date.icelabel}}</td>
+							<td width="5%" NOWRAP>{{date.daylabel}}</td>
+							<td width="5%" NOWRAP>{{date.practicedatestr}}</td>
+							<td width="5%" NOWRAP>{{date.starttimestr}}</td>
+							<td width="5%" NOWRAP>{{date.endtimestr}}</td>
+							<td width="5%" NOWRAP>{{date.duration}}</td>
+							<td width="5%" NOWRAP>{{date.canceledlabel}}</td>
+							<td width="15%">
+								<child-edit-button obj="date" objlist="number.dates" callback="editShowNumberDate(currentShow.currentNumber, date)"></child-edit-button>
+								<child-delete-button obj="date" objlist="number.dates" callback="setDirty()"></child-delete-button>
+								<child-undelete-button obj="date" objlist="number.dates" callback="setDirty()"></child-undelete-button>
 								<child-status-indicator obj="date"></child-status-indicator>
-				  		</td>
-				  	</tr>
+							</td>
+						</tr>
 					</table>
 				</div>
-  		</div>
-  
+			</div>
+
 			<div id="bydate" class="tab-pane fade">
 
 				<div class="form-group">
-		      <div class="col-xs-3">
-			      <label for="filternumbersdate">{{translationObj.numberdates.fielddate}}</label>
-		      	<div class="input-group">
-						  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							<input type="date" id="filternumbersdate" name="filternumbersdate" class="form-control" ng-model="currentShow.filternumbersdate" ng-change="onFilterNumbersDateChange(null)">
-			      </div>
-			    </div>
-		      <div class="col-xs-3">
-			      <label for="arena">{{translationObj.numberdates.fieldarena}}</label>
-		      	<div class="input-group">
-						  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-		      		<select class="form-control" id="arena" ng-model="currentShow.filterarena" ng-change="onFilterArenaChange()">
+					<div class="col-xs-3">
+						<label for="filternumbersdate">{{translationObj.numberdates.fielddate}}</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							<input type="date" id="filternumbersdate" class="form-control" ng-model="currentShow.filternumbersdate" ng-change="onFilterNumbersDateChange(null)">
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<label for="arena">{{translationObj.numberdates.fieldarena}}</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+							<select class="form-control" id="arena" ng-model="currentShow.filterarena" ng-change="onFilterArenaChange()">
 								<option value=""></option>
 								<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
-		      		</select>
-		      	</div>
-		      </div>
-		    </div>
-				
+							</select>
+						</div>
+					</div>
+				</div>
+
 				<div>
 					<hr>
 
 					<table width="100%" class="table table-striped">
 						<tr>
-							<th  NOWRAP>{{translationObj.numberdates.fieldno}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldnumber}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldarena}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldice}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldday}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fielddate}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldstarttime}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldendtime}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldduration}}</th>
-							<th  NOWRAP>{{translationObj.numberdates.fieldcanceled}}</th>
-<!--							
-							<th>{{translationObj.numberdates.fieldfrenchlabel}}</th>
-							<th>{{translationObj.numberdates.fieldenglishlabel}}</th>
-!-->
+							<th NOWRAP>{{translationObj.numberdates.fieldno}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldnumber}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldarena}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldice}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldday}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fielddate}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldstarttime}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldendtime}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldduration}}</th>
+							<th NOWRAP>{{translationObj.numberdates.fieldcanceled}}</th>
 							<th></th>
 						</tr>
-				  	<tr ng-repeat="date in currentShow.allpracticesdates | filter : filterByNumbersDate">
-				  		<td width="5%"  NOWRAP>{{$index+1}}</td>
-				  		<td width="10%" NOWRAP>{{date.numbername}}&nbsp;-&nbsp;{{date.numberlabel}}</td>
-				  		<td width="10%" NOWRAP>{{date.arenalabel}}</td>
-				  		<td width="10%" NOWRAP>{{date.icelabel}}</td>
-				  		<td width="5%"  NOWRAP>{{date.daylabel}}</td>
-				  		<td width="5%"  NOWRAP>{{date.practicedatestr}}</td>
-				  		<td width="5%"  NOWRAP>{{date.starttimestr}}</td>
-				  		<td width="5%"  NOWRAP>{{date.endtimestr}}</td>
-				  		<td width="5%"  NOWRAP>{{date.duration}}</td>
-				  		<td width="5%"  NOWRAP>{{date.canceledlabel}}</td>
-				  		<td width="15%">
-								<child-edit-button 			obj="date" objlist="number.dates" callback="editShowNumberDate(currentShow.currentNumber, date)"></child-edit-button>
-								<child-delete-button 		obj="date" objlist="number.dates" callback="setDirty()"></child-delete-button>
-								<child-undelete-button 	obj="date" objlist="number.dates" callback="setDirty()"></child-undelete-button>
+						<tr ng-repeat="date in currentShow.allpracticesdates | filter : filterByNumbersDate" ng-class="{redfont : date.canceled==1, italic : date.manual==1}">
+							<td width="5%" NOWRAP>{{$index+1}}</td>
+							<td width="10%" NOWRAP>{{date.numbername}}&nbsp;-&nbsp;{{date.numberlabel}}</td>
+							<td width="10%" NOWRAP>{{date.arenalabel}}</td>
+							<td width="10%" NOWRAP>{{date.icelabel}}</td>
+							<td width="5%" NOWRAP>{{date.daylabel}}</td>
+							<td width="5%" NOWRAP>{{date.practicedatestr}}</td>
+							<td width="5%" NOWRAP>{{date.starttimestr}}</td>
+							<td width="5%" NOWRAP>{{date.endtimestr}}</td>
+							<td width="5%" NOWRAP>{{date.duration}}</td>
+							<td width="5%" NOWRAP>{{date.canceledlabel}}</td>
+							<td width="15%">
+								<child-edit-button obj="date" objlist="number.dates" callback="editShowNumberDate(currentShow.currentNumber, date)"></child-edit-button>
+								<child-delete-button obj="date" objlist="number.dates" callback="setDirty()"></child-delete-button>
+								<child-undelete-button obj="date" objlist="number.dates" callback="setDirty()"></child-undelete-button>
 								<child-status-indicator obj="date"></child-status-indicator>
-				  		</td>
-				  	</tr>
+							</td>
+						</tr>
 					</table>
-				
+
 				</div>
 
 			</div>
 
 		</div>
-  </div>
-	
+	</div>
+
 </div>

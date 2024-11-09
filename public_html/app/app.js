@@ -217,7 +217,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 
 	$document.bind("keydown", function(event) {
 		// console.log(event.which);
-		if (event.which == 83) {
+		if (event.which == 83 && event.altKey == true) {
 			$rootScope.$broadcast('main-save', event);
 		}
 	});

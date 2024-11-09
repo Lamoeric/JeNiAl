@@ -833,13 +833,14 @@ function getshowperformances($mysqli, $showid, $language, $previewmode) {
 };
 
 /**
- * This function gets the list of active and published shows
+ * This function gets the list of published shows
  */
 function getshowlistsection($mysqli, $language, $previewmode){
 	try{
 		$query = "SELECT cs.*, getTextLabel(cs.label, '$language') showlabel 
 							FROM cpa_shows cs 
-							WHERE publish = 1 AND active = 1
+							WHERE publish = 1 
+              -- AND active = 1
 							ORDER BY id desc";
 		$result = $mysqli->query($query);
 		$data = array();

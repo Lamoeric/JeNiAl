@@ -1,73 +1,74 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newintervention.formtitleeditintervention}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newintervention.formtitleeditintervention}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group row">
 
-      <div class="col-xs-3">
-	      <label for="name">{{translationObj.newintervention.fieldname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="name" name="name" ng-model="newObj.name" maxlength="120" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<labelrequired for="interventionname" label="translationObj.newintervention.fieldname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="interventionname" ng-model="newObj.name" maxlength="120" capitalize replacespaces required autofocus>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="label_en">{{translationObj.newintervention.fieldenglishlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="label_en" name="label_en" ng-model="newObj.label_en" maxlength="200" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<labelrequired for="label_en" label="translationObj.newintervention.fieldenglishlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_en" ng-model="newObj.label_en" maxlength="200" required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="label_fr">{{translationObj.newintervention.fieldfrenchlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="label_fr" name="label_fr" ng-model="newObj.label_fr" maxlength="200" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<labelrequired for="label_fr" label="translationObj.newintervention.fieldfrenchlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_fr" ng-model="newObj.label_fr" maxlength="200"
+						required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="duration">{{translationObj.newintervention.fieldduration}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="number" class="form-control" id="duration" name="duration" ng-model="newObj.duration" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<labelrequired for="duration" label="translationObj.newintervention.fieldduration"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" class="form-control" id="duration" ng-model="newObj.duration" required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="light">{{translationObj.newintervention.fieldlight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="light" name="light" ng-model="newObj.lights" maxlength="200">
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="light">{{translationObj.newintervention.fieldlight}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="light" ng-model="newObj.lights" maxlength="200">
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="music">{{translationObj.newintervention.fieldmusic}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="text" class="form-control" id="music" name="music" ng-model="newObj.music" maxlength="50">
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="music">{{translationObj.newintervention.fieldmusic}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="music" ng-model="newObj.music" maxlength="50">
+				</div>
+			</div>
 
-      <div class="col-xs-12">
-	      <label for="comments">{{translationObj.newintervention.fieldcomments}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <textarea type="text" class="form-control" id="comments" name="comments" ng-model="newObj.comments" maxlength="2000"> </textarea>
-	      </div>
-      </div>
+			<div class="col-xs-12">
+				<label for="comments">{{translationObj.newintervention.fieldcomments}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea type="text" class="form-control" id="comments" ng-model="newObj.comments" maxlength="2000"> </textarea>
+				</div>
+			</div>
 
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newintervention.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newintervention.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newintervention.buttontitlekeepchanges}}</button>
-</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newintervention.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newintervention.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newintervention.buttontitlekeepchanges}}</button>
+	</div>
+</form>

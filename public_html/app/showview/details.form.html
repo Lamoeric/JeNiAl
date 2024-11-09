@@ -1,93 +1,93 @@
-  <div class="form-group row">
-  	<div class="grid">
-      <h3>{{translationObj.details.formtitle}}</h3>
-  		<div class="row">
-	      <div class="col-xs-10">
-		      <label for="name">{{translationObj.details.fieldname}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input type="text" name="name" class="form-control" id="name" ng-model="currentShow.name" maxlength="40" required>
-            <span style="color:red" ng-show="detailsForm.name.$touched && detailsForm.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-		      </div>
-		    </div>
-	    </div>
+<div class="form-group row">
+	<div class="grid">
+		<h3>{{translationObj.details.formtitle}}</h3>
+		<div class="row">
+			<div class="col-xs-6">
+				<labelrequired for="showname" label="translationObj.details.fieldname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="showname" ng-model="currentShow.name" maxlength="40" capitalize replacespaces required>
+				</div>
+			</div>
+		</div>
 
-  		<div class="row">
-	      <div class="col-xs-10">
-		      <label for="label_en">{{translationObj.details.fieldenglishlabel}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentShow.label_en" maxlength="200" required>
-		      </div>
-		    </div>
-	  	</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<labelrequired for="label_en" label="translationObj.details.fieldenglishlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_en" ng-model="currentShow.label_en" maxlength="200" required>
+				</div>
+			</div>
+		</div>
 
-  		<div class="row">
-	      <div class="col-xs-10">
-		      <label for="label_fr">{{translationObj.details.fieldfrenchlabel}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentShow.label_fr" maxlength="200" required>
-		      </div>
-		    </div>
-	    </div>
+		<div class="row">
+			<div class="col-xs-6">
+				<labelrequired for="label_fr" label="translationObj.details.fieldfrenchlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_fr" ng-model="currentShow.label_fr" maxlength="200" required>
+				</div>
+			</div>
+		</div>
 
-  		<div class="row">
-	      <div class="col-xs-3">
-		      <label for="practicesstartdate">{{translationObj.details.fieldpracticesstartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="practicesstartdate" class="form-control" id="practicesstartdate" ng-model="currentShow.practicesstartdate" required>
-		      </div>
-		    </div>
-	      <div class="col-xs-3">
-		      <label for="practicesenddate">{{translationObj.details.fieldpracticesenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="practicesenddate" class="form-control" id="practicesenddate" ng-model="currentShow.practicesenddate" required>
-		      </div>
-		    </div>
-	    </div>
+		<div class="row">
+			<div class="col-xs-3">
+				<labelrequired for="practicesstartdate" label="translationObj.details.fieldpracticesstartdate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="practicesstartdate" ng-model="currentShow.practicesstartdate" required>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<labelrequired for="practicesenddate" label="translationObj.details.fieldpracticesenddate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="practicesenddate" ng-model="currentShow.practicesenddate" required>
+				</div>
+			</div>
+		</div>
 
-  		<div class="row">
-	      <div class="col-xs-3">
-		      <label for="onlineregiststartdate">{{translationObj.details.fieldonlineregiststartdate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="onlineregiststartdate" class="form-control" id="onlineregiststartdate" ng-model="currentShow.onlineregiststartdate" required>
-		      </div>
-		    </div>
-	      <div class="col-xs-3">
-		      <label for="onlineregistenddate">{{translationObj.details.fieldonlineregistenddate}}<i style="color:red"> *</i></label>
-	      	<div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-						<input type="date" name="onlineregistenddate" class="form-control" id="onlineregistenddate" ng-model="currentShow.onlineregistenddate" required>
-		      </div>
-		    </div>
-	    </div>
-      <div class="row">
-        <div class="col-xs-5">
-  		    <label for="previousshowid">{{translationObj.details.fieldsession}}</label>
-  				<div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-  					<!-- <select class="form-control" ng-model="currentShow.previousshowid" ng-required="currentShow.previousshowid.length!=0"> -->
-  					<select class="form-control" id="previousshowid" ng-model="currentShow.sessionid" >
-  						<option ng-repeat="session in sessions" value="{{session.id}}">{{session.label}}</option>
-  					</select>
-  		  	</div>
-  		  </div>
-	    </div>
-  		<div class="row">
-	      <div class="col-xs-2">
-	      	<div class="input-group">
-						<br><label><input type="checkbox" id="active" ng-model="currentShow.active" ng-true-value="'1'" >{{translationObj.details.fieldactive}}</label>
-		      </div>
-		    </div>
-	      <div class="col-xs-2">
-	      	<div class="input-group">
-						<br><label><input type="checkbox" id="publish" ng-model="currentShow.publish" ng-true-value="'1'" >{{translationObj.details.fieldpublish}}</label>
-		      </div>
-		    </div>
-	  	</div>
-	  </div>
-  </div>
+		<div class="row">
+			<div class="col-xs-3">
+				<labelrequired for="onlineregiststartdate" label="translationObj.details.fieldonlineregiststartdate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="onlineregiststartdate" ng-model="currentShow.onlineregiststartdate" required>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<labelrequired for="onlineregistenddate" label="translationObj.details.fieldonlineregistenddate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="onlineregistenddate" ng-model="currentShow.onlineregistenddate" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<label for="sessionid">{{translationObj.details.fieldsession}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="sessionid" ng-model="currentShow.sessionid">
+						<option ng-repeat="session in sessions" value="{{session.id}}">{{session.label}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br><label for="active"><input type="checkbox" id="active" ng-model="currentShow.active" ng-true-value="'1'">{{translationObj.details.fieldactive}}</label>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br><label for="publish"><input type="checkbox" id="publish" ng-model="currentShow.publish" ng-true-value="'1'">{{translationObj.details.fieldpublish}}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

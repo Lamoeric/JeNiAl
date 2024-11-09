@@ -1,64 +1,54 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newperformanceassign.formtitleeditassign}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
-      
-      <div class="col-xs-5">
-	      <label for="taskid">{{translationObj.newperformanceassign.fieldtask}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="taskid" ng-model="newObj.taskid" required>
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newperformanceassign.formtitleeditassign}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group row">
+			<div class="col-xs-5">
+				<labelrequired for="taskid" label="translationObj.newperformanceassign.fieldtask"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="taskid" ng-model="newObj.taskid" required autofocus>
 						<option ng-repeat="showtask in showTasks" value="{{showtask.id}}">{{showtask.text}}</option>
-      		</select>
-      	</div>
-      </div>
-
-      <div class="col-xs-4">
-	      <label for="addinfo">{{translationObj.newperformanceassign.fieldadditionalinfo}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="addinfo" ng-model="newObj.addinfo" maxlength="50">
-  	    </div>
-      </div>
-
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<label for="addinfo">{{translationObj.newperformanceassign.fieldadditionalinfo}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="addinfo" ng-model="newObj.addinfo" maxlength="50">
+				</div>
+			</div>
 			<div class="clearfix"></div>
-
-	    <div class="col-xs-5">
-	      <label for="contactfullname">{{translationObj.newperformanceassign.fieldcontactfullname}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="contactfullname" ng-model="newObj.contactfullname" required disabled>
-	    	</div>
-	    </div>
-	    
+			<div class="col-xs-5">
+				<labelrequired for="contactfullname" label="translationObj.newperformanceassign.fieldcontactfullname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="contactfullname" ng-model="newObj.contactfullname" required disabled>
+				</div>
+			</div>
 			<div class="col-xs-4">
 				<label>&nbsp;</label>
 				<div class="input-group">
-			    <select-contact-button contactid="newObj.contactid" contactfullname="newObj.contactfullname"></select-contact-button>
-<!--					<button type="button" class="btn btn-primary" ng-click="emptycontact()">{{translationObj.details.buttontitleemptycontact}}</button> -->
+					<select-contact-button contactid="newObj.contactid" contactfullname="newObj.contactfullname"></select-contact-button>
 				</div>
 			</div>
-
 			<div class="clearfix"></div>
-			
-
-      <div class="col-xs-12">
-	      <label for="comments">{{translationObj.newperformanceassign.fieldcomments}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<textarea class="form-control" id="comments" ng-model="newObj.comments" maxlength="2000"> </textarea>
-  	    </div>
-      </div>
-
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newperformanceassign.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newperformanceassign.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newperformanceassign.buttontitlekeepchanges}}</button>
-</div>
+			<div class="col-xs-12">
+				<label for="comments">{{translationObj.newperformanceassign.fieldcomments}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea class="form-control" id="comments" ng-model="newObj.comments" maxlength="2000"> </textarea>
+				</div>
+			</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newperformanceassign.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newperformanceassign.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newperformanceassign.buttontitlekeepchanges}}</button>
+	</div>
+</form>

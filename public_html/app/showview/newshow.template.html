@@ -1,23 +1,23 @@
-<div class="modal-header">
-	<h4 class="modal-title">{{translationObj.newshow.formtitlenewshow}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+  <div class="modal-header">
+    <h4 class="modal-title">{{translationObj.newshow.formtitlenewshow}}</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <div class="col-xs-5">
-      	<label for="name">{{translationObj.newshow.fieldname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="40" required>
-	      </div>
+        <labelrequired for="name" label="translationObj.newshow.fieldname"></labelrequired>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input type="text" name="name" class="form-control" id="name" ng-model="newObj.name" maxlength="40" required capitalize replacespaces autofocus>
+        </div>
       </div>
     </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newshow.formerrormessage}}
+    <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+      {{translationObj.newshow.formerrormessage}}
+    </div>
   </div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newshow.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newshow.buttontitlekeepchanges}}</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newshow.buttontitlediscard}}</button>
+    <button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newshow.buttontitlekeepchanges}}</button>
+  </div>
+</form>

@@ -1,9 +1,12 @@
 <div class="form-group row">
 	<div class="grid">
-		<h3>{{translationObj.performanceexceptions.formtitle}}
-			&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformanceException(performance, {})"></button>
-			&nbsp;<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'EXCEPTION')">{{translationObj.performanceexceptions.buttontitlecopyfrom}}</button>
+		<h3>{{translationObj.performanceexceptions.formtitle}}&nbsp;
+			<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformanceException(performance, {})"></button>&nbsp;
+			<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'EXCEPTION')">{{translationObj.performanceexceptions.buttontitlecopyfrom}}</button>
 		</h3>
+		<small>
+			<b>{{performance.arenalabel}}</b>:&nbsp;{{performance.arenaexceptions}}
+		</small>
 		<div class="row">
 			<div class="col-xs-12">
 				<hr>
@@ -11,46 +14,34 @@
 					<div class="row">
 
 						<div class="col-xs-2">
-				      <label for="section{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitlesection}}</label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<input type="text" name="section" class="form-control" id="section{{$index}}" ng-model="exception.section" maxlength="3" disabled>
-				      </div>
-				    </div>
+							<label for="section{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitlesection}}</label>
+							<input type="text" class="form-control" id="section{{$index}}" ng-model="exception.section" maxlength="3" disabled>
+						</div>
 
 						<div class="col-xs-2">
-				      <label for="row{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitlerow}}</label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<input type="text" name="row" class="form-control" id="row{{$index}}" ng-model="exception.row" maxlength="3" disabled>
-				      </div>
-				    </div>
+							<label for="row{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitlerow}}</label>
+							<input type="text" class="form-control" id="row{{$index}}" ng-model="exception.row" maxlength="3" disabled>
+						</div>
 
 						<div class="col-xs-2">
-				      <label for="seat{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitleseat}}</label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<input type="text" name="seat" class="form-control" id="seat{{$index}}" ng-model="exception.seat" maxlength="3" disabled>
-				      </div>
-				    </div>
+							<label for="seat{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitleseat}}</label>
+							<input type="text" class="form-control" id="seat{{$index}}" ng-model="exception.seat" maxlength="3" disabled>
+						</div>
 
-			      <div class="col-xs-2">
-				      <label for="reason{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitlereason}}</label>
-			      	<div class="input-group">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-			          <select class="form-control" id="reason{{$index}}" ng-model="exception.reason" disabled>
-									<option ng-repeat="reason in seatingexceptionreasons" value="{{reason.code}}">{{reason.text}}</option>
-			      		</select>
-			      	</div>
-			      </div>
+						<div class="col-xs-3">
+							<label for="reason{{$index}}" ng-show="$index==0">{{translationObj.performanceexceptions.fieldtitlereason}}</label>
+							<select class="form-control" id="reason{{$index}}" ng-model="exception.reason" disabled>
+								<option ng-repeat="reason in seatingexceptionreasons" value="{{reason.code}}">{{reason.text}}</option>
+							</select>
+						</div>
 
 						<div class="col-xs-2">
 							<label ng-show="$index==0">&nbsp;</label>
 							<div class="input-group">
 								<span>
-									<child-edit-button 			obj="exception" objlist="performance.exceptions" callback="editShowPerformanceException(performance, exception)"></child-edit-button>
-									<child-delete-button 		obj="exception" objlist="performance.exceptions" callback="setDirty()"></child-delete-button>
-									<child-undelete-button 	obj="exception" objlist="performance.exceptions" callback="setDirty()"></child-undelete-button>
+									<child-edit-button obj="exception" objlist="performance.exceptions"	callback="editShowPerformanceException(performance, exception)"></child-edit-button>
+									<child-delete-button obj="exception" objlist="performance.exceptions" callback="setDirty()"></child-delete-button>
+									<child-undelete-button obj="exception" objlist="performance.exceptions" callback="setDirty()"></child-undelete-button>
 									<child-status-indicator obj="exception"></child-status-indicator>
 								</span>
 							</div>

@@ -1,56 +1,50 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newnumberinviteskater.formtitleinviteskater}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
-		  <div class="col-md-12">
-		    <div class="simpleDemo row">
-				  <div class="col-md-4">
-					  <div class="panel panel-success">
-				      <div class="panel-heading">
-			          <h3 class="panel-title">{{translationObj.newnumberinviteskater.listtitlealreadyselected}}</h3>
-				      </div>
-		          <div class="panel-body" >
-
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newnumberinviteskater.formtitleinviteskater}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group row">
+			<div class="col-md-12">
+				<div class="simpleDemo row">
+					<div class="col-md-4">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h3 class="panel-title">{{translationObj.newnumberinviteskater.listtitlealreadyselected}}</h3>
+							</div>
+							<div class="panel-body">
 								<ul dnd-list="newObj.models.lists.skaters">
-							    <!-- The dnd-draggable directive makes an element draggable and will
+									<!-- The dnd-draggable directive makes an element draggable and will
 							         transfer the object that was assigned to it. If an element was
 							         dragged away, you have to remove it from the original list
 							         yourself using the dnd-moved attribute -->
-							    <li ng-repeat="item in newObj.models.lists.skaters"
-						        dnd-draggable="item"
-						        dnd-moved="newObj.selectedMembers.splice($index, 1)"
-						        dnd-effect-allowed="move"
-						        dnd-selected="newObj.selectedItem = item"
-						        ng-class="{'selected': newObj.selectedItem === item}">
-							      <div>
-							      	<span ng-if="item.registered==0" style="float:right" class="glyphicon glyphicon-remove-circle" ng-click="newObj.models.lists.skaters.splice($index,1)"></span>
-							      	<span ng-if="item.registered==1" style="float:right" class="glyphicon glyphicon-ok"></span>
-							      	{{item.firstname}}&nbsp;{{item.lastname}}
-							      </div>
-							    </li>
+									<li ng-repeat="item in newObj.models.lists.skaters" 
+										dnd-draggable="item"
+										dnd-moved="newObj.selectedMembers.splice($index, 1)" 
+										dnd-effect-allowed="move"
+										dnd-selected="newObj.selectedItem = item"
+										ng-class="{'selected': newObj.selectedItem === item}">
+										<div>
+											<span ng-if="item.registered==0" style="float:right" class="glyphicon glyphicon-remove-circle" ng-click="newObj.models.lists.skaters.splice($index,1)"></span>
+											<span ng-if="item.registered==1" style="float:right" class="glyphicon glyphicon-ok"></span>
+											{{item.firstname}}&nbsp;{{item.lastname}}
+										</div>
+									</li>
 								</ul>
-
-				    	</div>
+							</div>
 						</div>
 					</div>
-
-
-				  <div class="col-md-4">
-				  	<search-member-ex-button members="newObj.models.lists.skaters" sessionid="newObj.sessionid"></search-member-ex-button>
+					<div class="col-md-4">
+						<search-member-ex-button members="newObj.models.lists.skaters" sessionid="newObj.sessionid"></search-member-ex-button>
 					</div>
-
-		    </div>
+				</div>
 			</div>
-    	
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newnumberinviteskater.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newnumberinviteskater.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newnumberinviteskater.buttontitlekeepchanges}}</button>
-</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newnumberinviteskater.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newnumberinviteskater.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newnumberinviteskater.buttontitlekeepchanges}}</button>
+	</div>
+</form>
