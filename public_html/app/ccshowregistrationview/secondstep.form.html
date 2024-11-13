@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="content well">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="content">
+                        <div class="row">
+                            <a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+                            <h3>{{translationObj.main.formtitleconfirmation}}</h3>
+                            <p>
+                                <b>{{translationObj.main.fieldtitleskater}}</b>&nbsp;{{currentRegistration.member.firstname}}&nbsp;{{currentRegistration.member.lastname}}
+                            </p>
+                            <p>
+                                <b>{{translationObj.main.fieldtitleshow}}</b>&nbsp;{{currentRegistration.showlabel}}
+                            </p>
+                        </div>
+                        <div><h3>{{translationObj.main.fieldtitlenumber}}</h3></div>
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlenumber}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlenumbertype}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlenumberprice}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="number in currentRegistration.shownumbers | filter : filterSelectedNumbers">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <div class="input-group">
+                                        <strong>{{number.label}}</strong>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="input-group">
+                                        {{number.registrationtypelabel}}<span
+                                            ng-if="number.mandatory=='1'">&nbsp;-&nbsp;{{translationObj.main.fieldtitlemandatory}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <!-- TODO : must be right-align -->
+                                    <div class="input-group">
+                                        {{number.fees | currency}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-1">
+                                    <div class="input-group">
+                                        <span class='glyphicon glyphicon-ok' ng-show="number.selected=='1'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <h3>{{translationObj.main.formtitlecharges}}</h3>
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <label for="comments" class="hidden-xs">{{translationObj.main.fieldtitlelabel}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <label for="comments" class="hidden-xs">{{translationObj.main.fieldtitletype}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <label for="comments" class="hidden-xs" ng-show="$index==0">{{translationObj.main.fieldtitleamount}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="charge in currentRegistration.charges | filter : filterSelectedCharges">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <div class="input-group">
+                                        <strong>{{charge.label}}</strong><i ng-if="charge.nonrefundable=='1'"><br>{{charge.nonrefundablelabel}}</i><i ng-if="charge.comments&&charge.comments!=''"><br>{{charge.comments}}</i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="input-group">
+                                      {{charge.typelabel}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <!-- TODO : must be right-align -->
+                                    <div class="input-group">
+                                      {{charge.amount | currency}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-1">
+                                    <!-- <label class="hidden-xs" ng-show="$index==0">&nbsp;</label> -->
+                                    <div class="input-group">
+                                        <span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-md-9">
+                                <h3>{{translationObj.main.fieldsubtotal}}</h3>
+                            </div>
+                            <!-- TODO : must be right-align -->
+                            <div class="col-xs-6 col-md-2">
+                                <h3>{{currentRegistration.totalamount | currency}}</h3>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="currentRegistration.bill.registrations.length > 1">
+                            <div class="col-xs-6 col-md-9">
+                                <h3>{{translationObj.main.fieldtotalotherskaters}}</h3>
+                            </div>
+                            <!-- TODO : must be right-align -->
+                            <div class="col-xs-6 col-md-2">
+                                <h3>{{currentRegistration.subtotalotherskaters | currency}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-9">
+                                <h3>{{translationObj.main.fieldtotalpayment}}</h3>
+                            </div>
+                            <!-- TODO : must be right-align -->
+                            <div class="col-xs-6 col-md-2">
+                                <h3>{{currentRegistration.bill.paymentsubtotal | currency}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-9">
+                                <h3>{{translationObj.main.fieldtotal}}</h3>
+                            </div>
+                            <!-- TODO : must be right-align -->
+                            <div class="col-xs-6 col-md-2">
+                                <h3>{{(currentRegistration.totalamount/1) + (currentRegistration.subtotalotherskaters/1) - (currentRegistration.bill.paymentsubtotal/1)| currency}}</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <br>
+                            <center>
+                                <button class="btn btn-primary" ng-click="backToDraft()" >{{translationObj.main.buttontitlebacktodraft}}</button>
+                                <a href="#!/ccwelcomeview"><button class="btn btn-primary">{{translationObj.main.buttontitlecancel}}</button></a>
+                                <button class="btn btn-primary" ng-click="confirmRegistration()" ng-if="currentRegistration.onlinepaymentoption==0">{{translationObj.main.buttontitleaccept}}</button>
+                                <button class="btn btn-primary" ng-click="confirmRegistration()" ng-if="currentRegistration.onlinepaymentoption==1" ng-disabled="currentRegistration.newCourseSelected==false">{{translationObj.main.buttontitlepaylater}}</button>
+                                <a href ng-click="paypalInsertRegistrationInDB()"
+                                    ng-style="{ opacity: '1'}" ng-if="currentRegistration.onlinepaymentoption>=1">
+                                    <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal">
+                                </a>
+                            </center>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <img style="display:block;margin:auto;" src="/privateimages/cpa_logo.jpg" alt="logo">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

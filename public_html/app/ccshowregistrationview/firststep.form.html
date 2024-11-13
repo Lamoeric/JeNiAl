@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="content well">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="content">
+                        <div class="row">
+                            <a href="#!/ccwelcomeview">{{translationObj.main.formtitlebacktowelcome}}</a>
+                            <h3>{{translationObj.main.formtitleregistration}}</h3>
+                            <p>
+                                <b>{{translationObj.main.fieldtitleskater}}</b>&nbsp;{{currentRegistration.member.firstname}}&nbsp;{{currentRegistration.member.lastname}}
+                            </p>
+                            <p>
+                                <b>{{translationObj.main.fieldtitleshow}}</b>&nbsp;{{currentRegistration.showlabel}}
+                            </p>
+                            <p>
+                                <b>{{translationObj.main.fieldtitleshowdates}}</b>
+                                <div ng-repeat="oneperf in currentRegistration.performances">
+                                    {{oneperf.performancelabel}},&nbsp;{{oneperf.arenalabel}}<span ng-if="oneperf.icelabel!=null">&nbsp;{{oneperf.icelabel}}</span>,&nbsp;{{oneperf.perfdate}}@{{oneperf.starttime}}&nbsp;-&nbsp;{{oneperf.endtime}}
+                                </div>
+                            </p>
+                            <p>
+                                <font color="red">{{translationObj.main.msgselectline}}</font>
+                            </p>
+                        </div>
+                        <div>
+                            <h3>{{translationObj.main.fieldtitlenumber}}</h3>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlenumber}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlenumbertype}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlenumberprice}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-repeat="number in currentRegistration.shownumbers" ng-click="onNumberSelected(number)"
+                            style="cursor: pointer" ng-class="{selected: number.selected=='1'}">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <div class="input-group">
+                                        <strong>{{number.label}}</strong>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="input-group">
+                                        {{number.registrationtypelabel}}<span
+                                            ng-if="number.mandatory=='1'">&nbsp;-&nbsp;{{translationObj.main.fieldtitlemandatory}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <!-- TODO : must be right-align -->
+                                    <div class="input-group">
+                                        {{number.fees | currency}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-1">
+                                    <div class="input-group">
+                                        <span class='glyphicon glyphicon-ok' ng-show="number.selected=='1'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <h3>{{translationObj.main.formtitlecharges}}</h3>
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitlelabel}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitletype}}</label>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <label class="hidden-xs">{{translationObj.main.fieldtitleamount}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="charge in currentRegistration.charges | filter : filterCharges"
+                            ng-click="onChargeSelected(charge)" style="cursor: pointer"
+                            ng-class="{selected: charge.selected=='1'}">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">
+                                    <div class="input-group">
+                                        <strong>{{charge.label}}</strong><i
+                                            ng-if="charge.nonrefundable=='1'"><br>{{charge.nonrefundablelabel}}</i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="input-group">
+                                        {{charge.typelabel}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <!-- TODO : must be right-align -->
+                                    <div class="input-group">
+                                        {{charge.amount | currency}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-1">
+                                    <div class="input-group">
+                                        <span class='glyphicon glyphicon-ok' ng-show="charge.selected=='1'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-md-9">
+                                <h3>Total</h3>
+                            </div>
+                            <!-- TODO : must be right-align -->
+                            <div class="col-xs-6 col-md-2">
+                                <h3>{{currentRegistration.totalamount | currency}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <label for="comments">{{translationObj.main.fieldtitlecomments}}</label>
+                                <!-- <div class="input-group"> -->
+                                <textarea class="form-control" id="comments" ng-model="currentRegistration.comments"
+                                    maxlength="1024"></textarea>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <center>
+                                    <a href="#!/ccwelcomeview"><button class="btn btn-primary">{{translationObj.main.buttontitlecancel}}</button></a>
+                                    <button class="btn btn-primary" ng-click="goToStep2()" >{{translationObj.main.buttontitlecontinue}}</button>
+                          </center>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <div class="col-md-2">
+                    <img style="display:block;margin:auto;" src="/privateimages/cpa_logo.jpg" alt="logo">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
