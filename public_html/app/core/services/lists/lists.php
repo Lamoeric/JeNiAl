@@ -237,6 +237,7 @@ function getAllTests($mysqli, $testtype, $language) {
 							order by ct.sequence";
 		$result = $mysqli->query( $query );
 		$data = array();
+		$data['data'] = array();
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
@@ -265,6 +266,7 @@ function getAllStarTests($mysqli, $testtype, $language) {
 							order by ct.sequence";
 		$result = $mysqli->query( $query );
 		$data = array();
+		$data['data'] = array();
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
