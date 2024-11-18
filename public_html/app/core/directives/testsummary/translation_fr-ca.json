@@ -2,7 +2,7 @@
 	{"formname":"testsummary", "fieldname":"formtitleskills", "text":"Habiletés"},
 	{"formname":"testsummary", "fieldname":"formtitledances", "text":"Danse"},
 	{"formname":"testsummary", "fieldname":"formtitlefreestyle", "text":"Style libre"},
-	{"formname":"testsummary", "fieldname":"formtitleartistic", "text":"Artistic"},
+	{"formname":"testsummary", "fieldname":"formtitleartistic", "text":"Artistique"},
 	{"formname":"testsummary", "fieldname":"formtitlesynchro", "text":"Synchro"},
 	{"formname":"testsummary", "fieldname":"formtitleinterpretives", "text":"Interprétation"},
 	{"formname":"testsummary", "fieldname":"formtitlecompetitives", "text":"Compétition"},
