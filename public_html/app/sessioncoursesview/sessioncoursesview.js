@@ -245,17 +245,13 @@ angular.module('cpa_admin.sessioncoursesview', ['ngRoute'])
 		$scope.selectedLeftObj = null;
 	}
 
-	/**
-	*			Callback from listsService.getAllSessionsAndShows to force the selection of the first element in the list
-	*/
-	$scope.callback = function () {
-		$scope.currentEvent = $scope.allSessionsAndShows[0];
-		$scope.onCurrentEventChange();
-	}
-
 	$scope.refreshAll = function () {
 		if (!$scope.currentEvent) {
-			listsService.getAllSessionsAndShows($scope, authenticationService.getCurrentLanguage(), $scope.callback);
+			listsService.getAllSessionsAndShows($scope, authenticationService.getCurrentLanguage()).
+				success(function(data, status, headers, config) {
+					$scope.currentEvent = $scope.allSessionsAndShows[0];
+					$scope.onCurrentEventChange();
+				});
 		}
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'presencetypes', 'sequence', 'presencetypes');

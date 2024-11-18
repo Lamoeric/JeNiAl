@@ -251,7 +251,7 @@ angular.module('cpa_admin.sessionview', ['ngRoute'])
 				for (var i = 0; i < $scope.currentSession.rules2.length; i++) {
 					$scope.convertParagraph($scope.currentSession.rules2[i]);
 				}
-				listsService.getAllSessionsEx($scope, authenticationService.getCurrentLanguage(), null, $scope.currentSession.id);
+				listsService.getAllSessionsEx($scope, authenticationService.getCurrentLanguage(), $scope.currentSession.id);
 				$scope.manageAllCoursesDates();
 			} else {
 				dialogService.displayFailure(data);

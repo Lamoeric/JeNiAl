@@ -140,20 +140,31 @@ angular.module('cpa_admin.dashboardview', ['ngRoute'])
 		$scope.getAllDashboardInfo();
 	}
 
-	$scope.setActiveSession = function() {
-		for (var i = 0; $scope.sessions && i < $scope.sessions.length; i++) {
-			if ($scope.sessions[i].active == 1) {
-				$scope.sessionid = $scope.sessions[i].id.toString();
-				break;
-			}
-		}
-		if ($scope.sessionid) {
-			$scope.getAllDashboardInfo();
-		}
-	}
+	// $scope.setActiveSession = function() {
+	// 	for (var i = 0; $scope.sessions && i < $scope.sessions.length; i++) {
+	// 		if ($scope.sessions[i].active == 1) {
+	// 			$scope.sessionid = $scope.sessions[i].id.toString();
+	// 			break;
+	// 		}
+	// 	}
+	// 	if ($scope.sessionid) {
+	// 		$scope.getAllDashboardInfo();
+	// 	}
+	// }
 
 	$scope.refreshAll = function() {
-		listsService.getAllSessions($scope, $http, authenticationService.getCurrentLanguage(), $scope.setActiveSession);
+		listsService.getAllSessions($scope, authenticationService.getCurrentLanguage()).
+		then(function(){
+			for (var i = 0; $scope.sessions && i < $scope.sessions.length; i++) {
+				if ($scope.sessions[i].active == 1) {
+					$scope.sessionid = $scope.sessions[i].id.toString();
+					break;
+				}
+			}
+			if ($scope.sessionid) {
+				$scope.getAllDashboardInfo();
+			}
+		});
 		if ($scope.sessionid) {
 			$scope.getAllDashboardInfo();
 		}

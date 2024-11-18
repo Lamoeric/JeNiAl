@@ -964,16 +964,6 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		$scope.selectedTab = event.target.attributes['DATA-TARGET'].value;         // active tab
 	});
 
-	$scope.getActiveSession = function() {
-		$scope.activeSession = null;
-		for (var i = 0; i < $scope.sessions.length; i++) {
-			if ($scope.sessions[i].active == 1) {
-				$scope.activeSession = $scope.sessions[i];
-				return;
-			}
-		}
-	}
-
 	// Filters the charges and discounts to display in the courses.template form
 	$scope.filterCharges = function(item) {
 		if (item.type == 'DISCOUNT') {
@@ -1064,17 +1054,13 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		// 	}
 		// });
 
-	/**
-	*			Callback from listsService.getAllSessionsAndShows to force the selection of the first element in the list
-	*/	
-	$scope.callback = function() {
-		$scope.currentEvent = $scope.allSessionsAndShows[0];
-		$scope.onCurrentEventChange();
-	}
-
 	$scope.refreshAll = function() {
 		if (!$scope.currentEvent) {
-			listsService.getAllSessionsAndShows($scope, authenticationService.getCurrentLanguage(), $scope.callback)
+			listsService.getAllSessionsAndShows($scope, authenticationService.getCurrentLanguage()).
+				success(function(data, status, headers, config) {
+					$scope.currentEvent = $scope.allSessionsAndShows[0];
+					$scope.onCurrentEventChange();
+				});
 		} else {
 			$scope.getAllRegistrations(null);
 		}
@@ -1089,7 +1075,16 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'registrationstatus', 'sequence', 'registrationstatus');
 
-		listsService.getAllSessions($scope, $http, authenticationService.getCurrentLanguage(), $scope.getActiveSession);
+		listsService.getAllSessions($scope, authenticationService.getCurrentLanguage()).
+		then(function() {
+			$scope.activeSession = null;
+			for (var i = 0; i < $scope.sessions.length; i++) {
+				if ($scope.sessions[i].active == 1) {
+					$scope.activeSession = $scope.sessions[i];
+					return;
+				}
+			}
+		});
 		translationService.getTranslation($scope, 'registrationview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}

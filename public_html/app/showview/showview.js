@@ -1476,7 +1476,7 @@ angular.module('cpa_admin.showview', ['ngRoute'])
 		listsService.getCoaches($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllProgramAssistants($scope, authenticationService.getCurrentLanguage());
 		// Get all sessions to relate this show to a session
-		listsService.getAllSessionsEx($scope, authenticationService.getCurrentLanguage(), null, null);
+		listsService.getAllSessionsEx($scope, authenticationService.getCurrentLanguage(), null);
 		listsService.getAllShowTasks($scope, authenticationService.getCurrentLanguage());
 		translationService.getTranslation($scope, 'showview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();

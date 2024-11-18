@@ -247,9 +247,9 @@ angular.module('cpa_admin.testcsview', ['ngRoute'])
 	$scope.refreshAll = function() {
 		$scope.getAllTests();
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'canskatetesttypes', 'text', 'testtypes');
-		listsService.getAllCanskateids($scope, $http, authenticationService.getCurrentLanguage());
-    translationService.getTranslation($scope, 'testcsview', authenticationService.getCurrentLanguage());
-    $rootScope.repositionLeftColumn();
+		listsService.getAllCanskateids($scope, authenticationService.getCurrentLanguage());
+		translationService.getTranslation($scope, 'testcsview', authenticationService.getCurrentLanguage());
+		$rootScope.repositionLeftColumn();
 	}
 
 	$scope.refreshAll();
