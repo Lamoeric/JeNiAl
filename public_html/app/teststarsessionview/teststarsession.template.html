@@ -1,1 +1,9 @@
-<div><p>{{leftobj.id}} - {{leftobj.name}}</p></div>
+<div>
+    <p >
+        <span ng-class="{redfont:leftobj.islock==1}">{{leftobj.id}} - {{leftobj.title}}<br></span>
+        {{leftobj.testsessionstartdate}}&nbsp;-&nbsp;{{leftobj.testsessionenddate}}<br>
+        <small>
+            <b>{{translationObj.leftPane.islocked}}</b>&nbsp;{{leftobj.islocklabel}}&nbsp;
+        </small>
+    </p>
+</div>

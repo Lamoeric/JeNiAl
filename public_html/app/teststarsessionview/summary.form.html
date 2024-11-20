@@ -1,159 +1,132 @@
 <div class="form-group row">
 	<div class="grid">
-			<div id="childform1">
-				<!-- <h3>{{translationObj.period.titleperiods}}</h3> -->
-				<span>
-					<label ng-repeat="approb in approbationstatus">
-						<input type="radio" name='statusFilter' ng-model="$parent.approbationStatusFilter" ng-value="{{approb.code}}" ng-change="onApprobationStatusFilterChange(approb.code)" ignore-dirty>&nbsp;&nbsp;{{approb.text}}&nbsp;&nbsp;
-					</label>
-				</span>
-				<span>
-					<label>
-						<input type="radio" name="statusFilter" ng-model="$parent.approbationStatusFilter" ng-value="-1" ng-change="onApprobationStatusFilterChange(-1)" ignore-dirty> {{translationObj.summary.fieldfilterall}}
-					</label>
-				</span>
-				<h3>{{translationObj.summary.titleperiods}}&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editPeriod({})" ng-disabled="currentTestsession.islock"></button></h3>
-				<div ng-repeat="period in currentTestsession.periods | filter:filterPeriods" class="blackcurvyborder">
-					<h3>{{translationObj.summary.titleperiod}} {{$index + 1}} <span ng-show=period.canceled==1><font color="red">({{translationObj.details.titlecanceled}})</font></span></h3>
-					<div class="row">
-						<div class="col-xs-2">
-							<label for="perioddate{{$index}}">{{translationObj.summary.fieldperioddate}}</label>
-							<input type="text" class="form-control" id="perioddate{{$index}}" ng-model="period.perioddate" disabled>
+		<div id="childform1">
+			<!-- Filter -->
+			<span>
+				<label ng-repeat="approb in approbationstatus">
+					<input type="radio" name='statusFilter' ng-model="$parent.approbationStatusFilter"
+						ng-value="{{approb.code}}" ng-change="onApprobationStatusFilterChange(approb.code)" ignore-dirty>
+					&nbsp;&nbsp;{{approb.text}}&nbsp;&nbsp;
+				</label>
+			</span>
+			<!-- Filter - add value All/toutes -->
+			<span>
+				<label>
+					<input type="radio" name="statusFilter" ng-model="$parent.approbationStatusFilter" ng-value="-1"
+						ng-change="onApprobationStatusFilterChange(-1)" ignore-dirty>
+					{{translationObj.summary.fieldfilterall}}
+				</label>
+			</span>
+			<!-- End Filter -->
+			<h3>{{translationObj.summary.titleperiods}}&nbsp;
+				<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editPeriod({})" ng-disabled="currentTestsession.islock"></button>
+			</h3>
+			<div ng-repeat="period in currentTestsession.periods | filter:filterPeriods" class="blackcurvyborder">
+				<h3>{{translationObj.summary.titleperiod}} {{$index + 1}} 
+					<span ng-show="period.canceled==1" class="redfont">({{translationObj.details.titlecanceled}})</span>
+				</h3>
+				<div class="row">
+					<div class="col-xs-2">
+						<label for="perioddate{{$index}}">{{translationObj.summary.fieldperioddate}}</label>
+						<input type="text" class="form-control" id="perioddate{{$index}}" ng-model="period.perioddate" disabled>
+					</div>
+					<div class="col-xs-1">
+						<label for="day{{$index}}">{{translationObj.summary.fieldday}}</label>
+						<select class="form-control" id="day{{$index}}" ng-model="period.day" disabled>
+							<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
+						</select>
+					</div>
+					<div class="col-xs-2">
+						<label for="arena{{$index}}">{{translationObj.summary.fieldarena}}</label>
+						<select class="form-control" id="arena{{$index}}" ng-model="period.arenaid" disabled>
+							<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
+						</select>
+					</div>
+					<div class="col-xs-2">
+						<label for="ice{{$index}}">{{translationObj.summary.fieldice}}</label>
+						<input type="text" class="form-control" id="ice{{$index}}" ng-model="period.icelabel" disabled>
+					</div>
+					<div class="col-xs-2">
+						<label for="starttime{{$index}}">{{translationObj.summary.fieldstarttime}}</label>
+						<input type="text" class="form-control" id="starttime{{$index}}" ng-model="period.starttime" disabled>
+					</div>
+					<div class="col-xs-2">
+						<label for="endtime{{$index}}">{{translationObj.summary.fieldendtime}}</label>
+						<input type="text" class="form-control" id="endtime{{$index}}" ng-model="period.endtime" disabled>
+					</div>
+					<div class="col-xs-1">
+						<label>&nbsp;</label>
+						<div class="input-group">
+							<span>
+								<child-edit-button obj="period" objlist="currentTestsession.periods" callback="editPeriod(period)" is-form-pristine="currentTestsession.islock"></child-edit-button>
+								<child-status-indicator obj="period"></child-status-indicator>
+							</span>
 						</div>
-						<div class="col-xs-1">
-							<label for="day{{$index}}">{{translationObj.summary.fieldday}}</label>
-							<select class="form-control" id="day{{$index}}" ng-model="period.day" disabled>
-								<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
-							</select>
-						</div>
-						<div class="col-xs-2">
-				      <label for="arena{{$index}}">{{translationObj.summary.fieldarena}}</label>
-		      		<select class="form-control" id="arena{{$index}}" ng-model="period.arenaid" disabled>
-								<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
-		      		</select>
-			      </div>
-						<div class="col-xs-2">
-							<label for="ice{{$index}}">{{translationObj.summary.fieldice}}</label>
-							<input type="text" class="form-control" id="ice{{$index}}" ng-model="period.icelabel" disabled>
-						</div>
-						<div class="col-xs-2">
-							<label for="starttime{{$index}}">{{translationObj.summary.fieldstarttime}}</label>
-							<input type="text" class="form-control" id="starttime{{$index}}" ng-model="period.starttime" disabled>
-						</div>
-						<div class="col-xs-2">
-							<label for="endtime{{$index}}">{{translationObj.summary.fieldendtime}}</label>
-							<input type="text" class="form-control" id="endtime{{$index}}" ng-model="period.endtime" disabled>
-						</div>
-						<div class="col-xs-1">
-							<label>&nbsp;</label>
-							<div class="input-group">
-								<span>
-									<child-edit-button 			obj="period" objlist="currentTestsession.periods" callback="editPeriod(period)" is-form-pristine="currentTestsession.islock"></child-edit-button>
-									<child-status-indicator obj="period"></child-status-indicator>
-								</span>
+					</div>
+				</div>
+				<form>
+					<div>
+						<h3>{{translationObj.summary.titleregistrations}}&nbsp;
+							<edittestregistration type="2" testregistration="{}" period="period"
+								is-disabled="period.canceled==1 || currentTestsession.islock"
+								callback="saveToDbForced()" is-disabled="currentTestsession.islock">
+							</edittestregistration>
+						</h3>
+						<div ng-repeat="registration in period.registrations | filter:filterRegistrations">
+							<div class="row" id="childform1">
+								<div class="col-xs-11 col-md-3 col-lg-3">
+									<label for="skaterfullname{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldskater}}</label>
+									<input type="text" class="form-control" id="skaterfullname{{period.id}}{{$index}}"
+										value="{{registration.skaterfirstname}} {{registration.skaterlastname}}" disabled>
+								</div>
+								<div class="clearfix visible-xs"></div>
+								<div class="col-xs-12 col-md-2 col-lg-2">
+									<label for="coachfullname{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldcoach}}</label>
+									<input type="text" class="form-control" id="coachfullname{{period.id}}{{$index}}"
+										value="{{registration.coachfirstname}} {{registration.coachlastname}}" disabled>
+								</div>
+								<div class="col-xs-12 col-md-4 col-lg-2">
+									<label for="testlabel{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldtest}}</label>
+									<input type="text" class="form-control" id="testlabel{{period.id}}{{$index}}" value="{{registration.testlabel}}" disabled>
+								</div>
+								<div class="col-xs-12 col-md-4 col-lg-2">
+									<label for="result{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldresult}}</label>
+									<div class="input-group">
+										<!-- <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> -->
+										<select class="form-control" id="result{{period.id}}{{$index}}"
+												ng-model="registration.result" ng-change="onTestResultChange(registration)"
+												ng-disabled="(registration.approbationstatus && registration.approbationstatus != 1) || registration.isdeleted == '1' || currentTestsession.islock">
+											<option ng-repeat="testresult in testresults" value="{{testresult.code}}">{{testresult.text}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="clearfix visible-xs"></div>
+								<div class="col-xs-12 col-md-2 col-lg-3">
+									<b ng-show="$index==0" class="visible-md visible-lg">&nbsp;<br></b>
+									<div class="input-group">
+										<span>
+											<span class="glyphicon glyphicon-question-sign" style="color:blue;font-size:150%" 
+												ng-show="registration.approbationstatus && registration.approbationstatus == 2"></span>
+											<span class="glyphicon glyphicon-ok-sign" style="color:green;font-size:150%"
+												ng-show="registration.approbationstatus && registration.approbationstatus == 1"></span>
+											<span class="glyphicon glyphicon-remove-sign" style="color:red;font-size:150%"
+												ng-show="registration.approbationstatus && registration.approbationstatus == 0"></span>
+											<edittestregistration type="1" testregistration="registration" period="period" is-disabled="currentTestsession.islock"
+												callback="saveToDbForced()"></edittestregistration>
+											<child-delete-button obj="registration" objlist="period.registrations" callback="setDirty()"is-form-pristine="registration.isdeleted=='1' || currentTestsession.islock"></child-delete-button>
+											<child-undelete-button obj="registration" objlist="period.registrations" callback="setDirty()"></child-undelete-button>
+											<child-status-indicator obj="registration"></child-status-indicator>
+											<singlebillpayment billid="registration.billid" paidinfull="registration.paidinfull"
+												is-disabled="registration.approbationstatus!=1 || registration.isdeleted=='1' || currentTestsession.islock">
+											</singlebillpayment>
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!-- <div class="row">
-						<div class="col-xs-2" ng-show="period.canedit == true">
-							<br>
-							<button class="btn btn-primary" ng-click="editRegistration(period, {})">{{translationObj.period.buttontitleaddregistration}}</button>
-						</div>
-						<div class="col-xs-12" ng-show="period.canedit != true">
-							<h4 ng-show="period.canedit != true" ><font color="red"><i>{{translationObj.period.formtitleregistrationdelayexpired}}</i></font></h4>
-						</div>
-					</div> -->
-					<form>
-						<div>
-							<h3>{{translationObj.summary.titleregistrations}}&nbsp;<edittestregistration type="2" testregistration="{}" period="period" is-disabled="period.canceled==1 || currentTestsession.islock" callback="saveToDbForced()" is-disabled="currentTestsession.islock"></edittestregistration></h3>
-
-
-						<!-- <div id="childform1"> -->
-							<!-- <div ng-repeat="registration in period.registrations" class="blackcurvyborder"> -->
-							<div ng-repeat="registration in period.registrations | filter:filterRegistrations">
-							<!-- <div ng-repeat="registration in period.registrations | filter:filterRegistrations" class="blackcurvyborder"> -->
-								<div class="row" id="childform1">
-
-									<div class="col-xs-11 col-md-3 col-lg-3">
-										<label for="skaterfullname{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldskater}}</label>
-										<!-- <b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.period.fieldmember}}<br></b>
-										<b class="hidden-md hidden-lg">{{translationObj.period.fieldregistration}}<br></b>
-										<span class="glyphicon glyphicon-question-sign" style="color:blue;font-size:150%"		ng-show="registration.approbationstatus && registration.approbationstatus == 2"></span>
-										<span class="glyphicon glyphicon-ok-sign" 			style="color:green;font-size:150%" 	ng-show="registration.approbationstatus && registration.approbationstatus == 1"></span>
-										<span class="glyphicon glyphicon-remove-sign" 	style="color:red;font-size:150%" 		ng-show="registration.approbationstatus && registration.approbationstatus == 0"></span> -->
-										<!-- <span style="vertical-align:top">{{registration.skaterfirstname}} {{registration.skaterlastname}}</span> -->
-										<input type="text" class="form-control" id="skaterfullname{{period.id}}{{$index}}" value="{{registration.skaterfirstname}} {{registration.skaterlastname}}" disabled>
-									</div>
-									<div class="clearfix visible-xs"></div>
-
-									<div class="col-xs-12 col-md-2 col-lg-2">
-										<label for="coachfullname{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldcoach}}</label>
-										<!-- <b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.period.fieldcoach}}<br></b>
-										<b class="hidden-md hidden-lg">{{translationObj.period.fieldcoach}}<br></b>
-										{{registration.coachfirstname}} {{registration.coachlastname}} -->
-										<input type="text" class="form-control" id="coachfullname{{period.id}}{{$index}}" value="{{registration.coachfirstname}} {{registration.coachlastname}}" disabled>
-									</div>
-
-									<!-- <div class="col-xs-12 col-md-2 col-lg-2">
-										<b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.period.fieldtesttype}}<br></b>
-										<b class="hidden-md hidden-lg">{{translationObj.period.fieldtesttype}}<br></b>
-										{{registration.testtypelabel}}
-									</div> -->
-
-									<div class="col-xs-12 col-md-4 col-lg-2">
-										<label for="testlabel{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldtest}}</label>
-										<!-- <b ng-show="$index==0" class="visible-md visible-lg">{{translationObj.period.fieldtestname}}<br></b>
-										<b class="hidden-md hidden-lg">{{translationObj.period.fieldtestname}}<br></b>
-										{{registration.testlabel}} -->
-										<input type="text" class="form-control" id="testlabel{{period.id}}{{$index}}" value="{{registration.testlabel}}" disabled>
-									</div>
-
-									<!-- Filler just so the edit/delete/move buttons are aligned -->
-									<!-- <div class="col-md-7" ng-show="registration.testtype != 'DANCE'"> -->
-									<!-- <div class="col-lg-3">
-									</div> -->
-
-									<!-- <div class="col-xs-2">
-										<label for="summarycode" ng-show="$index==0">{{translationObj.summary.fieldcode}}</label>
-										<input type="text" class="form-control" id="summarycode" ng-model="registration.summarycode" disabled>
-									</div> -->
-
-									<div class="col-xs-12 col-md-4 col-lg-2">
-										<label for="result{{period.id}}{{$index}}" ng-show="$index==0">{{translationObj.summary.fieldresult}}</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-											<select class="form-control" id="result{{period.id}}{{$index}}" ng-model="registration.result" ng-change="onTestResultChange(registration)" ng-disabled="(registration.approbationstatus && registration.approbationstatus != 1) || registration.isdeleted == '1' || currentTestsession.islock">
-												<option ng-repeat="testresult in testresults" value="{{testresult.code}}">{{testresult.text}}</option>
-											</select>
-										</div>
-									</div>
-
-									<div class="clearfix visible-xs"></div>
-									<div class="col-xs-12 col-md-2 col-lg-3">
-										<b ng-show="$index==0" class="visible-md visible-lg">&nbsp;<br></b>
-										<div class="input-group">
-											<span>
-												<!-- <child-edit-button obj="registration" objlist="period.registrations" callback="editRegistration(period, registration)"></child-edit-button> -->
-												<span class="glyphicon glyphicon-question-sign" style="color:blue;font-size:150%"		ng-show="registration.approbationstatus && registration.approbationstatus == 2"></span>
-												<span class="glyphicon glyphicon-ok-sign" 			style="color:green;font-size:150%" 	ng-show="registration.approbationstatus && registration.approbationstatus == 1"></span>
-												<span class="glyphicon glyphicon-remove-sign" 	style="color:red;font-size:150%" 		ng-show="registration.approbationstatus && registration.approbationstatus == 0"></span>
-												<edittestregistration type="1" testregistration="registration" period="period" is-disabled="currentTestsession.islock" callback="saveToDbForced()"></edittestregistration>
-												<child-delete-button 		obj="registration" objlist="period.registrations" callback="setDirty()" is-form-pristine="registration.isdeleted=='1' || currentTestsession.islock"></child-delete-button>
-												<child-undelete-button 	obj="registration" objlist="period.registrations" callback="setDirty()"></child-undelete-button>
-												<child-status-indicator obj="registration"></child-status-indicator>
-												<!-- <singlechargebilling object="registration" member="registration.member" charge="currentTestsession.charges[0]" itemtype="TEST" itemid="registration.testid" refid="registration.id" productfullname="{{period.perioddate}}" language="fr-ca" is-disabled="registration.approbationstatus!=1 || registration.isdeleted=='1' || currentTestsession.islock"></singlechargebilling> -->
-												<singlebillpayment billid="registration.billid" paidinfull="registration.paidinfull" is-disabled="registration.approbationstatus!=1 || registration.isdeleted=='1' || currentTestsession.islock"></singlebillpayment>
-											</span>
-										</div>
-									</div>
-								</div>
-							<!-- <hr> -->
-							</div>
-						</div>
-					</form>
-
-				</div>
+				</form>
 			</div>
-
-  </div>
+		</div>
+	</div>
 </div>

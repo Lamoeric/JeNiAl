@@ -2,6 +2,7 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer sessions de tests STAR..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Sessions de tests"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune session de test STAR trouvée"},
+	{"formname":"leftPane", "fieldname":"islocked", "text":"Vérouillé :"},
 
 	{"formname":"charges", "fieldname":"formtitle", "text":"Charges"},
 	{"formname":"charges", "fieldname":"buttontitlenewcharge", "text":"Nouvelle charge..."},
@@ -12,7 +13,7 @@
 	{"formname":"newcharge", "fieldname":"formtitleeditcharge", "text":"Éditer charge"},
 	{"formname":"newcharge", "fieldname":"fieldcharge", "text":"Charge"},
 	{"formname":"newcharge", "fieldname":"fieldamount", "text":"Montant"},
-	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"Tous les champs * sont obligatoires."},
 	{"formname":"newcharge", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newcharge", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 
@@ -26,7 +27,7 @@
 	{"formname":"newperiod", "fieldname":"fieldenglishlabel", "text":"Libellé anglais"},
 	{"formname":"newperiod", "fieldname":"fieldfrenchlabel", "text":"Libellé français"},
 	{"formname":"newperiod", "fieldname":"fieldcanceled", "text":"Annulé"},
-	{"formname":"newperiod", "fieldname":"formerrormessage", "text":"Tous les champs sont requis."},
+	{"formname":"newperiod", "fieldname":"formerrormessage", "text":"Tous les champs * sont requis."},
 	{"formname":"newperiod", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newperiod", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 
@@ -34,7 +35,7 @@
 	{"formname":"newtestsession", "fieldname":"fieldhomeclub", "text":"Club d'appartenance"},
 	{"formname":"newtestsession", "fieldname":"fieldtestdirector", "text":"Directeur de test"},
 	{"formname":"newtestsession", "fieldname":"fieldname", "text":"Nom de la session"},
-	{"formname":"newtestsession", "fieldname":"formerrormessage", "text":"Tous les champs sont requis."},
+	{"formname":"newtestsession", "fieldname":"formerrormessage", "text":"Tous les champs * sont requis."},
 	{"formname":"newtestsession", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newtestsession", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 
@@ -115,7 +116,7 @@
 	{"formname":"schedule", "fieldname":"buttontitlenewschedule", "text":"Nouvel horaire..."},
 	{"formname":"schedule", "fieldname":"buttontitlegenerateperiods", "text":"Générer périodes"},
 	{"formname":"schedule", "fieldname":"buttontitleregenerateperiods", "text":"Régénérer périodes"},
-	{"formname":"schedule", "fieldname":"formerrormessage", "text":"Tous les champs sont requis."},
+	{"formname":"schedule", "fieldname":"formerrormessage", "text":"Tous les champs * sont requis."},
 	{"formname":"schedule", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"schedule", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 	{"formname":"schedule", "fieldname":"fieldarena", "text":"Aréna"},

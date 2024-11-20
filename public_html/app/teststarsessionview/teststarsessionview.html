@@ -5,7 +5,9 @@
 			<div id="mainrowright" class="row mainrowright">
 				<div class="grid">
 					<displayerror></displayerror>
-					<displaymaintitle maintitle="currentTestsession.id + ' - ' + currentTestsession.name" defaulttitle="translationObj.main.formtitledetails" object="currentTestsession"></displaymaintitle>
+					<displaymaintitle maintitle="currentTestsession.id + ' - ' + currentTestsession.name"
+						defaulttitle="translationObj.main.formtitledetails" object="currentTestsession">
+					</displaymaintitle>
 
 					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.testsession_create==true"></main-new-button>
 					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty && !testsessionForm.$dirty && !summaryForm.$dirty) || currentTestsession.islock" ng-if="userInfo.privileges.testsession_update==true"></main-save-button>
@@ -16,7 +18,9 @@
 					<button class="btn btn-primary" ng-click="unlockSession()" ng-disabled="currentTestsession==null" ng-if="userInfo.privileges.testsession_create==true && currentTestsession!=null && currentTestsession.islock==1">{{translationObj.main.buttontitleunlocksession}}</button>
 
 					<span class="dropdown">
-						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentTestsession==null">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentTestsession==null">
+							{{translationObj.main.buttonreports}}<span class="caret"></span>
+						</button>
 						<ul class="dropdown-menu">
 							<li class="pointerlist"><a ng-click="this.printReport('teststarsessiontestsheets')">{{translationObj.main.reporttestsessionsheets}}</a></li>
 						</ul>
@@ -31,7 +35,6 @@
 						</ul>
 
 						<div id="maintabcontent" class="tab-content maintabcontent">
-
 							<div id="info" class="tab-pane fade in active maintabpane">
 								<form class="form-horizontal well intabsingleformnox" role="form" name="testsessionForm" ng-show="currentTestsession">
 									<div ng-include="'teststarsessionview/teststarsession.html'"></div>
@@ -40,92 +43,26 @@
 
 							<div id="charge" class="tab-pane fade maintabpane">
 								<form class="form-horizontal well intabsingleformnox" role="form" name="chargesForm" ng-show="currentTestsession">
-									 <div ng-include="'teststarsessionview/charge.form.html'"></div>
+									<div ng-include="'teststarsessionview/charge.form.html'"></div>
 								</form>
 							</div>
 
 							<div id="schedule" class="tab-pane fade maintabpane">
 								<form class="form-horizontal well intabsingleformnox" role="form" name="scheduleForm" ng-show="currentTestsession">
-									 <div ng-include="'teststarsessionview/schedule.form.html'"></div>
+									<div ng-include="'teststarsessionview/schedule.form.html'"></div>
 								</form>
 							</div>
 
 							<div id="summary" class="tab-pane fade maintabpane">
 								<form class="form-horizontal well intabsingleformnox" role="form" name="summaryForm" ng-show="currentTestsession">
-									 <div ng-include="'teststarsessionview/summary.form.html'"></div>
+									<div ng-include="'teststarsessionview/summary.form.html'"></div>
 								</form>
 							</div>
 
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</row>
 </section>
-
-<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
-<leftpane></leftpane>
-</div>
-<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
-	<div ng-if="currentTestsession!=null"><h2>{{currentTestsession.id}} - {{currentTestsession.name}}</h2></div>
-	<div ng-if="currentTestsession==null"><h2>{{translationObj.main.formtitlesessiondetails}}</h2></div>
-
-	<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.testsession_create==true"></main-new-button>
-	<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty && !testsessionForm.$dirty && !summaryForm.$dirty) || currentTestsession.islock" ng-if="userInfo.privileges.testsession_update==true"></main-save-button>
-	<main-delete-button delete-callback="deleteFromDB()" ng-if="userInfo.privileges.testsession_delete==true" is-form-pristine="currentTestsession.islock"></main-delete-button>
-	<button class="btn btn-primary" ng-click="copySession()" ng-disabled="currentTestsession==null" ng-if="userInfo.privileges.testsession_create==true">{{translationObj.main.buttontitlecopysession}}</button>
-	<button class="btn btn-primary" ng-click="fixMemberTests()" ng-disabled="currentTestsession==null" ng-if="userInfo.privileges.testsession_create==true">{{translationObj.main.buttontitlefixmembertests}}</button>
-	<button class="btn btn-primary" ng-click="lockSession()" ng-disabled="currentTestsession==null" ng-if="userInfo.privileges.testsession_create==true && currentTestsession!=null && currentTestsession.islock==0">{{translationObj.main.buttontitlelocksession}}</button>
-	<button class="btn btn-primary" ng-click="unlockSession()" ng-disabled="currentTestsession==null" ng-if="userInfo.privileges.testsession_create==true && currentTestsession!=null && currentTestsession.islock==1">{{translationObj.main.buttontitleunlocksession}}</button>
-
-	<span class="dropdown">
-		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="currentTestsession==null">{{translationObj.main.buttonreports}}<span class="caret"></span></button>
-		<ul class="dropdown-menu">
-			<li class="pointerlist"><a ng-click="this.printReport('testStarSessionTestSheets')">{{translationObj.main.reporttestsessionsheets}}</a></li>
-		</ul>
-	</span>
-
-	<div class="alert alert-danger" id="mainglobalerrormessage" style="display:none;">
-		<li ng-repeat="error in globalErrorMessage">{{error}}</li>
-	</div>
-
-	<div class="alert alert-warning" id="mainglobalwarningmessage" style="display:none;">
-		<li ng-repeat="warning in globalWarningMessage">{{warning}}</li>
-	</div>
-
-	<ul class="nav nav-tabs">
-		<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.tabtitlesession}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#charge">{{translationObj.main.tabtitlecharges}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#schedule">{{translationObj.main.tabtitleschedule}}</a></li>
-		<li class="pointerlist"><a data-toggle="tab" data-target="#summary">{{translationObj.main.tabtitlesummary}}</a></li>
-	</ul>
-
-	<div class="tab-content">
-		<div id="info" class="tab-pane fade in active">
-			<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="testsessionForm" ng-show="currentTestsession" class="ng-hide">
-				<div ng-include="'teststarsessionview/teststarsession.html'"></div>
-			</form>
-		</div>
-
-		<div id="charge" class="tab-pane fade">
-			<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="chargesForm" ng-show="currentTestsession" class="ng-hide">
-				 <div ng-include="'teststarsessionview/charge.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="schedule" class="tab-pane fade">
-			<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="scheduleForm" ng-show="currentTestsession" class="ng-hide">
-				 <div ng-include="'teststarsessionview/schedule.form.html'"></div>
-			</form>
-		</div>
-
-		<div id="summary" class="tab-pane fade">
-			<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="summaryForm" ng-show="currentTestsession" class="ng-hide">
-				 <div ng-include="'teststarsessionview/summary.form.html'"></div>
-			</form>
-		</div>
-
-	</div>
-</div> -->
