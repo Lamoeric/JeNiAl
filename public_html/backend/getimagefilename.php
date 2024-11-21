@@ -11,7 +11,7 @@ Author : Eric Lamoureux
  * 
  * Returns the complete name of the file or null if $filename is not set or file does not exists
  */
-require_once(__DIR__.'./getuploaddirectory.php');
+require_once(__DIR__.'/getuploaddirectory.php');
 
 function getImageFileName($directorysuffix, $filename) {
     if (isset($filename) && !empty($filename)) {

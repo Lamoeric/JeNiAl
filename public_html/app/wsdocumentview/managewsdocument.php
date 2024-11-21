@@ -6,7 +6,7 @@ require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php'
 require_once('../../include/nocache.php');
 require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
-require_once('../../backend/getimagefileName.php');
+require_once('../../backend/getimagefilename.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];

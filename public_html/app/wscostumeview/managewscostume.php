@@ -8,7 +8,7 @@ require_once('../../backend/invalidrequest.php');
 require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
-require_once('../../backend/getimagefileName.php');
+require_once('../../backend/getimagefilename.php');
 require_once('../../backend/createuploadsubdirectory.php');
 require_once('../../backend/deleteuploadsubdirectory.php');
 
