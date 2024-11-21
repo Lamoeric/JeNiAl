@@ -18,6 +18,9 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
 		case "getAllSessionsAndShows":
 			getAllSessionsAndShows($mysqli, $_POST['language']);
 			break;
+		case "getAllCanskateTests":
+			getAllCanskateTests($mysqli, $_POST['language']);
+			break;
 		case "getAllTestsForMember":
 			getAllTestsForMember($mysqli, $_POST['testtype'], $_POST['memberid'], $_POST['language']);
 			break;
@@ -262,6 +265,33 @@ function getAllCanskateTestDef($mysqli, $canskateid, $language) {
 	}
 	return $data;
 	exit;
+};
+
+/**
+ * This function gets all the tests for CanSkate from database
+ */
+function getAllCanskateTests($mysqli, $language) {
+	try {
+		$data = array();
+		$query = "SELECT id, category, stage, getCodeDescription('canskatetestcategories', category, '$language') label
+							FROM cpa_canskate
+							order by category, stage";
+		$result = $mysqli->query( $query );
+		while ($row = $result->fetch_assoc()) {
+			$row['id'] = (int) $row['id'];
+			$row['tests'] = getAllCanskateTestDef($mysqli, $row['id'], $language);
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
 };
 
 /**

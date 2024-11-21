@@ -228,8 +228,22 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
 	};
 
 	this.getAllCanskateTests = function($scope, preferedlanguage) {
-		var query = "SELECT id, category, stage, getCodeDescription('canskatetestcategories', category, '$language') label FROM cpa_canskate order by category, stage";
-		this.getSimpleListPattern1($scope, 'canskateTests', preferedlanguage, query);
+		$http({
+	      method: 'post',
+	      url: './core/services/lists/lists.php',
+	      data: $.param({'language' : preferedlanguage, 'type' : 'getAllCanskateTests'}),
+	      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	    }).
+	    success(function(data, status, headers, config) {
+	    	if (data.success && !angular.isUndefined(data.data)) {
+	    		$scope.canskateTests = data.data;
+	    	} else {
+	    		dialogService.displayFailure(data);
+	    	}
+	    }).
+	    error(function(data, status, headers, config) {
+	    	dialogService.displayFailure(data);
+	    });
 	};
 
 	this.getAllSessions = function($scope, preferedlanguage) {
