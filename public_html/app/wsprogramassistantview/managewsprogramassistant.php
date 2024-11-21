@@ -4,7 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../backend/invalidrequest.php');
+require_once('../../backend/invalidrequest.php'); //
 require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
@@ -137,7 +137,7 @@ function getAllProgramassistants($mysqli, $language)
 		$query = "	SELECT id, firstname, lastname, publish, getCodeDescription('YESNO',publish, '$language') ispublish, 
 							getCodeDescription('YESNO', if (imagefilename is not null and imagefilename!='', 1, 0), '$language') isimage  
 					FROM cpa_ws_programassistants 
-					ORDER BY lastname, firstname";
+					ORDER BY publish DESC, lastname, firstname";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {

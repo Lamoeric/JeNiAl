@@ -4,7 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../backend/invalidrequest.php');
+require_once('../../backend/invalidrequest.php'); //
 require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
@@ -154,7 +154,7 @@ function getAllNewss($mysqli, $language)
 							getCodeDescription('YESNO',publish, '$language') ispublish,  
 							getCodeDescription('YESNO', if (imagefilename is not null and imagefilename!='', 1, 0), '$language') isimage  
 					FROM cpa_ws_news 
-					ORDER BY publishdate DESC";
+					ORDER BY publish DESC, publishdate DESC";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {

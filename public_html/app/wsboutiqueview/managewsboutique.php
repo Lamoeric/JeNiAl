@@ -4,7 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../backend/invalidrequest.php');
+require_once('../../backend/invalidrequest.php'); //
 require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
@@ -151,7 +151,7 @@ function getAllGoods($mysqli, $language)
 							getCodeDescription('YESNO',publish, '$language') ispublish,
 							getCodeDescription('YESNO', if (imagefilename is not null and imagefilename!='', 1, 0), '$language') isimage  
 					FROM cpa_ws_goods 
-					ORDER BY name";
+					ORDER BY publish DESC, name";
 		$result = $mysqli->query($query);
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;

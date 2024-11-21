@@ -4,7 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../backend/invalidrequest.php');
+require_once('../../backend/invalidrequest.php'); //
 require_once('../../backend/removefile.php');
 require_once('../../backend/getwssupportedlanguages.php');
 require_once('../../backend/getimagefileinfo.php');
@@ -148,7 +148,7 @@ function getAllEvents($mysqli, $language)
 							getCodeDescription('wseventtypes',eventlist, '$language') listlabel, 
 							(select count(*) FROM cpa_ws_events_pictures cwep where cwep.eventid = cwe.id) imagecount
 					FROM cpa_ws_events cwe
-					ORDER BY eventdate DESC";
+					ORDER BY publish DESC, eventdate DESC";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
