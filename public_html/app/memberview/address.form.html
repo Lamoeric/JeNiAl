@@ -1,106 +1,107 @@
 <div class="form-group">
-  <div class="grid">
+	<div class="grid">
 		<h3>{{translationObj.address.formtitleaddress}}</h3>
-  	<div class="row">
-      <div class="col-xs-11 col-md-5">
-      	<label for="address1">{{translationObj.address.fieldaddress1}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-	        <input type="text" name="address1" class="form-control" id="address1" ng-model="currentMember.address1" maxlength="100">
-					<!--							        <span ng-show="detailsForm.civicno.$touched && detailsForm.civicno.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span> -->
-					<!--							        <span ng-show="detailsForm.civicno.$touched && detailsForm.civicno.$invalid">The civic no is required.</span> -->
-	      </div>
-      </div>
-      <div class="col-xs-11 col-md-4">
-	      <label for="address2">{{translationObj.address.fieldaddress2}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-		        <input type="text" class="form-control" id="address2" ng-model="currentMember.address2" maxlength="100">
-	      </div>
-      </div>
-      <div class="col-xs-11 col-md-3">
-	      <label for="town">{{translationObj.address.fieldtown}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  				<input type="text" class="form-control" id="town" ng-model="currentMember.town" maxlength="100">
-      	</div>
-      </div>
-      <div class="col-xs-11 col-md-3">
-	      <label for="town">{{translationObj.address.fieldprovince}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-		      <select class="form-control" id="province" ng-model="currentMember.province">
+		<div class="row">
+			<div class="col-xs-11 col-md-5">
+				<label for="address1">{{translationObj.address.fieldaddress1}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					<input type="text" name="address1" class="form-control" id="address1" ng-model="currentMember.address1" maxlength="100">
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-4">
+				<label for="address2">{{translationObj.address.fieldaddress2}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					<input type="text" class="form-control" id="address2" ng-model="currentMember.address2"	maxlength="100">
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-3">
+				<label for="town">{{translationObj.address.fieldtown}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					<input type="text" class="form-control" id="town" ng-model="currentMember.town" maxlength="100">
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-3">
+				<label for="province">{{translationObj.address.fieldprovince}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="province" ng-model="currentMember.province">
 						<option ng-repeat="province in provinces" value="{{province.code}}">{{province.text}}</option>
 					</select>
-      	</div>
-      </div>
-      <div class="col-xs-11 col-md-2">
-	      <label for="postalcode">{{translationObj.address.fieldpostalcode}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-        	<input type="text" class="form-control" id="postalcode" ng-model="currentMember.postalcode" maxlength="6" capitalize>
-      	</div>
-      </div>
-      <div class="col-xs-11 col-md-3">
-	      <label for="country">{{translationObj.address.fieldcountry}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-      		<select class="form-control" id="country" ng-model="currentMember.country" maxlength="20" autocomplete="off">
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-2">
+				<label for="postalcode">{{translationObj.address.fieldpostalcode}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					<input type="text" class="form-control" id="postalcode" ng-model="currentMember.postalcode" maxlength="7" capitalize>
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-3">
+				<label for="country">{{translationObj.address.fieldcountry}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+					<select class="form-control" id="country" ng-model="currentMember.country" maxlength="20" autocomplete="off">
 						<option ng-repeat="country in countries" value="{{country.code}}">{{country.text}}</option>
-      		</select>
-      	</div>
-      </div>
-  	</div>
-		<hr><h3>{{translationObj.address.formtitlephones}}</h3>
-  	<div class="row">
-      <div class="col-xs-11 col-md-3">
-	      <label for="homephone">{{translationObj.address.fieldhomephone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-        	<input type="text" class="form-control" id="homephone" ng-model="currentMember.homephone" maxlength="14" format-phone>
-      	</div>
-      </div>
-      <div class="col-xs-11 col-md-3">
-	      <label for="cellphone">{{translationObj.address.fieldcellphone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-	        <input type="text" class="form-control" id="cellphone" ng-model="currentMember.cellphone" maxlength="14" format-phone>
-      	</div>
-      </div>
-      <div class="col-xs-11 col-md-3">
-	      <label for="otherphone">{{translationObj.address.fieldotherphone}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-        	<input type="text" class="form-control" id="otherphone" ng-model="currentMember.otherphone" maxlength="20" format-phone>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 		</div>
-		<hr><h3>{{translationObj.address.formtitleelectronicaddress}}</h3>
+		<hr>
+		<h3>{{translationObj.address.formtitlephones}}</h3>
 		<div class="row">
-      <div class="col-xs-11 col-md-5">
-	      <label for="email">{{translationObj.address.fieldemail}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        	<input type="text" class="form-control" id="email" ng-model="currentMember.email" maxlength="100" autocomplete="off">
-      	</div>
-      </div>
-      <div class="col-xs-11 col-md-5">
-	      <label for="email2">{{translationObj.address.fieldemail2}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        	<input type="text" class="form-control" id="email2" ng-model="currentMember.email2" maxlength="100">
-      	</div>
-      </div>
+			<div class="col-xs-11 col-md-3">
+				<label for="homephone">{{translationObj.address.fieldhomephone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					<input type="text" class="form-control" id="homephone" ng-model="currentMember.homephone" maxlength="14" format-phone>
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-3">
+				<label for="cellphone">{{translationObj.address.fieldcellphone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+					<input type="text" class="form-control" id="cellphone" ng-model="currentMember.cellphone" maxlength="14" format-phone>
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-3">
+				<label for="otherphone">{{translationObj.address.fieldotherphone}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+					<input type="text" class="form-control" id="otherphone" ng-model="currentMember.otherphone" maxlength="20" format-phone>
+				</div>
+			</div>
 		</div>
-    <hr><h3>{{translationObj.address.formtitlecomments}}</h3>
+		<hr>
+		<h3>{{translationObj.address.formtitleelectronicaddress}}</h3>
 		<div class="row">
-      <div class="col-xs-11 col-md-10">
-	      <label for="comments">{{translationObj.address.fieldcomments}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-        	<textarea class="form-control" id="comments" ng-model="currentMember.comments" maxlength="2000"> </textarea>
-      	</div>
-      </div>
+			<div class="col-xs-11 col-md-5">
+				<label for="email">{{translationObj.address.fieldemail}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input type="text" class="form-control" id="email" ng-model="currentMember.email" maxlength="100" autocomplete="off">
+				</div>
+			</div>
+			<div class="col-xs-11 col-md-5">
+				<label for="email2">{{translationObj.address.fieldemail2}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input type="text" class="form-control" id="email2" ng-model="currentMember.email2" maxlength="100">
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h3>{{translationObj.address.formtitlecomments}}</h3>
+		<div class="row">
+			<div class="col-xs-11 col-md-10">
+				<label for="comments">{{translationObj.address.fieldcomments}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea class="form-control" id="comments" ng-model="currentMember.comments" maxlength="2000"> </textarea>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

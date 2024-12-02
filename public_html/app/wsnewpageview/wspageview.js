@@ -39,26 +39,41 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			breaks:       false         // Convert '\n' in paragraphs into <br>
 //      langPrefix:   'language-',  // CSS language prefix for fenced blocks
 //      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-//      quotes: '“”‘’',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//      quotes: 'ï¿½ï¿½ï¿½ï¿½',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to 'ï¿½ï¿½' for Russian, 'ï¿½ï¿½' for German.
 //      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
+	$scope.config = null;
+	$scope.formList = [{name:'detailsForm'}];
 
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty) {
-			return true;
-		}
-		return false;
+	/**
+	 * This function checks if anything is dirty
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 */
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.isFormPristine = true;
+	/**
+	 * This function sets all the forms as pristine
+	 */
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	$scope.convertParagraph = function(paragraph) {
 		if (paragraph) {
@@ -95,6 +110,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 				if (!angular.isUndefined(data.data)) {
 					$scope.websiteurl = data.websiteurl;
 					$scope.pagelist = data.data;
+					$scope.config = data.config;
 					$scope.setPristine();
 					$scope.selectedPageObj = null;
 					$scope.selectedSectionObj = null;
@@ -132,13 +148,15 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 	};
 
 	$scope.setCurrentPage = function(page, index) {
-		$scope.selectedPageIndex = index;
-		$scope.selectedPageObj = page ? page : index != null ? $scope.pagelist[index] : null;
-		$scope.models.selectedPageObj = $scope.selectedPageObj;
-		
-		$scope.selectedPageSections = $scope.selectedPageObj ? $scope.selectedPageObj.sections : null;
-		$scope.selectedSectionObj = null;
-		$scope.models.selectedPageSectionObj = null;
+		if ($scope.validateAllForms()) {
+			$scope.selectedPageIndex = index;
+			$scope.selectedPageObj = page ? page : index != null ? $scope.pagelist[index] : null;
+			$scope.models.selectedPageObj = $scope.selectedPageObj;
+			
+			$scope.selectedPageSections = $scope.selectedPageObj ? $scope.selectedPageObj.sections : null;
+			$scope.selectedSectionObj = null;
+			$scope.models.selectedPageSectionObj = null;
+		}
 	}
 
 	$scope.setCurrentSection = function(pagesection, index) {
@@ -164,31 +182,6 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			$scope.setCurrentInternal(page, index);
 		}
 	};
-
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-//    if ($scope.sectionForm.$invalid) {
-//      $scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-//    }
-
-		if ($scope.globalErrorMessage.length != 0) {
-//      $scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-//      $scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
-		}
-		return retVal;
-	}
 
 	$scope.saveToDB = function() {
 		if ($scope.pagelist == null || !$scope.isDirty()) {
@@ -222,7 +215,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 		}
 	};
 
-	// This is the function that creates the modal to create/edit ice
+	// This is the function that creates the modal to create/edit sections
 	$scope.editSection = function(newSection) {
 		$scope.newSection = {};
 		// Keep a pointer to the current section
@@ -249,7 +242,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 				$scope.currentSection.status = 'Modified';
 			} else {
 				// No new sections
-//        $scope.currentSection.status = 'New';
+		    //    $scope.currentSection.status = 'New';
 			}
 			$scope.setDirty();
 		}, function() {
@@ -258,7 +251,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 		});
 	};
 
-	// This is the function that creates the modal to create/edit ice
+	// This is the function that creates the modal to create/edit pages
 	$scope.editPage = function(newPage) {
 		$scope.newPage = {};
 		// Keep a pointer to the current section
@@ -290,7 +283,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 				$scope.currentPage.status = 'Modified';
 			} else {
 				// No page creation
-//        $scope.currentPage.status = 'New';
+		        // $scope.currentPage.status = 'New';
 			}
 			$scope.setDirty();
 		}, function() {
@@ -299,56 +292,6 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 		});
 	};
 
-	// This is the function that displays the upload error messages
-	$scope.displayUploadError = function(errFile) {
-		// dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidfile);
-		if (errFile.$error == 'maxSize') {
-			dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidfilesize + errFile.$errorParam);
-		} else if (errFile.$error == 'maxWidth') {
-			dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidmaxwidth + errFile.$errorParam);
-		} else if (errFile.$error == 'maxHeight') {
-			dialogService.alertDlg($scope.translationObj.detailssection.msgerrinvalidmaxheight + errFile.$errorParam);
-		}
-	}
-
-	// This is the function that uploads the image for the current event
-	$scope.uploadMainImage = function(file, errFiles) {
-		$scope.f = file;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-		}
-		if (file) {
-			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-				dialogService.alertDlg('only jpg files are allowed.');
-				return;
-			}
-			file.upload = Upload.upload({
-				url: './wsnewpageview/uploadmainimage.php',
-				method: 'POST',
-				file: file,
-				data: {
-					'mainobj': $scope.selectedSectionObj
-				}
-			});
-			file.upload.then(function (data) {
-				$timeout(function () {
-					if (data.data.success) {
-						dialogService.alertDlg($scope.translationObj.detailssection.msguploadcompleted);
-						// Select this event to reset everything
-						$scope.setCurrentInternal(null, null);
-					} else {
-						dialogService.displayFailure(data.data);
-					}
-				});
-			}, function (data) {
-				if (!data.success) {
-					dialogService.displayFailure(data.data);
-				}
-			}, function (evt) {
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-	}
 	
 	$scope.testRemarkable = function() {
 		var md = new Remarkable({
@@ -357,7 +300,7 @@ angular.module('cpa_admin.wsnewpageview', ['ngRoute'])
 			breaks:       false         // Convert '\n' in paragraphs into <br>
 //      langPrefix:   'language-',  // CSS language prefix for fenced blocks
 //      typographer:  false,        // Enable some language-neutral replacement + quotes beautification
-//      quotes: '“”‘’',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+//      quotes: 'ï¿½ï¿½ï¿½ï¿½',             // Double + single quotes replacement pairs, when typographer enabled, and smartquotes on. Set doubles to 'ï¿½ï¿½' for Russian, 'ï¿½ï¿½' for German.
 //      highlight: function (/*str, lang*/) { return ''; } // Highlighter function. Should return escaped HTML, or '' if the source string is not changed
 		});
 

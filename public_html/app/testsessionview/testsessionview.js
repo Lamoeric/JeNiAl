@@ -359,7 +359,6 @@ angular.module('cpa_admin.testsessionview', ['ngRoute'])
 		// Copy in another object
 		angular.copy(newPeriod, $scope.newPeriod);
 		// Get the values for the judges drop down list
-		// listsService.getAllJudgesForPeriod($scope, day.id, authenticationService.getCurrentLanguage());
 		// Get the values for the ice drop down list
 		$scope.ices = arenaService.getArenaIces($scope, newPeriod.arenaid);
 		$uibModal.open({

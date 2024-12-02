@@ -1,45 +1,48 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.testsession.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.testsession.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-2">
-	      <label for="id">{{translationObj.testsession.fieldsessionno}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
-					<input type="text" name="id" class="form-control" id="id" ng-model="currentTestsession.id" maxlength="10" disabled>
-	      </div>
-	    </div>
-	  </div>
+			<div class="col-xs-2">
+				<label for="id">{{translationObj.testsession.fieldsessionno}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+					<input type="text" class="form-control" id="id" ng-model="currentTestsession.id" maxlength="10" disabled>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-6">
-	      <label for="name">{{translationObj.testsession.fieldname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentTestsession.name" maxlength="120" ng-required="true" ng-disabled="currentTestsession.islock" autocomplete="off">
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-6">
+				<labelrequired for="namesession" label="translationObj.testsession.fieldname"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="namesession" ng-model="currentTestsession.name"
+						maxlength="120" ng-required="true" ng-disabled="currentTestsession.islock" autocomplete="off">
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-12">
-	      <label for="label_en">{{translationObj.testsession.fieldenglishlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentTestsession.label_en" maxlength="200" ng-required="true" ng-disabled="currentTestsession.islock">
-	      </div>
-	    </div>
-  	</div>
+			<div class="col-xs-6">
+				<labelrequired for="label_en" label="translationObj.testsession.fieldenglishlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_en" ng-model="currentTestsession.label_en"
+						maxlength="200" ng-required="true" ng-disabled="currentTestsession.islock">
+				</div>
+			</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-12">
-	      <label for="label_fr">{{translationObj.testsession.fieldfrenchlabel}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentTestsession.label_fr" maxlength="200" ng-required="true" ng-disabled="currentTestsession.islock">
-	      </div>
-	    </div>
-    </div>
+			<div class="col-xs-6">
+				<labelrequired for="label_fr" label="translationObj.testsession.fieldfrenchlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="label_fr" ng-model="currentTestsession.label_fr"
+						maxlength="200" ng-required="true" ng-disabled="currentTestsession.islock">
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-3">
-				<label for="homeclub">{{translationObj.testsession.fieldhomeclub}}<i style="color:red"> *</i></label>
+				<labelrequired for="homeclub" label="translationObj.testsession.fieldhomeclub"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="homeclub" ng-model="currentTestsession.homeclub" ng-required="true" ng-disabled="currentTestsession.islock">
@@ -48,7 +51,7 @@
 				</div>
 			</div>
 			<div class="col-xs-3">
-				<label for="testdirectorid">{{translationObj.testsession.fieldtestdirector}}<i style="color:red"> *</i></label>
+				<labelrequired for="testdirectorid" label="translationObj.testsession.fieldtestdirector"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<select class="form-control" id="testdirectorid" ng-model="currentTestsession.testdirectorid" ng-required="true" ng-disabled="currentTestsession.islock">
@@ -59,30 +62,28 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-3">
-				<label for="nbofdaysprior" >{{translationObj.testsession.fielddaysprior}}<i style="color:red"> *</i></label>
+				<labelrequired for="nbofdaysprior" label="translationObj.testsession.fielddaysprior"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-					<!-- <input type="number" class="form-control" id="nbofdaysprior" ng-model="currentTestsession.nbofdaysprior" min="0" max="99" required> -->
 					<input type="number" class="form-control" id="nbofdaysprior" ng-model="currentTestsession.nbofdaysprior" required ng-disabled="currentTestsession.islock">
-					<!-- <input type="date" class="form-control" id="cancellationenddate" ng-model="currentTestsession.cancellationenddate" ng-required="true"> -->
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
-				<label for="registrationstartdate">{{translationObj.testsession.fieldtestsessionstartdate}}<i style="color:red"> *</i></label>
+				<labelrequired for="registrationstartdate" label="translationObj.testsession.fieldtestsessionstartdate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					<input type="date" class="form-control" id="registrationstartdate" ng-model="currentTestsession.testsessionstartdate" ng-required="true" ng-disabled="currentTestsession.islock">
 				</div>
 			</div>
 			<div class="col-xs-2">
-				<label for="registrationenddate" >{{translationObj.testsession.fieldtestsessionenddate}}<i style="color:red"> *</i></label>
+				<labelrequired for="registrationenddate" label="translationObj.testsession.fieldtestsessionenddate"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					<input type="date" class="form-control" id="registrationenddate" ng-model="currentTestsession.testsessionenddate" ng-required="true" ng-disabled="currentTestsession.islock">
 				</div>
 			</div>
 		</div>
-  </div>
+	</div>
 </div>

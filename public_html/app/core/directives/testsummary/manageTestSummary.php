@@ -15,7 +15,7 @@ function getOneTestSummary($mysqli, $memberid, $testtype, $language){
 							FROM
 							(SELECT ctd.id as testdefid, ctd.level, ctd.type, ctd.subtype, getCodeDescription('testlevels', ctd.level, '$language') testlevellabel,
 								getCodeDescription('testsubtypes', ctd.subtype, '$language') testsubtypelabel, minimumnbtests,
-							    (SELECT count(*)
+							    (SELECT count(distinct memberid, testid, success)
 							     FROM cpa_members_tests
 							     cmt join cpa_tests ct on ct.id = cmt.testid
 							     WHERE ct.testsdefinitionsid = ctd.id
@@ -54,7 +54,7 @@ function getOneStarTestSummary($mysqli, $memberid, $testtype, $language){
 							FROM
 							(SELECT ctd.id as testdefid, ctd.level, ctd.type, ctd.subtype, getCodeDescription('testnewlevels', ctd.level, '$language') testlevellabel,
 								getCodeDescription('testsubtypes', ctd.subtype, '$language') testsubtypelabel, minimumnbtests,
-							    (SELECT count(*)
+							    (SELECT count(distinct memberid, testid, success)
 							     FROM cpa_members_tests
 							     cmt join cpa_tests ct on ct.id = cmt.testid
 							     WHERE ct.testsdefinitionsid = ctd.id
@@ -93,13 +93,13 @@ function getOneSubTestSummary($mysqli, $memberid, $testtype, $testSubType, $lang
 							FROM
 							(SELECT ctd.id as testdefid, ctd.level, ctd.type, ctd.subtype, getCodeDescription('testlevels', ctd.level, '$language') testlevellabel,
 								getCodeDescription('testsubtypes', ctd.subtype, '$language') testsubtypelabel, minimumnbtests,
-							    (SELECT count(*)
+							    (SELECT count(distinct memberid, testid, success)
 							     FROM cpa_members_tests
 							     cmt join cpa_tests ct on ct.id = cmt.testid
 							     WHERE ct.testsdefinitionsid = ctd.id
 							     AND success IN (1,5)
 							     AND memberid = $memberid) membersuccess,
-							    if((SELECT count(*)
+							    if((SELECT count(distinct memberid, testid, success)
 							    		FROM cpa_members_tests cmt
 							    		JOIN cpa_tests ct ON ct.id = cmt.testid
 							    		WHERE ct.testsdefinitionsid = ctd.id

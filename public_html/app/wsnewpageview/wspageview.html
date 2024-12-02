@@ -6,10 +6,10 @@
 					<!-- <main-new-button new-callback="createNew()"></main-new-button> -->
 					<main-save-button save-callback="saveToDB()" is-form-pristine="isFormPristine && !detailsForm.$dirty"></main-save-button>
 					<!-- <main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentWspage && currentWspage.isused > 0"></main-delete-button> -->
-					<button type="button" class="btn btn-primary" ng-click="showPreview()"			>{{translationObj.main.buttontitleshowpreview}}</button>
+					<button type="button" class="btn btn-primary" ng-click="showPreview()">{{translationObj.main.buttontitleshowpreview}}</button>
 
           <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="pagelist">
-						<div ng-include="'wsnewpageview/wspage.html'"></div>
+					  <div ng-include="'wsnewpageview/wspage.html'"></div>
          </form>
 
   </row>

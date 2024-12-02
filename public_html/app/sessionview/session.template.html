@@ -1,1 +1,7 @@
-<div><p>{{leftobj.name}}<span style="color:red" ng-show="leftobj.active==1"> ({{translationObj.leftPane.labeltitleactive}})</span></p></div>
+<div>
+    <p>
+        <span ng-class="{redfont : leftobj.active==0}">{{leftobj.maintitle}}</span>
+        <span style="color:red" ng-show="leftobj.active==1"> ({{translationObj.leftPane.labeltitleactive}})</span><br>
+        {{leftobj.startdate}}&nbsp;-&nbsp;{{leftobj.enddate}}
+    </p>
+</div>

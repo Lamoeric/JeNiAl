@@ -1,23 +1,23 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newdocument.formtitleeditarena}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+  <div class="modal-header">
+    <h4 class="modal-title">{{translationObj.newdocument.formtitleeditdocument}}</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <div class="col-xs-10">
-      	<label for="documentname">{{translationObj.newdocument.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" name="documentname" class="form-control" id="documentname" ng-model="newObj.documentname" maxlength="40" required>
-	      </div>
+        <labelrequired for="documentname" label="translationObj.newdocument.fieldtitlename"></labelrequired>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input type="text" name="documentname" class="form-control" id="documentname" ng-model="newObj.documentname" maxlength="40" required autofocus>
+        </div>
       </div>
     </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newdocument.formerrormessage}}
+    <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+      {{translationObj.newdocument.formerrormessage}}
+    </div>
   </div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newdocument.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newdocument.buttontitlekeepchanges}}</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newdocument.buttontitlediscard}}</button>
+    <button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newdocument.buttontitlekeepchanges}}</button>
+  </div>
+</form>

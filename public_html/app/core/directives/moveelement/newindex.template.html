@@ -1,0 +1,23 @@
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newindex.formtitleeditindex}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			<div class="col-xs-12">
+				<label for="newIndex">{{translationObj.newindex.fieldtitlenewindex}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="newIndex" class="form-control" id="newIndex" ng-model="newObj.newIndex" min="1" required>
+				</div>
+			</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newindex.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newindex.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newindex.buttontitlekeepchanges}}</button>
+	</div>
+</form>

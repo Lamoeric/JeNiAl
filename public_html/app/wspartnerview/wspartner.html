@@ -1,23 +1,26 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentWspartner.name" maxlength="40" required>
-	      </div>
-	    </div>
+			<div class="col-xs-4">
+				<label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentWspartner.name"
+						maxlength="40" required autocomplete="off">
+				</div>
+			</div>
 			<div class="col-xs-2">
-	      <label for="partnerindex">{{translationObj.details.fieldtitlepartnerindex}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="numeric" name="partnerindex" class="form-control" id="partnerindex" ng-model="currentWspartner.partnerindex" min="1" max="99" required>
-	      </div>
-	    </div>
+				<label for="partnerindex">{{translationObj.details.fieldtitlepartnerindex}}<i style="color:red">
+						*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="partnerindex" class="form-control" id="partnerindex"
+						ng-model="currentWspartner.partnerindex" min="1" max="99" required>
+				</div>
+			</div>
 			<div class="col-xs-2">
-				<label for="active">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="publish" ng-model="currentWspartner.publish" required>
@@ -27,111 +30,67 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
-	      <label for="link_en">{{translationObj.details.fieldtitlelink_en}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="link_en" class="form-control" id="link_en" ng-model="currentWspartner.link_en" maxlength="2000" required>
-	      </div>
-    	</div>
-      <div class="col-xs-4">
-	      <label for="link_fr">{{translationObj.details.fieldtitlelink_fr}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="link_fr" class="form-control" id="link_fr" ng-model="currentWspartner.link_fr" maxlength="2000" required>
-	      </div>
-	     </div>
-    </div>
-		<div class="row" ng-if="currentWspartner.imagefilename_en && currentWspartner.imageinfo_en">
-
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/partners/{{currentWspartner.displayimagefilename_en}}" class="team-pic" alt="">
-					</div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="link_en">{{translationObj.details.fieldtitlelink_en}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="link_en" class="form-control" id="link_en"
+						ng-model="currentWspartner.link_en" maxlength="2000" ng-required="config.supportenglish==1">
 				</div>
 			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimageenwidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="currentWspartner.imageinfo_en[0]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimageenheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWspartner.imageinfo_en[1]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimageentype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWspartner.imageinfo_en['mime']" disabled>
-	      </div>
-			</div>
-
-		</div>
-
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainImageEn($file, $invalidFiles)" accept="image/jpeg;image/png" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimageen}}</button>
-				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
-  		</div>
-  	</div>
-
-		<div class="row" ng-if="currentWspartner.imagefilename_fr && currentWspartner.imageinfo_fr">
-
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/partners/{{currentWspartner.displayimagefilename_fr}}" class="team-pic" alt="">
-					</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="link_fr">{{translationObj.details.fieldtitlelink_fr}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="link_fr" class="form-control" id="link_fr"
+						ng-model="currentWspartner.link_fr" maxlength="2000" ng-required="config.supportfrench==1">
 				</div>
 			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimagefrwidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="currentWspartner.imageinfo_fr[0]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimagefrheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWspartner.imageinfo_fr[1]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimagefrtype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWspartner.imageinfo_fr['mime']" disabled>
-	      </div>
-			</div>
-
 		</div>
 
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
+		<div ng-if="config.supportenglish==1">
+			<displaywebsiteimage 
+				displayimagefilename="'partners/'+currentWspartner.displayimagefilename_en"
+				imageinfo="currentWspartner.imageinfo_en">
+			</displaywebsiteimage>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<uploadwebsiteimagebutton 
+						subdirectory="'/website/images/partners/'"
+						fileprefix="currentWspartner.name + '_en-ca'"
+						tablename="'cpa_ws_text'" 
+						id="currentWspartner.imagefilename"
+						language="'en-ca'"
+						oldfilename="currentWspartner.imagefilename_en" 
+						callback="setCurrentInternal(currentWspartner)"
+						is-disabled="!isFormPristine || detailsForm.$dirty">
+					</uploadwebsiteimagebutton>
+				</div>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainImageFr($file, $invalidFiles)" accept="image/jpeg;image/png" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimagefr}}</button>
-				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
-  		</div>
-  	</div>
-  </div>
+		<div ng-if="config.supportfrench==1">
+			<displaywebsiteimage 
+				displayimagefilename="'partners/'+currentWspartner.displayimagefilename_fr"
+				imageinfo="currentWspartner.imageinfo_fr">
+			</displaywebsiteimage>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<uploadwebsiteimagebutton 
+						subdirectory="'/website/images/partners/'"
+						fileprefix="currentWspartner.name + '_fr-ca'"
+						tablename="'cpa_ws_text'" 
+						id="currentWspartner.imagefilename"
+						language="'fr-ca'"
+						oldfilename="currentWspartner.imagefilename_fr" 
+						callback="setCurrentInternal(currentWspartner)"
+						is-disabled="!isFormPristine || detailsForm.$dirty">
+					</uploadwebsiteimagebutton>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>

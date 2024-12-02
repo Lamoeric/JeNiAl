@@ -136,7 +136,7 @@ function getSessionCourseSchedule($mysqli, $sessionscoursesid, $language) {
 																				substr(starttime FROM 1 FOR 5),
 																				' - ',
 																				substr(endtime FROM 1 FOR 5))
-																SEPARATOR ', ') schedule
+																SEPARATOR '; ') schedule
 						from cpa_sessions_courses_schedule
 						where sessionscoursesid = $sessionscoursesid";
 	$result = $mysqli->query($query);

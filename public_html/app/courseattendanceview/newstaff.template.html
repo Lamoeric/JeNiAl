@@ -1,0 +1,40 @@
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newstaff.formtitleeditstaff}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group row">
+
+			<div class="col-xs-12 col-md-8">
+				<labelrequired for="staffcode" label="translationObj.newstaff.fieldtype"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="staffcode" ng-model="newObj.staffcode" ng-change="onStaffcodeChange(newObj)" required autofocus>
+						<option ng-repeat="staffcode in staffcodes" value="{{staffcode.code}}">{{staffcode.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="clearfix visible-xs visible-md visible-lg"></div>
+			<div class="col-xs-12 col-md-8">
+				<labelrequired for="memberid" label="translationObj.newstaff.fieldmember"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="memberid" ng-model="newObj.memberid" required>
+						<option ng-repeat="coach in staffs" value="{{coach.id}}">{{coach.text}}</option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newstaff.formerrormessage}}
+		</div>
+		<div class="alert alert-danger" id="editObjStaffAlreadyExists" style="display:none;">
+			{{translationObj.newstaff.formerrorstaffalreadyexists}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newstaff.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newstaff.buttontitlekeepchanges}}</button>
+	</div>
+</form>

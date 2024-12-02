@@ -6,45 +6,41 @@
 		<div class="form-group">
 
 			<div class="col-xs-7">
-				<label for="linkname">{{translationObj.newlink.fieldlinkname}}<i style="color:red"> *</i></label>
+				<labelrequired for="linkname" label="translationObj.newlink.fieldlinkname"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="linkname" class="form-control" id="linkname" ng-model="newObj.linkname" maxlength="40"required>
+					<input type="text" name="linkname" class="form-control" id="linkname" ng-model="newObj.linkname" maxlength="40" required>
 				</div>
 			</div>
 
-			<!-- <div class="col-xs-6">
-				<div>&nbsp;</div>
-			</div> -->
-
-			<div class="col-xs-6">
-				<label for="label_en">{{translationObj.newlink.fieldlabelen}}<i style="color:red"> *</i></label>
+			<div class="col-xs-6" ng-if="languages.supportenglish==1">
+				<labelrequired for="label_en" label="translationObj.newlink.fieldlabelen"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="newObj.label_en" maxlength="2000" required>
+					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="newObj.label_en" maxlength="2000" ng-required="languages.supportenglish==1">
 				</div>
 			</div>
 
-			<div class="col-xs-6">
-				<label for="label_fr">{{translationObj.newlink.fieldlabelfr}}<i style="color:red"> *</i></label>
+			<div class="col-xs-6" ng-if="languages.supportfrench==1">
+				<labelrequired for="label_fr" label="translationObj.newlink.fieldlabelfr"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="newObj.label_fr" maxlength="2000" required>
+					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="newObj.label_fr" maxlength="2000" ng-required="languages.supportfrench==1">
 				</div>
 			</div>
 
 			<div class="col-xs-6">
-				<label for="position">{{translationObj.newlink.fieldlinkposition}}<i style="color:red"> *</i></label>
+				<labelrequired for="position" label="translationObj.newlink.fieldlinkposition"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" ng-model="newObj.position" required>
+					<select class="form-control" id="position" ng-model="newObj.position" required>
 						<option ng-repeat="wslinkposition in wslinkpositions" value="{{wslinkposition.code}}">{{wslinkposition.text}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6">
-				<label for="linkindex">{{translationObj.newlink.fieldlinkindex}}<i style="color:red"> *</i></label>
+				<labelrequired for="linkindex" label="translationObj.newlink.fieldlinkindex"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="number" name="linkindex" class="form-control" id="linkindex" ng-model="newObj.linkindex" min="1" max="99" required>
@@ -52,47 +48,47 @@
 			</div>
 
 			<div class="col-xs-6">
-				<label for="linktype">{{translationObj.newlink.fieldlinktype}}<i style="color:red"> *</i></label>
+				<labelrequired for="linktype" label="translationObj.newlink.fieldlinktype"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" ng-model="newObj.linktype" required ng-change="internalControl.onLinkTypeChange(newObj);">
+					<select class="form-control" id="linktype" ng-model="newObj.linktype" required ng-change="control.onLinkTypeChange(newObj);">
 						<option ng-repeat="wslinktype in wslinktypes" value="{{wslinktype.code}}">{{wslinktype.text}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6" ng-show="newObj.linktype=='1'">
-				<label for="linkpage">{{translationObj.newlink.fieldlinkpage}}<i style="color:red"> *</i></label>
+				<labelrequired for="linkpage" label="translationObj.newlink.fieldlinkpage"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" ng-model="newObj.linkpage"  ng-required="newObj.linktype=='1'" ng-change="internalControl.onLinkPageChange(newObj);">
+					<select class="form-control" id="linkpage" ng-model="newObj.linkpage"  ng-required="newObj.linktype=='1'" ng-change="control.onLinkPageChange(newObj);">
 						<option ng-repeat="wspage in wspages" value="{{wspage.name}}">{{wspage.name}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6" ng-show="newObj.linktype=='1'">
-				<label for="linksection">{{translationObj.newlink.fieldlinksection}}<i style="color:red"> *</i></label>
+				<labelrequired for="linksection" label="translationObj.newlink.fieldlinksection"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" ng-model="newObj.linksection" ng-required="newObj.linktype=='1'">
+					<select class="form-control" id="linksection" ng-model="newObj.linksection" ng-required="newObj.linktype=='1'">
 						<option ng-repeat="wssection in wssections" value="{{wssection.sectionname}}">{{wssection.sectionname}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6" ng-show="newObj.linktype=='2'">
-				<label for="linkdocumentid">{{translationObj.newlink.fieldlinkdocumentid}}<i style="color:red"> *</i></label>
+				<labelrequired for="linkdocumentid" label="translationObj.newlink.fieldlinkdocumentid"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" ng-model="newObj.linkdocumentid" ng-required="newObj.linktype=='2'">
+					<select class="form-control" id="linkdocumentid" ng-model="newObj.linkdocumentid" ng-required="newObj.linktype=='2'">
 						<option ng-repeat="wsdocument in wsdocuments" value="{{wsdocument.id}}">{{wsdocument.documentname}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-xs-6" ng-show="newObj.linktype=='3'||newObj.linktype=='4'">
-				<label for="linkexternal">{{translationObj.newlink.fieldlinkexternal}}<i style="color:red"> *</i></label>
+				<labelrequired for="linkexternal" label="translationObj.newlink.fieldlinkexternal"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text" name="linkexternal" class="form-control" id="linkexternal" ng-model="newObj.linkexternal" maxlength="500" ng-required="newObj.linktype=='3'">

@@ -2,13 +2,14 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
+require_once('../../backend/invalidrequest.php'); //
 require_once('../core/directives/contacts/contacts.php');
 require_once('../core/directives/testsummary/manageTestSummary.php');
 require_once('../core/directives/billing/bills.php');
 
-if ( isset($_POST['type']) && !empty( isset($_POST['type']))) {
+if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
@@ -34,7 +35,8 @@ if ( isset($_POST['type']) && !empty( isset($_POST['type']))) {
 	invalidRequest(null);
 };
 
-function updateEntireMember($mysqli, $member) {
+function updateEntireMember($mysqli, $member)
+{
 	try {
 		$data = array();
 		$id = $mysqli->real_escape_string(isset($member['id']) ? $member['id'] : '');
@@ -107,12 +109,11 @@ function updateEntireMember($mysqli, $member) {
 		}
 
 		$mysqli->close();
-
 		$data['success'] = true;
 		$data['message'] = 'Member updated successfully.';
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -121,7 +122,8 @@ function updateEntireMember($mysqli, $member) {
 	}
 };
 
-function insert_member($mysqli, $member) {
+function insert_member($mysqli, $member)
+{
 	try {
 		$data = array();
 		$data = update_member($mysqli, $member);
@@ -129,7 +131,7 @@ function insert_member($mysqli, $member) {
 		$data['message'] = 'Member inserted successfully.';
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -142,7 +144,8 @@ function insert_member($mysqli, $member) {
  * This function will handle user update functionality
  * @throws Exception
  */
-function update_member($mysqli, $member) {
+function update_member($mysqli, $member)
+{
 	$data = array();
 	$id = 				$mysqli->real_escape_string(isset($member['id']) 				? $member['id'] : '');
 	$firstname = 		$mysqli->real_escape_string(isset($member['firstname']) 		? $member['firstname'] : '');
@@ -173,10 +176,10 @@ function update_member($mysqli, $member) {
 	$mainprogram = 		$mysqli->real_escape_string(isset($member['mainprogram']) 		? $member['mainprogram'] : '');
 	$secondprogram = 	$mysqli->real_escape_string(isset($member['secondprogram'])		? $member['secondprogram'] : '');
 	$comments = 		$mysqli->real_escape_string(isset($member['comments']) 			? $member['comments'] : '');
-	$birthday = 		$mysqli->real_escape_string(isset($member['birthday']) && $member['birthday'] !='' ? $member['birthday'] : '0000-01-01');
+	$birthday = 		$mysqli->real_escape_string(isset($member['birthday']) && $member['birthday'] != '' ? $member['birthday'] : '0000-01-01');
 
 	if ($firstname == '' || $lastname == '') {
-		throw new Exception( "Required fields missing. Please enter and submit");
+		throw new Exception("Required fields missing. Please enter and submit");
 	}
 
 	if (empty($id)) {
@@ -193,12 +196,12 @@ function update_member($mysqli, $member) {
 
 	if ($mysqli->query($query)) {
 		$data['success'] = true;
-		if (!empty($id))$data['message'] = 'Member updated successfully.';
+		if (!empty($id)) $data['message'] = 'Member updated successfully.';
 		else $data['message'] = 'Member inserted successfully.';
-		if (empty($id))$data['id'] = (int) $mysqli->insert_id;
+		if (empty($id)) $data['id'] = (int) $mysqli->insert_id;
 		else $data['id'] = (int) $id;
 	} else {
-		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 	return $data;
 };
@@ -208,9 +211,10 @@ function update_member($mysqli, $member) {
  * @param object $member
  * @throws Exception
  */
-function delete_member($mysqli, $id = '') {
+function delete_member($mysqli, $id = '')
+{
 	try {
-		if (empty($id)) throw new Exception( "Invalid Member.");
+		if (empty($id)) throw new Exception("Invalid Member.");
 		$query = "DELETE FROM cpa_members WHERE id = '$id'";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
@@ -218,9 +222,9 @@ function delete_member($mysqli, $id = '') {
 			echo json_encode($data);
 			exit;
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -233,45 +237,48 @@ function delete_member($mysqli, $id = '') {
  * This function gets list of all members from database
  * [lamoeric 2018/09/11] Added the BINARY clause when comparing qualifications to make the comparison case sensitive
  */
-function getAllMembers($mysqli, $filter) {
+function getAllMembers($mysqli, $filter)
+{
 	try {
 		$data = array();
 		$data['success'] = null;
-		$whereclause = " where 1=1 ";
-		if (!empty($filter['firstname'])) {	
-			$whereclause .= " and cm.firstname like '" . $filter['firstname'] . "'";
-		}
-		if (!empty($filter['lastname'])) {
-			$whereclause .= " and cm.lastname like '" .  $filter['lastname']  . "'";
-		}
-		if (!empty($filter['qualification'])) {
-			$whereclause .= " and cm.qualifications like BINARY '%" .  $filter['qualification']  . "%'";
-		}
-		if (!empty($filter['course']) && (empty($filter['onlyactivemembers']) || $filter['onlyactivemembers'] == 0)) {
-			$whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid = '" . $filter['course']  . "')" ;
-		}
-		if (!empty($filter['course']) && (isset($filter['onlyactivemembers']) && $filter['onlyactivemembers'] == 1)) {
-			$whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid = '" . $filter['course']  . "' and (registrationenddate is null or registrationenddate > now()))" ;
-		}
-		if (!empty($filter['registration']) && $filter['registration'] == 'REGISTERED') {
-			$whereclause .= " and cm.id in (select memberid from cpa_sessions_courses_members where sessionscoursesid in (select id from cpa_sessions_courses where sessionid = (select id from cpa_sessions where active = '1')))" ;
-		}
-		if (!empty($filter['registration']) && $filter['registration'] == 'NOTREGISTERED') {
-			$whereclause .= " and cm.id not in (select memberid from cpa_sessions_courses_members where sessionscoursesid in (select id from cpa_sessions_courses where sessionid = (select id from cpa_sessions where active = '1')))" ;
-		}
-//		$query = "SELECT id, lastname, firstname, skatecanadano FROM cpa_members order by lastname, firstname LIMIT $nbrows OFFSET $offset";
-		$query = "SELECT cm.id, cm.lastname, cm.firstname, cm.skatecanadano
-							FROM cpa_members cm ". $whereclause ."
-							ORDER by lastname, firstname";
-		$result = $mysqli->query($query);
+		$whereclause = " WHERE 1=1 ";
 
+		$firstname = empty($filter['firstname']) ? null : $mysqli->real_escape_string($filter['firstname']);
+		$lastname = empty($filter['lastname']) ? null : $mysqli->real_escape_string($filter['lastname']);
+		$qualification = empty($filter['qualification']) ? null : $mysqli->real_escape_string($filter['qualification']);
+		$course = empty($filter['course']) ? null : $mysqli->real_escape_string($filter['course']);
+		$onlyactivemembers = empty($filter['onlyactivemembers']) || $filter['onlyactivemembers'] == 0 ? 0 : 1;
+		$registration = empty($filter['registration']) ? null : $mysqli->real_escape_string($filter['registration']);
+		$agemin = empty($filter['agemin']) ? null : (int)$mysqli->real_escape_string($filter['agemin']);
+		$canskatebadgemin = empty($filter['canskatebadgemin']) ? null : (int)$mysqli->real_escape_string($filter['canskatebadgemin']);
+
+		$whereclause .= !is_null($firstname) ? " AND cm.firstname LIKE '$firstname'" : '';
+		$whereclause .= !is_null($lastname) ? " AND cm.lastname LIKE '$lastname'" : '';
+		$whereclause .= !is_null($qualification) ? " AND cm.qualifications LIKE BINARY '%$qualification%'" : '';
+		if (!is_null($registration)) {
+			$whereclause .= $registration == 'REGISTERED' ?    " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid IN (SELECT id FROM cpa_sessions_courses WHERE sessionid = (SELECT id FROM cpa_sessions WHERE active = '1')))" : '';
+			$whereclause .= $registration == 'NOTREGISTERED' ? " AND cm.id NOT IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid IN (SELECT id FROM cpa_sessions_courses WHERE sessionid = (SELECT id FROM cpa_sessions WHERE active = '1')))" : '';
+		}
+		if (!is_null($course)) {
+			$whereclause .= $onlyactivemembers == 0 ? " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid = '$course')" : '';
+			$whereclause .= $onlyactivemembers == 1 ? " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid = '$course' AND (registrationenddate IS NULL OR registrationenddate > now()))" : '';
+		}
+		$whereclause .= !is_null($agemin) ? " AND DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),birthday)), '%Y') >= $agemin" : '';
+		$whereclause .= !is_null($canskatebadgemin) ? " AND (SELECT max(canskatestage) FROM cpa_members_canskate_badges WHERE memberid = cm.id) >= $canskatebadgemin" : '';
+		//		$query = "SELECT id, lastname, firstname, skatecanadano FROM cpa_members order by lastname, firstname LIMIT $nbrows OFFSET $offset";
+		$query = "SELECT cm.id, cm.lastname, cm.firstname, cm.skatecanadano
+					FROM cpa_members cm " . $whereclause . "
+					ORDER by lastname, firstname";
+		$result = $mysqli->query($query);
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
+		$data['query'] = $query;
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -283,10 +290,11 @@ function getAllMembers($mysqli, $filter) {
 /**
  * This function gets the bills of a member
  */
-function getMemberBills($mysqli, $memberid, $language){
-		$data = array();
-		$data['data'] = array();
-		$query = "SELECT distinct cb.billingdate, cb.*, cs.id sessionid, gettextLabel(cs.label, '$language') sessionlabel
+function getMemberBills($mysqli, $memberid, $language)
+{
+	$data = array();
+	$data['data'] = array();
+	$query = "SELECT distinct cb.billingdate, cb.*, cs.id sessionid, gettextLabel(cs.label, '$language') sessionlabel
 							FROM cpa_bills cb
 							JOIN cpa_bills_registrations cbr ON cbr.billid = cb.id
 							JOIN cpa_registrations cr ON cr.id = cbr.registrationid AND memberid = $memberid
@@ -307,21 +315,22 @@ function getMemberBills($mysqli, $memberid, $language){
 							JOIN cpa_shows cs ON cs.id = cr.showid
 							WHERE cb.relatednewbillid is null
 							ORDER BY 1 DESC";
-		$result = $mysqli->query( $query );
-		while ($row = $result->fetch_assoc()) {
-			$data['data'][] = $row;
-		}
-		$data['success'] = true;
-		return $data;
-		exit;
+	$result = $mysqli->query($query);
+	while ($row = $result->fetch_assoc()) {
+		$data['data'][] = $row;
+	}
+	$data['success'] = true;
+	return $data;
+	exit;
 };
 
 /**
  * This function gets the details of one member from database
  */
-function getMemberDetails($mysqli, $id, $language) {
+function getMemberDetails($mysqli, $id, $language)
+{
 	try {
-		if (empty($id)) throw new Exception( "Invalid User.");
+		if (empty($id)) throw new Exception("Invalid User.");
 		$query = "SELECT * FROM cpa_members WHERE id = '$id'";
 		$result = $mysqli->query($query);
 		$data = array();
@@ -367,8 +376,9 @@ function getMemberDetails($mysqli, $id, $language) {
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
-		echo json_encode($data);exit;
-	}catch (Exception $e) {
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -406,9 +416,10 @@ function getMemberDetails($mysqli, $id, $language) {
 /**
  * This function gets the coaches of one member from database
  */
-function getMemberCoaches($mysqli, $memberid = '') {
+function getMemberCoaches($mysqli, $memberid = '')
+{
 	try {
-		if (empty($memberid)) throw new Exception( "Invalid Member ID.");
+		if (empty($memberid)) throw new Exception("Invalid Member ID.");
 		$query = "SELECT * FROM cpa_members_coaches WHERE memberid = '$memberid'";
 		$result = $mysqli->query($query);
 		$data = array();
@@ -418,7 +429,7 @@ function getMemberCoaches($mysqli, $memberid = '') {
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -429,9 +440,10 @@ function getMemberCoaches($mysqli, $memberid = '') {
 /**
  * This function gets the tests of one member from database
  */
-function getMemberTests($mysqli, $memberid, $type, $language) {
+function getMemberTests($mysqli, $memberid, $type, $language)
+{
 	try {
-		if (empty($memberid)) throw new Exception( "Invalid Member ID.");
+		if (empty($memberid)) throw new Exception("Invalid Member ID.");
 		$query = "SELECT ct.id as testid, testdate as testdatestr, success, ctd.level, ctd.type, ctd.subtype, ct.subsubtype, cmt.id as id,
 								getTextLabel(ct.label, '$language') testlabel, getCodeDescription('testlevels', ctd.level, '$language') testlevellabel,
 								getCodeDescription('testsubtypes', ctd.type, '$language') testsubtypelabel
@@ -449,7 +461,7 @@ function getMemberTests($mysqli, $memberid, $type, $language) {
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -460,9 +472,10 @@ function getMemberTests($mysqli, $memberid, $type, $language) {
 /**
  * This function gets the new STAR tests of one member from database
  */
-function getMemberStarTests($mysqli, $memberid, $type, $language) {
+function getMemberStarTests($mysqli, $memberid, $type, $language)
+{
 	try {
-		if (empty($memberid)) throw new Exception( "Invalid Member ID.");
+		if (empty($memberid)) throw new Exception("Invalid Member ID.");
 		$query = "SELECT ct.id as testid, testdate as testdatestr, success, ctd.level, ctd.type, ctd.subtype, ct.subsubtype, cmt.id as id,
 								getTextLabel(ct.label, '$language') testlabel, getCodeDescription('testlevels', ctd.level, '$language') testlevellabel,
 								getCodeDescription('testsubtypes', ctd.type, '$language') testsubtypelabel
@@ -480,7 +493,7 @@ function getMemberStarTests($mysqli, $memberid, $type, $language) {
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -575,7 +588,8 @@ function getMemberStarTests($mysqli, $memberid, $type, $language) {
 /**
  * This function gets the dance tests of one member from database
  */
-function getMemberCanskateTests($mysqli, $memberid, $category) {
+function getMemberCanskateTests($mysqli, $memberid, $category)
+{
 	try {
 		$data = array();
 		$data['data'] = array();
@@ -587,7 +601,7 @@ function getMemberCanskateTests($mysqli, $memberid, $category) {
 		$data['data']['6'] = getMemberCanskateStageTests($mysqli, $memberid, $category, 6)['data'];
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -597,14 +611,16 @@ function getMemberCanskateTests($mysqli, $memberid, $category) {
 /**
  * This function gets the contacts of one member from database
  */
-function getMemberActiveCoursesDates($mysqli, $memberid, $sessionscoursesid, $registrationenddate, $language) {
+function getMemberActiveCoursesDates($mysqli, $memberid, $sessionscoursesid, $registrationenddate, $language)
+{
 	try {
-		if (empty($memberid)) throw new Exception( "Invalid Member ID.");
-		$query = "SELECT cscd.*, if ('$registrationenddate' != '' AND cscd.coursedate >= '$registrationenddate', 'XXX', if (cscd.canceled, '---', cscp.ispresent)) ispresent
-							FROM cpa_sessions_courses_dates cscd
-							LEFT JOIN cpa_sessions_courses_presences cscp ON cscp.sessionscoursesdatesid = cscd.id and cscp.memberid = '$memberid'
-							WHERE sessionscoursesid = $sessionscoursesid
-							ORDER BY coursedate";
+		if (empty($memberid)) throw new Exception("Invalid Member ID.");
+		$query = "SELECT cscd.*, 
+							if ('$registrationenddate' != '' AND cscd.coursedate >= '$registrationenddate', 'XXX', if (cscd.canceled, '---', cscp.ispresent)) ispresent
+						FROM cpa_sessions_courses_dates cscd
+						LEFT JOIN cpa_sessions_courses_presences cscp ON cscp.sessionscoursesdatesid = cscd.id and cscp.memberid = '$memberid'
+						WHERE sessionscoursesid = $sessionscoursesid
+						ORDER BY coursedate";
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['data'] = array();
@@ -613,7 +629,7 @@ function getMemberActiveCoursesDates($mysqli, $memberid, $sessionscoursesid, $re
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -624,9 +640,10 @@ function getMemberActiveCoursesDates($mysqli, $memberid, $sessionscoursesid, $re
 /**
  * This function gets the contacts of one member from database
  */
-function getMemberActiveCourses($mysqli, $memberid, $language) {
+function getMemberActiveCourses($mysqli, $memberid, $language)
+{
 	try {
-		if (empty($memberid)) throw new Exception( "Invalid Member ID.");
+		if (empty($memberid)) throw new Exception("Invalid Member ID.");
 		$query = "SELECT cscm.*, csc.coursecode, csc.courselevel, csc.name, csc.fees, getTextLabel(cs.label, '$language') sessionlabel,
 							getTextLabel(csc.label, '$language') courselabel,
 							( select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
@@ -636,10 +653,13 @@ function getMemberActiveCourses($mysqli, $memberid, $language) {
 								substr(starttime FROM 1 FOR 5),
 								' - ',
 								substr(endtime FROM 1 FOR 5))SEPARATOR ', ')
-							  from cpa_sessions_courses_schedule where sessionscoursesid = csc.id) schedule
+							  from cpa_sessions_courses_schedule where sessionscoursesid = csc.id) schedule,
+							getTextLabel(cscs.label, '$language') sublevellabel
+
 							FROM cpa_sessions_courses_members cscm
 							JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
 							JOIN cpa_sessions cs ON cs.id = csc.sessionid and cs.active = '1'
+							LEFT JOIN cpa_sessions_courses_sublevels cscs ON cscs.sessionscoursesid = cscm.sessionscoursesid AND cscs.code = cscm.sublevelcode
 							WHERE cscm.memberid = '$memberid'";
 		$result = $mysqli->query($query);
 		$data = array();
@@ -650,7 +670,7 @@ function getMemberActiveCourses($mysqli, $memberid, $language) {
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -749,7 +769,8 @@ function getMemberActiveCourses($mysqli, $memberid, $language) {
  * This function will handle insert/update/delete of a coach/partner in DB
  * @throws Exception
  */
-function updateEntireCoaches($mysqli, $memberid, $coaches) {
+function updateEntireCoaches($mysqli, $memberid, $coaches)
+{
 	try {
 		$data = array();
 		for ($x = 0; $x < count($coaches); $x++) {
@@ -761,7 +782,7 @@ function updateEntireCoaches($mysqli, $memberid, $coaches) {
 				$query = "INSERT into cpa_members_coaches	(memberid, coachtype, coachid)
 									VALUES ('$memberid', '$coachtype', '$coachid')";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -770,21 +791,21 @@ function updateEntireCoaches($mysqli, $memberid, $coaches) {
 									set coachtype = '$coachtype', coachid = '$coachid'
 									where id = '$id'";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
 			if ($mysqli->real_escape_string(isset($coaches[$x]['status'])) and $coaches[$x]['status'] == 'Deleted') {
-//				$id = $mysqli->real_escape_string(isset($contacts[$x]['id'])	? $contacts[$x]['id'] : '');
+				//				$id = $mysqli->real_escape_string(isset($contacts[$x]['id'])	? $contacts[$x]['id'] : '');
 				$query = "DELETE FROM cpa_members_coaches WHERE id = '$id'";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -796,13 +817,14 @@ function updateEntireCoaches($mysqli, $memberid, $coaches) {
  * This function will handle insert/update/delete of a dance test in DB
  * @throws Exception
  */
-function updateEntireTests($mysqli, $memberid, $tests) {
+function updateEntireTests($mysqli, $memberid, $tests)
+{
 	try {
 		$data = array();
 		for ($x = 0; $x < count($tests); $x++) {
 			$id = 			$mysqli->real_escape_string(isset($tests[$x]['id']) 						? $tests[$x]['id'] : '');
 			$testid = 	$mysqli->real_escape_string(isset($tests[$x]['testid']) 				? $tests[$x]['testid'] : '');
-//			$testdate = $mysqli->real_escape_string(isset($tests[$x]['testdate']) 		? $tests[$x]['testdate'] : '');
+			//			$testdate = $mysqli->real_escape_string(isset($tests[$x]['testdate']) 		? $tests[$x]['testdate'] : '');
 			$testdate = $mysqli->real_escape_string(isset($tests[$x]['testdatestr']) 	? $tests[$x]['testdatestr'] : '');
 			$success = 	$mysqli->real_escape_string(isset($tests[$x]['success']) 			? (int)$tests[$x]['success'] : 0);
 
@@ -810,7 +832,7 @@ function updateEntireTests($mysqli, $memberid, $tests) {
 				$query = "INSERT into cpa_members_tests	(memberid, testid, testdate, success)
 									VALUES ('$memberid', '$testid', '$testdate', $success)";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -819,20 +841,20 @@ function updateEntireTests($mysqli, $memberid, $tests) {
 									set testdate = '$testdate', success = $success
 									where id = '$id'";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
 			if ($mysqli->real_escape_string(isset($tests[$x]['status'])) and $tests[$x]['status'] == 'Deleted') {
 				$query = "DELETE FROM cpa_members_tests WHERE id = '$id'";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -840,7 +862,8 @@ function updateEntireTests($mysqli, $memberid, $tests) {
 	}
 };
 
-function updateOneCanskateTests($mysqli, $memberid, $test) {
+function updateOneCanskateTests($mysqli, $memberid, $test)
+{
 	$id = 							$mysqli->real_escape_string(isset($test['id']) 								? $test['id'] : '');
 	$canskatetestid = 	$mysqli->real_escape_string(isset($test['canskatetestid']) 		? $test['canskatetestid'] : '');
 	$testdate = 				$mysqli->real_escape_string(isset($test['testdatestr']) 			? $test['testdatestr'] : '0000-01-01');
@@ -850,7 +873,7 @@ function updateOneCanskateTests($mysqli, $memberid, $test) {
 		$query = "INSERT into cpa_members_canskate_tests (memberid, canskatetestid, testdate, success)
 							VALUES ($memberid, $canskatetestid, '$testdate', $success)";
 		if (!$mysqli->query($query)) {
-			throw new Exception('updateOneCanskateTests - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception('updateOneCanskateTests - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 	}
 
@@ -859,7 +882,7 @@ function updateOneCanskateTests($mysqli, $memberid, $test) {
 							set testdate = '$testdate', success = $success
 							where id = $id";
 		if (!$mysqli->query($query)) {
-			throw new Exception('updateOneCanskateTests - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception('updateOneCanskateTests - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 	}
 	$data['success'] = true;
@@ -870,7 +893,8 @@ function updateOneCanskateTests($mysqli, $memberid, $test) {
  * This function will handle insert/update/delete of a canskate test in DB
  * @throws Exception
  */
-function updateEntireCanskateTests($mysqli, $memberid, $testss) {
+function updateEntireCanskateTests($mysqli, $memberid, $testss)
+{
 	$data = array();
 	for ($y = 1; $y < 7; $y++) {
 		$tests = $testss[$y];
@@ -886,7 +910,8 @@ function updateEntireCanskateTests($mysqli, $memberid, $testss) {
  * This function will handle insert/update/delete of canskate ribbons in DB
  * @throws Exception
  */
-function updateEntireCanskateRibbons($mysqli, $memberid, $tests) {
+function updateEntireCanskateRibbons($mysqli, $memberid, $tests)
+{
 	$data = array();
 	$query = null;
 	for ($x = 0; $x < count($tests); $x++) {
@@ -899,21 +924,21 @@ function updateEntireCanskateRibbons($mysqli, $memberid, $tests) {
 				$query = "INSERT into cpa_members_canskate_ribbons (memberid, canskateid, ribbondate)
 									VALUES ($memberid, $canskateid, '$ribbondate')";
 				if (!$mysqli->query($query)) {
-					throw new Exception('updateEntireCanskateRibbons - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception('updateEntireCanskateRibbons - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
 
 		if (!empty($id)) {
 			if (!isset($ribbondate) || empty($ribbondate) || $ribbondate == '0000-00-00') {
-					$query = "DELETE FROM cpa_members_canskate_ribbons WHERE id = $id ";
+				$query = "DELETE FROM cpa_members_canskate_ribbons WHERE id = $id ";
 			} else {
 				$query = "update cpa_members_canskate_ribbons
 									set ribbondate = '$ribbondate'
 									where id = $id";
 			}
 			if (!$mysqli->query($query)) {
-				throw new Exception('updateEntireCanskateRibbons - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception('updateEntireCanskateRibbons - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 	}
@@ -925,7 +950,8 @@ function updateEntireCanskateRibbons($mysqli, $memberid, $tests) {
  * This function will handle insert/update/delete of canskate badges in DB
  * @throws Exception
  */
-function updateEntireCanskateBadges($mysqli, $memberid, $tests) {
+function updateEntireCanskateBadges($mysqli, $memberid, $tests)
+{
 	$data = array();
 	for ($x = 0; $x < count($tests); $x++) {
 		$id = 						$mysqli->real_escape_string(isset($tests[$x]['id']) 						? $tests[$x]['id'] : '');
@@ -937,34 +963,24 @@ function updateEntireCanskateBadges($mysqli, $memberid, $tests) {
 				$query = "INSERT into cpa_members_canskate_badges (memberid, canskatestage, badgedate)
 									VALUES ($memberid, $canskatestage, '$badgedate')";
 				if (!$mysqli->query($query)) {
-					throw new Exception('updateEntireCanskateBadges - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception('updateEntireCanskateBadges - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
 
 		if (!empty($id)) {
 			if (!isset($badgedate) || empty($badgedate) || $badgedate == '0000-00-00') {
-					$query = "DELETE FROM cpa_members_canskate_badges WHERE id = $id ";
+				$query = "DELETE FROM cpa_members_canskate_badges WHERE id = $id ";
 			} else {
 				$query = "update cpa_members_canskate_badges
 									set badgedate = '$badgedate'
 									where id = $id";
 			}
 			if (!$mysqli->query($query)) {
-				throw new Exception('updateEntireCanskateBadges - ' . $mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception('updateEntireCanskateBadges - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 	}
 	$data['success'] = true;
 	return $data;
 };
-function invalidRequest($type) {
-	$data = array();
-	$data['success'] = false;
-	$data['type'] = $type;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
-};
-
-?>

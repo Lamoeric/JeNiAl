@@ -1,38 +1,81 @@
 <div class="form-group">
+	<div ng-if="currentEvent.type==1">
+		<table width="100%">
+			<tr>
+				<td width="90%">
+					<b>{{translationObj.coachform.coursetype}}</b>:&nbsp;{{currentCourse.codelabel}}&nbsp;{{currentCourse.levellabel}}&nbsp;
+					<span ng-if="currentCourse.startdate!=null"><b>{{translationObj.coachform.labelstartdate}}</b>:&nbsp;{{currentCourse.startdate}}&nbsp;</span>
+					<span ng-if="currentCourse.enddate!=null"><b>{{translationObj.coachform.labelenddate}}</b>:&nbsp;{{currentCourse.enddate}}&nbsp;</span>
+					<b>{{translationObj.coachform.labelavailonline}}</b>:&nbsp;{{currentCourse.availableonlinelabel}}&nbsp;
+					<br>
+					<b>{{translationObj.coachform.labelnbofskaters}}</b>:&nbsp;{{currentCourse.members.length}}&nbsp;
+					<b>{{translationObj.coachform.labelminnumberskaters}}</b>:&nbsp;{{currentCourse.minnumberskater}}&nbsp;
+					<b>{{translationObj.coachform.labelmaxnumberskaters}}</b>:&nbsp;{{currentCourse.maxnumberskater}}&nbsp;
+					</br>
+					<span ng-if="currentCourse.isschedule==1">
+						<b>{{translationObj.coachform.labelschedule}}</b>:&nbsp;{{currentCourse.schedules}}&nbsp;
+						<span ng-if="currentCourse.datesgenerated==0" class="redfont">({{translationObj.coachform.labeldatesnotgenerated}})</span>
+					</span>
+					<span ng-if="currentCourse.isschedule==0"><b>{{translationObj.coachform.labelmanualschedule}}</b></span>
+				</td>
+				<td width="10%">
+					<span style="float:right">
+						<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseStaff(currentCourse, {})"></button>
+					</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div ng-if="currentEvent.type==2">
+		<table width="100%">
+			<tr>
+				<td width="90%">
+					<b>{{translationObj.coachform.coursetype}}</b>:&nbsp;{{translationObj.coachform.shownumber}}
+					<span ng-if="currentCourse.practicesstartdate!=null"><b>{{translationObj.coachform.labelstartdate}}</b>:&nbsp;{{currentCourse.practicesstartdate}}&nbsp;</span>
+					<span ng-if="currentCourse.practicesenddate!=null"><b>{{translationObj.coachform.labelenddate}}</b>:&nbsp;{{currentCourse.practicesenddate}}&nbsp;</span>
+					<br>
+					<b>{{translationObj.coachform.labelnbofskaters}}</b>:&nbsp;{{currentCourse.members.length}}&nbsp;
+					<br>
+					<span ng-if="currentCourse.schedules && currentCourse.schedules.length > 0">
+						<b>{{translationObj.coachform.labelschedule}}</b>:&nbsp;{{currentCourse.schedules}}&nbsp;
+						<span ng-if="currentCourse.datesgenerated==0" class="redfont">({{translationObj.coachform.labeldatesnotgenerated}})</span>
+					</span>
+					<span ng-if="!currentCourse.schedules || currentCourse.schedules.length == 0"><b>{{translationObj.coachform.labelmanualschedule}}</b></span>
+				</td>
+				<td width="10%">
+					<span style="float:right">
+						<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseStaff(currentCourse, {})"></button>
+					</span>
+				</td>
+			</tr>
+		</table>
+	</div>
 	<div>
-		<h3>{{course.name}}</h3>
-	  <form class="form-horizontal well" role="form" name="staffsForm" ng-show="currentSession">
-		  <p ng-if="currentEvent.type==1"><b>{{translationObj.details.coursetype}}</b>: {{currentCourse.courselabel}}&nbsp;<b>{{translationObj.details.courselevel}}</b>: {{currentCourse.levellabel}}</p>
-		  <p ng-if="currentEvent.type==2"><b>{{translationObj.details.coursetype}}</b>: {{translationObj.details.shownumber}}</p>
-			<div>
-				<table width="100%" border="1">
-					<tr>
-						<th nowrap>{{translationObj.coachform.titlestaff}}</th>
-			  		<th ng-repeat="date in currentCourse.dates" class="verticalTableHeader">{{date.coursedate}}</th>
-						<th></th>
-					</tr>
-					<tr ng-repeat="staff in currentCourse.staffsperm">
-			  		<td nowrap>{{staff.firstname}} {{staff.lastname}} ({{staff.staffcodelabel}})</td>
-			  		<!-- TODO : this should be the attendance of the member -->
-			  		<td align="center" ng-repeat="date2 in staff.dates">
-			  			<presence-multistate-button obj="date2" state="date2.ispresent" statelist="presencetypes" callback="setDirty()"></presence-multistate-button>
-			  		</td>
-			  	</tr>
-					<tr>
-						<th nowrap>{{translationObj.coachform.titlestaffrepl}}</th>
-			  		<th ng-repeat="date in currentCourse.dates" class="verticalTableHeader">{{date.coursedate}}</th>
-						<th></th>
-					</tr>
-					<tr ng-repeat="staff in currentCourse.staffsrepl">
-			  		<td nowrap>{{staff.firstname}} {{staff.lastname}} ({{staff.staffcodelabel}})</td>
-			  		<!-- TODO : this should be the attendance of the member -->
-			  		<td align="center" ng-repeat="date2 in staff.dates">
-							<presence-multistate-button obj="date2" state="date2.ispresent" statelist="presencetypes" callback="setDirty()"></presence-multistate-button>
-			  		</td>
-			  	</tr>
-				</table>
-			</div>
-
-	  </form>
-  </div>
+		<table width="100%" border="1">
+			<tr>
+				<th nowrap>{{translationObj.coachform.titlestaff}}</th>
+				<th ng-repeat="date in currentCourse.dates" class="verticalTableHeader">{{date.coursedate}}</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="staff in currentCourse.staffs | filter:{statuscode:'PERM'}">
+				<td nowrap>{{staff.fullname}} ({{staff.staffcodelabel}})</td>
+				<!-- TODO : this should be the attendance of the member -->
+				<td align="center" ng-repeat="date2 in staff.dates">
+					<presence-multistate-button obj="date2" state="date2.ispresent" statelist="presencetypes" callback="setDirty()"></presence-multistate-button>
+				</td>
+			</tr>
+			<tr ng-if="currentEvent.type==1">
+				<th nowrap>{{translationObj.coachform.titlestaffrepl}}</th>
+				<th ng-repeat="date in currentCourse.dates" class="verticalTableHeader">{{date.coursedate}}</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="staff in currentCourse.staffs | filter:{statuscode:'REPL'}" ng-if="currentEvent.type==1">
+				<td nowrap>{{staff.fullname}} ({{staff.staffcodelabel}})</td>
+				<!-- TODO : this should be the attendance of the member -->
+				<td align="center" ng-repeat="date2 in staff.dates">
+					<presence-multistate-button obj="date2" state="date2.ispresent" statelist="presencetypes" callback="setDirty()"></presence-multistate-button>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>

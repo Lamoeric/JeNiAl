@@ -10,7 +10,7 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ){
 	
 	switch ($type) {
 		case "getArenasDetails":
-			getArenasDetails($mysqli, $_POST['language']);
+			getArenasDetails($mysqli, $_POST['language'], $_POST['includenonactive']);
 			break;
 		default:
 			invalidRequest();
@@ -46,9 +46,11 @@ function getArenaIces($mysqli, $arenaid, $language){
 /**
  * This function gets the details of one arena from database
  */
-function getArenasDetails($mysqli, $language){
+function getArenasDetails($mysqli, $language, $includenonactive){
 	try{
-		$query = "SELECT id, getTextLabel(label, '$language') label FROM cpa_arenas ORDER BY name";
+		$query = "SELECT id, getTextLabel(label, '$language') label FROM cpa_arenas WHERE 1=1 ";
+		if ($includenonactive==0) $query .= " AND active = 1 ";
+		$query .= "ORDER BY 2";
 		$result = $mysqli->query( $query );
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
@@ -57,6 +59,7 @@ function getArenasDetails($mysqli, $language){
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
+		$data['includenonactive'] = $includenonactive;
 		echo json_encode($data);
 		exit;
 	}catch (Exception $e){

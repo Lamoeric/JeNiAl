@@ -1,11 +1,7 @@
 <div class="form-group">
 	<h3>{{translationObj.courses.formtitlecourses}}&nbsp;({{filtered.length}}/{{currentSession.sessionCourses.length}})&nbsp;
-		<button
-			class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourse({})">
-		</button>&nbsp;
-		<button
-			class="btn btn-primary glyphicon glyphicon-calendar" ng-click="viewSessionSchedule()">
-		</button>
+		<button	class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourse({})"></button>&nbsp;
+		<button class="btn btn-primary glyphicon glyphicon-calendar" ng-click="viewSessionSchedule()"></button>
 	</h3>
 	<span ng-repeat="coursecode in currentSession.coursecodes">
 		<label>
@@ -23,28 +19,43 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<a data-target="#{{$index}}" data-toggle="collapse" class="pointerlist">
-					<strong><big>{{course.courselabel}} <span
-								ng-if="course.levellabel!=null">{{translationObj.courses.fieldlevel}}
-								{{course.levellabel}}</span></big></strong>
+					<strong><big>{{course.courselabel}} 
+						<span ng-if="course.levellabel!=null">{{translationObj.courses.fieldlevel}}	{{course.levellabel}}</span>
+					</big></strong>
 				</a>
+				<span ng-if="course.isschedule==0 && course.dates.length==0" class="redfont"><helptext><small><br>{{translationObj.courses.msgerrnodatesdefined}}</small></helptext></span>
+				<span ng-if="course.isschedule==1 && course.schedules.length==0" class="redfont"><helptext><small><br>{{translationObj.courses.msgerrnoscheduledefined}}</small></helptext></span>
+				<span ng-if="course.hasainactivearena" class="redfont"><helptext><small><br>{{translationObj.courses.msgerrhasinactivarena}}</small></helptext></span>
 				<span style="float:right">
-					<child-edit-button obj="course" objlist="currentSession.sessionCourses"
-						callback="editSessionCourse(course)"></child-edit-button>
-					<child-delete-button obj="course" objlist="currentSession.sessionCourses"
-						callback="setDirty()"></child-delete-button>
-					<child-undelete-button obj="course" objlist="currentSession.sessionCourses"
-						callback="setDirty()"></child-undelete-button>
+					<child-edit-button obj="course" objlist="currentSession.sessionCourses" callback="editSessionCourse(course)"></child-edit-button>
+					<child-delete-button obj="course" objlist="currentSession.sessionCourses" callback="setDirty()"></child-delete-button>
+					<child-undelete-button obj="course" objlist="currentSession.sessionCourses" callback="setDirty()"></child-undelete-button>
 					<child-status-indicator obj="course"></child-status-indicator>
 				</span>
 				<br>
-				<p><b>{{translationObj.courses.fieldname}}</b>:&nbsp;{{course.name}}&nbsp;<b>{{translationObj.courses.fieldlabel}}</b>:&nbsp;{{course.courselabel}}&nbsp;<b>{{translationObj.courses.fieldminnbofskaters}}</b>:&nbsp;{{course.minnumberskater}}&nbsp;<b>{{translationObj.courses.fieldmaxnbofskaters}}</b>:&nbsp;{{course.maxnumberskater}}&nbsp;<b>{{translationObj.courses.fieldavailableonline}}</b>:&nbsp;{{course.availableonlinelabel}}&nbsp;<b>{{translationObj.courses.fieldfees}}</b>:&nbsp;{{course.fees
-					| number:2}}</p>
-				<p><b>{{translationObj.courses.fieldnbsublevel}}</b>:&nbsp;{{course.sublevels.length}}&nbsp;<b>{{translationObj.courses.fieldnbstaff}}</b>:&nbsp;{{course.staffs.length}}&nbsp;
+				<p>
+					<b>{{translationObj.courses.fieldname}}</b>:&nbsp;{{course.name}}&nbsp;
+					<b>{{translationObj.courses.fieldlabel}}</b>:&nbsp;{{course.courselabel}}&nbsp;
+					<span ng-if="course.startdate!=null"><b>{{translationObj.courses.fieldstartdate}}</b>:&nbsp;{{myDateFilter(course.startdate)}}&nbsp;</span>
+					<span ng-if="course.enddate!=null"><b>{{translationObj.courses.fieldenddate}}</b>:&nbsp;{{myDateFilter(course.enddate)}}&nbsp;</span>
+					<b>{{translationObj.courses.fieldavailableonline}}</b>:&nbsp;{{course.availableonlinelabel}}&nbsp;
+					<b>{{translationObj.courses.fieldfees}}</b>:&nbsp;{{course.fees	| number:2}}
+				</p>
+				<p>
+					<b>{{translationObj.courses.fieldminnbofskaters}}</b>:&nbsp;{{course.minnumberskater}}&nbsp;
+					<b>{{translationObj.courses.fieldmaxnbofskaters}}</b>:&nbsp;{{course.maxnumberskater}}&nbsp;
+				</p>
+				<p>
+					<b>{{translationObj.courses.fieldprerequisitedefined}}</b>:&nbsp;{{course.isprereqdefinedlabel}}&nbsp;
+					<b>{{translationObj.courses.fieldnbsublevel}}</b>:&nbsp;{{course.sublevels.length}}&nbsp;
+					<b>{{translationObj.courses.fieldnbstaff}}</b>:&nbsp;{{course.staffs.length}}&nbsp;
 					<!-- If schedule are allowed !-->
-					<span
-						ng-if="course.isschedule==1"><b>{{translationObj.courses.fieldnbschedule}}</b>:&nbsp;{{course.schedules.length}}&nbsp;<b>{{translationObj.courses.fielddatesgenerated}}</b>:&nbsp;{{course.datesgeneratedlabel}}</span>
+					<span ng-if="course.isschedule==1">
+						<span ng-class="{redfont : course.schedules.length==0}"><b>{{translationObj.courses.fieldnbschedule}}</b>:&nbsp;{{course.schedules.length}}&nbsp;</span>
+						<b>{{translationObj.courses.fielddatesgenerated}}</b>:&nbsp;<span ng-class="{redfont : course.datesgenerated==0}">{{course.datesgeneratedlabel}}</span>
+					</span>
 					<!-- If schedule are NOT allowed !-->
-					<span ng-if="course.isschedule==0"><b>{{translationObj.courses.fieldnoschedule}}</b></span>
+					<span ng-if="course.isschedule==0"><b>{{translationObj.courses.msgnoschedule}}</b></span>
 				</p>
 			</div>
 		</div>
@@ -54,9 +65,16 @@
 				<div id="childform1">
 					<hr>
 					<form>
-						<strong>{{translationObj.courses.formtitlesublevels}}&nbsp;<button
-								class="btn btn-primary glyphicon glyphicon-plus"
-								ng-click="editSessionCourseSublevel(course, {})"></button></strong>
+						<table width="100%">
+							<tr>
+								<td width="50%"><strong>{{translationObj.courses.formtitlesublevels}}</strong></td>
+								<td width="50%">
+									<span style="float:right">
+										<button	class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseSublevel(course, {})"></button>
+									</span>
+								</td>
+							</tr>
+						</table>
 						<div ng-repeat="sublevel in course.sublevels">
 							<div class="row">
 								<div class="col-xs-1">
@@ -82,12 +100,9 @@
 									<label ng-show="$index==0">&nbsp;</label>
 									<div class="input-group">
 										<span>
-											<child-edit-button obj="sublevel" objlist="course.sublevels"
-												callback="editSessionCourseSublevel(course, sublevel)"></child-edit-button>
-											<child-delete-button obj="sublevel" objlist="course.sublevels"
-												callback="setDirty()"></child-delete-button>
-											<child-undelete-button obj="sublevel" objlist="course.sublevels"
-												callback="setDirty()"></child-undelete-button>
+											<child-edit-button obj="sublevel" objlist="course.sublevels" callback="editSessionCourseSublevel(course, sublevel)"></child-edit-button>
+											<child-delete-button obj="sublevel" objlist="course.sublevels" callback="setDirty()"></child-delete-button>
+											<child-undelete-button obj="sublevel" objlist="course.sublevels" callback="setDirty()"></child-undelete-button>
 											<child-status-indicator obj="sublevel"></child-status-indicator>
 										</span>
 									</div>
@@ -98,9 +113,16 @@
 					</form>
 					<hr>
 					<form>
-						<strong>{{translationObj.courses.formtitlestaff}}&nbsp;<button
-								class="btn btn-primary glyphicon glyphicon-plus"
-								ng-click="editSessionCourseStaff(course, {})"></button></strong>
+						<table width="100%">
+							<tr>
+								<td width="50%"><strong>{{translationObj.courses.formtitlestaff}}</strong></td>
+								<td width="50%">
+									<span style="float:right">
+										<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseStaff(course, {})"></button>
+									</span>
+								</td>
+							</tr>
+						</table>
 						<div ng-repeat="staff in course.staffs">
 							<div class="row">
 								<div class="col-xs-2">
@@ -122,12 +144,9 @@
 									<label ng-show="$index==0">&nbsp;</label>
 									<div class="input-group">
 										<span>
-											<child-edit-button obj="staff" objlist="course.staffs"
-												callback="editSessionCourseStaff(course, staff)"></child-edit-button>
-											<child-delete-button obj="staff" objlist="course.staffs"
-												callback="setDirty()"></child-delete-button>
-											<child-undelete-button obj="staff" objlist="course.staffs"
-												callback="setDirty()"></child-undelete-button>
+											<child-edit-button obj="staff" objlist="course.staffs" callback="editSessionCourseStaff(course, staff)"></child-edit-button>
+											<child-delete-button obj="staff" objlist="course.staffs" callback="setDirty()" is-form-pristine="staff.nbpresence > 0"></child-delete-button>
+											<child-undelete-button obj="staff" objlist="course.staffs" callback="setDirty()"></child-undelete-button>
 											<child-status-indicator obj="staff"></child-status-indicator>
 										</span>
 									</div>
@@ -138,23 +157,31 @@
 					</form>
 					<hr>
 					<form>
-						<strong>{{translationObj.courses.formtitleschedule}}&nbsp;
-							<button class="btn btn-primary glyphicon glyphicon-plus"
-								ng-click="editSessionCourseSchedule(course, {})"
-								ng-if="course.isschedule==1"></button>&nbsp;
-							<button class="btn btn-primary" ng-click="generateCourseDates(course)"
-								ng-if="userInfo.privileges.session_update==true&&course.isschedule==1"><span
-									ng-if="course.datesgenerated=='0'">{{translationObj.courses.buttontitlegeneratedates}}</span><span
-									ng-if="course.datesgenerated=='1'">{{translationObj.courses.buttontitleregeneratedates}}</span></button>
-						</strong>
+						<table width="100%">
+							<tr>
+								<td width=50%"><strong ng-if="course.isschedule==1">{{translationObj.courses.formtitleschedule}}</strong></td>
+								<td width="50%">
+									<span style="float:right">
+										<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editSessionCourseSchedule(course, {})" 
+											ng-if="course.isschedule==1">
+										</button>&nbsp;
+										<button class="btn btn-primary" ng-click="generateCourseDates(course)"
+											ng-if="userInfo.privileges.session_update==true&&course.isschedule==1">
+											<span ng-if="course.datesgenerated=='0'">{{translationObj.courses.buttontitlegeneratedates}}</span>
+											<span ng-if="course.datesgenerated=='1'">{{translationObj.courses.buttontitleregeneratedates}}</span>
+										</button>
+									</span>
+								</td>
+							</tr>
+						</table>
 						<div ng-repeat="schedule in course.schedules">
 							<div class="row">
 
 								<div class="col-xs-2">
 									<label for="arenaid{{$index}}" ng-show="$index==0">{{translationObj.courses.fieldarena}}</label>
 									<select class="form-control" id="arenaid{{$index}}" ng-model="schedule.arenaid" disabled>
-										<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}
-										</option>
+										<option value="{{schedule.arenaid}}" ng-if="schedule.arenaactive==0" class="redfont">{{schedule.arenalabel}}</option>
+										<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
 									</select>
 								</div>
 
@@ -189,13 +216,9 @@
 									<label ng-show="$index==0">&nbsp;</label>
 									<div class="input-group">
 										<span>
-											<child-edit-button obj="schedule" objlist="course.schedules"
-												callback="editSessionCourseSchedule(course, schedule)"></child-edit-button>
-											<child-delete-button obj="schedule" objlist="course.schedules"
-												callback="setDirty()"></child-delete-button>
-											<child-undelete-button obj="schedule" objlist="course.schedules"
-												callback="setDirty()"
-												ng-if="course.isschedule==1"></child-undelete-button>
+											<child-edit-button obj="schedule" objlist="course.schedules" callback="editSessionCourseSchedule(course, schedule)"></child-edit-button>
+											<child-delete-button obj="schedule" objlist="course.schedules" callback="setDirty()"></child-delete-button>
+											<child-undelete-button obj="schedule" objlist="course.schedules" callback="setDirty()" ng-if="course.isschedule==1"></child-undelete-button>
 											<child-status-indicator obj="schedule"></child-status-indicator>
 										</span>
 									</div>

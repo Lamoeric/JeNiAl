@@ -1,0 +1,10 @@
+[
+	{"formname":"newindex", "fieldname":"formtitleeditindex", "text":"Edit Index"},
+	{"formname":"newindex", "fieldname":"fieldtitlenewindex", "text":"New Index"},
+	{"formname":"newindex", "fieldname":"formerrormessage", "text":"All the fields are mandatory."},
+	{"formname":"newindex", "fieldname":"buttontitlediscard", "text":"Discard"},
+	{"formname":"newindex", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"end", "fieldname":"nothing", "text":"fin de fichier"}
+
+]

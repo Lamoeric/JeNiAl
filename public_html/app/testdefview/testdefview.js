@@ -259,7 +259,7 @@ angular.module('cpa_admin.testdefview', ['ngRoute'])
 		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testversions',		'sequence', 'testversions');
 		anycodesService.getAnyCodes($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/,'testevaluations',	'sequence', 'testevaluations');
 
-		listsService.getAllTestsDefinitions($scope, $http, 'en-ca'/*$scope.context.preferedlanguage*/);
+		listsService.getAllTestsDefinitions($scope, 'en-ca'/*$scope.context.preferedlanguage*/);
 		translationService.getTranslation($scope, 'testdefview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}

@@ -24,41 +24,44 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 }])
 
 .controller('wscoachviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', '$timeout', 'Upload', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($rootScope, $scope, $http, $uibModal, $timeout, Upload, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
 	$scope.progName = "wscoachview";
 	$scope.currentWscoach = 1;
 	$scope.selectedWscoach = null;
 	$scope.newWscoach = null;
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
+	$scope.config = null;
+	$scope.formList = [{name:'detailsForm', errorMsg:'msgerrallmandatory'}, {'name':'startestsForm'}];
 
 	/**
 	 * This function checks if anything is dirty
 	 * @returns true if any of the forms are dirty, false otherwise
 	 */
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty || $scope.startestsForm.$dirty) {
-			return true;
-		}
-		return false;
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
 	/**
 	 * This function sets one form dirty to indicate the whole thing is dirty
 	 */
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
 	/**
 	 * This function sets all the forms as pristine
 	 */
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.startestsForm.$setPristine();
-		$scope.isFormPristine = true;
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	/**
 	 * This function gets all coaches from the database
@@ -69,13 +72,14 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 				url: './wscoachview/managewscoach.php',
 				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getAllCoachs' }),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+		}).success(function(data, status, headers, config) {
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
+					$scope.config = data.config;
 				} else {
 					$scope.leftobjs = [];
+					$scope.config = data.config;
 				}
 				$rootScope.repositionLeftColumn();
 			} else {
@@ -83,8 +87,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 					dialogService.displayFailure(data);
 				}
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -99,8 +102,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 			url: './wscoachview/managewscoach.php',
 			data: $.param({'id' : coach.id, 'type' : 'getCoachDetails' }),
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+		}).success(function(data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentWscoach = data.data[0];
 				$scope.currentWscoach.imageinfo = data.imageinfo;
@@ -109,8 +111,7 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 			} else {
 				dialogService.displayFailure(data);
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -176,31 +177,6 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	}
 
 	/**
-	 * This function validates all forms and display error and warning messages
-	 * @returns false if something is invalid
-	 */
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-			$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
-		}
-		return retVal;
-	}
-
-	/**
 	 * This function saves the current coach in the database
 	 * @returns 
 	 */
@@ -233,125 +209,38 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	/**
 	 * This function adds a new coach in the database
 	 */
-	$scope.addWscoachToDB = function() {
-		$scope.promise = $http({
-			method: 'post',
-			url: './wscoachview/managewscoach.php',
-			data: $.param({'coach' : $scope.newWscoach, 'type' : 'insert_coach' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function(data, status, headers, config) {
-			if (data.success) {
-				var newWscoach = {id:data.id, firstname:$scope.newWscoach.firstname, lastname:$scope.newWscoach.lastname};
-				$scope.leftobjs.push(newWscoach);
-				// We could sort the list....
-				$scope.setCurrentInternal(newWscoach);
-				return true;
-			} else {
+	$scope.addWscoachToDB = function(newElement) {
+		if (newElement) {
+			$scope.newElement = newElement;
+			$scope.promise = $http({
+				method: 'post',
+				url: './wscoachview/managewscoach.php',
+				data: $.param({'element' : newElement, 'language': authenticationService.getCurrentLanguage(), 'type' : 'insertElement' }),
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function(data, status, headers, config) {
+				if (data.success) {
+					var newWscoach = {id:data.id, firstname:$scope.newElement.firstname, lastname:$scope.newElement.lastname};
+					$scope.leftobjs.push(newWscoach);
+					// We could sort the list....
+					$scope.setCurrentInternal(newWscoach);
+					return true;
+				} else {
+					dialogService.displayFailure(data);
+					return false;
+				}
+			}).error(function(data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
-			}
-		}).error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-			return false;
-		});
-	};
-
-	/**
-	 * This function creates the modal to create new coach
-	 * @param {*} confirmed true if form was dirty and user confirmed it's ok to cancel the modifications to the current coach
-	 */
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newWscoach = {};
-			// Send the newWscoach to the modal form
-			$uibModal.open({
-					animation: false,
-					templateUrl: 'wscoachview/newwscoach.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'md',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newWscoach;
-						}
-					}
-			}).result.then(function(newWscoach) {
-				// User clicked OK and everything was valid.
-				$scope.newWscoach = newWscoach;
-				if ($scope.addWscoachToDB() == true) {
-				}
-			}, function() {
-				// User clicked CANCEL.
-				// alert('canceled');
 			});
 		}
 	};
 
 	/**
-	 * This function displays the upload error messages
-	 * @param {*} errFile the file in error
+	 * This function creates the modal to create new boardmember
 	 */
-	$scope.displayUploadError = function(errFile) {
-		// dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfile);
-		if (errFile.$error == 'maxSize') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidfilesize + errFile.$errorParam);
-		} else if (errFile.$error == 'maxWidth') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxwidth + errFile.$errorParam);
-		} else if (errFile.$error == 'maxHeight') {
-			dialogService.alertDlg($scope.translationObj.details.msgerrinvalidmaxheight + errFile.$errorParam);
-		}
-	}
-
-	/**
-	 * This function that uploads the image for the current coach
-	 * @param {*} file 
-	 * @param {*} errFiles 
-	 * @returns 
-	 */
-	$scope.uploadMainImage = function(file, errFiles) {
-		$scope.f = file;
-		if (errFiles && errFiles[0]) {
-			$scope.displayUploadError(errFiles[0]);
-		}
-		if (file) {
-			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-				dialogService.alertDlg('only jpg files are allowed.');
-				return;
-			}
-			file.upload = Upload.upload({
-					url: '../../include/uploadmainimage.php',
-					method: 'POST',
-					file: file,
-					data: {
-						'subDirectory': '/website/images/coaches/',
-						'filePrefix': $scope.currentWscoach.firstname + '_' + $scope.currentWscoach.lastname,
-						'tableName': 'cpa_ws_coaches',
-						'id': $scope.currentWscoach.id,
-						'oldFileName': $scope.currentWscoach.imagefilename
-					}
-			});
-			file.upload.then(function (data) {
-				$timeout(function () {
-					if (data.data.success) {
-						dialogService.alertDlg($scope.translationObj.details.msguploadcompleted);
-						// Select this coach to reset everything
-						$scope.setCurrentInternal($scope.selectedWscoach, null);
-					} else {
-						dialogService.displayFailure(data.data);
-					}
-				});
-			}, function (data) {
-				if (!data.success) {
-					dialogService.displayFailure(data.data);
-				}
-			}, function (evt) {
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-	}
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'wscoachview/newwscoach.template.html', $scope.addWscoachToDB);
+	};
 
 	/**
 	 * This function is called by the ui when user switch the STAR version

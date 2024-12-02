@@ -1,75 +1,76 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newschedule.formtitleeditschedule}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newschedule.formtitleeditschedule}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group row">
 
-      <div class="col-xs-5">
-	      <label for="arena">{{translationObj.newschedule.fieldarena}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)" required>
+			<div class="col-xs-5">
+				<labelrequired for="arena" label="translationObj.newschedule.fieldarena"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)"
+						required autofocus>
 						<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="iceno">{{translationObj.newschedule.fieldice}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="iceno" ng-model="newObj.iceid">
+			<div class="col-xs-3" ng-if="ices != null && ices.length != 0">
+				<labelrequired for="iceno" label="translationObj.newschedule.fieldice"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="iceno" ng-model="newObj.iceid" required>
 						<option ng-repeat="ice in ices" value="{{ice.id}}">{{ice.label}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
 			<div class="clearfix"></div>
 
-    	<div class="col-xs-3">
-		    <label>{{translationObj.newschedule.fieldday}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-			  	<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" ng-model="newObj.day" required>
-			    	<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
-			    </select>
-			  </div>
-		  </div>
+			<div class="col-xs-3">
+				<labelrequired for="day" label="translationObj.newschedule.fieldday"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="day" ng-model="newObj.day" required>
+						<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="starttime">{{translationObj.newschedule.fieldstarttime}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="time" class="form-control" id="starttime" ng-model="newObj.starttime" required>
-      	</div>
-      </div>
+			<div class="col-xs-3">
+				<labelrequired for="starttime" label="translationObj.newschedule.fieldstarttime"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="time" class="form-control" id="starttime" ng-model="newObj.starttime" required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="endtime">{{translationObj.newschedule.fieldendtime}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="time" class="form-control" id="endtime" ng-model="newObj.endtime" required>
-      	</div>
-      </div>
+			<div class="col-xs-3">
+				<labelrequired for="endtime" label="translationObj.newschedule.fieldendtime"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="time" class="form-control" id="endtime" ng-model="newObj.endtime" required>
+				</div>
+			</div>
 
 			<div class="clearfix"></div>
 
-      <div class="col-xs-2">
-	      <label for="duration">{{translationObj.newschedule.fieldduration}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="text" class="form-control" id="duration" ng-model="newObj.duration" required>
-      	</div>
-      </div>
+			<div class="col-xs-2">
+				<labelrequired for="duration" label="translationObj.newschedule.fieldduration"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="text" class="form-control" id="duration" ng-model="newObj.duration" required>
+				</div>
+			</div>
 
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newschedule.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newschedule.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newschedule.buttontitlekeepchanges}}</button>
-</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newschedule.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newschedule.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newschedule.buttontitlekeepchanges}}</button>
+	</div>
+</form>

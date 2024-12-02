@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-xs-12">&nbsp;</div>
+</div>
+<div class="row">
+    <div class="col-xs-3">
+        <div class="team-member">
+            <div class="team-img">
+                <img ng-src="../websiteimages/{{displayimagefilename}}" class="team-pic" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-2">
+        <label for="width">{{translationObj.main.fieldtitleimagewidth}}</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+            <input type="text" name="width" class="form-control" id="width" ng-model="imageinfo[0]" disabled>
+        </div>
+
+        <label for="height">{{translationObj.main.fieldtitleimageheight}}</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+            <input type="text" name="height" class="form-control" id="height" ng-model="imageinfo[1]" disabled>
+        </div>
+
+        <label for="type">{{translationObj.main.fieldtitleimagetype}}</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+            <input type="text" name="type" class="form-control" id="type" ng-model="imageinfo['mime']" disabled>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <span class="help-block">{{translationObj.main.helptextimagespecifications}}</span>
+    </div>
+</div>

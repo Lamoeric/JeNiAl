@@ -1,126 +1,139 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentWscostume.name" maxlength="40" required>
-	      </div>
-	    </div>
-		</div>
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentWscostume.label_en" maxlength="2000">
-	      </div>
-	    </div>
 			<div class="col-xs-4">
-	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentWscostume.label_fr" maxlength="2000">
-	      </div>
-	    </div>
+				<labelrequired for="name" label="translationObj.details.fieldtitlename"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentWscostume.name"
+						maxlength="40" required autocomplete="off">
+				</div>
 			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="totalamount">{{translationObj.details.fieldtitletotalamount}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="numeric" name="totalamount" class="form-control" id="totalamount" ng-model="currentWscostume.totalamount" required>
-	      </div>
-	    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en"
+						ng-model="currentWscostume.label_en" maxlength="2000">
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr"
+						ng-model="currentWscostume.label_fr" maxlength="2000">
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-4">
-	      <label for="priceperunit">{{translationObj.details.fieldtitlepriceperunit}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-					<input type="text" name="priceperunit" class="form-control" id="priceperunit" ng-model="currentWscostume.priceperunit" ng-currency required>
-	      </div>
-	    </div>
-		</div>
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="girlamount">{{translationObj.details.fieldtitlegirlamount}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="numeric" name="girlamount" class="form-control" id="girlamount" ng-model="currentWscostume.girlamount">
-	      </div>
-	    </div>
-		</div>
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="girldescription_en">{{translationObj.details.fieldtitleenglishgirldescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="girldescription_en" class="form-control" id="girldescription_en" ng-model="currentWscostume.girldescription_en" maxlength="2000"></textarea>
-	      </div>
-	    </div>
+				<labelrequired for="totalamount" label="translationObj.details.fieldtitletotalamount"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="totalamount" class="form-control" id="totalamount"
+						ng-model="currentWscostume.totalamount" min="0" required>
+				</div>
+			</div>
 			<div class="col-xs-4">
-	      <label for="girldescription_fr">{{translationObj.details.fieldtitlefrenchgirldescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="girldescription_fr" class="form-control" id="girldescription_fr" ng-model="currentWscostume.girldescription_fr" maxlength="2000"></textarea>
-	      </div>
-	    </div>
+				<labelrequired for="priceperunit" label="translationObj.details.fieldtitlepriceperunit"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="priceperunit" class="form-control" id="priceperunit"
+						ng-model="currentWscostume.priceperunit" ng-currency required>
+				</div>
+			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="boyamount">{{translationObj.details.fieldtitleboyamount}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="numeric" name="boyamount" class="form-control" id="boyamount" ng-model="currentWscostume.boyamount">
-	      </div>
-	    </div>
-		</div>
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="boydescription_en">{{translationObj.details.fieldtitleenglishboydescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="boydescription_en" class="form-control" id="boydescription_en" ng-model="currentWscostume.boydescription_en" maxlength="2000"></textarea>
-	      </div>
-	    </div>
 			<div class="col-xs-4">
-	      <label for="boydescription_fr">{{translationObj.details.fieldtitlefrenchboydescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="boydescription_fr" class="form-control" id="boydescription_fr" ng-model="currentWscostume.boydescription_fr" maxlength="2000"></textarea>
-	      </div>
-	    </div>
+				<label for="girlamount">{{translationObj.details.fieldtitlegirlamount}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="girlamount" class="form-control" id="girlamount"
+						ng-model="currentWscostume.girlamount" min="0">
+				</div>
+			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="soloamount">{{translationObj.details.fieldtitlesoloamount}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="numeric" name="soloamount" class="form-control" id="soloamount" ng-model="currentWscostume.soloamount">
-	      </div>
-	    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="girldescription_en">{{translationObj.details.fieldtitleenglishgirldescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="girldescription_en" class="form-control" id="girldescription_en"
+						ng-model="currentWscostume.girldescription_en" maxlength="2000"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="girldescription_fr">{{translationObj.details.fieldtitlefrenchgirldescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="girldescription_fr" class="form-control" id="girldescription_fr"
+						ng-model="currentWscostume.girldescription_fr" maxlength="2000"></textarea>
+				</div>
+			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="solodescription_en">{{translationObj.details.fieldtitleenglishsolodescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="solodescription_en" class="form-control" id="solodescription_en" ng-model="currentWscostume.solodescription_en" maxlength="2000"></textarea>
-	      </div>
-	    </div>
 			<div class="col-xs-4">
-	      <label for="solodescription_fr">{{translationObj.details.fieldtitlefrenchsolodescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="solodescription_fr" class="form-control" id="solodescription_fr" ng-model="currentWscostume.solodescription_fr" maxlength="2000"></textarea>
-	      </div>
-	    </div>
+				<label for="boyamount">{{translationObj.details.fieldtitleboyamount}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="boyamount" class="form-control" id="boyamount"
+						ng-model="currentWscostume.boyamount" min="0">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="boydescription_en">{{translationObj.details.fieldtitleenglishboydescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="boydescription_en" class="form-control" id="boydescription_en"
+						ng-model="currentWscostume.boydescription_en" maxlength="2000"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="boydescription_fr">{{translationObj.details.fieldtitlefrenchboydescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="boydescription_fr" class="form-control" id="boydescription_fr"
+						ng-model="currentWscostume.boydescription_fr" maxlength="2000"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				<label for="soloamount">{{translationObj.details.fieldtitlesoloamount}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="number" name="soloamount" class="form-control" id="soloamount"
+						ng-model="currentWscostume.soloamount" min="0">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="solodescription_en">{{translationObj.details.fieldtitleenglishsolodescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="solodescription_en" class="form-control" id="solodescription_en"
+						ng-model="currentWscostume.solodescription_en" maxlength="2000"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="solodescription_fr">{{translationObj.details.fieldtitlefrenchsolodescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="solodescription_fr" class="form-control" id="solodescription_fr"
+						ng-model="currentWscostume.solodescription_fr" maxlength="2000"></textarea>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
-				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<labelrequired for="publish" label="translationObj.details.fieldtitlepublish"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="publish" ng-model="currentWscostume.publish" required>
@@ -130,110 +143,28 @@
 			</div>
 
 		</div>
-		<div class="row" ng-if="currentWscostume.imagefilename && currentWscostume.imageinfo">
 
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/costumes/costumeid{{currentWscostume.id}}/{{currentWscostume.displayimagefilename}}" class="team-pic" alt="">
-					</div>
-					<h3 class="team_name">{{currentWscostume.fullname}}</h3>
-				</div>
-			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="currentWscostume.imageinfo[0]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWscostume.imageinfo[1]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWscostume.imageinfo['mime']" disabled>
-	      </div>
-			</div>
-
-		</div>
-
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
-			</div>
-		</div>
-
+		<displaywebsiteimage 
+			displayimagefilename="'costumes/costumeid'+currentWscostume.id+'/'+currentWscostume.displayimagefilename"
+			imageinfo="currentWscostume.imageinfo">
+		</displaywebsiteimage>
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="1000" ngf-max-width="1000" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>&nbsp;
-				<deletewebsiteimagebutton subdir="'costumes'" dirsuffix="'costume'" context="'ws_costumes'" obj="currentWscostume" callback="setCurrentInternal(currentWscostume)" is-disabled="!currentWscostume.imagefilename"></deletewebsiteimagebutton>
-				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
-  		</div>
-  	</div>
+				<uploadwebsiteimagebutton 
+					subdirectory="'/website/images/costumes/costumeid'+currentWscostume.id+'/'"
+					fileprefix="currentWscostume.name"
+					tablename="'cpa_ws_costumes'" 
+					id="currentWscostume.id"
+					oldfilename="currentWscostume.imagefilename" 
+					callback="setCurrentInternal(currentWscostume)"
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadwebsiteimagebutton>&nbsp;
+				<deletewebsiteimagebutton 
+					subdir="'costumes'" dirsuffix="'costume'" context="'ws_costumes'" obj="currentWscostume" 
+					callback="setCurrentInternal(currentWscostume)"	is-disabled="!currentWscostume.imagefilename">
+				</deletewebsiteimagebutton>
+			</div>
+		</div>
 
-		<hr>
-		<h3>{{translationObj.details.formtitlepicture}}&nbsp;
-			<button class="btn btn-primary" type="file" ngf-select="uploadPictureImage($file, $invalidFiles)" accept="image/jpeg"  ngf-max-size="8MB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>
-		</h3>
-		<div ng-repeat="picture in currentWscostume.pictures">
-    	<div class="row">
-
-		    <div class="col-xs-1">
-			    <label for="pictureindex">{{translationObj.details.fieldtitlepictureindex}}</label>
-					<input type="number" name="pictureindex" class="form-control" id="pictureindex" ng-model="picture.pictureindex" disabled>
-		    </div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-	      	<!-- <div class="input-group"> -->
-					  <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span> -->
-						<input type="text" name="width" class="form-control" id="width" ng-model="picture.imageinfo[0]" disabled>
-		      <!-- </div> -->
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-	      	<!-- <div class="input-group"> -->
-					  <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span> -->
-						<input type="text" name="height" class="form-control" id="height" ng-model="picture.imageinfo[1]" disabled>
-		      <!-- </div> -->
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-	      	<!-- <div class="input-group"> -->
-					  <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span> -->
-						<input type="text" name="type" class="form-control" id="type" ng-model="picture.imageinfo['mime']" disabled>
-		      <!-- </div> -->
-				</div>
-
-				<div class="col-xs-3">
-					<div class="img-wrapper">
-            <a data-fancybox="{{currentWscostume.name}}" ng-href="../websiteimages/costumes/costumeid{{currentWscostume.id}}/{{picture.imagefilename}}">
-							<img ng-src="../websiteimages/costumes/costumeid{{currentWscostume.id}}/thumbnails/{{picture.imagefilename}}" class="img-responsive" alt="{{currentWscostume.label}}">
-						</a>
-          </div>
-				</div>
-
-      	<div class="col-xs-2">
-			    <label>&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<child-delete-button 		obj="picture" objlist="currentWscostume.pictures" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 	obj="picture" objlist="currentWscostume.pictures" callback="setDirty()"></child-undelete-button>
-							<child-status-indicator obj="picture"></child-status-indicator>
-						</span>
-				  </div>
-			  </div>
-		  </div>
-	 	</div>
-
-  </div>
+	</div>
 </div>

@@ -2,6 +2,12 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter registrations..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Registrations"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"No registration found"},
+	{"formname":"leftPane", "fieldname":"fielddate", "text":"Date"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusdraft", "text":"Registration is in draft mode"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusreviseddraft", "text":"Revised registration is in draft mode"},
+	{"formname":"leftPane", "fieldname":"tooltipstatuspresented", "text":"Registration is in presented mode"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusrevisedpresented", "text":"Revised registration is in presented mode"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusaccepted", "text":"Registration is accepted and done"},
 
 	{"formname":"registration", "fieldname":"fieldsession", "text":"Session"},
 	{"formname":"registration", "fieldname":"fielddate", "text":"Date"},
@@ -104,7 +110,7 @@
 	{"formname":"numbers", "fieldname":"msgmandatory", "text":"(Mandatory)"},
 
 	{"formname":"newregistration", "fieldname":"formtitle", "text":"New Registration"},
-	{"formname":"newregistration", "fieldname":"fieldsession", "text":"Session"},
+	{"formname":"newregistration", "fieldname":"fieldsession", "text":"Event"},
 	{"formname":"newregistration", "fieldname":"fielddate", "text":"Date"},
 	{"formname":"newregistration", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
 	{"formname":"newregistration", "fieldname":"formerrormessageinvaliddate", "text":"Registration date must be prior to end of courses date."},
@@ -173,8 +179,9 @@
 	{"formname":"registrationsummary", "fieldname":"buttontitleaccept", "text":"Accept"},
 
 	{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filter"},
-	{"formname":"filter", "fieldname":"fieldsessionid", "text":"Session"},
-	{"formname":"filter", "fieldname":"fieldactiveonly", "text":"Active Session Only"},
+	{"formname":"filter", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"filter", "fieldname":"fieldSurname", "text":"Last Name"},
+	{"formname":"filter", "fieldname":"fieldstatus", "text":"Status"},
 	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Dismiss Filter"},
 	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Clear Form"},

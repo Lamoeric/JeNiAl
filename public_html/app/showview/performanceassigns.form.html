@@ -1,8 +1,9 @@
 <div class="form-group row">
 	<div class="grid">
-		<h3>{{translationObj.performanceassigns.formtitle}}
-			&nbsp;<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformanceAssign(performance, {})"></button>
-			&nbsp;<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'ASSIGN')">{{translationObj.performanceassigns.buttontitlecopyfrom}}</button>
+		<h3>{{translationObj.performanceassigns.formtitle}}&nbsp;
+			<button class="btn btn-primary glyphicon glyphicon-plus" ng-click="editShowPerformanceAssign(performance, {})"></button>
+			&nbsp;
+			<button class="btn btn-primary" ng-click="openCopyFrom(performance, 'ASSIGN')">{{translationObj.performanceassigns.buttontitlecopyfrom}}</button>
 		</h3>
 		<div class="row">
 			<div class="col-xs-12">
@@ -17,29 +18,27 @@
 							<label for="contactfullname{{$index}}" ng-show="$index==0">{{translationObj.performanceassigns.fieldcontactfullname}}</label>
 							<input type="text" class="form-control" id="contactfullname{{$index}}" ng-model="assign.contactfullname" disabled>
 						</div>
-			      <div class="col-xs-3">
-				      <label for="addinfo{{$index}}" ng-show="$index==0">{{translationObj.performanceassigns.fieldadditionalinfo}}</label>
-			      	<input type="text" class="form-control" id="addinfo{{$index}}" ng-model="assign.addinfo" disabled>
-			      </div>
-			      <div class="col-xs-1">
-				      <label for="comments{{$index}}" ng-show="$index==0">{{translationObj.performanceassigns.fieldcomments}}</label>
-			      	<input type="text" class="form-control" id="comments{{$index}}" ng-model="assign.comments" disabled>
-			      </div>
-
+						<div class="col-xs-3">
+							<label for="addinfo{{$index}}" ng-show="$index==0">{{translationObj.performanceassigns.fieldadditionalinfo}}</label>
+							<input type="text" class="form-control" id="addinfo{{$index}}" ng-model="assign.addinfo" disabled>
+						</div>
+						<div class="col-xs-1">
+							<label for="comments{{$index}}" ng-show="$index==0">{{translationObj.performanceassigns.fieldcomments}}</label>
+							<input type="text" class="form-control" id="comments{{$index}}" ng-model="assign.comments" disabled>
+						</div>
 						<div class="col-xs-2">
 							<label ng-show="$index==0">&nbsp;</label>
 							<div class="input-group">
 								<span>
-									<child-edit-button 			obj="assign" objlist="performance.assigns" callback="editShowPerformanceAssign(performance, assign)"></child-edit-button>
-									<child-delete-button 		obj="assign" objlist="performance.assigns" callback="setDirty()"></child-delete-button>
-									<child-undelete-button 	obj="assign" objlist="performance.assigns" callback="setDirty()"></child-undelete-button>
+									<child-edit-button obj="assign" objlist="performance.assigns" callback="editShowPerformanceAssign(performance, assign)"></child-edit-button>
+									<child-delete-button obj="assign" objlist="performance.assigns" callback="setDirty()"></child-delete-button>
+									<child-undelete-button obj="assign" objlist="performance.assigns" callback="setDirty()"></child-undelete-button>
 									<child-status-indicator obj="assign"></child-status-indicator>
 								</span>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

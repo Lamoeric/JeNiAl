@@ -1,85 +1,88 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newnumberdates.formtitleeditnumberdate}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newnumberdates.formtitleeditnumberdate}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group row">
 
-      <div class="col-xs-5">
-	      <label for="arena">{{translationObj.newnumberdates.fieldarena}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+			<div class="col-xs-5">
+				<labelrequired for="arena" label="translationObj.newnumberdates.fieldarena"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="arena" ng-model="newObj.arenaid" ng-change="onArenaChange(newObj)" ng-disabled="newObj.id != null && newObj.manual == '0'" required autofocus>
 						<option ng-repeat="arena in arenas" value="{{arena.id}}">{{arena.label}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="iceno">{{translationObj.newnumberdates.fieldice}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="iceno" ng-model="newObj.iceid" ng-disabled="newObj.id != null && newObj.manual == '0'">
+			<div class="col-xs-3" ng-if="ices && ices.length!=0">
+				<labelrequired for="iceno" label="translationObj.newnumberdates.fieldice"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="iceno" ng-model="newObj.iceid" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
 						<option ng-repeat="ice in ices" value="{{ice.id}}">{{ice.label}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-5">
+				<labelrequired for="practicedate" label="translationObj.newnumberdates.fielddate"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="date" class="form-control" id="practicedate" ng-model="newObj.practicedate" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+				</div>
+			</div>
 
-      <div class="col-xs-4">
-	      <label for="practicedate">{{translationObj.newnumberdates.fielddate}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	        <input type="date" class="form-control" id="practicedate" name="practicedate" ng-model="newObj.practicedate" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
-	      </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="day">{{translationObj.newnumberdates.fieldday}}</label>	
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="day" ng-model="newObj.day" disabled>
+						<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-3">
+				<labelrequired for="starttime" label="translationObj.newnumberdates.fieldstarttime"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="time" class="form-control" id="starttime" ng-model="newObj.starttime" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+				</div>
+			</div>
 
-    	<div class="col-xs-3">
-		    <label>{{translationObj.newnumberdates.fieldday}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-			  	<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" ng-model="newObj.day" disabled>
-			    	<option ng-repeat="day1 in days" value="{{day1.code}}">{{day1.text}}</option>
-			    </select>
-			  </div>
-		  </div>
+			<div class="col-xs-3">
+				<labelrequired for="endtime" label="translationObj.newnumberdates.fieldendtime"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="time" class="form-control" id="endtime" ng-model="newObj.endtime" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="starttime">{{translationObj.newnumberdates.fieldstarttime}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="time" class="form-control" id="starttime" ng-model="newObj.starttime" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
-      	</div>
-      </div>
+			<div class="col-xs-2">
+				<labelrequired for="duration" label="translationObj.newnumberdates.fieldduration"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="text" class="form-control" id="duration" ng-model="newObj.duration" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-2">
+				<div class="input-group">
+					<br>
+					<label>
+						<input type="checkbox" ng-model="newObj.canceled" ng-true-value="'1'" ng-false-value="'0'">{{translationObj.newnumberdates.fieldcanceled}}
+					</label>
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="endtime">{{translationObj.newnumberdates.fieldendtime}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="time" class="form-control" id="endtime" ng-model="newObj.endtime" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
-      	</div>
-      </div>
-
-      <div class="col-xs-2">
-	      <label for="duration">{{translationObj.newnumberdates.fieldduration}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-        	<input type="text" class="form-control" id="duration" ng-model="newObj.duration" ng-disabled="newObj.id != null && newObj.manual == '0'" required>
-      	</div>
-      </div>
-      
-      <div class="col-xs-2">
-      	<div class="input-group">
-					<br><label><input type="checkbox" ng-model="newObj.canceled" ng-true-value="'1'" ng-false-value="'0'">{{translationObj.newnumberdates.fieldcanceled}}</label>
-	      </div>
-	    </div>
-
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newnumberdates.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newnumberdates.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"    >{{translationObj.newnumberdates.buttontitlekeepchanges}}</button>
-</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newnumberdates.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newnumberdates.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newnumberdates.buttontitlekeepchanges}}</button>
+	</div>
+</form>

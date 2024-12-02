@@ -1,60 +1,65 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentWsclassifiedadd.name" maxlength="40" required>
-	      </div>
-	    </div>
+			<div class="col-xs-4">
+				<labelrequired for="name" label="translationObj.details.fieldtitlename"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentWsclassifiedadd.name"
+						maxlength="40" required autocomplete="off">
+				</div>
+			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="label_en">{{translationObj.details.fieldtitleenglishlabel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_en" class="form-control" id="label_en" ng-model="currentWsclassifiedadd.label_en" maxlength="2000">
-	      </div>
-	    </div>
-			<div class="col-xs-4">
-	      <label for="label_fr">{{translationObj.details.fieldtitlefrenchlabel}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="label_fr" class="form-control" id="label_fr" ng-model="currentWsclassifiedadd.label_fr" maxlength="2000">
-	      </div>
-	    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<labelrequired for="label_en" label="translationObj.details.fieldtitleenglishlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_en" class="form-control" id="label_en"
+						ng-model="currentWsclassifiedadd.label_en" maxlength="2000" ng-required="config.supportenglish==1">
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<labelrequired for="label_fr" label="translationObj.details.fieldtitlefrenchlabel"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="label_fr" class="form-control" id="label_fr"
+						ng-model="currentWsclassifiedadd.label_fr" maxlength="2000" ng-required="config.supportfrench==1">
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-	      <label for="price">{{translationObj.details.fieldtitleprice}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-					<input type="text" name="price" class="form-control" id="price" ng-model="currentWsclassifiedadd.price" ng-currency required>
-	      </div>
-	    </div>
+				<labelrequired for="price" label="translationObj.details.fieldtitleprice"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					<input type="text" name="price" class="form-control" id="price"
+						ng-model="currentWsclassifiedadd.price" ng-currency required>
+				</div>
+			</div>
 		</div>
 		<div class="row">
-      <div class="col-xs-4">
-	      <label for="description_en">{{translationObj.details.fieldtitleenglishdescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="description_en" class="form-control" id="description_en" ng-model="currentWsclassifiedadd.description_en" maxlength="2000"></textarea>
-	      </div>
-	    </div>
-			<div class="col-xs-4">
-	      <label for="description_fr">{{translationObj.details.fieldtitlefrenchdescription}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="description_fr" class="form-control" id="description_fr" ng-model="currentWsclassifiedadd.description_fr" maxlength="2000"></textarea>
-	      </div>
-	    </div>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="description_en">{{translationObj.details.fieldtitleenglishdescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="description_en" class="form-control" id="description_en"
+						ng-model="currentWsclassifiedadd.description_en" maxlength="2000"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="description_fr">{{translationObj.details.fieldtitlefrenchdescription}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="description_fr" class="form-control" id="description_fr"
+						ng-model="currentWsclassifiedadd.description_fr" maxlength="2000"></textarea>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
-				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<labelrequired for="publish" label="translationObj.details.fieldtitlepublish"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="publish" ng-model="currentWsclassifiedadd.publish" required>
@@ -62,112 +67,28 @@
 					</select>
 				</div>
 			</div>
-
-		</div>
-		<div class="row" ng-if="currentWsclassifiedadd.imagefilename && currentWsclassifiedadd.imageinfo">
-
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/{{currentWsclassifiedadd.displayimagefilename}}" class="team-pic" alt="">
-					</div>
-					<h3 class="team_name">{{currentWsclassifiedadd.fullname}}</h3>
-				</div>
-			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="currentWsclassifiedadd.imageinfo[0]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWsclassifiedadd.imageinfo[1]" disabled>
-	      </div>
-
-				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWsclassifiedadd.imageinfo['mime']" disabled>
-	      </div>
-			</div>
-
 		</div>
 
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
-			</div>
-		</div>
-
+		<displaywebsiteimage 
+			displayimagefilename="'classifiedadds/addid'+currentWsclassifiedadd.id+'/'+currentWsclassifiedadd.displayimagefilename"
+			imageinfo="currentWsclassifiedadd.imageinfo">
+		</displaywebsiteimage>
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="1000" ngf-max-width="1000" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>&nbsp;
-				<deletewebsiteimagebutton subdir="'classifiedadds'" dirsuffix="'add'" context="'ws_classifiedadds'" obj="currentWsclassifiedadd" callback="setCurrentInternal(currentWsclassifiedadd)" is-disabled="!currentWsclassifiedadd.imagefilename"></deletewebsiteimagebutton>
-				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
-  		</div>
-  	</div>
-
-		<hr>
-		<h3>{{translationObj.details.formtitlepicture}}&nbsp;
-			<button class="btn btn-primary" type="file" ngf-select="uploadPictureImage($file, $invalidFiles)" accept="image/jpeg"  ngf-max-size="8MB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>
-		</h3>
-		<div ng-repeat="picture in currentWsclassifiedadd.pictures">
-    	<div class="row">
-
-		    <div class="col-xs-1">
-			    <label for="pictureindex">{{translationObj.details.fieldtitlepictureindex}}</label>
-					<input type="number" name="pictureindex" class="form-control" id="pictureindex" ng-model="picture.pictureindex" disabled>
-		    </div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-	      	<!-- <div class="input-group"> -->
-					  <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span> -->
-						<input type="text" name="width" class="form-control" id="width" ng-model="picture.imageinfo[0]" disabled>
-		      <!-- </div> -->
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-	      	<!-- <div class="input-group"> -->
-					  <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span> -->
-						<input type="text" name="height" class="form-control" id="height" ng-model="picture.imageinfo[1]" disabled>
-		      <!-- </div> -->
-				</div>
-
-				<div class="col-xs-2">
-					<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-	      	<!-- <div class="input-group"> -->
-					  <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span> -->
-						<input type="text" name="type" class="form-control" id="type" ng-model="picture.imageinfo['mime']" disabled>
-		      <!-- </div> -->
-				</div>
-
-				<div class="col-xs-3">
-					<div class="img-wrapper">
-            <a data-fancybox="{{currentWsevent.name}}" ng-href="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/{{picture.imagefilename}}">
-							<img ng-src="../websiteimages/classifiedadds/addid{{currentWsclassifiedadd.id}}/thumbnails/{{picture.imagefilename}}" class="img-responsive" alt="{{oneevent.label}}">
-						</a>
-          </div>
-				</div>
-
-      	<div class="col-xs-2">
-			    <label>&nbsp;</label>
-	      	<div class="input-group">
-    				<span>
-							<child-delete-button 		obj="picture" objlist="currentWsclassifiedadd.pictures" callback="setDirty()"></child-delete-button>
-							<child-undelete-button 	obj="picture" objlist="currentWsclassifiedadd.pictures" callback="setDirty()"></child-undelete-button>
-							<child-status-indicator obj="picture"></child-status-indicator>
-						</span>
-				  </div>
-			  </div>
-		  </div>
-	 	</div>
-
-  </div>
+				<uploadwebsiteimagebutton 
+					subdirectory="'/website/images/classifiedadds/addid'+currentWsclassifiedadd.id+'/'"
+					fileprefix="currentWsclassifiedadd.name"
+					tablename="'cpa_ws_classifiedadds'" 
+					id="currentWsclassifiedadd.id"
+					oldfilename="currentWsclassifiedadd.imagefilename" 
+					callback="setCurrentInternal(currentWsclassifiedadd)"
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadwebsiteimagebutton>&nbsp;
+				<deletewebsiteimagebutton 
+					subdir="'classifiedadds'" dirsuffix="'add'" context="'ws_classifiedadds'" obj="currentWsclassifiedadd" 
+					callback="setCurrentInternal(currentWsclassifiedadd)" is-disabled="!currentWsclassifiedadd.imagefilename">
+				</deletewebsiteimagebutton>
+			</div>
+		</div>
+	</div>
 </div>

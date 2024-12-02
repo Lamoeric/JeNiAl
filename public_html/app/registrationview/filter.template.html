@@ -1,33 +1,39 @@
-<div class="modal-header">
-	<h4 class="modal-title">{{translationObj.filter.formtitlefilter}}</h4>
-</div>
-<div class="modal-body">
-	<form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.filter.formtitlefilter}}</h4>
+	</div>
+	<div class="modal-body">
 		<div class="form-group">
-      <div class="col-xs-7">
-	      <label for="sessionid">{{translationObj.filter.fieldsessionid}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-          <select class="form-control" id="sessionid" ng-model="newObj.sessionid">
-						<option ng-repeat="session in sessions" value="{{session.id}}">{{session.label}}</option>
-		      </select>
-	      </div>
-      </div>
-      <div class="col-xs-5">
-	      <label for="course">{{translationObj.filter.fieldactiveonly}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-          <select class="form-control" id="activeOnly" ng-model="newObj.activeOnly">
-						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-		      </select>
-	      </div>
-      </div>
+			<div class="col-xs-5">
+				<label for="firstname">{{translationObj.filter.fieldfirstname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" id="firstname" name="firstname" class="form-control" ng-model="newObj.firstname"	maxlength="40">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="lastname">{{translationObj.filter.fieldLastname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" id="lastname" name="lastname" class="form-control" ng-model="newObj.lastname" maxlength="40">
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="status">{{translationObj.filter.fieldstatus}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+					<select class="form-control" id="status" ng-model="newObj.status">
+						<option value=""></option>
+						<option ng-repeat="status in registrationstatus" value="{{status.code}}">{{status.text}}</option>
+					</select>
+				</div>
+			</div>
 		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.filter.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="cancel(true)"	>{{translationObj.filter.buttontitledismiss}}</button>
-	<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.filter.buttontitleclearform}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.filter.buttontitleapplyfilter}}</button>
-</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.filter.buttontitlediscard}}</button>
+		<button type="button" class="btn btn-primary" ng-click="cancel(true)">{{translationObj.filter.buttontitledismiss}}</button>
+		<button type="button" class="btn btn-primary" ng-click="newObj={}">{{translationObj.filter.buttontitleclearform}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.filter.buttontitleapplyfilter}}</button>
+	</div>
+</form>

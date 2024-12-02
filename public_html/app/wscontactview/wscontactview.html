@@ -1,9 +1,9 @@
 <!-- Left Pane -->
-<div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
+<!-- <div class="col-xs-5 col-sm-2" style="position:absolute;top:52px;bottom:0px;left:0px;">
 <leftpane></leftpane>
-</div>
+</div> -->
 <!-- Right Pane -->
-<div class="col-xs-7 col-sm-10" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+<div class="col-xs-12 col-sm-12" style="position:absolute;top:52px;bottom:0;right:0;height:90%" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
 	<!-- Main title : Only display if currentWscontact is not null -->
 	<div ng-if="currentWscontact!=null"><h2>{{currentWscontact.firstname}} {{currentWscontact.lastname}}</h2></div>
 	<div ng-if="currentWscontact==null"><h2>{{translationObj.main.formtitlecontactdetails}}</h2></div>

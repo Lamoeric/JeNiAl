@@ -256,7 +256,7 @@ angular.module('cpa_admin.testview', ['ngRoute'])
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testsubtypes', 	 'text', 		'testsubtypes');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testsubsubtypes', 'text', 		'testsubsubtypes');
 
-		listsService.getAllTestsDefinitions($scope, $http, authenticationService.getCurrentLanguage());
+		listsService.getAllTestsDefinitions($scope, authenticationService.getCurrentLanguage());
 		translationService.getTranslation($scope, 'testview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
 	}

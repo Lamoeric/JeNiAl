@@ -2,7 +2,7 @@
 
 angular.module('cpa_admin.contactview', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider.when('/contactview', {
 		templateUrl: 'contactview/contactview.html',
 		controller: 'contactviewCtrl',
@@ -10,20 +10,20 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 			auth: function ($q, authenticationService) {
 				var userInfo = authenticationService.getUserInfo();
 				if (userInfo) {
-					if (userInfo.privileges.admin_access==true) {
+					if (userInfo.privileges.admin_access == true) {
 						return $q.when(userInfo);
 					} else {
-						return $q.reject({authenticated: true, validRights: false, newLocation:null});
+						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
 					}
 				} else {
-					return $q.reject({authenticated: false, newLocation: "/contactview"});
+					return $q.reject({ authenticated: false, newLocation: "/contactview" });
 				}
 			}
 		}
 	});
 }])
 
-.controller('contactviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($rootScope, $scope, $http, $uibModal, anycodesService, dialogService, listsService, authenticationService, translationService) {
+.controller('contactviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function ($rootScope, $scope, $http, $uibModal, anycodesService, dialogService, listsService, authenticationService, translationService) {
 
 	$scope.progName = "contactView";
 	$scope.currentContact = null;
@@ -33,23 +33,37 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 	$scope.isFormPristine = true;
 	$scope.newFilter = {};
 	$scope.newFilter.filterApplied = false;
+	$scope.formList = [{name:'detailsForm', errorMsg:'msgerrallmandatory'}];
 
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty) {
-			return true;
-		}
-		return false;
+	/**
+	 * This function checks if anything is dirty
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 */
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.isFormPristine = true;
+	/**
+	 * This function sets all the forms as pristine
+	 */
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
 	};
+
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
+	}
 
 	$scope.getAllContacts = function (newFilter) {
 		if (newFilter) {
@@ -58,12 +72,11 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 			$scope.newFilter.filterApplied = false;
 		}
 		$scope.promise = $http({
-				method: 'post',
-				url: './contactview/contactview.php',
-				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'filter' : newFilter, 'type' : 'getAllContacts' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			method: 'post',
+			url: './contactview/contactview.php',
+			data: $.param({ 'language': authenticationService.getCurrentLanguage(), 'filter': newFilter, 'type': 'getAllContacts' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
 				if (!angular.isUndefined(data.data)) {
 					$scope.leftobjs = data.data;
@@ -76,8 +89,7 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 					dialogService.displayFailure(data);
 				}
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -86,17 +98,15 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 		$scope.promise = $http({
 			method: 'post',
 			url: './contactview/contactview.php',
-			data: $.param({'id' : contact.id, 'type' : 'getContactDetails' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			data: $.param({ 'id': contact.id, 'type': 'getContactDetails' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success && !angular.isUndefined(data.data)) {
 				$scope.currentContact = data.data[0];
 			} else {
 				dialogService.displayFailure(data);
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 		});
 	};
@@ -122,55 +132,32 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 		}
 	};
 
-	$scope.deleteFromDB = function(confirmed) {
+	$scope.deleteFromDB = function (confirmed) {
 		if ($scope.currentContact != null && !confirmed) {
 			dialogService.confirmDlg($scope.translationObj.main.msgdelete, "YESNO", $scope.deleteFromDB, null, true, null);
 		} else {
 			$http({
 				method: 'post',
 				url: './contactview/contactview.php',
-				data: $.param({'contact' : $scope.currentContact, 'type' : 'delete_contact' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'contact': $scope.currentContact, 'type': 'delete_contact' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
-					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedContact),1);
+					$scope.leftobjs.splice($scope.leftobjs.indexOf($scope.selectedContact), 1);
 					$scope.setCurrentInternal(null);
 					return true;
 				} else {
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function(data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
 		}
 	}
 
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
-		}
-		return retVal;
-	}
-
-	$scope.saveToDB = function() {
+	$scope.saveToDB = function () {
 		if ($scope.currentContact == null || !$scope.isDirty()) {
 			dialogService.alertDlg("Nothing to save!", null);
 		} else {
@@ -178,10 +165,9 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 			$scope.promise = $http({
 				method: 'post',
 				url: './contactview/contactview.php',
-				data: $.param({'contact' : $scope.currentContact, 'type' : 'updateEntireContact' }),
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			}).
-			success(function(data, status, headers, config) {
+				data: $.param({ 'contact': $scope.currentContact, 'type': 'updateEntireContact' }),
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+			}).success(function (data, status, headers, config) {
 				if (data.success) {
 					// Select this contact to reset everything
 					$scope.setCurrentInternal($scope.selectedContact, null);
@@ -190,24 +176,22 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 					dialogService.displayFailure(data);
 					return false;
 				}
-			}).
-			error(function(data, status, headers, config) {
+			}).error(function (data, status, headers, config) {
 				dialogService.displayFailure(data);
 				return false;
 			});
 		}
 	};
 
-	$scope.addContactToDB = function() {
+	$scope.addContactToDB = function () {
 		$scope.promise = $http({
 			method: 'post',
 			url: './contactview/contactview.php',
-			data: $.param({'contact' : $scope.newContact, 'type' : 'insert_contact' }),
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).
-		success(function(data, status, headers, config) {
+			data: $.param({ 'contact': $scope.newContact, 'type': 'insert_contact' }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function (data, status, headers, config) {
 			if (data.success) {
-				var newContact = {id:data.id, name:$scope.newContact.name};
+				var newContact = { id: data.id, name: $scope.newContact.name };
 				$scope.leftobjs.push(newContact);
 				// We could sort the list....
 				$scope.setCurrentInternal(newContact);
@@ -216,8 +200,7 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 				dialogService.displayFailure(data);
 				return false;
 			}
-		}).
-		error(function(data, status, headers, config) {
+		}).error(function (data, status, headers, config) {
 			dialogService.displayFailure(data);
 			return false;
 		});
@@ -231,32 +214,51 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 			$scope.newContact = {};
 			// Send the newContact to the modal form
 			$uibModal.open({
-					animation: false,
-					templateUrl: 'contactview/newcontact.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'md',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newContact;
-						}
+				animation: false,
+				templateUrl: 'contactview/newcontact.template.html',
+				controller: 'childeditor.controller',
+				scope: $scope,
+				size: 'md',
+				backdrop: 'static',
+				resolve: {
+					newObj: function () {
+						return $scope.newContact;
 					}
-			})
-			.result.then(function(newContact) {
-					// User clicked OK and everything was valid.
-					$scope.newContact = newContact;
-					if ($scope.addContactToDB() == true) {
-					}
-			}, function() {
+				}
+			}).result.then(function (newContact) {
+				// User clicked OK and everything was valid.
+				$scope.newContact = newContact;
+				if ($scope.addContactToDB() == true) {
+				}
+			}, function () {
 				// User clicked CANCEL.
 				// alert('canceled');
 			});
 		}
 	};
 
+	/**
+	 * This function is used by the new member dialog box to validate that the new member is valid
+	 * All fields must be filled and member must not already be in the meber list
+	 * @param {*} newMember Coach object being added
+	 */
+	$scope.validateNewMember = function (formObj, newMember) {
+		// Validate the form using the field's rules
+		if (formObj.$invalid) {
+			return "#editObjFieldMandatory";
+		}
+		// Make sure that the new coach is not already in the list
+		if (!newMember.id) {
+			for (var x = 0; $scope.currentContact.members && x < $scope.currentContact.members.length; x++) {
+				if ($scope.currentContact.members[x].memberid == newMember.member.id) {
+					return "#editObjMemberAlreadyExists";
+				}
+			}
+		}
+	}
+
 	// This is the function that creates the modal to create/edit ice
-	$scope.editMember = function(newMember) {
+	$scope.editMember = function (newMember) {
 		$scope.newMember = {};
 		if (newMember.firstname) {
 			$scope.currentMember = newMember;
@@ -264,49 +266,53 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 			angular.copy(newMember, $scope.newMember);
 			$scope.newMember.member = {};
 			$scope.newMember.member.firstname = $scope.newMember.firstname;
-			$scope.newMember.member.lastname  = $scope.newMember.lastname;
+			$scope.newMember.member.lastname = $scope.newMember.lastname;
 		} else {
 			$scope.currentMember = null;
 		}
+		$scope.newMember.callback = $scope.validateNewMember;
 		$uibModal.open({
-				animation: false,
-					templateUrl: 'contactview/newmember.template.html',
-					controller: 'childeditor.controller',
-				scope: $scope,
-				size: null,
-				backdrop: 'static',
-				resolve: {
-					newObj: function () {
-						return $scope.newMember;
-					}
+			animation: false,
+			templateUrl: 'contactview/newmember.template.html',
+			controller: 'childeditor.controller',
+			scope: $scope,
+			size: null,
+			backdrop: 'static',
+			resolve: {
+				newObj: function () {
+					return $scope.newMember;
 				}
-			})
-			.result.then(function(newMember) {
-					// User clicked OK and everything was valid.
-					if ($scope.currentMember != null) {
-						angular.copy(newMember, $scope.currentMember);
-						$scope.currentMember.memberid = newMember.member.id;
-						$scope.currentMember.firstname = newMember.member.firstname;
-						$scope.currentMember.lastname = newMember.member.lastname;
-						$scope.currentMember.status = 'Modified';
-					} else {
-						newMember.status = 'New';
-						if ($scope.currentContact.members == null) $scope.currentContact.members = [];
-						newMember.memberid = newMember.member.id;
-						newMember.firstname = newMember.member.firstname;
-						newMember.lastname = newMember.member.lastname;
-						$scope.currentContact.members.push(newMember);
-					}
-					$scope.setDirty();
-			}, function() {
-					// User clicked CANCEL.
-					// alert('canceled');
+			}
+		}).result.then(function (newMember) {
+			newMember.callback = null;	// weird bug : callback was being called when saving the contact, so I set it to null to stop that behaviour.
+			// User clicked OK and everything was valid.
+			if ($scope.currentMember != null) {
+				angular.copy(newMember, $scope.currentMember);
+				$scope.currentMember.memberid = newMember.member.id;
+				$scope.currentMember.firstname = newMember.member.firstname;
+				$scope.currentMember.lastname = newMember.member.lastname;
+				$scope.currentMember.status = 'Modified';
+			} else {
+				newMember.status = 'New';
+				if ($scope.currentContact.members == null) $scope.currentContact.members = [];
+				newMember.memberid = newMember.member.id;
+				newMember.firstname = newMember.member.firstname;
+				newMember.lastname = newMember.member.lastname;
+				$scope.currentContact.members.push(newMember);
+			}
+			$scope.setDirty();
+		}, function () {
+			// User clicked CANCEL.
+			// alert('canceled');
 		});
 	};
 
-	$scope.mainFilter = function() {
-		// Send the newFilter to the modal form
-		$uibModal.open({
+	$scope.mainFilter = function (removeFilter) {
+		if (removeFilter == true) {
+			$scope.getAllContacts(null);
+		} else {
+			// Send the newFilter to the modal form
+			$uibModal.open({
 				animation: false,
 				templateUrl: 'contactview/filter.template.html',
 				controller: 'childeditor.controller',
@@ -318,10 +324,9 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 						return $scope.newFilter;
 					}
 				}
-		})
-		.result.then(function(newFilter) {
+			}).result.then(function (newFilter) {
 				// User clicked OK
-				if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration|| newFilter.qualification) {
+				if (newFilter.firstname || newFilter.lastname || newFilter.course || newFilter.registration || newFilter.qualification) {
 					$scope.newFilter = newFilter;
 					$scope.getAllContacts(newFilter);
 				} else {
@@ -329,21 +334,22 @@ angular.module('cpa_admin.contactview', ['ngRoute'])
 					$scope.newFilter = {};
 					$scope.getAllContacts(null);
 				}
-		}, function(dismiss) {
-			if (dismiss == true) {
-				$scope.getAllContacts(null);
-			}
-			// User clicked CANCEL.
-			// alert('canceled');
-		});
+			}, function (dismiss) {
+				if (dismiss == true) {
+					$scope.getAllContacts(null);
+				}
+				// User clicked CANCEL.
+				// alert('canceled');
+			});
+		}
 	}
 
-	$scope.refreshAll = function() {
+	$scope.refreshAll = function () {
 		$scope.getAllContacts();
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 							'text', 		'yesnos');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 				'text', 		'contacttypes');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'qualifications',			'text', 		'qualifications');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'registrationfilters',	'sequence', 'registrationfilters');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'contacttypes', 'text', 'contacttypes');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'qualifications', 'text', 'qualifications');
+		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'registrationfilters', 'sequence', 'registrationfilters');
 		listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
 		translationService.getTranslation($scope, 'contactview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();

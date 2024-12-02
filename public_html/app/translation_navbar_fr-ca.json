@@ -1,4 +1,7 @@
 [
+	{"formname":"general", "fieldname":"msgerrallmandatory", "text":"Tous les champs * sont obligatoires."},
+	{"formname":"general", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
+
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arénas"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Évaluation"},
 	{"formname":"main", "fieldname":"chargeviewCtrl", "text":"Charges"},
@@ -44,11 +47,8 @@
 	{"formname":"main", "fieldname":"ccregistrationviewCtrl", "text":"Mon espace patin"},
 	{"formname":"main", "fieldname":"ccbillviewCtrl", "text":"Mon espace patin"},
 
-	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"SW Contact"},
-	{"formname":"main", "fieldname":"wsarenaviewCtrl", "text":"SW Arénas"},
-	{"formname":"main", "fieldname":"wspageviewCtrl", "text":"SW Pages"},
+	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"SW Configuration"},
 	{"formname":"main", "fieldname":"wsnewpageviewCtrl", "text":"SW Pages"},
-	{"formname":"main", "fieldname":"wssectionviewCtrl", "text":"SW Sections"},
 	{"formname":"main", "fieldname":"wsboardmemberviewCtrl", "text":"SW Membres CA"},
 	{"formname":"main", "fieldname":"wscoachviewCtrl", "text":"SW Entraîneurs"},
 	{"formname":"main", "fieldname":"wsprogramassistantviewCtrl", "text":"SW Assistants de programme"},
@@ -105,7 +105,7 @@
 	{"formname":"navbar", "fieldname":"evaluationpp", "text":"Évaluation patinage plus"},
 
 	{"formname":"navbar", "fieldname":"webadministrationmenu", "text":"Site Web"},
-	{"formname":"navbar", "fieldname":"wscontactmanager", "text":"Gestion du contact"},
+	{"formname":"navbar", "fieldname":"wscontactmanager", "text":"Gestion de la configuration"},
 	{"formname":"navbar", "fieldname":"wsarenasmanager", "text":"Gestion des arénas"},
 	{"formname":"navbar", "fieldname":"wspagemanager", "text":"Gestion des pages"},
 	{"formname":"navbar", "fieldname":"wssectionmanager", "text":"Gestion des sections"},

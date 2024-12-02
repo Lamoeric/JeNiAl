@@ -30,11 +30,12 @@
 	{"formname":"newcontact", "fieldname":"buttontitlediscard", "text":"Discard"},
 	{"formname":"newcontact", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
-	{"formname":"newmember", "fieldname":"formtitleeditcontact", "text":"New Contact"},
+	{"formname":"newmember", "fieldname":"formtitleeditmember", "text":"New Member"},
 	{"formname":"newmember", "fieldname":"fieldrelation", "text":"Relation"},
 	{"formname":"newmember", "fieldname":"fieldmember", "text":"Member"},
 	{"formname":"newmember", "fieldname":"fieldincaseofemergency", "text":"In case of emergency"},
 	{"formname":"newmember", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newmember", "fieldname":"formerrmemberalreadyexists", "text":"This member is already in the list."},
 	{"formname":"newmember", "fieldname":"buttontitlediscard", "text":"Discard"},
 	{"formname":"newmember", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 

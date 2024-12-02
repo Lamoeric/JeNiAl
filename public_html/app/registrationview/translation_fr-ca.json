@@ -2,6 +2,12 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filtrer inscriptions..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"Inscriptions"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"Aucune inscription trouvée"},
+	{"formname":"leftPane", "fieldname":"fielddate", "text":"Date"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusdraft", "text":"L'inscription est en mode brouillon"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusreviseddraft", "text":"L'inscription révisée est en mode brouillon"},
+	{"formname":"leftPane", "fieldname":"tooltipstatuspresented", "text":"L'inscription a été présentée, mais n'est pas encore acceptée"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusrevisedpresented", "text":"L'inscription revisée a été présentée, mais n'est pas encore acceptée"},
+	{"formname":"leftPane", "fieldname":"tooltipstatusaccepted", "text":"L'inscription est acceptée et complétée"},
 
 	{"formname":"registration", "fieldname":"fieldsession", "text":"Session"},
 	{"formname":"registration", "fieldname":"fielddate", "text":"Date"},
@@ -104,7 +110,7 @@
 	{"formname":"numbers", "fieldname":"msgmandatory", "text":"(Obligatoire)"},
 
 	{"formname":"newregistration", "fieldname":"formtitle", "text":"Nouvelle inscription"},
-	{"formname":"newregistration", "fieldname":"fieldsession", "text":"Session"},
+	{"formname":"newregistration", "fieldname":"fieldsession", "text":"Évènement"},
 	{"formname":"newregistration", "fieldname":"fielddate", "text":"Date"},
 	{"formname":"newregistration", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
 	{"formname":"newregistration", "fieldname":"formerrormessageinvaliddate", "text":"La date d'inscription doit être inférieure à la date de fin des cours."},
@@ -173,8 +179,9 @@
 	{"formname":"registrationsummary", "fieldname":"buttontitleaccept", "text":"Accepter"},
 
 	{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filtre"},
-	{"formname":"filter", "fieldname":"fieldsessionid", "text":"Session"},
-	{"formname":"filter", "fieldname":"fieldactiveonly", "text":"Session active seul."},
+	{"formname":"filter", "fieldname":"fieldfirstname", "text":"Prénom"},
+	{"formname":"filter", "fieldname":"fieldLastname", "text":"Nom de famille"},
+	{"formname":"filter", "fieldname":"fieldstatus", "text":"Statut"},
 	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Retirer filtre"},
 	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Vider formulaire"},

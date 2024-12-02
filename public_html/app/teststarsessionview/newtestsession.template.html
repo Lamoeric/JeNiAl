@@ -1,26 +1,23 @@
-<div class="modal-header">
-	<h4 class="modal-title">{{translationObj.newtestsession.titleedittestsession}}</h4>
-</div>
-<div class="modal-body">
-	<form class="form-horizontal" role="form" name="editObjForm">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newtestsession.titleedittestsession}}</h4>
+	</div>
+	<div class="modal-body">
 		<div class="form-group">
 			<div class="col-xs-6">
-				<label for="sessionname">{{translationObj.newtestsession.fieldname}}<i style="color:red"> *</i></label>
+				<labelrequired for="sessionname" label="translationObj.newtestsession.fieldname"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" id="sessionname" name="sessionname" class="form-control" ng-model="newObj.name"
-						maxlength="120" ng-required="true">
+					<input type="text" id="sessionname" name="sessionname" class="form-control" ng-model="newObj.name" maxlength="120" ng-required="true" replacespaces capitalize autofocus>
 				</div>
 			</div>
 		</div>
-	</form>
-	<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-		{{translationObj.newtestsession.formerrormessage}}
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newtestsession.formerrormessage}}
+		</div>
 	</div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary"
-		ng-click="cancel()">{{translationObj.newtestsession.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary"
-		ng-click="ok()">{{translationObj.newtestsession.buttontitlekeepchanges}}</button>
-</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newtestsession.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newtestsession.buttontitlekeepchanges}}</button>
+	</div>
+</form>

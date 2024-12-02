@@ -2,9 +2,10 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
 require_once('../../include/registration.php');
+require_once('../../backend/invalidrequest.php'); //
 require_once('../core/directives/testsummary/manageTestSummary.php');
 require_once('../core/directives/contacts/contacts.php');
 require_once('../core/directives/billing/bills.php');
@@ -32,21 +33,21 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 		case "getRegistrationDetails":
 			getRegistrationDetails($mysqli, $_POST['eventType'], $_POST['eventId'], $_POST['id'], $_POST['language']);
 			break;
-		case "getAllMembers":
-			getAllMembers($mysqli);
-			break;
-		case "getMemberDetails":
-			getMemberDetails($mysqli, $_POST['id'], $_POST['language']);
-			break;
-		case "getAllBills":
-			getAllBills($mysqli);
-			break;
-		case "getBillDetails":
-			getBillDetails($mysqli, $_POST['id']);
-			break;
-		case "getRegistrationBill":
-			getRegistrationBill($mysqli, $_POST['registrationid'], $_POST['language']);
-			break;
+		// case "getAllMembers":
+		// 	getAllMembers($mysqli);
+		// 	break;
+		// case "getMemberDetails":
+		// 	getMemberDetails($mysqli, $_POST['id'], $_POST['language']);
+		// 	break;
+			// case "getAllBills":
+			// 	getAllBills($mysqli);
+			// 	break;
+		// case "getBillDetails":
+		// 	getBillDetails($mysqli, $_POST['id']);
+		// 	break;
+		// case "getRegistrationBill":
+		// 	getRegistrationBill($mysqli, $_POST['registrationid'], $_POST['language']);
+		// 	break;
 		case "copyRegistration":
 			copyRegistration($mysqli, json_decode($_POST['registration'], true), $_POST['registrationid'], $_POST['registrationdatestr'], $_POST['newstatus']);
 			break;
@@ -54,19 +55,20 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			countFamilyMembersRegistrationsInt($mysqli, $_POST['eventtype'], $_POST['eventid'], $_POST['memberid'], $_POST['language']);
 			break;
 		default:
-			invalidRequest();
+			invalidRequest($type);
 	}
 } else {
 	invalidRequest();
 };
 
-function countFamilyMembersRegistrationsInt($mysqli, $eventtype, $eventid, $memberid, $language) {
-	try{
+function countFamilyMembersRegistrationsInt($mysqli, $eventtype, $eventid, $memberid, $language)
+{
+	try {
 		$data = array();
 		$data['count'] = countFamilyMembersRegistrations($mysqli, $eventtype, $eventid, $memberid, $language);
 		$data['success'] = true;
 		echo json_encode($data);
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -75,16 +77,17 @@ function countFamilyMembersRegistrationsInt($mysqli, $eventtype, $eventid, $memb
 }
 
 // Try to get the course codes for the filter
- function getSessionCourseCodes($mysqli, $sessionid, $language) {
+function getSessionCourseCodes($mysqli, $sessionid, $language)
+{
 	$data = array();
 	$data['data'] = array();
-	$query = "select distinct cc.code, getTextLabel(cc.label, '$language') coursecodelabel
-						from cpa_sessions_courses csc
-						join cpa_courses cc ON cc.code = csc.coursecode
-						where csc.sessionid = $sessionid
-						and cc.active = 1
-						and cc.acceptregistrations = 1
-						order by cc.code";
+	$query = "SELECT distinct cc.code, getTextLabel(cc.label, '$language') coursecodelabel
+				FROM cpa_sessions_courses csc
+				JOIN cpa_courses cc ON cc.code = csc.coursecode
+				WHERE csc.sessionid = $sessionid
+				AND cc.active = 1
+				AND cc.acceptregistrations = 1
+				ORDER BY cc.code";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$data['data'][] = $row;
@@ -96,54 +99,57 @@ function countFamilyMembersRegistrationsInt($mysqli, $eventtype, $eventid, $memb
 /**
  * This function gets the details of one bill from database
  */
-function getBillDetailsInt($mysqli, $id = '') {
-	try{
-		if (empty($id)) throw new Exception("Invalid Bill.");
-		$query = "SELECT * FROM cpa_bills WHERE id = '$id'";
-		$result = $mysqli->query($query);
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$row['id'] = (int) $row['id'];
-			$data['data'][] = $row;
-		}
-		$data['success'] = true;
-		return $data;
-	}catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
-	}
-};
+// function 0Int($mysqli, $id = '')
+// {
+// 	try {
+// 		if (empty($id)) throw new Exception("Invalid Bill.");
+// 		$query = "SELECT * FROM cpa_bills WHERE id = '$id'";
+// 		$result = $mysqli->query($query);
+// 		$data = array();
+// 		while ($row = $result->fetch_assoc()) {
+// 			$row['id'] = (int) $row['id'];
+// 			$data['data'][] = $row;
+// 		}
+// 		$data['success'] = true;
+// 		return $data;
+// 	} catch (Exception $e) {
+// 		$data = array();
+// 		$data['success'] = false;
+// 		$data['message'] = $e->getMessage();
+// 		return $data;
+// 	}
+// };
 
 /**
  * This function gets list of all members from database
  */
-function getAllMembers($mysqli) {
-	try{
-		$query = "SELECT id, firstname, lastname, skatecanadano FROM cpa_members order by lastname, firstname";
-		$result = $mysqli->query($query);
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$row['id'] = (int) $row['id'];
-			$data['data'][] = $row;
-		}
-		$data['success'] = true;
-		echo json_encode($data);
-		exit;
-	}catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		echo json_encode($data);
-		exit;
-	}
-};
+// function getAllMembers($mysqli)
+// {
+// 	try {
+// 		$query = "SELECT id, firstname, lastname, skatecanadano FROM cpa_members order by lastname, firstname";
+// 		$result = $mysqli->query($query);
+// 		$data = array();
+// 		while ($row = $result->fetch_assoc()) {
+// 			$row['id'] = (int) $row['id'];
+// 			$data['data'][] = $row;
+// 		}
+// 		$data['success'] = true;
+// 		echo json_encode($data);
+// 		exit;
+// 	} catch (Exception $e) {
+// 		$data = array();
+// 		$data['success'] = false;
+// 		$data['message'] = $e->getMessage();
+// 		echo json_encode($data);
+// 		exit;
+// 	}
+// };
 
 /**
  * This function gets the details of one member from database
  */
-function getMemberDetailsInt($mysqli, $id, $language) {
+function getMemberDetailsInt($mysqli, $id, $language)
+{
 	$data = array();
 	$data['data'] = array();
 	$query = "SELECT * FROM cpa_members WHERE id = '$id'";
@@ -165,16 +171,18 @@ function getMemberDetailsInt($mysqli, $id, $language) {
 /**
  * This function gets the details of one member from database
  */
-function getMemberDetails($mysqli, $id, $language) {
-	echo json_encode(getMemberDetailsInt($mysqli, $id, $language));
-};
+// function getMemberDetails($mysqli, $id, $language)
+// {
+// 	echo json_encode(getMemberDetailsInt($mysqli, $id, $language));
+// };
 
-function updateEntireRegistration($mysqli, $registration, $newstatus) {
-	try{
+function updateEntireRegistration($mysqli, $registration, $newstatus)
+{
+	try {
 		$data = updateEntireRegistrationInt($mysqli, $registration, $newstatus);
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -184,11 +192,12 @@ function updateEntireRegistration($mysqli, $registration, $newstatus) {
 	}
 }
 
-function insert_registration($mysqli, $registration) {
+function insert_registration($mysqli, $registration)
+{
 	try {
 		echo json_encode(update_registration($mysqli, $registration, null));
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -202,8 +211,9 @@ function insert_registration($mysqli, $registration) {
  * @param string $registration
  * @throws Exception
  */
-function delete_registration($mysqli, $registration) {
-	try{
+function delete_registration($mysqli, $registration)
+{
+	try {
 		$id = $mysqli->real_escape_string(isset($registration['id']) ? $registration['id'] : '');
 		if (empty($id)) throw new Exception("Invalid registration.");
 		$query = "UPDATE cpa_registrations SET relatednewregistrationid = null, lastupdateddate = CURRENT_TIMESTAMP WHERE relatednewregistrationid	 = $id";
@@ -215,12 +225,12 @@ function delete_registration($mysqli, $registration) {
 				echo json_encode($data);
 				exit;
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -232,15 +242,23 @@ function delete_registration($mysqli, $registration) {
 /**
  * This function gets list of all registrations from database
  */
-function getAllRegistrations($mysqli, $eventtype, $eventid, $filter) {
-	try{
+function getAllRegistrations($mysqli, $eventtype, $eventid, $filter)
+{
+	try {
+		$firstname = isset($filter['firstname']) && !empty($filter['firstname']) ? $mysqli->real_escape_string($filter['firstname']) : null;
+		$lastname = isset($filter['lastname']) && !empty($filter['lastname']) ? $mysqli->real_escape_string($filter['lastname']) : null;
+		$status = isset($filter['status']) && !empty($filter['status']) ? $mysqli->real_escape_string($filter['status']) : null;
+		$whereclause = "WHERE cs.id = $eventid ";
+		if (!is_null($firstname)) $whereclause .= " AND cm.firstname like '$firstname'";
+		if (!is_null($lastname)) $whereclause .= " AND cm.lastname like '$lastname'";
+		if (!is_null($status)) $whereclause .= " AND cr.status = '$status'";
 		if ($eventtype == 1) { // Session
 			$query =   "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 1 as eventtype
 						FROM cpa_registrations cr
 						LEFT JOIN cpa_members cm ON cm.id = cr.memberid
-						JOIN cpa_sessions cs ON cs.id = cr.sessionid 
-						WHERE cs.id = $eventid
-						AND (relatednewregistrationid is null || relatednewregistrationid = 0)
+						JOIN cpa_sessions cs ON cs.id = cr.sessionid "
+				. $whereclause .
+				" AND (relatednewregistrationid is null || relatednewregistrationid = 0)
 						ORDER BY cr.sessionid DESC, cr.id DESC, cr.registrationdate DESC";
 		} else if ($eventtype == 2) { // Show
 			$query =   "SELECT cr.id, cr.registrationdate, cr.status, cm.lastname memberlastname, cm.firstname memberfirstname, cs.name sessionname, cs.id as eventid, 2 as eventtype
@@ -259,8 +277,10 @@ function getAllRegistrations($mysqli, $eventtype, $eventid, $filter) {
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
-		echo json_encode($data);exit;
-	}catch (Exception $e) {
+		$data['query'] = $query;
+		echo json_encode($data);
+		exit;
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -272,8 +292,9 @@ function getAllRegistrations($mysqli, $eventtype, $eventid, $filter) {
 /**
  * This function gets the details of one registration from database
  */
-function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language) {
-	try{
+function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language)
+{
+	try {
 		if (empty($id)) throw new Exception("Invalid registration.");
 		if ($eventtype == 1) { // Session
 			$query =   "SELECT  cr.id, cr.memberid, cr.sessionid, cr.showid, cr.registrationdate, cr.familycount familyMemberCount, cr.relatednewregistrationid,
@@ -329,7 +350,7 @@ function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language) {
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -341,16 +362,17 @@ function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language) {
 /*
 	This function copies an existing registration and returns the new registration id
 */
-function copyRegistration($mysqli, $registration, $registrationid, $newregistrationdatestr, $newregistrationstatus) {
-	try{
+function copyRegistration($mysqli, $registration, $registrationid, $newregistrationdatestr, $newregistrationstatus)
+{
+	try {
 		$data = array();
 		// Check if registration is still up to date, if not, exit with error
 		if (isRegistrationUpToDate($mysqli, $registration) == false) {
 			$data['success'] = false;
-		 	$data['errno']   = 8888;
-		 	$data['message'] = 'Registration is not up to date.';
-		 	echo json_encode($data);
-		 	exit;
+			$data['errno']   = 8888;
+			$data['message'] = 'Registration is not up to date.';
+			echo json_encode($data);
+			exit;
 		}
 		$query = "INSERT INTO cpa_registrations(id, memberid, sessionid, showid, registrationdate, relatednewregistrationid, relatedoldregistrationid, status, regulationsread, familycount)
 							SELECT null, memberid, sessionid, showid, '$newregistrationdatestr', null, id, '$newregistrationstatus', regulationsread, familycount
@@ -369,30 +391,30 @@ function copyRegistration($mysqli, $registration, $registrationid, $newregistrat
 										FROM cpa_registrations_courses
 										WHERE registrationid = '$registrationid'";
 					if (!$mysqli->query($query)) {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 					$query = "INSERT INTO cpa_registrations_numbers(id, registrationid, numberid, amount, selected)
 										SELECT null, '$newregistrationid', numberid, amount, selected
 										FROM cpa_registrations_numbers
 										WHERE registrationid = '$registrationid'";
 					if (!$mysqli->query($query)) {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		$data['newregistrationid'] = $newregistrationid;
 		$data['success'] = true;
 		$data['message'] = 'Registration copied successfully.';
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -400,13 +422,3 @@ function copyRegistration($mysqli, $registration, $registrationid, $newregistrat
 		exit;
 	}
 }
-
-function invalidRequest() {
-	$data = array();
-	$data['success'] = false;
-	$data['message'] = "Invalid request.";
-	echo json_encode($data);
-	exit;
-};
-
-?>

@@ -1,1 +1,13 @@
-<div><p>{{leftobj.title}}<br>{{leftobj.publishdate}} </p></div>
+<div>
+    <p>
+        <span ng-if="leftobj.publish==1">
+            {{leftobj.title}}<br>
+        </span>
+        <span style="color:red" ng-if="leftobj.publish==0">
+            {{leftobj.title}}<br>
+        </span>
+        <small>
+            <b>{{translationObj.leftPane.publish}}</b>&nbsp;{{leftobj.ispublish}}&nbsp;&nbsp;{{leftobj.publishdate}}
+        </small>
+    </p>
+</div>

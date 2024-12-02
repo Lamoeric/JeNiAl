@@ -2,9 +2,9 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../include/invalidrequest.php');
+require_once('../../backend/invalidrequest.php'); //
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -20,7 +20,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			delete_session($mysqli, json_decode($_POST['session'], true));
 			break;
 		case "getAllSessions":
-			getAllSessions($mysqli);
+			getAllSessions($mysqli, $_POST['language']);
 			break;
 		case "getSessionDetails":
 			getSessionDetails($mysqli, $_POST['id'], $_POST['language']);
@@ -50,7 +50,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  *  
  */
- function getSessionCourseCodes($mysqli, $sessionid, $language) {
+function getSessionCourseCodes($mysqli, $sessionid, $language)
+{
 	$data = array();
 	$data['data'] = array();
 	$query = "select distinct cc.code, getTextLabel(cc.label, '$language') coursecodelabel
@@ -73,7 +74,8 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @throws Exception
  */
-function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copycharges, $copyrules) {
+function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copycharges, $copyrules)
+{
 	try {
 		$data = array();
 		$id = "";
@@ -94,8 +96,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
-		 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		 			 	}
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
+						}
 					}
 					if ($copycharges == true) {
 						$query = "INSERT INTO cpa_sessions_charges(id, sessionid, chargecode, amount)
@@ -104,9 +106,9 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
-		 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		 			 	}
-	 			 	}
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
+						}
+					}
 					if ($copyrules == true) {
 						$query = "INSERT INTO cpa_sessions_rules(id, sessionid, language, rules)
 									SELECT null, $id, language, rules
@@ -114,9 +116,9 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 						if ($mysqli->query($query)) {
 							$data['success'] = true;
 						} else {
-		 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-		 			 	}
-	 			 	}
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
+						}
+					}
 					if ($copycourses == true) {
 						$query = "SELECT id, coursecode, courselevel, name, label, fees, minnumberskater, maxnumberskater, availableonline 
 									FROM cpa_sessions_courses 
@@ -142,19 +144,19 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
 											FROM cpa_sessions_courses_schedule WHERE sessionscoursesid = $sessionscoursesid";
 								if ($mysqli->query($query)) {
 								} else {
-									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+									throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 								}
 							} else {
-			 			 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			 			 	}
+								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
+							}
 						}
 					}
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		echo json_encode($data);
 		exit;
@@ -173,7 +175,8 @@ function copySession($mysqli, $sessionid, $copyicetimes, $copycourses, $copychar
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @throws Exception
  */
-function activateSession($mysqli, $sessionid) {
+function activateSession($mysqli, $sessionid)
+{
 	try {
 		$data = array();
 		$query = "UPDATE cpa_sessions SET active = 0";
@@ -182,10 +185,10 @@ function activateSession($mysqli, $sessionid) {
 			if ($mysqli->query($query)) {
 				$data['success'] = true;
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		echo json_encode($data);
 		exit;
@@ -203,7 +206,8 @@ function activateSession($mysqli, $sessionid) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @throws Exception
  */
-function updateEntireIcetimes($mysqli, $sessionid, $icetimes) {
+function updateEntireIcetimes($mysqli, $sessionid, $icetimes)
+{
 	try {
 		$data = array();
 		for ($x = 0; $x < count($icetimes); $x++) {
@@ -221,7 +225,7 @@ function updateEntireIcetimes($mysqli, $sessionid, $icetimes) {
 									VALUES ('$sessionid', '$arenaid', $day, '$starttime', '$endtime', $duration, '$iceid', '$comment')";
 				if ($mysqli->query($query)) {
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -231,7 +235,7 @@ function updateEntireIcetimes($mysqli, $sessionid, $icetimes) {
 									WHERE id = '$id'";
 				if ($mysqli->query($query)) {
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -239,7 +243,7 @@ function updateEntireIcetimes($mysqli, $sessionid, $icetimes) {
 				$query = "DELETE FROM cpa_sessions_icetimes WHERE id = '$id'";
 				if ($mysqli->query($query)) {
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -257,7 +261,8 @@ function updateEntireIcetimes($mysqli, $sessionid, $icetimes) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param integer $sessionscoursesid	The course id in the session
  */
-function updateEntireSessionCourseSchedule($mysqli, $sessionid, $sessionscoursesid, $schedules) {
+function updateEntireSessionCourseSchedule($mysqli, $sessionid, $sessionscoursesid, $schedules)
+{
 	try {
 		$data = array();
 		$data['inserted'] = 0;
@@ -280,7 +285,7 @@ function updateEntireSessionCourseSchedule($mysqli, $sessionid, $sessionscourses
 					$schedules[$x]['id'] = $mysqli->insert_id;
 					$data['inserted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 			if ($mysqli->real_escape_string(isset($schedules[$x]['status'])) && $schedules[$x]['status'] == 'Modified') {
@@ -289,7 +294,7 @@ function updateEntireSessionCourseSchedule($mysqli, $sessionid, $sessionscourses
 				if ($mysqli->query($query)) {
 					$data['updated']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 			if ($mysqli->real_escape_string(isset($schedules[$x]['status'])) && $schedules[$x]['status'] == 'Deleted') {
@@ -298,7 +303,7 @@ function updateEntireSessionCourseSchedule($mysqli, $sessionid, $sessionscourses
 				if ($mysqli->query($query)) {
 					$data['deleted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -317,7 +322,8 @@ function updateEntireSessionCourseSchedule($mysqli, $sessionid, $sessionscourses
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param integer $sessionscoursesid	The course id in the session
  */
-function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscoursesid, $sublevels) {
+function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscoursesid, $sublevels)
+{
 	try {
 		$data = array();
 		$data['inserted'] = 0;
@@ -338,7 +344,7 @@ function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscourses
 					$sublevels[$x]['id'] = $mysqli->insert_id;
 					$data['inserted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -352,13 +358,13 @@ function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscourses
 						if ($mysqli->query($query)) {
 							$data['updated']++;
 						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 						}
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -369,10 +375,10 @@ function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscourses
 					if ($mysqli->query($query)) {
 						$data['deleted']++;
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -392,7 +398,8 @@ function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscourses
  * @param integer $sessionscoursesid	The course id in the session
  *
  */
-function updateEntireSessionCourseStaff($mysqli, $sessionid, $sessionscoursesid, $staffs) {
+function updateEntireSessionCourseStaff($mysqli, $sessionid, $sessionscoursesid, $staffs)
+{
 	try {
 		$data = array();
 		$data['inserted'] = 0;
@@ -412,7 +419,7 @@ function updateEntireSessionCourseStaff($mysqli, $sessionid, $sessionscoursesid,
 					$staffs[$x]['id'] = $mysqli->insert_id;
 					$data['inserted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 			if ($mysqli->real_escape_string(isset($staffs[$x]['status'])) && $staffs[$x]['status'] == 'Modified') {
@@ -421,7 +428,7 @@ function updateEntireSessionCourseStaff($mysqli, $sessionid, $sessionscoursesid,
 				if ($mysqli->query($query)) {
 					$data['updated']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 			if ($mysqli->real_escape_string(isset($staffs[$x]['status'])) && $staffs[$x]['status'] == 'Deleted') {
@@ -430,7 +437,7 @@ function updateEntireSessionCourseStaff($mysqli, $sessionid, $sessionscoursesid,
 				if ($mysqli->query($query)) {
 					$data['deleted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -449,7 +456,8 @@ function updateEntireSessionCourseStaff($mysqli, $sessionid, $sessionscoursesid,
  * @param integer $sessionscoursesid	The course id in the session
  *
  */
-function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates) {
+function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates)
+{
 	try {
 		$data = array();
 		$data['inserted'] = 0;
@@ -478,17 +486,17 @@ function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates) {
 					$schedules[$x]['id'] = $mysqli->insert_id;
 					$data['inserted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
 			if ($mysqli->real_escape_string(isset($dates[$x]['status'])) && $dates[$x]['status'] == 'Modified') {
-				if (!$mysqli->real_escape_string(isset($dates[$x]['label'])) || empty($dates[$x]['label']) || $dates[$x]['label']=="") {
+				if (!$mysqli->real_escape_string(isset($dates[$x]['label'])) || empty($dates[$x]['label']) || $dates[$x]['label'] == "") {
 					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', manual = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration', label = create_systemText('$label_en', '$label_fr') WHERE id = '$id'";
 					if ($mysqli->query($query)) {
 						$data['updated']++;
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
 					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', manual = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration' WHERE id = '$id'";
@@ -499,13 +507,13 @@ function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates) {
 							if ($mysqli->query($query)) {
 								$data['updated']++;
 							} else {
-								throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 							}
 						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 						}
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				}
 			}
@@ -515,7 +523,7 @@ function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates) {
 				if ($mysqli->query($query)) {
 					$data['deleted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -533,7 +541,8 @@ function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates) {
  * 
  * @param integer $sessionid	The id of the session from cpa_sessions
  */
-function updateEntireSessionCharges($mysqli, $sessionid, $sessionCharges) {
+function updateEntireSessionCharges($mysqli, $sessionid, $sessionCharges)
+{
 	try {
 		$data = array();
 		for ($x = 0; $x < count($sessionCharges); $x++) {
@@ -559,11 +568,11 @@ function updateEntireSessionCharges($mysqli, $sessionid, $sessionCharges) {
 				}
 
 				$query .= ")";
-	
+
 				if ($mysqli->query($query)) {
 					$sessionCharges[$x]['id'] = $mysqli->insert_id;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -583,14 +592,14 @@ function updateEntireSessionCharges($mysqli, $sessionid, $sessionCharges) {
 				$query .= " WHERE id = '$id'";
 
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
 			if ($mysqli->real_escape_string(isset($sessionCharges[$x]['status'])) && $sessionCharges[$x]['status'] == 'Deleted') {
 				$query = "DELETE FROM cpa_sessions_charges WHERE id = '$id'";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -608,7 +617,8 @@ function updateEntireSessionCharges($mysqli, $sessionid, $sessionCharges) {
  * 
  * @param integer $sessionid	The id of the session from cpa_sessions
  */
-function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
+function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses)
+{
 	try {
 		$data = array();
 		for ($x = 0; $x < count($sessionCourses); $x++) {
@@ -635,15 +645,15 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 			if ($mysqli->real_escape_string(isset($sessionCourses[$x]['status'])) && $sessionCourses[$x]['status'] == 'New') {
 				$query = "	INSERT INTO cpa_sessions_courses (sessionid, coursecode, courselevel, name, fees, minnumberskater, maxnumberskater, availableonline, label, isschedule, datesgenerated, prereqcanskatebadgemin, prereqcanskatebadgemax, startdate, enddate, prereqagemin, prereqagemax)
 							VALUES ('$sessionid', '$coursecode', '$courselevel', '$name', '$fees', '$minnumberskater', '$maxnumberskater', $availableonline, create_systemText('$label_en', '$label_fr'), $isschedule, $datesgenerated, $prereqcanskatebadgemin, $prereqcanskatebadgemax,"
-									.($startdate == '' ? "null, " : "'$startdate', ")
-									.($enddate == '' ? "null," : "'$enddate',")
-									.($prereqagemin == 0 ? "null," : "'$prereqagemin',")
-									.($prereqagemax == 0 ? "null" : "'$prereqagemax'")
-									.")";
+					. ($startdate == '' ? "null, " : "'$startdate', ")
+					. ($enddate == '' ? "null," : "'$enddate',")
+					. ($prereqagemin == 0 ? "null," : "'$prereqagemin',")
+					. ($prereqagemax == 0 ? "null" : "'$prereqagemax'")
+					. ")";
 				if ($mysqli->query($query)) {
 					$sessionCourses[$x]['id'] = $mysqli->insert_id;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -654,24 +664,24 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 								availableonline = $availableonline, isschedule = $isschedule, datesgenerated = $datesgenerated, 
 								prereqcanskatebadgemin = $prereqcanskatebadgemin, 
 								prereqcanskatebadgemax = $prereqcanskatebadgemax, 
-								startdate = ".($startdate == '' ? "null" : "'$startdate'")
-								.", enddate = ".($enddate == '' ? "null" : "'$enddate'")
-								.", prereqagemin = ".($prereqagemin == 0 ? "null" : "'$prereqagemin'")
-								.", prereqagemax = ".($prereqagemax == 0 ? "null" : "'$prereqagemax'")
-							." WHERE id = $id";
+								startdate = " . ($startdate == '' ? "null" : "'$startdate'")
+					. ", enddate = " . ($enddate == '' ? "null" : "'$enddate'")
+					. ", prereqagemin = " . ($prereqagemin == 0 ? "null" : "'$prereqagemin'")
+					. ", prereqagemax = " . ($prereqagemax == 0 ? "null" : "'$prereqagemax'")
+					. " WHERE id = $id";
 				if ($mysqli->query($query)) {
 					$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
 					if ($mysqli->query($query)) {
 						$query = "UPDATE cpa_text set text = '$label_en' WHERE id = $label AND language = 'en-ca'";
 						if ($mysqli->query($query)) {
 						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 						}
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -682,13 +692,13 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
 					if ($mysqli->query($query)) {
 						$query = "DELETE FROM cpa_sessions_courses WHERE id = $id";
 						if (!$mysqli->query($query)) {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 						}
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -737,7 +747,8 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses) {
  * 
  * @param integer $sessionid	The id of the session from cpa_sessions
  */
-function updateEntireSessionRegistrations($mysqli, $sessionid, $registrations) {
+function updateEntireSessionRegistrations($mysqli, $sessionid, $registrations)
+{
 	try {
 		$data = array();
 		$data['inserted'] = 0;
@@ -759,7 +770,7 @@ function updateEntireSessionRegistrations($mysqli, $sessionid, $registrations) {
 					$registrations[$x]['id'] = $mysqli->insert_id;
 					$data['inserted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -768,7 +779,7 @@ function updateEntireSessionRegistrations($mysqli, $sessionid, $registrations) {
 				if ($mysqli->query($query)) {
 					$data['updated']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 
@@ -778,7 +789,7 @@ function updateEntireSessionRegistrations($mysqli, $sessionid, $registrations) {
 				if ($mysqli->query($query)) {
 					$data['deleted']++;
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			}
 		}
@@ -796,7 +807,8 @@ function updateEntireSessionRegistrations($mysqli, $sessionid, $registrations) {
  * 
  * @param integer $sessionid	The id of the session from cpa_sessions
  */
-function updateEntireSessionEvents($mysqli, $sessionid, $events) {
+function updateEntireSessionEvents($mysqli, $sessionid, $events)
+{
 	$data = array();
 	$data['inserted'] = 0;
 	$data['updated'] = 0;
@@ -816,7 +828,7 @@ function updateEntireSessionEvents($mysqli, $sessionid, $events) {
 				$events[$x]['id'] = $mysqli->insert_id;
 				$data['inserted']++;
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 
@@ -829,13 +841,13 @@ function updateEntireSessionEvents($mysqli, $sessionid, $events) {
 					if ($mysqli->query($query)) {
 						$data['updated']++;
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 
@@ -844,7 +856,7 @@ function updateEntireSessionEvents($mysqli, $sessionid, $events) {
 			if ($mysqli->query($query)) {
 				$data['deleted']++;
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 	}
@@ -855,7 +867,8 @@ function updateEntireSessionEvents($mysqli, $sessionid, $events) {
  * 
  * @param integer $sessionid	The id of the session from cpa_sessions
  */
-function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs) {
+function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs)
+{
 	$data = array();
 	for ($x = 0; $paragraphs && $x < count($paragraphs); $x++) {
 		$id =				$mysqli->real_escape_string(isset($paragraphs[$x]['id'])				? (int)$paragraphs[$x]['id'] : 0);
@@ -877,7 +890,7 @@ function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs) {
 						VALUES (null, $sessionid, $paragraphindex, $publish, $visiblepreview, create_wsText('$title_en', '$title_fr'), 
 								create_wsText('$subtitle_en', '$subtitle_fr'), create_wsText('$paragraphtext_en', '$paragraphtext_fr'))";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 			$paragraphs[$x]['id'] = (int) $mysqli->insert_id;
 		}
@@ -886,61 +899,20 @@ function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs) {
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_sessions_rules2 SET publish = $publish, visiblepreview = $visiblepreview	WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_ws_text SET text = '$title_fr' WHERE id = $title AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_ws_text SET text = '$title_en' WHERE id = $title AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_ws_text SET text = '$subtitle_fr' WHERE id = $subtitle AND language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_ws_text SET text = '$subtitle_en' WHERE id = $subtitle AND language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_fr' WHERE id = $paragraphtext AND language = 'fr-ca'";
-								if ($mysqli->query($query)) {
-									$query = "UPDATE cpa_ws_text SET text = '$paragraphtext_en' WHERE id = $paragraphtext AND language = 'en-ca'";
-									if ($mysqli->query($query)) {
-									} else {
-										throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-									}
-								} else {
-									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								}
-							} else {
-								throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$mysqli->query("call update_wsText($title, '$title_en', '$title_fr')");
+				$mysqli->query("call update_wsText($subtitle, '$subtitle_en', '$subtitle_fr')");
+				$mysqli->query("call update_wsText($paragraphtext, '$paragraphtext_en', '$paragraphtext_fr')");
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 
 		if ($mysqli->real_escape_string(isset($paragraphs[$x]['status'])) and $paragraphs[$x]['status'] == 'Deleted') {
 			$query = "DELETE FROM cpa_sessions_rules2 WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "DELETE FROM cpa_ws_text WHERE id = $title";
-				if ($mysqli->query($query)) {
-					$query = "DELETE FROM cpa_ws_text WHERE id = $subtitle";
-					if ($mysqli->query($query)) {
-						$query = "DELETE FROM cpa_ws_text WHERE id = $paragraphtext";
-						if ($mysqli->query($query)) {
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$query = "DELETE FROM cpa_ws_text WHERE id in($title, $subtitle, $paragraphtext)";
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		}
 	}
@@ -952,7 +924,7 @@ function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs) {
 		if ($mysqli->real_escape_string(!isset($paragraphs[$x]['status'])) or $paragraphs[$x]['status'] != 'Deleted') {
 			$query = "UPDATE cpa_sessions_rules2 SET paragraphindex = $realIndex WHERE id = $id";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 			$realIndex = $realIndex + 1;
 		}
@@ -965,7 +937,8 @@ function updateEntireRulesParagraphs($mysqli, $sessionid, $paragraphs) {
  * This function will handle session add, update functionality
  * @throws Exception
  */
-function updateEntireSession($mysqli, $session) {
+function updateEntireSession($mysqli, $session)
+{
 	try {
 		$data = array();
 		$id = $mysqli->real_escape_string(isset($session['id']) ? $session['id'] : '');
@@ -1012,7 +985,8 @@ function updateEntireSession($mysqli, $session) {
  * This function will handle session add, update functionality
  * @throws Exception
  */
-function insert_session($mysqli, $session) {
+function insert_session($mysqli, $session)
+{
 	try {
 		$data = array();
 		$id =			$mysqli->real_escape_string(isset($session['id']) 			? $session['id'] : '');
@@ -1046,16 +1020,16 @@ function insert_session($mysqli, $session) {
 			$query = "	INSERT INTO cpa_sessions_charges (sessionid, chargecode, amount)
 						VALUES ($id, 'SPECCHARGE', 0)";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 			$query = "	INSERT INTO cpa_sessions_charges (sessionid, chargecode, amount)
 						VALUES ($id, 'SPECDISCNT', 0)";
 			if (!$mysqli->query($query)) {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 			$data['success'] = true;
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 		$mysqli->close();
 		echo json_encode($data);
@@ -1073,7 +1047,8 @@ function insert_session($mysqli, $session) {
  * This function will handle session add, update functionality
  * @throws Exception
  */
-function update_session($mysqli, $details) {
+function update_session($mysqli, $details)
+{
 	try {
 		$data = array();
 		$id =						$mysqli->real_escape_string(isset($details['id']) 							? $details['id'] : '');
@@ -1125,13 +1100,13 @@ function update_session($mysqli, $details) {
 				$data['success'] = true;
 				$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = '$label' AND language = 'en-ca'";
 				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
 		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 	} catch (Exception $e) {
 		$data = array();
@@ -1148,7 +1123,8 @@ function update_session($mysqli, $details) {
  * @param string $id
  * @throws Exception
  */
-function delete_session($mysqli, $session) {
+function delete_session($mysqli, $session)
+{
 	try {
 		$id = 		$mysqli->real_escape_string(isset($session['id'])		? $session['id'] : '');
 		$label =	$mysqli->real_escape_string(isset($session['label'])	? $session['label'] : '');
@@ -1156,19 +1132,19 @@ function delete_session($mysqli, $session) {
 		if (empty($id)) throw new Exception("Invalid Session.");
 		// Delete all bills (and child) related to registrations from this session
 		$query = "DELETE FROM `cpa_bills` WHERE id IN (SELECT billid FROM cpa_bills_registrations WHERE registrationid IN (SELECT id FROM cpa_registrations WHERE sessionid = '$id'))";
-		if (!$mysqli->query($query)) throw new Exception('delete_session - delete bills - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete bills - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		// Delete all registrations (and child) from this session
 		$query = "DELETE FROM cpa_registrations WHERE sessionid = '$id'";
-		if (!$mysqli->query($query)) throw new Exception('delete_session - delete registrations - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete registrations - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		// Delete all dates for the session's courses (and child) from this session
 		$query = "DELETE FROM `cpa_sessions_courses_dates` WHERE sessionscoursesid IN (SELECT id FROM cpa_sessions_courses WHERE sessionid = '$id')";
-		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses dates - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses dates - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		// Delete all courses (and child) from this session
 		$query = "DELETE FROM cpa_sessions_courses WHERE sessionid ='$id'";
-		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete courses - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		// Delete all texts from rules
 		$query = "DELETE FROM cpa_ws_text WHERE id IN (SELECT title FROM cpa_sessions_rules2 WHERE sessionid = $id) OR id IN (SELECT subtitle FROM cpa_sessions_rules2 WHERE sessionid = $id) OR id IN (SELECT paragraphtext FROM cpa_sessions_rules2 WHERE sessionid = $id)";
-		if (!$mysqli->query($query)) throw new Exception('delete_session - delete rules texts - '.$mysqli->sqlstate.' - '. $mysqli->error);
+		if (!$mysqli->query($query)) throw new Exception('delete_session - delete rules texts - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		// Delete the session
 		$query = "DELETE FROM cpa_sessions WHERE id = '$id'";
 		if ($mysqli->query($query)) {
@@ -1177,7 +1153,7 @@ function delete_session($mysqli, $session) {
 			echo json_encode($data);
 			exit;
 		} else {
-			throw new Exception('delete_session - delete sessions - '.$mysqli->sqlstate.' - '. $mysqli->error);
+			throw new Exception('delete_session - delete sessions - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 		}
 	} catch (Exception $e) {
 		$data = array();
@@ -1191,16 +1167,20 @@ function delete_session($mysqli, $session) {
 /**
  * This function gets list of all sessions from database
  */
-function getAllSessions($mysqli) {
+function getAllSessions($mysqli, $language)
+{
 	try {
-		$query = "SELECT id, name, active FROM cpa_sessions ORDER BY startdate desc";
+		$query = "SELECT id, name, active, getTextLabel(label, '$language') as maintitle, startdate, enddate 
+					FROM cpa_sessions 
+					ORDER BY active DESC, startdate desc";
 		$result = $mysqli->query($query);
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
-		echo json_encode($data);exit;
+		echo json_encode($data);
+		exit;
 	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
@@ -1215,11 +1195,14 @@ function getAllSessions($mysqli) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionIcetimes($mysqli, $sessionid, $language) {
+function getSessionIcetimes($mysqli, $sessionid, $language)
+{
 	try {
 		if (empty($sessionid)) throw new Exception("Invalid session.");
-		$query = "	SELECT csi.*, (select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai WHERE cai.arenaid = csi.arenaid AND cai.id = csi.iceid) icelabel
+		$query = "	SELECT csi.*, (select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai WHERE cai.arenaid = csi.arenaid AND cai.id = csi.iceid) icelabel,
+							getTextLabel(ca.label, '$language') arenalabel, ca.active arenaactive, getCodeDescription('days', csi.day, '$language') daylabel
 					FROM cpa_sessions_icetimes csi
+					JOIN cpa_arenas ca ON ca.id = csi.arenaid
 					WHERE sessionid = $sessionid
 					ORDER BY day, starttime, arenaid, iceid";
 		$result = $mysqli->query($query);
@@ -1245,26 +1228,27 @@ function getSessionIcetimes($mysqli, $sessionid, $language) {
  * @param integer $sessionscoursesid	The course id in the session
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionCourseSchedule($mysqli, $sessionscoursesid, $language) {
+function getSessionCourseSchedule($mysqli, $sessionscoursesid, $language)
+{
 	try {
 		if (empty($sessionscoursesid)) throw new Exception("Invalid session course.");
-		$query = "	SELECT *, (select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai WHERE cai.arenaid = cscs.arenaid AND cai.id = cscs.iceid) icelabel
+		$query = "	SELECT cscs.*, (SELECT getTextLabel(cai.label, '$language') FROM cpa_arenas_ices cai WHERE cai.arenaid = cscs.arenaid AND cai.id = cscs.iceid) icelabel,
+							getTextLabel(ca.label, '$language') arenalabel, ca.active arenaactive
 					FROM cpa_sessions_courses_schedule cscs
+					JOIN cpa_arenas ca ON ca.id = cscs.arenaid
 					WHERE sessionscoursesid = $sessionscoursesid
 					ORDER BY day, starttime";
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['data'] = array();
 		while ($row = $result->fetch_assoc()) {
+			$row['arenaactive'] = (int)$row['arenaactive'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
 		return $data;
 	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
+		throw new Exception('getSessionCourseSchedule - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 };
 
@@ -1272,7 +1256,8 @@ function getSessionCourseSchedule($mysqli, $sessionscoursesid, $language) {
  * This function gets the details of all sublevels for a session course
  * @param integer $sessionscoursesid	The course id in the session
  */
-function getSessionCourseSublevels($mysqli, $sessionscoursesid) {
+function getSessionCourseSublevels($mysqli, $sessionscoursesid)
+{
 	try {
 		if (empty($sessionscoursesid)) throw new Exception("Invalid session course.");
 		$query = "	SELECT *, getEnglishTextLabel(label) label_en, getFrenchTextLabel(label) label_fr
@@ -1289,10 +1274,7 @@ function getSessionCourseSublevels($mysqli, $sessionscoursesid) {
 		$data['success'] = true;
 		return $data;
 	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
+		throw new Exception('getSessionCourseSublevels - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 };
 
@@ -1301,11 +1283,18 @@ function getSessionCourseSublevels($mysqli, $sessionscoursesid) {
  * @param integer $sessionscoursesid	The course id in the session
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionCourseStaffs($mysqli, $sessionscoursesid, $language) {
+function getSessionCourseStaffs($mysqli, $sessionscoursesid, $language)
+{
 	try {
 		if (empty($sessionscoursesid)) throw new Exception("Invalid session course.");
 		$query = "	SELECT 	cscs.*, concat(cm.lastname, ', ', cm.firstname) name, getCodeDescription('staffcodes', cscs.staffcode, '$language') staffcodelabel, 
-							getCodeDescription('personnelstatus', cscs.statuscode, '$language') statuscodelabel
+							getCodeDescription('personnelstatus', cscs.statuscode, '$language') statuscodelabel,
+							(SELECT count(cscp.ispresent) 
+							 FROM cpa_sessions_courses_presences cscp 
+							 JOIN cpa_sessions_courses_dates cscd ON cscd.id = cscp.sessionscoursesdatesid
+							 WHERE cscd.sessionscoursesid = $sessionscoursesid
+							 AND cscp.memberid = cscs.memberid
+							 AND cscp.ispresent=1) nbpresence
 					FROM cpa_sessions_courses_staffs cscs
 					JOIN cpa_members cm ON cm.id = cscs.memberid
 					WHERE sessionscoursesid = $sessionscoursesid
@@ -1314,15 +1303,13 @@ function getSessionCourseStaffs($mysqli, $sessionscoursesid, $language) {
 		$data = array();
 		$data['data'] = array();
 		while ($row = $result->fetch_assoc()) {
+			$row['nbpresence'] = (int)$row['nbpresence'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
 		return $data;
 	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
+		throw new Exception('getSessionCourseStaffs - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 };
 
@@ -1331,15 +1318,18 @@ function getSessionCourseStaffs($mysqli, $sessionscoursesid, $language) {
  * @param integer $sessionscoursesid	The course id in the session
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionCourseDates($mysqli, $sessionscoursesid, $coursename, $language) {
+function getSessionCourseDates($mysqli, $sessionscoursesid, $coursename, $language)
+{
 	try {
 		if (empty($sessionscoursesid)) throw new Exception("Invalid session course.");
-		$query = "	SELECT 	cscd.*, getTextLabel(label, 'fr-ca') label_fr, getTextLabel(label, 'en-ca') label_en,
+		$query = "	SELECT 	cscd.*, getTextLabel(cscd.label, 'fr-ca') label_fr, getTextLabel(cscd.label, 'en-ca') label_en,
 							(select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai WHERE cai.arenaid = cscd.arenaid AND cai.id = cscd.iceid) icelabel,
-							(select getTextLabel(ca.label, '$language') from cpa_arenas ca WHERE ca.id = cscd.arenaid) arenalabel,
+							getTextLabel(ca.label, '$language') arenalabel,
+							ca.active arenaactive,
 							getCodeDescription('days', cscd.day, '$language') daylabel,
 							getCodeDescription('yesno', cscd.canceled, '$language') canceledlabel
 					FROM cpa_sessions_courses_dates cscd
+					JOIN cpa_arenas ca ON ca.id = cscd.arenaid
 					WHERE cscd.sessionscoursesid = $sessionscoursesid
 					ORDER BY cscd.coursedate";
 		$result = $mysqli->query($query);
@@ -1352,10 +1342,7 @@ function getSessionCourseDates($mysqli, $sessionscoursesid, $coursename, $langua
 		$data['success'] = true;
 		return $data;
 	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
+		throw new Exception('getSessionCourseDates - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 };
 
@@ -1364,10 +1351,11 @@ function getSessionCourseDates($mysqli, $sessionscoursesid, $coursename, $langua
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionCharges($mysqli, $sessionid, $language) {
+function getSessionCharges($mysqli, $sessionid, $language)
+{
 	try {
 		if (empty($sessionid)) throw new Exception("Invalid session.");
-		$query = "	SELECT 	csc.*, getTextLabel(cc.label, '$language') chargelabel
+		$query = "	SELECT 	csc.*, getTextLabel(cc.label, '$language') chargelabel, cc.active
 					FROM cpa_sessions_charges csc
 					JOIN cpa_charges cc ON cc.code = csc.chargecode
 					WHERE sessionid = $sessionid
@@ -1394,7 +1382,8 @@ function getSessionCharges($mysqli, $sessionid, $language) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionCourses($mysqli, $sessionid, $language) {
+function getSessionCourses($mysqli, $sessionid, $language)
+{
 	try {
 		if (empty($sessionid)) throw new Exception("Invalid session.");
 		$query = "	SELECT 	csc.*, getTextLabel(csc.label, '$language') courselabel, getTextLabel(csc.label, 'en-ca') label_en, getTextLabel(csc.label, 'fr-ca') label_fr, getTextLabel(ccl.label, '$language') levellabel, 
@@ -1411,6 +1400,8 @@ function getSessionCourses($mysqli, $sessionid, $language) {
 		while ($row = $result->fetch_assoc()) {
 			$row['prereqagemin'] = isset($row['prereqagemin']) ? (int)$row['prereqagemin'] : null;
 			$row['prereqagemax'] = isset($row['prereqagemax']) ? (int)$row['prereqagemax'] : null;
+			$row['minnumberskater'] = (int)$row['minnumberskater'];
+			$row['maxnumberskater'] = (int)$row['maxnumberskater'];
 			$row['schedules'] = getSessionCourseSchedule($mysqli, $row['id'], $language)['data'];
 			$row['dates'] = 	getSessionCourseDates($mysqli, $row['id'], $row['name'], $language)['data'];
 			$row['staffs'] = 	getSessionCourseStaffs($mysqli, $row['id'], $language)['data'];
@@ -1421,10 +1412,7 @@ function getSessionCourses($mysqli, $sessionid, $language) {
 		$data['success'] = true;
 		return $data;
 	} catch (Exception $e) {
-		$data = array();
-		$data['success'] = false;
-		$data['message'] = $e->getMessage();
-		return $data;
+		throw new Exception('getSessionCourses - ' . $e->getMessage());
 	}
 };
 
@@ -1433,7 +1421,8 @@ function getSessionCourses($mysqli, $sessionid, $language) {
  * @param integer $sessionscoursesid	The course id in the session
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getOneSessionCourse($mysqli, $sessionscoursesid, $language) {
+function getOneSessionCourse($mysqli, $sessionscoursesid, $language)
+{
 	if (empty($sessionscoursesid)) throw new Exception("Invalid session course id.");
 	$query = "	SELECT 	csc.*, getTextLabel(csc.label, '$language') courselabel, getTextLabel(csc.label, 'en-ca') label_en, getTextLabel(csc.label, 'fr-ca') label_fr, getTextLabel(ccl.label, '$language') levellabel, 
 						csc.availableonline, getCodeDescription('yesno', csc.availableonline, '$language') availableonlinelabel,
@@ -1463,7 +1452,8 @@ function getOneSessionCourse($mysqli, $sessionscoursesid, $language) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionRegistrations($mysqli, $sessionid, $language) {
+function getSessionRegistrations($mysqli, $sessionid, $language)
+{
 	try {
 		if (empty($sessionid)) throw new Exception("Invalid session.");
 		$query = "	SELECT *
@@ -1491,7 +1481,8 @@ function getSessionRegistrations($mysqli, $sessionid, $language) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionEvents($mysqli, $sessionid, $language) {
+function getSessionEvents($mysqli, $sessionid, $language)
+{
 	if (empty($sessionid)) throw new Exception("Invalid session.");
 	$query = "	SELECT id, eventdate, type, label, getEnglishTextLabel(label) label_en, getFrenchTextLabel(label) label_fr
 				FROM cpa_sessions_dates
@@ -1512,7 +1503,8 @@ function getSessionEvents($mysqli, $sessionid, $language) {
  * @param integer $sessionid	The id of the session from cpa_sessions
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionRules($mysqli, $sessionid, $language) {
+function getSessionRules($mysqli, $sessionid, $language)
+{
 	if (empty($sessionid)) throw new Exception("Invalid session.");
 	$result = $mysqli->query("SET NAMES utf8");
 	$query = "	SELECT convert(rules using cp1256) as rules
@@ -1525,7 +1517,7 @@ function getSessionRules($mysqli, $sessionid, $language) {
 	$row = $result->fetch_assoc();
 	// $data['data'] = utf8_decode($row['rules']);
 	// $data['data'] = mb_convert_encoding($row['rules'], 'UTF-8');
-	$data['data'] = (empty($row['rules']) ? null:$row['rules']);
+	$data['data'] = (empty($row['rules']) ? null : $row['rules']);
 	// $data['data'] = iconv("UTF-8", "CP1252", $row['rules']);
 	$data['success'] = true;
 	return $data;
@@ -1536,7 +1528,8 @@ function getSessionRules($mysqli, $sessionid, $language) {
  * 
  * @param integer $sessionid	The id of the show from cpa_shows
  */
-function getSessionRulesParagraphs($mysqli, $sessionid, $language) {
+function getSessionRulesParagraphs($mysqli, $sessionid, $language)
+{
 	if (empty($sessionid)) throw new Exception("Invalid session.");
 	$query = "	SELECT 	csr.*, getWSTextLabel(csr.paragraphtext, 'fr-ca') paragraphtext_fr, getWSTextLabel(csr.paragraphtext, 'en-ca') paragraphtext_en,
 					 	getWSTextLabel(csr.title, 'fr-ca') title_fr, getWSTextLabel(csr.title, 'en-ca') title_en,
@@ -1561,9 +1554,10 @@ function getSessionRulesParagraphs($mysqli, $sessionid, $language) {
  * This function gets the details of one session from database
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getSessionDetails($mysqli, $id, $language) {
+function getSessionDetails($mysqli, $id, $language)
+{
 	try {
-		$query = "	SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr
+		$query = "	SELECT *, getTextLabel(label, '$language') as maintitle, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr
 					FROM cpa_sessions
 					WHERE id = $id";
 		$result = $mysqli->query($query);
@@ -1572,10 +1566,7 @@ function getSessionDetails($mysqli, $id, $language) {
 			$row['isonlineregistactive'] 		= (int)$row['isonlineregistactive'];
 			$row['isonlinepreregistactive'] 	= (int)$row['isonlinepreregistactive'];
 			$row['isonlinepreregistemail'] 		= (int)$row['isonlinepreregistemail'];
-			// $row['onlinepreregistemailtpl'] 	= (int)$row['onlinepreregistemailtpl'];
-			// $row['onlinepaymentoption'] 		= (int)$row['onlinepaymentoption'];
 			$row['isonlineregistemail'] 		= (int)$row['isonlineregistemail'];
-			// $row['onlineregistemailtpl'] 		= (int)$row['onlineregistemailtpl'];
 			$row['isonlineregistemailinclbill'] = (int)$row['isonlineregistemailinclbill'];
 			$row['icetimes'] = 			getSessionIcetimes($mysqli, $id, $language)['data'];
 			$row['sessionCharges'] = 	getSessionCharges($mysqli, $id, $language)['data'];
@@ -1595,7 +1586,8 @@ function getSessionDetails($mysqli, $id, $language) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
-		return $data;
+		echo json_encode($data);
+		exit;
 	}
 };
 
@@ -1603,13 +1595,14 @@ function getSessionDetails($mysqli, $id, $language) {
  * This function will delete all course's dates that do not already have an attendance.
  * @param integer $sessionscoursesid	The course id in the session
  */
-function deleteCourseDates($mysqli, $sessionscoursesid) {
+function deleteCourseDates($mysqli, $sessionscoursesid)
+{
 	$data = array();
 	$query = "	DELETE FROM cpa_sessions_courses_dates
 				WHERE sessionscoursesid = $sessionscoursesid
 				AND NOT EXISTS (SELECT * FROM cpa_sessions_courses_presences cscp WHERE cscp.sessionscoursesdatesid = cpa_sessions_courses_dates.id AND ispresent = 1)";
 	$result = $mysqli->query($query);
-	$data['deleted'] = $mysqli -> affected_rows;
+	$data['deleted'] = $mysqli->affected_rows;
 	$data['success'] = true;
 	return $data;
 	exit;
@@ -1621,12 +1614,13 @@ function deleteCourseDates($mysqli, $sessionscoursesid) {
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  * @throws Exception
  */
-function insertCourseDate($mysqli, $sessionCourseDates, $language) {
+function insertCourseDate($mysqli, $sessionCourseDates, $language)
+{
 	try {
 		$data = array();
 		$data['count'] = count($sessionCourseDates);
 		$data['inserted'] = 0;
-	if (count($sessionCourseDates) > 0) {
+		if (count($sessionCourseDates) > 0) {
 			$sessionscoursesid = isset($sessionCourseDates[0]['sessionscoursesid']) ? $mysqli->real_escape_string((int) $sessionCourseDates[0]['sessionscoursesid']) : 0;
 			$data['deletedates'] = deleteCourseDates($mysqli, $sessionscoursesid);
 			for ($x = 0; $x < count($sessionCourseDates); $x++) {
@@ -1643,7 +1637,7 @@ function insertCourseDate($mysqli, $sessionCourseDates, $language) {
 				// Remember, there is already a course at that date because there were attendances for this course in the DB
 				$query = "	SELECT * 
 							FROM cpa_sessions_courses_dates 
-							WHERE sessionscoursesid = '$sessionscoursesid' AND coursedate = '$coursedate'";
+							WHERE sessionscoursesid = '$sessionscoursesid' AND coursedate = '$coursedate' AND arenaid = $arenaid";
 				$result = $mysqli->query($query);
 				$row = $result->fetch_assoc();
 				if (!isset($row['sessionscoursesid'])) {
@@ -1653,7 +1647,7 @@ function insertCourseDate($mysqli, $sessionCourseDates, $language) {
 					if ($mysqli->query($query)) {
 						$data['inserted']++;
 					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				}
 			}
@@ -1678,13 +1672,14 @@ function insertCourseDate($mysqli, $sessionCourseDates, $language) {
  * @param integer $sessionscoursesid	The course id in the session
  * @throws Exception
  */
-function updateSessionCourseGeneratedFlag($mysqli, $sessionscoursesid) {
+function updateSessionCourseGeneratedFlag($mysqli, $sessionscoursesid)
+{
 	$data = array();
 	$query = "UPDATE cpa_sessions_courses SET datesgenerated = 1 WHERE id = $sessionscoursesid";
 	if ($mysqli->query($query)) {
 		$data['success'] = true;
 	} else {
-		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
 	return $data;
 };
@@ -1693,7 +1688,8 @@ function updateSessionCourseGeneratedFlag($mysqli, $sessionscoursesid) {
  * This function gets the levels for a course
  * @param string $language	The language string, 'fr-ca' or 'en-ca'
  */
-function getCourseLevels($mysqli, $code, $language) {
+function getCourseLevels($mysqli, $code, $language)
+{
 	try {
 		$query = "	SELECT code, getTextLabel(label, '$language') label
 					FROM cpa_courses_levels
@@ -1713,5 +1709,3 @@ function getCourseLevels($mysqli, $code, $language) {
 		return $data;
 	}
 };
-
-?>

@@ -1,76 +1,84 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininfo}}</h3>
-		<div class="row">
-      <div class="col-xs-4">
-	      <label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="name" class="form-control" id="name" ng-model="currentWsnews.name" maxlength="200" required>
-	      </div>
-	    </div>
-    </div>
+		<h3>{{translationObj.details.formtitlemaininfo}}</h3>
 		<div class="row">
 			<div class="col-xs-4">
-	      <label for="title_en">{{translationObj.details.fieldtitletitleen}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="title_en" class="form-control" id="title_en" ng-model="currentWsnews.title_en" maxlength="200" required>
-	      </div>
-	    </div>
-      <div class="col-xs-4">
-	      <label for="title_fr">{{translationObj.details.fieldtitletitlefr}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="text" name="title_fr" class="form-control" id="title_fr" ng-model="currentWsnews.title_fr" maxlength="200" required>
-	      </div>
-	    </div>
-    </div>
+				<label for="name">{{translationObj.details.fieldtitlename}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="name" class="form-control" id="name" ng-model="currentWsnews.name"
+						maxlength="200" required autocomplete="off">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="title_en">{{translationObj.details.fieldtitletitleen}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="title_en" class="form-control" id="title_en"
+						ng-model="currentWsnews.title_en" maxlength="200" ng-required="config.supportenglish==1">
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="title_fr">{{translationObj.details.fieldtitletitlefr}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" name="title_fr" class="form-control" id="title_fr"
+						ng-model="currentWsnews.title_fr" maxlength="200" ng-required="config.supportfrench==1">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="shortversion_en">{{translationObj.details.fieldtitleshortversionen}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="shortversion_en" class="form-control" id="shortversion_en"
+						ng-model="currentWsnews.shortversion_en" maxlength="2000" rows="5" ng-required="config.supportenglish==1"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="shortversion_fr">{{translationObj.details.fieldtitleshortversionfr}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="shortversion_fr" class="form-control" id="shortversion_fr"
+						ng-model="currentWsnews.shortversion_fr" maxlength="2000" rows="5" ng-required="config.supportfrench==1"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="longversion_en">{{translationObj.details.fieldtitlelongversionen}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="longversion_en" class="form-control" id="longversion_en"
+						ng-model="currentWsnews.longversion_en" maxlength="2000" rows="5" ng-required="config.supportenglish==1"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="longversion_fr">{{translationObj.details.fieldtitlelongversionfr}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="longversion_fr" class="form-control" id="longversion_fr"
+						ng-model="currentWsnews.longversion_fr" maxlength="2000" rows="5" ng-required="config.supportfrench==1"></textarea>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-xs-4">
-	      <label for="shortversion_en">{{translationObj.details.fieldtitleshortversionen}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="shortversion_en" class="form-control" id="shortversion_en" ng-model="currentWsnews.shortversion_en" maxlength="2000" rows="5" required></textarea>
-	      </div>
-	    </div>
-      <div class="col-xs-4">
-	      <label for="shortversion_fr">{{translationObj.details.fieldtitleshortversionfr}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="shortversion_fr" class="form-control" id="shortversion_fr" ng-model="currentWsnews.shortversion_fr" maxlength="2000" rows="5" required></textarea>
-	      </div>
-	    </div>
-    </div>
-
-		<div class="row">
-			<div class="col-xs-4">
-	      <label for="longversion_en">{{translationObj.details.fieldtitlelongversionen}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="longversion_en" class="form-control" id="longversion_en" ng-model="currentWsnews.longversion_en" maxlength="2000" rows="5" required></textarea>
-	      </div>
-	    </div>
-      <div class="col-xs-4">
-	      <label for="longversion_fr">{{translationObj.details.fieldtitlelongversionfr}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<textarea name="longversion_fr" class="form-control" id="longversion_fr" ng-model="currentWsnews.longversion_fr" maxlength="2000" rows="5" required></textarea>
-	      </div>
-	    </div>
-    </div>
-
-		<div class="row">
-			<div class="col-xs-4">
-	      <label for="publishdate">{{translationObj.details.fieldtitlepublishdate}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					<input type="date" name="publishdate" class="form-control" id="publishdate" ng-model="currentWsnews.publishdate" required>
-	      </div>
-	    </div>
+				<label for="publishdate">{{translationObj.details.fieldtitlepublishdate}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="date" name="publishdate" class="form-control" id="publishdate"
+						ng-model="currentWsnews.publishdate" required>
+				</div>
+			</div>
 			<div class="col-xs-2">
-				<label for="active">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="publish" ng-model="currentWsnews.publish" required>
@@ -79,100 +87,63 @@
 				</div>
 			</div>
 		</div>
-		<div class="row" ng-if="currentWsnews.imagefilename && currentWsnews.imageinfo">
 
-			<div class="col-xs-3">
-				<div class="team-member">
-					<div class="team-img">
-						<img ng-src="../websiteimages/news/{{currentWsnews.displayimagefilename}}" class="team-pic" alt="">
-					</div>
-					<h3 class="team_name">{{currentWsnews.fullname}}</h3>
-				</div>
-			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="width" class="form-control" id="width" ng-model="currentWsnews.imageinfo[0]" disabled>
-	      </div>
-				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWsnews.imageinfo[1]" disabled>
-	      </div>
-				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWsnews.imageinfo['mime']" disabled>
-	      </div>
-			</div>
-
-			<!-- <div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="height" class="form-control" id="height" ng-model="currentWsnews.imageinfo[1]" disabled>
-	      </div>
-			</div>
-
-			<div class="col-xs-2">
-				<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-					<input type="text" name="type" class="form-control" id="type" ng-model="currentWsnews.imageinfo['mime']" disabled>
-	      </div>
-			</div> -->
-
-		</div>
-
-		<!-- Filler -->
-		<div class="row">
-			<div class="col-xs-4">
-				<label>&nbsp;</label>
-			</div>
-		</div>
-
+		<displaywebsiteimage 
+			displayimagefilename="'news/'+currentWsnews.displayimagefilename"
+			imageinfo="currentWsnews.imageinfo">
+		</displaywebsiteimage>
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB" ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>
-				<deletewebsiteimagebutton subdir="'news'" context="'ws_news'" obj="currentWsnews" callback="setCurrentInternal(currentWsnews)" is-disabled="!currentWsnews.imagefilename"></deletewebsiteimagebutton>
-				<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
-  		</div>
-  	</div>
+				<uploadwebsiteimagebutton 
+					subdirectory="'/website/images/news/'"
+					fileprefix="currentWsnews.id"
+					tablename="'cpa_ws_news'" 
+					id="currentWsnews.id"
+					oldfilename="currentWsnews.imagefilename" 
+					callback="setCurrentInternal(currentWsnews)"
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadwebsiteimagebutton>&nbsp;
+				<deletewebsiteimagebutton 
+					subdir="'news'" context="'ws_news'" obj="currentWsnews"
+					callback="setCurrentInternal(currentWsnews)" is-disabled="!currentWsnews.imagefilename">
+				</deletewebsiteimagebutton>
+			</div>
+		</div>
 
-
-  </div>
-	<h3>{{translationObj.details.buttontitlelink}}&nbsp;<editlink type="2" link="{}" parent=currentWsnews ></editlink></h3>
+	</div>
+	<h3>{{translationObj.details.buttontitlelink}}&nbsp;<editlink type="2" link="{}" parent=currentWsnews languages=config></editlink>
+	</h3>
 	<div class="row" ng-repeat="link in currentWsnews.links">
 
 		<div class="col-xs-2">
-			<label for="linkname">{{translationObj.details.fieldtitlelinkname}}</label>
-			<input type="text" class="form-control" id="linkname" ng-model="link.linkname" disabled>
+			<label for="linkname{{$index}}">{{translationObj.details.fieldtitlelinkname}}</label>
+			<input type="text" class="form-control" id="linkname{{$index}}" ng-model="link.linkname" disabled>
 		</div>
 
 		<div class="col-xs-2">
-			<label for="linktypelabel">{{translationObj.details.fieldtitlelinktype}}</label>
-			<input type="text" class="form-control" id="linktypelabel" ng-model="link.linktypelabel" disabled>
+			<label for="linktypelabel{{$index}}">{{translationObj.details.fieldtitlelinktype}}</label>
+			<input type="text" class="form-control" id="linktypelabel{{$index}}" ng-model="link.linktypelabel" disabled>
 		</div>
 
 		<div class="col-xs-2">
-			<label for="linkpositionlabel">{{translationObj.details.fieldtitlelinkposition}}</label>
-			<input type="text" class="form-control" id="linkpositionlabel" ng-model="link.linkpositionlabel" disabled>
+			<label for="linkpositionlabel{{$index}}">{{translationObj.details.fieldtitlelinkposition}}</label>
+			<input type="text" class="form-control" id="linkpositionlabel{{$index}}" ng-model="link.linkpositionlabel" disabled>
 		</div>
 
 		<div class="col-xs-2">
-			<label for="linkindex">{{translationObj.details.fieldtitlelinkindex}}</label>
-			<input type="text" class="form-control" id="linkpositionlabel" ng-model="link.linkindex" disabled>
+			<label for="linkindex{{$index}}">{{translationObj.details.fieldtitlelinkindex}}</label>
+			<input type="text" class="form-control" id="linkindex{{$index}}" ng-model="link.linkindex" disabled>
 		</div>
 
 		<div class="col-xs-2">
-			<label>&nbsp;</label>
+			<label for="linkindex{{$index}}">&nbsp;</label>
 			<div class="input-group">
 				<span>
-					<editlink type="1" link="link" parent=currentWsnews></editlink>
-					<child-delete-button 		obj="link" objlist="currentWsnews.links" callback="setDirty()"></child-delete-button>
-					<child-undelete-button 	obj="link" objlist="currentWsnews.links" callback="setDirty()"></child-undelete-button>
+					<editlink type="1" link="link" parent=currentWsnews languages=config></editlink>
+					<child-delete-button obj="link" objlist="currentWsnews.links"
+						callback="setDirty()"></child-delete-button>
+					<child-undelete-button obj="link" objlist="currentWsnews.links"
+						callback="setDirty()"></child-undelete-button>
 					<child-status-indicator obj="link"></child-status-indicator>
 				</span>
 			</div>

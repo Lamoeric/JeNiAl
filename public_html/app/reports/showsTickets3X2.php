@@ -36,7 +36,7 @@ if (isset($_GET['performanceid']) && !empty(isset($_GET['performanceid']))) {
 //$ticketImageFile = K_PATH_IMAGES.'reports/canskate/ticket_test_stub_nowrite.jpg';
 //$ticketColor = array(255, 255, 255);
 //$stubColor = array(255, 255, 255);
-//$ticketNotesFr = 'Ouverture des portes une demie-heure avant le spectacle. <br>Siège réservé - non remboursable';
+//$ticketNotesFr = 'Ouverture des portes une demie-heure avant le spectacle. <br>Siï¿½ge rï¿½servï¿½ - non remboursable';
 //$ticketNotesEn = 'Doors open half a hour before the show.<br>Seat reserved - non refundable';
 
 // create new PDF document
@@ -296,7 +296,7 @@ if ($language == 1) {
 
 if ($nbofsections == 0 || $nbofrows == 0 || $nbofseats == 0) {
 	$pdf->AddPage('L');
-	$html = '<b>Aucun billet à imprimer / No ticket to print</b>';
+	$html = '<b>Aucun billet ï¿½ imprimer / No ticket to print</b>';
 	$pdf->writeHTMLCell(0, 0, 50, 50, $html, 0, 1, 1, true, 'L', true);
 }
 
@@ -322,7 +322,7 @@ for ($i = 0; $i < count($pass); $i++) {
 						// Footer
 						$w_page = isset($pdf->l['w_page']) ? $pdf->l['w_page'] . ' ' : '';
 						$pagenumtxt = $w_page . $pdf->getAliasNumPage() . ' / ' . $pdf->getAliasNbPages();
-						$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.($i==1?'Réservé':'').'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
+						$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.($i==1?'Rï¿½servï¿½':'').'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
 						$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 200, $html, 0, 1, 1, true, 'L', true);
 						$pdf->setPageMark();
 					}
@@ -417,7 +417,7 @@ for ($i = 0; $i < count($pass); $i++) {
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output('sessionCourseCSProgress.pdf', 'I');
+$pdf->Output('showsTickets3X2.pdf', 'I');
 
 //============================================================+
 

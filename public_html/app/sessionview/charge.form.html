@@ -9,7 +9,7 @@
 					<div class="row">
 						<div class="col-xs-1">
 							<label for="chargecode{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldcharge}}</label>
-							<input type="text" class="form-control" id="chargecode{{$index}}" ng-model="charge.chargecode" disabled>
+							<input type="text" class="form-control" ng-class="{redfont : charge.active==0}" id="chargecode{{$index}}" ng-model="charge.chargecode" disabled>
 						</div>
 						<div class="col-xs-3">
 							<label for="chargelabel{{$index}}" ng-show="$index==0">{{translationObj.charges.fieldlabel}}</label>
@@ -32,12 +32,9 @@
 							<label ng-show="$index==0">&nbsp;</label>
 							<div class="input-group">
 								<span>
-									<child-edit-button obj="charge" objlist="currentSession.sessionCharges"
-										callback="editSessionCharge(charge)"></child-edit-button>
-									<child-delete-button obj="charge" objlist="currentSession.sessionCharges"
-										callback="setDirty()"></child-delete-button>
-									<child-undelete-button obj="charge" objlist="currentSession.sessionCharges"
-										callback="setDirty()"></child-undelete-button>
+									<child-edit-button obj="charge" objlist="currentSession.sessionCharges" callback="editSessionCharge(charge)"></child-edit-button>
+									<child-delete-button obj="charge" objlist="currentSession.sessionCharges" callback="setDirty()"></child-delete-button>
+									<child-undelete-button obj="charge" objlist="currentSession.sessionCharges" callback="setDirty()"></child-undelete-button>
 									<child-status-indicator obj="charge"></child-status-indicator>
 								</span>
 							</div>

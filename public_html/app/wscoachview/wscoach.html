@@ -3,7 +3,7 @@
 		<h3>{{translationObj.details.formtitledetails}}</h3>
 		<div class="row">
 			<div class="col-xs-4">
-				<label for="name">{{translationObj.details.fieldtitlefirstname}}<i style="color:red"> *</i></label>
+				<label for="firstname">{{translationObj.details.fieldtitlefirstname}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="firstname" class="form-control" id="firstname"
@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="col-xs-4">
-				<label for="name">{{translationObj.details.fieldtitlelastname}}<i style="color:red"> *</i></label>
+				<label for="lastname">{{translationObj.details.fieldtitlelastname}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="lastname" class="form-control" id="lastname"
@@ -25,7 +25,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="email" class="form-control" id="email" ng-model="currentWscoach.email"
-						maxlength="100">
+						maxlength="100" autocomplete="off">
 				</div>
 			</div>
 			<div class="col-xs-4">
@@ -33,13 +33,14 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="phone" class="form-control" id="phone" ng-model="currentWscoach.phone"
-						maxlength="14" format-phone>
+						maxlength="14" format-phone autocomplete="off">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">
-				<label for="coachsince">{{translationObj.details.fieldtitlecoachsince}}<i style="color:red"> *</i></label>
+				<label for="coachsince">{{translationObj.details.fieldtitlecoachsince}}<i style="color:red">
+						*</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="coachsince" class="form-control" id="coachsince"
@@ -47,7 +48,8 @@
 				</div>
 			</div>
 			<div class="col-xs-4">
-				<label for="coachlevel">{{translationObj.details.fieldtitlecoachlevel}}<i style="color:red"> *</i></label>
+				<label for="coachlevel">{{translationObj.details.fieldtitlecoachlevel}}<i style="color:red">
+						*</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="coachlevel" class="form-control" id="coachlevel"
@@ -56,115 +58,85 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
-				<label for="availabilitytext_en">{{translationObj.details.fieldtitleenglishavailabilitytext}}<i	style="color:red"> *</i></label>
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="availabilitytext_en">{{translationObj.details.fieldtitleenglishavailabilitytext}}<i
+						style="color:red" ng-if="config.supportenglish==1"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="availabilitytext_en" class="form-control" id="availabilitytext_en"
-						ng-model="currentWscoach.availabilitytext_en" maxlength="2000" required>
+						ng-model="currentWscoach.availabilitytext_en" maxlength="2000"
+						ng-required="config.supportenglish==1">
 				</div>
 			</div>
-			<div class="col-xs-4">
-				<label for="availabilitytext_fr">{{translationObj.details.fieldtitlefrenchavailabilitytext}}<i style="color:red"> *</i></label>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="availabilitytext_fr">{{translationObj.details.fieldtitlefrenchavailabilitytext}}<i
+						style="color:red" ng-if="config.supportfrench==1"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					<input type="text" name="availabilitytext_fr" class="form-control" id="availabilitytext_fr"
-						ng-model="currentWscoach.availabilitytext_fr" maxlength="2000" required>
+						ng-model="currentWscoach.availabilitytext_fr" maxlength="2000"
+						ng-required="config.supportfrench==1">
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4">
-			<label for="competitivetext_en">{{translationObj.details.fieldtitleenglishcompetitivetext}}</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-				<textarea name="competitivetext_en" class="form-control" id="competitivetext_en"
-					ng-model="currentWscoach.competitivetext_en" maxlength="2000"></textarea>
-			</div>
-		</div>
-		<div class="col-xs-4">
-			<label for="competitivetext_fr">{{translationObj.details.fieldtitlefrenchcompetitivetext}}</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-				<textarea name="competitivetext_fr" class="form-control" id="competitivetext_fr"
-					ng-model="currentWscoach.competitivetext_fr" maxlength="2000"></textarea>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-2">
-			<label for="coachindex">{{translationObj.details.fieldtitlecoachindex}}<i style="color:red"> *</i></label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-pen"></i></span>
-				<input type="numeric" name="coachindex" class="form-control" id="coachindex"
-					ng-model="currentWscoach.coachindex" min="1" max="99" required>
-			</div>
-		</div>
-		<div class="col-xs-2">
-			<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-				<select class="form-control" id="publish" ng-model="currentWscoach.publish" required>
-					<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
-				</select>
-			</div>
-		</div>
-
-	</div>
-	<div class="row" ng-if="currentWscoach.imagefilename && currentWscoach.imageinfo">
-
-		<div class="col-xs-3">
-			<div class="team-member">
-				<div class="team-img">
-					<img ng-src="../websiteimages/coaches/{{currentWscoach.displayimagefilename}}" class="team-pic"
-						alt="">
+		<div class="row">
+			<div class="col-xs-4" ng-if="config.supportenglish==1">
+				<label for="competitivetext_en">{{translationObj.details.fieldtitleenglishcompetitivetext}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="competitivetext_en" class="form-control" id="competitivetext_en"
+						ng-model="currentWscoach.competitivetext_en" maxlength="2000"></textarea>
 				</div>
-				<h3 class="team_name">{{currentWscoach.fullname}}</h3>
+			</div>
+			<div class="col-xs-4" ng-if="config.supportfrench==1">
+				<label for="competitivetext_fr">{{translationObj.details.fieldtitlefrenchcompetitivetext}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="competitivetext_fr" class="form-control" id="competitivetext_fr"
+						ng-model="currentWscoach.competitivetext_fr" maxlength="2000"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<label for="coachindex">{{translationObj.details.fieldtitlecoachindex}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pen"></i></span>
+					<input type="number" name="coachindex" class="form-control" id="coachindex"
+						ng-model="currentWscoach.coachindex" min="1" max="99" required>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<label for="publish">{{translationObj.details.fieldtitlepublish}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="publish" ng-model="currentWscoach.publish" required>
+						<option ng-repeat="yesno in yesnos" value="{{yesno.code}}">{{yesno.text}}</option>
+					</select>
+				</div>
 			</div>
 		</div>
 
-		<div class="col-xs-2">
-			<label for="name">{{translationObj.details.fieldtitleimagewidth}}</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-				<input type="text" name="width" class="form-control" id="width" ng-model="currentWscoach.imageinfo[0]"
-					disabled>
+		<displaywebsiteimage 
+			displayimagefilename="'coaches/'+currentWscoach.displayimagefilename"
+			imageinfo="currentWscoach.imageinfo">
+		</displaywebsiteimage>
+		<div class="row">
+			<div class="col-xs-12">
+				<uploadwebsiteimagebutton 
+					subdirectory="'/website/images/coaches/'"
+					fileprefix="currentWscoach.firstname + '_' + currentWsboardmember.lastname" 
+					tablename="'cpa_ws_coaches'"
+					id="currentWscoach.id" 
+					oldfilename="currentWscoach.imagefilename"
+					callback="setCurrentInternal(currentWscoach)" 
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadwebsiteimagebutton>&nbsp;
+				<deletewebsiteimagebutton 
+					subdir="'coaches'" context="'ws_coaches'" obj="currentWscoach"
+					callback="setCurrentInternal(currentWscoach)" is-disabled="!currentWscoach.imagefilename">
+				</deletewebsiteimagebutton>
 			</div>
-
-			<label for="name">{{translationObj.details.fieldtitleimageheight}}</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-				<input type="text" name="height" class="form-control" id="height" ng-model="currentWscoach.imageinfo[1]"
-					disabled>
-			</div>
-
-			<label for="name">{{translationObj.details.fieldtitleimagetype}}</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-				<input type="text" name="type" class="form-control" id="type"
-					ng-model="currentWscoach.imageinfo['mime']" disabled>
-			</div>
-		</div>
-
-	</div>
-
-	<!-- Filler -->
-	<div class="row">
-		<div class="col-xs-4">
-			<label>&nbsp;</label>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-12">
-			<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)"
-				accept="image/jpeg" ngf-max-height="500" ngf-max-width="500" ngf-max-size="300KB"
-				ng-disabled="!isFormPristine || detailsForm.$dirty">{{translationObj.details.buttontitleloadmainimage}}</button>&nbsp;
-			<deletewebsiteimagebutton subdir="'coaches'" context="'ws_coaches'" obj="currentWscoach"
-				callback="setCurrentInternal(currentWscoach)" is-disabled="!currentWscoach.imagefilename">
-			</deletewebsiteimagebutton>
-			<span class="help-block">{{translationObj.details.helptextimagespecifications}}</span>
 		</div>
 	</div>
 

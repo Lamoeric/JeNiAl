@@ -10,7 +10,7 @@ require dirname(__FILE__) . '/../../../../vendor/autoload.php';
 require_once('../../../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../directives/billing/bills.php');
 require_once('../../../../include/nocache.php');
-require_once('../../../../include/invalidrequest.php');
+require_once('../../../../backend/invalidrequest.php'); //
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
     $type = $_POST['type'];

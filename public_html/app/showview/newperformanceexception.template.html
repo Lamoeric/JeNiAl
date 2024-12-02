@@ -1,51 +1,52 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newperformanceexception.formtitleeditexception}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newperformanceexception.formtitleeditexception}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
 
-	    <div class="col-xs-6">
-	      <label for="section">{{translationObj.newperformanceexception.fieldtitlesection}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" id="section" ng-model="newObj.section" maxlength="3" required>
-	      </div>
-	    </div>
+			<div class="col-xs-6">
+				<labelrequired for="section" label="translationObj.newperformanceexception.fieldtitlesection"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="section" ng-model="newObj.section" maxlength="3" required autofocus>
+				</div>
+			</div>
 
-	    <div class="col-xs-6">
-	      <label for="row">{{translationObj.newperformanceexception.fieldtitlerow}}<i ng-if="newObj.seat!=null&&newObj.seat!=''" style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	        <input type="text" class="form-control" id="row" ng-model="newObj.row" maxlength="3" ng-required="newObj.seat!=null&&newObj.seat!=''">
-	      </div>
-	    </div>
-	    
-	    <div class="col-xs-6">
-	      <label for="seat">{{translationObj.newperformanceexception.fieldtitleseat}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="seat" class="form-control" id="seat" ng-model="newObj.seat" maxlength="3" >
-	      </div>
-	    </div>
+			<div class="col-xs-6">
+				<labelrequired for="row" label="translationObj.newperformanceexception.fieldtitlerow" ng-if="newObj.seat!=null&&newObj.seat!=''"></labelrequired>
+				<label for="row" ng-if="newObj.seat==null||newObj.seat==''">{{translationObj.newperformanceexception.fieldtitlerow}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="row" ng-model="newObj.row" maxlength="3" ng-required="newObj.seat!=null&&newObj.seat!=''">
+				</div>
+			</div>
 
-      <div class="col-xs-6">
-	      <label for="reason">{{translationObj.newperformanceexception.fieldtitlereason}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-          <select class="form-control" id="reason" ng-model="newObj.reason" required>
+			<div class="col-xs-6">
+				<label for="seat">{{translationObj.newperformanceexception.fieldtitleseat}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="seat" class="form-control" id="seat" ng-model="newObj.seat" maxlength="3">
+				</div>
+			</div>
+
+			<div class="col-xs-6">
+				<labelrequired for="reason" label="translationObj.newperformanceexception.fieldtitlereason"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="reason" ng-model="newObj.reason" required>
 						<option ng-repeat="reason in seatingexceptionreasons" value="{{reason.code}}">{{reason.text}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-    </div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newperformanceexception.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newperformanceexception.buttontitlediscard}}</button>
-  <button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newperformanceexception.buttontitlekeepchanges}}</button>
-</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newperformanceexception.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newperformanceexception.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newperformanceexception.buttontitlekeepchanges}}</button>
+	</div>
+</form>

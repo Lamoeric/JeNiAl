@@ -157,8 +157,13 @@ function getGenericTableData($mysqli, $tableName, $whereclause, $orderby, $label
 				}
 				$valuelist = $valuelist . $labelFunctionName . "('" . $data['english'] . "', '" . $data['french'] . "')";
 			} else {
-				$valuelist = $valuelist . "'" . str_replace("'", "''", $row[$columArr[$x]]) . "'";
-				// $valuelist = $valuelist . "'" . $row[$columArr[$x]] . "'";
+				if (is_null($row[$columArr[$x]])) {
+					// echo $tableName. ' ' . $columArr[$x] . 'is null';
+					$valuelist = $valuelist . 'null';	
+				} else {
+					$valuelist = $valuelist . "'" . str_replace("'", "''", $row[$columArr[$x]]) . "'";
+					// $valuelist = $valuelist . "'" . $row[$columArr[$x]] . "'";
+				}
 			}
 		}
 		// $sqlCommands[] = $sqlCmd . $sqlCmdValues . $valuelist . ")";

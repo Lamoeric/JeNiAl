@@ -1,51 +1,53 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{translationObj.newcharge.formtitleeditcharge}}</h4>
-</div>
-<div class="modal-body">
-  <form class="form-horizontal" role="form" name="editObjForm">
-    <div class="form-group row">
-      <div class="col-xs-5">
-	      <label for="chargecode">{{translationObj.newcharge.fieldcharge}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-      		<select class="form-control" id="chargecode" ng-model="newObj.chargecode" required ng-disabled="newObj.id != null">
+<form class="form-horizontal" role="form" name="editObjForm">
+	<div class="modal-header">
+		<h4 class="modal-title">{{translationObj.newcharge.formtitleeditcharge}}</h4>
+	</div>
+	<div class="modal-body">
+		<p class="redfont" ng-if="newObj.active==0">{{translationObj.newcharge.formwarningmessage}}<p>
+		<div class="form-group row">
+			<div class="col-xs-5">
+				<labelrequired for="chargecode" label="translationObj.newcharge.fieldcharge"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<select class="form-control" id="chargecode" ng-model="newObj.chargecode" ng-disabled="newObj.id != null" required autofocus>
+						<option ng-if="newObj.active=='0'" value="{{newObj.chargecode}}">{{newObj.chargelabel}}</option>
 						<option ng-repeat="charge in charges" value="{{charge.code}}">{{charge.label}}</option>
-      		</select>
-      	</div>
-      </div>
+					</select>
+				</div>
+			</div>
 
-	    <div class="col-xs-3">
-	      <label for="amount">{{translationObj.newcharge.fieldamount}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-	      	<input type="text" class="form-control" id="amount" ng-model="newObj.amount" ng-currency required>
-	    	</div>
-	    </div>
-			
+			<div class="col-xs-3">
+				<labelrequired for="amount" label="translationObj.newcharge.fieldamount"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input type="text" class="form-control" id="amount" ng-model="newObj.amount" ng-currency required>
+				</div>
+			</div>
+			<!-- Filler -->
 			<div class="clearfix"></div>
 
-      <div class="col-xs-3">
-	      <label for="startdate">{{translationObj.charges.fieldstartdate}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	      	<input type="date" class="form-control" id="startdate" ng-model="newObj.startdate">
-  	    </div>
-      </div>
+			<div class="col-xs-3">
+				<label for="startdate">{{translationObj.charges.fieldstartdate}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="startdate" ng-model="newObj.startdate">
+				</div>
+			</div>
 
-      <div class="col-xs-3">
-	      <label for="enddate">{{translationObj.charges.fieldenddate}}</label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	      	<input type="date" class="form-control" id="enddate" ng-model="newObj.enddate">
-  	    </div>
-      </div>
-  	</div>
-  </form>
-  <div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
-    {{translationObj.newcharge.formerrormessage}}
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newcharge.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newcharge.buttontitlekeepchanges}}</button>
-</div>
+			<div class="col-xs-3">
+				<label for="enddate">{{translationObj.charges.fieldenddate}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<input type="date" class="form-control" id="enddate" ng-model="newObj.enddate">
+				</div>
+			</div>
+		</div>
+		<div class="alert alert-danger" id="editObjFieldMandatory" style="display:none;">
+			{{translationObj.newcharge.formerrormessage}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newcharge.buttontitlediscard}}</button>
+		<button type="submit" class="btn btn-primary" ng-click="ok()">{{translationObj.newcharge.buttontitlekeepchanges}}</button>
+	</div>
+</form>

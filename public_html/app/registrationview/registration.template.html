@@ -1,1 +1,11 @@
-<div><p><span class="glyphicon glyphicon-edit" ng-if="leftobj.status=='DRAFT'"></span><span class="glyphicon glyphicon-edit" ng-if="leftobj.status=='DRAFT-R'" style="color:red"></span><span class="glyphicon glyphicon-share" ng-if="leftobj.status=='PRESENTED'"></span><span class="glyphicon glyphicon-share" ng-if="leftobj.status=='PRESENTED-R'" style="color:red"></span><span class="glyphicon glyphicon-check" ng-if="leftobj.status=='ACCEPTED'"></span> {{leftobj.id}} - {{leftobj.sessionname}} - {{leftobj.registrationdate}} - {{leftobj.memberfirstname}} {{leftobj.memberlastname}}</p></div>
+<div>
+    <p>
+        <span class="glyphicon glyphicon-edit" ng-if="leftobj.status=='DRAFT'" style="color:red" data-toggle="tooltip" title="{{translationObj.leftPane.tooltipstatusdraft}}"></span>
+        <span class="glyphicon glyphicon-edit" ng-if="leftobj.status=='DRAFT-R'" style="color:red" data-toggle="tooltip" title="{{translationObj.leftPane.tooltipstatusreviseddraft}}"></span>
+        <span class="glyphicon glyphicon-share" ng-if="leftobj.status=='PRESENTED'" style="color:red" data-toggle="tooltip" title="{{translationObj.leftPane.tooltipstatuspresented}}"></span>
+        <span class="glyphicon glyphicon-share" ng-if="leftobj.status=='PRESENTED-R'" style="color:red" data-toggle="tooltip" title="{{translationObj.leftPane.tooltipstatusrevisedpresented}}"></span>
+        <span class="glyphicon glyphicon-check" ng-if="leftobj.status=='ACCEPTED'" data-toggle="tooltip" title="{{translationObj.leftPane.tooltipstatusaccepted}}"></span> 
+        {{leftobj.id}}&nbsp;-&nbsp;{{leftobj.memberfirstname}}&nbsp;{{leftobj.memberlastname}}<br>
+        {{translationObj.leftPane.fielddate}}:&nbsp;{{leftobj.registrationdate}} 
+    </p>
+</div>

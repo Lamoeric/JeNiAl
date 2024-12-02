@@ -2,6 +2,7 @@
 	{"formname":"leftPane", "fieldname":"mainfilter", "text":"Filter STAR Test Sessions..."},
 	{"formname":"leftPane", "fieldname":"maintitle", "text":"STAR Test Sessions"},
 	{"formname":"leftPane", "fieldname":"noresult", "text":"No STAR Test Session Found"},
+	{"formname":"leftPane", "fieldname":"islocked", "text":"Locked :"},
 
 	{"formname":"charges", "fieldname":"formtitle", "text":"Charges"},
 	{"formname":"charges", "fieldname":"buttontitlenewcharge", "text":"New charge..."},
@@ -12,7 +13,7 @@
 	{"formname":"newcharge", "fieldname":"formtitleeditcharge", "text":"Edit charge"},
 	{"formname":"newcharge", "fieldname":"fieldcharge", "text":"Charge"},
 	{"formname":"newcharge", "fieldname":"fieldamount", "text":"Amount"},
-	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newcharge", "fieldname":"formerrormessage", "text":"All fields * are mandatory."},
 	{"formname":"newcharge", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newcharge", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -26,7 +27,7 @@
 	{"formname":"newperiod", "fieldname":"fieldenglishlabel", "text":"Engish Label"},
 	{"formname":"newperiod", "fieldname":"fieldfrenchlabel", "text":"French Label"},
 	{"formname":"newperiod", "fieldname":"fieldcanceled", "text":"Canceled"},
-	{"formname":"newperiod", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newperiod", "fieldname":"formerrormessage", "text":"All fields * are mandatory."},
 	{"formname":"newperiod", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newperiod", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -34,7 +35,7 @@
 	{"formname":"newtestsession", "fieldname":"fieldhomeclub", "text":"Home Club"},
 	{"formname":"newtestsession", "fieldname":"fieldtestdirector", "text":"Test Director"},
 	{"formname":"newtestsession", "fieldname":"fieldname", "text":"Session Name"},
-	{"formname":"newtestsession", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"newtestsession", "fieldname":"formerrormessage", "text":"All fields * are mandatory."},
 	{"formname":"newtestsession", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"newtestsession", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 
@@ -67,9 +68,12 @@
 
 	{"formname":"testsession", "fieldname":"formtitlemaininfo", "text":"Main Information"},
 	{"formname":"testsession", "fieldname":"fieldsessionno", "text":"No Session"},
+	{"formname":"testsession", "fieldname":"fieldhomeclub", "text":"Home Club"},
+	{"formname":"testsession", "fieldname":"fieldtestdirector", "text":"Test Director"},
 	{"formname":"testsession", "fieldname":"fieldname", "text":"Session's Name"},
 	{"formname":"testsession", "fieldname":"fieldenglishlabel", "text":"English Label"},
 	{"formname":"testsession", "fieldname":"fieldfrenchlabel", "text":"French Label"},
+	{"formname":"testsession", "fieldname":"fieldextrafeesoptions", "text":"Extra Fees"},
 	{"formname":"testsession", "fieldname":"fieldtestsessionstartdate", "text":"Test Session Start Date"},
 	{"formname":"testsession", "fieldname":"fieldtestsessionenddate", "text":"Test Session End Date"},
 	{"formname":"testsession", "fieldname":"fielddaysprior", "text":"Min nb of days prior to registration"},
@@ -112,7 +116,7 @@
 	{"formname":"schedule", "fieldname":"buttontitlenewschedule", "text":"New Schedule..."},
 	{"formname":"schedule", "fieldname":"buttontitlegenerateperiods", "text":"Generate Periods"},
 	{"formname":"schedule", "fieldname":"buttontitleregenerateperiods", "text":"Regenerate Periods"},
-	{"formname":"schedule", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
+	{"formname":"schedule", "fieldname":"formerrormessage", "text":"All fields * are mandatory."},
 	{"formname":"schedule", "fieldname":"buttontitlediscard", "text":"Cancel"},
 	{"formname":"schedule", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
 	{"formname":"schedule", "fieldname":"fieldarena", "text":"Arena"},

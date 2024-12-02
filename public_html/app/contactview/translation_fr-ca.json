@@ -30,15 +30,16 @@
 	{"formname":"newcontact", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newcontact", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 
-	{"formname":"newmember", "fieldname":"formtitleeditcontact", "text":"Nouveau membre"},
+	{"formname":"newmember", "fieldname":"formtitleeditmember", "text":"Nouveau membre"},
 	{"formname":"newmember", "fieldname":"fieldrelation", "text":"Relation"},
 	{"formname":"newmember", "fieldname":"fieldmember", "text":"Membre"},
 	{"formname":"newmember", "fieldname":"fieldincaseofemergency", "text":"Contact en cas d'urgence"},
 	{"formname":"newmember", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
+	{"formname":"newmember", "fieldname":"formerrmemberalreadyexists", "text":"Ce membre est déjà dans la liste."},
 	{"formname":"newmember", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newmember", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
 	
-		{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filtre"},
+	{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filtre"},
 	{"formname":"filter", "fieldname":"fieldfirstname", "text":"Prénom du membre"},
 	{"formname":"filter", "fieldname":"fieldLastname", "text":"Nom de famille du membre"},
 	{"formname":"filter", "fieldname":"fieldcourse", "text":"Cours"},

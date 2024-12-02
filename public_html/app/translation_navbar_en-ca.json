@@ -1,4 +1,7 @@
 [
+	{"formname":"general", "fieldname":"msgerrallmandatory", "text":"All the fields * are mandatory."},
+	{"formname":"general", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
+	
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arenas"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Evaluation"},
 	{"formname":"main", "fieldname":"chargeviewCtrl", "text":"Charges"},
@@ -44,11 +47,8 @@
 	{"formname":"main", "fieldname":"ccregistrationviewCtrl", "text":"MY SKATING SPACE"},
 	{"formname":"main", "fieldname":"ccbillviewCtrl", "text":"MY SKATING SPACE"},
 
-	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"WS Contact"},
-	{"formname":"main", "fieldname":"wsarenaviewCtrl", "text":"WS Arenas"},
-	{"formname":"main", "fieldname":"wspageviewCtrl", "text":"WS Pages"},
+	{"formname":"main", "fieldname":"wscontactviewCtrl", "text":"WS Configuration"},
 	{"formname":"main", "fieldname":"wsnewpageviewCtrl", "text":"WS Pages"},
-	{"formname":"main", "fieldname":"wssectionviewCtrl", "text":"WS Sections"},
 	{"formname":"main", "fieldname":"wsboardmemberviewCtrl", "text":"WS Board Members"},
 	{"formname":"main", "fieldname":"wscoachviewCtrl", "text":"WS Coaches"},
 	{"formname":"main", "fieldname":"wsprogramassistantviewCtrl", "text":"WS PA"},
@@ -106,7 +106,7 @@
 	{"formname":"navbar", "fieldname":"evaluationpp", "text":"Canskate Evaluation"},
 
 	{"formname":"navbar", "fieldname":"webadministrationmenu", "text":"Web Site"},
-	{"formname":"navbar", "fieldname":"wscontactmanager", "text":"Contact Manager"},
+	{"formname":"navbar", "fieldname":"wscontactmanager", "text":"Configuration Manager"},
 	{"formname":"navbar", "fieldname":"wsarenasmanager", "text":"Arenas Manager"},
 	{"formname":"navbar", "fieldname":"wspagemanager", "text":"Pages Manager"},
 	{"formname":"navbar", "fieldname":"wssectionmanager", "text":"Sections Manager"},
