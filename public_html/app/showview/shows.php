@@ -465,16 +465,7 @@ function updateEntireShowInterventions($mysqli, $showid, $interventions)
 		if ($mysqli->real_escape_string(isset($interventions[$x]['status'])) and $interventions[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_shows_numbers SET name = '$name', duration = $duration, music = '$music', lights = '$lights', comments = '$comments' WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -544,15 +535,7 @@ function updateEntireShowNumbers($mysqli, $showid, $numbers)
 					. ", practicesenddate = " . ($practicesenddate == '' ? "null" : "'$practicesenddate'")
 					. " WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-					if (!$mysqli->query($query)) {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -810,9 +793,6 @@ function updateEntireShowPerformances($mysqli, $showid, $performances)
 		$label = 					$mysqli->real_escape_string(isset($performances[$x]['label']) 						? $performances[$x]['label'] : '');
 		$label_en = 				$mysqli->real_escape_string(isset($performances[$x]['label_en']) 					? $performances[$x]['label_en'] : '');
 		$label_fr = 				$mysqli->real_escape_string(isset($performances[$x]['label_fr']) 					? $performances[$x]['label_fr'] : '');
-		$websitedesc = 				$mysqli->real_escape_string(isset($performances[$x]['websitedesc']) 				? $performances[$x]['websitedesc'] : '');
-		$websitedesc_en = 			$mysqli->real_escape_string(isset($performances[$x]['websitedesc_en']) 				? $performances[$x]['websitedesc_en'] : '');
-		$websitedesc_fr = 			$mysqli->real_escape_string(isset($performances[$x]['websitedesc_fr']) 				? $performances[$x]['websitedesc_fr'] : '');
 		$arenaid = 					$mysqli->real_escape_string(isset($performances[$x]['arenaid']) 					? (int)$performances[$x]['arenaid'] : 0);
 		$iceid = 					$mysqli->real_escape_string(isset($performances[$x]['iceid']) 						? (int)$performances[$x]['iceid'] : 0);
 		$type = 					$mysqli->real_escape_string(isset($performances[$x]['type']) 						? $performances[$x]['type'] : '');
@@ -827,10 +807,10 @@ function updateEntireShowPerformances($mysqli, $showid, $performances)
 		$iscanceled = 				$mysqli->real_escape_string(isset($performances[$x]['iscanceled']) 					? (int)$performances[$x]['iscanceled'] : 0);
 
 		if ($mysqli->real_escape_string(isset($performances[$x]['status'])) and $performances[$x]['status'] == 'New') {
-			$query = "	INSERT into cpa_shows_performances (showid, label, websitedesc, arenaid, iceid, type, perfdate, starttime, endtime, 
+			$query = "	INSERT into cpa_shows_performances (showid, label, arenaid, iceid, type, perfdate, starttime, endtime, 
 															skatersarrivaltime, skatersdeparturetime, volunteersarrivaltime, volunteersdeparturetime, publish, 
 															iscanceled)
-						VALUES ($showid, create_systemtext('$label_en', '$label_fr'), create_systemtext('$websitedesc_en', '$websitedesc_fr'),
+						VALUES ($showid, create_systemtext('$label_en', '$label_fr'),
 								$arenaid, $iceid, '$type', '$perfdate', '$starttime', '$endtime', '$skatersarrivaltime', '$skatersdeparturetime', 
 								'$volunteersarrivaltime', '$volunteersdeparturetime', $publish, $iscanceled)";
 			if ($mysqli->query($query)) {
@@ -848,27 +828,8 @@ function updateEntireShowPerformances($mysqli, $showid, $performances)
 							volunteersdeparturetime = '$volunteersdeparturetime', publish = $publish, iscanceled = $iscanceled
 						WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_text set text = '$websitedesc_en' where id = $websitedesc and language = 'en-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_text set text = '$websitedesc_fr' where id = $websitedesc and language = 'fr-ca'";
-							if ($mysqli->query($query)) {
-								$data['updated']++;
-							} else {
-								throw new Exception('updateEntireShowPerformances - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
-							}
-						} else {
-							throw new Exception('updateEntireShowPerformances - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception('updateEntireShowPerformances - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception('updateEntireShowPerformances - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+				$data['updated']++;
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -970,8 +931,8 @@ function insert_show($mysqli, $show)
 		$id =			$mysqli->real_escape_string(isset($show['id'])			? (int)$show['id'] : '');
 		$name =			$mysqli->real_escape_string(isset($show['name'])		? $show['name'] : '');
 
-		$query = "INSERT INTO cpa_shows (name, label, websitedesc, sessionid, active, publish)
-				  VALUES ('$name', create_systemText('$name', '$name'), create_systemText('$name', '$name'),
+		$query = "INSERT INTO cpa_shows (name, label, sessionid, active, publish)
+				  VALUES ('$name', create_systemText('$name', '$name'),
 						  (select max(id) from cpa_sessions), 0, 0)";
 		if ($mysqli->query($query)) {
 			if (empty($id)) {
@@ -1029,16 +990,7 @@ function update_show($mysqli, $details)
 					practicesenddate = '$practicesenddate', onlineregiststartdate = '$onlineregiststartdate', onlineregistenddate = '$onlineregistenddate'  
 				WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-			} else {
-				throw new Exception('update_show - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception('update_show - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 	} else {
 		throw new Exception('update_show - ' . $mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
@@ -1449,7 +1401,6 @@ function getShowPerformances($mysqli, $showid, $language)
 	// 					 FROM cpa_arenas_ices_exceptions caie
 	// 					 WHERE caie.arenaid = csp.arenaid" . (isset($iceid) && !is_null($iceid) && $iceid != 0 ? " AND caie.iceid = $iceid" : "");
 	$query = "SELECT csp.*, getEnglishTextLabel(csp.label) as label_en, getFrenchTextLabel(csp.label) as label_fr,
-			 		 getEnglishTextLabel(csp.websitedesc) as websitedesc_en, getFrenchTextLabel(csp.websitedesc) as websitedesc_fr,
 					 (select getTextLabel(ca.label, '$language') from cpa_arenas ca where ca.id = csp.arenaid) arenalabel,
 					 (select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai where cai.arenaid = csp.arenaid and cai.id = csp.iceid) icelabel,
 					 getCodeDescription('performancetypes', csp.type, '$language') typelabel, getTextLabel(csp.label, '$language') performancelabel
@@ -1473,7 +1424,7 @@ function getShowPerformances($mysqli, $showid, $language)
 };
 
 /**
- * This function gets the details of all show courses for a show
+ * This function gets the details of all paragraphs for a show
  * 
  * @param integer $showid	The id of the show from cpa_shows
  */
@@ -1527,55 +1478,6 @@ function getOneShowNumber($mysqli, $numberid, $language)
 	$data['success'] = true;
 	return $data;
 };
-
-/**
- * This function gets the details of all registrations for a show
- * 
- * @param integer $showid	The id of the show from cpa_shows
- */
-// function getShowRegistrations($mysqli, $showid, $language) {
-// 	try {
-// 		if (empty($showid)) throw new Exception("Invalid show.");
-// 		$query = "	SELECT *
-// 					FROM cpa_shows_registrations
-// 					WHERE showid = '$showid'
-// 					ORDER BY registrationdate, starttime";
-// 		$result = $mysqli->query($query);
-// 		$data = array();
-// 		$data['data'] = array();
-// 		while ($row = $result->fetch_assoc()) {
-// 			$data['data'][] = $row;
-// 		}
-// 		$data['success'] = true;
-// 		return $data;
-// 	} catch (Exception $e) {
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		return $data;
-// 	}
-// };
-
-/**
- * This function gets the details of all events for a show
- * 
- * @param integer $showid	The id of the show from cpa_shows
- */
-// function getShowEvents($mysqli, $showid, $language) {
-// 	if (empty($showid)) throw new Exception("Invalid show.");
-// 	$query = "SELECT id, eventdate, type, label, getEnglishTextLabel(label) label_en, getFrenchTextLabel(label) label_fr
-// 						FROM cpa_shows_dates
-// 						WHERE showid = '$showid'
-// 						ORDER BY eventdate";
-// 	$result = $mysqli->query($query);
-// 	$data = array();
-// 	$data['data'] = array();
-// 	while ($row = $result->fetch_assoc()) {
-// 		$data['data'][] = $row;
-// 	}
-// 	$data['success'] = true;
-// 	return $data;
-// };
 
 /**
  * This function gets the details of all show charges for a show
@@ -1636,9 +1538,7 @@ function getShowRules($mysqli, $showid, $language)
 function getShowDetails($mysqli, $id, $language)
 {
 	try {
-		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr,
-						 getEnglishTextLabel(websitedesc) as websitedesc_en, getFrenchTextLabel(websitedesc) as websitedesc_fr,
-						 getTextLabel(label, '$language') title
+		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr, getTextLabel(label, '$language') title
 				  FROM cpa_shows
 				  WHERE id = $id";
 		$result = $mysqli->query($query);

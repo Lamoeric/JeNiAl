@@ -120,19 +120,9 @@ function update_testsession($mysqli, $testsession)
 				  nbofdaysprior = $nbofdaysprior, testdirectorid = $testdirectorid, homeclub = '$homeclub' 
 			  WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$data['success'] = true;
-			$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$data['message'] = 'Testsession updated successfully.';
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-		}
+		$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Testsession updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 	}
@@ -413,16 +403,7 @@ function updateEntirePeriods($mysqli, $newtestssessionsid, $periods, $language, 
 			} else {
 				$query = "UPDATE cpa_newtests_sessions_periods SET arenaid=$arenaid, iceid=$iceid, perioddate='$perioddate', day=$day, starttime='$starttime', endtime='$endtime', duration=$duration, canceled=$canceled, manual=$manual WHERE id = $id";
 				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-						if ($mysqli->query($query)) {
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
+					$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 				} else {
 					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}

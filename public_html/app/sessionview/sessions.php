@@ -349,20 +349,11 @@ function updateEntireSessionCourseSublevel($mysqli, $sessionid, $sessionscourses
 			}
 
 			if ($mysqli->real_escape_string(isset($sublevels[$x]['status'])) && $sublevels[$x]['status'] == 'Modified') {
-				$query = "UPDATE cpa_text set text = '$label_fr' WHERE id = '$label' AND language = 'fr-ca'";
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+				$query = "update cpa_sessions_courses_sublevels set sequence = $sequence WHERE id = $id";
 				if ($mysqli->query($query)) {
 					$data['success'] = true;
-					$query = "UPDATE cpa_text set text = '$label_en' WHERE id = '$label' AND language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$query = "update cpa_sessions_courses_sublevels set sequence = $sequence WHERE id = $id";
-						if ($mysqli->query($query)) {
-							$data['updated']++;
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
+					$data['updated']++;
 				} else {
 					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
@@ -501,17 +492,8 @@ function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates)
 				} else {
 					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', manual = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration' WHERE id = '$id'";
 					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_text set text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_text set text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-							if ($mysqli->query($query)) {
-								$data['updated']++;
-							} else {
-								throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
+						$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+						$data['updated']++;
 					} else {
 						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
@@ -670,16 +652,7 @@ function updateEntireSessionCourses($mysqli, $sessionid, $sessionCourses)
 					. ", prereqagemax = " . ($prereqagemax == 0 ? "null" : "'$prereqagemax'")
 					. " WHERE id = $id";
 				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_text set text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-						if ($mysqli->query($query)) {
-						} else {
-							throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
+					$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 				} else {
 					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
@@ -835,17 +808,8 @@ function updateEntireSessionEvents($mysqli, $sessionid, $events)
 		if ($mysqli->real_escape_string(isset($events[$x]['status'])) && $events[$x]['status'] == 'Modified') {
 			$query = "update cpa_sessions_dates set type = '$type', eventdate = '$eventdate' WHERE id = '$id'";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-					if ($mysqli->query($query)) {
-						$data['updated']++;
-					} else {
-						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+				$data['updated']++;
 			} else {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 			}
@@ -1095,16 +1059,8 @@ function update_session($mysqli, $details)
 						agereferencedate = '$agereferencedate'
 					WHERE id = '$id'";
 		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = '$label' AND language = 'fr-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = '$label' AND language = 'en-ca'";
-				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
-			}
+			$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+			$data['success'] = true;
 		} else {
 			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 		}

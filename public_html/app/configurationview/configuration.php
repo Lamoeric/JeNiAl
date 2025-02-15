@@ -67,132 +67,97 @@ function insert_configuration($mysqli) {
  * @throws Exception
  */
 function update_configuration($mysqli, $configuration) {
-	// try{
-		$data = array();
-		$id = 						$mysqli->real_escape_string(isset($configuration['id']) 					? $configuration['id'] : '');
-		$cpalongname = 				$mysqli->real_escape_string(isset($configuration['cpalongname']) 			? $configuration['cpalongname'] : '');
-		$cpalongname_fr = 			$mysqli->real_escape_string(isset($configuration['cpalongname_fr']) 		? $configuration['cpalongname_fr'] : '');
-		$cpalongname_en = 			$mysqli->real_escape_string(isset($configuration['cpalongname_en']) 		? $configuration['cpalongname_en'] : '');
-		$cpashortname = 			$mysqli->real_escape_string(isset($configuration['cpashortname']) 			? $configuration['cpashortname'] : '');
-		$cpashortname_fr = 			$mysqli->real_escape_string(isset($configuration['cpashortname_fr']) 		? $configuration['cpashortname_fr'] : '');
-		$cpashortname_en = 			$mysqli->real_escape_string(isset($configuration['cpashortname_en']) 		? $configuration['cpashortname_en'] : '');
-		$cpaaddress = 				$mysqli->real_escape_string(isset($configuration['cpaaddress']) 			? $configuration['cpaaddress'] : '');
-		$cpaaddress_fr = 			$mysqli->real_escape_string(isset($configuration['cpaaddress_fr']) 			? $configuration['cpaaddress_fr'] : '');
-		$cpaaddress_en = 			$mysqli->real_escape_string(isset($configuration['cpaaddress_en']) 			? $configuration['cpaaddress_en'] : '');
-		$cpaurl = 					$mysqli->real_escape_string(isset($configuration['cpaurl']) 				? $configuration['cpaurl'] : '');
-		$issmtp = 					$mysqli->real_escape_string(isset($configuration['issmtp']) 				? (int)$configuration['issmtp'] : 1);
-		$smtpdebuglevel = 			$mysqli->real_escape_string(isset($configuration['smtpdebuglevel']) 		? (int)$configuration['smtpdebuglevel'] : 1);
-		$smtpdebugoutputformat = 	$mysqli->real_escape_string(isset($configuration['smtpdebugoutputformat'])	? $configuration['smtpdebugoutputformat'] : 'html');
-		$smtpsecure = 				$mysqli->real_escape_string(isset($configuration['smtpsecure']) 			? $configuration['smtpsecure'] : 'tls');
-		$smtphost = 				$mysqli->real_escape_string(isset($configuration['smtphost']) 				? $configuration['smtphost'] : 'smtp.gmail.com');
-		$smtpport = 				$mysqli->real_escape_string(isset($configuration['smtpport']) 				? (int)$configuration['smtpport'] : 587);
-//		$smtpauth = 				$mysqli->real_escape_string(isset($configuration['smtpauth']) 				? (int)$configuration['smtpauth'] : 0);
-		$authtype = 				$mysqli->real_escape_string(isset($configuration['authtype']) 				? (int)$configuration['authtype'] : 0);
-		$oauthprovider = 			$mysqli->real_escape_string(isset($configuration['oauthprovider']) 			? $configuration['oauthprovider'] : '');
-		$oauthclientid = 			$mysqli->real_escape_string(isset($configuration['oauthclientid']) 			? $configuration['oauthclientid'] : '');
-		$oauthclientsecret = 		$mysqli->real_escape_string(isset($configuration['oauthclientsecret']) 		? $configuration['oauthclientsecret'] : '');
-		$oauthrefreshtoken = 		$mysqli->real_escape_string(isset($configuration['oauthrefreshtoken']) 		? $configuration['oauthrefreshtoken'] : '');
-		$smtpusername = 			$mysqli->real_escape_string(isset($configuration['smtpusername']) 			? $configuration['smtpusername'] : '');
-		$smtppassword = 			$mysqli->real_escape_string(isset($configuration['smtppassword']) 			? $configuration['smtppassword'] : '');
-		$smtpsetfrom = 				$mysqli->real_escape_string(isset($configuration['smtpsetfrom']) 			? $configuration['smtpsetfrom'] : '');
-		$smtpsetfullnamefrom = 		$mysqli->real_escape_string(isset($configuration['smtpsetfullnamefrom']) 	? $configuration['smtpsetfullnamefrom'] : '');
-		$smtpaddreplyto = 			$mysqli->real_escape_string(isset($configuration['smtpaddreplyto']) 		? $configuration['smtpaddreplyto'] : '');
-		$smtpfullnamereplyto = 		$mysqli->real_escape_string(isset($configuration['smtpfullnamereplyto']) 	? $configuration['smtpfullnamereplyto'] : '');
-		$smtptestemailaddress = 	$mysqli->real_escape_string(isset($configuration['smtptestemailaddress']) 	? $configuration['smtptestemailaddress'] : '');
-		$presidentfirstname = 		$mysqli->real_escape_string(isset($configuration['presidentfirstname']) 	? $configuration['presidentfirstname'] : '');
-		$presidentlastname = 		$mysqli->real_escape_string(isset($configuration['presidentlastname']) 		? $configuration['presidentlastname'] : '');
-		$presidentemail = 			$mysqli->real_escape_string(isset($configuration['presidentemail']) 		? $configuration['presidentemail'] : '');
-		$testdirfirstname = 		$mysqli->real_escape_string(isset($configuration['testdirfirstname']) 		? $configuration['testdirfirstname'] : '');
-		$testdirlastname = 			$mysqli->real_escape_string(isset($configuration['testdirlastname']) 		? $configuration['testdirlastname'] : '');
-		$testdiremail = 			$mysqli->real_escape_string(isset($configuration['testdiremail']) 			? $configuration['testdiremail'] : '');
-		$paypal_usesandbox =		$mysqli->real_escape_string(isset($configuration['paypal_usesandbox']) 		? (int)$configuration['paypal_usesandbox'] : 1);
-		$paypal_clientid = 			$mysqli->real_escape_string(isset($configuration['paypal_clientid']) 		? $configuration['paypal_clientid'] : '');
-		$paypal_clientsecret = 		$mysqli->real_escape_string(isset($configuration['paypal_clientsecret']) 	? $configuration['paypal_clientsecret'] : '');
+	$data = array();
+	$id = 						$mysqli->real_escape_string(isset($configuration['id']) 					? $configuration['id'] : '');
+	$cpalongname = 				$mysqli->real_escape_string(isset($configuration['cpalongname']) 			? $configuration['cpalongname'] : '');
+	$cpalongname_fr = 			$mysqli->real_escape_string(isset($configuration['cpalongname_fr']) 		? $configuration['cpalongname_fr'] : '');
+	$cpalongname_en = 			$mysqli->real_escape_string(isset($configuration['cpalongname_en']) 		? $configuration['cpalongname_en'] : '');
+	$cpashortname = 			$mysqli->real_escape_string(isset($configuration['cpashortname']) 			? $configuration['cpashortname'] : '');
+	$cpashortname_fr = 			$mysqli->real_escape_string(isset($configuration['cpashortname_fr']) 		? $configuration['cpashortname_fr'] : '');
+	$cpashortname_en = 			$mysqli->real_escape_string(isset($configuration['cpashortname_en']) 		? $configuration['cpashortname_en'] : '');
+	$cpaaddress = 				$mysqli->real_escape_string(isset($configuration['cpaaddress']) 			? $configuration['cpaaddress'] : '');
+	$cpaaddress_fr = 			$mysqli->real_escape_string(isset($configuration['cpaaddress_fr']) 			? $configuration['cpaaddress_fr'] : '');
+	$cpaaddress_en = 			$mysqli->real_escape_string(isset($configuration['cpaaddress_en']) 			? $configuration['cpaaddress_en'] : '');
+	$cpaurl = 					$mysqli->real_escape_string(isset($configuration['cpaurl']) 				? $configuration['cpaurl'] : '');
+	$issmtp = 					$mysqli->real_escape_string(isset($configuration['issmtp']) 				? (int)$configuration['issmtp'] : 1);
+	$smtpdebuglevel = 			$mysqli->real_escape_string(isset($configuration['smtpdebuglevel']) 		? (int)$configuration['smtpdebuglevel'] : 1);
+	$smtpdebugoutputformat = 	$mysqli->real_escape_string(isset($configuration['smtpdebugoutputformat'])	? $configuration['smtpdebugoutputformat'] : 'html');
+	$smtpsecure = 				$mysqli->real_escape_string(isset($configuration['smtpsecure']) 			? $configuration['smtpsecure'] : 'tls');
+	$smtphost = 				$mysqli->real_escape_string(isset($configuration['smtphost']) 				? $configuration['smtphost'] : 'smtp.gmail.com');
+	$smtpport = 				$mysqli->real_escape_string(isset($configuration['smtpport']) 				? (int)$configuration['smtpport'] : 587);
+	$authtype = 				$mysqli->real_escape_string(isset($configuration['authtype']) 				? (int)$configuration['authtype'] : 0);
+	$oauthprovider = 			$mysqli->real_escape_string(isset($configuration['oauthprovider']) 			? $configuration['oauthprovider'] : '');
+	$oauthclientid = 			$mysqli->real_escape_string(isset($configuration['oauthclientid']) 			? $configuration['oauthclientid'] : '');
+	$oauthclientsecret = 		$mysqli->real_escape_string(isset($configuration['oauthclientsecret']) 		? $configuration['oauthclientsecret'] : '');
+	$oauthrefreshtoken = 		$mysqli->real_escape_string(isset($configuration['oauthrefreshtoken']) 		? $configuration['oauthrefreshtoken'] : '');
+	$smtpusername = 			$mysqli->real_escape_string(isset($configuration['smtpusername']) 			? $configuration['smtpusername'] : '');
+	$smtppassword = 			$mysqli->real_escape_string(isset($configuration['smtppassword']) 			? $configuration['smtppassword'] : '');
+	$smtpsetfrom = 				$mysqli->real_escape_string(isset($configuration['smtpsetfrom']) 			? $configuration['smtpsetfrom'] : '');
+	$smtpsetfullnamefrom = 		$mysqli->real_escape_string(isset($configuration['smtpsetfullnamefrom']) 	? $configuration['smtpsetfullnamefrom'] : '');
+	$smtpaddreplyto = 			$mysqli->real_escape_string(isset($configuration['smtpaddreplyto']) 		? $configuration['smtpaddreplyto'] : '');
+	$smtpfullnamereplyto = 		$mysqli->real_escape_string(isset($configuration['smtpfullnamereplyto']) 	? $configuration['smtpfullnamereplyto'] : '');
+	$smtptestemailaddress = 	$mysqli->real_escape_string(isset($configuration['smtptestemailaddress']) 	? $configuration['smtptestemailaddress'] : '');
+	$presidentfirstname = 		$mysqli->real_escape_string(isset($configuration['presidentfirstname']) 	? $configuration['presidentfirstname'] : '');
+	$presidentlastname = 		$mysqli->real_escape_string(isset($configuration['presidentlastname']) 		? $configuration['presidentlastname'] : '');
+	$presidentemail = 			$mysqli->real_escape_string(isset($configuration['presidentemail']) 		? $configuration['presidentemail'] : '');
+	$testdirfirstname = 		$mysqli->real_escape_string(isset($configuration['testdirfirstname']) 		? $configuration['testdirfirstname'] : '');
+	$testdirlastname = 			$mysqli->real_escape_string(isset($configuration['testdirlastname']) 		? $configuration['testdirlastname'] : '');
+	$testdiremail = 			$mysqli->real_escape_string(isset($configuration['testdiremail']) 			? $configuration['testdiremail'] : '');
+	$paypal_usesandbox =		$mysqli->real_escape_string(isset($configuration['paypal_usesandbox']) 		? (int)$configuration['paypal_usesandbox'] : 1);
+	$paypal_clientid = 			$mysqli->real_escape_string(isset($configuration['paypal_clientid']) 		? $configuration['paypal_clientid'] : '');
+	$paypal_clientsecret = 		$mysqli->real_escape_string(isset($configuration['paypal_clientsecret']) 	? $configuration['paypal_clientsecret'] : '');
 
-		if (empty($id)) {
-			$data['insert'] = true;
-			$query = "	INSERT INTO cpa_configuration (id, cpaurl, cpalongname, cpashortname, cpaaddress)
-						VALUES (NULL, cpaurl, create_systemText('$cpalongname_en', '$cpalongname_fr'), create_systemText('$cpashortname_en', '$cpashortname_fr'), create_systemText('$cpaaddress_en', '$cpaaddress_fr'))";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				if (!empty($id))$data['message'] = 'Configuration updated successfully.';
-				else $data['message'] = 'Configuration inserted successfully.';
-				if (empty($id))$data['id'] = (int) $mysqli->insert_id;
-				else $data['id'] = (int) $id;
-			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			}
+	if (empty($id)) {
+		$data['insert'] = true;
+		$query = "	INSERT INTO cpa_configuration (id, cpaurl, cpalongname, cpashortname, cpaaddress)
+					VALUES (NULL, cpaurl, create_systemText('$cpalongname_en', '$cpalongname_fr'), create_systemText('$cpashortname_en', '$cpashortname_fr'), create_systemText('$cpaaddress_en', '$cpaaddress_fr'))";
+		if ($mysqli->query($query)) {
+			$data['success'] = true;
+			if (!empty($id))$data['message'] = 'Configuration updated successfully.';
+			else $data['message'] = 'Configuration inserted successfully.';
+			if (empty($id))$data['id'] = (int) $mysqli->insert_id;
+			else $data['id'] = (int) $id;
 		} else {
-			$query = "	UPDATE cpa_configuration
-						SET cpaurl = '$cpaurl', issmtp = $issmtp, smtpdebuglevel = $smtpdebuglevel, smtpdebugoutputformat = '$smtpdebugoutputformat', smtpsecure = '$smtpsecure',
-							smtphost = '$smtphost', smtpport = $smtpport, smtpusername = '$smtpusername', smtppassword = '$smtppassword', smtpsetfrom = '$smtpsetfrom',
-							smtpsetfullnamefrom = '$smtpsetfullnamefrom', smtpaddreplyto = '$smtpaddreplyto', smtpfullnamereplyto = '$smtpfullnamereplyto',
-							smtptestemailaddress = '$smtptestemailaddress', authtype = '$authtype', oauthprovider = '$oauthprovider', oauthclientid = '$oauthclientid', 
-							oauthclientsecret = '$oauthclientsecret', oauthrefreshtoken = '$oauthrefreshtoken',	presidentfirstname = '$presidentfirstname', 
-							presidentlastname = '$presidentlastname', presidentemail = '$presidentemail', testdirfirstname = '$testdirfirstname',	
-							testdirlastname = '$testdirlastname', testdiremail = '$testdiremail', paypal_usesandbox = $paypal_usesandbox, 
-							paypal_clientid = '$paypal_clientid', paypal_clientsecret = '$paypal_clientsecret'
-						WHERE id = $id";
+			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		}
+	} else {
+		$query = "	UPDATE cpa_configuration
+					SET cpaurl = '$cpaurl', issmtp = $issmtp, smtpdebuglevel = $smtpdebuglevel, smtpdebugoutputformat = '$smtpdebugoutputformat', smtpsecure = '$smtpsecure',
+						smtphost = '$smtphost', smtpport = $smtpport, smtpusername = '$smtpusername', smtppassword = '$smtppassword', smtpsetfrom = '$smtpsetfrom',
+						smtpsetfullnamefrom = '$smtpsetfullnamefrom', smtpaddreplyto = '$smtpaddreplyto', smtpfullnamereplyto = '$smtpfullnamereplyto',
+						smtptestemailaddress = '$smtptestemailaddress', authtype = '$authtype', oauthprovider = '$oauthprovider', oauthclientid = '$oauthclientid', 
+						oauthclientsecret = '$oauthclientsecret', oauthrefreshtoken = '$oauthrefreshtoken',	presidentfirstname = '$presidentfirstname', 
+						presidentlastname = '$presidentlastname', presidentemail = '$presidentemail', testdirfirstname = '$testdirfirstname',	
+						testdirlastname = '$testdirlastname', testdiremail = '$testdiremail', paypal_usesandbox = $paypal_usesandbox, 
+						paypal_clientid = '$paypal_clientid', paypal_clientsecret = '$paypal_clientsecret'
+					WHERE id = $id";
+		if (!$mysqli->query($query)) {
+			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+		}
+		if (empty($cpalongname)) {
+			$query = "UPDATE cpa_configuration SET cpalongname = create_systemText('$cpalongname_en', '$cpalongname_fr') WHERE id = $id";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
-			if (empty($cpalongname)) {
-				$query = "UPDATE cpa_configuration SET cpalongname = create_systemText('$cpalongname_en', '$cpalongname_fr') WHERE id = $id";
-				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
-			}
-			if (empty($cpashortname)) {
-				$query = "UPDATE cpa_configuration SET cpashortname = create_systemText('$cpashortname_en', '$cpashortname_fr') WHERE id = $id";
-				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
-			}
-			if (empty($cpaaddress)) {
-				$query = "UPDATE cpa_configuration SET cpaaddress = create_systemText('$cpaaddress_en', '$cpaaddress_fr') WHERE id = $id";
-				if (!$mysqli->query($query)) {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
-			}
-			$query = "UPDATE cpa_text set text = '$cpalongname_fr' where id = $cpalongname and language = 'fr-ca'";
-			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text set text = '$cpalongname_en' where id = $cpalongname and language = 'en-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text set text = '$cpashortname_fr' where id = $cpashortname and language = 'fr-ca'";
-					if ($mysqli->query($query)) {
-						$query = "UPDATE cpa_text set text = '$cpashortname_en' where id = $cpashortname and language = 'en-ca'";
-						if ($mysqli->query($query)) {
-							$query = "UPDATE cpa_text set text = '$cpaaddress_fr' where id = $cpaaddress and language = 'fr-ca'";
-							if ($mysqli->query($query)) {
-								$query = "UPDATE cpa_text set text = '$cpaaddress_en' where id = $cpaaddress and language = 'en-ca'";
-								if ($mysqli->query($query)) {
-									$data['success'] = true;
-								} else {
-									throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-								}
-							} else {
-								throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-							}
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
-			} else {
+		}
+		if (empty($cpashortname)) {
+			$query = "UPDATE cpa_configuration SET cpashortname = create_systemText('$cpashortname_en', '$cpashortname_fr') WHERE id = $id";
+			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
-		return $data;
-	// }catch (Exception $e) {
-	// 	$data = array();
-	// 	$data['success'] = false;
-	// 	$data['message'] = $e->getMessage();
-	// 	return $data;
-	// }
+		if (empty($cpaaddress)) {
+			$query = "UPDATE cpa_configuration SET cpaaddress = create_systemText('$cpaaddress_en', '$cpaaddress_fr') WHERE id = $id";
+			if (!$mysqli->query($query)) {
+				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+			}
+		}
+		$mysqli->query("call update_text($cpalongname, '$cpalongname_en', '$cpalongname_fr')");
+		$mysqli->query("call update_text($cpashortname, '$cpashortname_en', '$cpashortname_fr')");
+		$mysqli->query("call update_text($cpaaddress, '$cpaaddress_en', '$cpaaddress_fr')");
+		$data['success'] = true;
+	}
+	return $data;
 };
 
 /**
@@ -279,7 +244,6 @@ function getConfigurationDetails($mysqli, $id = '') {
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$row['id'] = (int) $row['id'];
-//			$row['amount'] = (float) $row['amount'];
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;

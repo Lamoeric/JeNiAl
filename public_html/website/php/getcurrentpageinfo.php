@@ -812,7 +812,6 @@ function getshowperformanceprices($mysqli, $performanceid, $language, $previewmo
  */
 function getshowperformances($mysqli, $showid, $language, $previewmode) {
 	$query = "SELECT csp.*, getEnglishTextLabel(csp.label) as label_en, getFrenchTextLabel(csp.label) as label_fr,
-									getEnglishTextLabel(csp.websitedesc) as websitedesc_en, getFrenchTextLabel(csp.websitedesc) as websitedesc_fr,
 									(select getTextLabel(ca.label, '$language') from cpa_arenas ca where ca.id = csp.arenaid) arenalabel,
 									(select getTextLabel(cai.label, '$language') from cpa_arenas_ices cai where cai.arenaid = csp.arenaid and cai.id = csp.iceid) icelabel,
 									getCodeDescription('performancetypes', csp.type, '$language') typelabel, getTextLabel(csp.label, '$language') performancelabel
@@ -958,8 +957,7 @@ function getshowrulesparagraphs($mysqli, $showid, $language, $previewmode) {
  */
 function getshowdescriptionsection($mysqli, $language, $previewmode){
 	try{
-		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr,
-									  getEnglishTextLabel(websitedesc) as websitedesc_en, getFrenchTextLabel(websitedesc) as websitedesc_fr
+		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr
 							FROM cpa_shows
 							WHERE publish = 1 AND active = 1
 							ORDER BY id";
