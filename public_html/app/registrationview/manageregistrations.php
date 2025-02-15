@@ -33,21 +33,6 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 		case "getRegistrationDetails":
 			getRegistrationDetails($mysqli, $_POST['eventType'], $_POST['eventId'], $_POST['id'], $_POST['language']);
 			break;
-		// case "getAllMembers":
-		// 	getAllMembers($mysqli);
-		// 	break;
-		// case "getMemberDetails":
-		// 	getMemberDetails($mysqli, $_POST['id'], $_POST['language']);
-		// 	break;
-			// case "getAllBills":
-			// 	getAllBills($mysqli);
-			// 	break;
-		// case "getBillDetails":
-		// 	getBillDetails($mysqli, $_POST['id']);
-		// 	break;
-		// case "getRegistrationBill":
-		// 	getRegistrationBill($mysqli, $_POST['registrationid'], $_POST['language']);
-		// 	break;
 		case "copyRegistration":
 			copyRegistration($mysqli, json_decode($_POST['registration'], true), $_POST['registrationid'], $_POST['registrationdatestr'], $_POST['newstatus']);
 			break;
@@ -96,54 +81,6 @@ function getSessionCourseCodes($mysqli, $sessionid, $language)
 	return $data;
 };
 
-/**
- * This function gets the details of one bill from database
- */
-// function 0Int($mysqli, $id = '')
-// {
-// 	try {
-// 		if (empty($id)) throw new Exception("Invalid Bill.");
-// 		$query = "SELECT * FROM cpa_bills WHERE id = '$id'";
-// 		$result = $mysqli->query($query);
-// 		$data = array();
-// 		while ($row = $result->fetch_assoc()) {
-// 			$row['id'] = (int) $row['id'];
-// 			$data['data'][] = $row;
-// 		}
-// 		$data['success'] = true;
-// 		return $data;
-// 	} catch (Exception $e) {
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		return $data;
-// 	}
-// };
-
-/**
- * This function gets list of all members from database
- */
-// function getAllMembers($mysqli)
-// {
-// 	try {
-// 		$query = "SELECT id, firstname, lastname, skatecanadano FROM cpa_members order by lastname, firstname";
-// 		$result = $mysqli->query($query);
-// 		$data = array();
-// 		while ($row = $result->fetch_assoc()) {
-// 			$row['id'] = (int) $row['id'];
-// 			$data['data'][] = $row;
-// 		}
-// 		$data['success'] = true;
-// 		echo json_encode($data);
-// 		exit;
-// 	} catch (Exception $e) {
-// 		$data = array();
-// 		$data['success'] = false;
-// 		$data['message'] = $e->getMessage();
-// 		echo json_encode($data);
-// 		exit;
-// 	}
-// };
 
 /**
  * This function gets the details of one member from database
@@ -167,14 +104,6 @@ function getMemberDetailsInt($mysqli, $id, $language)
 	$data['success'] = true;
 	return $data;
 };
-
-/**
- * This function gets the details of one member from database
- */
-// function getMemberDetails($mysqli, $id, $language)
-// {
-// 	echo json_encode(getMemberDetailsInt($mysqli, $id, $language));
-// };
 
 function updateEntireRegistration($mysqli, $registration, $newstatus)
 {

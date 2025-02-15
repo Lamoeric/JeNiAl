@@ -129,16 +129,7 @@ function getChargesDetails($mysqli, $registrationid, $sessionid, $language, $onl
 // Get the schedule for a course as a big string
 function getSessionCourseSchedule($mysqli, $sessionscoursesid, $language) {
 	$schedule = '';
-	$query = "select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-																				if ((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-																				getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-																				' - ',
-																				substr(starttime FROM 1 FOR 5),
-																				' - ',
-																				substr(endtime FROM 1 FOR 5))
-																SEPARATOR '; ') schedule
-						from cpa_sessions_courses_schedule
-						where sessionscoursesid = $sessionscoursesid";
+	$query = "SELECT getCourseSchedule($sessionscoursesid, '$language') AS schedule";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$schedule = $row['schedule'];
@@ -148,18 +139,9 @@ function getSessionCourseSchedule($mysqli, $sessionscoursesid, $language) {
 }
 
 // Get the schedule for a course as a big string
-function getShowNumberSchedule($mysqli, $sessionscoursesid, $language) {
+function getShowNumberSchedule($mysqli, $numberid, $language) {
 	$schedule = '';
-	$query = "select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-																				if ((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-																				getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-																				' - ',
-																				substr(starttime FROM 1 FOR 5),
-																				' - ',
-																				substr(endtime FROM 1 FOR 5))
-																SEPARATOR ', ') schedule
-						from cpa_shows_numbers_schedule
-						where numberid = $sessionscoursesid";
+	$query = "SELECT getNumberSchedule($numberid, '$language') AS schedule";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$schedule = $row['schedule'];

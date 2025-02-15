@@ -645,22 +645,13 @@ function getMemberActiveCourses($mysqli, $memberid, $language)
 	try {
 		if (empty($memberid)) throw new Exception("Invalid Member ID.");
 		$query = "SELECT cscm.*, csc.coursecode, csc.courselevel, csc.name, csc.fees, getTextLabel(cs.label, '$language') sessionlabel,
-							getTextLabel(csc.label, '$language') courselabel,
-							( select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-								IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-								getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-								' - ',
-								substr(starttime FROM 1 FOR 5),
-								' - ',
-								substr(endtime FROM 1 FOR 5))SEPARATOR ', ')
-							  from cpa_sessions_courses_schedule where sessionscoursesid = csc.id) schedule,
+							getTextLabel(csc.label, '$language') courselabel, getCourseSchedule(csc.id, '$language') AS schedule,
 							getTextLabel(cscs.label, '$language') sublevellabel
-
-							FROM cpa_sessions_courses_members cscm
-							JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
-							JOIN cpa_sessions cs ON cs.id = csc.sessionid and cs.active = '1'
-							LEFT JOIN cpa_sessions_courses_sublevels cscs ON cscs.sessionscoursesid = cscm.sessionscoursesid AND cscs.code = cscm.sublevelcode
-							WHERE cscm.memberid = '$memberid'";
+					FROM cpa_sessions_courses_members cscm
+					JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
+					JOIN cpa_sessions cs ON cs.id = csc.sessionid and cs.active = '1'
+					LEFT JOIN cpa_sessions_courses_sublevels cscs ON cscs.sessionscoursesid = cscm.sessionscoursesid AND cscs.code = cscm.sublevelcode
+					WHERE cscm.memberid = '$memberid'";
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['data'] = array();
