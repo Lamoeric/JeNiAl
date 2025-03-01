@@ -4,6 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../../../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../../../include/nocache.php');
+require_once('../../../../backend/insertintoaudittrail.php');
 require_once('../../../reports/sendemail.php');
 
 if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
@@ -30,6 +31,9 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
 			break;
 		case "setPasswordAndSendWelcomeEmail":
 			setPasswordAndSendWelcomeEmail($mysqli, $_POST['emailorusercode'], $_POST['language']);
+			break;
+		case "validateUserRoutingPrivilege":
+			validateUserRoutingPrivilege($mysqli, $_POST['userid'], $_POST['progname']);
 			break;
 		default:
 			invalidRequest();
@@ -110,31 +114,25 @@ function getAllPrivileges($mysqli, $userid) {
  */
 function validatelogin($mysqli, $userid, $password) {
 	try{
-		$userfullname = null;
 		$data = array();
-
-		$query = "SELECT count(*) cnt
-							FROM cpa_users
-							WHERE userid = '$userid'
-							AND password = '$password'
-							AND active = 1";
+		$query = "SELECT id, userid, fullname, preferedlanguage, passwordexpired, contactid, 
+						 (select supportfrench from cpa_ws_contactinfo) supportfrench,
+						 (select supportenglish from cpa_ws_contactinfo) supportenglish
+					FROM cpa_users
+					WHERE userid = '$userid'
+					AND password = '$password'
+					AND active = 1";
 		$result = $mysqli->query($query);
 		$row = $result->fetch_assoc();
-		if ($row['cnt'] > 0) {
-			$query = "SELECT id, userid, fullname, preferedlanguage, passwordexpired, contactid,
-												(select supportfrench from cpa_ws_contactinfo) supportfrench,
-												(select supportenglish from cpa_ws_contactinfo) supportenglish
-								FROM cpa_users
-								WHERE userid = '$userid'
-								AND password = '$password'
-								AND active = 1";
-			$result = $mysqli->query($query);
-			$row = $result->fetch_assoc();
-			$row['supportfrench'] 	 		= (int)$row['supportfrench'];
-			$row['supportenglish'] 	 		= (int)$row['supportenglish'];
-			$data['user'] 	 						= $row;
+		if (isset($row) && count($row) > 0) {
+			$row['supportfrench']		= (int)$row['supportfrench'];
+			$row['supportenglish']		= (int)$row['supportenglish'];
+			$data['user']				= $row;
 			$data['user']['privileges'] = getAllPrivileges($mysqli, $userid)['data'];
-			$data['success'] 						= true;
+
+			// TODO : this is where we need to insert a row in the cpa_audit_trail table
+			insertIntoAuditTrail($mysqli, $userid, 'LOGIN', 'LOGGING', '');
+			$data['success'] = true;
 		} else {
 			// Invalid login info
 			$data['success'] = false;
@@ -149,6 +147,39 @@ function validatelogin($mysqli, $userid, $password) {
 		exit;
 	}
 };
+
+/**
+ * This function validates if the user has the proper privileges to open the program
+ */
+function validateUserRoutingPrivilege($mysqli, $userid, $progname) {
+	try{
+		$data = array();
+		$query = "SELECT cpp.*
+					FROM cpa_programs_privileges cpp
+					JOIN cpa_roles_privileges crp ON crp.privilegeid = cpp.privilegeid
+					JOIN cpa_users_roles cur ON cur.roleid = crp.roleid
+					JOIN cpa_users cu ON cu.id = cur.userid
+					WHERE cu.userid = '$userid'
+					and cpp.progname = '$progname'";
+		$result = $mysqli->query($query);
+		$row = $result->fetch_assoc();
+		if (isset($row) && count($row) > 0) {
+			insertIntoAuditTrail($mysqli, $userid, $progname, 'ACCESS', '');
+			$data['success'] = true;
+		} else {
+			// Invalid login info
+			$data['success'] = false;
+		}
+		echo json_encode($data);
+		exit;
+	}catch (Exception $e) {
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
 
 /**
  * This function resets the user password, set the passwordexpired flag and sends an email

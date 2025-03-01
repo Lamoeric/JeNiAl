@@ -223,6 +223,15 @@ function getAllRegistrations($mysqli, $eventtype, $eventid, $filter)
  */
 function getRegistrationDetails($mysqli, $eventtype, $eventid, $id, $language)
 {
+	// $paramvalues =  "Received parameter ";
+	// for ($i = 1; $i < func_num_args(); ++$i) {
+	// 	$param = func_get_arg($i);
+	// 	$paramvalues = $paramvalues . " $i :" . $param;
+	// }
+	// echo $paramvalues;
+	// $param = func_get_args();
+	// $param = join(", ", $param);
+	// echo "Received parameters: $param.\n";
 	try {
 		if (empty($id)) throw new Exception("Invalid registration.");
 		if ($eventtype == 1) { // Session

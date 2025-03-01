@@ -8,17 +8,8 @@ angular.module('cpa_admin.testperiodview', ['ngRoute'])
 		controller: 'testperiodviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.admin_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/testperiodview"});
-        }
-      }
+				return authenticationService.validateUserRoutingPrivilege();
+      		}
 		}
 	})
 	.when('/testperiodview/testsessionid/:testsessionid/testperiodid/:testperiodid', {
@@ -26,12 +17,7 @@ angular.module('cpa_admin.testperiodview', ['ngRoute'])
 		controller: 'testperiodviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService, $location) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo && userInfo.privileges.admin_access==true) {
-					return $q.when(userInfo);
-				} else {
-					return $q.reject({ authenticated: false });
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

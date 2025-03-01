@@ -18,6 +18,38 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
     };
  }])
 
+/**
+ * 	This is an interceptor for all HTTP calls. If the call is a POST, we add the current language, current userid and current program name 
+ * 	to the data being passed (if not already passed).
+ */
+ .config(['$httpProvider', '$injector', function ($httpProvider, $injector) {
+	$httpProvider.interceptors.push(function ($q, $injector) {
+		return {
+			'request': function (config) {
+				if (config.method == 'POST') {
+					if (config.data != null) {
+						var route = $injector.get('$route');	// use $injector to avoid loop exception between modules
+						var rootScope = $injector.get('$rootScope');	// use $injector to avoid loop exception between modules
+						var authentication = $injector.get('authenticationService');	// use $injector to avoid loop exception between modules
+						if (config.data.indexOf("language=") == -1) {
+							// Let's add language to the request
+							config.data += "&language=" + (authentication ? authentication.getCurrentLanguage() : '');
+						}
+						if (config.data.indexOf("userid=") == -1) {
+							// Let's add userid to the request
+							config.data += "&userid=" + (rootScope && rootScope.userInfo ? rootScope.userInfo.userid : '');
+						}
+						if (config.data.indexOf("progname=") == -1) {
+							// Let's add progname to the request
+							config.data += "&progname=" + (route && route.current && route.current.originalPath ? route.current.originalPath.replace('/', '') : '');
+						}
+					}
+				}
+				return config || $q.when(config);
+			}
+		}
+	});
+}])
 //  .directive('keypressEvents', ['$document', '$rootScope', function($document, $rootScope) {
 // 	return {
 // 	restrict: 'A',
@@ -171,14 +203,14 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 		}
 	}
 
-	$rootScope.$on("$routeChangeSuccess", function (userInfo) {
+	$rootScope.$on("$routeChangeSuccess", function (event, current, previous, eventObj) {
 		if ($rootScope.translationObj && $rootScope.translationObj.main) {
 			// Change the main tab title
 			$rootScope.title = $rootScope.translationObj.main[$route.current.controller];
 			// Close the navbar as soon as a choice is made
 			$('#myNavbar').collapse('hide');
 		}
-		// console.log(userInfo);
+		console.log(eventObj);
 	});
 
 	$rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {

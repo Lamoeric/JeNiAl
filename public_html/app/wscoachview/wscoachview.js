@@ -8,17 +8,8 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 		controller: 'wscoachviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.admin_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/wscoachview"});
-        }
-      }
+				return authenticationService.validateUserRoutingPrivilege();
+      		}
 		}
 	});
 }])

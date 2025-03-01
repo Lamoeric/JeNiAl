@@ -8,16 +8,7 @@ angular.module('cpa_admin.courseattendanceview', ['ngRoute'])
 		controller: 'courseattendanceviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo) {
-					if (userInfo.privileges.attendance_access == true) {
-						return $q.when(userInfo);
-					} else {
-						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
-					}
-				} else {
-					return $q.reject({ authenticated: false, newLocation: "/courseattendanceview" });
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

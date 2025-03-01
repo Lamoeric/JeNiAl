@@ -8,17 +8,8 @@ angular.module('cpa_admin.canskateevaluationview', ['ngRoute'])
 		controller: 'canskateevaluationviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.evaluation_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/canskateevaluationview"});
-        }
-      }
+				return authenticationService.validateUserRoutingPrivilege();
+			}
 		}
 	});
 }])

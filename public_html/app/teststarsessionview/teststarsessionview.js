@@ -8,16 +8,7 @@ angular.module('cpa_admin.teststarsessionview', ['ngRoute'])
 		controller: 'teststarsessionviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo) {
-					if (userInfo.privileges.testsession_access == true) {
-						return $q.when(userInfo);
-					} else {
-						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
-					}
-				} else {
-					return $q.reject({ authenticated: false, newLocation: "/teststarsessionview" });
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

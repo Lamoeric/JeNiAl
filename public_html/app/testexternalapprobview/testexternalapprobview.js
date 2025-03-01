@@ -8,17 +8,8 @@ angular.module('cpa_admin.testexternalapprobview', ['ngRoute'])
 		controller: 'testexternalapprobviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.testregistration_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/testexternalapprobview"});
-        }
-      }
+				return authenticationService.validateUserRoutingPrivilege();
+      		}
 		}
 	});
 }])
