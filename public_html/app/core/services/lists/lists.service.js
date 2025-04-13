@@ -439,4 +439,19 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
 		var query = "SELECT id, templatename FROM cpa_emails_templates where active = 1 order by id DESC";
 		this.getSimpleListPattern1($scope, 'allEmailTemplates', preferedlanguage, query);
 	};
+
+	this.getAllUsers = function($scope, preferedlanguage) {
+		var query = "SELECT userid, fullname FROM cpa_users order by userid";
+		return this.getSimpleListPattern1($scope, 'allUsers', preferedlanguage, query);
+	};
+
+	this.getAllPrograms = function($scope, preferedlanguage) {
+		var query = "SELECT progname FROM cpa_programs_privileges order by progname";
+		return this.getSimpleListPattern1($scope, 'allPrograms', preferedlanguage, query);
+	};
+
+	this.getAllAuditActions = function($scope, preferedlanguage) {
+		var query = "SELECT DISTINCT action FROM cpa_audit_trail order by action";
+		return this.getSimpleListPattern1($scope, 'allAuditActions', preferedlanguage, query);
+	};
 }]);

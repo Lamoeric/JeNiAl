@@ -3,6 +3,7 @@
 	{"formname":"general", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arenas"},
+	{"formname":"main", "fieldname":"audittrailviewCtrl", "text":"Audit Trail"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Evaluation"},
 	{"formname":"main", "fieldname":"chargeviewCtrl", "text":"Charges"},
 	{"formname":"main", "fieldname":"clubviewCtrl", "text":"Clubs"},

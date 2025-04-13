@@ -2,12 +2,12 @@
 /*
 Author : Eric Lamoureux
 */
-require_once('../../../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
+require_once('../../../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../../../include/nocache.php');
 require_once('../../../../backend/insertintoaudittrail.php');
 require_once('../../../reports/sendemail.php');
 
-if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
+if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
 
 	switch ($type) {
@@ -44,36 +44,39 @@ if( isset($_POST['type']) && !empty( isset($_POST['type']) ) ) {
 
 // function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
 // Removed 0,1,l,L,i,I from list.
-function random_str($length, $keyspace = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ') {
-    $str = '';
-    $max = mb_strlen($keyspace, '8bit') - 1;
-    if ($max < 1) {
-        throw new Exception('$keyspace must be at least two characters long');
-    }
-    for ($i = 0; $i < $length; ++$i) {
-        $str .= $keyspace[rand(0, $max)];
-    }
-    return $str;
+function random_str($length, $keyspace = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ')
+{
+	$str = '';
+	$max = mb_strlen($keyspace, '8bit') - 1;
+	if ($max < 1) {
+		throw new Exception('$keyspace must be at least two characters long');
+	}
+	for ($i = 0; $i < $length; ++$i) {
+		$str .= $keyspace[rand(0, $max)];
+	}
+	return $str;
 };
 
-function generateRandomPassword($length) {
-    $str = '';
-		$str = random_str($length-1);
-		$str .= random_str(1, '!$%?&*');
-    return $str;
+function generateRandomPassword($length)
+{
+	$str = '';
+	$str = random_str($length - 1);
+	$str .= random_str(1, '!$%?&*');
+	return $str;
 };
 
 /**
  * This function generates a random password
  */
-function generatepassword($length) {
-	try{
+function generatepassword($length)
+{
+	try {
 		$data = array();
 		$data['password'] = generateRandomPassword($length);
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -85,8 +88,9 @@ function generatepassword($length) {
 /**
  * This function gets list of all charges from database
  */
-function getAllPrivileges($mysqli, $userid) {
-	try{
+function getAllPrivileges($mysqli, $userid)
+{
+	try {
 		$query = "SELECT crp.id, crp.roleid, crp.privilegeid, cp.code
 							FROM cpa_roles_privileges crp
 							JOIN cpa_users_roles cur ON cur.roleid = crp.roleid
@@ -101,7 +105,7 @@ function getAllPrivileges($mysqli, $userid) {
 		}
 		$data['success'] = true;
 		return $data;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -112,8 +116,9 @@ function getAllPrivileges($mysqli, $userid) {
 /**
  * This function sets the variables and starts the session
  */
-function validatelogin($mysqli, $userid, $password) {
-	try{
+function validatelogin($mysqli, $userid, $password)
+{
+	try {
 		$data = array();
 		$query = "SELECT id, userid, fullname, preferedlanguage, passwordexpired, contactid, 
 						 (select supportfrench from cpa_ws_contactinfo) supportfrench,
@@ -130,8 +135,7 @@ function validatelogin($mysqli, $userid, $password) {
 			$data['user']				= $row;
 			$data['user']['privileges'] = getAllPrivileges($mysqli, $userid)['data'];
 
-			// TODO : this is where we need to insert a row in the cpa_audit_trail table
-			insertIntoAuditTrail($mysqli, $userid, 'LOGIN', 'LOGGING', '');
+			insertIntoAuditTrail($mysqli, $userid, 'LOGIN', 'LOGGING');
 			$data['success'] = true;
 		} else {
 			// Invalid login info
@@ -139,7 +143,7 @@ function validatelogin($mysqli, $userid, $password) {
 		}
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -151,8 +155,9 @@ function validatelogin($mysqli, $userid, $password) {
 /**
  * This function validates if the user has the proper privileges to open the program
  */
-function validateUserRoutingPrivilege($mysqli, $userid, $progname) {
-	try{
+function validateUserRoutingPrivilege($mysqli, $userid, $progname)
+{
+	try {
 		$data = array();
 		$query = "SELECT cpp.*
 					FROM cpa_programs_privileges cpp
@@ -164,15 +169,16 @@ function validateUserRoutingPrivilege($mysqli, $userid, $progname) {
 		$result = $mysqli->query($query);
 		$row = $result->fetch_assoc();
 		if (isset($row) && count($row) > 0) {
-			insertIntoAuditTrail($mysqli, $userid, $progname, 'ACCESS', '');
+			insertIntoAuditTrail($mysqli, $userid, $progname, 'ACCESS');
 			$data['success'] = true;
 		} else {
 			// Invalid login info
+			insertIntoAuditTrail($mysqli, $userid, $progname, 'ACCESS', $details = "DENIED");
 			$data['success'] = false;
 		}
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -184,8 +190,9 @@ function validateUserRoutingPrivilege($mysqli, $userid, $progname) {
 /**
  * This function resets the user password, set the passwordexpired flag and sends an email
  */
-function resetPasswordAndSendEmail($mysqli, $emailorusercode, $language="fr-ca") {
-	try{
+function resetPasswordAndSendEmail($mysqli, $emailorusercode, $language = "fr-ca")
+{
+	try {
 		$data = array();
 		$data['success'] = false;
 		// Let's revalidate the user
@@ -219,7 +226,7 @@ function resetPasswordAndSendEmail($mysqli, $emailorusercode, $language="fr-ca")
 		}
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -231,8 +238,9 @@ function resetPasswordAndSendEmail($mysqli, $emailorusercode, $language="fr-ca")
 /**
  * This function sets the user password, set the passwordexpired flag and sends the welcome email
  */
-function setPasswordAndSendWelcomeEmail($mysqli, $emailorusercode, $language="fr-ca") {
-	try{
+function setPasswordAndSendWelcomeEmail($mysqli, $emailorusercode, $language = "fr-ca")
+{
+	try {
 		$data = array();
 		$data['success'] = false;
 		// Let's revalidate the user
@@ -265,7 +273,7 @@ function setPasswordAndSendWelcomeEmail($mysqli, $emailorusercode, $language="fr
 		}
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -277,7 +285,8 @@ function setPasswordAndSendWelcomeEmail($mysqli, $emailorusercode, $language="fr
 /**
  * This function validates that the given email address or user code is in the database ONLY ONCE
  */
-function validateuseroremailinternal($mysqli, $emailorusercode) {
+function validateuseroremailinternal($mysqli, $emailorusercode)
+{
 	$ret = false;
 	$query = "SELECT count(*) cnt
 						FROM cpa_users
@@ -295,13 +304,14 @@ function validateuseroremailinternal($mysqli, $emailorusercode) {
 /**
  * This function validates that the given email address or user code is in the database
  */
-function validateuseroremail($mysqli, $emailorusercode) {
-	try{
+function validateuseroremail($mysqli, $emailorusercode)
+{
+	try {
 		$data = array();
 		$data['success'] = validateuseroremailinternal($mysqli, $emailorusercode);
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -313,8 +323,9 @@ function validateuseroremail($mysqli, $emailorusercode) {
 /**
  * This function updates the password in the database
  */
-function changepassword($mysqli, $userid, $oldPassword, $newPassword) {
-	try{
+function changepassword($mysqli, $userid, $oldPassword, $newPassword)
+{
+	try {
 		$data = array();
 		$data['success'] = false;
 		$query = "SELECT count(*) cnt
@@ -336,7 +347,7 @@ function changepassword($mysqli, $userid, $oldPassword, $newPassword) {
 		}
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -348,15 +359,16 @@ function changepassword($mysqli, $userid, $oldPassword, $newPassword) {
 /**
  * This function unsets the variables and destroys the session
  */
-function logout() {
-	try{
+function logout()
+{
+	try {
 		$data = array();
 		session_unset();
 		session_destroy();
 		$data['success'] = true;
 		echo json_encode($data);
 		exit;
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
@@ -365,12 +377,11 @@ function logout() {
 	}
 };
 
-function invalidRequest() {
+function invalidRequest()
+{
 	$data = array();
 	$data['success'] = false;
 	$data['message'] = "Invalid request.";
 	echo json_encode($data);
 	exit;
 };
-
-?>

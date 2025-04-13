@@ -1,0 +1,62 @@
+<!-- <section id="intro" class="intro" cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" initmainsection> -->
+<section class="col-xs-12 col-sm-12" style="position:absolute;top:52px;bottom:0;right:0;height:94%"
+	cg-busy="{promise:promise,templateUrl:templateUrl,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}"
+	initmainsection>
+	<div>
+		<h2>{{translationObj.main.formtitledetails}}</h2>
+	</div>
+	<form class="form-horizontal" role="form" name="upperForm">
+		<div class="form-group">
+			<div class="col-md-3">
+				<label for="userid">{{translationObj.main.fielduserid}}</label>
+				<div class="input-group">
+					<select class="form-control" ng-model="userid"
+						ng-options="userid as userid.userid + ' - ' + userid.fullname for userid in allUsers" ignore-dirty></select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label for="progname">{{translationObj.main.fieldprogname}}</label>
+				<div class="input-group">
+					<select class="form-control" ng-model="progname"
+						ng-options="program as program.progname for program in allPrograms" ignore-dirty></select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label for="action">{{translationObj.main.fieldaction}}</label>
+				<div class="input-group">
+					<select class="form-control" ng-model="action"
+						ng-options="auditAction as auditAction.action for auditAction in allAuditActions" ignore-dirty></select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label for="userid">&nbsp;</label>
+				<div class="input-group">
+					<button type="button" class="btn btn-primary" ng-click="refresh()">{{translationObj.main.buttontitlerefresh}}</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form class="form-horizontal well pre-scrollable" id="map2" role="form" name="detailsForm">
+		<table width="100%">
+			<tr>
+				<th width="10%">ID</th>
+				<th width="15%">DATE</th>
+				<th width="20%">USERID</th>
+				<th width="15%">PROGRAM</th>
+				<th width="10%">ACTION</th>
+				<th width="10%">CHANGEDID</th>
+				<th width="20%">DETAILS</th>
+			</tr>
+			<tr ng-repeat="audittrail in currentAuditTrail">
+				<td width="10%">{{audittrail.id}}</td>
+				<td width="15%">{{audittrail.creationdate}}</td>
+				<td width="20%">{{audittrail.userid}}</td>
+				<td width="15%">{{audittrail.progname}}</td>
+				<td width="10%">{{audittrail.action}}</td>
+				<td width="10%">{{audittrail.changedid}}</td>
+				<td width="20%">{{audittrail.details}}</td>
+			</tr>
+		</table>
+	</form>
+</section>

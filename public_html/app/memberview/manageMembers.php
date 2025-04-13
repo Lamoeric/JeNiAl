@@ -17,18 +17,18 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 		case "insert_member":
 			$member = $_POST['member'];
 			$data = insertMember($mysqli, $member);
-			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'INSERT', "Id = {$data['id']} Name = {$member['firstname']} {$member['lastname']}");
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'INSERT', $changedid = $data['id'], $details = "Name : {$member['firstname']} {$member['lastname']}");
 			echo json_encode($data);
 			break;
 		case "updateEntireMember":
 			$member = json_decode($_POST['member'], true);
 			$data = updateEntireMember($mysqli, $member);
-			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'UPDATE', "Id = {$_POST['id']} Name = {$member['firstname']} {$member['lastname']}");
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'UPDATE', $changedid = $_POST['id'], $details = "Name : {$member['firstname']} {$member['lastname']}");
 			echo json_encode($data);
 			break;
 		case "delete_member":
 			$data = deleteMember($mysqli, $_POST['id']);
-			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'DELETE', "Id = {$_POST['id']}");
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'DELETE', $changedid = $_POST['id']);
 			echo json_encode($data);
 			break;
 		case "getAllMembers":
@@ -36,7 +36,7 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 			break;
 		case "getMemberDetails":
 			$data = getMemberDetails($mysqli, $_POST['id'], $_POST['language']);
-			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'READ', "Id = {$_POST['id']} Name = {$data['data'][0]['firstname']} {$data['data'][0]['lastname']}");
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'READ', $changedid = $_POST['id'], $details = "Name : {$data['data'][0]['firstname']} {$data['data'][0]['lastname']}");
 			echo json_encode($data);
 			break;
 		default:
