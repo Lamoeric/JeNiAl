@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="no-js" ng-app="cpa_ws_admin" ng-controller="websiteCtrl" ng-init="init('gallery', 'fr-ca')" ng-cloak>
+<head>
+  <script>
+    var shiftWindow = function() { scrollBy(0, -110) };
+    window.addEventListener("hashchange", shiftWindow);
+    function load() { if (window.location.hash) shiftWindow(); }
+  </script>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="/public_html/images/logo_jenial.png" type="image/x-icon">
+  <title ng-bind="currentpage.globalsections.footer.label"></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Template CSS Files
+  ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="/public_html/website/plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="/public_html/website/plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="/public_html/website/plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="/public_html/website/plugins/slider/slider.css">
+  <!-- owl craousel css -->
+  <link rel="stylesheet" href="/public_html/website/plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="/public_html/website/plugins/owl-carousel/owl.theme.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="/public_html/website/plugins/facncybox/jquery.fancybox.css">
+  <!-- Alertify -->
+  <link rel="stylesheet" href="/public_html/dist/alertify.core.css" />
+	<link rel="stylesheet" href="/public_html/dist/alertify.default.css" />
+  <!-- template main css file -->
+  <link rel="stylesheet" href="/public_html/website/css/style.css">
+</head>
+<body onload="load()">
+
+<!--
+==================================================
+Main menu Section Start
+================================================== -->
+<ng-include src="'/public_html/website/templates/mainmenu.template.html'"></ng-include>
+
+<!--
+==================================================
+Main header Section Start
+================================================== -->
+<ng-include src="'/public_html/website/templates/mainheader.template.html'"></ng-include>
+
+<!--
+=============================
+Gallery
+============================== -->
+<section id="gallery" class="gallery" ng-if="currentpage.globalsections.eventlist">
+  {{currentsection=currentpage.globalsections.eventlist;""}}
+  <div class="container">
+    <ng-include src="'/public_html/website/templates/sectiontitle.template.html'"></ng-include>
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-4" ng-repeat="oneevent in currentpage.globalsections.eventlist.events" style="min-height:350px;max-height:350px;">
+        <!-- <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="500ms" data-wow-delay="{{(0.6+$index/10)+'s'}}" style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;"> -->
+          <div class="img-wrapper">
+            <a data-fancybox="{{oneevent.name}}" ng-href="/websiteimages/gallery/eventid{{oneevent.id}}/{{oneevent.pictures[0].imagefilename}}">
+              <img ng-src="/websiteimages/gallery/eventid{{oneevent.id}}/{{oneevent.imagefilename}}" class="img-responsive" alt="{{oneevent.label}}" style="min-height:230px;max-height:230px;">
+            </a>
+            <!-- <div class="overlay"> -->
+              <!-- <div class="buttons"> -->
+                <!-- <a data-fancybox="{{oneevent.name}}" ng-href="/websiteimages/gallery/eventid{{oneevent.id}}/{{oneevent.pictures[0].imagefilename}}">Voir</a> -->
+              <!-- </div> -->
+              <div class="buttons" hidden>
+                <span ng-repeat="onepicture in oneevent.pictures">
+                  <a data-fancybox="{{oneevent.name}}" ng-href="/websiteimages/gallery/eventid{{oneevent.id}}/{{onepicture.imagefilename}}" ng-if="$index!=0"></a>
+                </span>
+              </div>
+            <!-- </div> -->
+          </div>
+          <figcaption>
+            <h4>{{oneevent.label}}</h4>
+          </figcaption>
+        <!-- </figure> -->
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="gallery" ng-if="currentpage.globalsections.eventlist2">
+  {{currentsection=currentpage.globalsections.eventlist2;""}}
+  <div class="container">
+    <ng-include src="'/public_html/website/templates/sectiontitle.template.html'"></ng-include>
+    <div class="row">
+      <div class="col-sm-4 col-xs-12" ng-repeat="oneevent in currentpage.globalsections.eventlist2.events" style="min-height:350px;max-height:350px;">
+        <!-- <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="500ms" data-wow-delay="{{(0.6+$index/10)+'s'}}" style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;"> -->
+          <div class="img-wrapper">
+            <a data-fancybox="{{oneevent.name}}" ng-href="/websiteimages/gallery/eventid{{oneevent.id}}/{{oneevent.pictures[0].imagefilename}}">
+              <img ng-src="/websiteimages/gallery/eventid{{oneevent.id}}/{{oneevent.imagefilename}}" class="img-responsive" alt="{{oneevent.label}}" style="min-height:230px;max-height:230px;">
+            </a>
+            <!-- <div class="overlay">
+              <div class="buttons">
+                <a data-fancybox="{{oneevent.name}}" ng-href="/websiteimages/gallery/eventid{{oneevent.id}}/{{oneevent.pictures[0].imagefilename}}">Voir</a>
+              </div> -->
+              <div class="buttons" hidden>
+                <span ng-repeat="onepicture in oneevent.pictures">
+                  <a data-fancybox="{{oneevent.name}}" ng-href="/websiteimages/gallery/eventid{{oneevent.id}}/{{onepicture.imagefilename}}" ng-if="$index!=0"></a>
+                </span>
+              </div>
+            <!-- </div>
+          </div> -->
+          <figcaption>
+            <h4>{{oneevent.label}}</a></h4>
+          </figcaption>
+        <!-- </figure> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+==================================================
+    Partners Section Start
+================================================== -->
+<ng-include src="'/public_html/website/templates/partners.template.html'"></ng-include>
+
+<!--
+==================================================
+Call To Action Section Start
+================================================== -->
+<ng-include src="'/public_html/website/templates/calltoaction.template.html'"></ng-include>
+
+<!--
+==================================================
+Footer Section Start
+================================================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="col-md-8">
+      <p class="copyright">Copyright: <span><script>document.write(new Date().getFullYear())</script></span> Design et développement par <a href="http://www.jenial.ca" target="_blank">JeNiAl</a>.</p>
+    </div>
+  </div>
+</footer> <!-- /#footer -->
+
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="/public_html/website/plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="/public_html/website/plugins/form-validation/jquery.form.js"></script>
+    <script src="/public_html/website/plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- owl carouserl js -->
+	<script src="/public_html/website/plugins/owl-carousel/owl.carousel.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="/public_html/website/plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- angular js -->
+	<script src="/public_html/website/plugins/angularJS/angular.min.js"></script>
+	<!-- wow js -->
+	<script src="/public_html/website/plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="/public_html/website/plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="/public_html/website/plugins/facncybox/jquery.fancybox.js"></script>
+	<!-- template main js -->
+	<script src="/public_html/website/js/main.js"></script>
+  <!-- Alertify -->
+  <script type="text/javascript" src="/public_html/dist/alertify.min.js"></script>
+  <!-- angular JS module and controler -->
+	<script src="/public_html/website/js/app.js"></script>
+	<script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+ 	</body>
+</html>
