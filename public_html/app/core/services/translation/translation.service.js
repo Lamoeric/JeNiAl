@@ -21,9 +21,20 @@ angular.module('core').service('translationService', function($resource) {
 	this.getTranslation = function($scope, pathPrefix, language) {
 		var languageFilePath = pathPrefix + '/translation_' + language + '.json';
 		// console.log(languageFilePath);
-		return $resource(languageFilePath).query(function (data) {
-				$scope.translationObj = those.transformTranslation(data, $scope.translationObj);
+		var file = $resource(languageFilePath);
+		var translation = $resource(languageFilePath).query();
+		translation.$promise.then(function(data) {
+			// Data successfully loaded into 'user'
+			$scope.translationObj = those.transformTranslation(data, $scope.translationObj);
+			// console.log("data:", result); 
+		}).catch(function(error) {
+			// console.error("Error fetching user:", error);
 		});
+		return translation.$promise;
+
+		// return $resource(languageFilePath).query(function (data) {
+		// 		$scope.translationObj = those.transformTranslation(data, $scope.translationObj);
+		// });
 	};
 
 	this.getNavbarTranslation = function($scope, language) {
