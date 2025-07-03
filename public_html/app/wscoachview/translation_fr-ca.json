@@ -17,7 +17,7 @@
 	{"formname":"details", "fieldname":"fieldtitlelastname", "text":"Nom de famille"},
 	{"formname":"details", "fieldname":"fieldtitleemail", "text":"Courriel"},
 	{"formname":"details", "fieldname":"fieldtitlephone", "text":"Téléphone"},
-	{"formname":"details", "fieldname":"fieldtitlecoachsince", "text":"Entraîneur depuis"},
+	{"formname":"details", "fieldname":"fieldtitlecoachsince", "text":"Entraîneur depuis (YYYY)"},
 	{"formname":"details", "fieldname":"fieldtitlecoachlevel", "text":"Niveau"},
 	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publier"},
 	{"formname":"details", "fieldname":"fieldtitleenglishavailabilitytext", "text":"Première ligne anglaise"},
