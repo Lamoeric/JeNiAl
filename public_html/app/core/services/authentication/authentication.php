@@ -165,7 +165,8 @@ function validateUserRoutingPrivilege($mysqli, $userid, $progname)
 					JOIN cpa_users_roles cur ON cur.roleid = crp.roleid
 					JOIN cpa_users cu ON cu.id = cur.userid
 					WHERE cu.userid = '$userid'
-					and cpp.progname = '$progname'";
+					AND cpp.progname = '$progname'
+					AND (cpp.cpa + cpp.cds*2) & (select clubtype from cpa_configuration) != 0";
 		$result = $mysqli->query($query);
 		$row = $result->fetch_assoc();
 		if (isset($row) && count($row) > 0) {
