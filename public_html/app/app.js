@@ -27,7 +27,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 		return {
 			'request': function (config) {
 				if (config.method == 'POST') {
-					if (config.data != null) {
+					if (config.data != null && config.data.indexOf!=null) {
 						var route = $injector.get('$route');	// use $injector to avoid loop exception between modules
 						var rootScope = $injector.get('$rootScope');	// use $injector to avoid loop exception between modules
 						var authentication = $injector.get('authenticationService');	// use $injector to avoid loop exception between modules
