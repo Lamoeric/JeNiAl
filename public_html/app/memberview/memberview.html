@@ -33,11 +33,11 @@
 						<ul id="maintabheader" class="nav nav-tabs">
 							<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>
 							<li class="pointerlist"><a data-toggle="tab" data-target="#address">{{translationObj.main.panetitleaddress}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#skating">{{translationObj.main.panetitleskating}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#skating">{{translationObj.main.panetitleskating}}</a></li>
 							<li class="pointerlist"><a data-toggle="tab" data-target="#contacts">{{translationObj.main.panetitlecontacts}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#tests">{{translationObj.main.panetitletests}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#startests">{{translationObj.main.panetitlestartests}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#canskate">{{translationObj.main.panetitlecanskate}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#tests">{{translationObj.main.panetitletests}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#startests">{{translationObj.main.panetitlestartests}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#canskate">{{translationObj.main.panetitlecanskate}}</a></li>
 							<li class="pointerlist"><a data-toggle="tab" data-target="#activecourses">{{translationObj.main.panetitleactivecourses}}</a></li>
 							<li class="pointerlist"><a data-toggle="tab" data-target="#bills">{{translationObj.main.panetitlebills}}</a></li>
 						</ul>

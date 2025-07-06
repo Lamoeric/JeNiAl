@@ -30,7 +30,7 @@
 						<li><a href="#!/dashboardview"												ng-if="userInfo.privileges.admin_access==true">{{translationObj.navbar.dashboard}}</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a href="#!/courseattendanceview"										ng-if="userInfo.privileges.attendance_access==true">{{translationObj.navbar.courseattendance}}</a></li>
-						<li><a href="#!/canskateevaluationview"										ng-if="userInfo.privileges.evaluation_access==true">{{translationObj.navbar.evaluationpp}}</a></li>
+						<li><a href="#!/canskateevaluationview"										ng-if="userInfo.privileges.evaluation_access==true&&userInfo.privileges.skatinginfo_view==true">{{translationObj.navbar.evaluationpp}}</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a href="#!/ccwelcomeview" 				ng-show="userInfo.userid!=null">{{translationObj.navbar.customercentre}}</a></li>
 					</ul>
@@ -38,7 +38,7 @@
 
 				<!-- Test Menu -->
 				<!-- <li class="dropdown pointerlist" ng-if="userInfo.userid!=null && userInfo.privileges.testsession_access==true"><a class="dropdown-toggle" data-toggle="dropdown" >{{translationObj.navbar.testmenu}}<span class="caret"></span></a> -->
-				<li class="dropdown pointerlist" 						ng-if="userInfo.privileges.testregistration_access==true"><a class="dropdown-toggle" data-toggle="dropdown" >{{translationObj.navbar.testmenu}}<span class="caret"></span></a>
+				<li class="dropdown pointerlist" 						ng-if="userInfo.privileges.testregistration_access==true&&userInfo.privileges.skatinginfo_view==true"><a class="dropdown-toggle" data-toggle="dropdown" >{{translationObj.navbar.testmenu}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="#!/testsessionview" 				ng-if="userInfo.privileges.testsession_access==true">{{translationObj.navbar.testsessionsmanager}}</a></li>
 						<li><a href="#!/testregistrationview" 			ng-if="userInfo.privileges.testregistration_access==true">{{translationObj.navbar.testregistrations}}</a></li>
@@ -73,9 +73,9 @@
 				<!-- <li class="dropdown pointerlist" ng-if="userInfo.privileges.design_access==true"><a class="dropdown-toggle" data-toggle="dropdown" >{{translationObj.navbar.designmenu}}<span class="caret"></span></a> -->
 					<!-- <ul class="dropdown-menu"> -->
 						<!-- <li ng-if="userInfo.privileges.design_access==true">Design</li> -->
-						<li ng-if="userInfo.privileges.design_access==true"><a href="#!/testdefview">{{translationObj.navbar.testsdefmanager}}</a></li>
-						<li ng-if="userInfo.privileges.design_access==true"><a href="#!/testview">{{translationObj.navbar.testsmanager}}</a></li>
-						<li ng-if="userInfo.privileges.design_access==true"><a href="#!/testcsview">{{translationObj.navbar.cstestsmanager}}</a></li>
+						<li ng-if="userInfo.privileges.design_access==true&&userInfo.privileges.skatinginfo_view==true"><a href="#!/testdefview">{{translationObj.navbar.testsdefmanager}}</a></li>
+						<li ng-if="userInfo.privileges.design_access==true&&userInfo.privileges.skatinginfo_view==true"><a href="#!/testview">{{translationObj.navbar.testsmanager}}</a></li>
+						<li ng-if="userInfo.privileges.design_access==true&&userInfo.privileges.skatinginfo_view==true"><a href="#!/testcsview">{{translationObj.navbar.cstestsmanager}}</a></li>
 						<li role="separator" class="divider"></li>
 					<!-- </ul> -->
 				<!-- </li> -->

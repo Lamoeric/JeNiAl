@@ -30,9 +30,9 @@
 										</div>
 										<ul class="nav nav-tabs">
 											<li class="active pointerlist"><a data-toggle="tab" data-target="#info">{{translationObj.main.panetitledetails}}</a></li>
-											<li class="pointerlist"><a data-toggle="tab" data-target="#test">{{translationObj.main.panetitleteststar}}</a></li>
-											<li class="pointerlist"><a data-toggle="tab" data-target="#newtest">{{translationObj.main.panetitlenewteststar}}</a></li>
-											<li class="pointerlist"><a data-toggle="tab" data-target="#canskate">{{translationObj.main.panetitlecanskate}}</a></li>
+											<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#test">{{translationObj.main.panetitleteststar}}</a></li>
+											<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#newtest">{{translationObj.main.panetitlenewteststar}}</a></li>
+											<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#canskate">{{translationObj.main.panetitlecanskate}}</a></li>
 											<li class="pointerlist"><a data-toggle="tab" data-target="#courses">{{translationObj.main.panetitlecourses}}</a></li>
 											<li class="pointerlist"><a data-toggle="tab" data-target="#numbers">{{translationObj.main.panetitlenumbers}}</a></li>
 										</ul>
