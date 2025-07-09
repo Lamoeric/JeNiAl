@@ -1,0 +1,10 @@
+[
+	{"formname":"main", "fieldname":"buttontitleloadmainlogo", "text":"Changer logo"},
+	{"formname":"main", "fieldname":"msgerrinvalidfile", "text":"Image non valide"},
+	{"formname":"main", "fieldname":"msgerrinvalidfilesize", "text":"Image non valide - taille du fichier plus grand que "},
+	{"formname":"main", "fieldname":"msgerrinvalidmaxwidth", "text":"Image non valide - largeur de l'image plus grande que "},
+	{"formname":"main", "fieldname":"msgerrinvalidmaxheight", "text":"Image non valide - hauteur de l'image plus grande que "},
+	{"formname":"main", "fieldname":"helptextimagespecifications", "text":"L'image doit être de type jpg, être de moins de 1MB et de dimensions moins de 1000px X 1000px"},
+	{"formname":"main", "fieldname":"msguploadcompleted", "text":"L'image a été importée."},
+	{"formname":"main", "fieldname":"test", "text":""}
+]

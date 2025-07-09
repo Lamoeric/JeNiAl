@@ -6,6 +6,8 @@ require_once('../../../private/'. $_SERVER['HTTP_HOST'].'/include/config.php');
 require_once('../../include/nocache.php');
 require_once('../../backend/invalidrequest.php'); //
 require_once('../reports/sendemail.php');
+require_once('../../backend/getimagefilename.php');
+require_once('../../backend/getimagefileinfo.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 	$type = $_POST['type'];
@@ -244,6 +246,12 @@ function getConfigurationDetails($mysqli, $id = '') {
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$row['id'] = (int) $row['id'];
+			$mainfilename = getImageFileName('/images/', 'welcomeviewmainimage.jpg');
+			$row['mainimagefilename'] = 'welcomeviewmainimage.jpg';
+			$row['mainimageinfo'] = getImageFileInfo($mainfilename);
+			$logofilename = getImageFileName('/images/', 'cpa_logo.jpg');
+			$row['logoimagefilename'] = 'cpa_logo.jpg';
+			$row['logoimageinfo'] = getImageFileInfo($logofilename);
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;

@@ -94,6 +94,8 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		success(function(data, status, headers, config) {
 			if(data.success && !angular.isUndefined(data.data) ){
 				$scope.currentConfiguration = data.data[0];
+				$scope.currentConfiguration.mainimagefilename = $scope.currentConfiguration.mainimagefilename + '?decache=' + Math.random();
+				$scope.currentConfiguration.logoimagefilename = $scope.currentConfiguration.logoimagefilename + '?decache=' + Math.random();
 
 				// var PAYPAL_SCRIPT = 'https://www.paypal.com/sdk/js?client-id=sb';
 				// var script = document.createElement('script');
@@ -174,75 +176,75 @@ angular.module('cpa_admin.configurationview', ['ngRoute'])
 		$window.open('./reports/preview.php?language='+language);
 	}
 
-	$scope.uploadMainImage = function(file, errFiles) {
-			$scope.f = file;
-			$scope.errFile = errFiles && errFiles[0];
-			if (file) {
-				if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-					dialogService.alertDlg('only jpg files are allowed.');
-					return;
-				}
-					file.upload = Upload.upload({
-							url: '../backend/changeMainImage.php',
-							method: 'POST',
-							file: file,
-							// data: {
-							//     'awesomeThings': $scope.awesomeThings,
-							//     'targetPath' : '/media/'
-							// }
-					});
-					file.upload.then(function(data) {
-							$timeout(function() {
-								if (data.data.success) {
-									dialogService.alertDlg($scope.translationObj.details.msgmainimagechanged);
-								} else {
-									dialogService.displayFailure(data.data);
-								}
-							});
-					}, function(data) {
-							if (!data.success) {
-								dialogService.displayFailure(data.data);
-							}
-					}, function(evt) {
-							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-					});
-			}
-	}
+	// $scope.uploadMainImage = function(file, errFiles) {
+	// 		$scope.f = file;
+	// 		$scope.errFile = errFiles && errFiles[0];
+	// 		if (file) {
+	// 			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
+	// 				dialogService.alertDlg('only jpg files are allowed.');
+	// 				return;
+	// 			}
+	// 				file.upload = Upload.upload({
+	// 						url: '../backend/changeMainImage.php',
+	// 						method: 'POST',
+	// 						file: file,
+	// 						// data: {
+	// 						//     'awesomeThings': $scope.awesomeThings,
+	// 						//     'targetPath' : '/media/'
+	// 						// }
+	// 				});
+	// 				file.upload.then(function(data) {
+	// 						$timeout(function() {
+	// 							if (data.data.success) {
+	// 								dialogService.alertDlg($scope.translationObj.details.msgmainimagechanged);
+	// 							} else {
+	// 								dialogService.displayFailure(data.data);
+	// 							}
+	// 						});
+	// 				}, function(data) {
+	// 						if (!data.success) {
+	// 							dialogService.displayFailure(data.data);
+	// 						}
+	// 				}, function(evt) {
+	// 						file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+	// 				});
+	// 		}
+	// }
 
-	$scope.uploadLogo = function(file, errFiles) {
-			$scope.f = file;
-			$scope.errFile = errFiles && errFiles[0];
-			if (file) {
-				if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
-					dialogService.alertDlg('only jpg files are allowed.');
-					return;
-				}
-					file.upload = Upload.upload({
-							url: '../backend/changelogo.php',
-							method: 'POST',
-							file: file,
-							// data: {
-							//     'awesomeThings': $scope.awesomeThings,
-							//     'targetPath' : '/media/'
-							// }
-					});
-					file.upload.then(function(data) {
-							$timeout(function() {
-								if (data.data.success) {
-									dialogService.alertDlg($scope.translationObj.details.msglogochanged);
-								} else {
-									dialogService.displayFailure(data.data);
-								}
-							});
-					}, function(data) {
-							if (!data.success) {
-								dialogService.displayFailure(data.data);
-							}
-					}, function(evt) {
-							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-					});
-			}
-	}
+	// $scope.uploadLogo = function(file, errFiles) {
+	// 		$scope.f = file;
+	// 		$scope.errFile = errFiles && errFiles[0];
+	// 		if (file) {
+	// 			if (file.type.indexOf('jpeg') === -1 || file.name.indexOf('.jpg') === -1) {
+	// 				dialogService.alertDlg('only jpg files are allowed.');
+	// 				return;
+	// 			}
+	// 				file.upload = Upload.upload({
+	// 						url: '../backend/changelogo.php',
+	// 						method: 'POST',
+	// 						file: file,
+	// 						// data: {
+	// 						//     'awesomeThings': $scope.awesomeThings,
+	// 						//     'targetPath' : '/media/'
+	// 						// }
+	// 				});
+	// 				file.upload.then(function(data) {
+	// 						$timeout(function() {
+	// 							if (data.data.success) {
+	// 								dialogService.alertDlg($scope.translationObj.details.msglogochanged);
+	// 							} else {
+	// 								dialogService.displayFailure(data.data);
+	// 							}
+	// 						});
+	// 				}, function(data) {
+	// 						if (!data.success) {
+	// 							dialogService.displayFailure(data.data);
+	// 						}
+	// 				}, function(evt) {
+	// 						file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+	// 				});
+	// 		}
+	// }
 
 	$scope.sendTestEmail = function() {
 		// If sheet exists, add it to the email generation. If not, leave null.
