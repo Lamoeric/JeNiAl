@@ -63,7 +63,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 // 	};
 // }])
 
-.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', '$document', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, $document, translationService, dialogService, authenticationService) {
+.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', '$document', '$http', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, $document, $http, translationService, dialogService, authenticationService) {
 
 	/**
 	 * This function checks if anything is dirty
@@ -324,6 +324,31 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 	});
 	// $rootScope.repositionLeftColumn();
 
-	translationService.getNavbarTranslation($rootScope, authenticationService.getCurrentLanguage());
+	translationService.getNavbarTranslation($rootScope, authenticationService.getCurrentLanguage()).then(function() {
+		$http({
+			method: 'post',
+			url: '../backend/getmyspacerealname.php',
+			data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getMySpaceRealName'}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).
+		success(function(data, status, headers, config) {
+			if (data.success) {
+				$rootScope.myspacerealname = data.data[0].myspacerealname;
+				// Change everything in the navbar
+				$rootScope.translationObj.navbar.customercentre = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccwelcomeviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccskaterviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccloginviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccprofileviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccregisterviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccregistrationviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccbillviewCtrl = $rootScope.myspacerealname;
+			}
+		}).
+		error(function(data, status, headers, config) {
+				dialogService.displayFailure(data);
+		});
+	});
+  
 
 }]);

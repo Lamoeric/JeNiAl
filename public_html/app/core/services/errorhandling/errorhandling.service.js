@@ -3,10 +3,11 @@ angular.module('core').service('errorHandlingService', ['$log', '$injector', 'di
 	this.saveErrorToDB = function (message, stack, cause, programName) {
 		var http = $injector.get('$http');
 		var rootScope = $injector.get('$rootScope');
+		var userId = rootScope && rootScope.userInfo && rootScope.userInfo.userid ? rootScope.userInfo.userid : '';
 		return http({
 			method: 'post',
 			url: './core/services/errorhandling/errorhandling.php',
-			data: $.param({ 'user': rootScope.userInfo.userid, 'message': message, 'stack': stack, 'cause': cause, 'progname': programName, 'type': 'insertLog' }),
+			data: $.param({ 'user': userId, 'message': message, 'stack': stack, 'cause': cause, 'progname': programName, 'type': 'insertLog' }),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).
 		success(function (data, status, headers, config) {

@@ -1,6 +1,5 @@
 [
 	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
-	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
 	{"formname":"main", "fieldname":"formtitleyouraccount", "text":"YOUR ACCOUNT"},
 	{"formname":"main", "fieldname":"formtitleyourprofile", "text":"Your profile"},
 	{"formname":"main", "fieldname":"formtitlechangepassword", "text":"Change password"},

@@ -5,6 +5,7 @@ Author : Eric Lamoureux
 require_once('../../../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../../../include/nocache.php');
 require_once('../../../../backend/insertintoaudittrail.php');
+require_once('../../../../backend/getmyspacerealnameint.php');
 require_once('../../../reports/sendemail.php');
 
 if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
@@ -260,12 +261,13 @@ function setPasswordAndSendWelcomeEmail($mysqli, $emailorusercode, $language = "
 				$result = $mysqli->query($query);
 				$row = $result->fetch_assoc();
 				// $data['user'] = $row;
+				$myspacerealname = getMySpaceRealName($mysqli, $row['preferedlanguage'])['data'][0]['myspacerealname'];
 				if ($row['preferedlanguage'] == 'en-ca') {
-					$title = "Welcome to MY SKATING SPACE";
-					$body = "<p>Your account to access MY SKATING SPACE has been created.</p><p>User: <b>" . $row['userid'] . "</b></p><p>Temporary Password: <b>" . $newPassword . "</b></p><br><p>To access MY SKATING SPACE:</p><p>%url%/app/index.html#!/ccwelcomeview</p>";
+					$title = "Welcome to {$myspacerealname}";
+					$body = "<p>Your account to access <b><i>{$myspacerealname}</i></b> has been created.</p><p>User: <b>" . $row['userid'] . "</b></p><p>Temporary Password: <b>" . $newPassword . "</b></p><br><p>To access <b><i>{$myspacerealname}</i></b>:</p><p>%url%/app/index.html#!/ccwelcomeview</p>";
 				} else {
-					$title = "Bienvenue sur MON ESPACE PATIN";
-					$body = "<p>Votre compte pour accéder à MON ESPACE PATIN a été créé.</p><p>Usager: <b>" . $row['userid'] . "</b></p><p>Mot de passe temporaire: <b>" . $newPassword . "</b></p><br><p>Pour accéder à MON ESPACE PATIN :</p><p>%url%/#!/ccwelcomeview</p>";
+					$title = "Bienvenue sur {$myspacerealname}";
+					$body = "<p>Votre compte pour accéder à <b><i>{$myspacerealname}</i></b> a été créé.</p><p>Usager: <b>" . $row['userid'] . "</b></p><p>Mot de passe temporaire: <b>" . $newPassword . "</b></p><br><p>Pour accéder à <b><i>{$myspacerealname}</i></b> :</p><p>%url%/#!/ccwelcomeview</p>";
 				}
 				// Send email
 				sendoneemail($mysqli, $row['email'], $row['fullname'], $title, $body, '../../../../images', null, $language);

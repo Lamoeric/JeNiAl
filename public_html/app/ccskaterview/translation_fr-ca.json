@@ -1,6 +1,5 @@
 [
 	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
-	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
 	{"formname":"main", "fieldname":"formtitleyourskater", "text":"VOTRE PATINEUR"},
 	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">> Page d'accueil"},
 

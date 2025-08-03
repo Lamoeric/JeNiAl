@@ -40,10 +40,12 @@ angular.module('core').service('translationService', function($resource) {
 	this.getNavbarTranslation = function($scope, language) {
 		var languageFilePath = 'translation_navbar_' + language + '.json';
 		// console.log(languageFilePath);
-		return $resource(languageFilePath).query(function (data) {
+		var translation = $resource(languageFilePath).query();
+		translation.$promise.then(function(data) {
 			$scope.translationObj = those.transformTranslation(data);
 			$scope.$broadcast('navbartranslation.loaded');
 		});
+		return translation.$promise;
 	};
 
 	this.getTranslationObj = function() {

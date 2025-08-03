@@ -1,5 +1,4 @@
 [
-	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
 	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
 	{"formname":"main", "fieldname":"formttitlesignin", "text":"INSCRIPTION"},
 	{"formname":"main", "fieldname":"fieldtitleemail", "text":"Adresse courriel"},

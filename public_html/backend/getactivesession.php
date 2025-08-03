@@ -6,11 +6,10 @@
 *
 */
 
-// Try to get the courses of the member, with the delta from the previous registration already computed
 function getActiveSession($mysqli) {
 	$data = array();
 	$data['data'] = array();
-	$query = "SELECT * FROM cpa_sessions WHERE active = 1";
+	$query = "SELECT *, if (isonlinepreregistactive = 1 AND curdate() between onlinepreregiststartdate AND onlinepreregistenddate, 1 , 0) preregistrationok FROM cpa_sessions WHERE active = 1";
 	$result = $mysqli->query($query);
 	$row = $result->fetch_assoc();
     $row['id'] = (int)$row['id'];
@@ -25,6 +24,7 @@ function getActiveSession($mysqli) {
     $row['isonlineregistemail'] = (int)$row['isonlineregistemail'];
     $row['onlineregistemailtpl'] = (int)$row['onlineregistemailtpl'];
     $row['isonlineregistemailinclbill'] = (int)$row['isonlineregistemailinclbill'];
+    $row['preregistrationok'] = (int)$row['preregistrationok'];
     $data['data'][] = $row;
 	$data['success'] = true;
 	return $data;

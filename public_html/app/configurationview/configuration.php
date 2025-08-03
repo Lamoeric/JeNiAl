@@ -80,6 +80,9 @@ function update_configuration($mysqli, $configuration) {
 	$cpaaddress = 				$mysqli->real_escape_string(isset($configuration['cpaaddress']) 			? $configuration['cpaaddress'] : '');
 	$cpaaddress_fr = 			$mysqli->real_escape_string(isset($configuration['cpaaddress_fr']) 			? $configuration['cpaaddress_fr'] : '');
 	$cpaaddress_en = 			$mysqli->real_escape_string(isset($configuration['cpaaddress_en']) 			? $configuration['cpaaddress_en'] : '');
+	$spacename = 				$mysqli->real_escape_string(isset($configuration['spacename']) 			? $configuration['spacename'] : '');
+	$spacename_fr = 			$mysqli->real_escape_string(isset($configuration['spacename_fr']) 			? $configuration['spacename_fr'] : '');
+	$spacename_en = 			$mysqli->real_escape_string(isset($configuration['spacename_en']) 			? $configuration['spacename_en'] : '');
 	$cpaurl = 					$mysqli->real_escape_string(isset($configuration['cpaurl']) 				? $configuration['cpaurl'] : '');
 	$issmtp = 					$mysqli->real_escape_string(isset($configuration['issmtp']) 				? (int)$configuration['issmtp'] : 1);
 	$smtpdebuglevel = 			$mysqli->real_escape_string(isset($configuration['smtpdebuglevel']) 		? (int)$configuration['smtpdebuglevel'] : 1);
@@ -157,6 +160,7 @@ function update_configuration($mysqli, $configuration) {
 		$mysqli->query("call update_text($cpalongname, '$cpalongname_en', '$cpalongname_fr')");
 		$mysqli->query("call update_text($cpashortname, '$cpashortname_en', '$cpashortname_fr')");
 		$mysqli->query("call update_text($cpaaddress, '$cpaaddress_en', '$cpaaddress_fr')");
+		$mysqli->query("call update_text($spacename, '$spacename_en', '$spacename_fr')");
 		$data['success'] = true;
 	}
 	return $data;
@@ -240,7 +244,8 @@ function getConfigurationDetails($mysqli, $id = '') {
 		if (empty($id)) throw new Exception("Invalid User.");
 		$query = "SELECT *, getEnglishTextLabel(cpalongname) as cpalongname_en, getFrenchTextLabel(cpalongname) as cpalongname_fr,
 								getEnglishTextLabel(cpashortname) as cpashortname_en, getFrenchTextLabel(cpashortname) as cpashortname_fr,
-								getEnglishTextLabel(cpaaddress) as cpaaddress_en, getFrenchTextLabel(cpaaddress) as cpaaddress_fr
+								getEnglishTextLabel(cpaaddress) as cpaaddress_en, getFrenchTextLabel(cpaaddress) as cpaaddress_fr,
+								getEnglishTextLabel(spacename) as spacename_en, getFrenchTextLabel(spacename) as spacename_fr
 							FROM cpa_configuration WHERE id = '$id'";
 		$result = $mysqli->query($query);
 		$data = array();

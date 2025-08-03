@@ -6,6 +6,8 @@
 	{"formname":"details", "fieldname":"fieldtitlefrenchshortname", "text":"Nom court français"},
 	{"formname":"details", "fieldname":"fieldtitleenglishaddress", "text":"Adresse anglaise"},
 	{"formname":"details", "fieldname":"fieldtitlefrenchaddress", "text":"Adresse française"},
+	{"formname":"details", "fieldname":"fieldtitleenglishmyskatingspace", "text":"Mon espace nom anglais"},
+	{"formname":"details", "fieldname":"fieldtitlefrenchmyskatingspace", "text":"Mon espace nom français"},
 	{"formname":"details", "fieldname":"fieldtitlecpaurl", "text":"URL"},
 	{"formname":"details", "fieldname":"buttontitlepreview", "text":"Visualiser"},
 	{"formname":"details", "fieldname":"buttontitlechangemainimage", "text":"Changer image accueil"},
