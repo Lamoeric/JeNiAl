@@ -1,7 +1,7 @@
 	'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currency','cgBusy','ngRoute','ui.toggle','ngFileUpload','chart.js','dndLists','cpa_admin.emailtemplateview','cpa_admin.codeview','cpa_admin.chargeview','cpa_admin.testview','cpa_admin.testdefview','cpa_admin.testcsview','cpa_admin.arenaview','cpa_admin.clubview','cpa_admin.courseview','cpa_admin.preregistrationview','cpa_admin.registrationview','cpa_admin.sessioncoursesview','cpa_admin.sessionview','cpa_admin.showview','cpa_admin.showtaskview','cpa_admin.memberview','cpa_admin.contactview','cpa_admin.privilegeview','cpa_admin.roleview','cpa_admin.userview','cpa_admin.userprofileview','cpa_admin.testsessionview','cpa_admin.teststarsessionview','cpa_admin.testperiodview','cpa_admin.testperiodfollowview','cpa_admin.testregistrationview','cpa_admin.teststarregistrationview', 'cpa_admin.courseattendanceview', 'cpa_admin.canskateevaluationview', 'cpa_admin.configurationview', 'cpa_admin.welcomeview','cpa_admin.loginview','cpa_admin.billview','cpa_admin.testexternalapprobview','cpa_admin.dashboardview', 'cpa_admin.sessiontaxreceiptview', 'cpa_admin.ccwelcomeview', 'cpa_admin.ccloginview', 'cpa_admin.ccregisterview', 'cpa_admin.ccprofileview', 'cpa_admin.ccbillview', 'cpa_admin.ccsinglebillview', 'cpa_admin.ccskaterview', 'cpa_admin.ccregistrationview', 'cpa_admin.ccpreregistrationview', 'cpa_admin.ccshowregistrationview', 'cpa_admin.wsnewpageview', 'cpa_admin.wsprogramassistantview', 'cpa_admin.wsboardmemberview', 'cpa_admin.wspartnerview', 'cpa_admin.wscoachview', 'cpa_admin.wsnewsview', 'cpa_admin.wseventview', 'cpa_admin.wscontactview', 'cpa_admin.wsdocumentview', 'cpa_admin.wscostumeview', 'cpa_admin.wsboutiqueview', 'cpa_admin.wsclassifiedaddview', 'cpa_admin.sessionscheduleview','core'])
+angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currency','cgBusy','ngRoute','ui.toggle','ngFileUpload','chart.js','dndLists','cpa_admin.emailtemplateview','cpa_admin.codeview','cpa_admin.chargeview','cpa_admin.testview','cpa_admin.testdefview','cpa_admin.testcsview','cpa_admin.arenaview','cpa_admin.clubview','cpa_admin.courseview','cpa_admin.preregistrationview','cpa_admin.registrationview','cpa_admin.sessioncoursesview','cpa_admin.sessionview','cpa_admin.showview','cpa_admin.showtaskview','cpa_admin.memberview','cpa_admin.contactview','cpa_admin.privilegeview','cpa_admin.roleview','cpa_admin.userview','cpa_admin.userprofileview','cpa_admin.testsessionview','cpa_admin.teststarsessionview','cpa_admin.testperiodview','cpa_admin.testperiodfollowview','cpa_admin.testregistrationview','cpa_admin.teststarregistrationview', 'cpa_admin.courseattendanceview', 'cpa_admin.canskateevaluationview', 'cpa_admin.configurationview', 'cpa_admin.welcomeview','cpa_admin.loginview','cpa_admin.billview','cpa_admin.audittrailview','cpa_admin.testexternalapprobview','cpa_admin.dashboardview', 'cpa_admin.sessiontaxreceiptview', 'cpa_admin.ccwelcomeview', 'cpa_admin.ccloginview', 'cpa_admin.ccregisterview', 'cpa_admin.ccprofileview', 'cpa_admin.ccbillview', 'cpa_admin.ccsinglebillview', 'cpa_admin.ccskaterview', 'cpa_admin.ccregistrationview', 'cpa_admin.ccpreregistrationview', 'cpa_admin.ccshowregistrationview', 'cpa_admin.wsnewpageview', 'cpa_admin.wsprogramassistantview', 'cpa_admin.wsboardmemberview', 'cpa_admin.wspartnerview', 'cpa_admin.wscoachview', 'cpa_admin.wsnewsview', 'cpa_admin.wseventview', 'cpa_admin.wscontactview', 'cpa_admin.wsdocumentview', 'cpa_admin.wscostumeview', 'cpa_admin.wsboutiqueview', 'cpa_admin.wsclassifiedaddview', 'cpa_admin.sessionscheduleview','core'])
 
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	$locationProvider.hashPrefix('!');
@@ -18,6 +18,38 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
     };
  }])
 
+/**
+ * 	This is an interceptor for all HTTP calls. If the call is a POST, we add the current language, current userid and current program name 
+ * 	to the data being passed (if not already passed).
+ */
+ .config(['$httpProvider', '$injector', function ($httpProvider, $injector) {
+	$httpProvider.interceptors.push(function ($q, $injector) {
+		return {
+			'request': function (config) {
+				if (config.method == 'POST') {
+					if (config.data != null && config.data.indexOf!=null) {
+						var route = $injector.get('$route');	// use $injector to avoid loop exception between modules
+						var rootScope = $injector.get('$rootScope');	// use $injector to avoid loop exception between modules
+						var authentication = $injector.get('authenticationService');	// use $injector to avoid loop exception between modules
+						if (config.data.indexOf("language=") == -1) {
+							// Let's add language to the request
+							config.data += "&language=" + (authentication ? authentication.getCurrentLanguage() : '');
+						}
+						if (config.data.indexOf("userid=") == -1) {
+							// Let's add userid to the request
+							config.data += "&userid=" + (rootScope && rootScope.userInfo ? rootScope.userInfo.userid : '');
+						}
+						if (config.data.indexOf("progname=") == -1) {
+							// Let's add progname to the request
+							config.data += "&progname=" + (route && route.current && route.current.originalPath ? route.current.originalPath.replace('/', '') : '');
+						}
+					}
+				}
+				return config || $q.when(config);
+			}
+		}
+	});
+}])
 //  .directive('keypressEvents', ['$document', '$rootScope', function($document, $rootScope) {
 // 	return {
 // 	restrict: 'A',
@@ -31,7 +63,7 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 // 	};
 // }])
 
-.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', '$document', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, $document, translationService, dialogService, authenticationService) {
+.run(["$rootScope", "$location", '$window', '$route', '$timeout', '$uibModal', '$document', '$http', 'translationService', 'dialogService', 'authenticationService', function ($rootScope, $location, $window, $route, $timeout, $uibModal, $document, $http, translationService, dialogService, authenticationService) {
 
 	/**
 	 * This function checks if anything is dirty
@@ -171,14 +203,14 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 		}
 	}
 
-	$rootScope.$on("$routeChangeSuccess", function (userInfo) {
+	$rootScope.$on("$routeChangeSuccess", function (event, current, previous, eventObj) {
 		if ($rootScope.translationObj && $rootScope.translationObj.main) {
 			// Change the main tab title
 			$rootScope.title = $rootScope.translationObj.main[$route.current.controller];
 			// Close the navbar as soon as a choice is made
 			$('#myNavbar').collapse('hide');
 		}
-		// console.log(userInfo);
+		console.log(eventObj);
 	});
 
 	$rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
@@ -292,6 +324,31 @@ angular.module('cpa_admin', ['ngAnimate','ui.bootstrap','ngResource','ng-currenc
 	});
 	// $rootScope.repositionLeftColumn();
 
-	translationService.getNavbarTranslation($rootScope, authenticationService.getCurrentLanguage());
+	translationService.getNavbarTranslation($rootScope, authenticationService.getCurrentLanguage()).then(function() {
+		$http({
+			method: 'post',
+			url: '../backend/getmyspacerealname.php',
+			data: $.param({'language' : authenticationService.getCurrentLanguage(), 'type' : 'getMySpaceRealName'}),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).
+		success(function(data, status, headers, config) {
+			if (data.success) {
+				$rootScope.myspacerealname = data.data[0].myspacerealname;
+				// Change everything in the navbar
+				$rootScope.translationObj.navbar.customercentre = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccwelcomeviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccskaterviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccloginviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccprofileviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccregisterviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccregistrationviewCtrl = $rootScope.myspacerealname;
+				$rootScope.translationObj.navbar.ccbillviewCtrl = $rootScope.myspacerealname;
+			}
+		}).
+		error(function(data, status, headers, config) {
+				dialogService.displayFailure(data);
+		});
+	});
+  
 
 }]);

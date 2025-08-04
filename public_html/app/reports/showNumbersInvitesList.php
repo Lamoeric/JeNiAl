@@ -200,41 +200,23 @@ function getShowNumberList($mysqli, $showid, $showsnumbersid, $language, $active
 	try{
 		if (empty($showid)) throw new Exception("Invalid show id.");
 		if (!isset($showsnumbersid) || $showsnumbersid == '') {
-			$query = "select csn.id, csn.name, '-' as maxnumberskater, getTextLabel(csn.label, '$language') numberlabel, '' as courselevellabel, getTextLabel(cs.label, '$language') showlabel,
-											(select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-																															IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-																															getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-																															' - ',
-																															substr(starttime FROM 1 FOR 5),
-																															' - ',
-																															substr(endtime FROM 1 FOR 5))
-																											SEPARATOR ', ') schedule
-																	from cpa_shows_numbers_schedule
-																	where numberid = csn.id) schedule,
-											(select count(*) from cpa_shows_numbers_members where numberid = csn.id) nbofskater
-								from cpa_shows_numbers csn
-								join cpa_shows cs ON cs.id = csn.showid
-								where cs.id = $showid
-								and csn.type = 1
-								order by name";
+			$query = "SELECT csn.id, csn.name, '-' as maxnumberskater, getTextLabel(csn.label, '$language') numberlabel, '' as courselevellabel, 
+								getTextLabel(cs.label, '$language') showlabel, getNumberSchedule(csn.id, '$language') AS schedule,
+								(select count(*) from cpa_shows_numbers_members where numberid = csn.id) nbofskater
+						FROM cpa_shows_numbers csn
+						JOIN cpa_shows cs ON cs.id = csn.showid
+						WHERE cs.id = $showid
+						AND csn.type = 1
+						ORDER BY name";
 		} else {
-			$query = "select csn.id, csn.name, '-' as maxnumberskater, getTextLabel(csn.label, '$language') numberlabel, '' as courselevellabel, getTextLabel(cs.label, '$language') showlabel,
-											(select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-																															IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-																															getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-																															' - ',
-																															substr(starttime FROM 1 FOR 5),
-																															' - ',
-																															substr(endtime FROM 1 FOR 5))
-																											SEPARATOR ', ') schedule
-																	from cpa_shows_numbers_schedule
-																	where numberid = csn.id) schedule,
-											(select count(*) from cpa_shows_numbers_members where numberid = csn.id) nbofskater
-								from cpa_shows_numbers csn
-								join cpa_shows cs ON cs.id = csn.showid
-								where csn.id = $showsnumbersid
-								and csn.type = 1
-								order by name";
+			$query = "SELECT csn.id, csn.name, '-' as maxnumberskater, getTextLabel(csn.label, '$language') numberlabel, '' as courselevellabel, 
+								getTextLabel(cs.label, '$language') showlabel, getNumberSchedule(csn.id, '$language') AS schedule,
+								(select count(*) from cpa_shows_numbers_members where numberid = csn.id) nbofskater
+						FROM cpa_shows_numbers csn
+						JOIN cpa_shows cs ON cs.id = csn.showid
+						WHERE csn.id = $showsnumbersid
+						AND csn.type = 1
+						ORDER BY name";
 		}
 		$result = $mysqli->query($query);
 		$data = array();

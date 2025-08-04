@@ -80,22 +80,13 @@ function getMemberCourses($mysqli, $memberid, $language) {
 									 getTextLabel((SELECT label FROM cpa_courses_levels WHERE coursecode = csc.coursecode and code = csc.courselevel), '$language') courselevellabel,
 									 getTextLabel(cs.label, '$language') sessionlabel,
 									 cs.coursesstartdate, cs.coursesenddate,
-									 (SELECT group_concat(concat(getTextLabel((SELECT label FROM cpa_arenas WHERE id = arenaid), '$language'),
-																													 IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((SELECT label FROM cpa_arenas_ices WHERE id = iceid), '$language'), '), ')),
-																													 getTextLabel((SELECT description FROM cpa_codetable WHERE ctname = 'days' and code = day), '$language'),
-																													 ' - ',
-																													 substr(starttime FROM 1 FOR 5),
-																													 ' - ',
-																													 substr(endtime FROM 1 FOR 5))
-																									 SEPARATOR ', ') schedule
-															 FROM cpa_sessions_courses_schedule
-															 WHERE sessionscoursesid = csc.id) schedule
-						FROM cpa_sessions_courses_members cscm
-						JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
-						JOIN cpa_sessions cs ON cs.id = csc.sessionid
-						JOIN cpa_courses cc on cc.code = csc.coursecode
-						WHERE cscm.memberid = $memberid
-						ORDER BY cs.startdate DESC, name";
+									 getCourseSchedule(csc.id, '$language') AS schedule
+				FROM cpa_sessions_courses_members cscm
+				JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
+				JOIN cpa_sessions cs ON cs.id = csc.sessionid
+				JOIN cpa_courses cc on cc.code = csc.coursecode
+				WHERE cscm.memberid = $memberid
+				ORDER BY cs.startdate DESC, name";
 	$result = $mysqli->query($query);
 	$data = array();
 	$data['data'] = array();

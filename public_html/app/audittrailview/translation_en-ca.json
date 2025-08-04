@@ -1,0 +1,10 @@
+[
+	{"formname":"main", "fieldname":"formtitledetails", "text":"Audit"},
+	{"formname":"main", "fieldname":"fielduserid", "text":"User"},
+	{"formname":"main", "fieldname":"fieldprogname", "text":"Program"},
+	{"formname":"main", "fieldname":"fieldaction", "text":"Action"},
+	{"formname":"main", "fieldname":"buttontitlerefresh", "text":"Refresh"},
+
+	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Information"}
+	
+]

@@ -177,8 +177,8 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
             var coachmaxinfo = $scope.currentpage.globalsections.coaches.coachmaxinfo; // 1 to 6
             var coachstarversion = $scope.currentpage.globalsections.coaches.coachstarversion; // 1, 2 or 3
             var maxNbOfLines = 7 + (coachstarversion == 1 ? coachmaxinfo : (coachstarversion == 3 ? (Math.max(coachmaxinfo, 2)) : 2));
-            var minnblinesv1 = 7;
-            var minnblinesv2 = 9;
+            var minnblinesv1 = 4;
+            var minnblinesv2 = 4;
             for (var i = 0; i < $scope.currentpage.globalsections.coaches.coaches.length; i++) {
               var coach = $scope.currentpage.globalsections.coaches.coaches[i];
               var desc = null;
@@ -190,10 +190,19 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
                 desc += "<b>Niveau&nbsp;:&nbsp;</b>" + (coach.coachlevel && coach.coachlevel != '' ? coach.coachlevel : '&nbsp;')  + '<br>';
 
                 if (coach.starversion == 1) {
-                  desc += "<b>Danse&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Habiletés&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Style libre&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
                   // Optional section
+                  if (coach.dancelevellabel && coach.dancelevellabel != '') {
+                    desc += "<b>Dance&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.skillslevellabel && coach.skillslevellabel != '') {
+                    desc += "<b>Skills&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.freestylelevellabel && coach.freestylelevellabel != '') {
+                    desc += "<b>Free Style&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
                   if (coach.interpretativesinglelevellabel && coach.interpretativesinglelevellabel != '') {
                     desc += "<b>Interprétation simple&nbsp;:&nbsp;</b>" + coach.interpretativesinglelevellabel + '<br>';
                     nbLine++;
@@ -220,12 +229,27 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
                   }
                   var currentNbLine = minnblinesv1 + nbLine;
                 } else if (coach.starversion == 2) {
-                  desc += "<b>Danse&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Habiletés&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Style libre&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Artistique&nbsp;:&nbsp;</b>" + (coach.artisticlevellabel && coach.artisticlevellabel != '' ? coach.artisticlevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Synchro&nbsp;:&nbsp;</b>" + (coach.synchrolevellabel && coach.synchrolevellabel != '' ? coach.synchrolevellabel : '&nbsp;')  + '<br>';
-                  var currentNbLine = minnblinesv2;
+                  if (coach.dancelevellabel && coach.dancelevellabel != '') {
+                    desc += "<b>Danse&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.skillslevellabel && coach.skillslevellabel != '') {
+                    desc += "<b>Habiletés&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.freestylelevellabel && coach.freestylelevellabel != '') {
+                    desc += "<b>Style libre&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.artisticlevellabel && coach.artisticlevellabel != '') {
+                    desc += "<b>Artistique&nbsp;:&nbsp;</b>" + (coach.artisticlevellabel && coach.artisticlevellabel != '' ? coach.artisticlevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.synchrolevellabel && coach.synchrolevellabel != '') {
+                    desc += "<b>Synchro&nbsp;:&nbsp;</b>" + (coach.synchrolevellabel && coach.synchrolevellabel != '' ? coach.synchrolevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  var currentNbLine = minnblinesv2 + nbLine;
                 }
                 // Pad with <br> so all column look the same
                 for (var x = currentNbLine; x < maxNbOfLines; x++) {
@@ -239,9 +263,18 @@ app.controller('websiteCtrl', function($scope, $http, $sce, $timeout, $anchorScr
                 desc += "<b>Level&nbsp;:&nbsp;</b>" + (coach.coachlevel && coach.coachlevel != '' ? coach.coachlevel : '&nbsp;')  + '<br>';
 
                 if (coach.starversion == 1) {
-                  desc += "<b>Dance&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Skills&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
-                  desc += "<b>Free Style&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                  if (coach.dancelevellabel && coach.dancelevellabel != '') {
+                    desc += "<b>Dance&nbsp;:&nbsp;</b>" + (coach.dancelevellabel && coach.dancelevellabel != '' ? coach.dancelevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.skillslevellabel && coach.skillslevellabel != '') {
+                    desc += "<b>Skills&nbsp;:&nbsp;</b>" + (coach.skillslevellabel && coach.skillslevellabel != '' ? coach.skillslevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
+                  if (coach.freestylelevellabel && coach.freestylelevellabel != '') {
+                    desc += "<b>Free Style&nbsp;:&nbsp;</b>" + (coach.freestylelevellabel && coach.freestylelevellabel != '' ? coach.freestylelevellabel : '&nbsp;')  + '<br>';
+                    nbLine++;
+                  }
                   // Optional section
                   if (coach.interpretativesinglelevellabel && coach.interpretativesinglelevellabel != '') {
                     desc += "<b>Interpretative Single&nbsp;:&nbsp;</b>" + coach.interpretativesinglelevellabel + '<br>';

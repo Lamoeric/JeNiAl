@@ -65,8 +65,8 @@ function insertElement($mysqli, $language, $boardmember)
 		$description_fr =	$mysqli->real_escape_string(isset($boardmember['description_fr']) 	? $boardmember['description_fr'] : '');
 		$description_en =	$mysqli->real_escape_string(isset($boardmember['description_en']) 	? $boardmember['description_en'] : '');
 
-		$query = "	INSERT INTO cpa_ws_boardmembers (firstname, lastname, imagefilename, publish, memberindex, memberrole, description)
-					VALUES ('$firstname', '$lastname', '$imagefilename', $publish, $memberindex, 
+		$query = "	INSERT INTO cpa_ws_boardmembers (firstname, lastname, imagefilename, publish, memberindex, phone, email, memberrole, description)
+					VALUES ('$firstname', '$lastname', '$imagefilename', $publish, $memberindex, '', '', 
 							create_wsText('$memberrole_en', '$memberrole_fr'), create_wsText('$description_en', '$description_fr'))";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;

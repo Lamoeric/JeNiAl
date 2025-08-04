@@ -8,16 +8,7 @@ angular.module('cpa_admin.privilegeview', ['ngRoute'])
     controller: 'privilegeviewCtrl',
     resolve: {
       auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.security_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/privilegeview"});
-        }
+        return authenticationService.validateUserRoutingPrivilege();
       }
     }
   });

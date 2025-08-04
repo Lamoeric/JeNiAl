@@ -23,7 +23,7 @@ angular.module('cpa_admin.welcomeview', ['ngRoute'])
     $rootScope.applicationName = "";
     $scope.displayimagefilename ='/privateimages/welcomeviewmainimage.jpg?decache=' + Math.random();
     if ($rootScope.validRights != null && $rootScope.validRights == false) {
-      $rootScope.validRights == null;
+      $rootScope.validRights = null;
       dialogService.alertDlg("Invalid rigths");
     }
 }]);

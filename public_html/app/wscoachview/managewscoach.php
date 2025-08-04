@@ -56,8 +56,8 @@ function insert_coach($mysqli, $language, $coach)
 		$competitivetext_fr =	$mysqli->real_escape_string(isset($coach['competitivetext_fr']) 		? $coach['competitivetext_fr'] : '');
 		$competitivetext_en =	$mysqli->real_escape_string(isset($coach['competitivetext_en']) 		? $coach['competitivetext_en'] : '');
 
-		$query = "	INSERT INTO cpa_ws_coaches (firstname, lastname, imagefilename, publish, coachindex, availabilitytext, competitivetext)
-					VALUES ('$firstname', '$lastname', '$imagefilename', $publish, $coachindex, create_wsText('$availabilitytext_en', '$availabilitytext_fr'), create_wsText('$competitivetext_en', '$competitivetext_fr'))";
+		$query = "	INSERT INTO cpa_ws_coaches (firstname, lastname, imagefilename, publish, coachindex, coachsince, coachlevel, availabilitytext, competitivetext)
+					VALUES ('$firstname', '$lastname', '$imagefilename', $publish, $coachindex, '', '', create_wsText('$availabilitytext_en', '$availabilitytext_fr'), create_wsText('$competitivetext_en', '$competitivetext_fr'))";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			if (empty($id)) $data['id'] = (int) $mysqli->insert_id;

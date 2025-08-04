@@ -17,7 +17,7 @@
 	{"formname":"details", "fieldname":"fieldtitlelastname", "text":"Surname"},
 	{"formname":"details", "fieldname":"fieldtitleemail", "text":"Email"},
 	{"formname":"details", "fieldname":"fieldtitlephone", "text":"Phone"},
-	{"formname":"details", "fieldname":"fieldtitlecoachsince", "text":"Coach since"},
+	{"formname":"details", "fieldname":"fieldtitlecoachsince", "text":"Coach since (YYYY)"},
 	{"formname":"details", "fieldname":"fieldtitlecoachlevel", "text":"Level"},
 	{"formname":"details", "fieldname":"fieldtitlepublish", "text":"Publish"},
 	{"formname":"details", "fieldname":"fieldtitleenglishavailabilitytext", "text":"English First Line"},

@@ -1,6 +1,5 @@
 [
 	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Welcome"},
-	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MY SKATING SPACE"},
 	{"formname":"main", "fieldname":"formttitlesignin", "text":"SIGN UP"},
 	{"formname":"main", "fieldname":"fieldtitleemail", "text":"Email Address"},
 	{"formname":"main", "fieldname":"fieldtitlefirstname", "text":"First name"},

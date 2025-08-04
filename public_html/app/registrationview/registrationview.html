@@ -26,9 +26,9 @@
 						<ul id="maintabheader" class="nav nav-tabs">
 							<li class="active pointerlist"><a data-toggle="tab" data-target="#member">{{translationObj.main.panetitlemember}}</a></li>
 							<li class="pointerlist"><a data-toggle="tab" data-target="#contacts">{{translationObj.main.panetitlecontacts}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#testsummary">{{translationObj.main.panetitletests}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#startestsummary">{{translationObj.main.panetitlestartests}}</a></li>
-							<li class="pointerlist"><a data-toggle="tab" data-target="#canskatesummary">{{translationObj.main.panetitlecanskate}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#testsummary">{{translationObj.main.panetitletests}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#startestsummary">{{translationObj.main.panetitlestartests}}</a></li>
+							<li class="pointerlist" ng-if="userInfo.privileges.skatinginfo_view==true"><a data-toggle="tab" data-target="#canskatesummary">{{translationObj.main.panetitlecanskate}}</a></li>
 							<li class="pointerlist" ng-if="currentRegistration.eventtype==1"><a data-toggle="tab" data-target="#courses">{{translationObj.main.panetitlecourses}}</a></li>
 							<li class="pointerlist" ng-if="currentRegistration.eventtype==2"><a data-toggle="tab" data-target="#numbers">{{translationObj.main.panetitlenumbers}}</a></li>
 							<li class="pointerlist" ng-show="currentRegistration.status=='PRESENTED' || currentRegistration.status=='PRESENTED-R' || currentRegistration.status=='ACCEPTED'"><a data-toggle="tab" data-target="#summary">{{translationObj.main.panetitlesummary}}</a></li>

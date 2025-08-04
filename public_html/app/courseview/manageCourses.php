@@ -100,30 +100,10 @@ function update_course($mysqli, $course) {
 		$query = "UPDATE cpa_courses SET name = '$name', acceptregistrations = $acceptregistrations, active = '$active', schedulecolor = '$schedulecolor' WHERE code = '$code'";
 
 		if ($mysqli->query($query)) {
-			$query = "UPDATE cpa_text set text = '$shortdesc_fr' where id = $shortdesc and language = 'fr-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$query = "UPDATE cpa_text set text = '$shortdesc_en' where id = $shortdesc and language = 'en-ca'";
-				if ($mysqli->query($query)) {
-					$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-					if ($mysqli->query($query)) {
-						$data['success'] = true;
-						$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-						if ($mysqli->query($query)) {
-							$data['success'] = true;
-							$data['message'] = 'Course updated successfully.';
-						} else {
-							throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-						}
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
-			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-			}
+			$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+			$mysqli->query("call update_text($shortdesc, '$shortdesc_en', '$shortdesc_fr')");
+			$data['success'] = true;
+			$data['message'] = 'Course updated successfully.';
 		} else {
 			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 		}
@@ -267,19 +247,9 @@ function updateEntireLevels($mysqli, $coursecode, $levels) {
 		if ($mysqli->real_escape_string(isset($levels[$x]['status'])) and $levels[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_courses_levels	SET schedulecolor = '$schedulecolor'	WHERE code = '$code' AND coursecode = '$coursecode'";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$data['success'] = true;
-					$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-					if ($mysqli->query($query)) {
-						$data['success'] = true;
-						$data['message'] = 'Levels updated successfully.';
-					} else {
-						throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+				$data['success'] = true;
+				$data['message'] = 'Levels updated successfully.';
 			} else {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}

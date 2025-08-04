@@ -8,16 +8,7 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 		controller: 'registrationviewCtrl',
 		resolve: {
 			auth: function($q, authenticationService) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo) {
-					if (userInfo.privileges.registration_access==true) {
-						return $q.when(userInfo);
-					} else {
-						return $q.reject({authenticated: true, validRights: false, newLocation:null});
-					}
-				} else {
-					return $q.reject({authenticated: false, newLocation: "/registrationview"});
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

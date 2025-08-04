@@ -63,19 +63,8 @@ function updateEntireCodes($mysqli, $codes){
 				$query = "UPDATE cpa_codetable set active = $active, sequence = $sequence where ctname = '$ctname' and code = '$code'";
 
 				if( $mysqli->query( $query ) ){
+					$mysqli->query("call update_text($description, '$label_en', '$label_fr')");
 					$data['success'] = true;
-					$query = "UPDATE cpa_text set text = '$label_fr' where id = $description and language = 'fr-ca'";
-					if( $mysqli->query( $query ) ){
-						$data['success'] = true;
-						$query = "UPDATE cpa_text set text = '$label_en' where id = $description and language = 'en-ca'";
-						if( $mysqli->query( $query ) ){
-							$data['success'] = true;
-						} else {
-							throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
-						}
-					} else {
-						throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
-					}
 				} else {
 					throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
 				}
@@ -123,19 +112,8 @@ function save_code($mysqli){
 		$query = "UPDATE cpa_codetable set active = $active";
 
 		if( $mysqli->query( $query ) ){
+			$mysqli->query("call update_text($description, '$label_en', '$label_fr')");
 			$data['success'] = true;
-			$query = "UPDATE cpa_text set text = '$label_fr' where id = $description and language = 'fr-ca'";
-			if( $mysqli->query( $query ) ){
-				$data['success'] = true;
-				$query = "UPDATE cpa_text set text = '$label_en' where id = $description and language = 'en-ca'";
-				if( $mysqli->query( $query ) ){
-					$data['success'] = true;
-				} else {
-					throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
-				}
-			} else {
-				throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
-			}
 		} else {
 			throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );
 		}

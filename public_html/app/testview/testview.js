@@ -8,16 +8,7 @@ angular.module('cpa_admin.testview', ['ngRoute'])
 		controller: 'testviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo) {
-					if (userInfo.privileges.design_access==true) {
-						return $q.when(userInfo);
-					} else {
-						return $q.reject({authenticated: true, validRights: false, newLocation:null});
-					}
-				} else {
-					return $q.reject({authenticated: false, newLocation: "/testview"});
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

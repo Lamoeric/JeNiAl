@@ -2,8 +2,8 @@ angular.module('core').directive( "sendBillByEmailButton", ['$window', '$http', 
 	return {
 		template:'<button class="btn btn-primary glyphicon glyphicon-envelope"></button>',
     scope: {
-      currentBillId: '=currentBillId',
-      promise: '=promise'
+      currentBillId: '=',
+      promise: '=?'
     },
 
 		link: function( scope, element, attrs ) {

@@ -91,19 +91,9 @@ function update_arena($mysqli, $arena) {
 
 	$query = "UPDATE cpa_arenas SET name = '$name', address = '$address', active = '$active' WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$data['success'] = true;
-			$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$data['message'] = 'Arena updated successfully.';
-			} else {
-				throw new Exception("update_arena.label_en ". $mysqli->sqlstate.' - '. $mysqli->error);
-			}
-		} else {
-			throw new Exception("update_arena.label_fr ". $mysqli->sqlstate.' - '. $mysqli->error);
-		}
+		$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Arena updated successfully.';
 	} else {
 		throw new Exception("update_arena.arena ". $mysqli->sqlstate.' - '. $mysqli->error);
 	}
@@ -375,16 +365,8 @@ function updateEntireIceRooms($mysqli, $arenaid, $iceid, $rooms) {
 		if ($mysqli->real_escape_string(isset($rooms[$x]['status'])) and $rooms[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_arenas_ices_rooms SET comments = '$comments'	WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$data['success'] = true;
-					$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-					if (!$mysqli->query($query)) {
-						throw new Exception("updateEntireIceRooms.label_en ". $mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception("updateEntireIceRooms.label_fr ". $mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+				$data['success'] = true;
 			} else {
 				throw new Exception("updateEntireIceRooms.update ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}
@@ -530,16 +512,8 @@ function updateEntireIces($mysqli, $arenaid, $ices) {
 		if ($mysqli->real_escape_string(isset($ices[$x]['status'])) and $ices[$x]['status'] == 'Modified') {
 			$query = "UPDATE cpa_arenas_ices SET code = '$code'	WHERE id = $id";
 			if ($mysqli->query($query)) {
-				$query = "UPDATE cpa_text SET text = '$label_fr' WHERE id = $label AND language = 'fr-ca'";
-				if ($mysqli->query($query)) {
-					$data['success'] = true;
-					$query = "UPDATE cpa_text SET text = '$label_en' WHERE id = $label AND language = 'en-ca'";
-					if (!$mysqli->query($query)) {
-						throw new Exception("updateEntireIces.label_en ". $mysqli->sqlstate.' - '. $mysqli->error);
-					}
-				} else {
-					throw new Exception("updateEntireIces.label_fr ". $mysqli->sqlstate.' - '. $mysqli->error);
-				}
+				$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+				$data['success'] = true;
 			} else {
 				throw new Exception("updateEntireIces.update ice ". $mysqli->sqlstate.' - '. $mysqli->error);
 			}

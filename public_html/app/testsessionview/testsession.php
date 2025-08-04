@@ -317,19 +317,9 @@ function update_testsession($mysqli, $testsession) {
 								registrationenddate = '$registrationenddate', cancellationenddate = '$cancellationenddate', publish = $publish, publishschedule = $publishschedule
 						WHERE id = $id";
 	if ($mysqli->query($query)) {
-		$query = "UPDATE cpa_text set text = '$label_fr' where id = $label and language = 'fr-ca'";
-		if ($mysqli->query($query)) {
-			$data['success'] = true;
-			$query = "UPDATE cpa_text set text = '$label_en' where id = $label and language = 'en-ca'";
-			if ($mysqli->query($query)) {
-				$data['success'] = true;
-				$data['message'] = 'Testsession updated successfully.';
-			} else {
-				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error );
-			}
-		} else {
-			throw new Exception($mysqli->sqlstate.' - '. $mysqli->error );
-		}
+		$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
+		$data['success'] = true;
+		$data['message'] = 'Testsession updated successfully.';
 	} else {
 		throw new Exception($mysqli->sqlstate.' - '. $mysqli->error );
 	}

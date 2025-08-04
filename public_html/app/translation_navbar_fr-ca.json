@@ -3,6 +3,7 @@
 	{"formname":"general", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 
 	{"formname":"main", "fieldname":"arenaviewCtrl", "text":"Arénas"},
+	{"formname":"main", "fieldname":"audittrailviewCtrl", "text":"Audit"},
 	{"formname":"main", "fieldname":"canskateevaluationviewCtrl", "text":"Évaluation"},
 	{"formname":"main", "fieldname":"chargeviewCtrl", "text":"Charges"},
 	{"formname":"main", "fieldname":"clubviewCtrl", "text":"Clubs"},

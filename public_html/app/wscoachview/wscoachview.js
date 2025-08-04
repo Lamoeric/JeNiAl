@@ -8,17 +8,8 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 		controller: 'wscoachviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-        var userInfo = authenticationService.getUserInfo();
-        if (userInfo) {
-          if (userInfo.privileges.admin_access==true) {
-            return $q.when(userInfo);
-          } else {
-            return $q.reject({authenticated: true, validRights: false, newLocation:null});
-          }
-        } else {
-          return $q.reject({authenticated: false, newLocation: "/wscoachview"});
-        }
-      }
+				return authenticationService.validateUserRoutingPrivilege();
+      		}
 		}
 	});
 }])
@@ -256,33 +247,37 @@ angular.module('cpa_admin.wscoachview', ['ngRoute'])
 	 */
 	$scope.refreshAll = function() {
 		$scope.getAllWscoach();
-		translationService.getTranslation($scope, 'wscoachview', authenticationService.getCurrentLanguage());
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 'text', 'yesnos');
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testversions', 'sequence', 'testversions');
-		// On all the code list, add another choice at first position : aucun/none
-		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testnewlevels', 'sequence', 'testnewlevels')
+		// Special : we wait until translation is fully loaded before reading the rest. 
+		// This is done to make sure $scope.translationObj.details.msgnolevels exists before adding it as a choice
+		translationService.getTranslation($scope, 'wscoachview', authenticationService.getCurrentLanguage())
 		.then(function() {
-			$scope.testnewlevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
-		});
-		listsService.getAllTestLevelsByType($scope, 'DANCE', 'dancelevels', authenticationService.getCurrentLanguage())
-		.then(function() {
-			$scope.dancelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
-		});
-		listsService.getAllTestLevelsByType($scope, 'SKILLS', 'skillslevels', authenticationService.getCurrentLanguage())
-		.then(function() {
-			$scope.skillslevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
-		});
-		listsService.getAllTestLevelsByType($scope, 'FREE', 'freestylelevels', authenticationService.getCurrentLanguage())
-		.then(function() {
-			$scope.freestylelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
-		});
-		listsService.getAllTestLevelsByType($scope, 'INTER', 'interpretativelevels', authenticationService.getCurrentLanguage())
-		.then(function() {
-			$scope.interpretativelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
-		});
-		listsService.getAllTestLevelsByType($scope, 'COMP', 'competitivelevels', authenticationService.getCurrentLanguage())
-		.then(function() {
-			$scope.competitivelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'yesno', 'text', 'yesnos');
+			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testversions', 'sequence', 'testversions');
+			// On all the code list, add another choice at first position : aucun/none
+			anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(),'testnewlevels', 'sequence', 'testnewlevels')
+			.then(function() {
+				$scope.testnewlevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			});
+			listsService.getAllTestLevelsByType($scope, 'DANCE', 'dancelevels', authenticationService.getCurrentLanguage())
+			.then(function() {
+				$scope.dancelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			});
+			listsService.getAllTestLevelsByType($scope, 'SKILLS', 'skillslevels', authenticationService.getCurrentLanguage())
+			.then(function() {
+				$scope.skillslevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			});
+			listsService.getAllTestLevelsByType($scope, 'FREE', 'freestylelevels', authenticationService.getCurrentLanguage())
+			.then(function() {
+				$scope.freestylelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			});
+			listsService.getAllTestLevelsByType($scope, 'INTER', 'interpretativelevels', authenticationService.getCurrentLanguage())
+			.then(function() {
+				$scope.interpretativelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			});
+			listsService.getAllTestLevelsByType($scope, 'COMP', 'competitivelevels', authenticationService.getCurrentLanguage())
+			.then(function() {
+				$scope.competitivelevels.splice(0, 0, {code:'-1', text:$scope.translationObj.details.msgnolevels});
+			});
 		});
 	}
 

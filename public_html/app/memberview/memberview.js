@@ -8,16 +8,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		controller: 'memberviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo) {
-					if (userInfo.privileges.member_access == true) {
-						return $q.when(userInfo);
-					} else {
-						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
-					}
-				} else {
-					return $q.reject({ authenticated: false, newLocation: "/memberview" });
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

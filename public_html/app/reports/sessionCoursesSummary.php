@@ -155,16 +155,7 @@ $pdf->Output('sessionCoursesSummary_'.$sessionlabel.'_'.$language.'.pdf', 'I');
  */
 function getSessionCoursesSchedule($mysqli, $sessionscoursesid, $language) {
 	$schedule = '';
-	$query = "select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-																				IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-																				getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-																				' - ',
-																				substr(starttime FROM 1 FOR 5),
-																				' - ',
-																				substr(endtime FROM 1 FOR 5))
-																SEPARATOR ', ') schedule
-						from cpa_sessions_courses_schedule
-						where sessionscoursesid = $sessionscoursesid";
+	$query = "SELECT getCourseSchedule($sessionscoursesid, '$language') AS schedule";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		$schedule = $row['schedule'];

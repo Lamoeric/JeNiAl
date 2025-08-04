@@ -4,7 +4,8 @@ Author : Eric Lamoureux
 */
 require_once('../../../private/' . $_SERVER['HTTP_HOST'] . '/include/config.php');
 require_once('../../include/nocache.php');
-require_once('../../backend/invalidrequest.php'); //
+require_once('../../backend/invalidrequest.php');
+require_once('../../backend/insertintoaudittrail.php');
 require_once('../core/directives/contacts/contacts.php');
 require_once('../core/directives/testsummary/manageTestSummary.php');
 require_once('../core/directives/billing/bills.php');
@@ -14,19 +15,29 @@ if (isset($_POST['type']) && !empty(isset($_POST['type']))) {
 
 	switch ($type) {
 		case "insert_member":
-			insert_member($mysqli, $_POST['member']);
+			$member = $_POST['member'];
+			$data = insertMember($mysqli, $member);
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'INSERT', $changedid = $data['id'], $details = "Name : {$member['firstname']} {$member['lastname']}");
+			echo json_encode($data);
 			break;
 		case "updateEntireMember":
-			updateEntireMember($mysqli, json_decode($_POST['member'], true));
+			$member = json_decode($_POST['member'], true);
+			$data = updateEntireMember($mysqli, $member);
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'UPDATE', $changedid = $_POST['id'], $details = "Name : {$member['firstname']} {$member['lastname']}");
+			echo json_encode($data);
 			break;
 		case "delete_member":
-			delete_member($mysqli, $_POST['id']);
+			$data = deleteMember($mysqli, $_POST['id']);
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'DELETE', $changedid = $_POST['id']);
+			echo json_encode($data);
 			break;
 		case "getAllMembers":
 			getAllMembers($mysqli, $_POST['filter']);
 			break;
 		case "getMemberDetails":
-			getMemberDetails($mysqli, $_POST['id'], $_POST['language']);
+			$data = getMemberDetails($mysqli, $_POST['id'], $_POST['language']);
+			insertIntoAuditTrail($mysqli, $_POST['userid'], $_POST['progname'], 'READ', $changedid = $_POST['id'], $details = "Name : {$data['data'][0]['firstname']} {$data['data'][0]['lastname']}");
+			echo json_encode($data);
 			break;
 		default:
 			invalidRequest($type);
@@ -122,20 +133,20 @@ function updateEntireMember($mysqli, $member)
 	}
 };
 
-function insert_member($mysqli, $member)
+function insertMember($mysqli, $member)
 {
 	try {
 		$data = array();
 		$data = update_member($mysqli, $member);
 		$data['success'] = true;
 		$data['message'] = 'Member inserted successfully.';
-		echo json_encode($data);
+		return $data;
 		exit;
 	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
-		echo json_encode($data);
+		return $data;
 		exit;
 	}
 }
@@ -207,19 +218,19 @@ function update_member($mysqli, $member)
 };
 
 /**
- * This function will handle user deletion
+ * This function will handle member deletion
  * @param object $member
  * @throws Exception
  */
-function delete_member($mysqli, $id = '')
+function deleteMember($mysqli, $id = '')
 {
 	try {
 		if (empty($id)) throw new Exception("Invalid Member.");
-		$query = "DELETE FROM cpa_members WHERE id = '$id'";
+		$query = "DELETE FROM cpa_members WHERE id = $id";
 		if ($mysqli->query($query)) {
 			$data['success'] = true;
 			$data['message'] = 'Member deleted successfully.';
-			echo json_encode($data);
+			return $data;
 			exit;
 		} else {
 			throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
@@ -228,7 +239,7 @@ function delete_member($mysqli, $id = '')
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
-		echo json_encode($data);
+		return $data;
 		exit;
 	}
 };
@@ -376,13 +387,13 @@ function getMemberDetails($mysqli, $id, $language)
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;
-		echo json_encode($data);
+		return $data;
 		exit;
 	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
-		echo json_encode($data);
+		return $data;
 		exit;
 	}
 };
@@ -645,22 +656,13 @@ function getMemberActiveCourses($mysqli, $memberid, $language)
 	try {
 		if (empty($memberid)) throw new Exception("Invalid Member ID.");
 		$query = "SELECT cscm.*, csc.coursecode, csc.courselevel, csc.name, csc.fees, getTextLabel(cs.label, '$language') sessionlabel,
-							getTextLabel(csc.label, '$language') courselabel,
-							( select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
-								IF((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
-								getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),
-								' - ',
-								substr(starttime FROM 1 FOR 5),
-								' - ',
-								substr(endtime FROM 1 FOR 5))SEPARATOR ', ')
-							  from cpa_sessions_courses_schedule where sessionscoursesid = csc.id) schedule,
+							getTextLabel(csc.label, '$language') courselabel, getCourseSchedule(csc.id, '$language') AS schedule,
 							getTextLabel(cscs.label, '$language') sublevellabel
-
-							FROM cpa_sessions_courses_members cscm
-							JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
-							JOIN cpa_sessions cs ON cs.id = csc.sessionid and cs.active = '1'
-							LEFT JOIN cpa_sessions_courses_sublevels cscs ON cscs.sessionscoursesid = cscm.sessionscoursesid AND cscs.code = cscm.sublevelcode
-							WHERE cscm.memberid = '$memberid'";
+					FROM cpa_sessions_courses_members cscm
+					JOIN cpa_sessions_courses csc ON csc.id = cscm.sessionscoursesid
+					JOIN cpa_sessions cs ON cs.id = csc.sessionid and cs.active = '1'
+					LEFT JOIN cpa_sessions_courses_sublevels cscs ON cscs.sessionscoursesid = cscm.sessionscoursesid AND cscs.code = cscm.sublevelcode
+					WHERE cscm.memberid = '$memberid'";
 		$result = $mysqli->query($query);
 		$data = array();
 		$data['data'] = array();

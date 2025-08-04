@@ -1,99 +1,127 @@
 <div class="form-group row">
 	<div class="grid">
-    <h3>{{translationObj.details.formtitlemaininformation}}</h3>
+		<h3>{{translationObj.details.formtitlemaininformation}}</h3>
 		<div class="row">
-      <div class="col-xs-12">
-	      <label for="cpalongname_en">{{translationObj.details.fieldtitleenglishlongname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpalongname_en" class="form-control" id="cpalongname_en" ng-model="currentConfiguration.cpalongname_en" maxlength="250" required>
-	      </div>
-	    </div>
-    </div>
-		<div class="row">
-      <div class="col-xs-12">
-	      <label for="cpalongname_fr">{{translationObj.details.fieldtitlefrenchlongname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpalongname_fr" class="form-control" id="cpalongname_fr" ng-model="currentConfiguration.cpalongname_fr" maxlength="250" required>
-	      </div>
-	    </div>
-    </div>
-		<div class="row">
-      <div class="col-xs-12">
-	      <label for="cpashortname_en">{{translationObj.details.fieldtitleenglishshortname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpashortname_en" class="form-control" id="cpashortname_en" ng-model="currentConfiguration.cpashortname_en" maxlength="250" required>
-	      </div>
-	    </div>
-    </div>
-		<div class="row">
-      <div class="col-xs-12">
-	      <label for="cpashortname_fr">{{translationObj.details.fieldtitlefrenchshortname}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpashortname_fr" class="form-control" id="cpashortname_fr" ng-model="currentConfiguration.cpashortname_fr" maxlength="250" required>
-	      </div>
-	    </div>
-    </div>
-		<div class="row">
-      <div class="col-xs-9">
-	      <label for="cpaaddress_en">{{translationObj.details.fieldtitleenglishaddress}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpaaddress_en" class="form-control" id="cpaaddress_en" ng-model="currentConfiguration.cpaaddress_en" maxlength="250" required>
-	      </div>
-	    </div>
-			<div class="col-xs-3">
-				<label>&nbsp;</label>
+			<div class="col-xs-6">
+				<label for="cpalongname_fr">{{translationObj.details.fieldtitlefrenchlongname}}<i style="color:red">*</i></label>
 				<div class="input-group">
-					<button class="btn btn-primary" ng-click="previewReport('en-ca')">{{translationObj.details.buttontitlepreview}}</button>
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpalongname_fr" class="form-control" id="cpalongname_fr"
+						ng-model="currentConfiguration.cpalongname_fr" maxlength="250" required>
 				</div>
 			</div>
-    </div>
-		<div class="row">
-      <div class="col-xs-9">
-	      <label for="cpaaddress_fr">{{translationObj.details.fieldtitlefrenchaddress}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpaaddress_fr" class="form-control" id="cpaaddress_fr" ng-model="currentConfiguration.cpaaddress_fr" maxlength="250" required>
-	      </div>
-	    </div>
-			<div class="col-xs-3">
-				<label>&nbsp;</label>
+			<div class="col-xs-6">
+				<label for="cpalongname_en">{{translationObj.details.fieldtitleenglishlongname}}<i style="color:red">*</i></label>
 				<div class="input-group">
-					<button class="btn btn-primary" ng-click="previewReport('fr-ca')">{{translationObj.details.buttontitlepreview}}</button>
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpalongname_en" class="form-control" id="cpalongname_en"
+						ng-model="currentConfiguration.cpalongname_en" maxlength="250" required>
 				</div>
 			</div>
-  	</div>
+		</div>
 		<div class="row">
-      <div class="col-xs-9">
-	      <label for="cpaurl">{{translationObj.details.fieldtitlecpaurl}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input type="text" name="cpaurl" class="form-control" id="cpaurl" ng-model="currentConfiguration.cpaurl" maxlength="120" required>
-	      </div>
-	    </div>
-  	</div>
-
-		<div class="row">
-			<hr>
-			<div class="col-xs-3">
-				<label>&nbsp;</label>
+			<div class="col-xs-6">
+				<label for="cpashortname_fr">{{translationObj.details.fieldtitlefrenchshortname}}<i style="color:red">*</i></label>
 				<div class="input-group">
-					<button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="1500" ngf-max-width="2500" ngf-max-size="4MB" ng-if="userInfo.privileges.admin_update==true">{{translationObj.details.buttontitlechangemainimage}}</button>
-					<!-- <button class="btn btn-primary" type="file" ngf-select="uploadMainImage($file, $invalidFiles)" accept="image/jpeg">{{translationObj.details.buttontitlechangemainimage}}</button> -->
-					<!-- <button class="btn btn-primary" ng-click="uploadMainImage()">{{translationObj.details.buttontitlechangemainimage}}</button> -->
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpashortname_fr" class="form-control" id="cpashortname_fr"
+						ng-model="currentConfiguration.cpashortname_fr" maxlength="250" required>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<label for="cpashortname_en">{{translationObj.details.fieldtitleenglishshortname}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpashortname_en" class="form-control" id="cpashortname_en"
+						ng-model="currentConfiguration.cpashortname_en" maxlength="250" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9">
+				<label for="cpaaddress_fr">{{translationObj.details.fieldtitlefrenchaddress}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpaaddress_fr" class="form-control" id="cpaaddress_fr"
+						ng-model="currentConfiguration.cpaaddress_fr" maxlength="250" required>
 				</div>
 			</div>
 			<div class="col-xs-3">
 				<label>&nbsp;</label>
 				<div class="input-group">
-					<button class="btn btn-primary" type="file" ngf-select="uploadLogo($file, $invalidFiles)" accept="image/jpeg" ngf-max-height="1000" ngf-max-width="1000" ngf-max-size="1MB" ng-if="userInfo.privileges.admin_update==true">{{translationObj.details.buttontitlechangelogo}}</button>
+					<button class="btn btn-primary"
+						ng-click="previewReport('fr-ca')">{{translationObj.details.buttontitlepreview}}</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9">
+				<label for="cpaaddress_en">{{translationObj.details.fieldtitleenglishaddress}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpaaddress_en" class="form-control" id="cpaaddress_en"
+						ng-model="currentConfiguration.cpaaddress_en" maxlength="250" required>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<label>&nbsp;</label>
+				<div class="input-group">
+					<button class="btn btn-primary"
+						ng-click="previewReport('en-ca')">{{translationObj.details.buttontitlepreview}}</button>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-xs-9">
+				<label for="cpaurl">{{translationObj.details.fieldtitlecpaurl}}<i style="color:red"> *</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="cpaurl" class="form-control" id="cpaurl"
+						ng-model="currentConfiguration.cpaurl" maxlength="120" required>
+				</div>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-xs-6">
+				<label for="spacename_fr">{{translationObj.details.fieldtitlefrenchmyskatingspace}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="spacename_fr" class="form-control" id="spacename_fr"
+						ng-model="currentConfiguration.spacename_fr" maxlength="100" required>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<label for="spacename_en">{{translationObj.details.fieldtitleenglishmyskatingspace}}<i style="color:red">*</i></label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" name="spacename_en" class="form-control" id="spacename_en"
+						ng-model="currentConfiguration.spacename_en" maxlength="100" required>
 				</div>
 			</div>
 		</div>
 
-  </div>
+		<div class="row">
+			<div class="col-xs-6">
+				<displaymainimage 
+					displayimagefilename="currentConfiguration.mainimagefilename"
+					imageinfo="currentConfiguration.mainimageinfo">
+				</displaymainimage>
+				<uploadmainimagebutton 
+					callback="setCurrentInternal(currentConfiguration)"
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadmainimagebutton>
+			</div>
+			<div class="col-xs-6">
+				<displaymainlogo 
+					displayimagefilename="currentConfiguration.logoimagefilename"
+					imageinfo="currentConfiguration.logoimageinfo">
+				</displaymainlogo>
+				<uploadmainlogobutton 
+					callback="setCurrentInternal(currentConfiguration)"
+					is-disabled="!isFormPristine || detailsForm.$dirty">
+				</uploadmainlogobutton>
+			</div>
+		</div>
+
+	</div>
 </div>

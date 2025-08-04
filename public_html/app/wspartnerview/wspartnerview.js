@@ -8,16 +8,7 @@ angular.module('cpa_admin.wspartnerview', ['ngRoute'])
 		controller: 'wspartnerviewCtrl',
 		resolve: {
 			auth: function ($q, authenticationService) {
-				var userInfo = authenticationService.getUserInfo();
-				if (userInfo) {
-					if (userInfo.privileges.admin_access == true) {
-						return $q.when(userInfo);
-					} else {
-						return $q.reject({ authenticated: true, validRights: false, newLocation: null });
-					}
-				} else {
-					return $q.reject({ authenticated: false, newLocation: "/wspartnerview" });
-				}
+				return authenticationService.validateUserRoutingPrivilege();
 			}
 		}
 	});

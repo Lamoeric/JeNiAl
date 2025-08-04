@@ -1,6 +1,5 @@
 [
 	{"formname":"main", "fieldname":"formtitlewelcome", "text":"Bonjour"},
-	{"formname":"main", "fieldname":"formtitlecustomercentre", "text":"MON ESPACE PATIN"},
 	{"formname":"main", "fieldname":"formtitlesubtitle", "text":"VOS FACTURES"},
 	{"formname":"main", "fieldname":"formtitlebacktowelcome", "text":">> Page d'accueil"},
 
