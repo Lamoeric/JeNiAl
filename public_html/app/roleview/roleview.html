@@ -9,7 +9,7 @@
 
 					<main-new-button new-callback="createNew()" ng-if="userInfo.privileges.role_create==true"></main-new-button>
 					<main-save-button save-callback="saveToDB()" is-form-pristine="(isFormPristine && !detailsForm.$dirty) || (currentRole.roleid=='fulladmin')" ng-if="userInfo.privileges.role_update==true"></main-save-button>
-					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentRole.roleid=='fulladmin'" ng-if="userInfo.privileges.security_delete==true"></main-delete-button>
+					<main-delete-button delete-callback="deleteFromDB()" is-form-pristine="currentRole.roleid=='$fulladmin'||currentRole.isused > 0" ng-if="userInfo.privileges.security_delete==true"></main-delete-button>
 
           <form id="mainform" class="form-horizontal well mainsingleformnox" role="form" name="detailsForm" ng-show="currentRole">
             <div ng-include="'roleview/role.html'"></div>

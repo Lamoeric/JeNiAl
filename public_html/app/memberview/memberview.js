@@ -558,7 +558,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	});
 
 	$scope.refreshAll = function () {
-		$scope.getAllMembers(null);
+		$scope.getAllMembers($scope.newFilter.filterApplied ? $scope.newFilter : null);
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'qualifications', 'text', 'qualifications');
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'provinces', 'text', 'provinces');

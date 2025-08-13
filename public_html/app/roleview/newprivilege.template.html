@@ -5,13 +5,13 @@
 	<form class="form-horizontal" role="form" name="editObjForm">
 		<div class="form-group">
 			<div class="col-xs-12">
-	      <label for="code">{{translationObj.newprivilege.fieldtitleprivilege}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <select class="form-control" id="type" ng-model="newObj.privilegeid" required>
-						<option ng-repeat="priv in privileges" value="{{priv.id}}">{{priv.text}}</option>
-		      </select>
-	      </div>
+				<labelrequired for="privilegeid" label="translationObj.newprivilege.fieldtitleprivilege"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="privilegeid" ng-model="newObj.privilegeid" required>
+						<option ng-repeat="priv in tmpPrivileges" value="{{priv.id}}">{{priv.text}}</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	</form>
@@ -20,6 +20,6 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newprivilege.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newprivilege.buttontitlekeepchanges}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newprivilege.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newprivilege.buttontitlekeepchanges}}</button>
 </div>

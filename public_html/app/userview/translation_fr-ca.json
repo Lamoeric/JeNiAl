@@ -7,6 +7,7 @@
 	{"formname":"main", "fieldname":"buttontitleresetpassword", "text":"Réinitialiser"},
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"Tous les champs marqués d'un * sont obligatoires."},
 	{"formname":"main", "fieldname":"msgresetaccount", "text":"Le mot de passe de l'usager sera modifié aléatoirement et un courriel lui sera envoyé. Voulez-vous continuer?"},
+	{"formname":"main", "fieldname":"msgnofilter", "text":"Aucun filtre défini"},
 
 	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Informations générales"},
 	{"formname":"details", "fieldname":"fieldtitleuserid", "text":"Code usager"},
@@ -19,6 +20,7 @@
 	{"formname":"details", "fieldname":"formtitleroles", "text":"Rôles"},
 	{"formname":"details", "fieldname":"fieldtitlerole", "text":"Rôle"},
 	{"formname":"details", "fieldname":"fieldtitlecontactfullname", "text":"Nom du contact"},
+	{"formname":"details", "fieldname":"fieldtitlelastlogindate", "text":"Date dernière connexion"},
 	{"formname":"details", "fieldname":"buttontitleemptycontact", "text":"Vider contact"},
 
 	{"formname":"newuser", "fieldname":"formtitlenewuser", "text":"Nouvel usager"},
@@ -36,6 +38,17 @@
 	{"formname":"newrole", "fieldname":"formerrormessage", "text":"Tous les champs sont obligatoires."},
 	{"formname":"newrole", "fieldname":"buttontitlediscard", "text":"Annuler"},
 	{"formname":"newrole", "fieldname":"buttontitlekeepchanges", "text":"Conserver"},
+
+	{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filtre"},
+	{"formname":"filter", "fieldname":"fieldfirstname", "text":"Prénom"},
+	{"formname":"filter", "fieldname":"fieldLastname", "text":"Nom de famille"},
+	{"formname":"filter", "fieldname":"fieldrole", "text":"Rôle"},
+	{"formname":"filter", "fieldname":"fieldonlyexpiredpassword", "text":"Mot de passe expiré"},
+	{"formname":"filter", "fieldname":"fieldnbmonthsinceloggin", "text":"Dernière connexion depuis plus de (mois)"},
+	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Annuler"},
+	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Retirer filtre"},
+	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Vider formulaire"},
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Appliquer filtre"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Les modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Voulez-vous vraiment effacer cet item?"}

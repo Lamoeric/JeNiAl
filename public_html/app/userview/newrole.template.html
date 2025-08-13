@@ -5,13 +5,13 @@
 	<form class="form-horizontal" user="form" name="editObjForm">
 		<div class="form-group">
 			<div class="col-xs-8">
-	      <label for="code">{{translationObj.newrole.fieldtitlerole}}<i style="color:red"> *</i></label>
-	    	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <select class="form-control" id="type" ng-model="newObj.roleid" required>
-						<option ng-repeat="priv in roles" value="{{priv.id}}">{{priv.text}}</option>
-		      </select>
-	      </div>
+				<labelrequired for="roleid" label="translationObj.newrole.fieldtitlerole"></labelrequired>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<select class="form-control" id="roleid" ng-model="newObj.roleid" required>
+						<option ng-repeat="priv in tmpRoles" value="{{priv.id}}">{{priv.text}}</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	</form>
@@ -20,6 +20,6 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()"	>{{translationObj.newrole.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()"			>{{translationObj.newrole.buttontitlekeepchanges}}</button>
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newrole.buttontitlediscard}}</button>
+	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newrole.buttontitlekeepchanges}}</button>
 </div>
