@@ -227,7 +227,9 @@ angular.module('cpa_admin.userview', ['ngRoute'])
 			dialogService.alertDlg("Nothing to save!", null);
 		} else {
 			if ($scope.validateAllForms() == false) return;
-			$scope.currentUser.password = $scope.currentUser.passwordstr;
+			if ($scope.currentUser.passwordstr && $scope.currentUser.passwordstr != "") {
+				$scope.currentUser.password = $scope.currentUser.passwordstr;
+			}
 			$scope.promise = $http({
 				method: 'post',
 				url: './userview/user.php',
