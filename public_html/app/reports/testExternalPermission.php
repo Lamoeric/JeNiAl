@@ -173,26 +173,26 @@ try {
 
 	// Name of skater
 	$html = $data['skaterfirstname'] . ' ' . $data['skaterlastname'];
-	$pdf->writeHTMLCell(80, 0, $deltaX+73, $deltaY+66.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(80, 0, $deltaX+73, $deltaY+66.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	// # skate Canada
 	$html = $data['skatecanadano'];
-	$pdf->writeHTMLCell(40, 0, $deltaX+80, $deltaY+73.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(40, 0, $deltaX+80, $deltaY+73.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	// club name
 	$html = $data['homeclubname'];
-	$pdf->writeHTMLCell(60, 0, $deltaX+100, $deltaY+89.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, $deltaX+100, $deltaY+89.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	// club # skate Canada
 	$html = $data['homeclubno'];
-	$pdf->writeHTMLCell(40, 0, $deltaX+80, $deltaY+96.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(40, 0, $deltaX+80, $deltaY+96.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	// Test date
 	$html = $data['testdate'];
-	$pdf->writeHTMLCell(40, 0, $deltaX+68, $deltaY+112.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(40, 0, $deltaX+68, $deltaY+112.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	// Host club
 	if ($data['hostclubname'] == '') {
 		$html = $data['clubname'];
 	} else {
 		$html = $data['hostclubname'];
 	}
-	$pdf->writeHTMLCell(80, 0, $deltaX+73, $deltaY+119.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(80, 0, $deltaX+73, $deltaY+119.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	$html = '';
 	if (count($data['tests']) > 5) {
 		$pdf->SetFont('times', '', 9);
@@ -204,17 +204,17 @@ try {
 		$html .= $data['tests'][$x]['testtypelabel'] . ' - ' . $data['tests'][$x]['testlabel'];
 	}
 	// $html .= ', ' . $html; // for testing, double the number of test
-	$pdf->writeHTMLCell(120, 16, $deltaX+72, $deltaY+127, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(120, 16, $deltaX+72, $deltaY+127,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	$pdf->SetFont('times', '', 12);
 
 	// Name of test director
 	$html = $data['directorfirstname'] . ' ' . $data['directorlastname'];
-	$pdf->writeHTMLCell(60, 0, $deltaX+38, $deltaY+142.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, $deltaX+38, $deltaY+142.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Name of skater
 	$html = $data['skaterfirstname'] . ' ' . $data['skaterlastname'];
-	$pdf->writeHTMLCell(80, 0, $deltaX+127, $deltaY+142.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(80, 0, $deltaX+127, $deltaY+142.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 
 	// TODO : should we use today's date or the approbation date?
@@ -222,7 +222,7 @@ try {
 	// $date = date('Y-m-d');
 	// $html = $date;
 	$html = substr($data['approvedon'], 0, 10);
-	$pdf->writeHTMLCell(25, 0, $deltaX+44, $deltaY+194, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(25, 0, $deltaX+44, $deltaY+194,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Set filename
 	$filename = $l['w_title'].".pdf";

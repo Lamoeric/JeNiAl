@@ -110,7 +110,7 @@ for ($x = 0; $x < count($numbersList); $x++) {
 		if ($nboflineonpage != 0 && (($pageno == 1 && fmod($nboflineonpage, $nboflinefirstpage) == 0) || ($pageno > 1 && fmod($nboflineonpage, $nboflinenextpage) == 0))) {
 			$html = $html .'</table>';
 			$pdf->AddPage('P');
-			$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+			$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 			$pageno++;
 			$nboflineonpage  = 0;
 			$html = str_replace("xpagex", $pageno, $pageheader2b).$tableheader;
@@ -125,14 +125,14 @@ for ($x = 0; $x < count($numbersList); $x++) {
 	$html = $html .'</table>';
 	if ($nboflineonpage > $nboflinenextpageemail) {
 		$pdf->AddPage('P');
-		$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+		$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 		$pageno++;
 		$nboflineonpage  = 0;
 		$html = str_replace("xpagex", $pageno, $pageheader2b);
 	}
 	$html .= '<p>'.implode(";", $emailList).'</p>';
 	$pdf->AddPage('P');
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 }
 
 // ---------------------------------------------------------

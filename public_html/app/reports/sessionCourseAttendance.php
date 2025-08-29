@@ -223,7 +223,7 @@ function printReport($mysqli, $eventType, $sessionscoursesid, $showsnumbersid, $
 			$html = $html .'</table>';//.basename(__FILE__); ;//.$indexCourseDates.' '. $lastdateindex.' '.$width.' '.serialize($months).' '.serialize($monthnbdates);
 			$pdf->AddPage('P');
 			$pageno++;
-			$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+			$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 			$index = $lastindex;
 		}
 		$index = 0;
@@ -390,6 +390,8 @@ function getShowNumberMembers($mysqli, $showsnumbersid, $language) {
 function getSessionCourseMembersDates($mysqli, $memberid, $sessionscoursesid, $registrationstartdate, $registrationenddate) {
 	try {
 		if (empty($memberid)) throw new Exception("Invalid Member ID.");
+		if (empty($registrationenddate)) $registrationenddate = '2040-01-01';
+		if (empty($registrationstartdate)) $registrationstartdate = '1980-01-01';
 		$query = "SELECT cscd.*, 
 										 if ('$registrationenddate' != '' and cscd.coursedate >= '$registrationenddate', 'XXX', if ('$registrationstartdate' != '' and cscd.coursedate <= '$registrationstartdate', 'XXX', if (cscd.canceled, '---', cscp.ispresent))) ispresent
 							FROM cpa_sessions_courses_dates cscd
@@ -419,6 +421,8 @@ function getSessionCourseMembersDates($mysqli, $memberid, $sessionscoursesid, $r
 function getShowNumberMembersDates($mysqli, $memberid, $showsnumbersid, $registrationstartdate, $registrationenddate) {
 	try {
 		if (empty($memberid)) throw new Exception("Invalid Member ID.");
+		if (empty($registrationenddate)) $registrationenddate = '2040-01-01';
+		if (empty($registrationstartdate)) $registrationstartdate = '1980-01-01';
 		$query = "SELECT csnd.*, practicedate as coursedate, 
 										if ('$registrationenddate' != '' and csnd.practicedate >= '$registrationenddate', 'XXX', if ('$registrationstartdate' != '' and csnd.practicedate <= '$registrationstartdate', 'XXX', if (csnd.canceled, '---', csnp.ispresent))) ispresent
 							FROM cpa_shows_numbers_dates csnd

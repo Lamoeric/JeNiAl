@@ -46,91 +46,91 @@ function testStarSessionTestSummarySheet($pdf, $tests, $testDirectorInfo, $langu
       // Organization name
     	$html = '<b>'.$test['homeclublabel'].'</b>';
     	// $html = $test['homeclublabel'];
-    	$pdf->writeHTMLCell(45, 0, 60, 21, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    	$pdf->writeHTMLCell(45, 0, 60, 21,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     	// Organization number
     	$html = '<b>'.$test['orgno'].'</b>';
-    	$pdf->writeHTMLCell(30, 0, 60, 25.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    	$pdf->writeHTMLCell(30, 0, 60, 25.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     	$html = '<b>'.$testDirectorInfo['skatecanadano'].'</b>';
-    	$pdf->writeHTMLCell(35, 0, 158, 26.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    	$pdf->writeHTMLCell(35, 0, 158, 26.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     	$html = '<b>'.$testDirectorInfo['firstname'].' '.$testDirectorInfo['lastname'].'</b>';
-    	$pdf->writeHTMLCell(35, 0, 158, 31, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    	$pdf->writeHTMLCell(35, 0, 158, 31,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     	$html = '<b>'.$testDirectorInfo['homephone'].'</b>';
-    	$pdf->writeHTMLCell(35, 0, 158, 35.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    	$pdf->writeHTMLCell(35, 0, 158, 35.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     	$html = '<b>'.$testDirectorInfo['email'].'</b>';
-    	$pdf->writeHTMLCell(55, 0, 140, 40, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    	$pdf->writeHTMLCell(55, 0, 140, 40,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
     }
     $totalPageFees += (float) $test['fees'];
     // First line
     // # skate Canada
     $html = '<b>'.$test['skatecanadano'].'</b>';
-    $pdf->writeHTMLCell(40, 0, 18.5, $lineYCoord[$lineNo], utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(40, 0, 18.5, $lineYCoord[$lineNo],mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Home Club
     $html = '<b>'.$test['candidatehomeclublabel'].'</b>';
-    $pdf->writeHTMLCell(30, 0, 63, $lineYCoord[$lineNo], utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(30, 0, 63, $lineYCoord[$lineNo],mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // coach skatecanadano
     $html = '<b>'.$test['coaskatecanadano'].'</b>';
-    $pdf->writeHTMLCell(20, 0, 103, $lineYCoord[$lineNo], utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(20, 0, 103, $lineYCoord[$lineNo],mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Test code
     $html = '<b>'.$test['summarycode'].'</b>';
-    $pdf->writeHTMLCell(25, 0, 130, $lineYCoord[$lineNo], utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(25, 0, 130, $lineYCoord[$lineNo],mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Test date
     $html = '<b>'.$test['testday'].'/'.$test['testmonth'].'/'.$test['testyear'].'</b>';
-    $pdf->writeHTMLCell(20, 0, 170, $lineYCoord[$lineNo], utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(20, 0, 170, $lineYCoord[$lineNo],mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Second line
     // Candidate
     $html = '<b>'.$test['canfirstname'].' '.$test['canlastname'].'</b>';
-    $pdf->writeHTMLCell(50, 0, 18.5, $lineYCoord[$lineNo] + 8, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(50, 0, 18.5, $lineYCoord[$lineNo] + 8,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Organization number
     $html = '<b>'.$test['candidateorgno'].'</b>';
-    $pdf->writeHTMLCell(25, 0, 70, $lineYCoord[$lineNo] + 8, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(25, 0, 70, $lineYCoord[$lineNo] + 8,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Coach name
     $html = '<b>'.$test['coafirstname'].' '.$test['coalastname'].'</b>';
-    $pdf->writeHTMLCell(31, 0, 96, $lineYCoord[$lineNo] + 8, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(31, 0, 96, $lineYCoord[$lineNo] + 8,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     // Result
     $html = '<b>X</b>';
     if ($language == 'fr-ca') {
       if ($test['result'] == '1') {
-        $pdf->writeHTMLCell(5, 0, 145, $lineYCoord[$lineNo] + 5.2, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(5, 0, 145, $lineYCoord[$lineNo] + 5.2,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       } else if ($test['result'] == '5') {
-        $pdf->writeHTMLCell(5, 0, 153, $lineYCoord[$lineNo] + 8.8, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(5, 0, 153, $lineYCoord[$lineNo] + 8.8,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       } else {
-        $pdf->writeHTMLCell(5, 0, 160, $lineYCoord[$lineNo] + 5.2, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(5, 0, 160, $lineYCoord[$lineNo] + 5.2,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       }
     } else {
       if ($test['result'] == '1') {
-        $pdf->writeHTMLCell(5, 0, 144, $lineYCoord[$lineNo] + 5.2, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(5, 0, 144, $lineYCoord[$lineNo] + 5.2,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       } else if ($test['result'] == '5') {
-        $pdf->writeHTMLCell(5, 0, 153, $lineYCoord[$lineNo] + 8.8, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(5, 0, 153, $lineYCoord[$lineNo] + 8.8,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       } else {
-        $pdf->writeHTMLCell(5, 0, 156.5, $lineYCoord[$lineNo] + 5.2, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(5, 0, 156.5, $lineYCoord[$lineNo] + 5.2,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       }
     }
 
     // Fees
     $html = '<b>'.$test['fees'].'</b>';
-    $pdf->writeHTMLCell(20, 0, 170, $lineYCoord[$lineNo] + 8, utf8_decode($html), $border, 1, 1, true, 'L', true);
+    $pdf->writeHTMLCell(20, 0, 170, $lineYCoord[$lineNo] + 8,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
     if ($lineNo == 9 || $x == count($tests)-1) {
       array_push($pagesFees, $totalPageFees);
       //Page is done, write total
       $html = '<b>'.'$'.number_format($totalPageFees, 2).'</b>';
       if ($language == 'fr-ca') {
-        $pdf->writeHTMLCell(25, 0, 174, 256.7, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(25, 0, 174, 256.7,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       } else {
-        $pdf->writeHTMLCell(25, 0, 169.7, 256, utf8_decode($html), $border, 1, 1, true, 'L', true);
+        $pdf->writeHTMLCell(25, 0, 169.7, 256,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
       }
       $pdf->SetFont('times', '', 10);
     }

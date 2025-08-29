@@ -193,12 +193,12 @@ for ($z = 0; $z < count($testSessionDanceTestList); $z++) {
 
 	// Instead of a footer, let's do a header
 	$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.$testSessionDanceTestList[$z]['testlabel'].'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
-	$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 5, mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Test date
 	$pdf->SetFont('times', '', 12);
 	$html = '<b>'.$testSessionDanceTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionDanceTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionDanceTestList[$z]['testyear'].'</b>';
-	$pdf->writeHTMLCell(35, 0, 168, 28, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(35, 0, 168, 28,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 
 	// This section changes for the preliminary dances
@@ -207,45 +207,45 @@ for ($z = 0; $z < count($testSessionDanceTestList); $z++) {
 		$pdf->SetFont('times', '', 10);
 		// Home club of the test
 		$html = '<b>'.$testSessionDanceTestList[$z]['homeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 47, 36, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 47, 36,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Candidate
 		$html = '<b>'.$testSessionDanceTestList[$z]['canfirstname'].' '.$testSessionDanceTestList[$z]['canlastname'].' ('.$testSessionDanceTestList[$z]['cangender'].')</b>';
-		$pdf->writeHTMLCell(80, 0, 30, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(80, 0, 30, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Hide the gender and the steps
 		// $html = '';
-		// $pdf->writeHTMLCell(25, 15, 94, 40, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		// $pdf->writeHTMLCell(25, 15, 94, 40,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Home club of the candidate
 		$html = '<b>'.$testSessionDanceTestList[$z]['candidatehomeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 63, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 63, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Coach
 		$html = '<b>'.$testSessionDanceTestList[$z]['coafirstname'].' '.$testSessionDanceTestList[$z]['coalastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Evaluator
 		$html = '<b>'.$testSessionDanceTestList[$z]['judfirstname'].' '.$testSessionDanceTestList[$z]['judlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Partner
 		$html = '<b>'.$testSessionDanceTestList[$z]['parfirstname'].' '.$testSessionDanceTestList[$z]['parlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 55.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 55.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	} else {
 		//Everything except Preliminary dances
 		$pdf->SetFont('times', '', 10);
 		// Home club of the test
 		$html = '<b>'.$testSessionDanceTestList[$z]['homeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 47, 34, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 47, 34,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Candidate
 		$html = '<b>'.$testSessionDanceTestList[$z]['canfirstname'].' '.$testSessionDanceTestList[$z]['canlastname'].' ('.$testSessionDanceTestList[$z]['cangender'].')</b>';
-		$pdf->writeHTMLCell(80, 0, 30, 40, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(80, 0, 30, 40,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Hide the gender and the steps
 		$html = '';
-		$pdf->writeHTMLCell(25, 15, 94, 40, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(25, 15, 94, 40,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Steps executed
 		$steps = '';
@@ -263,23 +263,23 @@ for ($z = 0; $z < count($testSessionDanceTestList); $z++) {
 			}
 		}
 		$html = '<b>'.$steps.'</b>';
-		$pdf->writeHTMLCell(60, 0, 55, 45.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 55, 45.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Home club of the candidate
 		$html = '<b>'.$testSessionDanceTestList[$z]['candidatehomeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 63, 51.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 63, 51.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Coach
 		$html = '<b>'.$testSessionDanceTestList[$z]['coafirstname'].' '.$testSessionDanceTestList[$z]['coalastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 40, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 40,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Evaluator
 		$html = '<b>'.$testSessionDanceTestList[$z]['judfirstname'].' '.$testSessionDanceTestList[$z]['judlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 45.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 45.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Partner
 		$html = '<b>'.$testSessionDanceTestList[$z]['parfirstname'].' '.$testSessionDanceTestList[$z]['parlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 51.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 51.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	}
 	// End of different section for preliminary
 
@@ -288,15 +288,15 @@ for ($z = 0; $z < count($testSessionDanceTestList); $z++) {
 	// Bottom part of the sheet
 	// Candidate
 	$html = '<b>'.$testSessionDanceTestList[$z]['canfirstname'].' '.$testSessionDanceTestList[$z]['canlastname'].'</b>';
-	$pdf->writeHTMLCell(60, 0, 28, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, 28, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Evaluator
 	$html = '<b>'.$testSessionDanceTestList[$z]['judfirstname'].' '.$testSessionDanceTestList[$z]['judlastname'].'</b>';
-	$pdf->writeHTMLCell(50, 0, 116, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(50, 0, 116, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	$pdf->SetFont('times', '', 12);
 	$html = '<b>'.$testSessionDanceTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionDanceTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionDanceTestList[$z]['testyear'].'</b>';
-	$pdf->writeHTMLCell(35, 0, 168, 86, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(35, 0, 168, 86,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 }
 

@@ -25,9 +25,9 @@ try {
     header('Expires: 0');
 
     fputcsv($fp, ['sep=,']);
-    fputcsv($fp, array_map("utf8_decode", $data['headers']));
+    fputcsv($fp, array_map("convert_encoding_callback", $data['headers']));
     for ($i = 0; $i < sizeof($data['data']); $i++) {
-      $row = array_map("utf8_decode", $data['data'][$i]);
+      $row = array_map("convert_encoding_callback", $data['data'][$i]);
       fputcsv($fp, array_values($row));
     }
     die;
@@ -66,6 +66,14 @@ try {
   $message = $e->getMessage();
   echo $message;
   die;
+}
+
+function convert_encoding_callback($value) {
+	// Only convert if the value is a string to avoid errors with other data types
+    if (is_string($value)) {
+        return mb_convert_encoding($value, 'Windows-1252', 'UTF-8');
+    }
+    return $value; // Return non-string values as they are
 }
 
 /*

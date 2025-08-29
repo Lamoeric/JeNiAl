@@ -100,7 +100,7 @@ for ($x = 0; $x < count($billingList); $x++) {
 	if ($nboflineonpage != 0 && (($pageno == 1 && fmod($nboflineonpage, $nboflinefirstpage) == 0) || ($pageno > 1 && fmod($nboflineonpage, $nboflinenextpage) == 0))) {
 		$html = $html .'</table>';
 		$pdf->AddPage('P');
-		$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+		$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 		$pageno++;
 		$nboflineonpage  = 0;
 		$html = $pageheader.$tableheader;
@@ -138,7 +138,7 @@ $billingSums['sumbalance'] = number_format($billingSums['sumbalance'], 2, ".", "
 $html .= '<tr><td colspan="3" align="right"><b>'.$l['w_total'].'</b></td><td width="12%" align="right"><b>'.$billingSums['sumtotalamount'].'</b></td><td width="12%" align="right"><b>'.$billingSums['sumpaidamount'].'</b></td><td colspan="2" align="right"><b>'.$billingSums['sumbalance'].'</b></td></tr>';
 $html = $html .'</table>';
 $pdf->AddPage('P');
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
 // ---------------------------------------------------------
 // Close and output PDF document

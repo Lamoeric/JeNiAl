@@ -127,47 +127,47 @@ for ($z = 0; $z < count($testSessionSkillTestList); $z++) {
 
 	// Instead of a footer, let's do a header
 	$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.$testSessionSkillTestList[$z]['testlabel'].'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
-	$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Test date
 	$pdf->SetFont('times', '', 12);
 	$html = '<b>'.$testSessionSkillTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionSkillTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionSkillTestList[$z]['testyear'].'</b>';
-	$pdf->writeHTMLCell(35, 0, 168, 28, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(35, 0, 168, 28,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 
 	$pdf->SetFont('times', '', 10);
 	// Home club of the test
 	$html = '<b>'.$testSessionSkillTestList[$z]['homeclublabel'].'</b>';
-	$pdf->writeHTMLCell(60, 0, 47, 35.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, 47, 35.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Candidate
 	$html = '<b>'.$testSessionSkillTestList[$z]['canfirstname'].' '.$testSessionSkillTestList[$z]['canlastname'].'</b>';
-	$pdf->writeHTMLCell(80, 0, 30, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(80, 0, 30, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Home club of the candidate
 	$html = '<b>'.$testSessionSkillTestList[$z]['candidatehomeclublabel'].'</b>';
-	$pdf->writeHTMLCell(60, 0, 63, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, 63, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Coach
 	$html = '<b>'.$testSessionSkillTestList[$z]['coafirstname'].' '.$testSessionSkillTestList[$z]['coalastname'].'</b>';
-	$pdf->writeHTMLCell(60, 0, 145, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, 145, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Evaluator
 	$html = '<b>'.$testSessionSkillTestList[$z]['judfirstname'].' '.$testSessionSkillTestList[$z]['judlastname'].'</b>';
-	$pdf->writeHTMLCell(60, 0, 145, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, 145, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Bottom part of the sheet
 	// Candidate
 	$html = '<b>'.$testSessionSkillTestList[$z]['canfirstname'].' '.$testSessionSkillTestList[$z]['canlastname'].'</b>';
-	$pdf->writeHTMLCell(60, 0, 28, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(60, 0, 28, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// Evaluator
 	$html = '<b>'.$testSessionSkillTestList[$z]['judfirstname'].' '.$testSessionSkillTestList[$z]['judlastname'].'</b>';
-	$pdf->writeHTMLCell(50, 0, 116, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(50, 0, 116, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	$pdf->SetFont('times', '', 12);
 	$html = '<b>'.$testSessionSkillTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionSkillTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionSkillTestList[$z]['testyear'].'</b>';
-	$pdf->writeHTMLCell(35, 0, 168, 90, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(35, 0, 168, 90,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// add a page
 	$pdf->AddPage();

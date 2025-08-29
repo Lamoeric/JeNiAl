@@ -81,12 +81,12 @@ $pdf->SetFont('times', '', 10, '', true);
 
 $pdf->AddPage('P');
 $html = '<p align="center" style="font-size:20px">' . $l['w_title'] . '</p>';
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
 // Number of member that received a SC number
 $html = '<br><h2>' . $l['w_title_converted'] . '</h2>';
 $html .= '<p>' . $l['w_title_converteddesc'] . sizeof($data['matches']) . '</p>';
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
 // Non unique SC number.
 $newdata = array();
@@ -97,7 +97,7 @@ if (count($newdata) != 0) {
 	$html = '<br><h2>' . $l['w_title_nonuniqueSCno'] . '</h2>';
 	$html .= '<p>' . $l['w_title_nonuniqueSCnodesc'] . '</p>';
 	$html .= '<p>' . join(", ", $newdata) . '</p>';
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 }
 
 // Non unique members (same firstname and lastname)
@@ -109,14 +109,14 @@ if (count($newdata) != 0) {
 	$html  = '<br><h2>' . $l['w_title_nonuniquemembers'] . '</h2>';
 	$html .= '<p>' . $l['w_title_nonuniquemembersdesc'] . '</p>';
 	$html .= '<p>'. join(", ", $newdata) . '</p>';
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 }
 
 // Different members (different firstname or lastname from JeNiAl to SC)
 if (count($data['differentmembers']) != 0) {
 	$html  = '<br><h2>' . $l['w_title_differentmembers'] . '</h2>';
 	$html .= '<p>' . $l['w_title_differentmembersdesc'] . '</p>';
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 }
 
 $tableheader = '<table border="1"><tr>';
@@ -130,13 +130,13 @@ for ($x = 0; $x < count($data['differentmembers']); $x++) {
 	$html .=     '<td width="20%">' . $member['sc_firstname'] . '</td><td width="20%">' . $member['sc_lastname'] . '</td></tr>';
 }
 $html .= '</table>';
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
 // non existing members (registered at Skate Canada, but not existing in JeNiAl)
 if (count($data['nonexistingmembers']) != 0) {
 	$html  = '<br><h2>' . $l['w_title_nonexistingmembers'] . '</h2>';
 	$html .= '<p>' . $l['w_title_nonexistingmembersdesc'] . '</p>';
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 }
 
 $tableheader = '<table border="1"><tr>';
@@ -159,7 +159,7 @@ for ($x = 0; $x < count($data['nonexistingmembers']); $x++) {
 	$html .=     '<td width="15%">' . $member2['skatecanadano'] . '</td><td width="25%">' . $member2['firstname'] . ' ' . $member2['lastname'] . '</td><td width="10%">' . $member2['registrationyear'] . '</td></tr>';
 }
 $html .= '</table>';
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
 // ---------------------------------------------------------
 

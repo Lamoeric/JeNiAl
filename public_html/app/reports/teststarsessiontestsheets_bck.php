@@ -79,7 +79,7 @@ if ($data['success'] == true && isset($data['data'])) {
 }
 
 // Set filename
-$filename = utf8_decode($testsession['testsessionlabel']).$l['w_title'].".pdf";
+$filename = mb_convert_encoding($testsession['testsessionlabel'], 'Windows-1252', 'UTF-8').$l['w_title'].".pdf";
 
 try {
   $testDirectorInfo = getTestSessionDirectorInfo($mysqli, $testsessionid, $language)['data'][0];

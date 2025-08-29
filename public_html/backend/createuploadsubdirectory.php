@@ -2,7 +2,7 @@
 /*
 Author : Eric Lamoureux
 */
-include_once(__DIR__.'./getuploaddirectory.php');
+include_once(__DIR__.'/getuploaddirectory.php');
 
 /**
  * This function creates and returns an upload sub directory.

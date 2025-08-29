@@ -94,13 +94,13 @@ $sectionNo = $seating['sectionfirst'];
 $rowNo = $seating['rowfirst'];
 $seatNo = $seating['seatfirst'];
 $clubData = getClubNameAndAddress($mysqli, 'fr-ca');
-$clubTitleFr = utf8_decode($clubData['data'][0]['cpalongname']);
+$clubTitleFr = mb_convert_encoding($clubData['data'][0]['cpalongname'], 'Windows-1252', 'UTF-8');
 $clubData = getClubNameAndAddress($mysqli, 'en-ca');
-$clubTitleEn = utf8_decode($clubData['data'][0]['cpalongname']);
+$clubTitleEn = mb_convert_encoding($clubData['data'][0]['cpalongname'], 'Windows-1252', 'UTF-8');
 $showData = getShowLabel($mysqli, $showid, 'fr-ca');
-$showTitleFr = utf8_decode($showData['data'][0]['showlabel']);
+$showTitleFr = mb_convert_encoding($showData['data'][0]['showlabel'], 'Windows-1252', 'UTF-8');
 $showData = getShowLabel($mysqli, $showid, 'en-ca');
-$showTitleEn = utf8_decode($showData['data'][0]['showlabel']);
+$showTitleEn = mb_convert_encoding($showData['data'][0]['showlabel'], 'Windows-1252', 'UTF-8');
 
 $language = $ticket['language'];
 $ticketWithStub  = $ticket['showstub'];
@@ -110,7 +110,7 @@ $ticketWriteStdInfo = $ticket['showstandardinfo'];
 $ticketImageFile = K_PATH_WEBSITEIMAGES.'shows/'.$ticket['imagefilename'];
 $ticketColor = list($r, $g, $b) = sscanf($ticket['ticketcolor'], "#%02x%02x%02x"); // convert RGB in a array of R,G,B
 $stubColor = list($r, $g, $b) = sscanf($ticket['stubcolor'], "#%02x%02x%02x"); // convert RGB in a array of R,G,B
-$ticketNotes = utf8_decode($ticket['notes']);
+$ticketNotes = mb_convert_encoding($ticket['notes'], 'Windows-1252', 'UTF-8');
 $needles = array("<br>", "&#13;", "<br/>", "\n", "&#13;&#10;", "&#10;", "\r\n");
 $replacement = "<br>";
 $ticketNotes = str_replace($needles, $replacement, $ticketNotes);
@@ -260,14 +260,14 @@ if ($language == 1) {
 	$seat = $l['seat_fr'];
 	$present = $l['present_fr'];
 	$monthList = $l['monthNames_fr'];
-	$showDate = utf8_decode($data['weekdayfrenchlabel']) . ' ' . $data['dayno'] . ' ' . $monthList[$data['monthno']] . ' ' . $data['yearno'] . ' ' . $data['starttimeformattedfr'];
+	$showDate = mb_convert_encoding($data['weekdayfrenchlabel'], 'Windows-1252', 'UTF-8') . ' ' . $data['dayno'] . ' ' . $monthList[$data['monthno']] . ' ' . $data['yearno'] . ' ' . $data['starttimeformattedfr'];
 	$clubTitle = $clubTitleFr;
 	$showTitle = $showTitleFr;
-	$iceLabel = isset($data['icefrenchlabel']) ? utf8_decode($data['icefrenchlabel']) : null;
+	$iceLabel = isset($data['icefrenchlabel']) ? mb_convert_encoding($data['icefrenchlabel'], 'Windows-1252', 'UTF-8') : null;
 	if (isset($iceLabel)) {
-		$arenaLabel = utf8_decode($data['arenafrenchlabel']) . ', ' . $iceLabel;
+		$arenaLabel = mb_convert_encoding($data['arenafrenchlabel'], 'Windows-1252', 'UTF-8') . ', ' . $iceLabel;
 	} else {
-		$arenaLabel = utf8_decode($data['arenafrenchlabel']);
+		$arenaLabel = mb_convert_encoding($data['arenafrenchlabel'], 'Windows-1252', 'UTF-8');
 	}
 } else if ($language == 2) {
 	$section = $l['section_en'];
@@ -275,14 +275,14 @@ if ($language == 1) {
 	$seat = $l['seat_en'];
 	$present = $l['present_en'];
 	$monthList = $l['monthNames_en'];
-	$showDate = utf8_decode($data['weekdayenglishlabel']) . ' ' . $monthList[$data['monthno']] . ' ' . $data['dayno'] . ' ' . $data['yearno'] . ' ' . $data['starttimeformatteden'];
+	$showDate = mb_convert_encoding($data['weekdayenglishlabel'], 'Windows-1252', 'UTF-8') . ' ' . $monthList[$data['monthno']] . ' ' . $data['dayno'] . ' ' . $data['yearno'] . ' ' . $data['starttimeformatteden'];
 	$clubTitle = $clubTitleEn;
 	$showTitle = $showTitleEn;
-	$iceLabel = isset($data['iceenglishlabel']) ? utf8_decode($data['iceenglishlabel']) : null;
+	$iceLabel = isset($data['iceenglishlabel']) ? mb_convert_encoding($data['iceenglishlabel'], 'Windows-1252', 'UTF-8') : null;
 	if (isset($iceLabel)) {
-		$arenaLabel = utf8_decode($data['arenaenglishlabel']) . ', ' . $iceLabel;
+		$arenaLabel = mb_convert_encoding($data['arenaenglishlabel'], 'Windows-1252', 'UTF-8') . ', ' . $iceLabel;
 	} else {
-		$arenaLabel = utf8_decode($data['arenaenglishlabel']);
+		$arenaLabel = mb_convert_encoding($data['arenaenglishlabel'], 'Windows-1252', 'UTF-8');
 	}
 }
 // else if ($language == 3) {
@@ -291,7 +291,7 @@ if ($language == 1) {
 //	$seat = $l['seat_bi'];
 //	$present = $l['present_bi'];
 //	$monthList = $l['monthNames_bi'];
-//	$showDate = utf8_decode($data['weekdayfrenchlabel']) . ' ' . $data['dayno'] . ' ' . $monthList[$data['monthno']] . ' ' . $data['yearno'] . ' ' . $data['starttimeformatted'];
+//	$showDate = mb_convert_encoding($data['weekdayfrenchlabel'], 'Windows-1252', 'UTF-8') . ' ' . $data['dayno'] . ' ' . $monthList[$data['monthno']] . ' ' . $data['yearno'] . ' ' . $data['starttimeformatted'];
 //}	
 
 if ($nbofsections == 0 || $nbofrows == 0 || $nbofseats == 0) {
@@ -359,7 +359,7 @@ for ($i = 0; $i < count($pass); $i++) {
 						$pdf->writeHTMLCell($titleWidth, $ticketClubName[$position]['h'], $ticketClubName[$position]['x'], $ticketClubName[$position]['y']+20, $showDate, 0, 1, 1, true, 'C', true);
 						$pdf->writeHTMLCell($titleWidth, $ticketClubName[$position]['h'], $ticketClubName[$position]['x'], $ticketClubName[$position]['y']+25, $arenaLabel, 0, 1, 1, true, 'C', true);
 						$pdf->SetFont('times', '', 10);
-						$pdf->writeHTMLCell($titleWidth, $ticketClubName[$position]['h'], $ticketClubName[$position]['x'], $ticketClubName[$position]['y']+30, utf8_decode($data['arenaaddress']), 0, 1, 1, true, 'C', true);
+						$pdf->writeHTMLCell($titleWidth, $ticketClubName[$position]['h'], $ticketClubName[$position]['x'], $ticketClubName[$position]['y']+30, mb_convert_encoding($data['arenaaddress'], 'Windows-1252', 'UTF-8'), 0, 1, 1, true, 'C', true);
 						$pdf->SetFont('times', '', 8);
 						$pdf->writeHTMLCell($titleWidth, $ticketClubName[$position]['h'], $ticketClubName[$position]['x'], $ticketClubName[$position]['y']+40, $ticketNotes, 0, 1, 1, true, 'L', true);
 					}

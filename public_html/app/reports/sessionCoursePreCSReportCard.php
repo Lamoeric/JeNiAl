@@ -115,7 +115,7 @@ for ($z = 0; $z < count($courseMembers); $z++) {
 
 	$pdf->SetFont('times', '', 14);
 	// Name
-	$fullname = utf8_decode($courseMembers[$z]['firstname']).' '.utf8_decode($courseMembers[$z]['lastname']);
+	$fullname = mb_convert_encoding($courseMembers[$z]['firstname'].' '.$courseMembers[$z]['lastname'], 'Windows-1252', 'UTF-8');
 	// Skate Canada number
 	$skatecanadano = $courseMembers[$z]['skatecanadano'];
 

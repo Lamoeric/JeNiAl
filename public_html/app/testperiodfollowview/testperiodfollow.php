@@ -99,7 +99,7 @@ function getTestsessionPeriodDetails($mysqli, $testsessionid, $testperiodid, $la
 /**
  * This function gets the details of one testsession from database
  */
-function getTestsessionDetails($mysqli, $id = 0, $language) {
+function getTestsessionDetails($mysqli, $id, $language) {
 	try{
 		$query = "SELECT *, getEnglishTextLabel(label) as label_en, getFrenchTextLabel(label) as label_fr FROM cpa_tests_sessions WHERE id = $id";
 		$result = $mysqli->query($query );

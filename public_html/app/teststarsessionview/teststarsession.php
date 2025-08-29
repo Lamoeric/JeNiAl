@@ -401,7 +401,7 @@ function updateEntirePeriods($mysqli, $newtestssessionsid, $periods, $language, 
 					throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 				}
 			} else {
-				$query = "UPDATE cpa_newtests_sessions_periods SET arenaid=$arenaid, iceid=$iceid, perioddate='$perioddate', day=$day, starttime='$starttime', endtime='$endtime', duration=$duration, canceled=$canceled, manual=$manual WHERE id = $id";
+				$query = "UPDATE cpa_newtests_sessions_periods SET arenaid=$arenaid, iceid=$iceid, perioddate='$perioddate', day=$day, starttime='$starttime', endtime='$endtime', duration=$duration, canceled=$canceled, `manual`=$manual WHERE id = $id";
 				if ($mysqli->query($query)) {
 					$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 				} else {

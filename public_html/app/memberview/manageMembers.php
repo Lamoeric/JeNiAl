@@ -626,6 +626,7 @@ function getMemberActiveCoursesDates($mysqli, $memberid, $sessionscoursesid, $re
 {
 	try {
 		if (empty($memberid)) throw new Exception("Invalid Member ID.");
+		if (empty($registrationenddate)) $registrationenddate = '2040-01-01';
 		$query = "SELECT cscd.*, 
 							if ('$registrationenddate' != '' AND cscd.coursedate >= '$registrationenddate', 'XXX', if (cscd.canceled, '---', cscp.ispresent)) ispresent
 						FROM cpa_sessions_courses_dates cscd
@@ -642,6 +643,7 @@ function getMemberActiveCoursesDates($mysqli, $memberid, $sessionscoursesid, $re
 		return $data;
 	} catch (Exception $e) {
 		$data = array();
+		$data['data'] = array();
 		$data['success'] = false;
 		$data['message'] = $e->getMessage();
 		return $data;

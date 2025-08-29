@@ -136,7 +136,7 @@ while ($index < count($coursesSummary)) {
 	$html = $html .'</table>';
 	$pdf->AddPage();
 	$pageno++;
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 	$index = $lastindex;
 }
 
@@ -177,7 +177,7 @@ function getCoursesSummary($mysqli, $language, $sessionid) {
 							getTextLabel(csc.label, '$language') label,
 							csc.fees,
 							(SELECT floor(datediff(coursesenddate, coursesstartdate)/7) FROM cpa_sessions WHERE id = $sessionid) sessionnbofweeks,
-							(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0) nbofcourses,
+							(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and `manual` = 0) nbofcourses,
 							getTextLabel(cs.label, '$language') sessionlabel
 						from cpa_sessions_courses csc
 						join cpa_courses cc ON cc.code = csc.coursecode
