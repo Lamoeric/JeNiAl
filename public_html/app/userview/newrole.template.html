@@ -8,7 +8,7 @@
 				<labelrequired for="roleid" label="translationObj.newrole.fieldtitlerole"></labelrequired>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<select class="form-control" id="roleid" ng-model="newObj.roleid" required>
+					<select class="form-control" id="roleid" ng-model="newObj.roleid" required autofocus>
 						<option ng-repeat="priv in tmpRoles" value="{{priv.id}}">{{priv.text}}</option>
 					</select>
 				</div>
