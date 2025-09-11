@@ -259,24 +259,34 @@ function getAllMembers($mysqli, $filter)
 		$lastname = empty($filter['lastname']) ? null : $mysqli->real_escape_string($filter['lastname']);
 		$qualification = empty($filter['qualification']) ? null : $mysqli->real_escape_string($filter['qualification']);
 		$course = empty($filter['course']) ? null : $mysqli->real_escape_string($filter['course']);
+		$eventType = empty($filter['currentEvent']) ? null : $mysqli->real_escape_string($filter['currentEvent']['type']);
+		$eventId = empty($filter['currentEvent']) ? null : (int)$mysqli->real_escape_string($filter['currentEvent']['id']);
 		$onlyactivemembers = empty($filter['onlyactivemembers']) || $filter['onlyactivemembers'] == 0 ? 0 : 1;
+		$skatecanadanoisnull = empty($filter['skatecanadanoisnull']) || $filter['skatecanadanoisnull'] == 0 ? 0 : 1;
 		$registration = empty($filter['registration']) ? null : $mysqli->real_escape_string($filter['registration']);
 		$agemin = empty($filter['agemin']) ? null : (int)$mysqli->real_escape_string($filter['agemin']);
 		$canskatebadgemin = empty($filter['canskatebadgemin']) ? null : (int)$mysqli->real_escape_string($filter['canskatebadgemin']);
+		$coachid = empty($filter['coachid']) ? null : (int)$mysqli->real_escape_string($filter['coachid']);
 
 		$whereclause .= !is_null($firstname) ? " AND cm.firstname LIKE '$firstname'" : '';
 		$whereclause .= !is_null($lastname) ? " AND cm.lastname LIKE '$lastname'" : '';
-		$whereclause .= !is_null($qualification) ? " AND cm.qualifications LIKE BINARY '%$qualification%'" : '';
+		$whereclause .= !is_null($qualification) ? " AND concat(',', cm.qualifications, ',') LIKE BINARY '%,$qualification,%'" : '';
 		if (!is_null($registration)) {
 			$whereclause .= $registration == 'REGISTERED' ?    " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid IN (SELECT id FROM cpa_sessions_courses WHERE sessionid = (SELECT id FROM cpa_sessions WHERE active = '1')))" : '';
 			$whereclause .= $registration == 'NOTREGISTERED' ? " AND cm.id NOT IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid IN (SELECT id FROM cpa_sessions_courses WHERE sessionid = (SELECT id FROM cpa_sessions WHERE active = '1')))" : '';
 		}
 		if (!is_null($course)) {
-			$whereclause .= $onlyactivemembers == 0 ? " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid = '$course')" : '';
-			$whereclause .= $onlyactivemembers == 1 ? " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid = '$course' AND (registrationenddate IS NULL OR registrationenddate > now()))" : '';
+			if ($eventType == 1) {
+				$whereclause .= $onlyactivemembers == 0 ? " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid = '$course')" : '';
+				$whereclause .= $onlyactivemembers == 1 ? " AND cm.id IN (SELECT memberid FROM cpa_sessions_courses_members WHERE sessionscoursesid = '$course' AND (registrationenddate IS NULL OR registrationenddate > now()))" : '';
+			} else if ($eventType == 2) {
+				$whereclause .= " AND cm.id IN (SELECT memberid FROM cpa_shows_numbers_members WHERE showid = $eventId AND numberid = '$course')";
+			}
 		}
 		$whereclause .= !is_null($agemin) ? " AND DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),birthday)), '%Y') >= $agemin" : '';
 		$whereclause .= !is_null($canskatebadgemin) ? " AND (SELECT max(canskatestage) FROM cpa_members_canskate_badges WHERE memberid = cm.id) >= $canskatebadgemin" : '';
+		$whereclause .= ($skatecanadanoisnull == 1) ? " AND cm.id IN (SELECT id FROM cpa_members WHERE skatecanadano is null OR skatecanadano = '')" : '';
+		$whereclause .= !is_null($coachid) ? " AND cm.id IN (SELECT memberid FROM cpa_members_coaches WHERE coachid = $coachid AND coachtype = 'PRIMARY')" : '';
 		//		$query = "SELECT id, lastname, firstname, skatecanadano FROM cpa_members order by lastname, firstname LIMIT $nbrows OFFSET $offset";
 		$query = "SELECT cm.id, cm.lastname, cm.firstname, cm.skatecanadano
 					FROM cpa_members cm " . $whereclause . "

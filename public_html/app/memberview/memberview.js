@@ -479,7 +479,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 				}
 			}).result.then(function (newFilter) {
 				// User clicked OK
-				if (newFilter.firstname || newFilter.lastname || newFilter.agemin || newFilter.canskatebadgemin || newFilter.course || newFilter.registration || newFilter.qualification) {
+				if (newFilter.firstname || newFilter.lastname || newFilter.agemin || newFilter.canskatebadgemin || newFilter.course || newFilter.registration || newFilter.qualification || newFilter.skatecanadanoisnull || newFilter.coachid) {
 					$scope.newFilter = newFilter;
 					$scope.getAllMembers(newFilter);
 				} else {
@@ -557,6 +557,22 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		$scope.refreshAll();
 	});
 
+	$scope.onCurrentEventChange = function (event) {
+		if (event) {
+			if (event.type == 1) {
+				listsService.getAllSessionCourses($scope, event.id, authenticationService.getCurrentLanguage()).
+				success(function(data, status, headers, config) {
+					$scope.activeCourses = $scope.sessionCourses;
+				});
+			} else if (event.type == 2) {
+				listsService.getAllShowNumbers($scope, event.id, authenticationService.getCurrentLanguage()).
+				success(function(data, status, headers, config) {
+					$scope.activeCourses = $scope.showNumbers;
+				});
+			}
+		}
+	}
+
 	$scope.refreshAll = function () {
 		$scope.getAllMembers($scope.newFilter.filterApplied ? $scope.newFilter : null);
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'yesno', 'text', 'yesnos');
@@ -579,7 +595,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'canskatebadges', 'sequence', 'canskatebadges');
 
 		listsService.getAllCoaches($scope, authenticationService.getCurrentLanguage());
-		listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
+		// listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllClubs($scope, authenticationService.getCurrentLanguage());
 
 		listsService.getAllTests($scope, 'DANCE', 'dances', authenticationService.getCurrentLanguage());
@@ -593,6 +609,11 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		listsService.getAllStarTests($scope, 'FREE', 'starfreestyles', authenticationService.getCurrentLanguage());
 		listsService.getAllStarTests($scope, 'ARTISTIC', 'starartistics', authenticationService.getCurrentLanguage());
 		listsService.getAllStarTests($scope, 'SYNCHRO', 'starsynchros', authenticationService.getCurrentLanguage());
+		listsService.getAllSessionsAndShows($scope, authenticationService.getCurrentLanguage()).
+			success(function(data, status, headers, config) {
+				// $scope.currentEvent = $scope.allSessionsAndShows[0];
+				// $scope.onCurrentEventChange($scope.allSessionsAndShows[0]);
+			});
 
 		translationService.getTranslation($scope, 'memberview', authenticationService.getCurrentLanguage());
 		$rootScope.repositionLeftColumn();
