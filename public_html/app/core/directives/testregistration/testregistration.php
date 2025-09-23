@@ -4,6 +4,7 @@ Author : Eric Lamoureux
 */
 require_once('../reports/sendemail.php');
 require_once('../core/directives/billing/bills.php');
+require_once('../../backend/checkstatus.php');
 
 /**
  * This function gets the member details of a registration for a period from database
@@ -218,6 +219,48 @@ function sendEmailToCoach($mysqli, $newtestssessionsid, $registrationid, $coachi
 	sendoneemail($mysqli, $coachinfo['email'], $coachinfo['fullname'], $title, $body, '../../images', null, $coachinfo['language']);
 }
 
+function checkIfTestAlreadyPassed($mysqli, $registration, $language) {
+	$memberid = $mysqli->real_escape_string(isset($registration['member']['id']) ? (int)$registration['member']['id'] : 0);
+	$testid = $mysqli->real_escape_string(isset($registration['testid']) ? (int)$registration['testid'] : 0);
+
+	$query = "SELECT id FROM cpa_members_tests WHERE memberid = $memberid AND testid = $testid AND success IN(1, 5)";
+	$result = $mysqli->query($query);
+	while ($row = $result->fetch_assoc()) {
+		if (isset($row['id'])) {
+			$skaterFirstname = $registration['skaterfirstname'];
+			$skaterLastname = $registration['skaterlastname'];
+			$testText = $registration['testText'];
+			if ($language == "fr-ca") {
+				$message = "Le membre $skaterFirstname $skaterLastname a déjà réussi le test $testText.";
+			} else {
+				$message = "Member $skaterFirstname $skaterLastname has already passed test $testText.";
+			}
+			throw new Exception($message, 1001);
+		}
+	}
+}
+
+function checkIfTestAlreadyRegistered($mysqli, $registration, $language) {
+	$memberid = $mysqli->real_escape_string(isset($registration['member']['id']) ? (int)$registration['member']['id'] : 0);
+	$testid = $mysqli->real_escape_string(isset($registration['testid']) ? (int)$registration['testid'] : 0);
+
+	$query = "SELECT id FROM cpa_newtests_sessions_periods_registrations WHERE memberid = $memberid AND testid = $testid AND (result NOT IN (2,3,4) AND isdeleted != 1)";
+	$result = $mysqli->query($query);
+	while ($row = $result->fetch_assoc()) {
+		if (isset($row['id'])) {
+			$skaterFirstname = $registration['skaterfirstname'];
+			$skaterLastname = $registration['skaterlastname'];
+			$testText = $registration['testText'];
+			if ($language == "fr-ca") {
+				$message = "Le membre $skaterFirstname $skaterLastname a déjà une inscription pour le test $testText.";
+			} else {
+				$message = "Member $skaterFirstname $skaterLastname has already a registration for the test $testText.";
+			}
+			throw new Exception($message, 1001);
+		}
+	}
+}
+
 /**
  * This function will handle insert/update/delete of all registrations in DB
  * Normally, only one registration should have a status (New or Modified) at a time.
@@ -226,39 +269,40 @@ function sendEmailToCoach($mysqli, $newtestssessionsid, $registrationid, $coachi
 function updateEntireRegistrations($mysqli, $registrations, $userid, $perioddate, $charge, $language) {
 	$data = array();
 	$data['inserted'] = 0;
-	$data['updated'] 	= 0;
-	$data['deleted'] 	= 0;
-	$data['count'] 		= count($registrations);
-
-
+	$data['updated'] = 0;
+	$data['deleted'] = 0;
+	$data['count'] = count($registrations);
 
 	for($x = 0; $x < count($registrations); $x++) {
-		$id = 												$mysqli->real_escape_string(isset($registrations[$x]['id'])													? (int)$registrations[$x]['id'] : '');
-		$newtestssessionsid = 				$mysqli->real_escape_string(isset($registrations[$x]['newtestssessionsid'])					? (int)$registrations[$x]['newtestssessionsid'] : 0);
-		$newtestssessionsperiodsid = 	$mysqli->real_escape_string(isset($registrations[$x]['newtestssessionsperiodsid'])	? (int)$registrations[$x]['newtestssessionsperiodsid'] : 0);
-		$coachid = 										$mysqli->real_escape_string(isset($registrations[$x]['coachid'])										? (int)$registrations[$x]['coachid'] : 0);
-		$memberid = 									$mysqli->real_escape_string(isset($registrations[$x]['member']['id']) 							? (int)$registrations[$x]['member']['id'] : 0);
-		$testid = 										$mysqli->real_escape_string(isset($registrations[$x]['testid']) 										? (int)$registrations[$x]['testid'] : 0);
-		$partnerid = 									$mysqli->real_escape_string(isset($registrations[$x]['partnerid']) 									? (int)$registrations[$x]['partnerid'] : 0);
-		$musicid = 										$mysqli->real_escape_string(isset($registrations[$x]['musicid']) 										? (int)$registrations[$x]['musicid'] : 0);
-		$approbationstatus = 					$mysqli->real_escape_string(isset($registrations[$x]['approbationstatus']) 					? (int)$registrations[$x]['approbationstatus'] : 2);
-		$billid = 										$mysqli->real_escape_string(isset($registrations[$x]['billid']) 										? (int)$registrations[$x]['billid'] : 0);
-		$approvedby = 								$mysqli->real_escape_string(isset($registrations[$x]['approvedby']) 								? $registrations[$x]['approvedby'] : '');
-		$approvedon = 								$mysqli->real_escape_string(isset($registrations[$x]['approvedonstr']) 							? $registrations[$x]['approvedonstr'] : '');
-		$result = 										$mysqli->real_escape_string(isset($registrations[$x]['result']) 										? $registrations[$x]['result'] : '');
+		$id = 							$mysqli->real_escape_string(isset($registrations[$x]['id'])													? (int)$registrations[$x]['id'] : '');
+		$newtestssessionsid =			$mysqli->real_escape_string(isset($registrations[$x]['newtestssessionsid'])					? (int)$registrations[$x]['newtestssessionsid'] : 0);
+		$newtestssessionsperiodsid =	$mysqli->real_escape_string(isset($registrations[$x]['newtestssessionsperiodsid'])	? (int)$registrations[$x]['newtestssessionsperiodsid'] : 0);
+		$coachid = 						$mysqli->real_escape_string(isset($registrations[$x]['coachid'])										? (int)$registrations[$x]['coachid'] : 0);
+		$memberid = 					$mysqli->real_escape_string(isset($registrations[$x]['member']['id']) 							? (int)$registrations[$x]['member']['id'] : 0);
+		$testid = 						$mysqli->real_escape_string(isset($registrations[$x]['testid']) 										? (int)$registrations[$x]['testid'] : 0);
+		$partnerid = 					$mysqli->real_escape_string(isset($registrations[$x]['partnerid']) 									? (int)$registrations[$x]['partnerid'] : 0);
+		$musicid = 						$mysqli->real_escape_string(isset($registrations[$x]['musicid']) 										? (int)$registrations[$x]['musicid'] : 0);
+		$approbationstatus = 			$mysqli->real_escape_string(isset($registrations[$x]['approbationstatus']) 					? (int)$registrations[$x]['approbationstatus'] : 2);
+		$billid = 						$mysqli->real_escape_string(isset($registrations[$x]['billid']) 										? (int)$registrations[$x]['billid'] : 0);
+		$approvedby = 					$mysqli->real_escape_string(isset($registrations[$x]['approvedby']) 								? $registrations[$x]['approvedby'] : '');
+		$approvedon = 					$mysqli->real_escape_string(isset($registrations[$x]['approvedonstr']) 							? $registrations[$x]['approvedonstr'] : '');
+		$result = 						$mysqli->real_escape_string(isset($registrations[$x]['result']) 										? $registrations[$x]['result'] : '');
 
 		// If we couldn't get the charge, go get it now.
 		if ($charge == null) {
 			$charge = getTestsessionCharges($mysqli, $newtestssessionsid, $language)['data'][0]['amount'];
 		}
 
-		if ($mysqli->real_escape_string(isset($registrations[$x]['status'])) and $registrations[$x]['status'] == 'New') {
+		if (isStatusEqualNew($registrations[$x])) {
+			checkIfTestAlreadyPassed($mysqli, $registrations[$x], $language);
+			checkIfTestAlreadyRegistered($mysqli, $registrations[$x], $language);
+
 			if ($approbationstatus == 2) { // Approbation pending
 				$query = "INSERT INTO cpa_newtests_sessions_periods_registrations(id, newtestssessionsid, newtestssessionsperiodsid, coachid, memberid, testid, partnerid, musicid, createdby, result)
-									VALUES (null, $newtestssessionsid, $newtestssessionsperiodsid, $coachid, $memberid, $testid, $partnerid, $musicid, '$userid', '$result')";
+						  VALUES (null, $newtestssessionsid, $newtestssessionsperiodsid, $coachid, $memberid, $testid, $partnerid, $musicid, '$userid', '$result')";
 			} else {
 				$query = "INSERT INTO cpa_newtests_sessions_periods_registrations(id, newtestssessionsid, newtestssessionsperiodsid, coachid, memberid, testid, partnerid, musicid, createdby, result, approbationstatus, approvedby, approvedon)
-									VALUES (null, $newtestssessionsid, $newtestssessionsperiodsid, $coachid, $memberid, $testid, $partnerid, $musicid, '$userid', '$result', $approbationstatus, '$approvedby', '$approvedon')";
+						  VALUES (null, $newtestssessionsid, $newtestssessionsperiodsid, $coachid, $memberid, $testid, $partnerid, $musicid, '$userid', '$result', $approbationstatus, '$approvedby', '$approvedon')";
 			}
 
 			if ($mysqli->query($query)) {
@@ -282,31 +326,33 @@ function updateEntireRegistrations($mysqli, $registrations, $userid, $perioddate
 			}
 		}
 
-		if ($mysqli->real_escape_string(isset($registrations[$x]['status'])) and $registrations[$x]['status'] == 'Modified') {
+		if (isStatusEqualModified($registrations[$x])) {
+			checkIfTestAlreadyPassed($mysqli, $registrations[$x], $language);
+			checkIfTestAlreadyRegistered($mysqli, $registrations[$x], $language);
 			if ($approbationstatus == 2) { // Approbation pending
 				$query = "update cpa_newtests_sessions_periods_registrations
-									set coachid = $coachid,
-											memberid = $memberid,
-											testid = $testid,
-											partnerid = $partnerid,
-											musicid = $musicid,
-											approbationstatus = $approbationstatus,
-											approvedon = null,
-											approvedby = null,
-											result = '$result'
-									where id = $id";
+							set coachid = $coachid,
+								memberid = $memberid,
+								testid = $testid,
+								partnerid = $partnerid,
+								musicid = $musicid,
+								approbationstatus = $approbationstatus,
+								approvedon = null,
+								approvedby = null,
+								result = '$result'
+							where id = $id";
 			} else {
 				$query = "update cpa_newtests_sessions_periods_registrations
-									set coachid = $coachid,
-											memberid = $memberid,
-											testid = $testid,
-											partnerid = $partnerid,
-											musicid = $musicid,
-											approbationstatus = $approbationstatus,
-											approvedon = '$approvedon',
-											approvedby = '$approvedby',
-											result = '$result'
-									where id = $id";
+							set coachid = $coachid,
+								memberid = $memberid,
+								testid = $testid,
+								partnerid = $partnerid,
+								musicid = $musicid,
+								approbationstatus = $approbationstatus,
+								approvedon = '$approvedon',
+								approvedby = '$approvedby',
+								result = '$result'
+							where id = $id";
 			}
 			if ($mysqli->query($query)) {
 				$data['updated']++;
@@ -341,27 +387,15 @@ function updateEntireRegistrations($mysqli, $registrations, $userid, $perioddate
 
 		// Special status for the result. We don't want to send email for this modification.
 		if ($mysqli->real_escape_string(isset($registrations[$x]['status2'])) and $registrations[$x]['status2'] == 'ResultModified') {
-			$query = "update cpa_newtests_sessions_periods_registrations
-								set result = '$result'
-								where id = $id";
+			$query = "UPDATE cpa_newtests_sessions_periods_registrations
+						SET result = '$result'
+						WHERE id = $id";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 			}
 		}
 
-		if ($mysqli->real_escape_string(isset($registrations[$x]['status'])) and $registrations[$x]['status'] == 'Deleted') {
-			// TODO : we need to check the bill status.
-			// If bill is present,
-			// 			we cannot delete the bill or the registration
-			// 			we must set the registration to "deleted" (new concept)
-			// 			we must reset the result to "Not evaluated"
-			// 			if bill is paid
-			// 					we need to change the price of the test to 0$.
-			// 			If bill is not paid
-			// 					we need to change the price of the test to 0$.
-			// 					set the bill to "canceled" (new concept)
-			// If bill is absent,
-			// 			we can delete the registration
+		if (isStatusEqualDeleted($registrations[$x])) {
 			if ($billid && !empty($billid) && $billid != 0) {
 				// Bill exists
 				$query = "UPDATE cpa_newtests_sessions_periods_registrations SET isdeleted = 1, result = 0 WHERE id = $id";
@@ -369,6 +403,14 @@ function updateEntireRegistrations($mysqli, $registrations, $userid, $perioddate
 					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 				}
 				$query = "UPDATE cpa_bills_details SET amount = '0.00' WHERE billid = $billid AND itemtype = 'TEST'";
+				if (!$mysqli->query($query)) {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+				$query = "UPDATE cpa_bills SET totalamount = '0.00' WHERE id = $billid";
+				if (!$mysqli->query($query)) {
+					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
+				}
+				$query = "UPDATE cpa_bills_testsessions SET subtotal = '0.00' WHERE billid = $billid";
 				if (!$mysqli->query($query)) {
 					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error);
 				}
@@ -396,7 +438,7 @@ function updateEntireRegistrations($mysqli, $registrations, $userid, $perioddate
 				($mysqli->real_escape_string(isset($registrations[$x]['status2'])) and $registrations[$x]['status2'] == 'ResultModified')) {
 			if ($result == 1 || $result == 2 || $result == 5) {
 				$query = "INSERT INTO cpa_members_tests(id, memberid, testid, testssessionsid, testdate, success)
-									VALUES (null, $memberid, $testid, $newtestssessionsid, '$perioddate', $result)";
+						  VALUES (null, $memberid, $testid, $newtestssessionsid, '$perioddate', $result)";
 				if (!$mysqli->query($query)) {
 					throw new Exception($mysqli->sqlstate.' - '. $mysqli->error );
 				}

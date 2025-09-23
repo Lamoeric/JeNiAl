@@ -106,11 +106,11 @@
 									<div class="input-group">
 										<span>
 											<span class="glyphicon glyphicon-question-sign" style="color:blue;font-size:150%" 
-												ng-show="registration.approbationstatus && registration.approbationstatus == 2"></span>
+												ng-show="registration.approbationstatus && registration.approbationstatus == 2 && registration.isdeleted != 1"></span>
 											<span class="glyphicon glyphicon-ok-sign" style="color:green;font-size:150%"
-												ng-show="registration.approbationstatus && registration.approbationstatus == 1"></span>
+												ng-show="registration.approbationstatus && registration.approbationstatus == 1 && registration.isdeleted != 1"></span>
 											<span class="glyphicon glyphicon-remove-sign" style="color:red;font-size:150%"
-												ng-show="registration.approbationstatus && registration.approbationstatus == 0"></span>
+												ng-show="(registration.approbationstatus && registration.approbationstatus == 0) || registration.isdeleted == 1"></span>
 											<edittestregistration type="1" testregistration="registration" period="period" is-disabled="currentTestsession.islock"
 												callback="saveToDbForced()"></edittestregistration>
 											<child-delete-button obj="registration" objlist="period.registrations" callback="setDirty()"is-form-pristine="registration.isdeleted=='1' || currentTestsession.islock"></child-delete-button>

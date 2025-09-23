@@ -493,6 +493,7 @@ function updateEntireTestsession($mysqli, $testsession, $language, $userid)
 	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
+		$data['code'] = $e->getCode();
 		$data['message'] = $e->getMessage();
 		echo json_encode($data);
 		exit;
