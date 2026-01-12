@@ -21,24 +21,27 @@ angular.module('cpa_admin.ccprofileview', ['ngRoute'])
 
 .controller('ccprofileviewCtrl', ['$scope', '$rootScope', '$q', '$http', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', function($scope, $rootScope, $q, $http, authenticationService, translationService, auth, dialogService, anycodesService) {
   $rootScope.applicationName = "EC";
+  $scope.currentUser = null;
 
   $scope.getProfileDetails = function () {
-		$scope.promise = $http({
-      method: 'post',
-      url: './ccprofileview/ccprofileview.php',
-      data: $.param({'userid' : $rootScope.userInfo.userid, 'type' : 'getProfileDetails' }),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).
-    success(function(data, status, headers, config) {
-    	if (data.success && !angular.isUndefined(data.data)) {
-    		$scope.currentUser = data.data;
-    	} else {
-    		dialogService.displayFailure(data);
-    	}
-    }).
-    error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-    });
+    if ($rootScope && $rootScope.userInfo && $rootScope.userInfo.userid) {
+      $scope.promise = $http({
+        method: 'post',
+        url: './ccprofileview/ccprofileview.php',
+        data: $.param({'userid' : $rootScope.userInfo.userid, 'type' : 'getProfileDetails' }),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).
+      success(function(data, status, headers, config) {
+        if (data.success && !angular.isUndefined(data.data)) {
+          $scope.currentUser = data.data;
+        } else {
+          dialogService.displayFailure(data);
+        }
+      }).
+      error(function(data, status, headers, config) {
+        dialogService.displayFailure(data);
+      });
+    }
 	};
 
   $scope.saveProfileDetails = function () {

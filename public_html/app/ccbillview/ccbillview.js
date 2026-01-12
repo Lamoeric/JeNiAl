@@ -21,24 +21,27 @@ angular.module('cpa_admin.ccbillview', ['ngRoute'])
 
 .controller('ccbillviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', 'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', function($scope, $rootScope, $q, $http, $window, authenticationService, translationService, auth, dialogService, anycodesService) {
   $rootScope.applicationName = "EC";
+  $scope.currentBills = null;
 
   $scope.getBillDetails = function () {
-		$scope.promise = $http({
-      method: 'post',
-      url: './ccbillview/ccbillview.php',
-      data: $.param({'userid' : $rootScope.userInfo.userid, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getBillDetails' }),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).
-    success(function(data, status, headers, config) {
-    	if (data.success && !angular.isUndefined(data.data)) {
-    		$scope.currentBills = data.data;
-    	} else {
-    		dialogService.displayFailure(data);
-    	}
-    }).
-    error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-    });
+    if ($rootScope && $rootScope.userInfo && $rootScope.userInfo.userid) {
+      $scope.promise = $http({
+        method: 'post',
+        url: './ccbillview/ccbillview.php',
+        data: $.param({'userid' : $rootScope.userInfo.userid, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getBillDetails' }),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).
+      success(function(data, status, headers, config) {
+        if (data.success && !angular.isUndefined(data.data)) {
+          $scope.currentBills = data.data;
+        } else {
+          dialogService.displayFailure(data);
+        }
+      }).
+      error(function(data, status, headers, config) {
+        dialogService.displayFailure(data);
+      });
+    }
 	};
 
   $scope.viewBill = function(billid) {
