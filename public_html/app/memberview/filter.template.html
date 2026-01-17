@@ -36,19 +36,9 @@
 				</div>
 			</div>
 			<div class="col-xs-5">
-				<label for="course">{{translationObj.filter.fieldcourse}}</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-					<select class="form-control" id="course" name="course" ng-model="newObj.course">
-						<option value=""></option>
-						<option ng-repeat="course in activeCourses" value="{{course.id}}">{{course.label}} ({{course.name}})</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-xs-5">
 				<label for="registration">{{translationObj.filter.fieldmembers}}</label>
 				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 					<select class="form-control" id="registration" name="registration" ng-model="newObj.registration">
 						<option value=""></option>
 						<option ng-repeat="registrationfilter in registrationfilters" value="{{registrationfilter.code}}">{{registrationfilter.text}}</option>
@@ -56,22 +46,58 @@
 				</div>
 			</div>
 			<div class="col-xs-5">
-				<div class="input-group" ng-if="newObj.course!=null && newObj.course!=''">
+				<label for="qualification">{{translationObj.filter.fieldqualifications}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="qualification" name="qualification" ng-model="newObj.qualification">
+						<option value=""></option>
+						<option ng-repeat="qualification in qualifications" value="{{qualification.code}}">{{qualification.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<div class="input-group">
+					<br>
+					<label for="skatecanadanoisnull">
+						<input type="checkbox" id="skatecanadanoisnull" ng-model="newObj.skatecanadanoisnull" ng-true-value="'1'" ng-false-value="'0'">
+						{{translationObj.filter.fieldskatecanadanoisnull}}
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="coachid">{{translationObj.filter.fieldcoachid}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="coachid" name="coachid" ng-model="newObj.coachid">
+						<option value=""></option>
+						<option ng-repeat="coach1 in allcoaches" value="{{coach1.id}}">{{coach1.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="eventname">{{translationObj.filter.fieldeventname}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" ng-model="newObj.currentEvent" ng-options="event as event.text for event in allSessionsAndShows" ng-change="onCurrentEventChange(newObj.currentEvent)" ignore-dirty></select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<label for="course">{{translationObj.filter.fieldcourse}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select class="form-control" id="course" name="course" ng-model="newObj.course">
+						<option value=""></option>
+						<option ng-repeat="course in activeCourses" value="{{course.id}}">{{course.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-5">
+				<div class="input-group" ng-if="newObj.course!=null && newObj.course!='' && newObj.currentEvent && newObj.currentEvent.type != 2">
 					<br>
 					<label for="onlyactivemembers">
 						<input type="checkbox" id="onlyactivemembers" ng-model="newObj.onlyactivemembers" ng-true-value="'1'" ng-false-value="'0'">
 						{{translationObj.filter.fieldonlyactivemembers}}
 					</label>
-				</div>
-			</div>
-			<div class="col-xs-5">
-				<label for="qualification">{{translationObj.filter.fieldqualifications}}</label>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-					<select class="form-control" id="qualification" name="qualification" ng-model="newObj.qualification">
-						<option value=""></option>
-						<option ng-repeat="qualification in qualifications" value="{{qualification.code}}">{{qualification.text}}</option>
-					</select>
 				</div>
 			</div>
 		</div>

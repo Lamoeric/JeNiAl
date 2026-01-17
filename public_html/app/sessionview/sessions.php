@@ -483,14 +483,14 @@ function updateEntireSessionCourseDates($mysqli, $sessionscoursesid, $dates)
 
 			if ($mysqli->real_escape_string(isset($dates[$x]['status'])) && $dates[$x]['status'] == 'Modified') {
 				if (!$mysqli->real_escape_string(isset($dates[$x]['label'])) || empty($dates[$x]['label']) || $dates[$x]['label'] == "") {
-					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', manual = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration', label = create_systemText('$label_en', '$label_fr') WHERE id = '$id'";
+					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', `manual` = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration', label = create_systemText('$label_en', '$label_fr') WHERE id = '$id'";
 					if ($mysqli->query($query)) {
 						$data['updated']++;
 					} else {
 						throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);
 					}
 				} else {
-					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', manual = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration' WHERE id = '$id'";
+					$query = "UPDATE cpa_sessions_courses_dates SET canceled = '$canceled', `manual` = '$manual', coursedate = '$coursedate', starttime = '$starttime', endtime = '$endtime', duration = '$duration' WHERE id = '$id'";
 					if ($mysqli->query($query)) {
 						$mysqli->query("call update_text($label, '$label_en', '$label_fr')");
 						$data['updated']++;

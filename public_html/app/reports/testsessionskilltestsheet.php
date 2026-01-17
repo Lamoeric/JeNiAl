@@ -42,45 +42,45 @@ function testSessionSkillTestSheet($pdf, $test, $judges, $language, $l, $secondP
   	// Test date
   	$pdf->SetFont('times', '', 12);
   	$html = '<b>'.$test['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$test['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$test['testyear'].'</b>';
-  	$pdf->writeHTMLCell(35, 0, 168, 28, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(35, 0, 168, 28,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
   	$pdf->SetFont('times', '', 10);
 
   	// Home club of the test
   	$html = '<b>'.$test['homeclublabel'].'</b>';
-  	$pdf->writeHTMLCell(60, 0, 47, 35.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(60, 0, 47, 35.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
   	// Candidate
   	$html = '<b>'.$test['canfirstname'].' '.$test['canlastname'].'</b>';
-  	$pdf->writeHTMLCell(80, 0, 30, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(80, 0, 30, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
   	// Home club of the candidate
   	$html = '<b>'.$test['candidatehomeclublabel'].'</b>';
-  	$pdf->writeHTMLCell(60, 0, 63, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(60, 0, 63, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
   	// Coach
   	$html = '<b>'.$test['coafirstname'].' '.$test['coalastname'].'</b>';
-  	$pdf->writeHTMLCell(60, 0, 145, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(60, 0, 145, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
   	// Evaluator
     if ($judge) {
       $html = '<b>'.$judge['firstname'].' '.$judge['lastname'].'</b>';
-      $pdf->writeHTMLCell(60, 0, 145, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+      $pdf->writeHTMLCell(60, 0, 145, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
     }
 
   	// Bottom part of the sheet
   	// Candidate
   	$html = '<b>'.$test['canfirstname'].' '.$test['canlastname'].'</b>';
-  	$pdf->writeHTMLCell(60, 0, 28, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(60, 0, 28, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
   	// Evaluator
     if ($judge) {
       $html = '<b>'.$judge['firstname'].' '.$judge['lastname'].'</b>';
-      $pdf->writeHTMLCell(50, 0, 116, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+      $pdf->writeHTMLCell(50, 0, 116, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
     }
 
   	$pdf->SetFont('times', '', 12);
   	$html = '<b>'.$test['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$test['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$test['testyear'].'</b>';
-  	$pdf->writeHTMLCell(35, 0, 168, 90, utf8_decode($html), $border, 1, 1, true, 'L', true);
+  	$pdf->writeHTMLCell(35, 0, 168, 90,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
   } else {
     // This is the second page of the test, with the explanation.
   	// add a page

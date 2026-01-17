@@ -104,8 +104,8 @@ $pdf->Output($filename, 'I');
 function addCustomHeader($mysqli, $pdf, $language) {
   // Get header info from database
   $data = getClubNameAndAddress($mysqli, $language);
-  $headerTitle = utf8_decode($data['data'][0]['cpalongname']);
-  $headerAddress = utf8_decode($data['data'][0]['cpaaddress']);
+  $headerTitle = mb_convert_encoding($data['data'][0]['cpalongname'] 'Windows-1252', 'UTF-8');
+  $headerAddress = mb_convert_encoding($data['data'][0]['cpaaddress'] 'Windows-1252', 'UTF-8');
 
   $needles = array("<br>", "&#13;", "<br/>", "\\n");
   $replacement = "\n";

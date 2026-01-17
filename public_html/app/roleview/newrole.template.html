@@ -5,18 +5,18 @@
   <form class="form-horizontal" role="form" name="editObjForm">
     <div class="form-group">
       <div class="col-xs-4">
-	      <label for="roleid">{{translationObj.newrole.fieldtitlerole}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-        	<input type="text" class="form-control" id="roleid" ng-model="newObj.roleid" maxlength="30" required>
-	      </div>
+        <labelrequired for="roleid" label="translationObj.newrole.fieldtitlerole"></labelrequired>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <input type="text" class="form-control" id="roleid" ng-model="newObj.roleid" maxlength="30" required>
+        </div>
       </div>
       <div class="col-xs-4">
-	      <label for="rolename">{{translationObj.newrole.fieldtitlename}}<i style="color:red"> *</i></label>
-      	<div class="input-group">
-				  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-        	<input type="text" class="form-control" id="rolename" ng-model="newObj.rolename" maxlength="200" required>
-	      </div>
+        <labelrequired for="rolename" label="translationObj.newrole.fieldtitlename"></labelrequired>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <input type="text" class="form-control" id="rolename" ng-model="newObj.rolename" maxlength="200" required>
+        </div>
       </div>
     </div>
   </form>
@@ -25,6 +25,6 @@
   </div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newrole.buttontitlediscard}}</button>
-	<button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newrole.buttontitlekeepchanges}}</button>
+  <button type="button" class="btn btn-primary" ng-click="cancel()">{{translationObj.newrole.buttontitlediscard}}</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()">{{translationObj.newrole.buttontitlekeepchanges}}</button>
 </div>

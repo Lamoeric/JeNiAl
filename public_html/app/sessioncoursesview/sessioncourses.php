@@ -291,6 +291,8 @@ function getSessionCourseDates($mysqli, $type, $sessionscoursesid)
 function getSessionCourseMembersDates($mysqli, $type, $memberid, $sessionscoursesid, $registrationenddate, $registrationstartdate, $paidinfull)
 {
 	if (empty($memberid)) throw new Exception("Invalid Member ID.");
+	if (empty($registrationenddate)) $registrationenddate = '2040-01-01';
+	if (empty($registrationstartdate)) $registrationstartdate = '1980-01-01';
 	if ($type == 1) {
 		$query = "SELECT cscd.id sessionscoursesdatesid, if ('$registrationenddate' != '' and cscd.coursedate >= '$registrationenddate', 'XXX', if ('$registrationstartdate' != '' and cscd.coursedate < '$registrationstartdate', 'XXX', if (cscd.canceled, '---', cscp.ispresent))) ispresent, cscp.id presenceid
 							FROM cpa_sessions_courses_dates cscd
@@ -326,6 +328,8 @@ function getSessionCourseMembersDates($mysqli, $type, $memberid, $sessionscourse
 function getSessionCourseStaffsDates($mysqli, $type, $memberid, $sessionscoursesid, $registrationenddate)
 {
 	if (empty($memberid)) throw new Exception("Invalid Member ID.");
+	if (empty($registrationenddate)) $registrationenddate = '2040-01-01';
+	if (empty($registrationstartdate)) $registrationstartdate = '1980-01-01';
 	if ($type == 1) {
 		$query = "SELECT cscd.id sessionscoursesdatesid, cscp.id presenceid, 
 							if ('$registrationenddate' != '' and cscd.coursedate >= '$registrationenddate', 'XXX', 
@@ -476,7 +480,7 @@ function getCourseDetails($mysqli, $type, $id, $language)
 	} catch (Exception $e) {
 		$data = array();
 		$data['success'] = false;
-		$data['message'] = $e->getMessage();
+		$data['message'] = 'getCourseDetails - ' . $e->getMessage();
 		echo json_encode($data);
 		exit;
 	}

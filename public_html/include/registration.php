@@ -188,8 +188,8 @@ function getShowNumberSchedule($mysqli, $numberid, $language) {
 					getTextLabel(csc.label, '$language') label, crc.amount realpaidamount,
 					csc.fees, if (crcold.amount is null, 0, crcold.amount) fees_old, /*if (crc.id is not null, '1', '0') selected,*/ if (crc.selected is null, 0, crc.selected) selected,  /*if (crcold.id is not null, '1', '0')*/ if (crcold.selected is null, 0, crcold.selected) selected_old,
 					(SELECT floor(datediff(coursesenddate, coursesstartdate)/7) FROM cpa_sessions WHERE id = $sessionid) sessionnbofweeks,
-					(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0) nbofcourses,
-					(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0 and coursedate >= '$registrationdate') nbofcoursesleft
+					(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and `manual` = 0) nbofcourses,
+					(select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and `manual` = 0 and coursedate >= '$registrationdate') nbofcoursesleft
 			from cpa_sessions_courses csc
 			join cpa_courses cc ON cc.code = csc.coursecode
 			left join cpa_registrations_courses crc on crc.registrationid = $registrationid and crc.courseid = csc.id

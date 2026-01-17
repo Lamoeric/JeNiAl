@@ -108,7 +108,7 @@ for ($x = 0; $x < count($membersList); $x++) {
 	if ($nboflineonpage != 0 && (($pageno == 1 && fmod($nboflineonpage, $nboflinefirstpage) == 0) || ($pageno > 1 && fmod($nboflineonpage, $nboflinenextpage) == 0))) {
 		$html = $html .'</table>';
 		$pdf->AddPage('P');
-		$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+		$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 		$pageno++;
 		$nboflineonpage  = 0;
 		$html = $tableheader;
@@ -121,7 +121,7 @@ for ($x = 0; $x < count($membersList); $x++) {
 		if ($nboflineonpage != 0 && (($pageno == 1 && fmod($nboflineonpage, $nboflinefirstpage) == 0) || ($pageno > 1 && fmod($nboflineonpage, $nboflinenextpage) == 0))) {
 			$html = $html .'</table>';
 			$pdf->AddPage('P');
-			$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+			$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 			$pageno++;
 			$nboflineonpage  = 0;
 			$html = $tableheader;
@@ -134,13 +134,14 @@ for ($x = 0; $x < count($membersList); $x++) {
 }
 $html = $html .'</table>';
 $pdf->AddPage('P');
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '', mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
+// $pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 // array_unique($emailList);
 // $html = '<pre>' . implode("; ", array_unique($emailList)) . '</pre>';
 $html = implode("; ", array_unique($emailList));
 // $html = "toto";
 $pdf->AddPage('P');
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '', mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
 // ---------------------------------------------------------
 

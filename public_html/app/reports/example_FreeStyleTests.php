@@ -127,89 +127,89 @@ for ($z = 0; $z < count($testSessionFreestyleTestList); $z++) {
 
 	// Instead of a footer, let's do a header
 	$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.$testSessionFreestyleTestList[$z]['testlabel'].'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
-	$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+	$pdf->writeHTMLCell(0, 0, PDF_MARGIN_RIGHT, 5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 	// This section changes for the preliminary dances
 	if ($testSessionFreestyleTestList[$z]['testid'] == 50) {
 		// Test date
 		$pdf->SetFont('times', '', 12);
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testyear'].'</b>';
-		$pdf->writeHTMLCell(35, 0, 160, 31, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(35, 0, 160, 31,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 
 		$pdf->SetFont('times', '', 10);
 		// Home club of the test
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['homeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 40, 32.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 40, 32.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Candidate
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['canfirstname'].' '.$testSessionFreestyleTestList[$z]['canlastname'].'</b>';
-		$pdf->writeHTMLCell(80, 0, 28, 39, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(80, 0, 28, 39,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Home club of the candidate
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['candidatehomeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 58, 46, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 58, 46,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Coach
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['coafirstname'].' '.$testSessionFreestyleTestList[$z]['coalastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 136, 39, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 136, 39,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Evaluator
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['judfirstname'].' '.$testSessionFreestyleTestList[$z]['judlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 136, 46, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 136, 46,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Bottom part of the sheet
 		// Candidate
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['canfirstname'].' '.$testSessionFreestyleTestList[$z]['canlastname'].'</b>';
-		$pdf->writeHTMLCell(45, 0, 26, 89.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(45, 0, 26, 89.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Evaluator
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['judfirstname'].' '.$testSessionFreestyleTestList[$z]['judlastname'].'</b>';
-		$pdf->writeHTMLCell(50, 0, 95, 89.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(50, 0, 95, 89.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		$pdf->SetFont('times', '', 12);
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testyear'].'</b>';
-		$pdf->writeHTMLCell(35, 0, 161, 86, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(35, 0, 161, 86,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	} else {
 		// Test date
 		$pdf->SetFont('times', '', 12);
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testyear'].'</b>';
-		$pdf->writeHTMLCell(35, 0, 168, 28, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(35, 0, 168, 28,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 
 		$pdf->SetFont('times', '', 10);
 		// Home club of the test
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['homeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 47, 35.5, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 47, 35.5,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Candidate
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['canfirstname'].' '.$testSessionFreestyleTestList[$z]['canlastname'].'</b>';
-		$pdf->writeHTMLCell(80, 0, 30, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(80, 0, 30, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Home club of the candidate
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['candidatehomeclublabel'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 63, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 63, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Coach
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['coafirstname'].' '.$testSessionFreestyleTestList[$z]['coalastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 42, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 42,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Evaluator
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['judfirstname'].' '.$testSessionFreestyleTestList[$z]['judlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 145, 49, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 145, 49,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Bottom part of the sheet
 		// Candidate
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['canfirstname'].' '.$testSessionFreestyleTestList[$z]['canlastname'].'</b>';
-		$pdf->writeHTMLCell(60, 0, 28, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(60, 0, 28, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		// Evaluator
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['judfirstname'].' '.$testSessionFreestyleTestList[$z]['judlastname'].'</b>';
-		$pdf->writeHTMLCell(50, 0, 116, 91, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(50, 0, 116, 91,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 
 		$pdf->SetFont('times', '', 12);
 		$html = '<b>'.$testSessionFreestyleTestList[$z]['testday'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testmonth'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$testSessionFreestyleTestList[$z]['testyear'].'</b>';
-		$pdf->writeHTMLCell(35, 0, 168, 86, utf8_decode($html), $border, 1, 1, true, 'L', true);
+		$pdf->writeHTMLCell(35, 0, 168, 86,mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), $border, 1, 1, true, 'L', true);
 	}
 }
 

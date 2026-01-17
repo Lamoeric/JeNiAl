@@ -121,7 +121,7 @@ function getAllStarTestsForMember($mysqli, $testtype, $memberid, $language) {
 							JOIN cpa_tests_definitions ctd ON ctd.id = ct.testsdefinitionsid
 							WHERE ctd.type = '$testtype'
 							AND ctd.version = 2
-              AND NOT EXISTS (SELECT testid FROM cpa_members_tests cmt WHERE cmt.testid = ct.id AND success not in (1,2) AND memberid = $memberid)
+              AND NOT EXISTS (SELECT testid FROM cpa_members_tests cmt WHERE cmt.testid = ct.id AND success in (1,5) AND memberid = $memberid)
 							ORDER BY ct.sequence";
 		$result = $mysqli->query( $query );
 		$data = array();

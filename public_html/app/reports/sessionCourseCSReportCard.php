@@ -115,7 +115,7 @@ for ($z = 0; $z < count($courseMembers); $z++) {
 		$pagenumtxt = $w_page.$pdf->getPageNumGroupAlias().' / '.$pdfs->getPageGroupAlias();
 	}
 	if (!isset($memberid)) {
-		$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.utf8_decode($courseMembers[$z]['courselabel']).' ('.$courseMembers[$z]['name'].')'.'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
+		$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center">'.mb_convert_encoding($courseMembers[$z]['courselabel'], 'Windows-1252', 'UTF-8').' ('.$courseMembers[$z]['name'].')'.'</td><td align="right">'.$pagenumtxt.'</td></tr></table>';
 	} else {
 		$html = '<table><tr><td width="33%">JeNiAl</td><td width="33%" align="center"></td><td align="right">'.$pagenumtxt.'</td></tr></table>';
 	}
@@ -128,8 +128,9 @@ for ($z = 0; $z < count($courseMembers); $z++) {
 
 	// Name
 	$pdf->SetFont('times', '', 12);
-	$html = '<table><tr><td width="33%">'.$l['w_name'].utf8_decode($courseMembers[$z]['firstname']).' '.utf8_decode($courseMembers[$z]['lastname']).'</td><td width="33%" align="center">'.$l['w_skatecanadano'].$courseMembers[$z]['skatecanadano'].'</td><td align="right">'.$l['w_birthday'].$courseMembers[$z]['birthday'].'</td></tr></table>';
-	// $html = '<table><tr><td width="33%">'.$pdf->l['w_name'].$courseMembers[$z]['firstname'].' '.$courseMembers[$z]['lastname'].'</td><td width="33%" align="center">'.$courseMembers[$z]['skatecanadano'].'</td><td align="right">'.$courseMembers[$z]['birthday'].'</td></tr></table>';
+	$html = '<table><tr><td width="33%">'.$l['w_name'];
+	$html .= mb_convert_encoding($courseMembers[$z]['firstname'].' '.$courseMembers[$z]['lastname'], 'Windows-1252', 'UTF-8');
+	$html .= '</td><td width="33%" align="center">'.$l['w_skatecanadano'].$courseMembers[$z]['skatecanadano'].'</td><td align="right">'.$l['w_birthday'].$courseMembers[$z]['birthday'].'</td></tr></table>';
 	$pdf->writeHTMLCell(260, 0, 20, 15, $html, 0, 1, 1, true, 'L', true);
 	$pdf->SetFont('times', '', 6);
 
@@ -294,7 +295,8 @@ function getHTMLForOneCategoryForOneStage($memberTests) {
 	if (!$startSubTest) {
  		$html .= '</table>';
 	}
-	return utf8_decode($html);
+	$html = mb_convert_encoding($html, 'Windows-1252', 'UTF-8');
+	return $html;
 }
 
 /**

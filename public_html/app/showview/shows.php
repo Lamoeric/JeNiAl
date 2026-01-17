@@ -125,7 +125,7 @@ function updateEntireShowNumberDates($mysqli, $showid, $numberid, $dates)
 
 		if ($mysqli->real_escape_string(isset($dates[$x]['status'])) and $dates[$x]['status'] == 'Modified') {
 			$query = "	UPDATE cpa_shows_numbers_dates 
-						SET canceled = $canceled, manual = $manual, practicedate = '$practicedate', starttime = '$starttime', endtime = '$endtime', duration = $duration 
+						SET canceled = $canceled, `manual` = $manual, practicedate = '$practicedate', starttime = '$starttime', endtime = '$endtime', duration = $duration 
 						WHERE id = $id";
 			if (!$mysqli->query($query)) {
 				throw new Exception($mysqli->sqlstate . ' - ' . $mysqli->error);

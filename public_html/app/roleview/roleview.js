@@ -15,42 +15,54 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 }])
 
 .controller('roleviewCtrl', ['$rootScope', '$scope', '$http', '$uibModal', 'anycodesService', 'dialogService', 'listsService', 'authenticationService', 'translationService', function($rootScope, $scope, $http, $uibModal, anycodesService, dialogService, listsService, authenticationService, translationService) {
-
 	$scope.progName = "roleView";
 	$scope.currentRole = null;
 	$scope.selectedRole = null;
 	$scope.newRole = null;
 	$scope.selectedLeftObj = null;
 	$scope.isFormPristine = true;
+	$scope.formList = [{name:'detailsForm'}];
 
-	$scope.isDirty = function() {
-		if ($scope.detailsForm.$dirty) {
-			return true;
-		}
-		return false;
+	/**
+	 * This function checks if anything is dirty
+	 * @returns true if any of the forms are dirty, false otherwise
+	 */
+	$scope.isDirty = function () {
+		return $rootScope.isDirty($scope, $scope.formList);
 	};
 
-	$scope.setDirty = function() {
-		$scope.detailsForm.$dirty = true;
-		$scope.isFormPristine = false;
+	/**
+	 * This function sets one form dirty to indicate the whole thing is dirty
+	 */
+	$scope.setDirty = function () {
+		$rootScope.setDirty($scope, $scope.formList);
 	};
 
-	$scope.setPristine = function() {
-		$scope.detailsForm.$setPristine();
-		$scope.isFormPristine = true;
+	/**
+	 * This function sets all the forms as pristine
+	 */
+	$scope.setPristine = function () {
+		$rootScope.setPristine($scope, $scope.formList);
 	};
 
-	// This is the function that creates the modal to create/edit privilege
-	$scope.editPrivilege = function(newPrivilege) {
+	// This is the function that creates the modal to add privilege to the role.
+	// Privileges cannot be edited once added, they can only be deleted.
+	$scope.editPrivilege = function() {
 		$scope.newPrivilege = {};
-		if (newPrivilege.id) {
-			$scope.currentPrivilege = newPrivilege;
-			// Send the newPrivilege to the modal form
-			for (var prop in newPrivilege) {
-				$scope.newPrivilege[prop] = newPrivilege[prop];
+		$scope.currentPrivilege = null;
+		$scope.tmpPrivileges = [];
+		// We need to adjust the list of available privileges for this role to avoid adding a privilege twice
+		for (var i = 0; i < $scope.privileges.length; i++) {
+			var found = false;
+			for (var y = 0; y < $scope.currentRole.privileges.length; y++) {
+				if ($scope.currentRole.privileges[y].privilegeid == $scope.privileges[i].id) {
+					found = true;
+					break;
+				}
 			}
-		} else {
-			$scope.currentPrivilege = null;
+			if (!found) {
+				$scope.tmpPrivileges.push($scope.privileges[i]);
+			}
 		}
 		$uibModal.open({
 				animation: false,
@@ -67,16 +79,9 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 			})
 			.result.then(function(newPrivilege) {
 				// User clicked OK and everything was valid.
-				if ($scope.currentPrivilege != null) {
-					for (var prop in newPrivilege) {
-						$scope.currentPrivilege[prop] = newPrivilege[prop];
-					}
-					$scope.currentPrivilege.status = 'Modified';
-				} else {
-					newPrivilege.status = 'New';
-					if ($scope.currentRole.privileges == null)$scope.currentRole.privileges = [];
-					$scope.currentRole.privileges.push(newPrivilege);
-				}
+				newPrivilege.status = 'New';
+				if ($scope.currentRole.privileges == null) $scope.currentRole.privileges = [];
+				$scope.currentRole.privileges.push(newPrivilege);
 				$scope.setDirty();
 			}, function() {
 				// User clicked CANCEL.
@@ -84,6 +89,9 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		});
 	};
 
+	/**
+	 * This function gets all the roles from the DB
+	 */
 	$scope.getAllRoles = function () {
 		$scope.promise = $http({
 				method: 'post',
@@ -110,6 +118,10 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		});
 	};
 
+	/**
+	 * This function gets the details of the selected role from the DB
+	 * @param {object} role the selected role
+	 */
 	$scope.getRoleDetails = function (role) {
 		$scope.promise = $http({
 			method: 'post',
@@ -129,6 +141,11 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		});
 	};
 
+	/**
+	 * This function set the selected role as current
+	 * @param {object} role
+	 * @param {integer} index
+	 */
 	$scope.setCurrentInternal = function (role, index) {
 		if (role != null) {
 			$scope.selectedRole = role;
@@ -142,6 +159,11 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		}
 	}
 
+	/**
+	 * This function set the selected role as current if the current one is not dirty
+	 * @param {object} role
+	 * @param {integer} index
+	 */
 	$scope.setCurrent = function (role, index) {
 		if ($scope.isDirty()) {
 			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.setCurrentInternal, null, role, index);
@@ -150,6 +172,10 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		}
 	};
 
+	/**
+	 * This function deletes the current role from database
+	 * @param {boolean} confirmed true if user confirmed the deletion
+	 */
 	$scope.deleteFromDB = function(confirmed){
 		if ($scope.currentRole != null && !confirmed) {
 			dialogService.confirmDlg($scope.translationObj.main.msgdelete, "YESNO", $scope.deleteFromDB, null, true, null);
@@ -177,27 +203,18 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		}
 	}
 
-	$scope.validateAllForms = function() {
-		var retVal = true;
-		$scope.globalErrorMessage = [];
-		$scope.globalWarningMessage = [];
-
-		if ($scope.detailsForm.$invalid) {
-				$scope.globalErrorMessage.push($scope.translationObj.main.msgerrallmandatory);
-		}
-
-		if ($scope.globalErrorMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalerrormessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalerrormessage").hide();});
-			retVal = false;
-		}
-		if ($scope.globalWarningMessage.length != 0) {
-			$scope.$apply();
-			$("#mainglobalwarningmessage").fadeTo(2000, 500).slideUp(500, function(){$("#mainglobalwarningmessage").hide();});
-		}
-		return retVal;
+	/**
+	 * This function validates all forms and display error and warning messages
+	 * @returns false if something is invalid
+	 */
+	$scope.validateAllForms = function () {
+		return $rootScope.validateAllForms($scope, $scope.formList);
 	}
 
+	/**
+	 * This function saves the current role in the database
+	 * @returns 
+	 */
 	$scope.saveToDB = function(){
 		if ($scope.currentRole == null || !$scope.isDirty()) {
 			dialogService.alertDlg("Nothing to save!", null);
@@ -226,7 +243,12 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		}
 	};
 
-	$scope.addRoleToDB = function(){
+	/**
+	 * This function adds a new role in the database
+	 * @param {object} newElement the new element to add to DB
+	 */
+	$scope.addRoleToDB = function(newElement){
+		$scope.newRole = newElement;
 		$scope.promise = $http({
 			method: 'post',
 			url: './roleview/role.php',
@@ -251,38 +273,13 @@ angular.module('cpa_admin.roleview', ['ngRoute'])
 		});
 	};
 
-	// This is the function that creates the modal to create new role
-	$scope.createNew = function (confirmed) {
-		if ($scope.isDirty() && !confirmed) {
-			dialogService.confirmDlg($scope.translationObj.main.msgformdirty, "YESNO", $scope.createNew, null, true, null);
-		} else {
-			$scope.newRole = {};
-			// Send the newRole to the modal form
-			$uibModal.open({
-					animation: false,
-					templateUrl: 'roleview/newrole.template.html',
-					controller: 'childeditor.controller',
-					scope: $scope,
-					size: 'lg',
-					backdrop: 'static',
-					resolve: {
-						newObj: function () {
-							return $scope.newRole;
-						}
-					}
-			})
-			.result.then(function(newRole) {
-					// User clicked OK and everything was valid.
-					$scope.newRole = newRole;
-					if ($scope.addRoleToDB() == true) {
-					}
-			}, function() {
-				// User clicked CANCEL.
-				// alert('canceled');
-			});
-		}
+	/**
+	 * This function creates the modal to create new boardmember
+	 */
+	$scope.createNew = function () {
+		$rootScope.createNewObject($scope, false, 'roleview/newrole.template.html', $scope.addRoleToDB);
 	};
-
+	
 	$scope.refreshAll = function() {
 		$scope.getAllRoles();
 		listsService.getAllPrivileges($scope, authenticationService.getCurrentLanguage());

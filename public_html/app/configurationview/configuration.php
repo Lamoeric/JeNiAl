@@ -257,6 +257,9 @@ function getConfigurationDetails($mysqli, $id = '') {
 			$logofilename = getImageFileName('/images/', 'cpa_logo.jpg');
 			$row['logoimagefilename'] = 'cpa_logo.jpg';
 			$row['logoimageinfo'] = getImageFileInfo($logofilename);
+			$emailfilename = getImageFileName('/images/', 'header.jpg');
+			$row['emailimagefilename'] = 'header.jpg';
+			$row['emailimageinfo'] = getImageFileInfo($emailfilename);
 			$data['data'][] = $row;
 		}
 		$data['success'] = true;

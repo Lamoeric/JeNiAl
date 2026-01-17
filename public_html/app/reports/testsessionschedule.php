@@ -77,7 +77,7 @@ if ($data['success'] == true && isset($data['data'])) {
 	$testsession = $data['data'][0];
 }
 
-$filename = utf8_decode($testsession['testsessionlabel']).$l['w_title'].".pdf";
+$filename = mb_convert_encoding($testsession['testsessionlabel'], 'Windows-1252', 'UTF-8').$l['w_title'].".pdf";
 
 $data = getTestSessionDays($mysqli, $language, $testsessionid);
 if ($data['success'] == true && isset($data['data'])) {
@@ -126,7 +126,7 @@ if ($data['success'] == true && isset($data['data'])) {
         if ($skaters && $lineNb + 3 /*header*/ + count($skaters) + 2 /*table header + 1 empty line */ > $maxnboflines) {
           // We need to change page here!
           $pdf->AddPage();
-          $pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+          $pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
           $html = "";
           $lineNb = 0;
         }
@@ -173,7 +173,7 @@ if ($data['success'] == true && isset($data['data'])) {
         }
       }
       $pdf->AddPage();
-      $pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+      $pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
       $lineNb = 0;
     }
   }

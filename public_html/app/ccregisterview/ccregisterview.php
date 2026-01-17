@@ -111,7 +111,7 @@ function validateEmail($mysqli, $email) {
 }
 
 /**
- * This function creates a new account and send an validation email
+ * This function creates a new account and sends a validation email
  * @throws Exception
  */
 function createAccount($mysqli, $newaccountinfo) {
@@ -120,20 +120,25 @@ function createAccount($mysqli, $newaccountinfo) {
 		$data['success'] = false;
 		$data['alreadyused'] = false;
 
-		$userid =						$mysqli->real_escape_string(isset($newaccountinfo['userid']) 						? $newaccountinfo['userid'] : '');
-		$contactid =				$mysqli->real_escape_string(isset($newaccountinfo['contactid']) 				? $newaccountinfo['contactid'] : '');
-		$fullname =					$mysqli->real_escape_string(isset($newaccountinfo['fullname']) 					? $newaccountinfo['fullname'] : '');
-		$email =						$mysqli->real_escape_string(isset($newaccountinfo['email']) 						? $newaccountinfo['email'] : '');
+		$userid =			$mysqli->real_escape_string(isset($newaccountinfo['userid']) 			? $newaccountinfo['userid'] : '');
+		$contactid =		$mysqli->real_escape_string(isset($newaccountinfo['contactid']) 		? $newaccountinfo['contactid'] : '');
+		$fullname =			$mysqli->real_escape_string(isset($newaccountinfo['fullname']) 			? $newaccountinfo['fullname'] : '');
+		$email =			$mysqli->real_escape_string(isset($newaccountinfo['email']) 			? $newaccountinfo['email'] : '');
 		$preferedlanguage =	$mysqli->real_escape_string(isset($newaccountinfo['preferedlanguage']) 	? $newaccountinfo['preferedlanguage'] : '');
 
 		$query = "SELECT count(*) cnt FROM cpa_users WHERE userid = '$userid'";
 		$result = $mysqli->query( $query );
 		$row = $result->fetch_assoc();
 		if ($row['cnt'] == 0) {
-			$query = "INSERT INTO cpa_users (userid, fullname, email, passwordexpired, active, terminationdate, preferedlanguage, contactid)
-								VALUES('$userid', '$fullname', '$email', 0, 1, null, '$preferedlanguage', $contactid)";
+			// User does not exist, create a new user
+			$query = "	INSERT INTO cpa_users (userid, fullname, email, passwordexpired, active, terminationdate, preferedlanguage, contactid)
+						VALUES('$userid', '$fullname', '$email', 0, 1, null, '$preferedlanguage', $contactid)";
 			if ($mysqli->query($query)) {
-				$data['success'] = true;
+				$id = (int) $mysqli->insert_id;
+				$query = "INSERT INTO cpa_users_roles (userid, roleid) VALUES($id, 5)";
+				if ($mysqli->query($query)) {
+					$data['success'] = true;
+				}
 			}
 		} else {
 			$data['alreadyused'] = true;

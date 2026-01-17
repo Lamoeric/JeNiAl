@@ -176,7 +176,8 @@ function sendoneemail($mysqli, $address, $fullname, $subject, $body, $relativepa
 		// $mail->AddEmbeddedImage(dirname(__FILE__) . '/../../../private/' . $_SERVER['HTTP_HOST'] . '/images/cpa_logo.jpg', 'cpa_logo');
 		// Use new variable defined in private/[hostname]/include/config.php
 		$mail->AddEmbeddedImage(dirname(__FILE__) . '/../../../' . $privateimages . 'cpa_logo.jpg', 'cpa_logo');
-		$mail->AddEmbeddedImage($relativepath.'/emailtemplates/header.jpg', 'header');
+		// $mail->AddEmbeddedImage($relativepath.'/emailtemplates/header.jpg', 'header');
+		$mail->AddEmbeddedImage(dirname(__FILE__) . '/../../../' . $privateimages . 'header.jpg', 'header');
 
 		//send the message, check for errors
 		if (!$mail->send()) {

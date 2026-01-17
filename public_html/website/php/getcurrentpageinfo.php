@@ -418,7 +418,7 @@ function getSessionCourses($mysqli, $sessionid, $language, $previewmode) {
                   (select count(*) from cpa_sessions_courses_members cscm where sessionscoursesid = csc.id and membertype = 3 and (cscm.registrationenddate is null or cscm.registrationenddate > curdate())) nbofskaters,
                   getTextLabel(csc.label, '$language') label,
                   csc.fees,
-                  (select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and manual = 0) nbofcourses,
+                  (select count(*) from cpa_sessions_courses_dates where sessionscoursesid = csc.id and canceled = 0 and `manual` = 0) nbofcourses,
                   (select group_concat(concat(getTextLabel((select label from cpa_arenas where id = arenaid), '$language'),
                 																				if ((iceid is null or iceid = 0), ', ', concat(' (' , getTextLabel((select label from cpa_arenas_ices where id = iceid), '$language'), '), ')),
                 																				getTextLabel((select description from cpa_codetable where ctname = 'days' and code = day), '$language'),

@@ -7,6 +7,7 @@
 	{"formname":"main", "fieldname":"buttontitleresetpassword", "text":"Reset"},
 	{"formname":"main", "fieldname":"msgerrallmandatory", "text":"All the fields marked with an * are mandatory."},
 	{"formname":"main", "fieldname":"msgresetaccount", "text":"The user password will be generated randomly and a email will be sent. Do you want to continue?"},
+	{"formname":"main", "fieldname":"msgnofilter", "text":"No filter defined"},
 
 	{"formname":"details", "fieldname":"formtitlemaininfo", "text":"Main Informations"},
 	{"formname":"details", "fieldname":"fieldtitleuserid", "text":"User Code"},
@@ -19,6 +20,7 @@
 	{"formname":"details", "fieldname":"formtitleroles", "text":"Roles"},
 	{"formname":"details", "fieldname":"fieldtitlerole", "text":"Role"},
 	{"formname":"details", "fieldname":"fieldtitlecontactfullname", "text":"Contact Full Name"},
+	{"formname":"details", "fieldname":"fieldtitlelastlogindate", "text":"Last login date"},
 	{"formname":"details", "fieldname":"buttontitleemptycontact", "text":"Clear Contact"},
 
 	{"formname":"newuser", "fieldname":"formtitlenewuser", "text":"New User"},
@@ -36,6 +38,17 @@
 	{"formname":"newrole", "fieldname":"formerrormessage", "text":"All fields are mandatory."},
 	{"formname":"newrole", "fieldname":"buttontitlediscard", "text":"Discard"},
 	{"formname":"newrole", "fieldname":"buttontitlekeepchanges", "text":"Keep Changes"},
+
+	{"formname":"filter", "fieldname":"formtitlefilter", "text":"Filter"},
+	{"formname":"filter", "fieldname":"fieldfirstname", "text":"First Name"},
+	{"formname":"filter", "fieldname":"fieldSurname", "text":"Last Name"},
+	{"formname":"filter", "fieldname":"fieldrole", "text":"Role"},
+	{"formname":"filter", "fieldname":"fieldonlyexpiredpassword", "text":"Password is expired"},
+	{"formname":"filter", "fieldname":"fieldnbmonthsinceloggin", "text":"Last connection since (months)"},
+	{"formname":"filter", "fieldname":"buttontitlediscard", "text":"Cancel"},
+	{"formname":"filter", "fieldname":"buttontitledismiss", "text":"Dismiss Filter"},
+	{"formname":"filter", "fieldname":"buttontitleclearform", "text":"Clear Form"},
+	{"formname":"filter", "fieldname":"buttontitleapplyfilter", "text":"Apply filter"},
 
 	{"formname":"main", "fieldname":"msgformdirty", "text":"Modifications have not been saved. Do you really want to leave?"},
 	{"formname":"main", "fieldname":"msgdelete", "text":"Do you really want to delete this item?"}

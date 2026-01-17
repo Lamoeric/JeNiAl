@@ -498,7 +498,7 @@ angular.module('cpa_admin.registrationview', ['ngRoute'])
 								// user clicked for a new bill
 								billingService.selectBillingName($scope, $scope.currentRegistration.member.id, authenticationService.getCurrentLanguage())
 								.then(function(selectBillingName) {
-									$scope.currentRegistration.billingname = selectBillingName.billingname;
+									$scope.currentRegistration.billingname = selectBillingName && selectBillingName.billingname ? selectBillingName.billingname : '';
 									$scope.saveAcceptedRegistration(null);
 								});
 							} else {

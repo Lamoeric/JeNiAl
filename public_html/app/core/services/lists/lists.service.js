@@ -125,7 +125,7 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
 
 	this.getAllTestSessions = function($scope, preferedlanguage) {
 		var query = "SELECT id,  getTextLabel(label, '$language') text FROM cpa_tests_sessions order by registrationstartdate DESC";
-		this.getSimpleListPattern1($scope, 'allTestsSessions', preferedlanguage, query);
+		return this.getSimpleListPattern1($scope, 'allTestsSessions', preferedlanguage, query);
 	};
 
 	this.getAllSessionsAndShows = function($scope, preferedlanguage) {
@@ -264,13 +264,19 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
 
 	this.getAllActiveCourses = function($scope, preferedlanguage) {
 		var query = "SELECT csc.id, csc.name, getTextLabel(csc.label, '$language') label FROM cpa_sessions_courses csc JOIN cpa_sessions cs ON cs.id = csc.sessionid WHERE cs.active = 1";
-		this.getSimpleListPattern1($scope, 'activeCourses', preferedlanguage, query);
+		return this.getSimpleListPattern1($scope, 'activeCourses', preferedlanguage, query);
 	};
 
 	this.getAllSessionCourses = function($scope, sessionid, preferedlanguage) {
 		var query = "SELECT csc.id, concat(concat(csc.name, ' - '), getTextLabel(csc.label, '$language')) text FROM cpa_sessions_courses csc WHERE csc.sessionid = $sessionid";
 		query = query.replace("$sessionid", sessionid);
-		this.getSimpleListPattern1($scope, 'sessionCourses', preferedlanguage, query);
+		return this.getSimpleListPattern1($scope, 'sessionCourses', preferedlanguage, query);
+	};
+
+	this.getAllShowNumbers = function($scope, showid, preferedlanguage) {
+		var query = "SELECT csn.id, concat(concat(csn.name, ' - '), getTextLabel(csn.label, '$language')) text FROM cpa_shows_numbers csn WHERE csn.showid = $showid";
+		query = query.replace("$showid", showid);
+		return this.getSimpleListPattern1($scope, 'showNumbers', preferedlanguage, query);
 	};
 
 	this.getAllActiveCoursesWithSubGroups = function($scope, preferedlanguage) {
@@ -344,7 +350,7 @@ angular.module('core').service('listsService', ['dialogService', '$http', functi
 
 	this.getAllClubs = function ($scope, preferedlanguage) {
 		var query = "SELECT cc.code, getTextLabel(label, '$language') text FROM cpa_clubs cc ORDER BY cc.code";
-		this.getSimpleListPattern1($scope, 'homeclubs', preferedlanguage, query);
+		return this.getSimpleListPattern1($scope, 'homeclubs', preferedlanguage, query);
 	};
 
 	this.getAllWsDocuments = function($scope, preferedlanguage) {

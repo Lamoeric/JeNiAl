@@ -61,12 +61,12 @@ angular.module('core').directive( "edittestregistration", ['$uibModal', '$http',
 				scope.canRegister = false;
 				scope.newRegistration = {};
 				// Keep a pointer to the current registration
-				if (newRegistration && newRegistration.id) {
+				if (newRegistration && (newRegistration.id || newRegistration.status)) {
 					scope.currentRegistration = newRegistration;
 					// Copy in another object
 					angular.copy(newRegistration, scope.newRegistration);
 					scope.newRegistration.period = period;
-					listsService.getAllStarTestsForMember(scope, scope.newRegistration.testtype, scope.newRegistration.memberid, "allStarTestsByType", authenticationService.getCurrentLanguage());
+					listsService.getAllStarTestsForMember(scope, scope.newRegistration.testtype, (scope.newRegistration.memberid ? scope.newRegistration.memberid : scope.newRegistration.member.id), "allStarTestsByType", authenticationService.getCurrentLanguage());
 					listsService.getDanceMusics(scope, scope.newRegistration.testid, authenticationService.getCurrentLanguage());
 				} else {
 					scope.currentRegistration = {};
@@ -128,7 +128,7 @@ angular.module('core').directive( "edittestregistration", ['$uibModal', '$http',
 			scope.internalControl.onTestTypeChange = function(newObj) {
 				if (newObj) {
 					listsService.getAllStarTestsForMember(scope, newObj.testtype, newObj.member.id, "allStarTestsByType", authenticationService.getCurrentLanguage());
-					newObj.testsid = null;
+					newObj.testid = null;
 					if (newObj.testtype != 'DANCE') {
 						newObj.partnerid = null;
 						newObj.musicid = null;
@@ -145,6 +145,7 @@ angular.module('core').directive( "edittestregistration", ['$uibModal', '$http',
 						listsService.getDanceMusics(scope, newObj.testid, authenticationService.getCurrentLanguage());
 						newObj.musicid = null;
 					}
+					newObj.testText = anycodesService.convertIdToDesc(scope, "allStarTestsByType", newObj.testid);
 				}
 			}
 

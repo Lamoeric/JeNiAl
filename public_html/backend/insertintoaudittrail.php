@@ -18,6 +18,12 @@ function insertIntoAuditTrail($mysqli, $userid, $progname, $action, $changedid =
 {
     $data = array();
     $data['success'] = false;
+    $userid = $mysqli->real_escape_string($userid);
+    $progname = $mysqli->real_escape_string($progname);
+    $action = $mysqli->real_escape_string($action);
+    $changedid = isset($changedid) && !is_null($changedid) ? $mysqli->real_escape_string($changedid) : null;
+    $details = isset($details) && !is_null($details) ? $mysqli->real_escape_string($details) : null;
+
     $query = "INSERT INTO cpa_audit_trail (userid, progname, action";
     $values = ") VALUES ('$userid', '$progname', '$action'";
     if (!is_null($changedid)) {

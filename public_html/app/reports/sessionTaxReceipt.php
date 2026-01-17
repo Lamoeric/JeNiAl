@@ -83,7 +83,7 @@ $replacement = "<br>";
 $organizationaddress = str_replace($needles, $replacement, $organizationaddress);
 
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, 20, utf8_decode($l['w_title']), $sessionlabel, array(0,0,0), array(0,0,0));
+$pdf->SetHeaderData(PDF_HEADER_LOGO, 20, mb_convert_encoding($l['w_title'], 'Windows-1252', 'UTF-8'), $sessionlabel, array(0,0,0), array(0,0,0));
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -163,7 +163,7 @@ for ($x = 0; $x < count($billingList); $x++) {
   $html .= '</table>';
 
 	$pdf->AddPage();
-  $pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+  $pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 	$pageno++;
 }
 // ---------------------------------------------------------

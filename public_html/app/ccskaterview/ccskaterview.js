@@ -35,25 +35,28 @@ angular.module('cpa_admin.ccskaterview', ['ngRoute'])
 
 .controller('ccskaterviewCtrl', ['$scope', '$rootScope', '$q', '$http', '$window', '$location', '$route',  'authenticationService', 'translationService', 'auth', 'dialogService', 'anycodesService', function($scope, $rootScope, $q, $http, $window, $location, $route, authenticationService, translationService, auth, dialogService, anycodesService) {
   $rootScope.applicationName = "EC";
+  $scope.currentSkater = null;
   $scope.skaterid = $route.current.params.skaterid;
 
   $scope.getSkaterDetails = function () {
-		$scope.promise = $http({
-      method: 'post',
-        url: './ccskaterview/ccskaterview.php',
-      data: $.param({'userid' : $rootScope.userInfo.userid, 'skaterid' : $scope.skaterid, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getSkaterDetails' }),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).
-    success(function(data, status, headers, config) {
-    	if (data.success && !angular.isUndefined(data.data)) {
-    		$scope.currentSkater = data.data[0];
-    	} else {
-    		dialogService.displayFailure(data);
-    	}
-    }).
-    error(function(data, status, headers, config) {
-			dialogService.displayFailure(data);
-    });
+    if ($rootScope && $rootScope.userInfo && $rootScope.userInfo.userid) {
+      $scope.promise = $http({
+        method: 'post',
+          url: './ccskaterview/ccskaterview.php',
+        data: $.param({'userid' : $rootScope.userInfo.userid, 'skaterid' : $scope.skaterid, 'language' : authenticationService.getCurrentLanguage(), 'type' : 'getSkaterDetails' }),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).
+      success(function(data, status, headers, config) {
+        if (data.success && !angular.isUndefined(data.data)) {
+          $scope.currentSkater = data.data[0];
+        } else {
+          dialogService.displayFailure(data);
+        }
+      }).
+      error(function(data, status, headers, config) {
+        dialogService.displayFailure(data);
+      });
+    }
 	};
 
   $scope.saveSkaterDetails = function () {

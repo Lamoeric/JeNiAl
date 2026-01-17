@@ -331,7 +331,7 @@ if (count($transactions) > 0) {
 
 $pdf->AddPage();
 $pageno++;
-$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 // ---------------------------------------------------------
 
 // Close and output PDF document

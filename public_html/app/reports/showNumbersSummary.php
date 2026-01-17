@@ -137,7 +137,7 @@ while ($index < count($numbersSummary)) {
 	$html = $html .'</table>';
 	$pdf->AddPage();
 	$pageno++;
-	$pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+	$pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 	$index = $lastindex;
 }
 
@@ -173,7 +173,7 @@ function getnumbersSummary($mysqli, $showid, $language) {
 		$data = array();
 		$data['success'] = null;
 		$query = "select csn.id, csn.name, (select count(*) from cpa_shows_numbers_members where numberid = csn.id) nbofskaters, getTextLabel(csn.label, '$language') label,
-										 csn.fees, (select count(*) from cpa_shows_numbers_dates where numberid = csn.id and canceled = 0 and manual = 0) nbofpractices,
+										 csn.fees, (select count(*) from cpa_shows_numbers_dates where numberid = csn.id and canceled = 0 and `manual` = 0) nbofpractices,
 										 (select count(*) from cpa_shows_numbers_invites where numberid = csn.id) nbofinvites
 						from cpa_shows_numbers csn
 						join cpa_shows cs ON cs.id = csn.showid

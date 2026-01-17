@@ -38,7 +38,7 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 	$scope.globalWarningMessage = [];
 	$scope.billid = $route.current.params.billid;
 	$scope.newFilter = {};
-	$scope.newFilter.filterApplied = false;
+	$scope.newFilter.filterApplied = true;
 	$scope.newFilter.registration = 'REGISTERED';
 	$scope.newFilter.onlyopenedbills = '1';
 
@@ -67,12 +67,12 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 	};
 
 	$scope.getAllBills = function (newFilter) {
-		if (newFilter) {
+		if (newFilter && newFilter.filterApplied && newFilter.filterApplied == true) {
 			$scope.newFilter.filterApplied = true;
 		} else {
 			$scope.newFilter.filterApplied = false;
 		}
-		$http({
+		$scope.promise = $http({
 				method: 'post',
 				url: './billview/billview.php',
 				data: $.param({'language' : authenticationService.getCurrentLanguage(), 'filter' : newFilter, 'type' : 'getAllBills' }),
@@ -255,6 +255,7 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 
 	$scope.mainFilter = function(removeFilter) {
 		if (removeFilter == true) {
+			$scope.newFilter = {};
 			$scope.getAllBills(null);
 		} else {
 			// Send the newFilter to the modal form
@@ -274,10 +275,12 @@ angular.module('cpa_admin.billview', ['ngRoute'])
 					// User clicked OK
 					if (newFilter.firstname || newFilter.lastname || newFilter.registration || newFilter.billpaid || newFilter.onlyopenedbills == '1') {
 						$scope.newFilter = newFilter;
+						$scope.newFilter.filterApplied = true;
 						$scope.getAllBills(newFilter);
 					} else {
 						dialogService.alertDlg($scope.translationObj.main.msgnofilter, null);
 						$scope.newFilter = {};
+						$scope.newFilter.filterApplied = false;
 						$scope.getAllBills(null);
 					}
 			}, function(dismiss) {

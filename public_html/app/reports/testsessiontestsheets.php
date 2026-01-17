@@ -79,7 +79,7 @@ if ($data['success'] == true && isset($data['data'])) {
 }
 
 // Set filename
-$filename = utf8_decode($testsession['testsessionlabel']).$l['w_title'].".pdf";
+$filename = mb_convert_encoding($testsession['testsessionlabel'], 'Windows-1252', 'UTF-8').$l['w_title'].".pdf";
 
 try {
   $testDirectorInfo = getTestSessionDirectorInfo($mysqli, $testsessionid, $language)['data'][0];
@@ -115,7 +115,7 @@ if ($data['success'] == true && isset($data['data'])) {
       $html = getPeriodPageHeader($testsession, $day, $period, $x, $y, $l);
 
       $pdf->AddPage();
-      $pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+      $pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
       $data = getTestSessionGroups($mysqli, $language, $testsessionid, $periodid);
       if ($data['success'] == true && isset($data['data'])) {
@@ -130,7 +130,7 @@ if ($data['success'] == true && isset($data['data'])) {
         // one header page per group
         $html = getGroupPageHeader($mysqli, $language, $testsession, $day, $period, $group, $l);
         $pdf->AddPage();
-        $pdf->writeHTMLCell(0, 0, '', '', utf8_decode($html), 0, 1, 0, true, '', true);
+        $pdf->writeHTMLCell(0, 0, '', '',mb_convert_encoding($html, 'Windows-1252', 'UTF-8'), 0, 1, 0, true, '', true);
 
         // Get the tests for the group and pass to the proper function
         $data = getTestSessionGroupTests($mysqli, $language, $testsessionid, $groupid);
