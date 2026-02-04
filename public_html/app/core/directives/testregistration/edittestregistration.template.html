@@ -25,21 +25,29 @@
 				</div>
 			</div>
 
-			<div class="col-xs-6">
+			<div class="col-xs-12" ng-if="!control.canEditRegistration(newObj) || (newObj.member.id == null)">
+				<label for="testlabel">{{translationObj.newregistration.fieldtestid}}</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" id="testlabel" name="testlabel" class="form-control" ng-model="newObj.testlabel" disabled>
+				</div>
+			</div>
+
+			<div class="col-xs-6" ng-if="!(!control.canEditRegistration(newObj) || (newObj.member.id == null))">
 				<label for="testtype">{{translationObj.newregistration.fieldtesttype}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="testtype" ng-model="newObj.testtype" required ng-change="control.onTestTypeChange(newObj)" ng-disabled="!control.canEditRegistration(newObj) || (newObj.member.id == null)">
+					<select class="form-control" id="testtype" ng-model="newObj.testtype" required ng-change="control.onTestTypeChange(newObj)">
 						<option ng-repeat="type in startesttypes" value="{{type.code}}">{{type.text}}</option>
 					</select>
 				</div>
 			</div>
 
-			<div class="col-xs-6">
+			<div class="col-xs-6" ng-if="!(!control.canEditRegistration(newObj) || (newObj.member.id == null))">
 				<label for="testid">{{translationObj.newregistration.fieldtestid}}<i style="color:red"> *</i></label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					<select class="form-control" id="testid" ng-model="newObj.testid" required ng-change="control.onTestChange(newObj)" ng-disabled="!control.canEditRegistration(newObj) || (newObj.member.id == null)">
+					<select class="form-control" id="testid" ng-model="newObj.testid" required ng-change="control.onTestChange(newObj)" >
 						<option ng-repeat="testByType in allStarTestsByType" value="{{testByType.id}}">{{testByType.text}}</option>
 					</select>
 				</div>

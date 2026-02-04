@@ -68,6 +68,7 @@ angular.module('core').directive( "edittestregistration", ['$uibModal', '$http',
 					scope.newRegistration.period = period;
 					listsService.getAllStarTestsForMember(scope, scope.newRegistration.testtype, (scope.newRegistration.memberid ? scope.newRegistration.memberid : scope.newRegistration.member.id), "allStarTestsByType", authenticationService.getCurrentLanguage());
 					listsService.getDanceMusics(scope, scope.newRegistration.testid, authenticationService.getCurrentLanguage());
+					scope.newRegistration.testText = "";
 				} else {
 					scope.currentRegistration = {};
 					// This is a new registration, put back the coachid and the member object to save time

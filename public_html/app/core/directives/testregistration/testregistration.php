@@ -243,8 +243,9 @@ function checkIfTestAlreadyPassed($mysqli, $registration, $language) {
 function checkIfTestAlreadyRegistered($mysqli, $registration, $language) {
 	$memberid = $mysqli->real_escape_string(isset($registration['member']['id']) ? (int)$registration['member']['id'] : 0);
 	$testid = $mysqli->real_escape_string(isset($registration['testid']) ? (int)$registration['testid'] : 0);
+	$id = $mysqli->real_escape_string(isset($registration['id']) ? (int)$registration['id'] : 0);
 
-	$query = "SELECT id FROM cpa_newtests_sessions_periods_registrations WHERE memberid = $memberid AND testid = $testid AND (result NOT IN (2,3,4) AND isdeleted != 1)";
+	$query = "SELECT id FROM cpa_newtests_sessions_periods_registrations WHERE memberid = $memberid AND testid = $testid AND (result NOT IN (2,3,4) AND isdeleted != 1) AND id != $id";
 	$result = $mysqli->query($query);
 	while ($row = $result->fetch_assoc()) {
 		if (isset($row['id'])) {
