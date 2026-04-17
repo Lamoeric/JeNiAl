@@ -501,8 +501,10 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 	$scope.getMembersEmail = function () {
 		selectMembersService.selectMembers($scope)
 			.then(function (selectedMembers) {
-				reportingService.createAndDisplayReport("sessionMemberEmailList.php", selectedMembers);
-				return;
+				if (selectedMembers) {
+					reportingService.createAndDisplayReport("sessionMemberEmailList.php", selectedMembers);
+					return;
+				}
 			});
 	};
 
@@ -595,7 +597,7 @@ angular.module('cpa_admin.memberview', ['ngRoute'])
 		anycodesService.getAnyCodes($scope, $http, authenticationService.getCurrentLanguage(), 'canskatebadges', 'sequence', 'canskatebadges');
 
 		listsService.getAllCoaches($scope, authenticationService.getCurrentLanguage());
-		// listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
+		listsService.getAllActiveCourses($scope, authenticationService.getCurrentLanguage());
 		listsService.getAllClubs($scope, authenticationService.getCurrentLanguage());
 
 		listsService.getAllTests($scope, 'DANCE', 'dances', authenticationService.getCurrentLanguage());
